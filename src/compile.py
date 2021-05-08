@@ -1,6 +1,5 @@
 import parac_compiler
 
-
-def test_init():
+if __name__ == '__main__':
     parac_compiler.init_screen()
-    assert True
+    parac_compiler.run()

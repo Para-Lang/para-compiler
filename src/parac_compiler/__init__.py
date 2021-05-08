@@ -9,9 +9,6 @@ import logging
 from typing import Optional
 from types import FunctionType
 
-logging.getLogger(__name__).addHandler(logging.NullHandler())
-logger = logging.getLogger(__name__)
-
 
 def log_msg(level: str, msg: str, *args, **kwargs) -> None:
     """ Logs the specified message using the logger module and regular print
@@ -27,6 +24,7 @@ def log_msg(level: str, msg: str, *args, **kwargs) -> None:
     print(msg)
 
 
-def init() -> None:
-    """ 'Initialises' the compiler and logs a message """
-    log_msg('info', f"Para-C Compiler {__version__}")
+from .__main__ import *
+
+
+logging.getLogger(__name__).addHandler(logging.NullHandler())
