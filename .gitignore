@@ -1,1 +1,4 @@
-/cmake-build-debug/
+/src/venv
+/src/lib/.idea
+/src/.idea/
+/.idea
