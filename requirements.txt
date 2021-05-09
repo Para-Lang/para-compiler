@@ -1,0 +1,5 @@
+colorama
+click~=7.1.2
+pytest~=6.2.0
+setuptools~=51.1.2
+pyinstaller~=4.3

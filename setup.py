@@ -1,13 +1,13 @@
 import setuptools
 
-with open("../README.md", "r") as file:
+with open("README.md", "r") as file:
     long_description = file.read()
 
 with open("requirements.txt") as file:
     requirements = file.read()
 
 setuptools.setup(
-    name="parac_compiler",
+    name="parac-compiler",
     version="0.1",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",

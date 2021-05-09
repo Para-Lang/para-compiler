@@ -1,3 +1,4 @@
+""" Script for building the compiler as an executable """
 import PyInstaller.__main__
 import pkg_resources
 import os
