@@ -7,5 +7,5 @@ compiler = paraccompiler.ParacCompiler()
 
 
 def test_setup():
-    compiler.validate_setup("main.para", "para.log", True)
+    compiler.validate_setup("main.para", "para.log", True, True)
     assert os.path.exists("./para.log")
