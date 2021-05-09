@@ -9,7 +9,7 @@ project designed for learning and testing purposes, which we do not intend for a
 
 ## Summary
 
-Para-C (gre. beside C is a new programming language designed to integrate C and serve as a helper and simplifier to write better C code. 
+Para-C (gre. beside C) is a new programming language designed to integrate C and serve as a helper and simplifier to write better C code. 
 To achieve that, it will introduce more features, such as  new built-in Macros and functions, OOP structures, 
 more straightforward array and malloc-handling, expanded data types and simplified functions. 
 
