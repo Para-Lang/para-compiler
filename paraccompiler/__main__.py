@@ -70,8 +70,8 @@ def _validate_output(output_type: str, overwrite: bool) -> str:
     '--log',
     default='parac.log',
     prompt='Specify where the console .log file should be created',
-    help='Path of the output .log file where the compilation process is logged. '
-         'If None it will not generate any log.'
+    help='Path of the output .log file where program messages should be logged. '
+         'If set to None it will not use a log file and only use the console as the output method'
 )
 @click.option(
     '--overwrite-build',
@@ -84,7 +84,7 @@ def _validate_output(output_type: str, overwrite: bool) -> str:
     help='If set to True the dist folder will always be overwritten without consideration of pre-existing data'
 )
 def setup(file, log, overwrite_build, overwrite_dist):
-    """ CLI interface for the _setup function """
+    """ Para-C compiler which takes in .para files and compiles them to C or binary (executable)"""
     return ParacCompiler.validate_setup(file, log, overwrite_build == 'True', overwrite_dist == 'True')
 
 
@@ -102,8 +102,8 @@ class ParacCompiler:
         exception will be raised and the process cancelled.
 
         :param entry_file: The entry-file of the program
-        :param log_path: The path to the log file were the logging module will output program messages. If None it will
-                         not log any data in the file and only use the console as the output method
+        :param log_path: Path of the .log file were the logging module will output program messages. If set to None it
+                         will not use a log file and only use the console as the output method
         :param overwrite_build: If set to true the build folder will be overwritten if it already exists
         :param overwrite_dist: If set to true the dist folder will be overwritten if it already exists
         :returns: The file name, the output build path, the output dist path and the arguments passed for the
@@ -113,10 +113,14 @@ class ParacCompiler:
         _logger.setLevel(logging.DEBUG)
 
         if log_path.lower() != 'none':
+            if os.path.exists(log_path):
+                raise FileWritingPermissionError(
+                    "Failed to access the specified log file-path. Path already exists"
+                )
             try:
                 handler = logging.FileHandler(filename=f'./{log_path}', encoding='utf-8', mode='w')
             except PermissionError:
-                raise FileWritingPermissionError()
+                raise FileWritingPermissionError("Failed to access the specified log file-path")
             handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
             _logger.addHandler(handler)
 

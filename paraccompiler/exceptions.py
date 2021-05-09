@@ -28,4 +28,4 @@ class ParacCompilerError(Exception):
 
 class FileWritingPermissionError(ParacCompilerError):
     """ Failed to open or write to the specified file provided """
-    error_msg = "Failed to write to the specified file"
+    error_msg = "Failed to access the specified file due to missing permissions"
