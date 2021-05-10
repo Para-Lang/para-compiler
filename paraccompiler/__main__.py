@@ -101,7 +101,8 @@ class ParacCompiler:
         Validates the provided setup parameter for the compilation process. In case of an error an
         exception will be raised and the process cancelled.
 
-        :param entry_file: The entry-file of the program
+        :param entry_file: The entry-file of the program. The compiler will use the working directory as base dir if
+                           the path is relative
         :param log_path: Path of the .log file were the logging module will output program messages. If set to None it
                          will not use a log file and only use the console as the output method
         :param overwrite_build: If set to true the build folder will be overwritten if it already exists
@@ -113,10 +114,6 @@ class ParacCompiler:
         _logger.setLevel(logging.DEBUG)
 
         if log_path.lower() != 'none':
-            if os.path.exists(log_path):
-                raise FileWritingPermissionError(
-                    "Failed to access the specified log file-path. Path already exists"
-                )
             try:
                 handler = logging.FileHandler(filename=f'./{log_path}', encoding='utf-8', mode='w')
             except PermissionError:
