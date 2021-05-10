@@ -19,6 +19,8 @@ It will serve as a helper and extension to C and provide features and more manag
 
 ## Development
 
+![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
+
 ### Building
 
 The building process is relatively simple but requires multiple steps and 
