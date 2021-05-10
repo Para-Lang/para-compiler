@@ -31,7 +31,7 @@ This specified script will automatically build the project and create a folder c
 well as the .exe file, which will be the compiler itself
 
 ```bash
-python ./src/build-exe.py
+python ./build-exe.py
 ```
 
 After that, the installer can be created with the passed .exe for the compiler
