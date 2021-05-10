@@ -21,12 +21,14 @@ It will serve as a helper and extension to C and provide features and more manag
 
 ### Building
 
-The building process is relatively simple but requires multiple steps and 
+The building process is relatively simple since it uses simple PyInstaller and Inno-setup to automate the building
+process. The compiler is shipped as a one-file executable file and can be run 
 
 #### Build for specified OS
 
-This specified script will automatically build the project and create a folder containing all the required data as
-well as the .exe file, which will be the compiler itself
+This specified script will automatically build the project and create a dist and build folder containing all the 
+required data as well as the .exe file, which will be the compiler itself. The build folder will contain the raw data
+and should not be used. The dist folder will contain the distribution-ready file
 
 ```bash
 python ./src/build-exe.py
@@ -42,6 +44,6 @@ Build inside this folder and use the inno-setup.iss file. The generated installe
 
 ### Installation
  
-To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself and run
-the installer afterwards. (Only building the compiler will not be enough, since the configuration of the installer needs
-to be run so that the )
+To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
+(Only building the compiler will not be enough for Windows systems, since the configuration of the installer needs
+to be run so that the path is correctly modified)
