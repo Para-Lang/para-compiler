@@ -16,12 +16,12 @@ from .exceptions import ParacCompilerError
 from .exceptions import FileWritingPermissionError
 from .exceptions import AbortError
 from .logger import __all__ as __logger_all__
-from .logger import TerminalColor
-from .logger import tcol
 from .logger import ParacFileHandler
 from .logger import ParacFormatter
 from .logger import log_traceback
 from .logger import log_msg
+from .logger import ParacStreamHandler
+from .logger import ansi_col
 from .utils import __all__ as __utils_all__
 from .utils import deprecated
 from .compiler import DEFAULT_LOG_PATH
@@ -54,5 +54,4 @@ import logging
 import colorama
 
 colorama.init(autoreset=True)
-
 logging.getLogger(__name__).addHandler(logging.NullHandler())

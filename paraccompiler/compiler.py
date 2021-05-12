@@ -1,7 +1,8 @@
 """ Main compiler management file """
 import logging
 import os
-from . import ParacFormatter, ParacFileHandler
+from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
+from .logger import output_console
 from .exceptions import FileWritingPermissionError
 
 __all__ = [
@@ -32,7 +33,7 @@ class ParacCompiler:
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
 
-        stream_handler = logging.StreamHandler()
+        stream_handler = ParacStreamHandler(console=output_console)
         stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
         cls.logger.addHandler(stream_handler)
 

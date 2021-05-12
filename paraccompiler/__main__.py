@@ -1,16 +1,17 @@
 """ Main file of the Para-Compiler"""
 import shutil
 import sys
+import time
 import click
 import colorama
 import logging
 import os
-import re
 from sys import exit
+from rich.progress import Progress
 
 from . import __version__, __title__, log_msg, log_traceback, AbortError
-from .logger import tcol
 from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+from .logger import output_console as console, ansi_col
 
 __all__ = [
     'create_process',
@@ -27,7 +28,7 @@ def create_process(file: str, log_path: str, build_path: str, dist_path: str, le
     compiler = ParacCompiler()
     try:
         compiler.init_logging_session(log_path, level)
-        click.echo(log_separator())
+        log_banner()
         p = CompilationProcess.create_from_args(file, build_path, dist_path)
     except Exception as e:
         if not compiler.log_initialised:
@@ -42,34 +43,44 @@ def create_process(file: str, log_path: str, build_path: str, dist_path: str, le
         return p
 
 
-def init_banner() -> str:
+def init_banner() -> None:
     """ Creates the init screen string that can be printed """
-    base_str = f"Para-C Compiler{' ' * 30}"
-    append_str = ''.join((tcol.white, "-" * (len(base_str) + len(__version__)), tcol.reset))
+    base_str = f"Para-C Compiler{' ' * 5}"
 
-    return '\n'.join((
-        append_str,
-        f"{tcol.make_bold(tcol.bright_white)}{base_str}{tcol.cyan}{__version__}{tcol.reset}",
-        append_str
-    ))
+    console.rule(style="white rule.line")
+    console.print(
+        f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]{__version__}[/bold cyan]",
+        justify="center"
+    )
+    console.rule(style="white rule.line")
 
 
-def log_separator() -> str:
-    """ Creates the start log string that can be printed"""
-    return f"\n{tcol.white}{'-' * 25} {tcol.cyan}Compiling logs{tcol.white} {'-' * 25}{tcol.reset}\n"
+def error_banner() -> None:
+    """ Prints a simple colored Exception banner showing it crashed / was aborted """
+    console.rule(f"\n[bold red]Aborted Setup[/bold red]\n", style="red rule.line")
+
+
+def finish_banner() -> None:
+    """ Prints a simple colored banner screen showing it succeeded and finished """
+    console.rule(f"\n[bold green]Finished Compilation[/bold green]\n", style="green rule.line")
+
+
+def log_banner() -> None:
+    """ Prints a simple colored banner screen showing the logs are active and the process started """
+    console.rule(f"\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
 
 
 def _create_prompt(string: str) -> str:
-    """ Creates a colored prompt for a click.prompt() call """
-    return f'{tcol.cyan} > {tcol.bright_white}{string}'
+    """Creates a colored prompt for a click.prompt() call (Uses ansi instead of rich because of compatibility issues)"""
+    return f'{ansi_col.cyan} > {ansi_col.bright_white}{string}'
 
 
 def _dir_already_exists(folder: str) -> bool:
     """ Asks the user whether the build folder should be overwritten """
     try:
-        _input = click.confirm(
-            f"{tcol.bright_yellow} > {tcol.bright_white}The {folder} folder already exists. Overwrite data?"
-        )
+        _input = console.input(
+            f"[bright_yellow]> [bright_white]The {folder} folder already exists. Overwrite data? [y\\N]"
+        ).lower() == 'y'
     except click.Abort:
         raise AbortError()
     except Exception as e:
@@ -103,18 +114,6 @@ def _validate_output(output_type: str, default_path: str, overwrite: bool) -> st
     return output
 
 
-def _file_autocomplete(ctx, args, incomplete):
-    file_match_re = r'^(?:[a-zA-Z]:)?[/\\]{0,2}(?:[./\\ ]{0,2}(?![/\\\n]|[.]{2})|[^<>:"|?*/\\ \n])+$'
-    if incomplete.endswith('.para'):
-        return []
-    elif os.path.exists(incomplete) or os.path.exists(f'./{incomplete}'):
-        return []
-    elif not re.match(file_match_re, incomplete):
-        return []
-
-    return [f for f in os.listdir('.') if f.startswith(incomplete) and (f.endswith('.para') or f.endswith('.ph'))]
-
-
 @click.group(invoke_without_command=True)
 @click.option(
     '--version',
@@ -133,7 +132,7 @@ def cli(ctx: click.Context, version, **kwargs):
         click.echo(' '.join([__title__.title(), __version__]))
         exit()
     else:
-        click.echo(init_banner())
+        init_banner()
         click.echo('')
 
     if not ctx.invoked_subcommand:
@@ -147,8 +146,7 @@ def cli(ctx: click.Context, version, **kwargs):
     prompt=_create_prompt('Specify the entry-point of your program'),
     default='main.para',
     type=str,
-    help='The entry-point of the program where the compiler should start the compilation process.',
-    autocompletion=_file_autocomplete
+    help='The entry-point of the program where the compiler should start the compilation process.'
 )
 @click.option(
     '-l',
@@ -195,5 +193,30 @@ def parac_compile(
             file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
         )
     except AbortError:
+        error_banner()
         exit()
-    click.echo(log_separator())
+    except Exception as e:
+        error_banner()
+        raise RuntimeError("Failed to finish setup of compilation") from e
+
+    try:
+        # Some testing for now
+        with Progress(console=console, refresh_per_second=30) as progress:
+            main_task = progress.add_task("[green]Processing...", total=1000)
+
+            progress.update(main_task, advance=50)
+            time.sleep(1)
+            logger.info("Fetching files...")
+
+            time.sleep(1)
+            progress.update(main_task, advance=1000)
+
+    except AbortError:
+        error_banner()
+        exit()
+
+    except Exception as e:
+        error_banner()
+        raise RuntimeError(f"Failed to finish compilation of {file}") from e
+
+    finish_banner()

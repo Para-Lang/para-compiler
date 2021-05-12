@@ -1,6 +1,6 @@
-import logging
+""" Configuration file for pytest """
+from paraccompiler import logging
 import sys
-
 import pytest
 
 logging.basicConfig(level=logging.DEBUG)
@@ -17,8 +17,3 @@ def capture_wrap():
     sys.stderr.close = lambda *args: None
     sys.stdout.close = lambda *args: None
     yield
-
-
-@pytest.fixture(scope="module", autouse=True)
-def logging_init():
-    logging.basicConfig(level=logging.DEBUG)

@@ -1,72 +1,80 @@
 """ Logger management file for formatting and specific exception and  """
 import logging
+import os
+import shutil
+import sys
+
+import click
+from logging import StreamHandler
 import traceback
-from typing import Optional, Callable, Tuple, Type
+from rich.console import Console
+from typing import Optional, Callable, Tuple, Type, Union
 from types import FunctionType, TracebackType
 
 __all__ = [
-    'TerminalColor',
-    'tcol',
+    'ParacStreamHandler',
     'ParacFileHandler',
     'ParacFormatter',
+    'output_console',
     'log_traceback',
-    'log_msg'
+    'log_msg',
+    'ansi_col'
 ]
 
+
+def _get_terminal_size() -> Optional[int]:
+    width: Optional[int] = None
+    if click.utils.WIN:  # pragma: no cover
+        width, _ = shutil.get_terminal_size()
+    else:
+        try:
+            width, _ = os.get_terminal_size(sys.stdin.fileno())
+        except (AttributeError, ValueError, OSError):
+            try:
+                width, _ = os.get_terminal_size(sys.stdout.fileno())
+            except (AttributeError, ValueError, OSError):
+                pass
+
+    if width < 80:
+        return 80
+    else:
+        return None
+
+
+output_console: Console = Console(
+    width=150 if "PYCHARM_HOSTED" in os.environ else _get_terminal_size(),
+    color_system="windows" if click.utils.WIN else "auto"
+)
+
+
+class ParacStreamHandler(StreamHandler):
+    """ Specific Stream Handler for Para-C designed to implement rich """
+    def __init__(self, console: Console, *args, **kwargs):
+        self.console: Console = console
+        super().__init__(*args, **kwargs)
+
+    def emit(self, record):
+        """
+        Emit a record using rich and the set implementation
+
+        If a formatter is specified, it is used to format the record.
+        The record is then written to the stream with a trailing newline.  If
+        exception information is present, it is formatted using
+        traceback.print_exception and appended to the stream.  If the stream
+        has an 'encoding' attribute, it is used to determine how to do the
+        output to the stream.
+        """
+        try:
+            msg = self.format(record)
+            # Writing with the rich print method which implements its own stream-handling
+            self.console.print(msg, highlight=False, justify="left")
+        except RecursionError:  # See issue 36272
+            raise
+        except Exception:
+            self.handleError(record)
+
+
 logger = logging.getLogger(__name__)
-
-
-class TerminalColor:
-    """ Cross-Platform Terminal Colors """
-    base = "\033["
-    default = f"{base}0m"
-    reset = f"{base}0m"
-    bold = f"{base}1m"
-    italic = f"{base}3m"
-    underline = f"{base}4m"
-    blink = f"{base}5m"
-    reverse = f"{base}7m"
-    concealed = f"{base}8m"
-
-    black = f"{base}30m"
-    red = f"{base}31m"
-    green = f"{base}32m"
-    yellow = f"{base}33m"
-    blue = f"{base}34m"
-    purple = f"{base}35m"
-    cyan = f"{base}36m"
-    white = f"{base}37m"
-
-    back_black = f"{base}40m"
-    back_red = f"{base}41m"
-    back_green = f"{base}42m"
-    back_yellow = f"{base}43m"
-    back_blue = f"{base}44m"
-    back_magenta = f"{base}45m"
-    back_cyan = f"{base}46m"
-    back_white = f"{base}47m"
-
-    bright_black = f"{base}30;90m"
-    bright_red = f"{base}31;91m"
-    bright_green = f"{base}32;92m"
-    bright_yellow = f"{base}33;93m"
-    bright_blue = f"{base}34;94m"
-    bright_magenta = f"{base}35;95m"
-    bright_cyan = f"{base}36;96m"
-    bright_white = f"{base}37;97m"
-
-    @classmethod
-    def make_bold(cls, value: str) -> str:
-        """ Adds to the ANSI formatting the bold prefix """
-        return f"{cls.bold.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
-
-    @classmethod
-    def make_italic(cls, value: str) -> str:
-        """ Adds to the ANSI formatting the italic prefix """
-        return f"{cls.italic.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
-
-
-tcol = TerminalColor()
 
 
 class ParacFileHandler(logging.FileHandler):
@@ -78,21 +86,31 @@ class ParacFileHandler(logging.FileHandler):
 class ParacFormatter(logging.Formatter):
     """ Default Formatter class for the custom formatted output of the Para-C compiler """
     level_formatting = {
-        logging.CRITICAL: [
-            f'{tcol.make_bold(tcol.bright_red)}[%(levelname)s]', f'{tcol.bright_red} - (%(asctime)s): %(message)s'
-        ],
-        logging.ERROR: [
-            f'{tcol.make_bold(tcol.red)}[%(levelname)s]', f'{tcol.red} - (%(asctime)s): %(message)s'
-        ],
-        logging.WARNING: [
-            f'{tcol.make_bold(tcol.bright_yellow)}[%(levelname)s]', f'{tcol.bright_yellow} - (%(asctime)s): %(message)s'
-        ],
-        logging.DEBUG: [
-            f'{tcol.bright_yellow}[%(levelname)s]', f'{tcol.bright_yellow} - (%(asctime)s): %(message)s'
-        ],
-        logging.INFO: [
-            f'{tcol.blue}[%(levelname)s]', f'{tcol.blue} - (%(asctime)s): %(message)s'
-        ]
+        logging.CRITICAL: ''.join([
+            '[bright_red bold][%(levelname)s]',
+            ' - ',
+            '(%(asctime)s): %(message)s[/bright_red bold]'
+        ]),
+        logging.ERROR: ''.join([
+            '[red bold][%(levelname)s][/red bold]',
+            '[red] - ',
+            '(%(asctime)s): %(message)s[/red]'
+        ]),
+        logging.WARNING: ''.join([
+            '[bright_yellow bold][%(levelname)s][/bright_yellow bold]',
+            '[bright_yellow] - ',
+            '(%(asctime)s): %(message)s[/bright_yellow]'
+        ]),
+        logging.DEBUG: ''.join([
+            '[yellow bold][%(levelname)s][/yellow bold]',
+            '[yellow] - ',
+            '(%(asctime)s): %(message)s[/yellow]'
+        ]),
+        logging.INFO: ''.join([
+            '[blue bold][%(levelname)s][/blue bold]',
+            '[bold white] - [/bold white]',
+            '[blue](%(asctime)s): %(message)s[/blue]'
+        ])
     }
 
     default = '[%(levelname)s] - (%(asctime)s): %(message)s'
@@ -104,9 +122,10 @@ class ParacFormatter(logging.Formatter):
     def format(self, record):
         """ Class specific formatter function to add colouring and Para-C specific formatting """
         format_orig = getattr(self._style, '_fmt')
+
         # If the output goes into a file it will not use any formatting
         if not self.file_mng:
-            self._style._fmt = tcol.reset.join(self.level_formatting[record.levelno])
+            self._style._fmt = self.level_formatting[record.levelno]
 
         result = logging.Formatter.format(self, record)
         self._style._fmt = format_orig
@@ -155,3 +174,56 @@ def log_msg(level: str, msg: str, *args, **kwargs) -> None:
     log_level: Optional[FunctionType] = getattr(logger, level)
     if callable(log_level):
         log_level(msg=msg, *args, **kwargs)
+
+
+class TerminalANSIColor:
+    """ Cross-Platform Terminal Colors used for Click since rich can not interact with Click """
+    base = "\033["
+    default = f"{base}0m"
+    reset = f"{base}0m"
+    bold = f"{base}1m"
+    italic = f"{base}3m"
+    underline = f"{base}4m"
+    blink = f"{base}5m"
+    reverse = f"{base}7m"
+    concealed = f"{base}8m"
+
+    black = f"{base}30m"
+    red = f"{base}31m"
+    green = f"{base}32m"
+    yellow = f"{base}33m"
+    blue = f"{base}34m"
+    purple = f"{base}35m"
+    cyan = f"{base}36m"
+    white = f"{base}37m"
+
+    back_black = f"{base}40m"
+    back_red = f"{base}41m"
+    back_green = f"{base}42m"
+    back_yellow = f"{base}43m"
+    back_blue = f"{base}44m"
+    back_magenta = f"{base}45m"
+    back_cyan = f"{base}46m"
+    back_white = f"{base}47m"
+
+    bright_black = f"{base}30;90m"
+    bright_red = f"{base}31;91m"
+    bright_green = f"{base}32;92m"
+    bright_yellow = f"{base}33;93m"
+    bright_blue = f"{base}34;94m"
+    bright_magenta = f"{base}35;95m"
+    bright_cyan = f"{base}36;96m"
+    bright_white = f"{base}37;97m"
+
+    @classmethod
+    def make_bold(cls, value: str) -> str:
+        """ Adds to the ANSI formatting the bold prefix """
+        return f"{cls.bold.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
+
+    @classmethod
+    def make_italic(cls, value: str) -> str:
+        """ Adds to the ANSI formatting the italic prefix """
+        return f"{cls.italic.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
+
+
+ansi_col = TerminalANSIColor()
