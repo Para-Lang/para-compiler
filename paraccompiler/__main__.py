@@ -2,54 +2,98 @@
 import shutil
 import sys
 import click
+import colorama
 import logging
 import os
-from typing import Tuple, Dict
+import re
+from sys import exit
 
-from . import __version__, log_msg, log_traceback, FileWritingPermissionError
+from . import __version__, __title__, log_msg, log_traceback, AbortError
+from .logger import tcol
+from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+
+__all__ = [
+    'create_process',
+    'cli',
+    'parac_compile'
+]
 
 logger = logging.getLogger(__name__)
+colorama.init(autoreset=True)
 
 
-def main() -> None:
-    """ Main function for running the core compiler setup and compilation process """
-    click.secho(f"\nPara-C Compiler v{__version__} Pre-Release\n", fg='white', bold=True)
+def create_process(file: str, log_path: str, build_path: str, dist_path: str, level: int) -> CompilationProcess:
+    """ Creates a compilation process and returns it """
     compiler = ParacCompiler()
     try:
-        file, build_path, dist_path, args = setup()
-    except Exception:
+        compiler.init_logging_session(log_path, level)
+        click.echo(log_separator())
+        p = CompilationProcess.create_from_args(file, build_path, dist_path)
+    except Exception as e:
+        if not compiler.log_initialised:
+            compiler.init_logging_session("./para.log", logging.INFO)
         log_traceback(
-            brief=f"Exception in the compilation setup:",
+            brief=f"Exception in the compilation setup",
             exc_info=sys.exc_info()
         )
-        return log_msg('critical', "Aborting setup")
-    compiler.compile_from_entry_file(file, build_path, dist_path)
+        log_msg('critical', f"Aborting setup {f'with error_code {e.code}' if hasattr(e, 'code') else ''}")
+        raise AbortError()
+    else:
+        return p
+
+
+def init_banner() -> str:
+    """ Creates the init screen string that can be printed """
+    base_str = f"Para-C Compiler{' ' * 30}"
+    append_str = ''.join((tcol.white, "-" * (len(base_str) + len(__version__)), tcol.reset))
+
+    return '\n'.join((
+        append_str,
+        f"{tcol.make_bold(tcol.bright_white)}{base_str}{tcol.cyan}{__version__}{tcol.reset}",
+        append_str
+    ))
+
+
+def log_separator() -> str:
+    """ Creates the start log string that can be printed"""
+    return f"\n{tcol.white}{'-' * 25} {tcol.cyan}Compiling logs{tcol.white} {'-' * 25}{tcol.reset}\n"
+
+
+def _create_prompt(string: str) -> str:
+    """ Creates a colored prompt for a click.prompt() call """
+    return f'{tcol.cyan} > {tcol.bright_white}{string}'
 
 
 def _dir_already_exists(folder: str) -> bool:
     """ Asks the user whether the build folder should be overwritten """
-    _input = input(f"The {folder} folder already exists. Overwrite data? [True]: ")
-    if _input == "":
-        _input = "True"
-    return _input.lower() == 'true'
+    try:
+        _input = click.confirm(
+            f"{tcol.bright_yellow} > {tcol.bright_white}The {folder} folder already exists. Overwrite data?"
+        )
+    except click.Abort:
+        raise AbortError()
+    except Exception as e:
+        raise RuntimeError("Failed to process input") from e
+    return _input
 
 
-def _validate_output(output_type: str, overwrite: bool) -> str:
+def _validate_output(output_type: str, default_path: str, overwrite: bool) -> str:
+    """ Validates the Output-type and checks whether the specified output folder is available.
+    If the folder already exists it will show a prompt to the user what should be done about the existing folder.
+
+    :returns: The path to the folder
     """
-    Validates the Output-type and checks whether the specified output folder is available. If the folder already exists
-    it will show a prompt to the user what should be done about the existing folder.
-    """
-    output = f"./{output_type}/"
-    if not os.path.exists(output):
-        os.mkdir(output)
-    elif len(os.listdir(output)) > 0:
+    output = default_path
+    if not os.path.exists(default_path):
+        os.mkdir(default_path)
+    elif len(os.listdir(default_path)) > 0:
         # If the overwrite is set to False then a prompt will appear
         if overwrite is False:
             overwrite = _dir_already_exists(output_type)
 
         if overwrite:
-            shutil.rmtree(output)
-            os.mkdir(output)
+            shutil.rmtree(default_path)
+            os.mkdir(default_path)
         else:
             counter = 2
             while os.path.exists(f"./{output_type}_{counter}"):
@@ -59,86 +103,97 @@ def _validate_output(output_type: str, overwrite: bool) -> str:
     return output
 
 
-@click.command()
+def _file_autocomplete(ctx, args, incomplete):
+    file_match_re = r'^(?:[a-zA-Z]:)?[/\\]{0,2}(?:[./\\ ]{0,2}(?![/\\\n]|[.]{2})|[^<>:"|?*/\\ \n])+$'
+    if incomplete.endswith('.para'):
+        return []
+    elif os.path.exists(incomplete) or os.path.exists(f'./{incomplete}'):
+        return []
+    elif not re.match(file_match_re, incomplete):
+        return []
+
+    return [f for f in os.listdir('.') if f.startswith(incomplete) and (f.endswith('.para') or f.endswith('.ph'))]
+
+
+@click.group(invoke_without_command=True)
 @click.option(
-    '--file',
-    prompt='Specify the entry-point of your program',
-    default='main.para',
-    help='The entry-point of the program where the compiler should start the compilation process.'
+    '--version',
+    is_flag=True,
+    help='Prints the version of the compiler'
 )
 @click.option(
+    '--help',
+    is_flag=True,
+    help='Prints this screen'
+)
+@click.pass_context
+def cli(ctx: click.Context, version, **kwargs):
+    """ Console Line Interface for the Para-C Compiler """
+    if version:
+        click.echo(' '.join([__title__.title(), __version__]))
+        exit()
+    else:
+        click.echo(init_banner())
+        click.echo('')
+
+    if not ctx.invoked_subcommand:
+        click.echo(ctx.get_help())
+
+
+@cli.command(name='compile')
+@click.option(
+    '-f',
+    '--file',
+    prompt=_create_prompt('Specify the entry-point of your program'),
+    default='main.para',
+    type=str,
+    help='The entry-point of the program where the compiler should start the compilation process.',
+    autocompletion=_file_autocomplete
+)
+@click.option(
+    '-l',
     '--log',
     default='parac.log',
-    prompt='Specify where the console .log file should be created',
+    type=str,
+    prompt=_create_prompt('Specify where the console .log file should be created'),
     help='Path of the output .log file where program messages should be logged. '
          'If set to None it will not use a log file and only use the console as the output method'
 )
 @click.option(
     '--overwrite-build',
-    default='False',
+    is_flag=True,
+    type=bool,
+    default=False,
     help='If set to True the build folder will always be overwritten without consideration of pre-existing data'
 )
 @click.option(
     '--overwrite-dist',
-    default='False',
+    is_flag=True,
+    type=bool,
+    default=False,
     help='If set to True the dist folder will always be overwritten without consideration of pre-existing data'
 )
-def setup(file, log, overwrite_build, overwrite_dist):
-    """ Para-C compiler which takes in .para files and compiles them to C or binary (executable)"""
-    return ParacCompiler.validate_setup(file, log, overwrite_build == 'True', overwrite_dist == 'True')
+@click.option(
+    '--debug/--no-debug',
+    is_flag=True,
+    default=False,
+    help='If set the compiler will add additional debug information'
+)
+def parac_compile(
+        file: str,
+        log: str,
+        overwrite_build: bool,
+        overwrite_dist: bool,
+        debug: bool
+) -> None:
+    """ Compile a Para-C program to C or executable """
+    build_path = _validate_output("build", DEFAULT_BUILD_PATH, overwrite_build)
+    dist_path = _validate_output("dist", DEFAULT_DIST_PATH, overwrite_dist)
 
-
-class ParacCompiler:
-    """ Main Class for the Para-C compiler containing the main functions """
-    @staticmethod
-    def validate_setup(
-            entry_file: str,
-            log_path: str,
-            overwrite_build: bool,
-            overwrite_dist: bool
-    ) -> Tuple[str, str, str, Dict]:
-        """
-        Validates the provided setup parameter for the compilation process. In case of an error an
-        exception will be raised and the process cancelled.
-
-        :param entry_file: The entry-file of the program. The compiler will use the working directory as base dir if
-                           the path is relative
-        :param log_path: Path of the .log file were the logging module will output program messages. If set to None it
-                         will not use a log file and only use the console as the output method
-        :param overwrite_build: If set to true the build folder will be overwritten if it already exists
-        :param overwrite_dist: If set to true the dist folder will be overwritten if it already exists
-        :returns: The file name, the output build path, the output dist path and the arguments passed for the
-                  compilation
-        """
-        _logger = logging.getLogger("paraccompiler")
-        _logger.setLevel(logging.DEBUG)
-
-        if log_path.lower() != 'none':
-            try:
-                handler = logging.FileHandler(filename=f'./{log_path}', encoding='utf-8', mode='w')
-            except PermissionError:
-                raise FileWritingPermissionError("Failed to access the specified log file-path")
-            handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-            _logger.addHandler(handler)
-
-        build_output = _validate_output("build", overwrite_build)
-        dist_output = _validate_output("dist", overwrite_dist)
-
-        if not any([item in entry_file for item in ['\\', '/', '//']]):
-            path = f"{os.getcwd()}\\{entry_file}"
-        else:
-            path = entry_file
-        if not os.path.exists(path):
-            raise FileNotFoundError(f"Failed to read file/path '{path}'! File does not exist!")
-
-        return entry_file, build_output, dist_output, {}
-
-    def compile_from_entry_file(self, file: str, build_path: str, dist_path: str):
-        """ Compiles the specified entry-point file
-
-        :param file: The file that should serve as the entry-point of the program where all files are imported
-                     relatively and name_mangling is applied
-        :param build_path: The build folder path where all compilation files should be placed
-        :param dist_path: The dist folder path where all compilation files and distribution-ready should be placed
-        """
-        ...
+    try:
+        p = create_process(
+            file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
+        )
+    except AbortError:
+        exit()
+    click.echo(log_separator())

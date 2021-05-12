@@ -14,7 +14,7 @@ class TestSetup:
         paraccompiler.__main__.input = input
 
     def test_setup(self,):
-        compiler.validate_setup(path, "para.log", True, True)
+        compiler.create_from_args(path, "para.log", True, True)
         assert os.path.exists("./para.log")
 
     @staticmethod
@@ -31,7 +31,7 @@ class TestSetup:
         assert os.path.exists("./build/example.txt")
 
         self._overwrite_input('True')
-        compiler.validate_setup(path, "para.log", False, True)
+        compiler.create_from_args(path, "para.log", False, True)
         assert not os.path.exists("./build/example.txt")
 
         with open('./build/example.txt', 'w+') as file:
@@ -39,7 +39,7 @@ class TestSetup:
         assert os.path.exists("./build/example.txt")
 
         self._overwrite_input('False')
-        compiler.validate_setup(path, "para.log", True, True)
+        compiler.create_from_args(path, "para.log", True, True)
         assert not os.path.exists("./build/example.txt")
 
     def test_dist_exists_setup(self):
@@ -52,7 +52,7 @@ class TestSetup:
         assert os.path.exists("./dist/example.txt")
 
         self._overwrite_input('True')
-        compiler.validate_setup(path, "para.log", True, False)
+        compiler.create_from_args(path, "para.log", True, False)
         assert not os.path.exists("./dist/example.txt")
 
         with open('./dist/example.txt', 'w+') as file:
@@ -60,5 +60,5 @@ class TestSetup:
         assert os.path.exists("./dist/example.txt")
 
         self._overwrite_input('False')
-        compiler.validate_setup(path, "para.log", True, True)
+        compiler.create_from_args(path, "para.log", True, True)
         assert not os.path.exists("./dist/example.txt")

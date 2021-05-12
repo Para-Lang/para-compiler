@@ -1,7 +1,7 @@
 """ Exceptions in the Para-C Compiler """
 
 __all__ = [
-    'ParacCompilerError', 'FileWritingPermissionError'
+    'ParacCompilerError', 'FileWritingPermissionError', 'AbortError'
 ]
 
 
@@ -29,3 +29,8 @@ class ParacCompilerError(Exception):
 class FileWritingPermissionError(ParacCompilerError):
     """ Failed to open or write to the specified file provided """
     error_msg = "Failed to access the specified file due to missing permissions"
+
+
+class AbortError(RuntimeError, ParacCompilerError):
+    """ Exception used to signalise the compiler should abort its process and stop """
+    error_msg = "Aborting the compilation process"
