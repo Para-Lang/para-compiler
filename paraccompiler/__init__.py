@@ -22,6 +22,7 @@ from .logger import log_traceback
 from .logger import log_msg
 from .logger import ParacStreamHandler
 from .logger import ansi_col
+from .logger import output_console
 from .utils import __all__ as __utils_all__
 from .utils import deprecated
 from .compiler import DEFAULT_LOG_PATH
@@ -32,6 +33,9 @@ from .compiler import CompilationProcess
 from .__main__ import create_process
 from .__main__ import cli
 from .__main__ import parac_compile
+from .__main__ import ParacCLI
+from .__main__ import run_output_dir_validation
+from .__main__ import run_process_with_formatting
 
 
 __all__ = [

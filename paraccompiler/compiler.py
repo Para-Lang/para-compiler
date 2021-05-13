@@ -49,9 +49,24 @@ class ParacCompiler:
 class CompilationProcess:
     """ Process instance used for a single compilation process """
     def __init__(self, entry_file: str, build_path: str, dist_path: str):
-        self.entry_file = entry_file
-        self.build_path = build_path
-        self.dist_path = dist_path
+        self._entry_file = entry_file
+        self._build_path = build_path
+        self._dist_path = dist_path
+
+    @property
+    def entry_file(self) -> str:
+        """ Entry file of the program """
+        return self._entry_file
+
+    @property
+    def build_path(self) -> str:
+        """ Path to the build folder """
+        return self._build_path
+
+    @property
+    def dist_path(self) -> str:
+        """ Path to the dist folder """
+        return self._dist_path
 
     @classmethod
     def create_from_args(cls, entry_file: str, build_path: str, dist_path: str):

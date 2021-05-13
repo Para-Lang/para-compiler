@@ -2,6 +2,7 @@
 import shutil
 import sys
 import time
+from typing import Tuple
 import click
 import colorama
 import logging
@@ -15,8 +16,11 @@ from .logger import output_console as console, ansi_col
 
 __all__ = [
     'create_process',
+    'run_output_dir_validation',
+    'run_process_with_formatting',
     'cli',
-    'parac_compile'
+    'parac_compile',
+    'ParacCLI'
 ]
 
 logger = logging.getLogger(__name__)
@@ -107,11 +111,47 @@ def _validate_output(output_type: str, default_path: str, overwrite: bool) -> st
             os.mkdir(default_path)
         else:
             counter = 2
-            while os.path.exists(f"./{output_type}_{counter}"):
+            while os.path.exists(f"{os.getcwd()}/{output_type}_{counter}"):
                 counter += 1
-            output = f"./{output_type}_{counter}"
+            output = f"{os.getcwd()}/{output_type}_{counter}"
             os.mkdir(output)
     return output
+
+
+def run_output_dir_validation(overwrite_build: bool, overwrite_dist: bool) -> Tuple[str, str]:
+    """ Validates whether the output folder /build/ and /dist/ can be used
+
+    :param overwrite_build: If set to True if a build folder already exists it will be deleted and overwritten
+    :param overwrite_dist: If set to True if a dist folder already exists it will be deleted and overwritten
+    """
+    build_path = _validate_output("build", DEFAULT_BUILD_PATH, overwrite_build)
+    dist_path = _validate_output("dist", DEFAULT_DIST_PATH, overwrite_dist)
+    return build_path, dist_path
+
+
+def run_process_with_formatting(process: CompilationProcess):
+    """ Runs the compilation process with console formatting """
+    try:
+        # Some testing for now
+        with Progress(console=console, refresh_per_second=30) as progress:
+            main_task = progress.add_task("[green]Processing...", total=100)
+
+            progress.update(main_task, advance=50)
+            time.sleep(1)
+            logger.info("Fetching files...")
+
+            time.sleep(1)
+            progress.update(main_task, advance=100)
+
+    except AbortError:
+        error_banner()
+        exit()
+
+    except Exception as e:
+        error_banner()
+        raise RuntimeError(f"Failed to finish compilation of {process.entry_file}") from e
+
+    finish_banner()
 
 
 @click.group(invoke_without_command=True)
@@ -126,17 +166,9 @@ def _validate_output(output_type: str, default_path: str, overwrite: bool) -> st
     help='Prints this screen'
 )
 @click.pass_context
-def cli(ctx: click.Context, version, **kwargs):
+def cli(*args, **kwargs):
     """ Console Line Interface for the Para-C Compiler """
-    if version:
-        click.echo(' '.join([__title__.title(), __version__]))
-        exit()
-    else:
-        init_banner()
-        click.echo('')
-
-    if not ctx.invoked_subcommand:
-        click.echo(ctx.get_help())
+    ParacCLI.cli(*args, **kwargs)
 
 
 @cli.command(name='compile')
@@ -177,46 +209,46 @@ def cli(ctx: click.Context, version, **kwargs):
     default=False,
     help='If set the compiler will add additional debug information'
 )
-def parac_compile(
-        file: str,
-        log: str,
-        overwrite_build: bool,
-        overwrite_dist: bool,
-        debug: bool
-) -> None:
+def parac_compile(*args, **kwargs):
     """ Compile a Para-C program to C or executable """
-    build_path = _validate_output("build", DEFAULT_BUILD_PATH, overwrite_build)
-    dist_path = _validate_output("dist", DEFAULT_DIST_PATH, overwrite_dist)
+    ParacCLI.parac_compile(*args, **kwargs)
 
-    try:
-        p = create_process(
-            file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
-        )
-    except AbortError:
-        error_banner()
-        exit()
-    except Exception as e:
-        error_banner()
-        raise RuntimeError("Failed to finish setup of compilation") from e
 
-    try:
-        # Some testing for now
-        with Progress(console=console, refresh_per_second=30) as progress:
-            main_task = progress.add_task("[green]Processing...", total=1000)
+class ParacCLI:
+    """ CLI for the main Para-C Compiler process """
+    @staticmethod
+    def cli(ctx: click.Context, version, *args, **kwargs):
+        """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
+        if version:
+            click.echo(' '.join([__title__.title(), __version__]))
+            exit()
+        else:
+            init_banner()
+            click.echo('')
 
-            progress.update(main_task, advance=50)
-            time.sleep(1)
-            logger.info("Fetching files...")
+        if not ctx.invoked_subcommand:
+            click.echo(ctx.get_help())
 
-            time.sleep(1)
-            progress.update(main_task, advance=1000)
+    @staticmethod
+    def parac_compile(
+            file: str,
+            log: str,
+            overwrite_build: bool,
+            overwrite_dist: bool,
+            debug: bool
+    ) -> None:
+        """ CLI interface for the parac_compile command. Will create a compilation-process and run it """
+        build_path, dist_path = run_output_dir_validation(overwrite_build, overwrite_dist)
 
-    except AbortError:
-        error_banner()
-        exit()
-
-    except Exception as e:
-        error_banner()
-        raise RuntimeError(f"Failed to finish compilation of {file}") from e
-
-    finish_banner()
+        try:
+            p: CompilationProcess = create_process(
+                file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
+            )
+        except AbortError:
+            error_banner()
+            exit()
+        except Exception as e:
+            error_banner()
+            raise RuntimeError("Failed to finish setup of compilation") from e
+        else:
+            run_process_with_formatting(p)
