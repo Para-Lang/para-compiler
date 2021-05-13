@@ -29,6 +29,8 @@ However, to keep the Para-C code clean and well-looking, the Compiler will inclu
 
 ## Development
 
+![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
+
 ### Building
 
 The building process is relatively simple since it uses simple PyInstaller and Inno-setup to automate the building
@@ -41,7 +43,7 @@ required data as well as the .exe file, which will be the compiler itself. The b
 and should not be used. The dist folder will contain the distribution-ready file
 
 ```bash
-python ./src/build-exe.py
+python ./build-exe.py
 ```
 
 After that, the installer can be created with the passed .exe for the compiler
