@@ -2,11 +2,12 @@
 import shutil
 import sys
 import time
-from typing import Tuple
+from typing import Tuple, Union
 import click
 import colorama
 import logging
 import os
+from os import PathLike
 from sys import exit
 from rich.progress import Progress
 
@@ -92,7 +93,7 @@ def _dir_already_exists(folder: str) -> bool:
     return _input
 
 
-def _validate_output(output_type: str, default_path: str, overwrite: bool) -> str:
+def _validate_output(output_type: str, default_path: Union[str, PathLike[str]], overwrite: bool) -> str:
     """ Validates the Output-type and checks whether the specified output folder is available.
     If the folder already exists it will show a prompt to the user what should be done about the existing folder.
 

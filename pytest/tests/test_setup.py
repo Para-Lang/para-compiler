@@ -1,17 +1,15 @@
-""" Test for the core setup """
+""" Test for the cli setup """
 import shutil
 import subprocess
 from string import printable
 import paraccompiler
 import os
 from paraccompiler import __version__, __title__
-import pkg_resources
 
-main_file_path = pkg_resources.resource_filename(__name__, 'main.para')
 _prev_input = paraccompiler.output_console.input
 
 
-class TestSetup:
+class TestCLISetup:
     def teardown_method(self, method):
         """ This method is being called after each test case, and it will revert input back to the original function """
         paraccompiler.output_console.input = _prev_input

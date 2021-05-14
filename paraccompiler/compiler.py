@@ -1,6 +1,9 @@
 """ Main compiler management file """
 import logging
 import os
+from os import PathLike
+from typing import Union
+
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
 from .logger import output_console
 from .exceptions import FileWritingPermissionError
@@ -18,6 +21,15 @@ DEFAULT_BUILD_PATH: str = "./build"
 DEFAULT_DIST_PATH: str = "./dist"
 
 
+def _decode_if_bytes(byte_like: Union[str, bytes, PathLike[str], PathLike[bytes], type]):
+    if type(byte_like) is str:
+        return byte_like
+    elif type(byte_like) is bytes or isinstance(bytes, byte_like):
+        return byte_like.decode()
+    else:
+        return byte_like
+
+
 class ParacCompiler:
     """ Main Class for the Para-C compiler containing the main functions """
     logger: logging.Logger = None
@@ -28,7 +40,7 @@ class ParacCompiler:
         return getattr(self, 'logger') is not None
 
     @classmethod
-    def init_logging_session(cls, log_path: str, level: int):
+    def init_logging_session(cls, log_path: Union[str, PathLike[str]], level: int):
         """ Initialising the logging module for the Compiler and adds the formatting defaults """
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
@@ -48,28 +60,38 @@ class ParacCompiler:
 
 class CompilationProcess:
     """ Process instance used for a single compilation process """
-    def __init__(self, entry_file: str, build_path: str, dist_path: str):
+    def __init__(
+            self,
+            entry_file: Union[str, bytes, PathLike[str], PathLike[bytes]],
+            build_path: Union[str, bytes, PathLike[str], PathLike[bytes]],
+            dist_path: Union[str, bytes, PathLike[str], PathLike[bytes]]
+    ):
         self._entry_file = entry_file
         self._build_path = build_path
         self._dist_path = dist_path
 
     @property
-    def entry_file(self) -> str:
+    def entry_file(self) -> Union[str, PathLike[str]]:
         """ Entry file of the program """
         return self._entry_file
 
     @property
-    def build_path(self) -> str:
+    def build_path(self) -> Union[str, PathLike[str]]:
         """ Path to the build folder """
         return self._build_path
 
     @property
-    def dist_path(self) -> str:
+    def dist_path(self) -> Union[str, PathLike[str]]:
         """ Path to the dist folder """
         return self._dist_path
 
     @classmethod
-    def create_from_args(cls, entry_file: str, build_path: str, dist_path: str):
+    def create_from_args(
+            cls,
+            entry_file: Union[str, bytes, PathLike[str], PathLike[bytes]],
+            build_path: Union[str, bytes, PathLike[str], PathLike[bytes]],
+            dist_path: Union[str, bytes, PathLike[str], PathLike[bytes]]
+    ):
         """
         Validates the provided setup parameter for the compilation process. In case of an error an
         exception will be raised and the process cancelled.
@@ -81,13 +103,18 @@ class CompilationProcess:
         :returns: The file name, the output build path, the output dist path and the arguments passed for the
                   compilation
         """
+        entry_file: Union[str, PathLike[str]] = _decode_if_bytes(entry_file)
+        build_path: Union[str, PathLike[str]] = _decode_if_bytes(build_path)
+        dist_path: Union[str, PathLike[str]] = _decode_if_bytes(dist_path)
+
         if not entry_file.endswith('.para') and not entry_file.endswith('.ph'):
             ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)")
 
         if not any([item in entry_file for item in ['\\', '/', '//']]):
-            path = f"{os.getcwd()}\\{entry_file}"
+            path: Union[str, PathLike[str]] = f"{os.getcwd()}\\{entry_file}"
         else:
-            path = entry_file
+            path: Union[str, PathLike[str]] = entry_file
+
         if not os.path.exists(path):
             raise FileNotFoundError(f"Failed to read entry-point path '{path}'. File does not exist!")
 
