@@ -35,7 +35,7 @@ def _get_terminal_size() -> Optional[int]:
             except (AttributeError, ValueError, OSError):
                 pass
 
-    if width < 80:
+    if width is None or width < 80:
         return 80
     else:
         return None
