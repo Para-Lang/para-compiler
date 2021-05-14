@@ -2,7 +2,7 @@
 import logging
 import os
 from os import PathLike
-from typing import Union
+from typing import Union, Type
 
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
 from .logger import output_console
@@ -21,7 +21,7 @@ DEFAULT_BUILD_PATH: str = "./build"
 DEFAULT_DIST_PATH: str = "./dist"
 
 
-def _decode_if_bytes(byte_like: Union[str, bytes, PathLike[str], PathLike[bytes], type]):
+def _decode_if_bytes(byte_like: Union[str, bytes, PathLike[str], PathLike[bytes], Type]):
     if type(byte_like) is str:
         return byte_like
     elif type(byte_like) is bytes or isinstance(bytes, byte_like):
