@@ -26,7 +26,6 @@ from .logger import ansi_col
 from .logger import output_console
 from .utils import __all__ as __utils_all__
 from .utils import deprecated
-from .utils import PathLike
 from .compiler import DEFAULT_LOG_PATH
 from .compiler import DEFAULT_BUILD_PATH
 from .compiler import DEFAULT_DIST_PATH
