@@ -7,7 +7,7 @@
 *Para-C is not intended to be a widely „optimised“ or „production-ready“ programming language. It is solely a free-time
 project designed for learning and testing purposes, which we do not intend for anything other than that.*
 
-## Abstract
+## Introduction
 
 Para-C (From Greek Origin: Beside C  ) is a programming language designed to integrate C, compile to C and serve as a
 helper and simplifier to write better code in C, but with additional functionality. Including adding more features, like
