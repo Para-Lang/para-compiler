@@ -21,7 +21,7 @@ DEFAULT_BUILD_PATH: str = "./build"
 DEFAULT_DIST_PATH: str = "./dist"
 
 
-def _decode_if_bytes(byte_like: Union[str, bytes, PathLike[str], PathLike[bytes], Type]):
+def _decode_if_bytes(byte_like: Union[str, bytes, PathLike, Type]):
     if type(byte_like) is str:
         return byte_like
     elif type(byte_like) is bytes or isinstance(bytes, byte_like):
@@ -62,9 +62,9 @@ class CompilationProcess:
     """ Process instance used for a single compilation process """
     def __init__(
             self,
-            entry_file: Union[str, bytes, PathLike[str], PathLike[bytes]],
-            build_path: Union[str, bytes, PathLike[str], PathLike[bytes]],
-            dist_path: Union[str, bytes, PathLike[str], PathLike[bytes]]
+            entry_file: Union[str, bytes, PathLike],
+            build_path: Union[str, bytes, PathLike],
+            dist_path: Union[str, bytes, PathLike]
     ):
         self._entry_file = entry_file
         self._build_path = build_path
@@ -88,9 +88,9 @@ class CompilationProcess:
     @classmethod
     def create_from_args(
             cls,
-            entry_file: Union[str, bytes, PathLike[str], PathLike[bytes]],
-            build_path: Union[str, bytes, PathLike[str], PathLike[bytes]],
-            dist_path: Union[str, bytes, PathLike[str], PathLike[bytes]]
+            entry_file: Union[str, bytes, PathLike],
+            build_path: Union[str, bytes, PathLike],
+            dist_path: Union[str, bytes, PathLike]
     ):
         """
         Validates the provided setup parameter for the compilation process. In case of an error an

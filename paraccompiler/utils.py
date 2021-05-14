@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 def deprecated(instead=None):
     """ Warns the user about a function or tool that is deprecated and shouldn't be used anymore """
+
     def actual_decorator(func):
         @wraps(func)
         def decorated(*args, **kwargs):
@@ -28,3 +29,4 @@ def deprecated(instead=None):
         return decorated
 
     return actual_decorator
+
