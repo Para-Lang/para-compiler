@@ -6,6 +6,12 @@ import pytest
 logging.basicConfig(level=logging.DEBUG)
 
 
+def pytest_addoption(parser):
+    parser.addoption(
+        "--github", action="store", default="", help="Token used for authentication"
+    )
+
+
 @pytest.fixture(autouse=True)
 def capture_wrap():
     """

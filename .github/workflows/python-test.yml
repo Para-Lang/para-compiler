@@ -22,6 +22,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        python -m pip install --upgrade coverage
+        python -m pip install --upgrade coverage-badge
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
@@ -34,4 +36,11 @@ jobs:
     - name: Test with pytest
       run: |
         python3 -m pip install -e .
-        pytest
+        coverage run -m pytest --github
+        rm -f coverage.svg
+        coverage-badge -o coverage.svg
+    - uses: EndBug/add-and-commit@v7
+      with:
+        message: 'Updated coverage.svg'
+        add: 'coverage.svg'
+        default_author: github_actions

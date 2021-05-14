@@ -1,11 +1,13 @@
 """ Test for the cli setup """
 import shutil
 import subprocess
+import sys
 from string import printable
 import paraccompiler
 import os
 from paraccompiler import __version__, __title__
 
+github_run = '--github' in sys.argv
 _prev_input = paraccompiler.output_console.input
 
 
@@ -14,7 +16,10 @@ class TestCLISetup:
         """ This method is being called after each test case, and it will revert input back to the original function """
         paraccompiler.output_console.input = _prev_input
 
-    def test_version(self, ):
+    def test_version(self):
+        if github_run:
+            return
+
         output = subprocess.run(
             ["python", f"{os.getcwd()}\\..\\compiler.py", "--version"],
             shell=True,
