@@ -1,4 +1,5 @@
 """ Test for the cli setup """
+import logging
 import subprocess
 from string import printable
 import paraccompiler
@@ -6,6 +7,8 @@ import os
 from paraccompiler import __version__, __title__
 
 from . import github_run, prev_input, add_folder, overwrite_input, create_test_file
+
+main_file_path = f"{os.getcwd()}\\test_files\\main.para"
 
 
 class TestCLISetup:
@@ -61,3 +64,12 @@ class TestCLISetup:
         paraccompiler.run_output_dir_validation(True, True)
         assert not os.path.exists("./dist/example.txt")
         add_folder("dist")
+
+    def test_simple_setup(self):
+        b_path = f"{os.getcwd()}\\build\\"
+        d_path = f"{os.getcwd()}\\dist\\"
+        p = paraccompiler.create_process(main_file_path, 'para.log', b_path, d_path, logging.DEBUG)
+
+        assert p.entry_file == main_file_path
+        assert p.build_path == b_path
+        assert p.dist_path == d_path

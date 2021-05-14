@@ -2,7 +2,6 @@
 import shutil
 import sys
 import time
-from typing import Tuple, Union
 import click
 import colorama
 import logging
@@ -10,6 +9,8 @@ import os
 from os import PathLike
 from sys import exit
 from rich.progress import Progress
+from typing import Tuple, Union, Literal
+from logging import (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 
 from . import __version__, __title__, log_msg, log_traceback, AbortError
 from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
@@ -28,7 +29,13 @@ logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
 
 
-def create_process(file: str, log_path: str, build_path: str, dist_path: str, level: int) -> CompilationProcess:
+def create_process(
+        file: str,
+        log_path: str,
+        build_path: str,
+        dist_path: str,
+        level: Union[Literal[50, 40, 30, 20, 10], int]
+) -> CompilationProcess:
     """ Creates a compilation process and returns it """
     compiler = ParacCompiler()
     try:

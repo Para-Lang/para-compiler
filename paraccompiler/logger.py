@@ -3,12 +3,11 @@ import logging
 import os
 import shutil
 import sys
-
 import click
 from logging import StreamHandler
 import traceback
 from rich.console import Console
-from typing import Optional, Callable, Tuple, Type, Union
+from typing import Optional, Callable, Tuple, Type
 from types import FunctionType, TracebackType
 
 __all__ = [

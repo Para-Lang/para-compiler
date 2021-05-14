@@ -1,9 +1,8 @@
 """ Test for the compiler process setup """
 import os
 import paraccompiler
-import pkg_resources
 
-main_file_path = pkg_resources.resource_filename(__name__, '..\\main.para')
+main_file_path = f"{os.getcwd()}\\test_files\\main.para"
 _prev_input = paraccompiler.output_console.input
 
 
