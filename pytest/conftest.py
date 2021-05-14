@@ -1,8 +1,6 @@
 """ Configuration file for pytest """
 import sys
-
 import pytest
-
 from paraccompiler import logging
 
 logging.basicConfig(level=logging.DEBUG)

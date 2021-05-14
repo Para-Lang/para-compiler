@@ -4,7 +4,7 @@ import sys
 import os
 import shutil
 
-github_run = '--github' in sys.argv
+github_run = '--github=true' in sys.argv
 prev_input = paraccompiler.output_console.input
 
 
