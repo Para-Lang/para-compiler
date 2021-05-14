@@ -40,7 +40,7 @@ class ParacCompiler:
         return getattr(self, 'logger') is not None
 
     @classmethod
-    def init_logging_session(cls, log_path: Union[str, PathLike[str]], level: int):
+    def init_logging_session(cls, log_path: Union[str, PathLike], level: int):
         """ Initialising the logging module for the Compiler and adds the formatting defaults """
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
@@ -71,17 +71,17 @@ class CompilationProcess:
         self._dist_path = dist_path
 
     @property
-    def entry_file(self) -> Union[str, PathLike[str]]:
+    def entry_file(self) -> Union[str, PathLike]:
         """ Entry file of the program """
         return self._entry_file
 
     @property
-    def build_path(self) -> Union[str, PathLike[str]]:
+    def build_path(self) -> Union[str, PathLike]:
         """ Path to the build folder """
         return self._build_path
 
     @property
-    def dist_path(self) -> Union[str, PathLike[str]]:
+    def dist_path(self) -> Union[str, PathLike]:
         """ Path to the dist folder """
         return self._dist_path
 
@@ -103,17 +103,17 @@ class CompilationProcess:
         :returns: The file name, the output build path, the output dist path and the arguments passed for the
                   compilation
         """
-        entry_file: Union[str, PathLike[str]] = _decode_if_bytes(entry_file)
-        build_path: Union[str, PathLike[str]] = _decode_if_bytes(build_path)
-        dist_path: Union[str, PathLike[str]] = _decode_if_bytes(dist_path)
+        entry_file: Union[str, PathLike] = _decode_if_bytes(entry_file)
+        build_path: Union[str, PathLike] = _decode_if_bytes(build_path)
+        dist_path: Union[str, PathLike] = _decode_if_bytes(dist_path)
 
         if not entry_file.endswith('.para') and not entry_file.endswith('.ph'):
             ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)")
 
         if not any([item in entry_file for item in ['\\', '/', '//']]):
-            path: Union[str, PathLike[str]] = f"{os.getcwd()}\\{entry_file}"
+            path: Union[str, PathLike] = f"{os.getcwd()}\\{entry_file}"
         else:
-            path: Union[str, PathLike[str]] = entry_file
+            path: Union[str, PathLike] = entry_file
 
         if not os.path.exists(path):
             raise FileNotFoundError(f"Failed to read entry-point path '{path}'. File does not exist!")

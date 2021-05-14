@@ -10,7 +10,6 @@ from os import PathLike
 from sys import exit
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
-from logging import (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 
 from . import __version__, __title__, log_msg, log_traceback, AbortError
 from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
@@ -100,7 +99,7 @@ def _dir_already_exists(folder: str) -> bool:
     return _input
 
 
-def _validate_output(output_type: str, default_path: Union[str, PathLike[str]], overwrite: bool) -> str:
+def _validate_output(output_type: str, default_path: Union[str, PathLike], overwrite: bool) -> str:
     """ Validates the Output-type and checks whether the specified output folder is available.
     If the folder already exists it will show a prompt to the user what should be done about the existing folder.
 
