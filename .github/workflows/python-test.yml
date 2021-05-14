@@ -36,9 +36,9 @@ jobs:
     - name: Test with pytest
       run: |
         python3 -m pip install -e .
-        cd pytest
-        coverage run -m pytest -q --github=true
-        rm ..\coverage.svg
+        ls test_files;
+        cd pytest ; coverage run -m pytest -q --github=true
+        if [ -f ..\coverage.svg ]; then rm ..\coverage.svg; fi
         coverage-badge -o ..\coverage.svg
     - uses: EndBug/add-and-commit@v7
       with:
