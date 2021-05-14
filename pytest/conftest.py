@@ -1,14 +1,17 @@
 """ Configuration file for pytest """
-from paraccompiler import logging
 import sys
+
 import pytest
+
+from paraccompiler import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
 
 def pytest_addoption(parser):
+    """ Adds the --github command line option"""
     parser.addoption(
-        "--github", action="store", default="", help="Token used for authentication"
+        "--github", action="store", default="", help="Signalises it's run by github actions"
     )
 
 
@@ -23,3 +26,11 @@ def capture_wrap():
     sys.stderr.close = lambda *args: None
     sys.stdout.close = lambda *args: None
     yield
+
+
+@pytest.fixture(autouse=True)
+def cleanup(request):
+    """ Cleanup for the tests """
+    from tests import remove_folder
+    remove_folder("build")
+    remove_folder("dist")

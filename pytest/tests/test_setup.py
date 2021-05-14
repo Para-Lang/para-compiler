@@ -1,20 +1,17 @@
 """ Test for the cli setup """
-import shutil
 import subprocess
-import sys
 from string import printable
 import paraccompiler
 import os
 from paraccompiler import __version__, __title__
 
-github_run = '--github' in sys.argv
-_prev_input = paraccompiler.output_console.input
+from . import github_run, prev_input, add_folder, overwrite_input, create_test_file
 
 
 class TestCLISetup:
     def teardown_method(self, method):
         """ This method is being called after each test case, and it will revert input back to the original function """
-        paraccompiler.output_console.input = _prev_input
+        paraccompiler.output_console.input = prev_input
 
     def test_version(self):
         if github_run:
@@ -35,57 +32,32 @@ class TestCLISetup:
 
         assert _decode(output.stdout) == ' '.join([__title__.title(), __version__])
 
-    @staticmethod
-    def _overwrite_input(overwrite: str):
-        paraccompiler.__main__.console.input = lambda *args, **kwargs: overwrite
-
-    @staticmethod
-    def _remove_folders(folder_name: str):
-        cwd = os.getcwd()
-        path = f"{cwd}/{folder_name}"
-        if os.path.exists(path):
-            shutil.rmtree(path)
-
-        counter = 2
-        while os.path.exists(path := f"{cwd}/{folder_name}_{counter}"):
-            shutil.rmtree(path)
-            counter += 1
-
-        os.mkdir(f"{cwd}/{folder_name}")
-
-    @staticmethod
-    def _create_test_folder(folder_name: str):
-        cwd = os.getcwd()
-        with open(f'{cwd}/{folder_name}/example.txt', 'w+') as file:
-            file.write("x")
-        assert os.path.exists(f"{cwd}/{folder_name}/example.txt")
-
     def test_build_exists_setup(self):
-        self._remove_folders("build")
-        self._create_test_folder("build")
+        add_folder("build")
+        create_test_file("build", "example.txt")
 
-        self._overwrite_input('True')
+        overwrite_input('True')
         paraccompiler.run_output_dir_validation(False, True)
         assert not os.path.exists("./build_2/example.txt")
 
-        self._create_test_folder("build")
+        create_test_file("build", "example.txt")
 
-        self._overwrite_input('False')
+        overwrite_input('False')
         paraccompiler.run_output_dir_validation(True, True)
         assert not os.path.exists("./build/example.txt")
-        self._remove_folders("build")
+        add_folder("build")
 
     def test_dist_exists_setup(self):
-        self._remove_folders("dist")
-        self._create_test_folder("dist")
+        add_folder("dist")
+        create_test_file("dist", "example.txt")
 
-        self._overwrite_input('True')
+        overwrite_input('True')
         paraccompiler.run_output_dir_validation(True, False)
         assert not os.path.exists("./dist_2/example.txt")
 
-        self._create_test_folder("dist")
+        create_test_file("dist", "example.txt")
 
-        self._overwrite_input('False')
+        overwrite_input('False')
         paraccompiler.run_output_dir_validation(True, True)
         assert not os.path.exists("./dist/example.txt")
-        self._remove_folders("dist")
+        add_folder("dist")
