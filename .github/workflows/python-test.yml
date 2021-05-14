@@ -37,6 +37,7 @@ jobs:
       run: |
         python3 -m pip install -e .
         cd pytest
+        ls .\test_files\
         coverage run -m pytest -q --github=true
         rm ..\coverage.svg
         coverage-badge -o ..\coverage.svg
