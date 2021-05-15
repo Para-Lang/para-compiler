@@ -5,7 +5,7 @@ from string import printable
 import paraccompiler
 import os
 from paraccompiler import __version__, __title__
-from paraccompiler.exceptions import FilePermissionError, AbortError
+from paraccompiler.exceptions import AbortError
 
 from . import github_run, prev_input, add_folder, overwrite_input, create_test_file
 

@@ -6,7 +6,7 @@ from typing import Union, Type
 
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
 from .logger import output_console
-from .exceptions import FilePermissionError
+from .exceptions import EntryFilePermissionError, EntryFileNotFoundError
 
 __all__ = [
     'DEFAULT_LOG_PATH',
@@ -53,7 +53,7 @@ class ParacCompiler:
             try:
                 handler = ParacFileHandler(filename=f'./{log_path}')
             except PermissionError:
-                raise FilePermissionError("Failed to access the specified log file-path")
+                raise EntryFilePermissionError("Failed to access the specified log file-path")
             handler.setFormatter(ParacFormatter(file_mng=True))
             cls.logger.addHandler(handler)
 
@@ -117,8 +117,8 @@ class CompilationProcess:
 
         if not os.path.exists(path):
             if not os.access(path, os.F_OK):
-                raise FileNotFoundError(f"Failed to read entry-point '{path}'. File does not exist!")
+                raise EntryFileNotFoundError(f"Failed to read entry-point '{path}'. File does not exist!")
             else:
-                raise FilePermissionError(f"Missing file reading permissions for ''{path}'")
+                raise EntryFilePermissionError(f"Missing file reading permissions for ''{path}'")
 
         return cls(entry_file, build_path, dist_path)

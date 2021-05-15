@@ -11,11 +11,6 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
-
-from .exceptions import __all__ as __exceptions_all__
-from .exceptions import ParacCompilerError
-from .exceptions import FilePermissionError
-from .exceptions import AbortError
 from .logger import __all__ as __logger_all__
 from .logger import ParacFileHandler
 from .logger import ParacFormatter
@@ -24,6 +19,14 @@ from .logger import log_msg
 from .logger import ParacStreamHandler
 from .logger import ansi_col
 from .logger import output_console
+from .exceptions import __all__ as __exceptions_all__
+from .exceptions import ParacCompilerError
+from .exceptions import ErrorCodes
+from .exceptions import EntryFileAccessError
+from .exceptions import EntryFilePermissionError
+from .exceptions import EntryFileNotFoundError
+from .exceptions import IsDirectoryError
+from .exceptions import AbortError
 from .utils import __all__ as __utils_all__
 from .utils import deprecated
 from .compiler import DEFAULT_LOG_PATH

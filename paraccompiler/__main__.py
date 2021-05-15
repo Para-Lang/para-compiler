@@ -11,7 +11,7 @@ from sys import exit
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
-from . import __version__, __title__, log_msg, log_traceback, AbortError
+from . import __version__, __title__, log_traceback, AbortError
 from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
 from .logger import output_console as console, ansi_col
 
@@ -48,8 +48,8 @@ def create_process(
             brief=f"Exception in the compilation setup",
             exc_info=sys.exc_info()
         )
-        log_msg('critical', f"Aborting setup {f'with error_code {e.code}' if hasattr(e, 'code') else ''}")
-        raise AbortError()
+
+        raise AbortError(e)
     else:
         return p
 
@@ -92,8 +92,8 @@ def _dir_already_exists(folder: str) -> bool:
         _input = console.input(
             f"[bright_yellow]> [bright_white]The {folder} folder already exists. Overwrite data? [y\\N]"
         ).lower() == 'y'
-    except click.Abort:
-        raise AbortError()
+    except KeyboardInterrupt as e:
+        raise AbortError(e)
     except Exception as e:
         raise RuntimeError("Failed to process input") from e
     return _input
