@@ -1,7 +1,7 @@
 """ Exceptions in the Para-C Compiler """
 
 __all__ = [
-    'ParacCompilerError', 'FileWritingPermissionError', 'AbortError'
+    'ParacCompilerError', 'FilePermissionError', 'AbortError'
 ]
 
 
@@ -26,9 +26,9 @@ class ParacCompilerError(Exception):
         return repr(self)
 
 
-class FileWritingPermissionError(ParacCompilerError):
+class FilePermissionError(ParacCompilerError):
     """ Failed to open or write to the specified file provided """
-    error_msg = "Failed to access the specified file due to missing permissions"
+    error_msg = "Missing file access permissions"
 
 
 class AbortError(RuntimeError, ParacCompilerError):

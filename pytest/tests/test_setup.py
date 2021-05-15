@@ -5,6 +5,7 @@ from string import printable
 import paraccompiler
 import os
 from paraccompiler import __version__, __title__
+from paraccompiler.exceptions import FilePermissionError, AbortError
 
 from . import github_run, prev_input, add_folder, overwrite_input, create_test_file
 
@@ -73,3 +74,13 @@ class TestCLISetup:
         assert p.entry_file == main_file_path
         assert p.build_path == b_path
         assert p.dist_path == d_path
+
+    def test_wrong_path(self):
+        b_path = f"{os.getcwd()}\\build\\"
+        d_path = f"{os.getcwd()}\\dist\\"
+        try:
+            paraccompiler.create_process("not_existing.para", 'para.log', b_path, d_path, logging.DEBUG)
+        except AbortError:
+            pass
+        else:
+            assert False

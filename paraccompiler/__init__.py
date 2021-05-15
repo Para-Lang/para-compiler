@@ -14,7 +14,7 @@ __copyright__ = "Luna Klatzer"
 
 from .exceptions import __all__ as __exceptions_all__
 from .exceptions import ParacCompilerError
-from .exceptions import FileWritingPermissionError
+from .exceptions import FilePermissionError
 from .exceptions import AbortError
 from .logger import __all__ as __logger_all__
 from .logger import ParacFileHandler
