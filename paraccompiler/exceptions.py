@@ -17,13 +17,23 @@ ErrorCode = NewType('ErrorCode', int)
 
 class ErrorCodes(IntEnum):
     """ Error codes in the Para-C module """
-    UNKNOWN = ErrorCode(100)
+    # 1** - INTERNAL ERRORS
+    INTERNAL_ERROR = ErrorCode(100)
     INTERRUPT = ErrorCode(101)
     CONFIG_NOT_FOUND = ErrorCode(102)
+    # -----------
+
+    # 2** - FILE ERRORS
     FILE_ERROR = ErrorCode(200)
     FILE_PERM_ERROR = ErrorCode(201)
     FILE_NOT_FOUND = ErrorCode(202)
     IS_DIR = ErrorCode(203)
+    # -----------
+
+    # 9** - OTHER
+    OTHER = ErrorCode(900)
+    UNKNOWN = ErrorCode(901)
+    # -----------
 
 
 class ParacCompilerError(Exception):
@@ -33,7 +43,7 @@ class ParacCompilerError(Exception):
     All other exceptions inherit from this base class
     """
     error_msg = None
-    _default_code = None
+    _default_code = ErrorCodes.INTERNAL_ERROR
 
     def __init__(self, *args, code: int = None):
         if code is None:
