@@ -9,31 +9,22 @@ project designed for learning and testing purposes, which we do not intend for a
 
 ## Introduction
 
-Para-C (From Greek Origin: Beside C  ) is a programming language designed to integrate C, compile to C and serve as a
-helper and simplifier to write better code in C, but with additional functionality. Including adding more features, like
-new built-in Macros and functions, OOP-structures, more straightforward array and malloc-handling, expanded data types
-and simplified functions. The compiler will take the code with C-base syntax and additional Para-C syntax and keywords
-and compile it down to simple C. That means that programming in Para-C will be similar but simpler and well looking due
-to the simplifications, new structures, keywords and helper functions. The Compiler will additionally provide simple
-checking, through the fact of using the classic compiler structure:
+Para-C (From Greek Origin: Beside C) is a programming language designed to integrate C, compile to C and serve as an
+extension to C with additional functionality, simplification and helper tools. Including adding more features, like new
+built-in Macros, simplified or new functions, OOP-structures (Under consideration), more straightforward array, list and
+malloc-handling, expanded data types and additional project-management features.
 
-1. The lexical analyser (Tokenizer)
-2. Syntax analyser
-3. The semantic analyser (Logical analyser)
-4. Code Generator and optimiser
-
-which means syntax issues, logic errors and general errors will be detected and logged. The C-code compiler will do the
-rest of the job, which will be preferably GCC.
-
-Syntax-wise Para-C will still lay onto C to avoid causing issues with more compiler code that would be required for a
-new syntax that can’t be easily integrated into the C-syntax. So newer structures won’t look so new, and possibly
-similar to C# or C++, like data-types, one-liners and getters etc.
+The compiler will take the Para-C code to compile it down to simple C with the integrated functionality. That means that
+programming in Para-C will be similar but simpler and well looking due to the simplifications, new structures, keywords
+and helper functions. Syntax-wise Para-C will still lay onto C to avoid causing issues with more compiler code that
+would be required for a new syntax that can’t be easily integrated into the C-syntax. So newer structures won’t look so
+new, and possibly similar to C# or C++, like data-types, one-liners, overloads and getters etc.
 
 Furthermore, formatting and non-fetal syntax warnings will also be reported, as a help/motivator to avoid causing
 inconsistent writing and style. Including possibly harder conventions, that will try to improve on the loose
 C-conventions, which are more open to writing code. That means Para-C will introduce more conventions regarding naming,
-type declarations, formatting, commenting and will likely also adopt a few Python conventions and integrate the ideas in
-the Zen of Python (Since the Compiler is also written in Cython).
+type declarations, formatting, commenting and will likely also adopt a few Python conventions and integrate some ideas
+of the of Python (Since the Compiler is also written in Cython).
 
 ## Development
 
