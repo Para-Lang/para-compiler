@@ -44,7 +44,7 @@ from .__main__ import cli
 from .__main__ import parac_compile
 from .__main__ import ParacCLI
 from .__main__ import run_output_dir_validation
-from .__main__ import run_process_with_formatting
+from .__main__ import run_process_with_logging
 
 __all__ = [
     '__title__',

@@ -6,7 +6,7 @@ from typing import Union, Type
 
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler, WIN
 from .logger import output_console
-from .exceptions import EntryFilePermissionError, EntryFileNotFoundError
+from .exceptions import EntryFilePermissionError, EntryFileNotFoundError, EntryFileAccessError
 
 __all__ = [
     'DEFAULT_LOG_PATH',
@@ -20,6 +20,7 @@ __all__ = [
 DEFAULT_LOG_PATH: str = "./para.log"
 DEFAULT_BUILD_PATH: str = "./build"
 DEFAULT_DIST_PATH: str = "./dist"
+SEPARATOR = "\\" if WIN else "/"
 
 
 def _decode_if_bytes(byte_like: Union[str, bytes, PathLike, Type]):
@@ -29,6 +30,32 @@ def _decode_if_bytes(byte_like: Union[str, bytes, PathLike, Type]):
         return byte_like.decode()
     else:
         return byte_like
+
+
+def _cleanup_path(_p: str) -> str:
+    if WIN:
+        _p = _p.replace("/", SEPARATOR).replace("\\\\", SEPARATOR)
+    else:
+        # UNIX path
+        _p = _p.replace("\\", SEPARATOR).replace("\\\\", SEPARATOR)
+
+    if _p.startswith(f".{SEPARATOR}"):
+        # Replacing . with current directory
+        _p = os.getcwd() + _p[1:]
+    return _p
+
+
+def _validate_path_like(path_like: Union[PathLike, str]) -> None:
+    """ Checking whether path exists and the user has permission to access it. Raises Exception on failure else returns
+
+    :raises EntryFileNotFoundError: If the file can't be found
+    :raises EntryFilePermissionError: If the file can't be read from
+    """
+    if not os.access(path_like, os.R_OK):  # Can be read
+        if not os.access(path_like, os.F_OK):  # Exists
+            raise EntryFileNotFoundError(f"Failed to read entry-point '{path_like}'. File does not exist!")
+        else:
+            raise EntryFilePermissionError(f"Missing file reading permissions for ''{path_like}'")
 
 
 class ParacCompiler:
@@ -109,35 +136,30 @@ class CompilationProcess:
         build_path: Union[str, PathLike] = _decode_if_bytes(build_path)
         dist_path: Union[str, PathLike] = _decode_if_bytes(dist_path)
 
-        def _cleanup_path(_p: str) -> str:
-            if WIN:
-                _p = _p.replace("/", "\\").replace("\\\\", "\\")
-            else:
-                # UNIX path
-                _p = _p.replace("\\", "/").replace("\\\\", "/")
-            return _p
+        path = _cleanup_path(entry_file)
 
-        entry_file = _cleanup_path(entry_file)
-        if not any([item in entry_file for item in ['\\', '/', '//']]):
-            path: Union[str, PathLike] = f"{os.getcwd()}\\{entry_file}"
-        else:
-            path: Union[str, PathLike] = entry_file
-
-        _last_path_elem = entry_file.replace("/", "\\").split("\\")[-1]
+        _last_path_elem = path.replace("/", "\\").split("\\")[-1]
         # for the sake of checking all paths used are converted into the windows path-style, but only while checking
         if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
             ParacCompiler.logger.warning("The given file does not seem to be a file!")
         elif not _last_path_elem.endswith('.para') and not _last_path_elem.endswith('.ph'):
             ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)!")
 
-        # Checking whether path exists or the user does not have permission to access it
-        if not os.access(path, os.R_OK):  # Can be read
-            if not os.access(path, os.F_OK):  # Exists
-                raise EntryFileNotFoundError(f"Failed to read entry-point '{path}'. File does not exist!")
-            else:
-                raise EntryFilePermissionError(f"Missing file reading permissions for ''{path}'")
+        try:
+            _validate_path_like(path)
+        except EntryFileAccessError:
+            # If the validation failed the path might be a relative path
+            # that does not have a . signalising its going out from the
+            # current path meaning the work-directory path needs to be appended.
+            # If that also fails it is an invalid path or permissions are missing
+            absolute_path = _cleanup_path(f"{os.getcwd()}\\{path}")
+            try:
+                _validate_path_like(absolute_path)
+            except EntryFileAccessError:
+                raise
+            path = absolute_path
 
-        return cls(entry_file, build_path, dist_path)
+        return cls(path, build_path, dist_path)
 
 
 class FinishedProcess:

@@ -16,7 +16,6 @@ class TestProcess:
         d_path = f"{os.getcwd()}\\dist\\"
         p = paraccompiler.CompilationProcess.create_from_args(main_file_path, b_path, d_path)
 
-        assert p.entry_file == main_file_path
         assert p.build_path == b_path
         assert p.dist_path == d_path
 
@@ -27,6 +26,5 @@ class TestProcess:
         d_path = f"{os.getcwd()}\\dist\\".encode()
         p = paraccompiler.CompilationProcess.create_from_args(path, b_path, d_path)
 
-        assert p.entry_file == main_file_path
         assert p.build_path == b_path.decode()
         assert p.dist_path == d_path.decode()

@@ -18,7 +18,7 @@ from .logger import output_console as console, ansi_col
 __all__ = [
     'create_process',
     'run_output_dir_validation',
-    'run_process_with_formatting',
+    'run_process_with_logging',
     'cli',
     'parac_compile',
     'ParacCLI'
@@ -136,13 +136,14 @@ def run_output_dir_validation(overwrite_build: bool, overwrite_dist: bool) -> Tu
     return build_path, dist_path
 
 
-def run_process_with_formatting(p: CompilationProcess) -> FinishedProcess:
-    """ Runs the compilation process with console formatting """
+def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
+    """ Runs the compilation process with console logs and formatting """
     try:
         # Some testing for now
         with Progress(console=console, refresh_per_second=30) as progress:
             main_task = progress.add_task("[green]Processing...", total=100)
 
+            logger.info(f"Entry-Point: {p.entry_file}")
             progress.update(main_task, advance=50)
             time.sleep(1)
             logger.info("Fetching files...")
@@ -303,7 +304,7 @@ class ParacCLI:
             error_banner()
             raise RuntimeError("Failed to finish setup of compilation") from e
         else:
-            return run_process_with_formatting(p)
+            return run_process_with_logging(p)
 
     @staticmethod
     def parac_run(
