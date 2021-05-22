@@ -29,6 +29,7 @@ of the of Python (Since the Compiler is also written in Cython).
 ## Development
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
+![Coverage](./coverage.svg)
 
 ### Building
 

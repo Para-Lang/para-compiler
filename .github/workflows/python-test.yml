@@ -40,6 +40,7 @@ jobs:
         coverage run -m pytest -q --github=true
         if [ -f ..\coverage.svg ]; then rm ..\coverage.svg; fi
         coverage-badge -o ..\coverage.svg
+        cd ..
     - name: Sleep for 15 seconds
       uses: jakejarvis/wait-action@master
       with:
