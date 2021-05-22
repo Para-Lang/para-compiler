@@ -34,6 +34,7 @@ from .compiler import DEFAULT_BUILD_PATH
 from .compiler import DEFAULT_DIST_PATH
 from .compiler import ParacCompiler
 from .compiler import CompilationProcess
+from .compiler import FinishedProcess
 from .__main__ import create_process
 from .__main__ import cli
 from .__main__ import parac_compile

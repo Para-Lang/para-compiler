@@ -12,7 +12,7 @@ from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
 from . import __version__, __title__, log_traceback, AbortError
-from .compiler import CompilationProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+from .compiler import CompilationProcess, FinishedProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
 from .logger import output_console as console, ansi_col
 
 __all__ = [
@@ -136,7 +136,7 @@ def run_output_dir_validation(overwrite_build: bool, overwrite_dist: bool) -> Tu
     return build_path, dist_path
 
 
-def run_process_with_formatting(process: CompilationProcess):
+def run_process_with_formatting(p: CompilationProcess) -> FinishedProcess:
     """ Runs the compilation process with console formatting """
     try:
         # Some testing for now
@@ -156,9 +156,10 @@ def run_process_with_formatting(process: CompilationProcess):
 
     except Exception as e:
         error_banner()
-        raise RuntimeError(f"Failed to finish compilation of {process.entry_file}") from e
+        raise RuntimeError(f"Failed to finish compilation of {p.entry_file}") from e
 
     finish_banner()
+    return FinishedProcess(p)
 
 
 @click.group(invoke_without_command=True)
@@ -221,8 +222,52 @@ def parac_compile(*args, **kwargs):
     ParacCLI.parac_compile(*args, **kwargs)
 
 
+@cli.command(name='run')
+@click.option(
+    '-f',
+    '--file',
+    prompt=_create_prompt('Specify the entry-point of your program'),
+    default='main.para',
+    type=str,
+    help='The entry-point of the program where the compiler should start the compilation process.'
+)
+@click.option(
+    '-l',
+    '--log',
+    default='parac.log',
+    type=str,
+    prompt=_create_prompt('Specify where the console .log file should be created'),
+    help='Path of the output .log file where program messages should be logged. '
+         'If set to None it will not use a log file and only use the console as the output method'
+)
+@click.option(
+    '--overwrite-build',
+    is_flag=True,
+    type=bool,
+    default=False,
+    help='If set to True the build folder will always be overwritten without consideration of pre-existing data'
+)
+@click.option(
+    '--overwrite-dist',
+    is_flag=True,
+    type=bool,
+    default=False,
+    help='If set to True the dist folder will always be overwritten without consideration of pre-existing data'
+)
+@click.option(
+    '--debug/--no-debug',
+    is_flag=True,
+    default=False,
+    help='If set the compiler will add additional debug information'
+)
+def parac_run(*args, **kwargs):
+    """ Compile a Para-C program and runs it """
+    ParacCLI.parac_run(*args, **kwargs)
+
+
 class ParacCLI:
     """ CLI for the main Para-C Compiler process """
+
     @staticmethod
     def cli(ctx: click.Context, version, *args, **kwargs):
         """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
@@ -243,7 +288,7 @@ class ParacCLI:
             overwrite_build: bool,
             overwrite_dist: bool,
             debug: bool
-    ) -> None:
+    ) -> FinishedProcess:
         """ CLI interface for the parac_compile command. Will create a compilation-process and run it """
         build_path, dist_path = run_output_dir_validation(overwrite_build, overwrite_dist)
 
@@ -258,4 +303,16 @@ class ParacCLI:
             error_banner()
             raise RuntimeError("Failed to finish setup of compilation") from e
         else:
-            run_process_with_formatting(p)
+            return run_process_with_formatting(p)
+
+    @staticmethod
+    def parac_run(
+            file: str,
+            log: str,
+            overwrite_build: bool,
+            overwrite_dist: bool,
+            debug: bool
+    ) -> None:
+        """ CLI interface for compiling and running a program. """
+        p = ParacCLI.parac_compile(file, log, overwrite_build, overwrite_dist, debug)
+        # TODO! Run the process. Requires GCC Integration

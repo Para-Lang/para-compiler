@@ -13,7 +13,8 @@ __all__ = [
     'DEFAULT_BUILD_PATH',
     'DEFAULT_DIST_PATH',
     'ParacCompiler',
-    'CompilationProcess'
+    'CompilationProcess',
+    'FinishedProcess'
 ]
 
 DEFAULT_LOG_PATH: str = "./para.log"
@@ -122,3 +123,10 @@ class CompilationProcess:
                 raise EntryFilePermissionError(f"Missing file reading permissions for ''{path}'")
 
         return cls(entry_file, build_path, dist_path)
+
+
+class FinishedProcess:
+    """ Class used to represent a done compilation process """
+
+    def __init__(self, p: CompilationProcess):
+        self.p = p
