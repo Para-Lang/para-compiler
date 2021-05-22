@@ -66,7 +66,7 @@ class ParacCompilerError(Exception):
 
 class EntryFileAccessError(ParacCompilerError):
     """ General Exception for accessing a file """
-    error_msg = "Failed to access file"
+    error_msg = "Failed to access entry-file"
     _default_code = ErrorCodes.FILE_ERROR
 
 

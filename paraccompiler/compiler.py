@@ -40,8 +40,7 @@ def _cleanup_path(_p: str) -> str:
         _p = _p.replace("\\", SEPARATOR).replace("\\\\", SEPARATOR)
 
     if _p.startswith(f".{SEPARATOR}"):
-        # Replacing . with current directory
-        _p = os.getcwd() + _p[1:]
+        _p = os.getcwd() + _p[1:]  # Replacing . with current directory
     return _p
 
 
@@ -147,16 +146,19 @@ class CompilationProcess:
 
         try:
             _validate_path_like(path)
-        except EntryFileAccessError:
+        except EntryFileAccessError as e:
             # If the validation failed the path might be a relative path
             # that does not have a . signalising its going out from the
             # current path meaning the work-directory path needs to be appended.
             # If that also fails it is an invalid path or permissions are missing
             absolute_path = _cleanup_path(f"{os.getcwd()}\\{path}")
+            failed = False
             try:
                 _validate_path_like(absolute_path)
             except EntryFileAccessError:
-                raise
+                failed = True
+            if failed:
+                raise EntryFileAccessError from e
             path = absolute_path
 
         return cls(path, build_path, dist_path)
