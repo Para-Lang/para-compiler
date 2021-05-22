@@ -71,7 +71,6 @@ class TestCLISetup:
         d_path = f"{os.getcwd()}\\dist\\"
         p = paraccompiler.create_process(main_file_path, 'para.log', b_path, d_path, logging.DEBUG)
 
-        assert p.entry_file == main_file_path
         assert p.build_path == b_path
         assert p.dist_path == d_path
 
