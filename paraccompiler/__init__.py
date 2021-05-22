@@ -11,6 +11,10 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
+import click
+
+WIN = click.utils.WIN
+
 from .logger import __all__ as __logger_all__
 from .logger import ParacFileHandler
 from .logger import ParacFormatter
@@ -42,7 +46,6 @@ from .__main__ import ParacCLI
 from .__main__ import run_output_dir_validation
 from .__main__ import run_process_with_formatting
 
-
 __all__ = [
     '__title__',
     '__description__',
@@ -54,6 +57,7 @@ __all__ = [
     '__code_name__',
     '__release__',
     '__copyright__',
+    'WIN',
     *__exceptions_all__,
     *__utils_all__,
     *__exceptions_all__

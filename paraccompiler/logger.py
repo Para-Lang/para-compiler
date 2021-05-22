@@ -3,12 +3,13 @@ import logging
 import os
 import shutil
 import sys
-import click
 from logging import StreamHandler
 import traceback
 from rich.console import Console
 from typing import Optional, Callable, Tuple, Type
 from types import FunctionType, TracebackType
+
+from . import WIN
 
 __all__ = [
     'ParacStreamHandler',
@@ -23,7 +24,7 @@ __all__ = [
 
 def _get_terminal_size() -> Optional[int]:
     width: Optional[int] = None
-    if click.utils.WIN:  # pragma: no cover
+    if WIN:  # pragma: no cover
         width, _ = shutil.get_terminal_size()
     else:
         try:
@@ -42,7 +43,7 @@ def _get_terminal_size() -> Optional[int]:
 
 output_console: Console = Console(
     width=150 if "PYCHARM_HOSTED" in os.environ else _get_terminal_size(),
-    color_system="windows" if click.utils.WIN else "auto"
+    color_system="windows" if WIN else "auto"
 )
 
 

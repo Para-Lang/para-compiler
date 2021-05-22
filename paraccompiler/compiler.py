@@ -4,7 +4,7 @@ import os
 from os import PathLike
 from typing import Union, Type
 
-from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
+from . import ParacFormatter, ParacFileHandler, ParacStreamHandler, WIN
 from .logger import output_console
 from .exceptions import EntryFilePermissionError, EntryFileNotFoundError
 
@@ -61,6 +61,7 @@ class ParacCompiler:
 
 class CompilationProcess:
     """ Process instance used for a single compilation process """
+
     def __init__(
             self,
             entry_file: Union[str, bytes, PathLike],
@@ -108,16 +109,30 @@ class CompilationProcess:
         build_path: Union[str, PathLike] = _decode_if_bytes(build_path)
         dist_path: Union[str, PathLike] = _decode_if_bytes(dist_path)
 
-        if not entry_file.endswith('.para') and not entry_file.endswith('.ph'):
-            ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)")
+        def _cleanup_path(_p: str) -> str:
+            if WIN:
+                _p = _p.replace("/", "\\").replace("\\\\", "\\")
+            else:
+                # UNIX path
+                _p = _p.replace("\\", "/").replace("\\\\", "/")
+            return _p
 
+        entry_file = _cleanup_path(entry_file)
         if not any([item in entry_file for item in ['\\', '/', '//']]):
             path: Union[str, PathLike] = f"{os.getcwd()}\\{entry_file}"
         else:
             path: Union[str, PathLike] = entry_file
 
-        if not os.path.exists(path):
-            if not os.access(path, os.F_OK):
+        _last_path_elem = entry_file.replace("/", "\\").split("\\")[-1]
+        # for the sake of checking all paths used are converted into the windows path-style, but only while checking
+        if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
+            ParacCompiler.logger.warning("The given file does not seem to be a file!")
+        elif not _last_path_elem.endswith('.para') and not _last_path_elem.endswith('.ph'):
+            ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)!")
+
+        # Checking whether path exists or the user does not have permission to access it
+        if not os.access(path, os.R_OK):  # Can be read
+            if not os.access(path, os.F_OK):  # Exists
                 raise EntryFileNotFoundError(f"Failed to read entry-point '{path}'. File does not exist!")
             else:
                 raise EntryFilePermissionError(f"Missing file reading permissions for ''{path}'")
