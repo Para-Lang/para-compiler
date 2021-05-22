@@ -42,7 +42,7 @@ jobs:
         coverage-badge -o ../coverage.svg
         cd ..
     - name: Sleep for 15 seconds
-      uses: jakejarvis/wait-action@master
+      uses: kibertoad/wait-action@master
       with:
         time: '15s'
     - uses: EndBug/add-and-commit@v7
