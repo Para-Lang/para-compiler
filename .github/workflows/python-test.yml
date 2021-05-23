@@ -2,8 +2,8 @@ name: Python deploy and test
 
 on:
   push:
-      branches-ignore:
-        - '**-coverage-report'
+    branches-ignore:
+      - '**-coverage-report'
   pull_request:
 
 jobs:
