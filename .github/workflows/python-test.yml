@@ -25,6 +25,7 @@ jobs:
     - name: Deletes previous coverage-branch if it exists
       run: |
         if git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report != ''; then
+          echo ${BRANCH_NAME}
           git branch -d ${BRANCH_NAME}-coverage-report
           git push origin --delete ${BRANCH_NAME}-coverage-report; fi
     - name: Create new branch for coverage
@@ -33,9 +34,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         branch: ${{ env.BRANCH_NAME }}-coverage-report
-    - uses: actions/checkout@v2
+    - uses: EndBug/add-and-commit@v7
       with:
-       ref: ${{ env.BRANCH_NAME }}-coverage-report
+        message: 'Updated repo'
+        add: '.'
+        branch: ${{ env.BRANCH_NAME }}-coverage-report
+        push: '--force -u origin ${{ env.BRANCH_NAME }}-coverage-report --set-upstream'
+        default_author: github_actions
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
