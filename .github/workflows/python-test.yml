@@ -18,10 +18,10 @@ jobs:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true # Required for fetching the branch name
 
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.BRANCH_NAME }}
     - uses: nelonoel/branch-name@v1
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ env.BRANCH_NAME }}
     - name: Deletes previous coverage-branch if it exists
       run: |
         if git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report != ''; then
