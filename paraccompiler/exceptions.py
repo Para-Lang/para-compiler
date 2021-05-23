@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Exceptions in the Para-C Compiler """
 from typing import NewType
 from enum import IntEnum
@@ -5,7 +6,7 @@ from . import log_msg
 
 __all__ = [
     'ErrorCodes',
-    'ParacCompilerError',
+    'ParacCompilerError', 'CCompilerError',
 
     'EntryFileAccessError', 'EntryFilePermissionError', 'EntryFileNotFoundError', 'IsDirectoryError',
 
@@ -33,6 +34,7 @@ class ErrorCodes(IntEnum):
     # 9** - OTHER
     OTHER = ErrorCode(900)
     UNKNOWN = ErrorCode(901)
+    COMPILER = ErrorCode(902)
     # -----------
 
 
@@ -62,6 +64,12 @@ class ParacCompilerError(Exception):
     def code(self) -> ErrorCode:
         """ Returns the exception code """
         return self._code
+
+
+class CCompilerError(ParacCompilerError):
+    """ General Exception for issues handling the C-compiler """
+    error_msg = "Failed to properly interact with the C-compiler"
+    _default_code = ErrorCodes.COMPILER
 
 
 class EntryFileAccessError(ParacCompilerError):

@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Main compile function that calls the CLI """
 from paraccompiler import __main__
 

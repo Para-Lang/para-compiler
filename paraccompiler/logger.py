@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Logger management file for formatting and specific exception and  """
 import logging
 import os

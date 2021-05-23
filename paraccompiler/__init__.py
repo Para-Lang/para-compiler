@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Compiler for the Para-C programming language"""
 
 __title__ = "parac-compiler"
@@ -12,8 +13,7 @@ __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
 import click
-
-WIN = click.utils.WIN
+WIN: bool = click.utils.WIN
 
 from .logger import __all__ as __logger_all__
 from .logger import ParacFileHandler
@@ -32,13 +32,21 @@ from .exceptions import EntryFileNotFoundError
 from .exceptions import IsDirectoryError
 from .exceptions import AbortError
 from .utils import __all__ as __utils_all__
+from .utils import SEPARATOR
+from .utils import COMPILER_DIR
+from .utils import c_compiler_initialised
+from .utils import initialise
 from .utils import deprecated
+from .utils import decode_if_bytes
+from .utils import cleanup_path
+from .utils import __all__ as __compiler_all__
 from .compiler import DEFAULT_LOG_PATH
 from .compiler import DEFAULT_BUILD_PATH
 from .compiler import DEFAULT_DIST_PATH
 from .compiler import ParacCompiler
 from .compiler import CompilationProcess
 from .compiler import FinishedProcess
+from .utils import __all__ as __main_all__
 from .__main__ import create_process
 from .__main__ import cli
 from .__main__ import parac_compile
@@ -60,7 +68,9 @@ __all__ = [
     'WIN',
     *__exceptions_all__,
     *__utils_all__,
-    *__exceptions_all__
+    *__exceptions_all__,
+    *__compiler_all__,
+    *__main_all__
 ]
 
 import logging

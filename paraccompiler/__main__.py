@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Main file of the Para-Compiler"""
 import shutil
 import sys
@@ -11,7 +12,7 @@ from sys import exit
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
-from . import __version__, __title__, log_traceback, AbortError
+from . import __version__, __title__, log_traceback, AbortError, c_compiler_initialised, initialise
 from .compiler import CompilationProcess, FinishedProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
 from .logger import output_console as console, ansi_col
 
@@ -24,8 +25,11 @@ __all__ = [
     'ParacCLI'
 ]
 
+from .utils import INIT_OVERWRITE
+
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
+compiler = ParacCompiler()
 
 
 def create_process(
@@ -36,19 +40,17 @@ def create_process(
         level: Union[Literal[50, 40, 30, 20, 10], int]
 ) -> CompilationProcess:
     """ Creates a compilation process and returns it """
-    compiler = ParacCompiler()
     try:
         compiler.init_logging_session(log_path, level)
         log_banner()
         p = CompilationProcess.create_from_args(file, build_path, dist_path)
     except Exception as e:
         if not compiler.log_initialised:
-            compiler.init_logging_session("./para.log", logging.INFO)
+            compiler.init_logging_session("./para.log")
         log_traceback(
             brief=f"Exception in the compilation setup",
             exc_info=sys.exc_info()
         )
-
         raise AbortError(e)
     else:
         return p
@@ -90,7 +92,7 @@ def _dir_already_exists(folder: str) -> bool:
     """ Asks the user whether the build folder should be overwritten """
     try:
         _input = console.input(
-            f"[bright_yellow]> [bright_white]The {folder} folder already exists. Overwrite data? [y\\N]"
+            f"[bright_yellow] > [bright_white]The {folder} folder already exists. Overwrite data? [y\\N]: "
         ).lower() == 'y'
     except KeyboardInterrupt as e:
         raise AbortError(e)
@@ -272,6 +274,7 @@ class ParacCLI:
     @staticmethod
     def cli(ctx: click.Context, version, *args, **kwargs):
         """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
+        compiler.init_logging_session()  # Creating simple console logging without a file handler
         if version:
             click.echo(' '.join([__title__.title(), __version__]))
             exit()
@@ -281,6 +284,21 @@ class ParacCLI:
 
         if not ctx.invoked_subcommand:
             click.echo(ctx.get_help())
+        else:
+            try:
+                if not c_compiler_initialised() and not INIT_OVERWRITE:
+                    logger.warning(
+                        "C-Compiler path is not initialised! If you do not have a working compiler installed. "
+                        "Please either refer to an installation page for your operation system (MinGW, GCC)")
+                    initialise()
+            except Exception:
+                log_traceback(
+                    level="critical",
+                    brief=f"Exception in the Compiler",
+                    exc_info=sys.exc_info()
+                )
+                error_banner()
+                exit()
 
     @staticmethod
     def parac_compile(
