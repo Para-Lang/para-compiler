@@ -24,12 +24,12 @@ jobs:
         ref: ${{ env.BRANCH_NAME }}
     - name: Deletes previous coverage-branch if it exists
       run: |
-        echo BRANCH_HASH=$(git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report) >> $GITHUB_ENV
+        echo BRANCH_HASH=$(git rev-parse --verify --quiet ${{ env.BRANCH_NAME }}-coverage-report) >> $GITHUB_ENV
         echo ${{ env.BRANCH_HASH }}
         if ${{ env.BRANCH_HASH != '' }}; then
-          echo ${BRANCH_NAME}
-          git branch -d ${BRANCH_NAME}-coverage-report
-          git push origin --delete ${BRANCH_NAME}-coverage-report; fi
+          echo ${{ env.BRANCH_NAME }}
+          git branch -d ${{ env.BRANCH_NAME }}-coverage-report
+          git push origin --delete ${{ env.BRANCH_NAME }}-coverage-report; fi
     - name: Create new branch for coverage
       uses: peterjgrainger/action-create-branch@v2.0.1
       env:
@@ -87,6 +87,7 @@ jobs:
         rm -rf -v !("htmlcov") ;
         mv ./htmlcov/* . ;
         rm -rf ./htmlcov/ ;
+        git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }}-coverage-report ${{ env.BRANCH_NAME }}-coverage-report
     - uses: EndBug/add-and-commit@v7
       with:
         message: 'Added coverage report'
