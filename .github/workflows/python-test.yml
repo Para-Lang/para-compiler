@@ -24,7 +24,9 @@ jobs:
         ref: ${{ env.BRANCH_NAME }}
     - name: Deletes previous coverage-branch if it exists
       run: |
-        if git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report != ''; then
+        echo BRANCH_HASH=$(git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report) >> $GITHUB_ENV
+        echo ${{ env.BRANCH_HASH }}
+        if ${{ env.BRANCH_HASH != '' }}; then
           echo ${BRANCH_NAME}
           git branch -d ${BRANCH_NAME}-coverage-report
           git push origin --delete ${BRANCH_NAME}-coverage-report; fi
