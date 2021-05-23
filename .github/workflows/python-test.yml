@@ -17,10 +17,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Deletes previous coverage-branch if it exists
-      env:
-        BRANCH: '${{ github.head_ref }}-coverage-report'
       run: |
-        git branch -d '${BRANCH}'
+        git branch -d ${{ github.head_ref }}-coverage-report
         git push origin --delete '${{ github.head_ref }}-coverage-report'
       if: ${{ 'git rev-parse --verify --quiet ${{ github.head_ref }}-coverage-report' != '' }}
     - name: Create new branch for coverage
