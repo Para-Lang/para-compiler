@@ -86,10 +86,9 @@ jobs:
         cd pytest ; coverage html ; cd ..
         mv ./pytest/htmlcov ./htmlcov ;
         shopt -s extglob ;
-        rm -rf -v !("htmlcov") ;
+        rm -rf -v !("htmlcov" | "coverage.svg") ;
         mv ./htmlcov/* . ;
         rm -rf ./htmlcov/ ;
-        git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }}-coverage-report ${{ env.BRANCH_NAME }}-coverage-report
     - uses: EndBug/add-and-commit@v7
       with:
         message: 'Added coverage report'
