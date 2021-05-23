@@ -14,6 +14,9 @@ jobs:
       matrix:
         python-version: [3.8, 3.9]
 
+    env:
+      ACTIONS_ALLOW_UNSECURE_COMMANDS: true # Required for fetching the branch name
+
     steps:
     - uses: actions/checkout@v2
     - uses: nelonoel/branch-name@v1
