@@ -30,10 +30,10 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        branch: '${BRANCH_NAME}-coverage-report'
+        branch: ${BRANCH_NAME}-coverage-report
     - uses: actions/checkout@v2
       with:
-       ref: '${BRANCH_NAME}-coverage-report'
+       ref: ${BRANCH_NAME}-coverage-report
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -71,10 +71,11 @@ jobs:
     - name: coverage-html
       run: |
         cd pytest ; coverage html ; cd ..
-        mv ./pytest/htmlcov ./htmlcov
-        rm -v !("htmlcov")
-        mv ./htmlcov/* .
-        rm ./htmlcov/
+        mv ./pytest/htmlcov ./htmlcov ;
+        shopt -s extglob ;
+        rm -v !("htmlcov") ;
+        mv ./htmlcov/* . ;
+        rm ./htmlcov/ ;
     - uses: EndBug/add-and-commit@v7
       with:
         message: 'Added coverage report'
