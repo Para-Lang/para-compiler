@@ -69,11 +69,9 @@ jobs:
     - name: coverage-html
       run: |
         cd pytest ; coverage html ; cd ..
-        mv ./pytest/htmlcov ./htmlcov ;
-        shopt -s extglob ;
-        rm -rf -v !("htmlcov/" | "coverage.svg") ;
-        mv -v ./htmlcov/* . ;
-        rm -rf ./htmlcov/ ;
+        mv ./pytest/htmlcov/ /tmp/htmlcov/
+        rm -rf *
+        mv /tmp/htmlcov/* .
     - name: Sleep for 15 seconds
       uses: kibertoad/wait-action@master
       with:
