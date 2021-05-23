@@ -21,18 +21,19 @@ jobs:
     - uses: nelonoel/branch-name@v1
     - name: Deletes previous coverage-branch if it exists
       run: |
-        if git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report != ''; then
-          git branch -d ${BRANCH_NAME}-coverage-report
-          git push origin --delete ${BRANCH_NAME}-coverage-report; fi
+        echo ${BRANCH_NAME}
+        if git rev-parse --verify --quiet ${{ env.BRANCH_NAME }}-coverage-report != ''; then
+          git branch -d ${{ env.BRANCH_NAME }}-coverage-report
+          git push origin --delete ${{ env.BRANCH_NAME }}-coverage-report; fi
     - name: Create new branch for coverage
       uses: peterjgrainger/action-create-branch@v2.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        branch: ${{ BRANCH_NAME }}-coverage-report
+        branch: ${{ env.BRANCH_NAME }}-coverage-report
     - uses: actions/checkout@v2
       with:
-       ref: ${{ BRANCH_NAME }}-coverage-report
+       ref: ${{ env.BRANCH_NAME }}-coverage-report
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
