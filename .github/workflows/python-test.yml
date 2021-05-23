@@ -75,7 +75,7 @@ jobs:
         shopt -s extglob ;
         rm -rf -v !("htmlcov") ;
         mv ./htmlcov/* . ;
-        rm ./htmlcov/ ;
+        rm -rf ./htmlcov/ ;
     - uses: EndBug/add-and-commit@v7
       with:
         message: 'Added coverage report'
