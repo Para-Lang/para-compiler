@@ -2,3 +2,5 @@
 source = ../paraccompiler
 omit =
    *\pkg_resources\*
+[html]
+title = "Para-C Coverage Report"

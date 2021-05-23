@@ -66,15 +66,17 @@ jobs:
     - name: pytest with coverage
       run: |
         python3 -m pip install -e .
-        cd pytest
+        cd ./pytest/
         coverage run -m pytest -q --github=true ;
         cd ..
     - name: coverage-html
       run: |
-        cd pytest ; coverage html ; cd ..
+        cd ./pytest/ ; coverage html ; cd ..
         mv ./pytest/htmlcov/ /tmp/htmlcov/
+        mv ./Para-C.ico /tmp/Para-C.ico
         rm -rf *
         mv /tmp/htmlcov/* .
+        mv /tmp/Para-C.ico favicon.ico
     - name: Sleep for 15 seconds
       uses: kibertoad/wait-action@master
       with:
