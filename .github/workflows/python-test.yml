@@ -22,7 +22,7 @@ jobs:
     - uses: nelonoel/branch-name@v1
     - name: Deletes previous coverage-branch if it exists
       run: |
-        if 'git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report' != ''; then
+        if [ git rev-parse --verify --quiet ${BRANCH_NAME}-coverage-report != '' ]; then
           git branch -d ${BRANCH_NAME}-coverage-report
           git push origin --delete ${BRANCH_NAME}-coverage-report; fi
     - name: Create new branch for coverage
