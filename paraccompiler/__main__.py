@@ -35,7 +35,7 @@ compiler = ParacCompiler()
 log_banner_used = False
 
 
-@abortable(step="Setup")
+@abortable(reraise=True, step="Setup")
 def create_process(
         file: str,
         log_path: str,

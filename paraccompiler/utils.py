@@ -115,7 +115,7 @@ def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
                 error_banner(step)
 
                 if reraise:
-                    raise e
+                    raise AbortError(e) from e
                 else:
                     exit()
 
