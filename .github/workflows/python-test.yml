@@ -22,9 +22,14 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ env.BRANCH_NAME }}
+    - name: Check for Branch existance
+      id: branch_existance
+      run: |
+        echo "::set-output name=branch_hash::$(git show-ref ${{ env.BRANCH_NAME }}-coverage-report)"
     - name: Deletes previous coverage-branch if it exists
       run: |
-        if ${{ $((git show-ref ${{ env.BRANCH_NAME }}-coverage-report)) != '' }}; then
+        echo ${{ steps.branch_existance.outputs.branch_hash }}
+        if ${{ steps.branch_existance.outputs.branch_hash != '' }}; then
           git branch -d ${{ env.BRANCH_NAME }}-coverage-report
           git push origin --delete ${{ env.BRANCH_NAME }}-coverage-report; fi
     - name: Create new branch for coverage
