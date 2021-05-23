@@ -68,7 +68,7 @@ jobs:
         message: 'Updated coverage.svg'
         add: 'coverage.svg'
         branch: ${{ env.BRANCH_NAME }}-coverage-report
-        tag: '--force'
+        push: '--force'
         default_author: github_actions
     - name: coverage-html
       run: |
@@ -83,5 +83,5 @@ jobs:
         message: 'Added coverage report'
         add: '.'
         branch: ${{ env.BRANCH_NAME }}-coverage-report
-        tag: '--force'
+        push: '--force -u origin ${{ env.BRANCH_NAME }}-coverage-report --set-upstream'
         default_author: github_actions
