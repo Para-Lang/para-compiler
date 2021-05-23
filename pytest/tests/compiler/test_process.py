@@ -1,3 +1,4 @@
+# coding=utf-8
 """ Test for the compiler process setup """
 import os
 import paraccompiler

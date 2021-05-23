@@ -56,7 +56,7 @@ class ParacCompilerError(Exception):
             if args:
                 self.error_msg = ", ".join([str(arg) for arg in args])
             else:
-                self.error_msg = f"Exception occurred in the Para-C compiler"
+                self.error_msg = "Exception occurred in the Para-C compiler"
 
         super().__init__(self.error_msg)
 

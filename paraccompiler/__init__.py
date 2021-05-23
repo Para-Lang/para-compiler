@@ -13,6 +13,7 @@ __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
 import click
+
 WIN: bool = click.utils.WIN
 
 from .logger import __all__ as __logger_all__
@@ -38,11 +39,11 @@ __all__ = [
     '__release__',
     '__copyright__',
     'WIN',
+    *__logger_all__,
     *__exceptions_all__,
     *__utils_all__,
-    *__exceptions_all__,
-    *__compiler_all__,
-    *__main_all__
+    *__main_all__,
+    *__compiler_all__
 ]
 
 import logging

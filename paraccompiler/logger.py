@@ -80,7 +80,7 @@ logger = logging.getLogger(__name__)
 
 class ParacFileHandler(logging.FileHandler):
     """ Default FileHandler for the file handling in the Para-C compiler """
-    def __init__(self, filename=f'./parac.log', encoding='utf-8', mode='w', *args, **kwargs):
+    def __init__(self, filename='./parac.log', encoding='utf-8', mode='w', *args, **kwargs):
         super().__init__(filename=filename, encoding=encoding, mode=mode, *args, **kwargs)
 
 

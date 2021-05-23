@@ -61,7 +61,7 @@ def c_compiler_initialised() -> bool:
 def initialise() -> None:
     """ Initialises the Para-C compiler and creates the config file. Will prompt the user to enter the compiler path """
     _input = console.input(
-        f" [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
+        " [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
     )
     console.print('')
     path = cleanup_path(decode_if_bytes(_input))
@@ -109,7 +109,7 @@ def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
                 log_banner()
                 log_traceback(
                     level="critical",
-                    brief=f"Exception in the compilation setup",
+                    brief="Exception in the compilation setup",
                     exc_info=sys.exc_info()
                 )
                 error_banner(step)

@@ -1,6 +1,6 @@
+# coding=utf-8
 """ Configuration file for pytest """
 import sys
-import os
 import pytest
 from paraccompiler import logging
 

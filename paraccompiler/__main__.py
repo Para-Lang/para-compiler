@@ -69,7 +69,7 @@ def error_banner(process: str) -> None:
 
 def finish_banner() -> None:
     """ Prints a simple colored banner screen showing it succeeded and finished """
-    console.rule(f"\n[bold green]Finished Compilation[/bold green]\n", style="green rule.line")
+    console.rule("\n[bold green]Finished Compilation[/bold green]\n", style="green rule.line")
 
 
 def log_banner() -> None:
@@ -78,7 +78,7 @@ def log_banner() -> None:
     global log_banner_used
     if log_banner_used:
         return
-    console.rule(f"\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
+    console.rule("\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
     log_banner_used = True
 
 
