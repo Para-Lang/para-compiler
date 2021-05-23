@@ -5,8 +5,9 @@ import os
 from os import PathLike
 from typing import Union
 
-from . import ParacFormatter, ParacFileHandler, ParacStreamHandler, decode_if_bytes, cleanup_path
+from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
 from .logger import output_console
+from .utils import decode_if_bytes, cleanup_path
 from .exceptions import EntryFilePermissionError, EntryFileNotFoundError, EntryFileAccessError
 
 __all__ = [

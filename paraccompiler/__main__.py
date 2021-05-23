@@ -1,7 +1,6 @@
 # coding=utf-8
 """ Main file of the Para-Compiler"""
 import shutil
-import sys
 import time
 import click
 import colorama
@@ -12,26 +11,31 @@ from sys import exit
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
-from . import __version__, __title__, log_traceback, AbortError, c_compiler_initialised, initialise
+from . import __version__, __title__
 from .compiler import CompilationProcess, FinishedProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
 from .logger import output_console as console, ansi_col
+from .utils import c_compiler_initialised, initialise, abortable, requires_init
 
 __all__ = [
+    'compiler',
     'create_process',
     'run_output_dir_validation',
     'run_process_with_logging',
     'cli',
     'parac_compile',
-    'ParacCLI'
+    'ParacCLI',
+    'error_banner',
+    'log_banner',
+    'finish_banner'
 ]
-
-from .utils import INIT_OVERWRITE
 
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
 compiler = ParacCompiler()
+log_banner_used = False
 
 
+@abortable(step="Setup")
 def create_process(
         file: str,
         log_path: str,
@@ -40,20 +44,10 @@ def create_process(
         level: Union[Literal[50, 40, 30, 20, 10], int]
 ) -> CompilationProcess:
     """ Creates a compilation process and returns it """
-    try:
-        compiler.init_logging_session(log_path, level)
-        log_banner()
-        p = CompilationProcess.create_from_args(file, build_path, dist_path)
-    except Exception as e:
-        if not compiler.log_initialised:
-            compiler.init_logging_session("./para.log")
-        log_traceback(
-            brief=f"Exception in the compilation setup",
-            exc_info=sys.exc_info()
-        )
-        raise AbortError(e)
-    else:
-        return p
+    compiler.init_logging_session(log_path, level)
+    log_banner()
+    p = CompilationProcess.create_from_args(file, build_path, dist_path)
+    return p
 
 
 def init_banner() -> None:
@@ -68,9 +62,9 @@ def init_banner() -> None:
     console.rule(style="white rule.line")
 
 
-def error_banner() -> None:
+def error_banner(process: str) -> None:
     """ Prints a simple colored Exception banner showing it crashed / was aborted """
-    console.rule(f"\n[bold red]Aborted Setup[/bold red]\n", style="red rule.line")
+    console.rule(f"\n[bold red]Aborted {process}[/bold red]\n", style="red rule.line")
 
 
 def finish_banner() -> None:
@@ -80,7 +74,12 @@ def finish_banner() -> None:
 
 def log_banner() -> None:
     """ Prints a simple colored banner screen showing the logs are active and the process started """
+    # Avoiding the log_banner is displayed twice
+    global log_banner_used
+    if log_banner_used:
+        return
     console.rule(f"\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
+    log_banner_used = True
 
 
 def _create_prompt(string: str) -> str:
@@ -88,16 +87,12 @@ def _create_prompt(string: str) -> str:
     return f'{ansi_col.cyan} > {ansi_col.bright_white}{string}'
 
 
+@abortable
 def _dir_already_exists(folder: str) -> bool:
     """ Asks the user whether the build folder should be overwritten """
-    try:
-        _input = console.input(
-            f"[bright_yellow] > [bright_white]The {folder} folder already exists. Overwrite data? [y\\N]: "
-        ).lower() == 'y'
-    except KeyboardInterrupt as e:
-        raise AbortError(e)
-    except Exception as e:
-        raise RuntimeError("Failed to process input") from e
+    _input = console.input(
+        f"[bright_yellow] > [bright_white]The {folder} folder already exists. Overwrite data? (y\\N): "
+    ).lower() == 'y'
     return _input
 
 
@@ -140,26 +135,17 @@ def run_output_dir_validation(overwrite_build: bool, overwrite_dist: bool) -> Tu
 
 def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
-    try:
-        # Some testing for now
-        with Progress(console=console, refresh_per_second=30) as progress:
-            main_task = progress.add_task("[green]Processing...", total=100)
+    # Some testing for now
+    with Progress(console=console, refresh_per_second=30) as progress:
+        main_task = progress.add_task("[green]Processing...", total=100)
 
-            logger.info(f"Entry-Point: {p.entry_file}")
-            progress.update(main_task, advance=50)
-            time.sleep(1)
-            logger.info("Fetching files...")
+        logger.info(f"Entry-Point: {p.entry_file}")
+        progress.update(main_task, advance=50)
+        time.sleep(1)
+        logger.info("Fetching files...")
 
-            time.sleep(1)
-            progress.update(main_task, advance=100)
-
-    except AbortError:
-        error_banner()
-        exit()
-
-    except Exception as e:
-        error_banner()
-        raise RuntimeError(f"Failed to finish compilation of {p.entry_file}") from e
+        time.sleep(1)
+        progress.update(main_task, advance=100)
 
     finish_banner()
     return FinishedProcess(p)
@@ -180,6 +166,12 @@ def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
 def cli(*args, **kwargs):
     """ Console Line Interface for the Para-C Compiler """
     ParacCLI.cli(*args, **kwargs)
+
+
+@cli.command(name='init')
+def parac_init():
+    """ Console Line Interface for the Initialisation of the Para-C compiler and the configuration of the c-compiler """
+    ParacCLI.parac_init()
 
 
 @cli.command(name='compile')
@@ -272,6 +264,7 @@ class ParacCLI:
     """ CLI for the main Para-C Compiler process """
 
     @staticmethod
+    @abortable
     def cli(ctx: click.Context, version, *args, **kwargs):
         """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
         compiler.init_logging_session()  # Creating simple console logging without a file handler
@@ -284,23 +277,17 @@ class ParacCLI:
 
         if not ctx.invoked_subcommand:
             click.echo(ctx.get_help())
-        else:
-            try:
-                if not c_compiler_initialised() and not INIT_OVERWRITE:
-                    logger.warning(
-                        "C-Compiler path is not initialised! If you do not have a working compiler installed. "
-                        "Please either refer to an installation page for your operation system (MinGW, GCC)")
-                    initialise()
-            except Exception:
-                log_traceback(
-                    level="critical",
-                    brief=f"Exception in the Compiler",
-                    exc_info=sys.exc_info()
-                )
-                error_banner()
-                exit()
 
     @staticmethod
+    @abortable
+    def parac_init():
+        """ Initialises the Para-C compiler """
+        logger.info(f"{'Reinitialising' if c_compiler_initialised() else 'Initialising'} Para-C Compiler")
+        initialise()
+
+    @staticmethod
+    @abortable
+    @requires_init
     def parac_compile(
             file: str,
             log: str,
@@ -311,20 +298,14 @@ class ParacCLI:
         """ CLI interface for the parac_compile command. Will create a compilation-process and run it """
         build_path, dist_path = run_output_dir_validation(overwrite_build, overwrite_dist)
 
-        try:
-            p: CompilationProcess = create_process(
-                file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
-            )
-        except AbortError:
-            error_banner()
-            exit()
-        except Exception as e:
-            error_banner()
-            raise RuntimeError("Failed to finish setup of compilation") from e
-        else:
-            return run_process_with_logging(p)
+        p: CompilationProcess = abortable(create_process, step="Setup")(
+            file, log, build_path, dist_path, logging.DEBUG if debug else logging.INFO
+        )
+        return run_process_with_logging(p)
 
     @staticmethod
+    @abortable
+    @requires_init
     def parac_run(
             file: str,
             log: str,

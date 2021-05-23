@@ -1,5 +1,6 @@
 # coding=utf-8
 """ Utility in the Para-C Compiler"""
+import functools
 import json
 import logging
 import sys
@@ -10,8 +11,8 @@ from typing import Union, Type
 from functools import wraps
 
 from . import WIN
-from .exceptions import CCompilerError
-from .logger import output_console as console
+from .exceptions import CCompilerError, AbortError
+from .logger import output_console as console, log_traceback
 
 __all__ = [
     'INIT_OVERWRITE',
@@ -21,7 +22,9 @@ __all__ = [
     'initialise',
     'deprecated',
     'decode_if_bytes',
-    'cleanup_path'
+    'cleanup_path',
+    'abortable',
+    'requires_init'
 ]
 
 logger = logging.getLogger(__name__)
@@ -57,10 +60,10 @@ def c_compiler_initialised() -> bool:
 
 def initialise() -> None:
     """ Initialises the Para-C compiler and creates the config file. Will prompt the user to enter the compiler path """
-    logger.info("Initialising Para-C compiler due to missing configuration\n")
     _input = console.input(
-        f" [bright_red]> [bright_white]Please enter the path for the C-compiler: "
+        f" [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
     )
+    console.print('')
     path = cleanup_path(decode_if_bytes(_input))
 
     # exists
@@ -78,15 +81,83 @@ def initialise() -> None:
     with open(CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))
 
-    logger.info("Validated path and successfully created compile-config.json. Setup may continue\n")
+    logger.info("Validated path and successfully created compile-config.json")
 
 
-def deprecated(instead=None):
+def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
+    """
+    Marks the function as abort-able and adds traceback logging to it.
+    If re-raise is False it will exit the program
+    """
+    def _decorator(func):
+        @functools.wraps(func)
+        def _wrapper(*args, **kwargs):
+            from .__main__ import error_banner, log_banner
+            try:
+                return func(*args, **kwargs)
+            except AbortError as e:
+                error_banner(step)
+                if reraise:
+                    raise e
+                else:
+                    exit()
+            except Exception as e:
+                from .__main__ import compiler
+                if not compiler.log_initialised:
+                    compiler.init_logging_session()
+
+                log_banner()
+                log_traceback(
+                    level="critical",
+                    brief=f"Exception in the compilation setup",
+                    exc_info=sys.exc_info()
+                )
+                error_banner(step)
+
+                if reraise:
+                    raise e
+                else:
+                    exit()
+
+        return _wrapper
+
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)
+
+
+def requires_init(_func=None):
+    """ Checks whether the compiler is initialised before calling the function """
+
+    def _decorator(func):
+        @functools.wraps(func)
+        def _wrapper(*args, **kwargs):
+            if not c_compiler_initialised() and not INIT_OVERWRITE:
+                console.print('')
+                logger.warning(
+                    "C-Compiler path is not initialised! If you do not have a working compiler installed, "
+                    "please refer to an installation page for your operation system (MinGW, cygwin)"
+                )
+                logger.info("Initialising Para-C compiler due to missing configuration\n")
+                initialise()
+                logger.info("Setup may continue\n")
+            return func(*args, **kwargs)
+
+        return _wrapper
+
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)
+
+
+def deprecated(_func, *, instead=None):
     """ Warns the user about a function or tool that is deprecated and shouldn't be used anymore """
 
-    def actual_decorator(func):
+    def _decorator(func):
         @wraps(func)
-        def decorated(*args, **kwargs):
+        def _decorated(*args, **kwargs):
             warnings.simplefilter('always', DeprecationWarning)  # turn off filter
             if instead:
                 fmt = "{0.__name__} is deprecated, use {1} instead."
@@ -97,9 +168,12 @@ def deprecated(instead=None):
             warnings.simplefilter('default', DeprecationWarning)  # reset filter
             return func(*args, **kwargs)
 
-        return decorated
+        return _decorated
 
-    return actual_decorator
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)
 
 
 def decode_if_bytes(byte_like: Union[str, bytes, PathLike, Type]):
