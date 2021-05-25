@@ -3,14 +3,15 @@
 import os
 import paraccompiler
 
+from . import reset_input
+
 main_file_path = f"{os.getcwd()}\\test_files\\main.para"
-_prev_input = paraccompiler.output_console.input
 
 
 class TestProcess:
     def teardown_method(self, method):
         """ This method is being called after each test case, and it will revert input back to the original function """
-        paraccompiler.output_console.input = _prev_input
+        reset_input()
 
     def test_init(self):
         b_path = f"{os.getcwd()}\\build\\"

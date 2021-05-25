@@ -6,11 +6,11 @@ import logging
 import sys
 import warnings
 import os
+from click.utils import WIN
 from os import PathLike
 from typing import Union, Type
 from functools import wraps
 
-from . import WIN
 from .exceptions import CCompilerError, AbortError
 from .logger import output_console as console, log_traceback
 
@@ -102,9 +102,9 @@ def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
                 else:
                     exit()
             except Exception as e:
-                from .__main__ import compiler
-                if not compiler.log_initialised:
-                    compiler.init_logging_session()
+                from .__main__ import pcompiler
+                if not pcompiler.log_initialised:
+                    pcompiler.init_logging_session()
 
                 log_banner()
                 log_traceback(

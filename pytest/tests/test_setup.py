@@ -8,7 +8,7 @@ import os
 from paraccompiler import __version__, __title__
 from paraccompiler.exceptions import AbortError
 
-from . import github_run, prev_input, add_folder, overwrite_input, create_test_file
+from . import github_run, add_folder, overwrite_input, reset_input, create_test_file
 
 main_file_path = f"{os.getcwd()}\\test_files\\main.para"
 
@@ -16,7 +16,7 @@ main_file_path = f"{os.getcwd()}\\test_files\\main.para"
 class TestCLISetup:
     def teardown_method(self, method):
         """ This method is being called after each test case, and it will revert input back to the original function """
-        paraccompiler.output_console.input = prev_input
+        reset_input()
 
     def test_version(self):
         if github_run:

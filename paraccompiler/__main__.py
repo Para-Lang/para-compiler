@@ -13,11 +13,11 @@ from typing import Tuple, Union, Literal
 
 from . import __version__, __title__
 from .compiler import CompilationProcess, FinishedProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
-from .logger import output_console as console, ansi_col
+from .logger import get_rich_console as console, init_rich_console, ansi_col
 from .utils import c_compiler_initialised, initialise, abortable, requires_init
 
 __all__ = [
-    'compiler',
+    'pcompiler',
     'create_process',
     'run_output_dir_validation',
     'run_process_with_logging',
@@ -31,7 +31,7 @@ __all__ = [
 
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
-compiler = ParacCompiler()
+pcompiler = ParacCompiler()
 log_banner_used = False
 
 
@@ -44,7 +44,7 @@ def create_process(
         level: Union[Literal[50, 40, 30, 20, 10], int]
 ) -> CompilationProcess:
     """ Creates a compilation process and returns it """
-    compiler.init_logging_session(log_path, level)
+    pcompiler.init_logging_session(log_path, level)
     log_banner()
     p = CompilationProcess.create_from_args(file, build_path, dist_path)
     return p
@@ -54,22 +54,22 @@ def init_banner() -> None:
     """ Creates the init screen string that can be printed """
     base_str = f"Para-C Compiler{' ' * 5}"
 
-    console.rule(style="white rule.line")
-    console.print(
+    console().rule(style="white rule.line")
+    console().print(
         f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]{__version__}[/bold cyan]",
         justify="center"
     )
-    console.rule(style="white rule.line")
+    console().rule(style="white rule.line")
 
 
 def error_banner(process: str) -> None:
     """ Prints a simple colored Exception banner showing it crashed / was aborted """
-    console.rule(f"\n[bold red]Aborted {process}[/bold red]\n", style="red rule.line")
+    console().rule(f"\n[bold red]Aborted {process}[/bold red]\n", style="red rule.line")
 
 
 def finish_banner() -> None:
     """ Prints a simple colored banner screen showing it succeeded and finished """
-    console.rule("\n[bold green]Finished Compilation[/bold green]\n", style="green rule.line")
+    console().rule("\n[bold green]Finished Compilation[/bold green]\n", style="green rule.line")
 
 
 def log_banner() -> None:
@@ -78,7 +78,7 @@ def log_banner() -> None:
     global log_banner_used
     if log_banner_used:
         return
-    console.rule("\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
+    console().rule("\n[bold cyan]Compiler Logs[white]\n", style="white rule.line")
     log_banner_used = True
 
 
@@ -90,7 +90,7 @@ def _create_prompt(string: str) -> str:
 @abortable
 def _dir_already_exists(folder: str) -> bool:
     """ Asks the user whether the build folder should be overwritten """
-    _input = console.input(
+    _input = console().input(
         f"[bright_yellow] > [bright_white]The {folder} folder already exists. Overwrite data? (y\\N): "
     ).lower() == 'y'
     return _input
@@ -136,7 +136,7 @@ def run_output_dir_validation(overwrite_build: bool, overwrite_dist: bool) -> Tu
 def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
     # Some testing for now
-    with Progress(console=console, refresh_per_second=30) as progress:
+    with Progress(console=console(), refresh_per_second=30) as progress:
         main_task = progress.add_task("[green]Processing...", total=100)
 
         logger.info(f"Entry-Point: {p.entry_file}")
@@ -267,7 +267,11 @@ class ParacCLI:
     @abortable
     def cli(ctx: click.Context, version, *args, **kwargs):
         """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
-        compiler.init_logging_session()  # Creating simple console logging without a file handler
+        # If the console was not initialised yet
+        if console() is None:
+            init_rich_console()
+
+        pcompiler.init_logging_session()  # Creating simple console logging without a file handler
         if version:
             click.echo(' '.join([__title__.title(), __version__]))
             exit()

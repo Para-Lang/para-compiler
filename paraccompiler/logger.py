@@ -4,26 +4,29 @@ import logging
 import os
 import shutil
 import sys
-from logging import StreamHandler
 import traceback
+from logging import StreamHandler
 from rich.console import Console
-from typing import Optional, Callable, Tuple, Type
+from typing import Optional, Callable, Tuple, Type, Union
 from types import FunctionType, TracebackType
-
-from . import WIN
 
 __all__ = [
     'ParacStreamHandler',
     'ParacFileHandler',
     'ParacFormatter',
     'output_console',
+    'init_rich_console',
+    'get_rich_console',
     'log_traceback',
     'log_msg',
     'ansi_col'
 ]
 
+output_console: Optional[Console] = None
+
 
 def _get_terminal_size() -> Optional[int]:
+    from . import WIN
     width: Optional[int] = None
     if WIN:  # pragma: no cover
         width, _ = shutil.get_terminal_size()
@@ -42,10 +45,23 @@ def _get_terminal_size() -> Optional[int]:
         return None
 
 
-output_console: Console = Console(
-    width=150 if "PYCHARM_HOSTED" in os.environ else _get_terminal_size(),
-    color_system="windows" if WIN else "auto"
-)
+def init_rich_console() -> None:
+    """ Initialises the rich console used for special console formatting """
+    from . import WIN
+    global output_console
+    output_console = Console(
+        width=150 if "PYCHARM_HOSTED" in os.environ else _get_terminal_size(),
+        color_system="windows" if WIN else "auto"
+    )
+
+
+def get_rich_console() -> Union[Console, None]:
+    """
+    Returns the output console which can be undefined if not initialised. This function is used instead of direct
+    variable accessing to avoid the case that the console is initialised but the import still returns None. Therefore
+    this function will return the local object and it should always return the object if it's initialised
+    """
+    return output_console
 
 
 class ParacStreamHandler(StreamHandler):

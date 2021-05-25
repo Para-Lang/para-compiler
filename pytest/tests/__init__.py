@@ -6,12 +6,19 @@ import os
 import shutil
 
 github_run = '--github=true' in sys.argv
-prev_input = paraccompiler.output_console.input
+
+paraccompiler.init_rich_console()
+prev_input = paraccompiler.get_rich_console().input
 
 
 def overwrite_input(overwrite: str):
     """ Overwrites the input with a lambda that returns the specified value """
-    paraccompiler.__main__.console.input = lambda *args, **kwargs: overwrite
+    getattr(paraccompiler.logger, 'output_console').input = lambda *args, **kwargs: overwrite
+
+
+def reset_input():
+    """ Resets the output method of the console object """
+    getattr(paraccompiler.logger, 'output_console').input = prev_input
 
 
 def add_folder(folder_name: str):

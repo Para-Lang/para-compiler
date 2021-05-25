@@ -12,20 +12,20 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
-import click
-
-WIN: bool = click.utils.WIN
-
-from .logger import __all__ as __logger_all__
+# Main imports
+from . import logger
 from .logger import *
-from .exceptions import __all__ as __exceptions_all__
+from . import exceptions
 from .exceptions import *
-from .utils import __all__ as __utils_all__
+from . import utils
 from .utils import *
-from .compiler import __all__ as __compiler_all__
+from . import compiler
 from .compiler import *
-from .__main__ import __all__ as __main_all__
+from . import __main__
 from .__main__ import *
+
+# Module Imports
+from . import tokenizer
 
 __all__ = [
     '__title__',
@@ -38,16 +38,20 @@ __all__ = [
     '__code_name__',
     '__release__',
     '__copyright__',
+    'tokenizer',
     'WIN',
-    *__logger_all__,
-    *__exceptions_all__,
-    *__utils_all__,
-    *__main_all__,
-    *__compiler_all__
+    *logger.__all__,
+    *exceptions.__all__,
+    *utils.__all__,
+    *__main__.__all__,
+    *compiler.__all__
 ]
 
 import logging
+import click
 import colorama
 
 colorama.init(autoreset=True)
 logging.getLogger(__name__).addHandler(logging.NullHandler())
+
+WIN: bool = click.utils.WIN
