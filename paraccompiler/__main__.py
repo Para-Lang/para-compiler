@@ -1,5 +1,6 @@
 # coding=utf-8
 """ Main file of the Para-Compiler"""
+import functools
 import shutil
 import time
 import click
@@ -7,11 +8,10 @@ import colorama
 import logging
 import os
 from os import PathLike
-from sys import exit
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
-from . import __version__, __title__
+from . import __version__, __title__, AbortError
 from .compiler import CompilationProcess, FinishedProcess, ParacCompiler, DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
 from .logger import get_rich_console as console, init_rich_console, ansi_col
 from .utils import c_compiler_initialised, initialise, abortable, requires_init
@@ -24,7 +24,7 @@ __all__ = [
     'cli',
     'parac_compile',
     'ParacCLI',
-    'error_banner',
+    'abort_banner',
     'log_banner',
     'finish_banner'
 ]
@@ -35,7 +35,7 @@ pcompiler = ParacCompiler()
 log_banner_used = False
 
 
-@abortable(reraise=True, step="Setup")
+@abortable(step="Setup")
 def create_process(
         file: str,
         log_path: str,
@@ -62,7 +62,7 @@ def init_banner() -> None:
     console().rule(style="white rule.line")
 
 
-def error_banner(process: str) -> None:
+def abort_banner(process: str) -> None:
     """ Prints a simple colored Exception banner showing it crashed / was aborted """
     console().rule(f"\n[bold red]Aborted {process}[/bold red]\n", style="red rule.line")
 
@@ -152,6 +152,7 @@ def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
 
 
 @click.group(invoke_without_command=True)
+@click.option("--keep_open", is_flag=True)
 @click.option(
     '--version',
     is_flag=True,
@@ -160,21 +161,25 @@ def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
 @click.option(
     '--help',
     is_flag=True,
-    help='Prints this screen'
+    help='Show this message and exit.'
 )
 @click.pass_context
+@abortable
 def cli(*args, **kwargs):
     """ Console Line Interface for the Para-C Compiler """
     ParacCLI.cli(*args, **kwargs)
 
 
 @cli.command(name='init')
-def parac_init():
+@click.option("--keep_open", is_flag=True)
+@abortable
+def parac_init(*args, **kwargs):
     """ Console Line Interface for the Initialisation of the Para-C compiler and the configuration of the c-compiler """
-    ParacCLI.parac_init()
+    ParacCLI.parac_init(*args, **kwargs)
 
 
 @cli.command(name='compile')
+@click.option("--keep_open", is_flag=True)
 @click.option(
     '-f',
     '--file',
@@ -212,12 +217,14 @@ def parac_init():
     default=False,
     help='If set the compiler will add additional debug information'
 )
+@abortable
 def parac_compile(*args, **kwargs):
     """ Compile a Para-C program to C or executable """
     ParacCLI.parac_compile(*args, **kwargs)
 
 
 @cli.command(name='run')
+@click.option("--keep_open", is_flag=True)
 @click.option(
     '-f',
     '--file',
@@ -255,9 +262,37 @@ def parac_compile(*args, **kwargs):
     default=False,
     help='If set the compiler will add additional debug information'
 )
+@abortable
 def parac_run(*args, **kwargs):
     """ Compile a Para-C program and runs it """
     ParacCLI.parac_run(*args, **kwargs)
+
+
+def keep_open_callback(_func=None):
+    """ Keeps the console open after finishing until the user presses a key """
+
+    def _decorator(func):
+        @functools.wraps(func)
+        def _wrapper(*args, **kwargs):
+            # If keep_open is True -> the user passed --keep_open as an option
+            # then the console will stay open until a key is pressed
+            if kwargs.get('keep_open'):
+                i = kwargs.pop('keep_open')
+            else:
+                i = False
+
+            r = func(*args, **kwargs)
+
+            if i:
+                console().input("\nPress any key to exit.\n")
+            return r
+
+        return _wrapper
+
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)
 
 
 class ParacCLI:
@@ -265,6 +300,7 @@ class ParacCLI:
 
     @staticmethod
     @abortable
+    @keep_open_callback
     def cli(ctx: click.Context, version, *args, **kwargs):
         """ Main entry point of the cli. Either returns version or prints the init_banner of the Compiler """
         # If the console was not initialised yet
@@ -274,16 +310,21 @@ class ParacCLI:
         pcompiler.init_logging_session()  # Creating simple console logging without a file handler
         if version:
             click.echo(' '.join([__title__.title(), __version__]))
-            exit()
+            raise AbortError
         else:
             init_banner()
             click.echo('')
+
+            # Sleeping to prevent that subcommands sending to stderr
+            # causing the banner to be displayed at the end of the output
+            time.sleep(.100)
 
         if not ctx.invoked_subcommand:
             click.echo(ctx.get_help())
 
     @staticmethod
     @abortable
+    @keep_open_callback
     def parac_init():
         """ Initialises the Para-C compiler """
         logger.info(f"{'Reinitialising' if c_compiler_initialised() else 'Initialising'} Para-C Compiler")
@@ -292,6 +333,7 @@ class ParacCLI:
     @staticmethod
     @abortable
     @requires_init
+    @keep_open_callback
     def parac_compile(
             file: str,
             log: str,
@@ -310,6 +352,7 @@ class ParacCLI:
     @staticmethod
     @abortable
     @requires_init
+    @keep_open_callback
     def parac_run(
             file: str,
             log: str,

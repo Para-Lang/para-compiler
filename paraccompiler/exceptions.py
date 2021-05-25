@@ -109,3 +109,5 @@ class AbortError(ParacCompilerError, RuntimeError):
             level='critical',
             msg=f"Aborting setup {f'with error code {repr(self.code)}' if hasattr(self, 'code') else ''}"
         )
+
+

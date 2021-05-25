@@ -29,7 +29,7 @@ DisableProgramGroupPage=yes
 LicenseFile=LICENSE
 PrivilegesRequired=admin
 OutputBaseFilename=parac
-SetupIconFile=Para-C.ico
+SetupIconFile=parac.ico
 Compression=lzma
 UsePreviousAppDir=no
 SolidCompression=yes
@@ -43,7 +43,6 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked
 Name: "addtopath"; Description: "Add Para-C compiler to the Windows Path"; Flags: unchecked
 
 [Files]
-Source: "dist\parac\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
 Source: "dist\parac\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
@@ -54,15 +53,16 @@ Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\DefaultIcon"; ValueType: s
 Root: HKA; Subkey: "Software\Classes\{#MyAppAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 Root: HKA; Subkey: "Software\Classes\Applications\{#MyAppExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; \
-    ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}"; \
-    Check: NeedsAddPath('{app}'); Tasks: addtopath
+    ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\bin"; \
+    Check: NeedsAddPath('{app}\bin'); Tasks: addtopath
 
 [Icons]
 Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\bin\{#MyAppExeName}"; Parameters: "init --keep_open"; Description: "Initialise Para-C compiler with C-Compiler"; Flags: nowait postinstall shellexec skipifsilent
+Filename: "{app}\bin\{#MyAppExeName}"; Parameters: "--help --keep_open"; Description: "Show Para-C help interface"; Flags: nowait postinstall shellexec skipifsilent
 
 [Code]
 

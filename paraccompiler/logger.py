@@ -128,8 +128,8 @@ class ParacFormatter(logging.Formatter):
             '(%(asctime)s): %(message)s[/yellow]'
         ]),
         logging.INFO: ''.join([
-            '[blue bold][%(levelname)s][/blue bold]',
-            '[bold white] - [/bold white]',
+            '[blue bold][%(levelname)s]',
+            ' - [/blue bold]',
             '[blue](%(asctime)s): %(message)s[/blue]'
         ])
     }

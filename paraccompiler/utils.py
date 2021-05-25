@@ -6,6 +6,8 @@ import logging
 import sys
 import warnings
 import os
+from sys import exit
+
 from click.utils import WIN
 from os import PathLike
 from typing import Union, Type
@@ -84,7 +86,7 @@ def initialise() -> None:
     logger.info("Validated path and successfully created compile-config.json")
 
 
-def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
+def abortable(_func=None, *, step: str = "Process"):
     """
     Marks the function as abort-able and adds traceback logging to it.
     If re-raise is False it will exit the program
@@ -92,15 +94,13 @@ def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from .__main__ import error_banner, log_banner
+            from .__main__ import abort_banner, log_banner
             try:
                 return func(*args, **kwargs)
             except AbortError as e:
-                error_banner(step)
-                if reraise:
-                    raise e
-                else:
-                    exit()
+                abort_banner(step)
+                exit(1)
+
             except Exception as e:
                 from .__main__ import pcompiler
                 if not pcompiler.log_initialised:
@@ -112,12 +112,8 @@ def abortable(_func=None, *, reraise: bool = False, step: str = "Process"):
                     brief="Exception in the compilation setup",
                     exc_info=sys.exc_info()
                 )
-                error_banner(step)
 
-                if reraise:
-                    raise AbortError(e) from e
-                else:
-                    exit()
+                raise AbortError(e) from e
 
         return _wrapper
 

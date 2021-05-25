@@ -73,10 +73,10 @@ jobs:
       run: |
         cd ./pytest/ ; coverage html ; cd ..
         mv ./pytest/htmlcov/ /tmp/htmlcov/
-        mv ./Para-C.ico /tmp/Para-C.ico
+        mv ./parac.ico /tmp/parac.ico
         rm -rf *
         mv /tmp/htmlcov/* .
-        mv /tmp/Para-C.ico favicon.ico
+        mv /tmp/parac.ico favicon.ico
     - name: Sleep for 15 seconds
       uses: kibertoad/wait-action@master
       with:

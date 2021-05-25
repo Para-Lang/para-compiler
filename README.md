@@ -19,7 +19,7 @@ Furthermore, formatting and non-fetal syntax warnings will also be reported, as 
 ## Development
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
-![Coverage](./coverage.svg)
+![Coverage](https://raw.githubusercontent.com/Luna-Klatzer/Para-C/main/coverage.svg)
 
 ### Building
 
