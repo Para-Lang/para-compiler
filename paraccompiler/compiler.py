@@ -6,7 +6,6 @@ from os import PathLike
 from typing import Union
 
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
-from .logger import output_console
 from .utils import decode_if_bytes, cleanup_path
 from .exceptions import EntryFilePermissionError, EntryFileNotFoundError, EntryFileAccessError
 
@@ -60,7 +59,7 @@ class ParacCompiler:
         if cls.file_handler:
             cls.logger.removeHandler(cls.file_handler)
 
-        cls.stream_handler = ParacStreamHandler(console=output_console)
+        cls.stream_handler = ParacStreamHandler()
         cls.stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
         cls.logger.addHandler(cls.stream_handler)
 

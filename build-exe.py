@@ -13,6 +13,5 @@ PyInstaller.__main__.run([
     'DEBUG',
     '--name',
     'parac',
-    '--onefile',
     f'--icon={icon_path}'
 ])

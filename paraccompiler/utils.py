@@ -12,7 +12,7 @@ from typing import Union, Type
 from functools import wraps
 
 from .exceptions import CCompilerError, AbortError
-from .logger import output_console as console, log_traceback
+from .logger import get_rich_console as console, log_traceback
 
 __all__ = [
     'INIT_OVERWRITE',
@@ -60,10 +60,10 @@ def c_compiler_initialised() -> bool:
 
 def initialise() -> None:
     """ Initialises the Para-C compiler and creates the config file. Will prompt the user to enter the compiler path """
-    _input = console.input(
+    _input = console().input(
         " [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
     )
-    console.print('')
+    console().print('')
     path = cleanup_path(decode_if_bytes(_input))
 
     # exists
@@ -134,7 +134,7 @@ def requires_init(_func=None):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
             if not c_compiler_initialised() and not INIT_OVERWRITE:
-                console.print('')
+                console().print('')
                 logger.warning(
                     "C-Compiler path is not initialised! If you do not have a working compiler installed, "
                     "please refer to an installation page for your operation system (MinGW, cygwin)"

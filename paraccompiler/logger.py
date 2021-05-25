@@ -66,9 +66,13 @@ def get_rich_console() -> Union[Console, None]:
 
 class ParacStreamHandler(StreamHandler):
     """ Specific Stream Handler for Para-C designed to implement rich """
-    def __init__(self, console: Console, *args, **kwargs):
-        self.console: Console = console
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    @property
+    def console(self) -> Union[Console, None]:
+        """ Fetches the Console if it is initialised """
+        return get_rich_console()
 
     def emit(self, record):
         """
