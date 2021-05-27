@@ -32,9 +32,8 @@ const char* ph_ccompiler_path_ = "";
  */
 
 /* EntryPoint definition. Only here to not break the system since the macros do not exist yet in the PCL */
-#define ExitStatus ph_ExitStatus
-#define EntryPoint ph_EntryPoint
 
+/* Exit Status structure storing the basic values for a closing return aka. entry-point function return */
 typedef struct {
     bool is_exception;
     const char* exception;
@@ -42,17 +41,14 @@ typedef struct {
     int status_code;
 } ph_ExitStatus;
 
+/* Type defining the EntryPoint of a Program */
 typedef union {
-    ExitStatus exit_r;
+    ph_ExitStatus exit_r;
 } ph_EntryPoint;
 
 /*
  * Return Types - Compiler-Generated
  */
-
-/* This Time actual Compiler-generated macros for type definitions */
-#define UndefBaseReturn ph_UndefBaseReturn
-#define ReturnTypeInt   ph_ReturnTypeInt
 
 /* Undefined Base Return which serves as the base for all ReturnTypes */
 typedef struct {
@@ -64,7 +60,7 @@ typedef struct {
 
 /* Para-C Return of Type int. Compiler-Generated */
 typedef struct {
-    UndefBaseReturn base;
+    ph_UndefBaseReturn base;
     int actual_value;
 } ph_ReturnTypeInt;
 
