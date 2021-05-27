@@ -3,8 +3,14 @@ project(implementation-examples-exceptions C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(.)
+include_directories(SYSTEM .)
+
+set(
+    SOURCE_FILES
+        exception.c
+        __parac__.h
+)
 
 add_executable(
-        implementation-examples-exceptions exception.c
+        implementation-examples-exceptions ${SOURCE_FILES}
 )
