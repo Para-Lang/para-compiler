@@ -7,7 +7,8 @@ from typing import Union
 
 from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
 from .utils import decode_if_bytes, cleanup_path
-from .exceptions import EntryFilePermissionError, EntryFileNotFoundError, EntryFileAccessError
+from .exceptions import (EntryFilePermissionError, EntryFileNotFoundError,
+                         EntryFileAccessError)
 
 __all__ = [
     'DEFAULT_LOG_PATH',
@@ -24,16 +25,23 @@ DEFAULT_DIST_PATH: str = "./dist"
 
 
 def _validate_path_like(path_like: Union[PathLike, str]) -> None:
-    """ Checking whether path exists and the user has permission to access it. Raises Exception on failure else returns
+    """
+    Checking whether path exists and the user has permission to access it.
+    Raises Exception on failure else returns
 
     :raises EntryFileNotFoundError: If the file can't be found
     :raises EntryFilePermissionError: If the file can't be read from
     """
     if not os.access(path_like, os.R_OK):  # Can be read
         if not os.access(path_like, os.F_OK):  # Exists
-            raise EntryFileNotFoundError(f"Failed to read entry-point '{path_like}'. File does not exist!")
+            raise EntryFileNotFoundError(
+                f"Failed to read entry-point '{path_like}'."
+                f" File does not exist!"
+            )
         else:
-            raise EntryFilePermissionError(f"Missing file reading permissions for ''{path_like}'")
+            raise EntryFilePermissionError(
+                f"Missing file reading permissions for ''{path_like}'"
+            )
 
 
 class ParacCompiler:
@@ -48,8 +56,15 @@ class ParacCompiler:
         return getattr(self, 'logger') is not None
 
     @classmethod
-    def init_logging_session(cls, log_path: Union[str, PathLike] = None, level: int = logging.INFO):
-        """ Initialising the logging module for the Compiler and adds the formatting defaults """
+    def init_logging_session(
+            cls,
+            log_path: Union[str, PathLike] = None,
+            level: int = logging.INFO
+    ):
+        """
+        Initialising the logging module for the Compiler
+        and adds the formatting defaults
+        """
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
 
@@ -67,7 +82,9 @@ class ParacCompiler:
             try:
                 cls.file_handler = ParacFileHandler(filename=f'./{log_path}')
             except PermissionError:
-                raise EntryFilePermissionError("Failed to access the specified log file-path")
+                raise EntryFilePermissionError(
+                    "Failed to access the specified log file-path"
+                )
             cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
             cls.logger.addHandler(cls.file_handler)
 
@@ -108,15 +125,17 @@ class CompilationProcess:
             dist_path: Union[str, bytes, PathLike]
     ):
         """
-        Validates the provided setup parameter for the compilation process. In case of an error an
-        exception will be raised and the process cancelled.
+        Validates the provided setup parameter for the compilation process.
+        In case of an error an exception will be raised and the process
+        cancelled.
 
-        :param entry_file: The entry-file of the program. The compiler will use the working directory as base dir if
-                           the path is relative
+        :param entry_file: The entry-file of the program. The compiler will use
+                           the working directory as base dir if the path is
+                            relative
         :param build_path: The path to the output folder
         :param dist_path: The path to the dist folder
-        :returns: The file name, the output build path, the output dist path and the arguments passed for the
-                  compilation
+        :returns: The file name, the output build path, the output dist path
+                  and the arguments passed for the compilation
         """
         entry_file: Union[str, PathLike] = decode_if_bytes(entry_file)
         build_path: Union[str, PathLike] = decode_if_bytes(build_path)
@@ -125,19 +144,27 @@ class CompilationProcess:
         path = cleanup_path(entry_file)
 
         _last_path_elem = path.replace("/", "\\").split("\\")[-1]
-        # for the sake of checking all paths used are converted into the windows path-style, but only while checking
+        # for the sake of checking all paths used are converted into
+        # the windows path-style, but only while checking
         if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
-            ParacCompiler.logger.warning("The given file does not seem to be a file!")
-        elif not _last_path_elem.endswith('.para') and not _last_path_elem.endswith('.ph'):
-            ParacCompiler.logger.warning("The given file ending does not follow the Para-C conventions (.para, .ph)!")
+            ParacCompiler.logger.warning(
+                "The given file does not seem to be a file!"
+            )
+        elif (not _last_path_elem.endswith('.para')
+              and not _last_path_elem.endswith('.ph')):
+            ParacCompiler.logger.warning(
+                "The given file ending does not follow "
+                "the Para-C conventions (.para, .ph)!"
+            )
 
         try:
             _validate_path_like(path)
         except EntryFileAccessError as e:
             # If the validation failed the path might be a relative path
             # that does not have a . signalising its going out from the
-            # current path meaning the work-directory path needs to be appended.
-            # If that also fails it is an invalid path or permissions are missing
+            # current path meaning the work-directory path needs to be
+            # appended. If that also fails it is an invalid path or permissions
+            # are missing
             absolute_path = cleanup_path(f"{os.getcwd()}\\{path}")
             failed = False
             try:

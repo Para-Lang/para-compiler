@@ -136,12 +136,21 @@ class ParacFormatter(logging.Formatter):
 
     default = '[%(levelname)s] - (%(asctime)s): %(message)s'
 
-    def __init__(self, file_mng: bool = False, fmt: Optional[str] = default, *args, **kwargs):
+    def __init__(
+            self,
+            file_mng: bool = False,
+            fmt: Optional[str] = default,
+            *args,
+            **kwargs
+    ):
         self.file_mng = file_mng
         super().__init__(fmt=fmt, *args, **kwargs)
 
     def format(self, record):
-        """ Class specific formatter function to add colouring and Para-C specific formatting """
+        """
+        Class specific formatter function to add colouring
+        and Para-C specific formatting
+        """
         format_orig = getattr(self._style, '_fmt')
 
         # If the output goes into a file it will not use any formatting
@@ -174,7 +183,9 @@ def log_traceback(
 
     log_level: Callable = getattr(logger, level, None)
     if log_level is None and not callable(log_level):
-        raise ValueError("The passed level does not exist in the logging module!")
+        raise ValueError(
+            "The passed level does not exist in the logging module!"
+        )
 
     tb_str = "".join(frame for frame in tb)
     brief = brief if brief is not None else ""
@@ -198,7 +209,10 @@ def log_msg(level: str, msg: str, *args, **kwargs) -> None:
 
 
 class TerminalANSIColor:
-    """ Cross-Platform Terminal Colors used for Click since rich can not interact with Click """
+    """
+    Cross-Platform Terminal Colors used for Click since rich can not
+    interact with Click
+    """
     base = "\033["
     default = f"{base}0m"
     reset = f"{base}0m"
@@ -239,12 +253,14 @@ class TerminalANSIColor:
     @classmethod
     def make_bold(cls, value: str) -> str:
         """ Adds to the ANSI formatting the bold prefix """
-        return f"{cls.bold.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
+        return f"{cls.bold.replace('m', '')};"\
+               f"{value.strip().replace(cls.base, '').replace('m', '')}m"
 
     @classmethod
     def make_italic(cls, value: str) -> str:
         """ Adds to the ANSI formatting the italic prefix """
-        return f"{cls.italic.replace('m', '')};{value.strip().replace(cls.base, '').replace('m', '')}m"
+        return f"{cls.italic.replace('m', '')};"\
+               f"{value.strip().replace(cls.base, '').replace('m', '')}m"
 
 
 ansi_col = TerminalANSIColor()

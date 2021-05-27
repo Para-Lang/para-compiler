@@ -97,17 +97,28 @@ class IsDirectoryError(EntryFileAccessError):
 
 
 class AbortError(ParacCompilerError, RuntimeError):
-    """ Exception used to signalise the compiler should abort its process and stop """
+    """
+    Exception used to signalise the compiler should abort its process
+    and stop
+    """
     error_msg = "Aborting the compilation process"
 
-    def __init__(self, exception: BaseException, code: int = ErrorCodes.INTERRUPT, *args, **kwargs):
+    def __init__(
+            self,
+            exception: BaseException,
+            code: int = ErrorCodes.INTERRUPT,
+            *args,
+            **kwargs
+    ):
         if hasattr(exception, 'code'):
             code = exception.code
 
         super().__init__(code=code, *args)
+
         log_msg(
             level='critical',
-            msg=f"Aborting setup {f'with error code {repr(self.code)}' if hasattr(self, 'code') else ''}"
+            msg=f"Aborting setup with error code "
+                f' {repr(self.code)}' if hasattr(self, 'code') else ''
         )
 
 
