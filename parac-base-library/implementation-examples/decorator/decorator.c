@@ -122,6 +122,7 @@ int main()
      * Decorating the main_func function
      */
     DecorateFunc_WrapContext p = { .wrapped_func = main_func };
+
     DecorateFunc_WrapContext deco_ctx = DecorateFunc(p);
     deco_ctx.wrapper_func(deco_ctx, 5);  // Calls the function as if it was a normal one
 
@@ -131,14 +132,14 @@ int main()
      * the compiler will automatically log a recursion error!
      */
     // INVALID
-    // DecorateFunc_Wrapped deco_func2 = DecorateFunc(DecorateFunc);
-    // deco_func2.wrapper(deco_func2._func, 7);
+    // DecorateFunc_WrapContext deco_ctx2 = DecorateFunc(DecorateFunc);
+    // deco_ctx2.wrapper_func(deco_ctx2, 7);
 
-    // DecorateFunc_Wrapped deco_func3 = DecorateFunc(deco_func1.wrapper);
-    // deco_func2.wrapper(deco_func3._func, 10);
+    // DecorateFunc_WrapContext deco_ctx3 = DecorateFunc(deco_ctx1.wrapper_func);
+    // deco_ctx2.wrapper_func(deco_ctx3, 10);
 
-    // DecorateFunc2_DecoRetType deco_func4 = DecorateFunc2(main_func);
-    // deco_func4.wrapper(deco_func4._func, 10);
+    DecorateFunc_WrapContext deco_ctx4 = DecorateFunc(p);
+    deco_ctx4.wrapper_func(deco_ctx4, 10);
 
     return 0;
 }
