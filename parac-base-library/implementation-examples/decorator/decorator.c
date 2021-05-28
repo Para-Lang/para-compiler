@@ -25,8 +25,10 @@ ph_ReturnTypeInt main_func(int x)
     return r;
 }
 
+
 /* -- Start of declaration : Decorator DecorateFunc -- */
 
+// --> Compiler generated -->
 typedef struct DecorateFunc_WrapContext DecorateFunc_WrapContext;
 
 /// Signature of the wrapper - Returns int and contains as parameters a int return function and an int
@@ -41,6 +43,7 @@ typedef struct DecorateFunc_WrapContext {
     DecorateFunc_Wrapper_Type wrapper_func;
     struct DecorateFunc_WrapContext *child_ctx;
 } DecorateFunc_WrapContext;
+// <-- Compiler generated <--
 
 /// Defined wrapper for the function
 /// @param call_ctx Call Context for the wrapper
