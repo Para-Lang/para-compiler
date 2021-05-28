@@ -126,9 +126,9 @@ int main()
     deco_ctx.wrapper_func(deco_ctx, 5);  // Calls the function as if it was a normal one
 
     /*
-     * If the user attempted to call the decorator again it would result
-     * in an error due to it calling itself to wrap itself. This is why
-     * the compiler will automatically logs a recursion error in the function!
+     * If the user attempts to call the decorator again it will result
+     * in an error due to the wrapper calling itself to wrap itself. This is why
+     * the compiler will automatically log a recursion error!
      */
     // INVALID
     // DecorateFunc_Wrapped deco_func2 = DecorateFunc(DecorateFunc);
@@ -139,29 +139,6 @@ int main()
 
     // DecorateFunc2_DecoRetType deco_func4 = DecorateFunc2(main_func);
     // deco_func4.wrapper(deco_func4._func, 10);
-
-    /*
-     * Currently it is also planned to have decorators wrap decorators, but a major issue arising with that is the
-     * management of function return.
-     *
-     * Example:
-     *  A decorator wraps a function and gets wrapped by another function, meaning when it is called the first parameter
-     *  is going to be the decorated function (wrapper function) instead of the function pointer for the decorator itself
-     *  meaning it will then not be able to call the function since also with other parameters these will be passed
-     *  into a function expecting a function pointer resulting in a recursion and segmentation error.
-     *
-     * Possible solution:
-     *  A possible solution to that issue is to pass all functions in the parameters and check their types. Possibly
-     *  with a Para-C Core Library Type Struct unionising these types and using another type signalising the type making
-     *  it possible to compare the types and then pass everything accordingly. This could be complex though, since
-     *  it would mean a lot of checking and type comparisons would need to be done. A user attempting to work with that
-     *  will likely not want to remember all types since it would restrict modularity. Therefore a possible function
-     *  type should be used where a new struct is created storing the function. This would still need the passing of the
-     *  parameter but it would work inside a structure where currently the only function important is the one to call
-     *  next.
-     *
-     * Note: Currently being worked on
-     */
 
     return 0;
 }
