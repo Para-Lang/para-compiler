@@ -41,15 +41,13 @@ process. The compiler is shipped as a one-file executable file and can be run
 
 #### Build for specified OS
 
-This specified script will automatically build the project and create a dist and build folder containing all the 
-required data as well as the .exe file, which will be the compiler itself. The build folder will contain the raw data
-and should not be used. The dist folder will contain the distribution-ready file
+This specified script will automatically build the project and create a dist and build folder containing all the binaries 
+as well as the executable file. The build folder will contain the raw data and logs, meaning it
+is not intended for distribution. The dist folder will contain the distribution-ready data
 
 ```bash
 python ./build-exe.py
 ```
-
-After that, the installer can be created with the passed .exe for the compiler
 
 #### Build inno-setup installer for Windows 
 
@@ -60,5 +58,22 @@ Build inside this folder and use the inno-setup.iss file. The generated installe
 ### Installation
  
 To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
-(Only building the compiler will not be enough for Windows systems, since the configuration of the installer needs
-to be run so that the path is correctly modified)
+
+##### For Windows
+
+For Windows the configured inno-setup installer should be used. The installer
+will automatically do the installation based on your input.
+
+##### For unix-based systems
+
+Initialise the compiler using:
+
+```bash
+parac init
+```
+And add the compiler to the PATH:
+
+1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
+2. Add export PATH="your-dir:$PATH" to the last line of the file, where your-dir is the directory you want to add.
+3. Save the .bashrc file.
+4. Restart your terminal.
