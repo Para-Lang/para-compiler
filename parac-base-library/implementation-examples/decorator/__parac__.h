@@ -35,7 +35,7 @@ const char* ph_ccompiler_path_ = "";
 /* EntryPoint definition. Only here to not break the system since the macros do not exist yet in the PCL */
 
 /* Exit Status structure storing the basic values for a closing return aka. entry-point function return */
-typedef struct {
+typedef struct ph_ExitStatus {
     bool is_exception;
     const char* exception;
     const char* traceback;
@@ -43,7 +43,7 @@ typedef struct {
 } ph_ExitStatus;
 
 /* Type defining the EntryPoint of a Program */
-typedef union {
+typedef union ph_EntryPoint{
     ph_ExitStatus exit_r;
 } ph_EntryPoint;
 
@@ -52,7 +52,7 @@ typedef union {
  */
 
 /* Undefined Base Return which serves as the base for all ReturnTypes */
-typedef struct {
+typedef struct ph_UndefBaseReturn {
     bool is_exception;
     const char* exception;
     const char* traceback;
@@ -60,12 +60,13 @@ typedef struct {
 } ph_UndefBaseReturn;
 
 /* Para-C Return of Type int. Compiler-Generated */
-typedef struct {
+typedef struct ph_ReturnTypeInt {
     ph_UndefBaseReturn base;
     int actual_value;
 } ph_ReturnTypeInt;
 
 /* Decorator Return Types - Compiler-Generated */
+
 typedef ph_ReturnTypeInt (*ph_DecoType_Int_Int)(int);
 
 #if __cplusplus
