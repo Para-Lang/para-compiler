@@ -53,18 +53,18 @@ python ./build-exe.py
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
-Build inside this folder and use the inno-setup.iss file. The generated installer will be placed inside /Output
+Build inside this folder and use the inno-setup.iss file. The generated installer will be placed inside `./Output`
 
 ### Installation
  
 To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
 
-##### For Windows
+#### For Windows
 
 For Windows the configured inno-setup installer should be used. The installer
 will automatically do the installation based on your input.
 
-##### For unix-based systems
+#### For unix-based systems
 
 Initialise the compiler using:
 
