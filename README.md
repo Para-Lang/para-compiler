@@ -59,6 +59,8 @@ Build inside this folder and use the inno-setup.iss file. The generated installe
  
 To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
 
+### Setup
+
 #### For Windows
 
 For Windows the configured inno-setup installer should be used. The installer
