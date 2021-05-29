@@ -3,8 +3,14 @@ project(parac-base-library C)
 
 set(CMAKE_C_STANDARD 11)
 
-include_directories(./src)
+include_directories(SYSTEM ./src)
+
+set(
+    SOURCE_FILES
+        ./src/parac.c
+        ./src/parac.h
+)
 
 add_executable(
-    parac-base-library src/parac.h src/parac.c
+        parac-base-library ${SOURCE_FILES}
 )
