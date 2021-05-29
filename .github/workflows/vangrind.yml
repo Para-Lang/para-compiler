@@ -1,6 +1,4 @@
-# This is a basic workflow that is manually triggered
-
-name: Vanguard C check
+name: Valgrind C check
 on:
   push:
     branches-ignore:
@@ -11,3 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    steps:
+      - name: Setup Valgrind
+        run: |
+        sudo apt install -y valgrind
