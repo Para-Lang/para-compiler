@@ -108,6 +108,7 @@ jobs:
       - name: Deletes previous coverage-branch if it exists
         run: |
           git fetch origin
+          git pull origin ${{ env.BRANCH_NAME }}
           echo ${{ steps.branch_existance.outputs.branch_hash }}
           if ${{ steps.branch_existance.outputs.branch_hash != '' }}; then
             git fetch origin
