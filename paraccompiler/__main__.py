@@ -58,7 +58,7 @@ def init_banner() -> None:
     console().rule(style="white rule.line")
     console().print(
         f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]"
-        "{__version__}[/bold cyan]",
+        f"{__version__}[/bold cyan]",
         justify="center"
     )
     console().rule(style="white rule.line")

@@ -70,12 +70,15 @@ def initialise() -> None:
 
     # exists
     if not os.access(_input, os.X_OK):
-        raise CCompilerError(f"The passed path '{path}' for the executable does not exist")
+        raise CCompilerError(
+            f"The passed path '{path}' for the executable does not exist"
+        )
 
     # executable
     if not os.access(_input, os.X_OK):
         raise CCompilerError(
-            f"The passed path '{path}' for the executable can't be executed. Possibly missing Permissions?"
+            f"The passed path '{path}' for the executable can't be executed."
+            " Possibly missing Permissions?"
         )
 
     config = DEFAULT_CONFIG
