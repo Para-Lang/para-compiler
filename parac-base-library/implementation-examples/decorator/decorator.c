@@ -81,7 +81,7 @@ ph_ReturnTypeInt DecorateFunc_Wrapper(DecorateFunc_WrapContext *call_ctx, int x)
     else
     {
         // Passing the context down one level to the other function
-        call_r = (*call_ctx->child_ctx).wrapper_func(call_ctx->child_ctx, x);
+        call_r = call_ctx->child_ctx->wrapper_func(call_ctx->child_ctx, x);
     }
 
     int local_r = call_r.actual_value;
