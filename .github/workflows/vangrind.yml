@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Setup Valgrind
         run: |
-        sudo apt install -y valgrind
+          sudo apt install -y valgrind
