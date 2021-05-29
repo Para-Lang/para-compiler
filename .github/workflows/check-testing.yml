@@ -1,0 +1,15 @@
+name: Check C testing
+on:
+  push:
+    branches-ignore:
+      - '**-coverage-report'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Check
+        run: |
+        sudo apt-get install check
