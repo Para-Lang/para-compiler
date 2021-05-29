@@ -36,15 +36,6 @@ ph_ExitStatus HandleUncatchedException(const char* exception, const char* traceb
     return r;
 }
 
-/// Converts the exit status to an Entry Type Return
-ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s)
-{
-    ph_EntryPoint r = {
-      .exit_r = s
-  };
-  return r;
-}
-
 /// Handles a direct exception return which does not contain any try-except statements
 ph_EntryPoint HandleExceptionReturn(ph_UndefBaseReturn r)
 {

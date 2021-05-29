@@ -17,11 +17,11 @@ extern "C" {
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// User Project Configuration
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-const char* ph_name_ = "exceptions_example";
-const char* ph_description_ = "Example for showing how the exceptions 'should' work";
-const char* ph_author_ = "Luna Klatzer";
-const char* ph_version_ = "0.1";
-const char* ph_license_ = "GPL-3.0";
+const char* ph_name;
+const char* ph_description;
+const char* ph_author;
+const char* ph_version;
+const char* ph_license;
 
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// Compiler Configuration
@@ -29,8 +29,8 @@ const char* ph_license_ = "GPL-3.0";
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 #define __PARAC_VERSION__ "Compiler-Inserted"
 
-const char* ph_pcompiler_path_ = "";
-const char* ph_ccompiler_path_ = "";
+const char* ph_para_compiler_path;
+const char* ph_c_compiler_path;
 
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// Types definition - Compiler-Generated
@@ -72,7 +72,7 @@ typedef struct {
 /// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 /// Converts the the exit-status to an entry-return type
-ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s) { return (ph_EntryPoint) { .exit_r = s }; }
+ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s);
 
 #if __cplusplus
 }

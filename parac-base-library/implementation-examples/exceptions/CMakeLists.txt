@@ -9,6 +9,7 @@ set(
     SOURCE_FILES
         exception.c
         __parac__.h
+        __parac__.c
 )
 
 add_executable(
