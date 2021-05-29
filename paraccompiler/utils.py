@@ -49,7 +49,7 @@ def c_compiler_initialised() -> bool:
     global COMPILER_DIR
     COMPILER_DIR = cleanup_path(COMPILER_DIR)
     global CONFIG_PATH
-    CONFIG_PATH = f"{COMPILER_DIR}{SEPARATOR}compile-config.json"
+    CONFIG_PATH = f"{COMPILER_DIR}{SEPARATOR}compile-config-examples.json"
 
     if os.access(CONFIG_PATH, os.R_OK):
         with open(CONFIG_PATH, "r") as file:
@@ -61,7 +61,7 @@ def c_compiler_initialised() -> bool:
 
 
 def initialise() -> None:
-    """ Initialises the Para-C compiler and creates the config file. Will prompt the user to enter the compiler path """
+    """ Initialises the Para-C compiler and creates the config-examples file. Will prompt the user to enter the compiler path """
     _input = console().input(
         " [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
     )
@@ -86,7 +86,7 @@ def initialise() -> None:
     with open(CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))
 
-    logger.info("Validated path and successfully created compile-config.json")
+    logger.info("Validated path and successfully created compile-config-examples.json")
 
 
 def abortable(_func=None, *, step: str = "Process"):
