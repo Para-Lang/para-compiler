@@ -7,7 +7,10 @@ include_directories(SYSTEM .)
 
 set(
     SOURCE_FILES
+        main.c
         decorator.c
+        decorator.h
+        __parac__.c
         __parac__.h
 )
 

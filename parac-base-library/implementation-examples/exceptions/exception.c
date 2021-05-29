@@ -4,15 +4,10 @@
  * Entry Function -> Trigger Regular Function -> Trigger Exception Function -> Convert and return correct exit status
  */
 
-/* Para-C imports */
 #include "__parac__.h"
-
-/* C Imports */
 #include <stdio.h>
 
-/*
- * A generic function serving the purpose of just returning 4
- */
+/// A generic function serving the purpose of just returning
 ph_ReturnTypeInt GenericFunction(bool error)
 {
     int local_x = 4;  // local_ prefix is for the local scope
@@ -25,7 +20,7 @@ ph_ReturnTypeInt GenericFunction(bool error)
     return r;
 }
 
-/* Example Handler which will be used in the PCL (Para-C Core Library) */
+/// Example Handler which will be used in the PCL (Para-C Core Library)
 ph_ExitStatus HandleUncatchedException(const char* exception, const char* traceback)
 {
     // do traceback stuff
@@ -41,7 +36,7 @@ ph_ExitStatus HandleUncatchedException(const char* exception, const char* traceb
     return r;
 }
 
-/* Converts the exit status to an Entry Type Return */
+/// Converts the exit status to an Entry Type Return
 ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s)
 {
     ph_EntryPoint r = {
@@ -50,7 +45,7 @@ ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s)
   return r;
 }
 
-/* Handles a direct exception return which does not contain any try-except statements */
+/// Handles a direct exception return which does not contain any try-except statements
 ph_EntryPoint HandleExceptionReturn(ph_UndefBaseReturn r)
 {
     ph_ExitStatus status = HandleUncatchedException(r.exception, r.traceback);
@@ -58,7 +53,7 @@ ph_EntryPoint HandleExceptionReturn(ph_UndefBaseReturn r)
 }
 
 
-/* User defined main with mangling */
+/// User defined main with mangling
 ph_EntryPoint Entry_Main()
 {
     ph_ReturnTypeInt r_int;
@@ -79,11 +74,9 @@ ph_EntryPoint Entry_Main()
     return ExitStatusToEntryReturn(exit_r);
 }
 
-/*
- * Actual main method that will be the entry-point of the program.
- * Will be defined in the PCL (Para-C Core Library) with proper implementation and functionality.
- * This only serves as an example for how the exception system might work
- */
+/// Actual main method that will be the entry-point of the program.
+/// Will be defined in the PCL (Para-C Core Library) with proper implementation and functionality.
+/// This only serves as an example for how the exception system might work
 int main()
 {
     ph_EntryPoint r = Entry_Main();
