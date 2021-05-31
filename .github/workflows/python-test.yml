@@ -97,6 +97,7 @@ jobs:
       ACTIONS_ALLOW_UNSECURE_COMMANDS: true # Required for fetching the branch name
 
     steps:
+      - uses: actions/checkout@v2
       - uses: nelonoel/branch-name@v1
       - name: Check for Branch existance
         id: branch_existance
