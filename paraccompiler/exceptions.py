@@ -1,6 +1,6 @@
 # coding=utf-8
 """ Exceptions in the Para-C Compiler """
-from typing import NewType
+from typing import NewType, Optional
 from enum import IntEnum
 from . import log_msg
 
@@ -105,13 +105,13 @@ class AbortError(ParacCompilerError, RuntimeError):
 
     def __init__(
             self,
-            exception: BaseException,
-            code: int = ErrorCodes.INTERRUPT,
             *args,
-            **kwargs
+            code: int = ErrorCodes.INTERRUPT,
+            exception: Optional[BaseException] = None
     ):
-        if hasattr(exception, 'code'):
-            code = exception.code
+        if exception:
+            if hasattr(exception, 'code'):
+                code = exception.code
 
         super().__init__(code=code, *args)
 

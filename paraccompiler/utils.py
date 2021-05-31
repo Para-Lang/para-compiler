@@ -89,7 +89,7 @@ def initialise() -> None:
     logger.info("Validated path and successfully created compile-config-examples.json")
 
 
-def abortable(_func=None, *, step: str = "Process"):
+def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
     """
     Marks the function as abort-able and adds traceback logging to it.
     If re-raise is False it will exit the program
@@ -100,8 +100,9 @@ def abortable(_func=None, *, step: str = "Process"):
             from .__main__ import abort_banner, log_banner
             try:
                 return func(*args, **kwargs)
-            except AbortError as e:
-                abort_banner(step)
+            except AbortError:
+                if print_abort:
+                    abort_banner(step)
                 exit(1)
 
             except Exception as e:
@@ -116,7 +117,7 @@ def abortable(_func=None, *, step: str = "Process"):
                     exc_info=sys.exc_info()
                 )
 
-                raise AbortError(e) from e
+                raise AbortError(exception=e) from e
 
         return _wrapper
 

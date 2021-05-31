@@ -360,8 +360,7 @@ class ParacCLI:
         # Creating simple console logging without a file handler
         pcompiler.init_logging_session()
         if version:
-            click.echo(' '.join([__title__.title(), __version__]))
-            raise AbortError
+            return click.echo(' '.join([__title__.title(), __version__]))
         else:
             init_banner()
             click.echo('')
