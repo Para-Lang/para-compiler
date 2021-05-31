@@ -98,9 +98,6 @@ jobs:
 
     steps:
       - uses: nelonoel/branch-name@v1
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ env.BRANCH_NAME }}
       - name: Check for Branch existance
         id: branch_existance
         run: |
@@ -108,7 +105,7 @@ jobs:
       - name: Deletes previous coverage-branch if it exists
         run: |
           git fetch origin
-          git pull origin ${{ env.BRANCH_NAME }}
+          git pull origin/${{ env.BRANCH_NAME }} ${{ env.BRANCH_NAME }}
           echo ${{ steps.branch_existance.outputs.branch_hash }}
           if ${{ steps.branch_existance.outputs.branch_hash != '' }}; then
             git fetch origin
@@ -157,6 +154,7 @@ jobs:
           rm -rf *
           mv /tmp/htmlcov/* .
           mv /tmp/parac.ico favicon.ico
+          git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }}-coverage-report ${{ env.BRANCH_NAME }}-coverage-report
       - name: Sleep for 15 seconds
         uses: kibertoad/wait-action@master
         with:
