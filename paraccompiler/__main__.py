@@ -1,6 +1,5 @@
 # coding=utf-8
 """ Main file of the Para-Compiler"""
-import functools
 import shutil
 import time
 import click
@@ -11,29 +10,27 @@ from os import PathLike
 from rich.progress import Progress
 from typing import Tuple, Union, Literal
 
-from . import __version__, __title__, AbortError
+from . import __version__, __title__
 from .compiler import (CompilationProcess, FinishedProcess, ParacCompiler,
                        DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH)
-from .logger import get_rich_console as console, init_rich_console, ansi_col
-from .utils import c_compiler_initialised, initialise, abortable, requires_init
+from .logger import get_rich_console as console, init_rich_console, \
+    finish_banner, create_prompt, init_banner
+from .utils import c_compiler_initialised, initialise, abortable, \
+    requires_init, keep_open_callback
 
 __all__ = [
-    'pcompiler',
+    'para_compiler',
     'create_process',
     'run_output_dir_validation',
     'run_process_with_logging',
     'cli',
     'parac_compile',
-    'ParacCLI',
-    'abort_banner',
-    'log_banner',
-    'finish_banner'
+    'ParacCLI'
 ]
 
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
-pcompiler = ParacCompiler()
-log_banner_used = False
+para_compiler = ParacCompiler()
 
 
 @abortable(step="Setup")
@@ -45,67 +42,9 @@ def create_process(
         level: Union[Literal[50, 40, 30, 20, 10], int]
 ) -> CompilationProcess:
     """ Creates a compilation process and returns it """
-    pcompiler.init_logging_session(log_path, level)
-    log_banner()
+    para_compiler.init_logging_session(log_path, level)
     p = CompilationProcess.create_from_args(file, build_path, dist_path)
     return p
-
-
-def init_banner() -> None:
-    """ Creates the init screen string that can be printed """
-    base_str = f"Para-C Compiler{' ' * 5}"
-
-    console().rule(style="white rule.line")
-    console().print(
-        f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]"
-        f"{__version__}[/bold cyan]",
-        justify="center"
-    )
-    console().rule(style="white rule.line")
-
-
-def abort_banner(process: str) -> None:
-    """
-    Prints a simple colored Exception banner showing it crashed / was aborted
-    """
-    console().rule(
-        f"\n[bold red]Aborted {process}[/bold red]\n",
-        style="red rule.line"
-    )
-
-
-def finish_banner() -> None:
-    """
-    Prints a simple colored banner screen showing it succeeded and finished
-    """
-    console().rule(
-        "\n[bold green]Finished Compilation[/bold green]\n",
-        style="green rule.line"
-    )
-
-
-def log_banner() -> None:
-    """
-    Prints a simple colored banner screen showing the logs are active and
-    the process started
-    """
-    # Avoiding the log_banner is displayed twice
-    global log_banner_used
-    if log_banner_used:
-        return
-    console().rule(
-        "\n[bold cyan]Compiler Logs[white]\n",
-        style="white rule.line"
-    )
-    log_banner_used = True
-
-
-def _create_prompt(string: str) -> str:
-    """
-    Creates a colored prompt for a click.prompt() call
-    (Uses ansi instead of rich because of compatibility issues)
-    """
-    return f'{ansi_col.cyan} > {ansi_col.bright_white}{string}'
 
 
 @abortable
@@ -219,7 +158,7 @@ def parac_init(*args, **kwargs):
 @click.option(
     '-f',
     '--file',
-    prompt=_create_prompt('Specify the entry-point of your program'),
+    prompt=create_prompt('Specify the entry-point of your program'),
     default='main.para',
     type=str,
     help="The entry-point of the program where the compiler "
@@ -230,7 +169,7 @@ def parac_init(*args, **kwargs):
     '--log',
     default='parac.log',
     type=str,
-    prompt=_create_prompt(
+    prompt=create_prompt(
         "Specify where the console .log file should be created"
     ),
     help="Path of the output .log file where program messages should be logged"
@@ -270,7 +209,7 @@ def parac_compile(*args, **kwargs):
 @click.option(
     '-f',
     '--file',
-    prompt=_create_prompt('Specify the entry-point of your program'),
+    prompt=create_prompt('Specify the entry-point of your program'),
     default='main.para',
     type=str,
     help='The entry-point of the program where the compiler '
@@ -281,7 +220,7 @@ def parac_compile(*args, **kwargs):
     '--log',
     default='parac.log',
     type=str,
-    prompt=_create_prompt(
+    prompt=create_prompt(
         'Specify where the console .log file should be created'),
     help='Path of the output .log file where program messages should be logged'
          '. If set to None it will not use a log file and only use the console'
@@ -315,33 +254,6 @@ def parac_run(*args, **kwargs):
     ParacCLI.parac_run(*args, **kwargs)
 
 
-def keep_open_callback(_func=None):
-    """ Keeps the console open after finishing until the user presses a key """
-
-    def _decorator(func):
-        @functools.wraps(func)
-        def _wrapper(*args, **kwargs):
-            # If keep_open is True -> the user passed --keep_open as an option
-            # then the console will stay open until a key is pressed
-            if kwargs.get('keep_open'):
-                i = kwargs.pop('keep_open')
-            else:
-                i = False
-
-            r = func(*args, **kwargs)
-
-            if i:
-                console().input("\nPress any key to exit.\n")
-            return r
-
-        return _wrapper
-
-    if _func is None:
-        return _decorator
-    else:
-        return _decorator(_func)
-
-
 class ParacCLI:
     """ CLI for the main Para-C Compiler process """
 
@@ -358,7 +270,7 @@ class ParacCLI:
             init_rich_console()
 
         # Creating simple console logging without a file handler
-        pcompiler.init_logging_session()
+        para_compiler.init_logging_session()
         if version:
             return click.echo(' '.join([__title__.title(), __version__]))
         else:

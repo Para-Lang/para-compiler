@@ -14,7 +14,7 @@ from typing import Union, Type
 from functools import wraps
 
 from .exceptions import CCompilerError, AbortError
-from .logger import get_rich_console as console, log_traceback
+from .logger import get_rich_console as console, log_traceback, abort_banner
 
 __all__ = [
     'INIT_OVERWRITE',
@@ -26,12 +26,14 @@ __all__ = [
     'decode_if_bytes',
     'cleanup_path',
     'abortable',
-    'requires_init'
+    'requires_init',
+    'keep_open_callback'
 ]
 
 logger = logging.getLogger(__name__)
 
-# If the overwrite is true then the check for the c-compiler will always return True
+# If the init overwrite is true =>
+# Existence check for the c-compiler will always return True
 INIT_OVERWRITE: bool = False
 SEPARATOR = "\\" if WIN else "/"
 COMPILER_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
@@ -42,7 +44,8 @@ DEFAULT_CONFIG = {
 
 
 def c_compiler_initialised() -> bool:
-    """ Returns whether the Para-C Compiler is correctly initialised and the c-compiler can be found """
+    """ Returns whether the Para-C Compiler is correctly
+    initialised and the c-compiler can be found """
     if INIT_OVERWRITE:
         return True
 
@@ -61,9 +64,13 @@ def c_compiler_initialised() -> bool:
 
 
 def initialise() -> None:
-    """ Initialises the Para-C compiler and creates the config-examples file. Will prompt the user to enter the compiler path """
+    """
+     Initialises the Para-C compiler and creates the config-examples file.
+      Will prompt the user to enter the compiler path
+      """
     _input = console().input(
-        " [bright_yellow]> [bright_white]Please enter the path for the C-compiler: "
+        " [bright_yellow]> [bright_white]Please enter the path "
+        "for the C-compiler: "
     )
     console().print('')
     path = cleanup_path(decode_if_bytes(_input))
@@ -86,7 +93,9 @@ def initialise() -> None:
     with open(CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))
 
-    logger.info("Validated path and successfully created compile-config-examples.json")
+    logger.info(
+        "Validated path and successfully created compile-config-examples.json"
+    )
 
 
 def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
@@ -97,7 +106,6 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from .__main__ import abort_banner, log_banner
             try:
                 return func(*args, **kwargs)
             except AbortError:
@@ -106,17 +114,15 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
                 exit(1)
 
             except Exception as e:
-                from .__main__ import pcompiler
-                if not pcompiler.log_initialised:
-                    pcompiler.init_logging_session()
+                from .__main__ import para_compiler
+                if not para_compiler.log_initialised:
+                    para_compiler.init_logging_session()
 
-                log_banner()
                 log_traceback(
                     level="critical",
                     brief="Exception in the compilation setup",
                     exc_info=sys.exc_info()
                 )
-
                 raise AbortError(exception=e) from e
 
         return _wrapper
@@ -128,7 +134,10 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
 
 
 def requires_init(_func=None):
-    """ Checks whether the compiler is initialised before calling the function """
+    """
+    Checks whether the compiler is initialised and only calls the function if
+    it is, else it will trigger a warning and prompt for initialisation
+    """
 
     def _decorator(func):
         @functools.wraps(func)
@@ -136,10 +145,15 @@ def requires_init(_func=None):
             if not c_compiler_initialised() and not INIT_OVERWRITE:
                 console().print('')
                 logger.warning(
-                    "C-Compiler path is not initialised! If you do not have a working compiler installed, "
-                    "please refer to an installation page for your operation system (MinGW, cygwin)"
+                    "C-Compiler path is not initialised! If you do not have a"
+                    " working compiler installed, please refer to an "
+                    "installation page for your operation system"
+                    " (MinGW, cygwin)"
                 )
-                logger.info("Initialising Para-C compiler due to missing configuration\n")
+                logger.info(
+                    "Initialising Para-C compiler due to missing configuration"
+                    "\n"
+                )
                 initialise()
                 logger.info("Setup may continue\n")
             return func(*args, **kwargs)
@@ -153,19 +167,28 @@ def requires_init(_func=None):
 
 
 def deprecated(_func, *, instead=None):
-    """ Warns the user about a function or tool that is deprecated and shouldn't be used anymore """
+    """
+    Warns the user about a function or tool that is deprecated
+    and shouldn't be used anymore
+    """
 
     def _decorator(func):
         @wraps(func)
         def _decorated(*args, **kwargs):
-            warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+            # turn off filter
+            warnings.simplefilter('always', DeprecationWarning)
             if instead:
                 fmt = "{0.__name__} is deprecated, use {1} instead."
             else:
                 fmt = '{0.__name__} is deprecated.'
 
-            warnings.warn(fmt.format(func, instead), stacklevel=3, category=DeprecationWarning)
-            warnings.simplefilter('default', DeprecationWarning)  # reset filter
+            warnings.warn(
+                fmt.format(func, instead),
+                stacklevel=3,
+                category=DeprecationWarning
+            )
+            # reset filter
+            warnings.simplefilter('default', DeprecationWarning)
             return func(*args, **kwargs)
 
         return _decorated
@@ -197,3 +220,30 @@ def cleanup_path(_p: str) -> str:
     if _p.startswith(f".{SEPARATOR}"):
         _p = os.getcwd() + _p[1:]  # Replacing . with current directory
     return _p
+
+
+def keep_open_callback(_func=None):
+    """ Keeps the console open after finishing until the user presses a key """
+
+    def _decorator(func):
+        @functools.wraps(func)
+        def _wrapper(*args, **kwargs):
+            # If keep_open is True -> the user passed --keep_open as an option
+            # then the console will stay open until a key is pressed
+            if kwargs.get('keep_open'):
+                i = kwargs.pop('keep_open')
+            else:
+                i = False
+
+            r = func(*args, **kwargs)
+
+            if i:
+                console().input("\nPress any key to exit.\n")
+            return r
+
+        return _wrapper
+
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)

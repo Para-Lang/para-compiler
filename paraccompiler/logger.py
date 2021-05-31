@@ -10,6 +10,8 @@ from rich.console import Console
 from typing import Optional, Callable, Tuple, Type, Union
 from types import FunctionType, TracebackType
 
+from . import __version__
+
 __all__ = [
     'ParacStreamHandler',
     'ParacFileHandler',
@@ -19,7 +21,12 @@ __all__ = [
     'get_rich_console',
     'log_traceback',
     'log_msg',
-    'ansi_col'
+    'ansi_col',
+    'init_banner',
+    'abort_banner',
+    'log_banner',
+    'finish_banner',
+    'create_prompt'
 ]
 
 output_console: Optional[Console] = None
@@ -57,9 +64,11 @@ def init_rich_console() -> None:
 
 def get_rich_console() -> Union[Console, None]:
     """
-    Returns the output console which can be undefined if not initialised. This function is used instead of direct
-    variable accessing to avoid the case that the console is initialised but the import still returns None. Therefore
-    this function will return the local object and it should always return the object if it's initialised
+    Returns the output console which can be undefined if not initialised.
+    This function is used instead of direct variable accessing to avoid the
+    case that the console is initialised but the import still returns None.
+    Therefore this function will return the local object and it should always
+    return the object if it's initialised
     """
     return output_console
 
@@ -100,12 +109,28 @@ logger = logging.getLogger(__name__)
 
 class ParacFileHandler(logging.FileHandler):
     """ Default FileHandler for the file handling in the Para-C compiler """
-    def __init__(self, filename='./parac.log', encoding='utf-8', mode='w', *args, **kwargs):
-        super().__init__(filename=filename, encoding=encoding, mode=mode, *args, **kwargs)
+    def __init__(
+            self,
+            filename='./parac.log',
+            encoding='utf-8',
+            mode='w',
+            *args,
+            **kwargs
+    ):
+        super().__init__(
+            filename=filename,
+            encoding=encoding,
+            mode=mode,
+            *args,
+            **kwargs
+        )
 
 
 class ParacFormatter(logging.Formatter):
-    """ Default Formatter class for the custom formatted output of the Para-C compiler """
+    """
+    Default Formatter class for the custom formatted output of the
+    Para-C compiler
+    """
     level_formatting = {
         logging.CRITICAL: ''.join([
             '[bright_red bold][%(levelname)s]',
@@ -264,3 +289,57 @@ class TerminalANSIColor:
 
 
 ansi_col = TerminalANSIColor()
+
+
+def init_banner() -> None:
+    """ Creates the init screen string that can be printed """
+    base_str = f"Para-C Compiler{' ' * 5}"
+
+    get_rich_console().rule(style="white rule.line")
+    get_rich_console().print(
+        f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]"
+        f"{__version__}[/bold cyan]",
+        justify="center"
+    )
+    get_rich_console().rule(style="white rule.line")
+
+
+def abort_banner(process: str) -> None:
+    """
+    Prints a simple colored Exception banner showing it crashed / was aborted
+    """
+    get_rich_console().rule(
+        f"\n[bold red]Aborted {process}[/bold red]\n",
+        style="red rule.line"
+    )
+
+
+def finish_banner() -> None:
+    """
+    Prints a simple colored banner screen showing it succeeded and finished
+    """
+    get_rich_console().rule(
+        "\n[bold green]Finished Compilation[/bold green]\n",
+        style="green rule.line"
+    )
+
+
+def log_banner() -> None:
+    """
+    Prints a simple colored banner screen showing the logs are active and
+    the process started
+    """
+    # Avoiding the log_banner is displayed twice
+    get_rich_console().rule(
+        "\n[bold cyan]Compiler Logs[white]\n",
+        style="white rule.line"
+    )
+
+
+def create_prompt(string: str) -> str:
+    """
+    Creates a colored prompt for a click.prompt() call
+    (Uses ansi instead of rich because of compatibility issues)
+    """
+    return f'{ansi_col.cyan} > {ansi_col.bright_white}{string}'
+

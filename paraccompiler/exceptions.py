@@ -8,7 +8,8 @@ __all__ = [
     'ErrorCodes',
     'ParacCompilerError', 'CCompilerError',
 
-    'EntryFileAccessError', 'EntryFilePermissionError', 'EntryFileNotFoundError', 'IsDirectoryError',
+    'EntryFileAccessError', 'EntryFilePermissionError',
+    'EntryFileNotFoundError', 'IsDirectoryError',
 
     'AbortError',
 ]

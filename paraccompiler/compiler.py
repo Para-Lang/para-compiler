@@ -5,7 +5,7 @@ import os
 from os import PathLike
 from typing import Union
 
-from . import ParacFormatter, ParacFileHandler, ParacStreamHandler
+from . import ParacFormatter, ParacFileHandler, ParacStreamHandler, log_banner
 from .utils import decode_if_bytes, cleanup_path
 from .exceptions import (EntryFilePermissionError, EntryFileNotFoundError,
                          EntryFileAccessError)
@@ -65,6 +65,7 @@ class ParacCompiler:
         Initialising the logging module for the Compiler
         and adds the formatting defaults
         """
+        log_banner()
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
 
