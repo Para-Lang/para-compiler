@@ -106,7 +106,6 @@ jobs:
       - name: Deletes previous coverage-branch if it exists
         run: |
           git fetch origin
-          git pull origin/${{ env.BRANCH_NAME }} ${{ env.BRANCH_NAME }}
           echo ${{ steps.branch_existance.outputs.branch_hash }}
           if ${{ steps.branch_existance.outputs.branch_hash != '' }}; then
             git fetch origin
@@ -122,8 +121,11 @@ jobs:
           message: 'Updated repo'
           add: '.'
           branch: ${{ env.BRANCH_NAME }}-coverage-report
-          push: '--force -u origin ${{ env.BRANCH_NAME }}-coverage-report --set-upstream'
+          push: '--force -u origin ${{ env.BRANCH_NAME }}-coverage-report'
           default_author: github_actions
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ env.BRANCH_NAME }}-coverage-report
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
