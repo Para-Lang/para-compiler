@@ -99,13 +99,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: nelonoel/branch-name@v1
+      - name: Fetch origin
+        run: |
+          git fetch origin
       - name: Check for Branch existance
         id: branch_existance
         run: |
           echo "::set-output name=branch_hash::$(git show-ref ${{ env.BRANCH_NAME }}-coverage-report)"
       - name: Deletes previous coverage-branch if it exists
         run: |
-          git fetch origin
           echo ${{ steps.branch_existance.outputs.branch_hash }}
           if ${{ steps.branch_existance.outputs.branch_hash != '' }}; then
             git fetch origin
