@@ -15,12 +15,12 @@ __copyright__ = "Luna Klatzer"
 # Main imports
 from . import logger
 from .logger import *
-from . import exceptions
-from .exceptions import *
+from . import para_exceptions
+from .para_exceptions import *
 from . import utils
 from .utils import *
-from . import compiler
-from .compiler import *
+from . import compile
+from .compile import *
 from . import __main__
 from .__main__ import *
 
@@ -41,10 +41,10 @@ __all__ = [
     'tokenizer',
     'WIN',
     *logger.__all__,
-    *exceptions.__all__,
+    *para_exceptions.__all__,
     *utils.__all__,
     *__main__.__all__,
-    *compiler.__all__
+    *compile.__all__
 ]
 
 import logging
@@ -55,3 +55,4 @@ colorama.init(autoreset=True)
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 WIN: bool = click.utils.WIN
+

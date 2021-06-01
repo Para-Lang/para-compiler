@@ -8,15 +8,17 @@ import logging
 import os
 from os import PathLike
 from rich.progress import Progress
-from typing import Tuple, Union, Literal
+from typing import Tuple, Union
 
 from . import __version__, __title__
-from .compiler import (CompilationProcess, FinishedProcess, ParacCompiler,
-                       DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH)
-from .logger import get_rich_console as console, init_rich_console, \
-    finish_banner, create_prompt, init_banner
-from .utils import c_compiler_initialised, initialise, abortable, \
-    requires_init, keep_open_callback
+from .compile import (CompilationProcess, FinishedProcess, ParacCompiler,
+                      DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH,
+                      is_c_compiler_ready, initialise_c_compiler)
+from .logger import (get_rich_console as console, init_rich_console,
+                     print_finish_banner, create_prompt, print_init_banner,
+                     format_default)
+from .utils import (abortable, requires_init, keep_open_callback, escape_ansi,
+                    escape_ansi_param)
 
 __all__ = [
     'para_compiler',
@@ -38,13 +40,16 @@ def create_process(
         file: str,
         log_path: str,
         build_path: str,
-        dist_path: str,
-        level: Union[Literal[50, 40, 30, 20, 10], int]
+        dist_path: str
 ) -> CompilationProcess:
-    """ Creates a compilation process and returns it """
-    para_compiler.init_logging_session(log_path, level)
-    p = CompilationProcess.create_from_args(file, build_path, dist_path)
-    return p
+    """
+    Creates a compilation process and returns it.
+    Activates logging on default
+    """
+    if not para_compiler.log_initialised:
+        para_compiler.init_logging_session(log_path)
+
+    return CompilationProcess(file, build_path, dist_path)
 
 
 @abortable
@@ -57,13 +62,13 @@ def _dir_already_exists(folder: str) -> bool:
     return _input
 
 
-def _validate_output(
+def _check_destination(
         output_type: str,
         default_path: Union[str, PathLike],
         overwrite: bool
 ) -> str:
     """
-    Validates the Output-type and checks whether the specified output
+    Validates the destination and checks whether the specified output
     folder is available. If the folder already exists it will show a prompt
     to the user what should be done about the existing folder.
 
@@ -100,40 +105,69 @@ def run_output_dir_validation(
     :param overwrite_dist: If set to True if a dist folder already exists
                            it will be deleted and overwritten
     """
-    build_path = _validate_output("build", DEFAULT_BUILD_PATH, overwrite_build)
-    dist_path = _validate_output("dist", DEFAULT_DIST_PATH, overwrite_dist)
+    build_path = _check_destination(
+        "build",
+        DEFAULT_BUILD_PATH,
+        overwrite_build
+    )
+    dist_path = _check_destination(
+        "dist",
+        DEFAULT_DIST_PATH,
+        overwrite_dist
+    )
     return build_path, dist_path
+
+
+def run_process(p: CompilationProcess) -> FinishedProcess:
+    """
+    Runs the process and returns the finished compilation process
+    Calls p.compile(), adds additional formatting and returns the result
+    """
+    finished_process = p.compile()
+    if para_compiler.log_initialised:
+        print_finish_banner()
+    return finished_process
 
 
 def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
+    finished_process = None
+
     # Some testing for now
     with Progress(console=console(), refresh_per_second=30) as progress:
-        main_task = progress.add_task("[green]Processing...", total=100)
+        max_progress = 1000
+        current_progress = 0
+        main_task = progress.add_task(
+            "[green]Processing...",
+            total=max_progress
+        )
 
-        logger.info(f"Entry-Point: {p.entry_file}")
-        progress.update(main_task, advance=50)
-        time.sleep(1)
-        logger.info("Fetching files...")
+        for p, status, level, end in p.compile_with_progress_iterator():
+            if end is not None:
+                finished_process = end
+                progress.update(main_task, advance=p-current_progress)
+            else:
+                logger.log(level=level, msg=status)
+                progress.update(main_task, advance=p-current_progress)
+                current_progress = p
 
-        time.sleep(1)
-        progress.update(main_task, advance=100)
-
-    finish_banner()
-    return FinishedProcess(p)
+    console().print("\n", end="")
+    if para_compiler.log_initialised:
+        print_finish_banner()
+    return finished_process
 
 
 @click.group(invoke_without_command=True)
 @click.option("--keep_open", is_flag=True)
 @click.option(
-    '--version',
+    "--version",
     is_flag=True,
-    help='Prints the version of the compiler'
+    help="Prints the version of the compiler"
 )
 @click.option(
-    '--help',
+    "--help",
     is_flag=True,
-    help='Show this message and exit.'
+    help="Show this message and exit."
 )
 @click.pass_context
 @abortable
@@ -142,7 +176,7 @@ def cli(*args, **kwargs):
     ParacCLI.cli(*args, **kwargs)
 
 
-@cli.command(name='init')
+@cli.command(name="init")
 @click.option("--keep_open", is_flag=True)
 @abortable
 def parac_init(*args, **kwargs):
@@ -153,21 +187,21 @@ def parac_init(*args, **kwargs):
     ParacCLI.parac_init(*args, **kwargs)
 
 
-@cli.command(name='compile')
+@cli.command(name="compile")
 @click.option("--keep_open", is_flag=True)
 @click.option(
-    '-f',
-    '--file',
-    prompt=create_prompt('Specify the entry-point of your program'),
-    default='main.para',
+    "-f",
+    "--file",
+    prompt=create_prompt("Specify the entry-point of your program"),
+    default=format_default("main.para"),
     type=str,
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
 )
 @click.option(
-    '-l',
-    '--log',
-    default='parac.log',
+    "-l",
+    "--log",
+    default=format_default("parac.log"),
     type=str,
     prompt=create_prompt(
         "Specify where the console .log file should be created"
@@ -177,7 +211,7 @@ def parac_init(*args, **kwargs):
          " as the output method"
 )
 @click.option(
-    '--overwrite-build',
+    "--overwrite-build",
     is_flag=True,
     type=bool,
     default=False,
@@ -185,7 +219,7 @@ def parac_init(*args, **kwargs):
          "without consideration of pre-existing data"
 )
 @click.option(
-    '--overwrite-dist',
+    "--overwrite-dist",
     is_flag=True,
     type=bool,
     default=False,
@@ -193,7 +227,7 @@ def parac_init(*args, **kwargs):
          "consideration of pre-existing data"
 )
 @click.option(
-    '--debug/--no-debug',
+    "--debug/--no-debug",
     is_flag=True,
     default=False,
     help="If set the compiler will add additional debug information"
@@ -204,54 +238,54 @@ def parac_compile(*args, **kwargs):
     ParacCLI.parac_compile(*args, **kwargs)
 
 
-@cli.command(name='run')
+@cli.command(name="run")
 @click.option("--keep_open", is_flag=True)
 @click.option(
-    '-f',
-    '--file',
-    prompt=create_prompt('Specify the entry-point of your program'),
-    default='main.para',
+    "-f",
+    "--file",
     type=str,
-    help='The entry-point of the program where the compiler '
-         'should start the compilation process.'
+    default=format_default("main.para"),
+    prompt=create_prompt("Specify the entry-point of your program"),
+    help="The entry-point of the program where the compiler "
+         "should start the compilation process."
 )
 @click.option(
-    '-l',
-    '--log',
-    default='parac.log',
+    "-l",
+    "--log",
     type=str,
+    default=format_default("parac.log"),
     prompt=create_prompt(
-        'Specify where the console .log file should be created'),
-    help='Path of the output .log file where program messages should be logged'
-         '. If set to None it will not use a log file and only use the console'
-         ' as the output method'
+        "Specify where the console .log file should be created"),
+    help="Path of the output .log file where program messages should be logged"
+         ". If set to None it will not use a log file and only use the console"
+         " as the output method"
 )
 @click.option(
-    '--overwrite-build',
+    "--overwrite-build",
     is_flag=True,
     type=bool,
     default=False,
-    help='If set to True the build folder will always be overwritten without '
-         'consideration of pre-existing data'
+    help="If set to True the build folder will always be overwritten without "
+         "consideration of pre-existing data"
 )
 @click.option(
-    '--overwrite-dist',
+    "--overwrite-dist",
     is_flag=True,
     type=bool,
     default=False,
-    help='If set to True the dist folder will always be overwritten without '
-         'consideration of pre-existing data'
+    help="If set to True the dist folder will always be overwritten without "
+         "consideration of pre-existing data"
 )
 @click.option(
-    '--debug/--no-debug',
+    "--debug/--no-debug",
     is_flag=True,
     default=False,
-    help='If set the compiler will add additional debug information'
+    help="If set the compiler will add additional debug information"
 )
 @abortable
 def parac_run(*args, **kwargs):
     """ Compile a Para-C program and runs it """
-    ParacCLI.parac_run(*args, **kwargs)
+    ParacCLI.parac_run(*map(escape_ansi, args), **map(escape_ansi, kwargs))
 
 
 class ParacCLI:
@@ -260,45 +294,49 @@ class ParacCLI:
     @staticmethod
     @abortable
     @keep_open_callback
+    @escape_ansi_param
     def cli(ctx: click.Context, version, *args, **kwargs):
         """
         Main entry point of the cli.
         Either returns version or prints the init_banner of the Compiler
-         """
-        # If the console was not initialised yet
+        """
+        # If the console was not initialised yet, initialise it
         if console() is None:
             init_rich_console()
 
-        # Creating simple console logging without a file handler
-        para_compiler.init_logging_session()
+        c = console()
         if version:
-            return click.echo(' '.join([__title__.title(), __version__]))
+            return c.print(' '.join([__title__.title(), __version__]))
         else:
-            init_banner()
-            click.echo('')
+            print_init_banner()
+            c.print('')
 
             # Sleeping to prevent that subcommands sending to stderr
             # causing the banner to be displayed at the end of the output
             time.sleep(.100)
 
         if not ctx.invoked_subcommand:
-            click.echo(ctx.get_help())
+            c.print(ctx.get_help())
 
     @staticmethod
     @abortable
     @keep_open_callback
+    @escape_ansi_param
     def parac_init():
         """ Initialises the Para-C compiler """
+        if not para_compiler.log_initialised:
+            para_compiler.init_logging_session()
         logger.info(
-            'Reinitialising' if c_compiler_initialised() else 'Initialising'
+            'Reinitialising' if is_c_compiler_ready() else 'Initialising'
             "Para-C Compiler"
         )
-        initialise()
+        initialise_c_compiler()
 
     @staticmethod
     @abortable
     @requires_init
     @keep_open_callback
+    @escape_ansi_param
     def parac_compile(
             file: str,
             log: str,
@@ -308,26 +346,39 @@ class ParacCLI:
     ) -> FinishedProcess:
         """
         CLI interface for the parac_compile command.
-         Will create a compilation-process and run it
-         """
+        Will create a compilation-process and run it
+        """
+        if not para_compiler.log_initialised:
+            para_compiler.init_logging_session(
+                level=logging.DEBUG if debug else logging.INFO,
+            )
+
+        # Validating the output directories and whether they already exist
+        # or might contain other content that would be overwritten. If that's
+        # the case a prompt will appear asking the user to either answer yes
+        # or no to overwriting it. If it's false a new directory with the same
+        # name but a number added will be created e.g. build_2
         build_path, dist_path = run_output_dir_validation(
             overwrite_build,
             overwrite_dist
         )
 
+        # Creates a CompilationProcess which represents a process that can
+        # be finished but does not need to be finished
         p: CompilationProcess = abortable(create_process, step="Setup")(
             file,
             log,
             build_path,
-            dist_path,
-            logging.DEBUG if debug else logging.INFO
+            dist_path
         )
+        # Running the process with additional formatting and logging
         return run_process_with_logging(p)
 
     @staticmethod
     @abortable
     @requires_init
     @keep_open_callback
+    @escape_ansi_param
     def parac_run(
             file: str,
             log: str,

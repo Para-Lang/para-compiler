@@ -9,11 +9,13 @@ github_run = '--github=true' in sys.argv
 
 paraccompiler.init_rich_console()
 prev_input = paraccompiler.get_rich_console().input
+paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
 def overwrite_input(overwrite: str):
     """ Overwrites the input with a lambda that returns the specified value """
-    getattr(paraccompiler.logger, 'output_console').input = lambda *args, **kwargs: overwrite
+    getattr(paraccompiler.logger, 'output_console').input =\
+        lambda *args, **kwargs: overwrite
 
 
 def reset_input():

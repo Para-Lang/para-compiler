@@ -1,8 +1,8 @@
 # coding=utf-8
 """ Utility in the Para-C Compiler"""
 import functools
-import json
 import logging
+import re
 import sys
 import warnings
 import os
@@ -13,89 +13,25 @@ from os import PathLike
 from typing import Union, Type
 from functools import wraps
 
-from .exceptions import CCompilerError, AbortError
-from .logger import get_rich_console as console, log_traceback, abort_banner
+from .para_exceptions import AbortError
+from .logger import (get_rich_console as console, log_traceback,
+                     print_abort_banner, init_rich_console)
 
 __all__ = [
-    'INIT_OVERWRITE',
     'SEPARATOR',
-    'COMPILER_DIR',
-    'c_compiler_initialised',
-    'initialise',
     'deprecated',
     'decode_if_bytes',
     'cleanup_path',
     'abortable',
     'requires_init',
-    'keep_open_callback'
+    'keep_open_callback',
+    'escape_ansi',
+    'escape_ansi_param'
 ]
 
 logger = logging.getLogger(__name__)
 
-# If the init overwrite is true =>
-# Existence check for the c-compiler will always return True
-INIT_OVERWRITE: bool = False
 SEPARATOR = "\\" if WIN else "/"
-COMPILER_DIR = os.path.dirname(os.path.realpath(sys.argv[0]))
-CONFIG_PATH = ""
-DEFAULT_CONFIG = {
-    "c-compiler-path": ""
-}
-
-
-def c_compiler_initialised() -> bool:
-    """ Returns whether the Para-C Compiler is correctly
-    initialised and the c-compiler can be found """
-    if INIT_OVERWRITE:
-        return True
-
-    global COMPILER_DIR
-    COMPILER_DIR = cleanup_path(COMPILER_DIR)
-    global CONFIG_PATH
-    CONFIG_PATH = f"{COMPILER_DIR}{SEPARATOR}compile-config-examples.json"
-
-    if os.access(CONFIG_PATH, os.R_OK):
-        with open(CONFIG_PATH, "r") as file:
-            config: dict = json.loads(file.read())
-            if config.get('c-compiler-path'):
-                # executable
-                return os.access(config['c-compiler-path'], os.X_OK)
-    return False
-
-
-def initialise() -> None:
-    """
-     Initialises the Para-C compiler and creates the config-examples file.
-      Will prompt the user to enter the compiler path
-      """
-    _input = console().input(
-        " [bright_yellow]> [bright_white]Please enter the path "
-        "for the C-compiler: "
-    )
-    console().print('')
-    path = cleanup_path(decode_if_bytes(_input))
-
-    # exists
-    if not os.access(_input, os.X_OK):
-        raise CCompilerError(
-            f"The passed path '{path}' for the executable does not exist"
-        )
-
-    # executable
-    if not os.access(_input, os.X_OK):
-        raise CCompilerError(
-            f"The passed path '{path}' for the executable can't be executed."
-            " Possibly missing Permissions?"
-        )
-
-    config = DEFAULT_CONFIG
-    config['c-compiler-path'] = path
-    with open(CONFIG_PATH, "w+") as file:
-        file.write(json.dumps(config, indent=4))
-
-    logger.info(
-        "Validated path and successfully created compile-config-examples.json"
-    )
 
 
 def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
@@ -103,6 +39,7 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
     Marks the function as abort-able and adds traceback logging to it.
     If re-raise is False it will exit the program
     """
+
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
@@ -110,7 +47,7 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
                 return func(*args, **kwargs)
             except AbortError:
                 if print_abort:
-                    abort_banner(step)
+                    print_abort_banner(step)
                 exit(1)
 
             except Exception as e:
@@ -142,7 +79,14 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            if not c_compiler_initialised() and not INIT_OVERWRITE:
+            from . import (is_c_compiler_ready, INIT_OVERWRITE,
+                           initialise_c_compiler)
+            if not is_c_compiler_ready() and not INIT_OVERWRITE:
+                from . import para_compiler
+                if not para_compiler.log_initialised:
+                    para_compiler.init_logging_session()
+
+                init_rich_console()
                 console().print('')
                 logger.warning(
                     "C-Compiler path is not initialised! If you do not have a"
@@ -154,7 +98,7 @@ def requires_init(_func=None):
                     "Initialising Para-C compiler due to missing configuration"
                     "\n"
                 )
-                initialise()
+                initialise_c_compiler()
                 logger.info("Setup may continue\n")
             return func(*args, **kwargs)
 
@@ -228,10 +172,12 @@ def keep_open_callback(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
+            keep_open = kwargs.pop('keep_open')
+
             # If keep_open is True -> the user passed --keep_open as an option
             # then the console will stay open until a key is pressed
-            if kwargs.get('keep_open'):
-                i = kwargs.pop('keep_open')
+            if keep_open:
+                i = keep_open
             else:
                 i = False
 
@@ -240,6 +186,44 @@ def keep_open_callback(_func=None):
             if i:
                 console().input("\nPress any key to exit.\n")
             return r
+
+        return _wrapper
+
+    if _func is None:
+        return _decorator
+    else:
+        return _decorator(_func)
+
+
+def escape_ansi(string: str) -> str:
+    """ Removes ansi colouring in the passed string """
+    ansi_escape = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', string)
+
+
+def escape_ansi_param(_func):
+    """
+    Calls the function but removes ansi colouring on the args and kwargs on str
+    items if it exists
+    """
+
+    def _decorator(func):
+        @functools.wraps(func)
+        def _wrapper(*args, **kwargs):
+            new_args = []
+            for i in args:
+                if type(i) is str:
+                    new_args.append(escape_ansi(i))
+                else:
+                    new_args.append(i)
+
+            new_kwargs = {}
+            for key, value in kwargs.items():
+                if type(value) is str:
+                    value = escape_ansi(value)
+                new_kwargs[key] = value
+
+            return func(*new_args, **new_kwargs)
 
         return _wrapper
 

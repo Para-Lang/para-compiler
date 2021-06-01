@@ -7,12 +7,17 @@ import sys
 import traceback
 from logging import StreamHandler
 from rich.console import Console
-from typing import Optional, Callable, Tuple, Type, Union
+from typing import Optional, Callable, Tuple, Type, Union, Literal
 from types import FunctionType, TracebackType
+
+from rich.theme import Theme
 
 from . import __version__
 
 __all__ = [
+    'AVOID_PRINT_BANNER_OVERWRITE',
+    'set_avoid_print_banner_overwrite',
+    'custom_theme',
     'ParacStreamHandler',
     'ParacFileHandler',
     'ParacFormatter',
@@ -22,20 +27,42 @@ __all__ = [
     'log_traceback',
     'log_msg',
     'ansi_col',
-    'init_banner',
-    'abort_banner',
-    'log_banner',
-    'finish_banner',
-    'create_prompt'
+    'print_init_banner',
+    'print_abort_banner',
+    'print_log_banner',
+    'print_finish_banner',
+    'create_prompt',
+    'format_default'
 ]
 
+# If this is set to True no banners will be printed and instead only newlines
+AVOID_PRINT_BANNER_OVERWRITE: bool = False
 output_console: Optional[Console] = None
+custom_theme = Theme({
+    "info": "white",
+    "warning": "bright_yellow",
+    "error": "bold red",
+    "critical": "bold bright_red",
+    "repr.number": "bold bright_cyan"
+})
 
 
-def _get_terminal_size() -> Optional[int]:
+def set_avoid_print_banner_overwrite(value: bool):
+    """
+    Sets the AVOID_PRINT_BANNER_OVERWRITE, which if True removes all banner
+    printing
+    """
+    global AVOID_PRINT_BANNER_OVERWRITE
+    AVOID_PRINT_BANNER_OVERWRITE = value
+
+
+def get_terminal_size() -> Optional[int]:
+    """ Gets the terminal size """
     from . import WIN
     width: Optional[int] = None
-    if WIN:  # pragma: no cover
+    if "PYCHARM_HOSTED" in os.environ:
+        width = 150
+    elif WIN:  # pragma: no cover
         width, _ = shutil.get_terminal_size()
     else:
         try:
@@ -46,19 +73,25 @@ def _get_terminal_size() -> Optional[int]:
             except (AttributeError, ValueError, OSError):
                 pass
 
-    if width is None or width < 80:
-        return 80
+    if width is None or width < 120:
+        return 120
     else:
-        return None
+        return width
+
+
+def _get_color_system() -> Union[Literal["windows", "auto"], str]:
+    from . import WIN
+    return "windows" if WIN else "auto"
 
 
 def init_rich_console() -> None:
     """ Initialises the rich console used for special console formatting """
-    from . import WIN
+
     global output_console
     output_console = Console(
-        width=150 if "PYCHARM_HOSTED" in os.environ else _get_terminal_size(),
-        color_system="windows" if WIN else "auto"
+        width=get_terminal_size(),
+        color_system=_get_color_system(),
+        theme=custom_theme
     )
 
 
@@ -96,9 +129,10 @@ class ParacStreamHandler(StreamHandler):
         """
         try:
             msg = self.format(record)
-            # Writing with the rich print method which implements its own stream-handling
+            # Writing with the rich print method which implements
+            # its own stream-handling
             self.console.print(msg, highlight=False, justify="left")
-        except RecursionError:  # See issue 36272
+        except RecursionError:
             raise
         except Exception:
             self.handleError(record)
@@ -133,29 +167,33 @@ class ParacFormatter(logging.Formatter):
     """
     level_formatting = {
         logging.CRITICAL: ''.join([
-            '[bright_red bold][%(levelname)s]',
-            ' - ',
-            '(%(asctime)s): %(message)s[/bright_red bold]'
+            '[bold bright_red bold]'
+            '[%(levelname)s] - (%(asctime)s): %(message)s'
+            '[/bold bright_red]'
         ]),
         logging.ERROR: ''.join([
-            '[red bold][%(levelname)s][/red bold]',
-            '[red] - ',
-            '(%(asctime)s): %(message)s[/red]'
+            '[bold red bold]'
+            '[%(levelname)s] - (%(asctime)s):'
+            '[/bold red]'
+            '[red] %(message)s[/red]'
         ]),
         logging.WARNING: ''.join([
-            '[bright_yellow bold][%(levelname)s][/bright_yellow bold]',
-            '[bright_yellow] - ',
-            '(%(asctime)s): %(message)s[/bright_yellow]'
+            '[bold bright_yellow]'
+            '[%(levelname)s] - (%(asctime)s):'
+            '[/bold bright_yellow]',
+            '[bright_yellow] %(message)s[/bright_yellow]'
         ]),
         logging.DEBUG: ''.join([
-            '[yellow bold][%(levelname)s][/yellow bold]',
-            '[yellow] - ',
-            '(%(asctime)s): %(message)s[/yellow]'
+            '[bold yellow]'
+            '[%(levelname)s] - (%(asctime)s):'
+            '[/bold yellow]'
+            '[yellow] %(message)s[/yellow]'
         ]),
         logging.INFO: ''.join([
-            '[blue bold][%(levelname)s]',
-            ' - [/blue bold]',
-            '[blue](%(asctime)s): %(message)s[/blue]'
+            '[bold bright_cyan]'
+            '[%(levelname)s] - (%(asctime)s):'
+            '[/bold bright_cyan]',
+            '[bright_cyan] %(message)s[/bright_cyan]'
         ])
     }
 
@@ -291,55 +329,71 @@ class TerminalANSIColor:
 ansi_col = TerminalANSIColor()
 
 
-def init_banner() -> None:
+def print_init_banner() -> None:
     """ Creates the init screen string that can be printed """
+    if AVOID_PRINT_BANNER_OVERWRITE:
+        return get_rich_console().print("\n", end="")
+
     base_str = f"Para-C Compiler{' ' * 5}"
 
-    get_rich_console().rule(style="white rule.line")
+    get_rich_console().rule(style="bright_white rule.line")
     get_rich_console().print(
-        f"[bold bright_white]{base_str}[/bold bright_white][bold cyan]"
-        f"{__version__}[/bold cyan]",
+        f"[bold bright_cyan]{base_str}{__version__}[/bold bright_cyan]",
         justify="center"
     )
-    get_rich_console().rule(style="white rule.line")
+    get_rich_console().rule(style="bright_white rule.line")
 
 
-def abort_banner(process: str) -> None:
+def print_abort_banner(process: str) -> None:
     """
     Prints a simple colored Exception banner showing it crashed / was aborted
     """
+    if AVOID_PRINT_BANNER_OVERWRITE:
+        return get_rich_console().print("\n", end="")
+
     get_rich_console().rule(
         f"\n[bold red]Aborted {process}[/bold red]\n",
         style="red rule.line"
     )
 
 
-def finish_banner() -> None:
+def print_finish_banner() -> None:
     """
     Prints a simple colored banner screen showing it succeeded and finished
     """
+    if AVOID_PRINT_BANNER_OVERWRITE:
+        return get_rich_console().print("\n", end="")
+
     get_rich_console().rule(
         "\n[bold green]Finished Compilation[/bold green]\n",
         style="green rule.line"
     )
 
 
-def log_banner() -> None:
+def print_log_banner() -> None:
     """
     Prints a simple colored banner screen showing the logs are active and
     the process started
     """
-    # Avoiding the log_banner is displayed twice
-    get_rich_console().rule(
-        "\n[bold cyan]Compiler Logs[white]\n",
-        style="white rule.line"
+    if AVOID_PRINT_BANNER_OVERWRITE:
+        return get_rich_console().print("\n", end="")
+
+    output_console.print("\n", end="")
+    output_console.rule(
+        "[bold bright_cyan]Compiler Logs[white]\n",
+        style="bright_white rule.line"
     )
+
+
+def format_default(string: str) -> str:
+    """ Creates a colored string for a command default """
+    return f"{ansi_col.bright_green}{string}" \
+           f"{ansi_col.make_bold(ansi_col.bright_cyan)}"
 
 
 def create_prompt(string: str) -> str:
     """
-    Creates a colored prompt for a click.prompt() call
+    Creates a colored prompt string for a click.prompt() call
     (Uses ansi instead of rich because of compatibility issues)
     """
-    return f'{ansi_col.cyan} > {ansi_col.bright_white}{string}'
-
+    return f'{ansi_col.make_bold(ansi_col.bright_cyan)} > {string}'

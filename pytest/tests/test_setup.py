@@ -1,21 +1,26 @@
 # coding=utf-8
 """ Test for the cli setup """
-import logging
 import subprocess
 from string import printable
 import paraccompiler
 import os
-from paraccompiler import __version__, __title__
-from paraccompiler.exceptions import AbortError
 
-from . import github_run, add_folder, overwrite_input, reset_input, create_test_file
+from paraccompiler import __version__, __title__
+from paraccompiler.para_exceptions import AbortError
+
+from . import (github_run, add_folder, overwrite_input, reset_input,
+               create_test_file)
 
 main_file_path = f"{os.getcwd()}\\test_files\\main.para"
+paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
 class TestCLISetup:
     def teardown_method(self, method):
-        """ This method is being called after each test case, and it will revert input back to the original function """
+        """
+        This method is being called after each test case, and it will revert
+        input back to the original function
+        """
         reset_input()
 
     def test_version(self):
@@ -35,7 +40,9 @@ class TestCLISetup:
 
             return stdout.replace('[0m', '').replace('\r', '').replace('\n', '')
 
-        assert _decode(output.stdout) == ' '.join([__title__.title(), __version__])
+        assert _decode(output.stdout) == ' '.join(
+            [__title__.title(), __version__]
+        )
 
     def test_build_exists_setup(self):
         add_folder("build")
@@ -70,7 +77,9 @@ class TestCLISetup:
     def test_simple_setup(self):
         b_path = f"{os.getcwd()}\\build\\"
         d_path = f"{os.getcwd()}\\dist\\"
-        p = paraccompiler.create_process(main_file_path, 'para.log', b_path, d_path, logging.DEBUG)
+        p = paraccompiler.create_process(
+            main_file_path, 'para.log', b_path, d_path
+        )
 
         assert p.build_path == b_path
         assert p.dist_path == d_path
@@ -79,7 +88,9 @@ class TestCLISetup:
         b_path = f"{os.getcwd()}\\build\\"
         d_path = f"{os.getcwd()}\\dist\\"
         try:
-            paraccompiler.create_process("not_existing.para", 'para.log', b_path, d_path, logging.DEBUG)
+            paraccompiler.create_process(
+                "not_existing.para", 'para.log', b_path, d_path
+            )
         except AbortError:
             pass
         else:
