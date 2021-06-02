@@ -11,7 +11,7 @@ __all__ = [
     'EntryFileAccessError', 'EntryFilePermissionError',
     'EntryFileNotFoundError', 'IsDirectoryError',
 
-    'TokeniserError',
+    'TokenizerError',
 
     'AbortError',
 ]
@@ -34,8 +34,8 @@ class ErrorCodes(IntEnum):
     IS_DIR = ErrorCode(203)
     # -----------
 
-    # 3** - TOKENISER ERRORS
-    TOKENISER_ERROR = ErrorCode(300)
+    # 3** - TOKENIZER ERRORS
+    TOKENIZER_ERROR = ErrorCode(300)
     # -----------
 
     # 9** - OTHER
@@ -103,12 +103,12 @@ class IsDirectoryError(EntryFileAccessError):
     _default_code = ErrorCodes.IS_DIR
 
 
-class TokeniserError(ParacCompilerError):
+class TokenizerError(ParacCompilerError):
     """
-    Exception in the Tokeniser, which parses and validates passed filess
+    Exception in the Tokenizer, which parses and validates passed files
     """
-    error_msg = "The tokeniser encountered an exception while processing"
-    _default_code = ErrorCodes.TOKENISER_ERROR
+    error_msg = "The tokenizer encountered an exception while processing"
+    _default_code = ErrorCodes.TOKENIZER_ERROR
 
 
 class AbortError(ParacCompilerError, RuntimeError):

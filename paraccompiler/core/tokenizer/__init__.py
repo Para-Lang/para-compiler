@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Tokenizer and Basic Analyser for the Para-C code """
 
-__all__ = ['Tokeniser']
+__all__ = ['Tokenizer']
 
 from enum import Enum
 from os import PathLike
@@ -18,18 +18,18 @@ class ParacTokens(Enum):
     ...
 
 
-class Tokeniser:
+class Tokenizer:
     """
-    Tokeniser class which is used as the interface for tokenising a file
+    Tokenizer class which is used as the interface for tokenizing a file
     """
     @staticmethod
-    def tokenise_file(
+    def tokenize_file(
             file: Union[str, PathLike],
             encoding: str = "utf-8",
             line_endings: str = "\n"
     ) -> List[str]:
         """
-        Tokenises a file and checks for basic issues like valid characters
+        Tokenizes a file and checks for basic issues like valid characters
         sand basic syntax like known valid characters, valid usage of
         strings, ints etc.
 
