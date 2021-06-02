@@ -6,10 +6,12 @@ import pkg_resources
 import shutil
 import os
 
-if not os.path.exists(".\\dist"):
-    os.mkdir(".\\dist")
-if not os.path.exists(".\\build"):
-    os.mkdir(".\\build")
+from paraccompiler import SEPARATOR
+
+if not os.path.exists(f".{SEPARATOR}dist"):
+    os.mkdir(f".{SEPARATOR}dist")
+if not os.path.exists(f".{SEPARATOR}build"):
+    os.mkdir(f".{SEPARATOR}build")
 
 required = [
     'parac.ico',
@@ -19,12 +21,12 @@ required = [
 ]
 
 CURRENT_PATH: str = os.getcwd()
-PBL_PATH: str = f"{CURRENT_PATH}\\parac-base-library"
-CONFIG_EXAMPLE_PATH: str = f"{CURRENT_PATH}\\config-examples"
-EXAMPLE_PATH: str = f"{CURRENT_PATH}\\examples"
+PBL_PATH: str = f"{CURRENT_PATH}{SEPARATOR}parac-base-library"
+CONFIG_EXAMPLE_PATH: str = f"{CURRENT_PATH}{SEPARATOR}config-examples"
+EXAMPLE_PATH: str = f"{CURRENT_PATH}{SEPARATOR}examples"
 
-path: str = pkg_resources.resource_filename(__name__, 'compile.py')
-icon_path: str = f"{CURRENT_PATH}\\parac.ico"
+path: str = pkg_resources.resource_filename(__name__, 'compiler.py')
+icon_path: str = f"{CURRENT_PATH}{SEPARATOR}parac.ico"
 
 PyInstaller.__main__.run([
     path,
@@ -38,9 +40,9 @@ PyInstaller.__main__.run([
 
 def create_parac_modules(output_type: str):
     """ Creates the required parac modules for the compiler """
-    out = f"{CURRENT_PATH}\\{output_type}\\parac"
-    bin_path: str = f"{out}\\bin"
-    lib_path: str = f"{out}\\lib"
+    out = f"{CURRENT_PATH}{SEPARATOR}{output_type}{SEPARATOR}parac"
+    bin_path: str = f"{out}{SEPARATOR}bin"
+    lib_path: str = f"{out}{SEPARATOR}lib"
     avoid = ["bin", "lib"]
 
     os.mkdir(bin_path)
@@ -54,16 +56,16 @@ def create_parac_modules(output_type: str):
     for entry in os.scandir(PBL_PATH):
         entry: os.DirEntry
         if entry.is_dir():
-            copy_tree(entry.path, f"{lib_path}\\{entry.name}\\")
+            copy_tree(entry.path, f"{lib_path}{SEPARATOR}{entry.name}{SEPARATOR}")
         else:
             shutil.copy(entry.path, lib_path)
 
     for entry in required:
-        shutil.copy(f"{CURRENT_PATH}\\{entry}", out)
+        shutil.copy(f"{CURRENT_PATH}{SEPARATOR}{entry}", out)
 
-    shutil.copy(f"{CURRENT_PATH}\\README.md", f"{out}\\GITHUB-README.md")
-    copy_tree(CONFIG_EXAMPLE_PATH, f"{out}\\config-examples\\")
-    copy_tree(EXAMPLE_PATH, f"{out}\\examples\\")
+    shutil.copy(f"{CURRENT_PATH}{SEPARATOR}README.md", f"{out}{SEPARATOR}GITHUB-README.md")
+    copy_tree(CONFIG_EXAMPLE_PATH, f"{out}{SEPARATOR}config-examples{SEPARATOR}")
+    copy_tree(EXAMPLE_PATH, f"{out}{SEPARATOR}examples{SEPARATOR}")
 
 
 create_parac_modules("dist")
