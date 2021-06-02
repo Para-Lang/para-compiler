@@ -173,18 +173,14 @@ def keep_open_callback(_func=None):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
             keep_open = kwargs.pop('keep_open')
+            r = func(*args, **kwargs)
 
             # If keep_open is True -> the user passed --keep_open as an option
             # then the console will stay open until a key is pressed
             if keep_open:
-                i = keep_open
-            else:
-                i = False
-
-            r = func(*args, **kwargs)
-
-            if i:
-                console().input("\nPress any key to exit.\n")
+                console().print("\n\n", end="")
+                console().input("Press any key to continue ...")
+                console().print("", end="\n")
             return r
 
         return _wrapper

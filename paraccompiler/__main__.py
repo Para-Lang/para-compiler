@@ -158,7 +158,7 @@ def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
 
 
 @click.group(invoke_without_command=True)
-@click.option("--keep_open", is_flag=True)
+@click.option("--keep-open", is_flag=True)
 @click.option(
     "--version",
     is_flag=True,
@@ -177,7 +177,7 @@ def cli(*args, **kwargs):
 
 
 @cli.command(name="init")
-@click.option("--keep_open", is_flag=True)
+@click.option("--keep-open", is_flag=True)
 @abortable
 def parac_init(*args, **kwargs):
     """
@@ -188,7 +188,7 @@ def parac_init(*args, **kwargs):
 
 
 @cli.command(name="compile")
-@click.option("--keep_open", is_flag=True)
+@click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
     "--file",
@@ -239,7 +239,7 @@ def parac_compile(*args, **kwargs):
 
 
 @cli.command(name="run")
-@click.option("--keep_open", is_flag=True)
+@click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
     "--file",
