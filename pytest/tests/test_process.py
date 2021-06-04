@@ -5,7 +5,8 @@ import paraccompiler
 
 from . import reset_input
 
-main_file_path = f"{os.getcwd()}\\test_files\\main.para"
+sep = paraccompiler.SEPARATOR
+main_file_path = f"{os.getcwd()}{sep}test_files{sep}main.para"
 paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
