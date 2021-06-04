@@ -1,14 +1,13 @@
 # coding=utf-8
 """ Tokenizer and Basic Analyser for the Para-C code """
+from os import PathLike
+from typing import Union, List
 
 __all__ = [
     'Tokenizer'
 ]
 
-import abc
-from enum import Enum
-from os import PathLike
-from typing import Union, List
+from .token import UnregisteredToken
 
 
 class Tokenizer:
@@ -23,10 +22,19 @@ class Tokenizer:
             encoding:  str,
             line_ending: str = "\n",
             line_seperator: str = ";"
-    ) -> List[List[str]]:
+    ) -> List[List[UnregisteredToken]]:
         """
-        Reads a files content and returns it as simple strings split
-        between spaces and semicolomns (One List for every statement e.g. ;)
+        Reads a files content and returns it as list containing a sequence of
+        UnregisteredTokens, which simply contain the name and value. These are
+        split between ; and {} e.g.
+        >> void func() { do_smth; }
+        will be
+        >> [
+         ['BUILT-IN-TYPE', 'LITERAL', 'PARENTHESES_START', 'PARENTHESES_END']
+         ['CODE_BLOCK_START'],
+         ['OTHER'],
+         ['CODE_BLOCK_START']
+        ]
         """
         lines: List[List[str]] = []
         with open(path, "r+", encoding=encoding) as file:
@@ -45,7 +53,6 @@ class Tokenizer:
                 return c
 
             content = _strip_spaces(content)
-            assert content
         return lines
 
     @classmethod
