@@ -25,7 +25,8 @@ from . import __main__
 from .__main__ import *
 
 # Module Imports
-from .core import tokenizer
+from .core import *
+from .transcompiler import *
 
 __all__ = [
     '__title__',

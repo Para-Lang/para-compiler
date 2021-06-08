@@ -76,6 +76,6 @@ parac init
 And add the compiler to the PATH:
 
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
-2. Add export `PATH="your-dir:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
+2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
 4. Restart your terminal.

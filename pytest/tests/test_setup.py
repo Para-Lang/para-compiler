@@ -11,7 +11,8 @@ from paraccompiler.para_exceptions import AbortError
 from . import (github_run, add_folder, overwrite_input, reset_input,
                create_test_file)
 
-main_file_path = f"{os.getcwd()}\\test_files\\main.para"
+sep = paraccompiler.SEPARATOR
+main_file_path = f"{os.getcwd()}{sep}test_files{sep}main.para"
 paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
@@ -22,27 +23,6 @@ class TestCLISetup:
         input back to the original function
         """
         reset_input()
-
-    def test_version(self):
-        if github_run:
-            return
-
-        output = subprocess.run(
-            ["python", f"{os.getcwd()}\\..\\compiler.py", "--version"],
-            shell=True,
-            capture_output=True
-        )
-
-        def _decode(stdout):
-            stdout = ''.join(
-                char for char in str(stdout.decode()) if char in printable
-            )
-
-            return stdout.replace('[0m', '').replace('\r', '').replace('\n', '')
-
-        assert _decode(output.stdout) == ' '.join(
-            [__title__.title(), __version__]
-        )
 
     def test_build_exists_setup(self):
         add_folder("build")

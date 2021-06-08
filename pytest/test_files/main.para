@@ -1,0 +1,5 @@
+
+EntryPoint main()
+{
+    printf("UwU");
+}
