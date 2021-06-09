@@ -39,7 +39,22 @@ will likely also adopt a few Python conventions  and integrate some ideas of the
 The building process is relatively simple since it uses simple PyInstaller and Inno-setup to automate the building
 process. The compiler is shipped as a one-file executable file and can be run 
 
-#### Build for specified OS
+#### Build the Parser and Lexer with Antlr4
+
+To download Antlr4 go to [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
+
+Generating the Parser and Lexer is made up of two parts:
+
+- Using Antlr4 to compile the .g4 file to actual source code
+- Implementing the Runtime (The user code that is shipped with the binaries)
+
+*Note: Generating the Parser and Lexer means that the implementation
+will be gone. There will be a code base, but regenerating the lexer will
+require new a new implementation into the compiler. How long this
+will take is uncertain, since the amount of work depend on what changes 
+are made in the grammar (.g4 file)*
+
+#### Build the Executable and binaries
 
 This specified script will automatically build the project and create a dist and build folder containing all the binaries 
 as well as the executable file. The build folder will contain the raw data and logs, meaning it
@@ -48,6 +63,8 @@ is not intended for distribution. The dist folder will contain the distribution-
 ```bash
 python ./build-exe.py
 ```
+
+##### Installing Antlr
 
 #### Build inno-setup installer for Windows 
 
