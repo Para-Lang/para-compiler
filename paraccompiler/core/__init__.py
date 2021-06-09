@@ -6,5 +6,3 @@ a C-code analyser with additional Para-C keywords, grammar and logic added to
 it
 """
 from . import tokenizer
-from . import syntax_analyser
-from . import sematic_analyser
