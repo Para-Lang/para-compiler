@@ -41,7 +41,13 @@ process. The compiler is shipped as a one-file executable file and can be run
 
 #### Build the Parser and Lexer with Antlr4
 
+##### Downloading
+
 To download Antlr4 go to [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
+
+Quickstart Installation Guide: [here](https://www.antlr.org/)
+
+##### Using Antlr4
 
 Generating the Parser and Lexer is made up of two parts:
 
@@ -54,6 +60,27 @@ require new a new implementation into the compiler. How long this
 will take is uncertain, since the amount of work depend on what changes 
 are made in the grammar (.g4 file)*
 
+To generate use:
+```bash
+antlr4 -o ./paraccompiler/antlr4/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr4/g4/ParaC.g4
+```
+
+Afterwards correctly move the folder using:
+```bash
+mv ./paraccompiler/antlr4/implem/out/paraccompiler/antlr4/g4/* ./paraccompiler/antlr4/implem/out/
+```
+
+and delete the remaining folder:
+```bash
+rm -rf ./paraccompiler/antlr4/implem/out/paraccompiler/
+```
+
+Everything together:
+```bash
+antlr4 -o ./paraccompiler/antlr4/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr4/g4/ParaC.g4 && mv ./paraccompiler/antlr4/implem/out/paraccompiler/antlr4/g4/* ./paraccompiler/antlr4/implem/out/ && rm -rf ./paraccompiler/antlr4/implem/out/paraccompiler/
+```
+
+*Make sure the alias for antlr4 exists! Else the command will not work*
 #### Build the Executable and binaries
 
 This specified script will automatically build the project and create a dist and build folder containing all the binaries 

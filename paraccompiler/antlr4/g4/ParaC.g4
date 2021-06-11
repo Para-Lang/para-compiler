@@ -469,7 +469,6 @@ forExpression
     :   assignmentExpression (',' assignmentExpression)*
     ;
 
-// TODO! Remove goto
 jumpStatement
     :   ('goto' Identifier
     |   ('continue'| 'break')

@@ -1,7 +1,8 @@
 # coding=utf-8
 """ Exceptions in the Para-C Compiler """
-from typing import NewType, Optional
 from enum import IntEnum
+from typing import NewType, Optional
+
 from . import log_msg
 
 __all__ = [
@@ -107,7 +108,7 @@ class TokenizerError(ParacCompilerError):
     """
     Exception in the Tokenizer, which parses and validates passed filess
     """
-    error_msg = "The tokenizer encountered an exception while processing"
+    error_msg = "The implem encountered an exception while processing"
     _default_code = ErrorCodes.TOKENISER_ERROR
 
 

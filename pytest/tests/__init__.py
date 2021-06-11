@@ -1,9 +1,10 @@
 # coding=utf-8
-""" Init file for the core tests """
-import paraccompiler
-import sys
+""" Init file for the antlr4 tests """
 import os
 import shutil
+import sys
+
+import paraccompiler
 
 github_run = '--github=true' in sys.argv
 

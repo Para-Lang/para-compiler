@@ -12,21 +12,20 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
+from . import __main__
+from . import compile
 # Main imports
 from . import logger
-from .logger import *
 from . import para_exceptions
-from .para_exceptions import *
 from . import utils
-from .utils import *
-from . import compile
-from .compile import *
-from . import __main__
 from .__main__ import *
-
 # Module Imports
-from .core import *
+from .antlr4 import *
+from .compile import *
+from .logger import *
+from .para_exceptions import *
 from .transcompiler import *
+from .utils import *
 
 __all__ = [
     '__title__',
