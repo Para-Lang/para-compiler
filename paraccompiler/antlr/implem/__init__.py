@@ -22,5 +22,5 @@ class Parser:
             path: Union[str, PathLike],
             encoding: str = 'ascii'
     ) -> List[Token]:
-        """ Parses the file using antlr4 and returns the parse treess """
+        """ Parses the file using antlr and returns the parse treess """
         return parse_file(path, encoding)

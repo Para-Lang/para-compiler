@@ -8,12 +8,11 @@ import time
 from os import PathLike
 from typing import Union, Generator, Tuple
 
-from . import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-               print_log_banner, CCompilerError)
-from .logger import get_rich_console as console
+from .logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
+                     get_rich_console as console, print_log_banner)
 from .utils import decode_if_bytes, cleanup_path, SEPARATOR
 from .para_exceptions import (EntryFilePermissionError, EntryFileNotFoundError,
-                              EntryFileAccessError)
+                              EntryFileAccessError, CCompilerError)
 
 __all__ = [
     'INIT_OVERWRITE',

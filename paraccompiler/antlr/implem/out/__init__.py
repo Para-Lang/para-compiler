@@ -1,8 +1,8 @@
 # coding=utf-8
-""" Implementation for the antlr4 generated lexer, parser and tokeniser """
+""" Implementation for the antlr generated lexer, parser and tokeniser """
 from os import PathLike
 from typing import Union
-
+import antlr4
 from antlr4.error.ErrorListener import ErrorListener
 
 from . import ParaCLexer
@@ -32,20 +32,20 @@ class ParacErrorListener(ErrorListener):
 
 def parse_file(file_path: Union[str, PathLike], encoding: str = 'ascii'):
     """ Parses the specified file and returns the parsed tree """
-    input_stream = ParaCParser.FileStream(file_path, encoding)
+    input_stream = antlr4.FileStream(file_path, encoding)
     error_listener = ParacErrorListener()
     lexer = ParaCLexer.ParaCLexer(input_stream)
     lexer.removeErrorListeners()
     lexer.addErrorListener(error_listener)
 
-    stream = ParaCParser.CommonTokenStream(lexer)
+    stream = antlr4.CommonTokenStream(lexer)
     parser = ParaCParser.ParaCParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(error_listener)
     tree = parser.expression()
 
     printer = Listener()
-    walker = ParaCParser.ParseTreeWalker()
+    walker = antlr4.ParseTreeWalker()
     walker.walk(printer, tree)
 
     return tree

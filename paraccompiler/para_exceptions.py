@@ -3,7 +3,7 @@
 from enum import IntEnum
 from typing import NewType, Optional
 
-from . import log_msg
+from .logger import log_msg
 
 __all__ = [
     'ErrorCodes',

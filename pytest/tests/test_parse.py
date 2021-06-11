@@ -19,5 +19,5 @@ class TestParser:
         reset_input()
 
     def test_read_file(self):
-        tokeniser = paraccompiler.antlr4.implem.Parser()
+        tokeniser = paraccompiler.antlr.implem.Parser()
         r = tokeniser.antlr_parse(main_file_path, encoding="utf-8")
