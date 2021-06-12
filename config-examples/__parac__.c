@@ -19,3 +19,4 @@ const char* ph_license = "GPL-3.0";
 
 const char* ph_pcompiler_path = "";
 const char* ph_ccompiler_path = "";
+const char* ph_pcl_path = "";

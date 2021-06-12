@@ -171,6 +171,7 @@ declarationSpecifiers2
 
 declarationSpecifier
     :   storageClassSpecifier
+    |   entryPointSpecifider
     |   typeSpecifier
     |   typeQualifier
     |   functionSpecifier
@@ -183,6 +184,10 @@ initDeclaratorList
 
 initDeclarator
     :   declarator ('=' initializer)?
+    ;
+
+entryPointSpecifider
+    :   'entry' // Hinting the entry function for the program
     ;
 
 storageClassSpecifier
@@ -199,6 +204,7 @@ typeSpecifier
     |   'char'
     |   'short'
     |   'int'
+    |   'status'
     |   'long'
     |   'float'
     |   'double'
@@ -517,6 +523,7 @@ For : 'for';
 Goto : 'goto';
 If : 'if';
 Inline : 'inline';
+Status : 'status';
 Int : 'int';
 Long : 'long';
 Register : 'register';
@@ -526,6 +533,7 @@ Short : 'short';
 Signed : 'signed';
 Sizeof : 'sizeof';
 Static : 'static';
+Entry : 'entry';
 Struct : 'struct';
 Switch : 'switch';
 Typedef : 'typedef';

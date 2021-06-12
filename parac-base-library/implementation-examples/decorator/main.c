@@ -9,12 +9,11 @@ ph_ReturnTypeInt main_func(int x)
     printf("Called decorated function - Passed argument: %i\n", x);
 
     /* Compiler generated return */
-    ph_ReturnTypeInt r = {
+    return (ph_ReturnTypeInt) {
         .base.is_exception = false,
         .base.is_null = false,
         .actual_value = 3
     };
-    return r;
 }
 
 /// Actual user function that is defined by the user. main_ is added through the mangling
@@ -23,15 +22,14 @@ ph_ReturnTypeInt main_func2(int x)
     printf("Called decorated function 2 with the same wrapper - Passed argument: %i\n", x);
 
     /* Compiler generated return */
-    ph_ReturnTypeInt r = {
+    return (ph_ReturnTypeInt) {
         .base.is_exception = false,
         .base.is_null = false,
         .actual_value = 3
     };
-    return r;
 }
 
-ph_EntryPoint Entry_Main()
+ph_Status Entry_Main()
 {
     /* Decorating the main_func function */
     main_DecorateFunc_WrapContext p;
@@ -76,22 +74,22 @@ ph_EntryPoint Entry_Main()
     main_DecorateFunc_WrapContext deco_ctx8 = DecorateFunc(&deco_ctx7);
     main_DecorateFunc_WrapContext deco_ctx9 = DecorateFunc(&deco_ctx8);
 
-    printf("Calling wrapper that was wrapped multiple times");
+    printf("Calling wrapper that was wrapped multiple times\n");
     deco_ctx9.wrapper_func(&deco_ctx9, 25);
 
-    return ExitStatusToEntryReturn((ph_ExitStatus) { .status_code = 0 });
+    return (ph_Status) { .status_code = 0 };
 }
 
 int main()
 {
-    ph_EntryPoint r = Entry_Main();
-    if (r.exit_r.is_exception)
+    ph_Status r = Entry_Main();
+    if (r.is_exception)
     {
         // handle exceptions and log traceback
         printf("Here would be the traceback and error message\n");
     }
     else
     {
-        return r.exit_r.status_code;
+        return r.status_code;
     }
 }
