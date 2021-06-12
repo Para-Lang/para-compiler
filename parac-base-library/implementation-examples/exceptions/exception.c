@@ -12,40 +12,37 @@ ph_ReturnTypeInt GenericFunction(bool error)
 {
     int local_x = 4;  // local_ prefix is for the local scope
 
-    ph_ReturnTypeInt r = {
+    return (ph_ReturnTypeInt) {
         .base.is_exception = error,
         .base.is_null = false,
         .actual_value = local_x
     };
-    return r;
 }
 
 /// Example Handler which will be used in the PCL (Para-C Core Library)
-ph_ExitStatus HandleUncatchedException(const char* exception, const char* traceback)
+ph_Status HandleUncatchedException(const char* exception, const char* traceback)
 {
     // do traceback stuff
 
     printf("An exception was raised\n");
 
-    ph_ExitStatus r = {
+    return (ph_Status) {
         .is_exception = true,
         .exception = exception,
         .traceback = traceback,
         .status_code = 1, // Input Para-C Status code
     };
-    return r;
 }
 
 /// Handles a direct exception return which does not contain any try-except statements
-ph_EntryPoint HandleExceptionReturn(ph_UndefBaseReturn r)
+ph_Status HandleExceptionReturn(ph_UndefBaseReturn r)
 {
-    ph_ExitStatus status = HandleUncatchedException(r.exception, r.traceback);
-    return ExitStatusToEntryReturn(status);
+    return (ph_Status) HandleUncatchedException(r.exception, r.traceback);
 }
 
 
 /// User defined main with mangling
-ph_EntryPoint Entry_Main()
+ph_Status Entry_Main()
 {
     ph_ReturnTypeInt r_int;
 
@@ -61,8 +58,7 @@ ph_EntryPoint Entry_Main()
     if (r_int.base.is_exception)
         return HandleExceptionReturn(r_int.base);
 
-    ph_ExitStatus exit_r = { .status_code = 0 };
-    return ExitStatusToEntryReturn(exit_r);
+    return (ph_Status) { .status_code = 0 };
 }
 
 /// Actual main method that will be the entry-point of the program.
@@ -70,14 +66,14 @@ ph_EntryPoint Entry_Main()
 /// This only serves as an example for how the exception system might work
 int main()
 {
-    ph_EntryPoint r = Entry_Main();
-    if (r.exit_r.is_exception)
+    ph_Status r = Entry_Main();
+    if (r.is_exception)
     {
         // handle exceptions and log traceback
         printf("Here would be the traceback and error message\n");
     }
     else
     {
-        return r.exit_r.status_code;
+        return r.status_code;
     }
 }

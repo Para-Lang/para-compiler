@@ -31,6 +31,7 @@ const char* ph_license;
 
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
+const char* ph_pcl_path;
 
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// Types definition - Compiler-Generated
@@ -42,12 +43,7 @@ typedef struct {
     const char* exception;
     const char* traceback;
     int status_code;
-} ph_ExitStatus;
-
-/// Type defining the EntryPoint of a Program
-typedef union {
-    ph_ExitStatus exit_r;
-} ph_EntryPoint;
+} ph_Status;
 
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// Function Return Types
@@ -58,6 +54,7 @@ typedef struct {
     bool is_exception;
     const char* exception;
     const char* traceback;
+    const char* call_stack;
     bool is_null;
 } ph_UndefBaseReturn;
 
@@ -70,9 +67,6 @@ typedef struct {
 /// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Additional Function declarations
 /// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-/// Converts the the exit-status to an entry-return type
-ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s);
 
 #if __cplusplus
 }

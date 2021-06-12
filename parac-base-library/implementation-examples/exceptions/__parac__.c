@@ -19,10 +19,8 @@ const char* ph_license = "GPL-3.0";
 
 const char* ph_para_compiler_path = "";
 const char* ph_c_compiler_path = "";
+const char* ph_pcl_path = "";
 
 /// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Additional Function declarations
 /// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
-/// Converts the the exit-status to an entry-return type
-ph_EntryPoint ExitStatusToEntryReturn(ph_ExitStatus s) { return (ph_EntryPoint) { .exit_r = s }; }

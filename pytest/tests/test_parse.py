@@ -6,7 +6,7 @@ import paraccompiler
 from . import reset_input
 
 sep = paraccompiler.SEPARATOR
-main_file_path = f"{os.getcwd()}{sep}test_files{sep}main.para"
+main_file_path = f"{os.getcwd()}{sep}test_files{sep}entry.para"
 paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
@@ -19,5 +19,5 @@ class TestParser:
         reset_input()
 
     def test_read_file(self):
-        tokeniser = paraccompiler.antlr4.implem.Parser()
+        tokeniser = paraccompiler.antlr.implem.Parser()
         r = tokeniser.antlr_parse(main_file_path, encoding="utf-8")

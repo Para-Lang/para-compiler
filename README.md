@@ -62,22 +62,22 @@ are made in the grammar (.g4 file)*
 
 To generate use:
 ```bash
-antlr4 -o ./paraccompiler/antlr4/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr4/g4/ParaC.g4
+antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4
 ```
 
 Afterwards correctly move the folder using:
 ```bash
-mv ./paraccompiler/antlr4/implem/out/paraccompiler/antlr4/g4/* ./paraccompiler/antlr4/implem/out/
+mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/
 ```
 
 and delete the remaining folder:
 ```bash
-rm -rf ./paraccompiler/antlr4/implem/out/paraccompiler/
+rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
 ```
 
 Everything together:
 ```bash
-antlr4 -o ./paraccompiler/antlr4/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr4/g4/ParaC.g4 && mv ./paraccompiler/antlr4/implem/out/paraccompiler/antlr4/g4/* ./paraccompiler/antlr4/implem/out/ && rm -rf ./paraccompiler/antlr4/implem/out/paraccompiler/
+antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4 && mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/ && rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
 ```
 
 *Make sure the alias for antlr4 exists! Else the command will not work*

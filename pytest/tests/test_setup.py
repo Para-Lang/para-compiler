@@ -12,7 +12,7 @@ from . import (github_run, add_folder, overwrite_input, reset_input,
                create_test_file)
 
 sep = paraccompiler.SEPARATOR
-main_file_path = f"{os.getcwd()}{sep}test_files{sep}main.para"
+main_file_path = f"{os.getcwd()}{sep}test_files{sep}entry.para"
 paraccompiler.set_avoid_print_banner_overwrite(True)
 
 

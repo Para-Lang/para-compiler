@@ -34,6 +34,7 @@ const char* ph_license;
 
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
+const char* ph_pcl_path;
 
 /// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 /// Types definition - Compiler-Generated

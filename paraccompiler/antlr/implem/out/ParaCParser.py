@@ -1,4 +1,4 @@
-# Generated from ./paraccompiler/antlr4/g4/ParaC.g4 by ANTLR 4.9.2
+# Generated from ./paraccompiler/antlr/g4/ParaC.g4 by ANTLR 4.9.2
 # encoding: utf-8
 import sys
 from io import StringIO

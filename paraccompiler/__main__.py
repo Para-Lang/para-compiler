@@ -193,7 +193,7 @@ def parac_init(*args, **kwargs):
     "-f",
     "--file",
     prompt=create_prompt("Specify the entry-point of your program"),
-    default=format_default("main.para"),
+    default=format_default("entry.para"),
     type=str,
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
@@ -244,7 +244,7 @@ def parac_compile(*args, **kwargs):
     "-f",
     "--file",
     type=str,
-    default=format_default("main.para"),
+    default=format_default("entry.para"),
     prompt=create_prompt("Specify the entry-point of your program"),
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
