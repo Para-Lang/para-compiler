@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Implementation for the antlr generated lexer, parser and tokeniser """
+""" Implementation for the antlr generated lexer, parser and tokenizer """
 from os import PathLike
 from typing import Union
 import antlr4
