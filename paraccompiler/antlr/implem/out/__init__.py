@@ -9,6 +9,8 @@ from . import ParaCLexer
 from . import ParaCListener
 from . import ParaCParser
 
+ExpressionContext = ParaCParser.ParaCParser.ExpressionContext
+
 
 class Listener(ParaCListener.ParaCListener):
     """
@@ -16,23 +18,17 @@ class Listener(ParaCListener.ParaCListener):
     generated methods from the ParaCListener and then define the wanted
     behaviour inside a compilation.
     """
-    def enterExpr(self, ctx):
-        print(">")
+    def enterPrimaryExpression(self, ctx: ExpressionContext):
+        print("Enter Expression")
 
-    def exitExpr(self, ctx):
-        print("<")
+    def exitPrimaryExpression(self, ctx: ExpressionContext):
+        print("Exit Expression")
 
-    def enterOperation(self, ctx):
-        print(">")
+    def enterEveryRule(self, ctx: ParaCParser.ParserRuleContext):
+        print("Enter Rule")
 
-    def exitOperation(self, ctx):
-        print("<")
-
-    def enterEveryRule(self, ctx):
-        print(">")
-
-    def exitRule(self, ctx):
-        print("<")
+    def exitEveryRule(self, ctx: ParaCParser.ParserRuleContext):
+        print("Exit rule")
 
 
 class ParacErrorListener(ErrorListener):
@@ -76,8 +72,8 @@ def parse_file(file_path: Union[str, PathLike], encoding: str = 'ascii'):
 
     # Listener which will perform certain actions based on the 'events'
     # received during walking through the file
-    printer = Listener()
+    listener = Listener()
     walker = antlr4.ParseTreeWalker()
-    walker.walk(printer, tree)
+    walker.walk(listener, tree)
 
     return tree

@@ -61,9 +61,15 @@ will take is uncertain, since the amount of work depend on what changes
 are made in the grammar (.g4 file)*
 
 To generate use:
-```bash
-antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4
-```
+
+- Python:
+    ```bash
+    antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4
+    ```
+- Java:
+    ```bash
+    antlr -o ./paraccompiler/antlr/implem/java/ -Dlanguage=Java ./paraccompiler/antlr/g4/ParaC.g4
+    ```
 
 Afterwards correctly move the folder using:
 ```bash
@@ -77,10 +83,11 @@ rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
 
 Everything together:
 ```bash
-antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4 && mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/ && rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
+antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4 && antlr -o ./paraccompiler/antlr/implem/java/ -Dlanguage=Java ./paraccompiler/antlr/g4/ParaC.g4 && mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/ && rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
 ```
 
-*Make sure the alias for antlr4 exists! Else the command will not work*
+*Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
+
 #### Build the Executable and binaries
 
 This specified script will automatically build the project and create a dist and build folder containing all the binaries 
@@ -113,11 +120,11 @@ will automatically do the installation based on your input.
 #### For unix-based systems
 
 Initialise the compiler using:
-
 ```bash
 parac init
 ```
-And add the compiler to the PATH:
+
+Add the compiler to the PATH:
 
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
 2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.

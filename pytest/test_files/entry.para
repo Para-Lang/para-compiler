@@ -1,5 +1,5 @@
 // Example for a basic file containing an entry return
-#include "stdio.h" // -*- lang: C -*-
+#include "stdio.h"  // -*- lang: C -*-
 
 status AdditionalFunction(int x)
 {
