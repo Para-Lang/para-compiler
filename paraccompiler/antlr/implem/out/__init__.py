@@ -46,7 +46,7 @@ class ParacErrorListener(ErrorListener):
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
-        ...
+        print(f"Error [{line}:{column}] > {msg}")
 
 
 def parse_file(file_path: Union[str, PathLike], encoding: str = 'ascii'):
