@@ -1,0 +1,8 @@
+#include <stdio.h> // -*- lang: C -*-
+
+// Entry-Point of the Program
+EntryPoint Main()
+{
+    printf("Para-C version: %s", __parac_version__);
+    return 0;
+}

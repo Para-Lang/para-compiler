@@ -1,0 +1,1 @@
+# All 'examples' inside this folder are to be considered as 'experiments' and possible implementations, which are not final!
