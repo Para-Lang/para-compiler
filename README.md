@@ -64,11 +64,11 @@ To generate use:
 
 - Python:
     ```bash
-    core -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4
+    antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/antlr4/ParaC.g4
     ```
 - Java:
     ```bash
-    core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4
+    antlr4 -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/antlr4/ParaC.g4
     ```
 
 Afterwards correctly move the folder using:
@@ -83,7 +83,7 @@ rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 
 Everything together:
 ```bash
-core -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4 && core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
+antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4 && core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 ```
 
 *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
