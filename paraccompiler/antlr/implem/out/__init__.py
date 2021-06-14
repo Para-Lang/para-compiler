@@ -1,15 +1,37 @@
 # coding=utf-8
 """ Implementation for the antlr generated lexer, parser and tokenizer """
+from __future__ import annotations
+
+import logging
+from typing import TYPE_CHECKING
 from os import PathLike
 from typing import Union
 import antlr4
+from antlr4 import ParserRuleContext
 from antlr4.error.ErrorListener import ErrorListener
 
 from . import ParaCLexer
 from . import ParaCListener
 from . import ParaCParser
 
-ExpressionContext = ParaCParser.ParaCParser.ExpressionContext
+
+logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    # Assigning the variables to hold the imported classes for easier type
+    # hinting and avoiding exceeding the line length
+    _p = ParaCParser.ParaCParser
+    ExpressionContext = _p.ExpressionContext
+    FunctionDefinitionContext = _p.FunctionDefinitionContext
+    AssignmentExpressionContext = _p.AssignmentExpressionContext
+
+
+def log_parser_ctx(ctx: ParserRuleContext):
+    """ Logs a Context and the associated information """
+    items = ' '.join([i.symbol.text for i in ctx.children])
+    logger.debug(
+        f"Line {ctx.start.line} - {items}"
+    )
 
 
 class Listener(ParaCListener.ParaCListener):
@@ -19,16 +41,25 @@ class Listener(ParaCListener.ParaCListener):
     behaviour inside a compilation.
     """
     def enterPrimaryExpression(self, ctx: ExpressionContext):
-        print("Enter Expression")
+        logger.debug("Enter Primary Expression")
+        log_parser_ctx(ctx)
 
     def exitPrimaryExpression(self, ctx: ExpressionContext):
-        print("Exit Expression")
+        logger.debug("Exit Primary Expression")
 
-    def enterEveryRule(self, ctx: ParaCParser.ParserRuleContext):
-        print("Enter Rule")
+    def enterFunctionDefinition(self, ctx: FunctionDefinitionContext):
+        logger.debug("Enter Function definition")
+        log_parser_ctx(ctx)
 
-    def exitEveryRule(self, ctx: ParaCParser.ParserRuleContext):
-        print("Exit rule")
+    def exitFunctionDefinition(self, ctx: FunctionDefinitionContext):
+        logger.debug("Exit Function definition")
+
+    def enterAssignmentExpression(self, ctx: AssignmentExpressionContext):
+        logger.debug("Enter Assignment expression")
+        log_parser_ctx(ctx)
+
+    def exitAssignmentExpression(self, ctx: AssignmentExpressionContext):
+        logger.debug("Exit Assignment expression")
 
 
 class ParacErrorListener(ErrorListener):
@@ -46,7 +77,7 @@ class ParacErrorListener(ErrorListener):
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
-        print(f"Error [{line}:{column}] > {msg}")
+        logger.error(f"Error [{line}:{column}] > {msg}")
 
 
 def parse_file(file_path: Union[str, PathLike], encoding: str = 'ascii'):
@@ -61,15 +92,19 @@ def parse_file(file_path: Union[str, PathLike], encoding: str = 'ascii'):
     lexer = ParaCLexer.ParaCLexer(input_stream)
     lexer.removeErrorListeners()
     lexer.addErrorListener(error_listener)
+
+    logger.debug("Lexing the file and generating the tokens")
     # Parsing the lexer and generating a token stream
     stream = antlr4.CommonTokenStream(lexer)
 
+    logger.debug("Parsing the tokens and generating the logic tree")
     # Parser which should generate the logic trees
     parser = ParaCParser.ParaCParser(stream)
     parser.removeErrorListeners()
     parser.addErrorListener(error_listener)
-    tree = parser.expression()
+    tree = parser.primaryExpression()
 
+    logger.debug("Walking through the tree")
     # Listener which will perform certain actions based on the 'events'
     # received during walking through the file
     listener = Listener()

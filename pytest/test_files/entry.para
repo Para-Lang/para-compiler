@@ -1,6 +1,8 @@
 // Example for a basic file containing an entry return
 #include "stdio.h"  // -*- lang: C -*-
 
+int global_var = 2;
+
 status AdditionalFunction(int x)
 {
     // Printing a number

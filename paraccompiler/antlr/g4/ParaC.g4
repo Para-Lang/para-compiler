@@ -1,8 +1,9 @@
 /*
-    The C Antlr 4 grammar was taken from the official grammar repository:
-    https://github.com/antlr/grammars-v4/blob/master/c/C.g4
+    The C Antlr 4 grammar was taken as base and reference for this file
 
-    This means here the BSD Licence will apply including all content
+    URL: https://github.com/antlr/grammars-v4/blob/master/c/C.g4
+
+    This means here the BSD Licence will apply here for all content
 
     [The "BSD licence"]
     Copyright (c) 2021 Luna-Klatzer

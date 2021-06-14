@@ -1,10 +1,14 @@
 # coding=utf-8
 """ Tests for the Tokenizer """
+import logging
 import os
 from typing import List
 
 import paraccompiler
 from . import reset_input
+
+
+logger = logging.getLogger('paraccompiler')
 
 sep = paraccompiler.SEPARATOR
 main_file_path = f"{os.getcwd()}{sep}test_files{sep}entry.para"
@@ -22,11 +26,10 @@ class TestParser:
         reset_input()
 
     def test_read_file(self):
-        print(f"\nParsing {main_file_path}")
+        logger.debug(f"\nParsing {main_file_path}")
         r = parser.antlr_parse(main_file_path)
 
     def test_c_files(self):
-        print()
         files: List[os.DirEntry] = []
 
         for entry in os.scandir(test_c_files):
@@ -35,5 +38,5 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            print(f"Parsing {file.path}")
+            logger.debug(f"Parsing {file.path}")
             parser.antlr_parse(file.path)
