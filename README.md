@@ -64,26 +64,26 @@ To generate use:
 
 - Python:
     ```bash
-    antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4
+    core -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4
     ```
 - Java:
     ```bash
-    antlr -o ./paraccompiler/antlr/implem/java/ -Dlanguage=Java ./paraccompiler/antlr/g4/ParaC.g4
+    core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4
     ```
 
 Afterwards correctly move the folder using:
 ```bash
-mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/
+mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/
 ```
 
 and delete the remaining folder:
 ```bash
-rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
+rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 ```
 
 Everything together:
 ```bash
-antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4 && antlr -o ./paraccompiler/antlr/implem/java/ -Dlanguage=Java ./paraccompiler/antlr/g4/ParaC.g4 && mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/ && rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
+core -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4 && core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 ```
 
 *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*

@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Tokens in the Pqra-C compiler """
+""" Tokens in the Para-C compiler """
 import abc
 from abc import abstractmethod, ABC
 
@@ -19,13 +19,13 @@ class Token(abc.ABC):
             name: str,
             value: str,
             line: int,
-            colomn: int,
+            column: int,
             file_association: str
     ):
         self._name = name
         self._value = value
         self._line = line
-        self._colomn = colomn
+        self._column = column
         self._file_association = file_association
 
     @abstractmethod
@@ -58,8 +58,8 @@ class Token(abc.ABC):
         ...
 
     @abstractmethod
-    def get_colomn(self) -> int:
-        """ Gets the colomn of the token in the file """
+    def get_column(self) -> int:
+        """ Gets the column of the token in the file """
         ...
 
 

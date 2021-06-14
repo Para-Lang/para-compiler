@@ -6,6 +6,8 @@ import shutil
 import sys
 import traceback
 from logging import StreamHandler
+
+from antlr4.error.ErrorListener import ErrorListener
 from rich.console import Console
 from typing import Optional, Callable, Tuple, Type, Union, Literal
 from types import FunctionType, TracebackType
@@ -18,6 +20,7 @@ __all__ = [
     'AVOID_PRINT_BANNER_OVERWRITE',
     'set_avoid_print_banner_overwrite',
     'custom_theme',
+    'ParacErrorListener',
     'ParacStreamHandler',
     'ParacFileHandler',
     'ParacFormatter',
@@ -397,3 +400,23 @@ def create_prompt(string: str) -> str:
     (Uses ansi instead of rich because of compatibility issues)
     """
     return f'{ansi_col.make_bold(ansi_col.bright_cyan)} > {string}'
+
+
+class ParacErrorListener(ErrorListener):
+    """ Error-Listener for the Para-C compiler """
+
+    def syntaxError(
+            self,
+            recognizer,
+            offendingSymbol,
+            line: int,
+            column: int,
+            msg: str,
+            e):
+        """
+        Method which will be called if the ANTLR4 Lexer or Parser detect
+        an error inside the program
+        """
+        logger.error(f"Error [{line}:{column}] > {msg}")
+        # TODO! Add proper error handling
+

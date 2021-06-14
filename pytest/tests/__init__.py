@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Init file for the antlr tests """
+""" Init file for the core tests """
 import os
 import shutil
 import sys

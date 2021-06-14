@@ -1,7 +1,7 @@
 /*
     The C Antlr 4 grammar was taken as base and reference for this file
 
-    URL: https://github.com/antlr/grammars-v4/blob/master/c/C.g4
+    URL: https://github.com/core/grammars-v4/blob/master/c/C.g4
 
     This means here the BSD Licence will apply here for all content
 
@@ -172,7 +172,7 @@ declarationSpecifiers2
 
 declarationSpecifier
     :   storageClassSpecifier
-    |   entryPointSpecifider
+    |   entryPointSpecifier
     |   typeSpecifier
     |   typeQualifier
     |   functionSpecifier
@@ -187,7 +187,7 @@ initDeclarator
     :   declarator ('=' initializer)?
     ;
 
-entryPointSpecifider
+entryPointSpecifier
     :   'entry' // Hinting the entry function for the program
     ;
 
@@ -292,6 +292,7 @@ functionSpecifier
     |   '__stdcall')
     |   gccAttributeSpecifier
     |   '__declspec' '(' Identifier ')'
+    |   entryPointSpecifier
     ;
 
 alignmentSpecifier
@@ -485,6 +486,7 @@ jumpStatement
     ';'
     ;
 
+// Entry Point for an entire file
 compilationUnit
     :   translationUnit? EOF
     ;

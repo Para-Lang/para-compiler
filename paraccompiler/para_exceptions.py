@@ -108,7 +108,7 @@ class TokenizerError(ParacCompilerError):
     """
     Exception in the Tokenizer, which parses and validates passed filess
     """
-    error_msg = "The implem encountered an exception while processing"
+    error_msg = "The antlr4 encountered an exception while processing"
     _default_code = ErrorCodes.TOKENIZER_ERROR
 
 

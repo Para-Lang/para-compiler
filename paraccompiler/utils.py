@@ -79,8 +79,8 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from . import (is_c_compiler_ready, INIT_OVERWRITE,
-                           initialise_c_compiler)
+            from .core.compiler import (is_c_compiler_ready, INIT_OVERWRITE,
+                                        initialise_c_compiler)
             if not is_c_compiler_ready() and not INIT_OVERWRITE:
                 from . import para_compiler
                 if not para_compiler.log_initialised:
@@ -180,7 +180,7 @@ def keep_open_callback(_func=None):
             if keep_open:
                 console().print("\n\n", end="")
                 console().input("Press any key to continue ...")
-                console().print("", end="\n")
+                console().print("")
             return r
 
         return _wrapper

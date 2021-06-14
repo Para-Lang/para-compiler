@@ -5,6 +5,7 @@ import os
 from typing import List
 
 import paraccompiler
+from paraccompiler import CompilationContext
 from . import reset_input
 
 
@@ -14,7 +15,7 @@ sep = paraccompiler.SEPARATOR
 main_file_path = f"{os.getcwd()}{sep}test_files{sep}entry.para"
 test_c_files = f"{os.getcwd()}{sep}test_files{sep}c_files{sep}"
 paraccompiler.set_avoid_print_banner_overwrite(True)
-parser = paraccompiler.antlr.implem.Parser()
+compiler = paraccompiler.ParacCompiler()
 
 
 class TestParser:
@@ -27,7 +28,8 @@ class TestParser:
 
     def test_read_file(self):
         logger.debug(f"\nParsing {main_file_path}")
-        r = parser.antlr_parse(main_file_path)
+        ctx = CompilationContext()
+        r = compiler.antlr_parse_and_compile(ctx, main_file_path)
 
     def test_c_files(self):
         files: List[os.DirEntry] = []
@@ -39,4 +41,5 @@ class TestParser:
 
         for file in files:
             logger.debug(f"Parsing {file.path}")
-            parser.antlr_parse(file.path)
+            ctx = CompilationContext()
+            compiler.antlr_parse_and_compile(ctx, file.path)

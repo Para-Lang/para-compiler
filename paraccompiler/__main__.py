@@ -11,9 +11,9 @@ from rich.progress import Progress
 from typing import Tuple, Union
 
 from . import __version__, __title__
-from .compile import (CompilationProcess, FinishedProcess, ParacCompiler,
-                      DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH,
-                      is_c_compiler_ready, initialise_c_compiler)
+from .core import (CompilationProcess, FinishedProcess, ParacCompiler,
+                   DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH,
+                   is_c_compiler_ready, initialise_c_compiler)
 from .logger import (get_rich_console as console, init_rich_console,
                      print_finish_banner, create_prompt, print_init_banner,
                      format_default)

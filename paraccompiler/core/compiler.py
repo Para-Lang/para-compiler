@@ -1,23 +1,35 @@
 # coding=utf-8
 """ Main compiler management file """
+from __future__ import annotations
+
 import json
 import logging
 import os
 import sys
 import time
 from os import PathLike
-from typing import Union, Generator, Tuple
+from typing import Union, Generator, Tuple, Dict, TYPE_CHECKING
+import antlr4
+from .antlr4.python import ParaCLexer
+from .antlr4.python import ParaCParser
+from .listener import Listener
 
-from .logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-                     get_rich_console as console, print_log_banner)
-from .utils import decode_if_bytes, cleanup_path, SEPARATOR
-from .para_exceptions import (EntryFilePermissionError, EntryFileNotFoundError,
-                              EntryFileAccessError, CCompilerError)
+from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
+                      get_rich_console as console, print_log_banner,
+                      ParacErrorListener)
+from ..utils import decode_if_bytes, cleanup_path, SEPARATOR
+from ..para_exceptions import (EntryFilePermissionError,
+                               EntryFileNotFoundError, EntryFileAccessError,
+                               CCompilerError)
+
+if TYPE_CHECKING:
+    from .listener import CompilationUnitContext
 
 __all__ = [
     'INIT_OVERWRITE',
     'COMPILER_DIR',
     'is_c_compiler_ready',
+    'CompilationContext',
     'initialise_c_compiler',
     'DEFAULT_LOG_PATH',
     'DEFAULT_BUILD_PATH',
@@ -122,6 +134,21 @@ def initialise_c_compiler() -> None:
     )
 
 
+# TODO! Add proper logic and dependency management
+class CompilationContext:
+    """ Compilation Context """
+
+    def __init__(self):
+        ...
+
+    def gen_str(self) -> Dict[str, str]:
+        """
+        Generates from the tokens stored inside the class the program strings,
+        which will be named after the relative position in the output-dir
+        """
+        ...
+
+
 class ParacCompiler:
     """ Main Class for the Para-C compiler containing the main functions """
     logger: logging.Logger = None
@@ -169,6 +196,71 @@ class ParacCompiler:
                 )
             cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
             cls.logger.addHandler(cls.file_handler)
+
+    @staticmethod
+    def parse(input_stream: antlr4.FileStream) -> CompilationUnitContext:
+        """
+        Parses the passed input_stream using antlr4 and returns the
+        compilation unit context which can be used with the listener to compile
+        and process the file
+        """
+        # Listener which will implement the ParaC exceptions
+        error_listener = ParacErrorListener()
+
+        # Initialising the lexer, which will analyse the input_stream and
+        # raise basic errors if needed
+        lexer = ParaCLexer.ParaCLexer(input_stream)
+        lexer.removeErrorListeners()
+        lexer.addErrorListener(error_listener)
+
+        logger.debug("Lexing the file and generating the tokens")
+
+        # Parsing the lexer and generating a token stream
+        stream = antlr4.CommonTokenStream(lexer)
+
+        logger.debug("Parsing the tokens and generating the logic tree")
+
+        # Parser which should generate the logic trees
+        parser = ParaCParser.ParaCParser(stream)
+        parser.removeErrorListeners()
+        parser.addErrorListener(error_listener)
+        return parser.compilationUnit()
+
+    @classmethod
+    def antlr_parse_and_compile(
+            cls,
+            ctx: CompilationContext,
+            path: Union[str, PathLike],
+            encoding: str = 'ascii'
+    ) -> Dict[str, str]:
+        """
+        Parses the file using Antlr and runs the compilation over the listener.
+        The listener here will serve as the base where the logical processes
+        will run over and where the resulting C-code will be constructed.
+
+        :returns: A string containing the Para-C code which was parsed and
+                  logically checked using the CompileUnit and Listener
+        """
+
+        # Adding the File Stream based on the passed path
+        entry_input_stream = antlr4.FileStream(path, encoding)
+        entry_input_stream.name = path.split(SEPARATOR)[-1]
+
+        cu: CompilationUnitContext = cls.parse(entry_input_stream)
+
+        # Walking through the file and triggering the functions inside the
+        # listener -> Basic compilation
+        listener = Listener()
+        walker = antlr4.ParseTreeWalker()
+        walker.walk(listener, cu)
+
+        # TODO! Generate the tokens based on the return of the listener and
+        # manage all dependencies -> generating the tokens for these files as
+        # well. Merging in the end all files in the CompilationContext, where
+        # the final compiling and logical checking will occur. In the end
+        # the optimiser should optimise the imports and remove unneeded parts.
+
+        return ctx.gen_str()
 
 
 class FinishedProcess:
@@ -225,7 +317,7 @@ class CompilationProcess:
             validate_path_like(entry_file)
         except EntryFileAccessError as e:
             # If the validation failed the path might be a relative path
-            # that does not have a . signalising its going out from the
+            # that does not have a . signalising its going python from the
             # current path meaning the work-directory path needs to be
             # appended. If that also fails it is an invalid path or permissions
             # are missing
@@ -242,6 +334,12 @@ class CompilationProcess:
         self._entry_file = entry_file
         self._build_path = build_path
         self._dist_path = dist_path
+        self._context = CompilationContext()
+
+    @property
+    def context(self) -> CompilationContext:
+        """ Context for the compilation """
+        return self._context
 
     @property
     def entry_file(self) -> Union[str, PathLike]:
