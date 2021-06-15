@@ -12,6 +12,7 @@ from typing import Union, Generator, Tuple, Dict, TYPE_CHECKING
 import antlr4
 from .antlr4.python import ParaCLexer
 from .antlr4.python import ParaCParser
+from .compilation_ctx import CompilationContext
 from .listener import Listener
 
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
@@ -132,21 +133,6 @@ def initialise_c_compiler() -> None:
     logger.info(
         "Validated path and successfully created compile-config.json"
     )
-
-
-# TODO! Add proper logic and dependency management
-class CompilationContext:
-    """ Compilation Context """
-
-    def __init__(self):
-        ...
-
-    def gen_str(self) -> Dict[str, str]:
-        """
-        Generates from the tokens stored inside the class the program strings,
-        which will be named after the relative position in the output-dir
-        """
-        ...
 
 
 class ParacCompiler:

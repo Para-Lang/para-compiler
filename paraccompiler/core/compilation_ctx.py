@@ -7,11 +7,14 @@ information which is only related to the specified file.
 
 
 __all__ = [
-    'CompileUnit'
+    'FileCompilationContext',
+    'CompilationContext'
 ]
 
+from typing import Dict
 
-class CompileUnit:
+
+class FileCompilationContext:
     """
     Class used inside the listener which 'listens' to events / registers
     tokens, which will keep track of variables, the stack, logic and
@@ -22,3 +25,18 @@ class CompileUnit:
     whether they work
     """
     ...
+
+
+# TODO! Add proper logic and dependency management
+class CompilationContext:
+    """ Compilation Context """
+
+    def __init__(self):
+        ...
+
+    def gen_str(self) -> Dict[str, str]:
+        """
+        Generates from the tokens stored inside the class the program strings,
+        which will be named after the relative position in the output-dir
+        """
+        ...

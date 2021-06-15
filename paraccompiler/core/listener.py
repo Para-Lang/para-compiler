@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from .antlr4.python import ParaCListener
 from .antlr4.python import ParaCParser as parser
-from .compile_unit import CompileUnit
+from .compilation_ctx import FileCompilationContext
 
 logger = logging.getLogger(__name__)
 ParaCParser = parser.ParaCParser
@@ -34,7 +34,7 @@ class Listener(ParaCListener.ParaCListener):
     """
 
     def __init__(self):
-        self.cu = CompileUnit()
+        self.cu = FileCompilationContext()
         self.code_str = ""
 
     def enterCompilationUnit(
