@@ -73,7 +73,7 @@ To generate use:
 
 Afterwards correctly move the folder using:
 ```bash
-mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/
+mv ./paraccompiler/core/antlr4/python/paraccompiler/core/antlr4/* ./paraccompiler/core/antlr4/python/
 ```
 
 and delete the remaining folder:
@@ -83,7 +83,7 @@ rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 
 Everything together:
 ```bash
-antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/g4/ParaC.g4 && core -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/g4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/g4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
+antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/antlr4/ParaC.g4 && antlr4 -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/antlr4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/antlr4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
 ```
 
 *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
