@@ -492,13 +492,13 @@ compilationUnit
     ;
 
 translationUnit
-    :   preProcessorDirective+
-    |   externalDeclaration+
+    :   externalDeclaration+
     ;
 
 externalDeclaration
     :   functionDefinition
     |   declaration
+    |   preProcessorDirective
     |   ';' // stray ;
     ;
 

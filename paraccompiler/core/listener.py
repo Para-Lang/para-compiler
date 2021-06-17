@@ -4,6 +4,8 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import antlr4
+
 from .antlr4.python import ParaCListener
 from .antlr4.python import ParaCParser as parser
 from .compilation_ctx import FileCompilationContext
@@ -26,6 +28,7 @@ __all__ = [
 ]
 
 
+# TODO! Add missing listener functions when grammar file was finished
 class Listener(ParaCListener.ParaCListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
@@ -33,9 +36,34 @@ class Listener(ParaCListener.ParaCListener):
     behaviour inside a compilation.
     """
 
-    def __init__(self):
-        self.cu = FileCompilationContext()
+    def __init__(self, unit_ctx: CompilationUnitContext):
+        self.file_ctx = FileCompilationContext()
+        self.unit_ctx = unit_ctx
         self.code_str = ""
+        self._compiling = False
+
+    def walk(self) -> None:
+        """
+        Walks through the parsed CompilationUnitContext and listens to the
+        events / goes through the tokens
+        """
+        walker = antlr4.ParseTreeWalker()
+        walker.walk(self, self.unit_ctx)
+
+    def walk_and_compile(self) -> None:
+        """
+        Walks through the parsed CompilationUnitContext and listens to the
+        events / goes through the tokens and fills the FileCompilationContext
+        (self.file_ctx) appropriately with the data.
+
+        The FileCompilationContext can then be used inside the
+        CompilationContext to be linked with other files and to finish
+        the compilation for the program
+        """
+        self._compiling = True
+        self.walk()
+
+        # TODO! Add wrap-up and 'compilation'
 
     def enterCompilationUnit(
             self,

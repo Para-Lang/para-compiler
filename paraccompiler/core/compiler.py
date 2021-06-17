@@ -212,6 +212,15 @@ class ParacCompiler:
         parser.addErrorListener(error_listener)
         return parser.compilationUnit()
 
+    @staticmethod
+    def get_file_stream(
+            path: Union[str, PathLike], encoding: str
+    ) -> antlr4.FileStream:
+        """ Fetches the FileStream from a file"""
+        stream = antlr4.FileStream(path, encoding)
+        stream.name = path.split(SEPARATOR)[-1]
+        return stream
+
     @classmethod
     def antlr_parse_and_compile(
             cls,
@@ -227,18 +236,14 @@ class ParacCompiler:
         :returns: A string containing the Para-C code which was parsed and
                   logically checked using the CompileUnit and Listener
         """
-
-        # Adding the File Stream based on the passed path
-        entry_input_stream = antlr4.FileStream(path, encoding)
-        entry_input_stream.name = path.split(SEPARATOR)[-1]
-
-        cu: CompilationUnitContext = cls.parse(entry_input_stream)
+        stream = cls.get_file_stream(path, encoding)
+        unit_ctx: CompilationUnitContext = cls.parse(stream)
 
         # Walking through the file and triggering the functions inside the
         # listener -> Basic compilation
-        listener = Listener()
-        walker = antlr4.ParseTreeWalker()
-        walker.walk(listener, cu)
+        listener = Listener(unit_ctx)
+        listener.walk_and_compile()
+        ctx.set_entry_ctx(listener.file_ctx)
 
         # TODO! Generate the tokens based on the return of the listener and
         # manage all dependencies -> generating the tokens for these files as
