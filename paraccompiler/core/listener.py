@@ -65,6 +65,9 @@ class Listener(ParaCListener.ParaCListener):
 
         # TODO! Add wrap-up and 'compilation'
 
+    # ---------------------
+    # Beginning of the file
+    # ---------------------
     def enterCompilationUnit(
             self,
             ctx: ParaCParser.CompilationUnitContext
@@ -77,14 +80,73 @@ class Listener(ParaCListener.ParaCListener):
         """
         logger.debug("Starting file parsing")
 
+    # ---------------------
+    # End of the file
+    # ---------------------
     def exitCompilationUnit(
             self,
             ctx: ParaCParser.CompilationUnitContext
     ):
         """
         Exit a parse tree produced by ParaCParser#compilationUnit.
+
+        Is the point where the token stream will end. (EOF excluded)
         """
         logger.debug("Finished file parsing")
+
+    def enterPreProcessorDirective(
+            self,
+            ctx: ParaCParser.PreProcessorDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#preProcessorDirective.
+        """
+        ...
+
+    def exitPreProcessorDirective(
+            self,
+            ctx: ParaCParser.PreProcessorDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#preProcessorDirective.
+        """
+        ...
+
+    def enterExtFunctionDefinition(
+            self,
+            ctx: ParaCParser.ExtFunctionDefinitionContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#extFunctionDefition.
+        """
+        ...
+
+    def exitExtFunctionDefinition(
+            self,
+            ctx: ParaCParser.ExtFunctionDefinitionContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#extFunctionDefition.
+        """
+        ...
+
+    def enterExtDeclaration(
+            self,
+            ctx: ParaCParser.ExtDeclarationContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#extDeclaration.
+        """
+        ...
+
+    def exitExtDeclaration(
+            self,
+            ctx: ParaCParser.ExtDeclarationContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#extDeclaration.
+        """
+        ...
 
     def enterPrimaryExpression(
             self,

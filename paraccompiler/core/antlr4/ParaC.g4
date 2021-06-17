@@ -492,22 +492,26 @@ compilationUnit
     ;
 
 translationUnit
-    :   externalDeclaration+
+    :   externalItem+
     ;
 
-externalDeclaration
-    :   functionDefinition
-    |   declaration
+externalItem
+    :   externalDeclaration
     |   preProcessorDirective
     |   ';' // stray ;
     ;
 
-preProcessorDirective
-    :   includeDirective
-    |   complexDefine
+externalDeclaration
+    :   functionDefinition # extFunctionDefinition
+    |   declaration # extDeclaration
     ;
 
-complexDefine
+preProcessorDirective
+    :   includeDirective
+    |   complexDefineDirective
+    ;
+
+complexDefineDirective
     :   '#' Whitespace? 'define' Whitespace? Identifier ('('
     Whitespace? Identifier? Whitespace? ')' | Whitespace?  Identifier Whitespace? ?)
     Newline?

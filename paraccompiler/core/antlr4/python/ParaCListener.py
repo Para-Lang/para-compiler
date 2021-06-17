@@ -773,12 +773,30 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#externalDeclaration.
-    def enterExternalDeclaration(self, ctx:ParaCParser.ExternalDeclarationContext):
+    # Enter a parse tree produced by ParaCParser#externalItem.
+    def enterExternalItem(self, ctx:ParaCParser.ExternalItemContext):
         pass
 
-    # Exit a parse tree produced by ParaCParser#externalDeclaration.
-    def exitExternalDeclaration(self, ctx:ParaCParser.ExternalDeclarationContext):
+    # Exit a parse tree produced by ParaCParser#externalItem.
+    def exitExternalItem(self, ctx:ParaCParser.ExternalItemContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#extFunctionDefinition.
+    def enterExtFunctionDefinition(self, ctx:ParaCParser.ExtFunctionDefinitionContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#extFunctionDefinition.
+    def exitExtFunctionDefinition(self, ctx:ParaCParser.ExtFunctionDefinitionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#extDeclaration.
+    def enterExtDeclaration(self, ctx:ParaCParser.ExtDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#extDeclaration.
+    def exitExtDeclaration(self, ctx:ParaCParser.ExtDeclarationContext):
         pass
 
 
@@ -791,12 +809,12 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#complexDefine.
-    def enterComplexDefine(self, ctx:ParaCParser.ComplexDefineContext):
+    # Enter a parse tree produced by ParaCParser#complexDefineDirective.
+    def enterComplexDefineDirective(self, ctx:ParaCParser.ComplexDefineDirectiveContext):
         pass
 
-    # Exit a parse tree produced by ParaCParser#complexDefine.
-    def exitComplexDefine(self, ctx:ParaCParser.ComplexDefineContext):
+    # Exit a parse tree produced by ParaCParser#complexDefineDirective.
+    def exitComplexDefineDirective(self, ctx:ParaCParser.ComplexDefineDirectiveContext):
         pass
 
 
