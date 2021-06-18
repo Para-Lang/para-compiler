@@ -14,28 +14,30 @@
 extern "C" {
 #endif
 
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
 /// User Project Configuration
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
 const char* ph_name;
 const char* ph_description;
 const char* ph_author;
 const char* ph_version;
 const char* ph_license;
 
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
 /// Compiler Configuration
-/// C-Compiler Paths are included, so that using 'parac finish' the compilation can be automatically finished
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// C-Compiler Paths are included, so that
+/// using 'parac finish' the compilation can
+/// be automatically finished
+/// =========================================
 #define __PARAC_VERSION__ "Compiler-Inserted"
 
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
 const char* ph_pcl_path;
 
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
-/// Types definition - Compiler-Generated
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
+/// Types definition
+/// =========================================
 
 /// Exit Status structure storing the basic values for a closing return aka. entry-point function return
 typedef struct {
@@ -45,9 +47,9 @@ typedef struct {
     int status_code;
 } ph_Status;
 
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
 /// Function Return Types
-/// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+/// =========================================
 
 /// Undefined Base Return which serves as the base for all Return-Types
 typedef struct {

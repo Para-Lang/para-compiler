@@ -65,9 +65,9 @@ class Listener(ParaCListener.ParaCListener):
 
         # TODO! Add wrap-up and 'compilation'
 
-    # ---------------------
+    # =========================================
     # Beginning of the file
-    # ---------------------
+    # =========================================
     def enterCompilationUnit(
             self,
             ctx: ParaCParser.CompilationUnitContext
@@ -80,9 +80,9 @@ class Listener(ParaCListener.ParaCListener):
         """
         logger.debug("Starting file parsing")
 
-    # ---------------------
+    # =========================================
     # End of the file
-    # ---------------------
+    # =========================================
     def exitCompilationUnit(
             self,
             ctx: ParaCParser.CompilationUnitContext

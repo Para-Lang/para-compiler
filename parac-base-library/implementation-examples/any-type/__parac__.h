@@ -43,6 +43,19 @@ const char* ph_pcl_path;
 /// Types definition
 /// =========================================
 
+// Basic name declarations
+#define VAR_NAME_SIGNED_CHAR "SIGNED_CHAR"
+#define VAR_NAME_UNSIGNED_CHAR "UNSIGNED_CHAR"
+#define VAR_NAME_CHAR "CHAR"
+#define VAR_NAME_SIGNED_INT "SIGNED_INT"
+#define VAR_NAME_UNSIGNED_INT "UNSIGNED_INT"
+#define VAR_NAME_SIGNED_LONG "SIGNED_LONG"
+#define VAR_NAME_UNSIGNED_LONG "UNSIGNED_LONG"
+#define VAR_NAME_SIGNED_SHORT "SIGNED_SHORT"
+#define VAR_NAME_UNSIGNED_SHORT "UNSIGNED_SHORT"
+#define VAR_NAME_SIGNED_LONG_LONG "SIGNED_LONG_LONG"
+#define VAR_NAME_UNSIGNED_LONG_LONG "UNSIGNED_LONG_LONG"
+
 /// Exit Status structure storing the basic values for a closing return aka. entry-point function return */
 typedef struct ph_ExitStatus {
     bool is_exception;
@@ -50,6 +63,13 @@ typedef struct ph_ExitStatus {
     const char* traceback;
     int status_code;
 } ph_Status;
+
+/// Any type which contains a pointer to the specific variable
+typedef struct ph_AnyType {
+    void* var_pointer;
+    char* type_name;
+    char* var_name;
+} ph_AnyType;
 
 /// =========================================
 /// Function Return Types
