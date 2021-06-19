@@ -112,6 +112,95 @@ class Listener(ParaCListener.ParaCListener):
         """
         ...
 
+    def enterComplexDefineDirective(
+            self,
+            ctx: ParaCParser.ComplexDefineDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#complexDefineDirective.
+        """
+        ...
+
+    def exitComplexDefineDirective(
+            self,
+            ctx: ParaCParser.ComplexDefineDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#complexDefineDirective.
+        """
+        ...
+
+    def enterUndefDirective(
+            self,
+            ctx: ParaCParser.UndefDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#undefDirective.
+        """
+        ...
+
+    def exitUndefDirective(
+            self,
+            ctx: ParaCParser.UndefDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#undefDirective.
+        """
+        ...
+
+    def enterIncludeDirective(
+            self,
+            ctx: ParaCParser.IncludeDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#includeDirective.
+        """
+        ...
+
+    def exitIncludeDirective(
+            self,
+            ctx: ParaCParser.IncludeDirectiveContext):
+        """
+        Exit a parse tree produced by ParaCParser#includeDirective.
+        """
+        ...
+
+    def enterFileIncludeDirective(
+            self, 
+            ctx: ParaCParser.FileIncludeDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#fileIncludeDirective.
+        """
+        ...
+
+    def exitFileIncludeDirective(
+            self,
+            ctx: ParaCParser.FileIncludeDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#fileIncludeDirective.
+        """
+        ...
+
+    def enterComputedIncludeDirective(
+            self, 
+            ctx: ParaCParser.ComputedIncludeDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#computedIncludeDirective.
+        """
+        ...
+
+    def exitComputedIncludeDirective(
+            self, 
+            ctx: ParaCParser.ComputedIncludeDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#computedIncludeDirective.
+        """
+        ...
+
     def enterExtFunctionDefinition(
             self,
             ctx: ParaCParser.ExtFunctionDefinitionContext

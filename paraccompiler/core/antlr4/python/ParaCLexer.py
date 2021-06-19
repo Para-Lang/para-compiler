@@ -798,9 +798,9 @@ class ParaCLexer(Lexer):
     PreProcessorDirective = 107
     Include = 108
     Define = 109
-    UnDefine = 110
-    IfDefine = 111
-    IfNotDefine = 112
+    Undefine = 110
+    IfDefined = 111
+    IfNotDefined = 112
     ElseIf = 113
     EndIf = 114
     Error = 115
@@ -862,8 +862,8 @@ class ParaCLexer(Lexer):
             "StarAssign", "DivAssign", "ModAssign", "PlusAssign", "MinusAssign", 
             "LeftShiftAssign", "RightShiftAssign", "AndAssign", "XorAssign", 
             "OrAssign", "Equal", "NotEqual", "Arrow", "Dot", "Ellipsis", 
-            "PreProcessorDirective", "Include", "Define", "UnDefine", "IfDefine", 
-            "IfNotDefine", "ElseIf", "EndIf", "Error", "Pragma", "Defined", 
+            "PreProcessorDirective", "Include", "Define", "Undefine", "IfDefined", 
+            "IfNotDefined", "ElseIf", "EndIf", "Error", "Pragma", "Defined", 
             "Identifier", "Constant", "DigitSequence", "StringLiteral", 
             "LibIncludeLiteral", "AsmBlock", "LineAfterPreprocessing", "LineDirective", 
             "PragmaDirective", "Whitespace", "Newline", "BlockComment", 
@@ -888,7 +888,7 @@ class ParaCLexer(Lexer):
                   "MinusAssign", "LeftShiftAssign", "RightShiftAssign", 
                   "AndAssign", "XorAssign", "OrAssign", "Equal", "NotEqual", 
                   "Arrow", "Dot", "Ellipsis", "PreProcessorDirective", "Include", 
-                  "Define", "UnDefine", "IfDefine", "IfNotDefine", "ElseIf", 
+                  "Define", "Undefine", "IfDefined", "IfNotDefined", "ElseIf", 
                   "EndIf", "Error", "Pragma", "Defined", "Identifier", "IdentifierNondigit", 
                   "Nondigit", "Digit", "UniversalCharacterName", "HexQuad", 
                   "Constant", "IntegerConstant", "BinaryConstant", "DecimalConstant", 

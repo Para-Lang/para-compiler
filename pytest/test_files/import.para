@@ -1,9 +1,0 @@
-#include "additional_file.parah"
-#include <stdio.h>  // -*- lang: C -*-
-
-entry status Main()
-{
-    printf("%i", x);
-
-    return (status) { .status_code = 0 };
-}

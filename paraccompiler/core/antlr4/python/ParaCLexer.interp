@@ -242,9 +242,9 @@ Ellipsis
 PreProcessorDirective
 Include
 Define
-UnDefine
-IfDefine
-IfNotDefine
+Undefine
+IfDefined
+IfNotDefined
 ElseIf
 EndIf
 Error
@@ -374,9 +374,9 @@ Ellipsis
 PreProcessorDirective
 Include
 Define
-UnDefine
-IfDefine
-IfNotDefine
+Undefine
+IfDefined
+IfNotDefined
 ElseIf
 EndIf
 Error

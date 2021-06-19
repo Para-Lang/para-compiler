@@ -1,0 +1,22 @@
+#include <stdio.h>  // -*- lang: C -*-
+
+#include "example_header.parah"
+
+#define example1 (smth + smth)
+#define example2 "smth"
+#define example3 (if (smth == smth) { smth })
+
+#define x "X"
+# /**/undef x
+
+#define y "Y"
+#undef y
+
+# /**/define x "x"
+
+entry status Main()
+{
+    printf("%i", x);
+
+    return (status) { .status_code = 0 };
+}

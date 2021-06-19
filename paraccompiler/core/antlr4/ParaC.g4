@@ -509,18 +509,35 @@ externalDeclaration
 preProcessorDirective
     :   includeDirective
     |   complexDefineDirective
+    |   computedIncludeDirective
+    |   undefDirective
     ;
 
 complexDefineDirective
-    :   '#' Whitespace? 'define' Whitespace? Identifier ('('
-    Whitespace? Identifier? Whitespace? ')' | Whitespace?  Identifier Whitespace? ?)
-    Newline?
+    :   '#' Whitespace? 'define' Whitespace? Identifier
+        (
+            '(' (.)+? ')' | (.)+?
+        )
+        Newline?
+    ;
+
+undefDirective
+    :   '#' Whitespace? 'undef' Whitespace? Identifier
+        Newline?
     ;
 
 includeDirective
-    :   '#' Whitespace? 'include' Whitespace? ((StringLiteral) |
-    (LibIncludeLiteral))
+    :   fileIncludeDirective
+    |   computedIncludeDirective
+    ;
+
+fileIncludeDirective
+    :   '#' Whitespace? 'include' Whitespace? ((StringLiteral) | (LibIncludeLiteral))
     Newline?
+    ;
+
+computedIncludeDirective
+    :   '#' Whitespace? 'include' Whitespace? ((StringLiteral) | (LibIncludeLiteral)) Newline?
     ;
 
 
@@ -641,9 +658,9 @@ Ellipsis : '...';
 PreProcessorDirective : '#';
 Include : 'include';
 Define : 'define';
-UnDefine : 'undef';
-IfDefine : 'ifdef';
-IfNotDefine : 'ifndef';
+Undefine : 'undef';
+IfDefined : 'ifdef';
+IfNotDefined : 'ifndef';
 ElseIf : 'elif';
 EndIf : 'endif';
 Error : 'error';

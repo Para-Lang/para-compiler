@@ -818,12 +818,39 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ParaCParser#undefDirective.
+    def enterUndefDirective(self, ctx:ParaCParser.UndefDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#undefDirective.
+    def exitUndefDirective(self, ctx:ParaCParser.UndefDirectiveContext):
+        pass
+
+
     # Enter a parse tree produced by ParaCParser#includeDirective.
     def enterIncludeDirective(self, ctx:ParaCParser.IncludeDirectiveContext):
         pass
 
     # Exit a parse tree produced by ParaCParser#includeDirective.
     def exitIncludeDirective(self, ctx:ParaCParser.IncludeDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#fileIncludeDirective.
+    def enterFileIncludeDirective(self, ctx:ParaCParser.FileIncludeDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#fileIncludeDirective.
+    def exitFileIncludeDirective(self, ctx:ParaCParser.FileIncludeDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#computedIncludeDirective.
+    def enterComputedIncludeDirective(self, ctx:ParaCParser.ComputedIncludeDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#computedIncludeDirective.
+    def exitComputedIncludeDirective(self, ctx:ParaCParser.ComputedIncludeDirectiveContext):
         pass
 
 
