@@ -4,14 +4,17 @@ File containing the class which will be used to track and run a compilation.
 The compile unit will track variables, stack, logic and general compiling
 information which is only related to the specified file.
 """
-
+from __future__ import annotations
 
 __all__ = [
     'FileCompilationContext',
     'CompilationContext'
 ]
 
-from typing import Dict, Union, List
+from typing import Dict, Union, List, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .compiler import CompilationProcess
 
 
 class FileCompilationContext:
@@ -31,24 +34,47 @@ class FileCompilationContext:
 class CompilationContext:
     """ Compilation Context """
 
-    def __init__(self):
-        self.entry_ctx: Union[FileCompilationContext, None] = None
-        self.ctx_list: List[FileCompilationContext] = []
+    def __init__(self, process: CompilationProcess):
+        self._entry_ctx: Union[FileCompilationContext, None] = None
+        self._ctx_list: List[FileCompilationContext] = []
+        self.process = process
+
+    @property
+    def entry_file(self) -> str:
+        """ Returns the entry_file of the context """
+        return self.process.entry_file
+
+    @property
+    def entry_ctx(self) -> FileCompilationContext:
+        """ Returns the entry context """
+        return self._entry_ctx
+
+    @property
+    def ctx_list(self) -> List[FileCompilationContext]:
+        """ Returns a list for all context instances """
+        return self._ctx_list
 
     def set_entry_ctx(self, ctx: FileCompilationContext) -> None:
         """ Sets the entry-file FileCompilationContext """
-        self.entry_ctx = ctx
-        self.ctx_list.append(ctx)
+        self._entry_ctx = ctx
+        self._ctx_list.append(ctx)
 
     def add_file_ctx(self, ctx: FileCompilationContext) -> None:
         """ Adds a FileCompilationContext to the list of file ctx instances """
-        self.ctx_list.append(ctx)
+        self._ctx_list.append(ctx)
 
         # TODO! Logical integration
 
-    def gen_str(self) -> Dict[str, str]:
+    def generate_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
-        Generates from the tokens stored inside the class the program strings,
-        which will be named after the relative position in the output-dir
+        Generates the source C-code from the tokens stored inside the class
+
+        :returns: Dict[
+                  str - Name of the file (Relative name),
+                  Dict[
+                    str - The code-string,
+                    FileCompilationContext - The context of the file
+                  ]
+                 ]
         """
         ...

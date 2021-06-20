@@ -21,10 +21,12 @@ from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
 from ..utils import decode_if_bytes, cleanup_path, SEPARATOR
 from ..para_exceptions import (EntryFilePermissionError,
                                EntryFileNotFoundError, EntryFileAccessError,
-                               CCompilerError)
+                               CCompilerError, LexerError, LinkerError,
+                               ParacCompilerError)
 
 if TYPE_CHECKING:
     from .listener import CompilationUnitContext
+    from .compilation_ctx import FileCompilationContext
 
 __all__ = [
     'INIT_OVERWRITE',
@@ -36,6 +38,7 @@ __all__ = [
     'DEFAULT_BUILD_PATH',
     'DEFAULT_DIST_PATH',
     'ParacCompiler',
+    'BasicProcess',
     'CompilationProcess',
     'FinishedProcess'
 ]
@@ -135,173 +138,36 @@ def initialise_c_compiler() -> None:
     )
 
 
-class ParacCompiler:
-    """ Main Class for the Para-C compiler containing the main functions """
-    logger: logging.Logger = None
-    stream_handler: ParacStreamHandler = None
-    file_handler: ParacFileHandler = None
-
-    @property
-    def log_initialised(self) -> bool:
-        """ Returns whether the logger is initialised and ready to be used """
-        return getattr(self, 'logger') is not None
-
-    @classmethod
-    def init_logging_session(
-            cls,
-            log_path: Union[str, PathLike] = None,
-            level: int = logging.INFO,
-            print_banner: bool = True,
-    ):
-        """
-        Initialising the logging module for the Compiler
-        and adds the formatting defaults
-        """
-        if print_banner:
-            print_log_banner()
-
-        cls.logger: logging.Logger = logging.getLogger("paraccompiler")
-        cls.logger.setLevel(level)
-
-        if cls.stream_handler:
-            cls.logger.removeHandler(cls.stream_handler)
-
-        if cls.file_handler:
-            cls.logger.removeHandler(cls.file_handler)
-
-        cls.stream_handler = ParacStreamHandler()
-        cls.stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
-        cls.logger.addHandler(cls.stream_handler)
-
-        if log_path and log_path.lower() != 'none':
-            try:
-                cls.file_handler = ParacFileHandler(filename=f'./{log_path}')
-            except PermissionError:
-                raise EntryFilePermissionError(
-                    "Failed to access the specified log file-path"
-                )
-            cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
-            cls.logger.addHandler(cls.file_handler)
-
-    @staticmethod
-    def parse(input_stream: antlr4.FileStream) -> CompilationUnitContext:
-        """
-        Parses the passed input_stream using antlr4 and returns the
-        compilation unit context which can be used with the listener to compile
-        and process the file
-        """
-        # Listener which will implement the ParaC exceptions
-        error_listener = ParacErrorListener()
-
-        # Initialising the lexer, which will analyse the input_stream and
-        # raise basic errors if needed
-        lexer = ParaCLexer.ParaCLexer(input_stream)
-        lexer.removeErrorListeners()
-        lexer.addErrorListener(error_listener)
-
-        logger.debug("Lexing the file and generating the tokens")
-
-        # Parsing the lexer and generating a token stream
-        stream = antlr4.CommonTokenStream(lexer)
-
-        logger.debug("Parsing the tokens and generating the logic tree")
-
-        # Parser which should generate the logic trees
-        parser = ParaCParser.ParaCParser(stream)
-        parser.removeErrorListeners()
-        parser.addErrorListener(error_listener)
-        return parser.compilationUnit()
-
-    @staticmethod
-    def get_file_stream(
-            path: Union[str, PathLike], encoding: str
-    ) -> antlr4.FileStream:
-        """ Fetches the FileStream from a file"""
-        stream = antlr4.FileStream(path, encoding)
-        stream.name = path.split(SEPARATOR)[-1]
-        return stream
-
-    @classmethod
-    def antlr_parse_and_compile(
-            cls,
-            ctx: CompilationContext,
-            path: Union[str, PathLike],
-            encoding: str = 'ascii'
-    ) -> Dict[str, str]:
-        """
-        Parses the file using Antlr and runs the compilation over the listener.
-        The listener here will serve as the base where the logical processes
-        will run over and where the resulting C-code will be constructed.
-
-        :returns: A string containing the Para-C code which was parsed and
-                  logically checked using the CompileUnit and Listener
-        """
-        stream = cls.get_file_stream(path, encoding)
-        unit_ctx: CompilationUnitContext = cls.parse(stream)
-
-        # Walking through the file and triggering the functions inside the
-        # listener -> Basic compilation
-        listener = Listener(unit_ctx)
-        listener.walk_and_compile()
-        ctx.set_entry_ctx(listener.file_ctx)
-
-        # TODO! Generate the tokens based on the return of the listener and
-        # manage all dependencies -> generating the tokens for these files as
-        # well. Merging in the end all files in the CompilationContext, where
-        # the final compiling and logical checking will occur. In the end
-        # the optimiser should optimise the imports and remove unneeded parts.
-
-        return ctx.gen_str()
-
-
-class FinishedProcess:
-    """ Class used to represent a done compilation process """
-
-    def __init__(self, p):
-        self.p = p
-
-
-class CompilationProcess:
-    """ Process instance used for a single compilation process """
+class BasicProcess:
+    """ Basic Process serving as parent class for the process instances """
 
     def __init__(
             self,
             entry_file: Union[str, bytes, PathLike],
-            build_path: Union[str, bytes, PathLike],
-            dist_path: Union[str, bytes, PathLike]
+            encoding: str
     ):
         """
-        Initialises and validates the provided parameter for the compilation
-        process. In case of an error an exception will be raised and the
-        process cancelled.
+        Initialises the instance and validates the passed entry file for
+        further usage.
 
         :param entry_file: The entry-file of the program. The compiler will use
                            the working directory as base dir if the path is
-                            relative
-        :param build_path: The path to the output folder
-        :param dist_path: The path to the dist folder
-        :returns: The file name, the output build path, the output dist path
-                  and the arguments passed for the compilation
+                           relative
         """
-
-        entry_file: Union[str, PathLike] = decode_if_bytes(entry_file)
-        build_path: Union[str, PathLike] = decode_if_bytes(build_path)
-        dist_path: Union[str, PathLike] = decode_if_bytes(dist_path)
-
-        entry_file = cleanup_path(entry_file)
+        entry_file = cleanup_path(decode_if_bytes(entry_file))
 
         _last_path_elem = entry_file.replace("/", "\\").split("\\")[-1]
-        # for the sake of checking all paths used are converted into
-        # the windows path-style, but only while checking
+        # for the sake of checking; all paths used are converted into
+        # the windows path-style
         if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
             ParacCompiler.logger.warning(
-                "The given file does not seem to be a file!"
+                "The given file does not seem to be in the correct format!"
             )
         elif (not _last_path_elem.endswith('.para')
               and not _last_path_elem.endswith('.ph')):
             ParacCompiler.logger.warning(
                 "The given file ending does not follow "
-                "the Para-C conventions (.para, .ph)!"
+                "the Para-C conventions (.para, .ph, .parah)!"
             )
 
         try:
@@ -321,11 +187,72 @@ class CompilationProcess:
             if failed:
                 raise e
             entry_file = absolute_path
-
         self._entry_file = entry_file
+        self._encoding = encoding
+
+    @property
+    def entry_file(self) -> Union[str, PathLike]:
+        """ Returns the entry-file of the process """
+        return self._entry_file
+
+    @property
+    def encoding(self) -> str:
+        """ Returns the encoding of the process """
+        return self._encoding
+
+    def validate_syntax(self, enable_out: bool) -> bool:
+        """
+        Validates the syntax of the file of this entry-file and logs or raises
+        errors while running
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. (Errors will then NOT be raised but only
+                           logged)
+        :returns: True if the syntax check was successful else False
+        """
+        return ParacCompiler.validate_syntax(self, enable_out)
+
+
+class FinishedProcess(BasicProcess):
+    """ Class used to represent a done compilation process """
+
+    def __init__(self, process: CompilationProcess):
+        self.done_process = process
+        super().__init__(process.entry_file, process.encoding)
+
+
+class CompilationProcess(BasicProcess):
+    """ Process instance used for a single compilation process """
+
+    def __init__(
+            self,
+            entry_file: Union[str, bytes, PathLike],
+            encoding: str,
+            build_path: Union[str, bytes, PathLike],
+            dist_path: Union[str, bytes, PathLike]
+    ):
+        """
+        Initialises and validates the provided parameter for the compilation
+        process. In case of an error an exception will be raised and the
+        process cancelled.
+
+        :param entry_file: The entry-file of the program. The compiler will use
+                           the working directory as base dir if the path is
+                            relative
+        :param build_path: The path to the output folder
+        :param dist_path: The path to the dist folder
+        :returns: The file name, the output build path, the output dist path
+                  and the arguments passed for the compilation
+        """
+        super().__init__(entry_file, encoding)
+
+        build_path: Union[str, PathLike] = decode_if_bytes(build_path)
+        dist_path: Union[str, PathLike] = decode_if_bytes(dist_path)
+
         self._build_path = build_path
         self._dist_path = dist_path
-        self._context = CompilationContext()
+        self._context = CompilationContext(self)
 
     @property
     def context(self) -> CompilationContext:
@@ -360,7 +287,8 @@ class CompilationProcess:
 
         For info on compiling go to compile()
         """
-        # Currently only a replacement
+
+        # Currently only a replacement for testing purposes
         yield 50, "Fetching files", logging.INFO, None
         time.sleep(5)
         yield 1000, None, logging.INFO, FinishedProcess(self)
@@ -370,4 +298,183 @@ class CompilationProcess:
         Default function which compiles the passed input data and returns
         a new finished process instance
         """
+        # Currently empty since the compilation is not done yet
         ...
+
+
+class ParacCompiler:
+    """ Main Class for the Para-C compiler containing the main functions """
+    logger: logging.Logger = None
+    stream_handler: ParacStreamHandler = None
+    file_handler: ParacFileHandler = None
+
+    @property
+    def log_initialised(self) -> bool:
+        """ Returns whether the logger is initialised and ready to be used """
+        return getattr(self, 'logger') is not None
+
+    @classmethod
+    def init_logging_session(
+            cls,
+            log_path: Union[str, PathLike] = None,
+            level: int = logging.INFO,
+            print_banner: bool = True,
+            banner_name: str = "Compiler"
+    ):
+        """
+        Initialising the logging module for the Compiler
+        and adds the formatting defaults
+        """
+        if print_banner:
+            print_log_banner(banner_name)
+
+        cls.logger: logging.Logger = logging.getLogger("paraccompiler")
+        cls.logger.setLevel(level)
+
+        # if the stream handler exists it will always get removed by default
+        if cls.stream_handler:
+            cls.logger.removeHandler(cls.stream_handler)
+
+        # if the file handler exists and a new log_path was passed ->
+        # remove and generate new file_handler
+        if cls.file_handler and log_path:
+            cls.logger.removeHandler(cls.file_handler)
+
+        cls.stream_handler = ParacStreamHandler()
+        cls.stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
+        cls.logger.addHandler(cls.stream_handler)
+
+        if type(log_path) is str and log_path.lower() != 'none':
+            try:
+                cls.file_handler = ParacFileHandler(filename=f'./{log_path}')
+            except PermissionError:
+                raise EntryFilePermissionError(
+                    "Failed to access the specified log file-path"
+                )
+            cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
+            cls.logger.addHandler(cls.file_handler)
+
+        if type(log_path) is str:
+            if '.' not in log_path:
+                logger.warning(
+                    "The log-path does not contain the '.log' file-ending"
+                )
+
+    @staticmethod
+    def parse(
+            input_stream: antlr4.FileStream,
+            enable_out: bool = True
+    ) -> CompilationUnitContext:
+        """
+        Parses the passed input_stream using antlr4 and returns the
+        compilation unit context which can be used with the listener to compile
+        and process the file
+
+        :param input_stream: The token stream of the file
+        :param enable_out: If set to True errors, warnings and info will be
+                   logged onto the console using the local logger
+                   instance. (Errors will then NOT be raised but only
+                   logged)
+        :returns: The compilationUnit (file) context
+        """
+        # Listener which will implement the ParaC exceptions
+        error_listener = ParacErrorListener(enable_out)
+
+        # Initialising the lexer, which will analyse the input_stream and
+        # raise basic errors if needed
+        lexer = ParaCLexer.ParaCLexer(input_stream)
+        lexer.removeErrorListeners()
+        lexer.addErrorListener(error_listener)
+
+        logger.debug("Lexing the file and generating the tokens")
+
+        # Parsing the lexer and generating a token stream
+        stream = antlr4.CommonTokenStream(lexer)
+
+        logger.debug("Parsing the tokens and generating the logic tree")
+
+        # Parser which should generate the logic trees
+        parser = ParaCParser.ParaCParser(stream)
+        parser.removeErrorListeners()
+        parser.addErrorListener(error_listener)
+        return parser.compilationUnit()
+
+    @classmethod
+    def validate_syntax(
+            cls,
+            process: BasicProcess,
+            enable_out: bool = True
+    ) -> bool:
+        """
+        Validates the syntax of a file and logs or raises errors while running
+
+        :param process: The BasicProcess containing the path to the entry-file
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. (Errors will then NOT be raised but only
+                           logged)
+        :returns: True if the syntax check was successful else False
+        """
+        stream = cls.get_file_stream(process.entry_file, process.encoding)
+
+        try:
+            unit_ctx = cls.parse(stream, enable_out)
+
+            # Walking through the tree but without compiling! -> Only default
+            # structure and syntax will be validated and checked
+            listener = Listener(unit_ctx)
+            listener.walk(enable_out)
+
+        except (LexerError, LinkerError, ParacCompilerError):
+            # TODO! Add proper error handling and logging
+            ...
+            return False
+
+        from ..__main__ import para_compiler
+
+        if para_compiler.stream_handler.errors > 0:
+            return False
+        return True
+
+    @staticmethod
+    def get_file_stream(
+            path: Union[str, PathLike], encoding: str
+    ) -> antlr4.FileStream:
+        """ Fetches the FileStream from a file"""
+        stream = antlr4.FileStream(path, encoding)
+        stream.name = path.split(SEPARATOR)[-1]
+        return stream
+
+    @classmethod
+    def antlr_parse_and_compile(
+            cls,
+            ctx: CompilationContext,
+            enable_out: bool = True
+    ) -> Dict[str, Dict[str, FileCompilationContext]]:
+        """
+        Parses the file using Antlr and runs the compilation over the listener.
+        The listener here will serve as the base where the logical processes
+        will run over and where the resulting C-code will be constructed.
+
+        :returns: Generated Output Dict
+                  -> see CompilationContext.generate_source()
+        """
+        stream = cls.get_file_stream(
+            ctx.process.entry_file, ctx.process.encoding
+        )
+        unit_ctx = cls.parse(stream, enable_out)
+
+        # Walking through the file and triggering the functions inside the
+        # listener -> Basic compilation
+        listener = Listener(unit_ctx)
+        listener.walk_and_compile(enable_out)
+
+        ctx.set_entry_ctx(listener.file_ctx)
+
+        # TODO! Generate the tokens based on the return of the listener and
+        # manage all dependencies -> generating the tokens for these files as
+        # well. Merging in the end all files in the CompilationContext, where
+        # the final compiling and logical checking will occur. In the end
+        # the optimiser should optimise the imports and remove unneeded parts.
+
+        return ctx.generate_source()

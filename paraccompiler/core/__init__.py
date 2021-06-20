@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Tokenizer and Basic Analyser for the Para-C code """
+""" Core of the Para-C Compiler (lexing, parsing, compiling, processing) """
 from . import optimiser
 from .compilation_ctx import *
 from .compiler import *

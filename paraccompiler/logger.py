@@ -5,6 +5,7 @@ import os
 import shutil
 import sys
 import traceback
+import re
 from logging import StreamHandler
 
 from antlr4.error.ErrorListener import ErrorListener
@@ -17,7 +18,8 @@ from rich.theme import Theme
 from . import __version__
 
 __all__ = [
-    'AVOID_PRINT_BANNER_OVERWRITE',
+    'OVERWRITE_AVOID_PRINT_BANNER',
+    'CLICK_FORMAT_IGNORE_REGEX',
     'set_avoid_print_banner_overwrite',
     'custom_theme',
     'ParacErrorListener',
@@ -33,13 +35,18 @@ __all__ = [
     'print_init_banner',
     'print_abort_banner',
     'print_log_banner',
-    'print_finish_banner',
+    'print_result_banner',
     'create_prompt',
     'format_default'
 ]
 
-# If this is set to True no banners will be printed and instead only newlines
-AVOID_PRINT_BANNER_OVERWRITE: bool = False
+_bracket_s = re.escape('[')
+_bracket_e = re.escape(']')
+CLICK_FORMAT_IGNORE_REGEX: str = \
+    f"{_bracket_s}[^{_bracket_s}{_bracket_e}]*?{_bracket_e}"
+# If this flag is set to True no banners will be printed
+# and instead only newlines
+OVERWRITE_AVOID_PRINT_BANNER: bool = False
 output_console: Optional[Console] = None
 custom_theme = Theme({
     "info": "white",
@@ -55,8 +62,8 @@ def set_avoid_print_banner_overwrite(value: bool):
     Sets the AVOID_PRINT_BANNER_OVERWRITE, which if True removes all banner
     printing
     """
-    global AVOID_PRINT_BANNER_OVERWRITE
-    AVOID_PRINT_BANNER_OVERWRITE = value
+    global OVERWRITE_AVOID_PRINT_BANNER
+    OVERWRITE_AVOID_PRINT_BANNER = value
 
 
 def get_terminal_size() -> Optional[int]:
@@ -111,7 +118,10 @@ def get_rich_console() -> Union[Console, None]:
 
 class ParacStreamHandler(StreamHandler):
     """ Specific Stream Handler for Para-C designed to implement rich """
+
     def __init__(self, *args, **kwargs):
+        self.warnings = 0
+        self.errors = 0
         super().__init__(*args, **kwargs)
 
     @property
@@ -119,21 +129,26 @@ class ParacStreamHandler(StreamHandler):
         """ Fetches the Console if it is initialised """
         return get_rich_console()
 
-    def emit(self, record):
+    def emit(self, record: logging.LogRecord):
         """
         Emit a record using rich and the set implementation
 
         If a formatter is specified, it is used to format the record.
-        The record is then written to the stream with a trailing newline.  If
-        exception information is present, it is formatted using
+        The record is then written to the stream with a trailing newline.
+        If exception information is present, it is formatted using
         traceback.print_exception and appended to the stream.  If the stream
         has an 'encoding' attribute, it is used to determine how to do the
         output to the stream.
         """
         try:
+            if record.levelno in (logging.CRITICAL, logging.ERROR):
+                self.errors += 1
+            elif record.levelno == logging.WARNING:
+                self.warnings += 1
+
             msg = self.format(record)
             # Writing with the rich print method which implements
-            # its own stream-handling
+            # its own stream-handler (console out handler)
             self.console.print(msg, highlight=False, justify="left")
         except RecursionError:
             raise
@@ -146,6 +161,7 @@ logger = logging.getLogger(__name__)
 
 class ParacFileHandler(logging.FileHandler):
     """ Default FileHandler for the file handling in the Para-C compiler """
+
     def __init__(
             self,
             filename='./parac.log',
@@ -161,6 +177,16 @@ class ParacFileHandler(logging.FileHandler):
             *args,
             **kwargs
         )
+
+    def emit(self, record: logging.LogRecord):
+        """ Emits the record """
+        record.msg = re.sub(
+            CLICK_FORMAT_IGNORE_REGEX,
+            '',
+            record.msg,
+            flags=re.DOTALL
+        )
+        super().emit(record)
 
 
 class ParacFormatter(logging.Formatter):
@@ -187,10 +213,10 @@ class ParacFormatter(logging.Formatter):
             '[bright_yellow] %(message)s[/bright_yellow]'
         ]),
         logging.DEBUG: ''.join([
-            '[bold yellow]'
+            '[bold white]'
             '[%(levelname)s] - (%(asctime)s):'
-            '[/bold yellow]'
-            '[yellow] %(message)s[/yellow]'
+            '[/bold white]'
+            '[white] %(message)s[/white]'
         ]),
         logging.INFO: ''.join([
             '[bold bright_cyan]'
@@ -212,7 +238,7 @@ class ParacFormatter(logging.Formatter):
         self.file_mng = file_mng
         super().__init__(fmt=fmt, *args, **kwargs)
 
-    def format(self, record):
+    def format(self, record: logging.LogRecord):
         """
         Class specific formatter function to add colouring
         and Para-C specific formatting
@@ -319,13 +345,13 @@ class TerminalANSIColor:
     @classmethod
     def make_bold(cls, value: str) -> str:
         """ Adds to the ANSI formatting the bold prefix """
-        return f"{cls.bold.replace('m', '')};"\
+        return f"{cls.bold.replace('m', '')};" \
                f"{value.strip().replace(cls.base, '').replace('m', '')}m"
 
     @classmethod
     def make_italic(cls, value: str) -> str:
         """ Adds to the ANSI formatting the italic prefix """
-        return f"{cls.italic.replace('m', '')};"\
+        return f"{cls.italic.replace('m', '')};" \
                f"{value.strip().replace(cls.base, '').replace('m', '')}m"
 
 
@@ -334,7 +360,7 @@ ansi_col = TerminalANSIColor()
 
 def print_init_banner() -> None:
     """ Creates the init screen string that can be printed """
-    if AVOID_PRINT_BANNER_OVERWRITE:
+    if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
     base_str = f"Para-C Compiler{' ' * 5}"
@@ -351,7 +377,7 @@ def print_abort_banner(process: str) -> None:
     """
     Prints a simple colored Exception banner showing it crashed / was aborted
     """
-    if AVOID_PRINT_BANNER_OVERWRITE:
+    if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
     get_rich_console().rule(
@@ -360,30 +386,38 @@ def print_abort_banner(process: str) -> None:
     )
 
 
-def print_finish_banner() -> None:
+def print_result_banner(
+        name: str = "Compilation", success: bool = True
+) -> None:
     """
-    Prints a simple colored banner screen showing it succeeded and finished
+    Prints a simple colored banner screen showing the process finished and a
+    result is available
+
+    :param name: The name that should be printed before the ' Result'
+    :param success: If success if True then the banner will be in green
     """
-    if AVOID_PRINT_BANNER_OVERWRITE:
+    if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
+    col = 'green' if success else 'red'
     get_rich_console().rule(
-        "\n[bold green]Finished Compilation[/bold green]\n",
+        f"\n[bold {col}]{name} Result[/bold {col}]\n",
         style="green rule.line"
     )
+    get_rich_console().print("\n", end="")
 
 
-def print_log_banner() -> None:
+def print_log_banner(name: str = "Compiler") -> None:
     """
     Prints a simple colored banner screen showing the logs are active and
     the process started
     """
-    if AVOID_PRINT_BANNER_OVERWRITE:
+    if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
     output_console.print("\n", end="")
     output_console.rule(
-        "[bold bright_cyan]Compiler Logs[white]\n",
+        f"[bold bright_cyan]{name} Logs[white]\n",
         style="bright_white rule.line"
     )
 
@@ -405,6 +439,50 @@ def create_prompt(string: str) -> str:
 class ParacErrorListener(ErrorListener):
     """ Error-Listener for the Para-C compiler """
 
+    def __init__(self, reraise: bool):
+        """
+        Initialises the instance
+
+        :param reraise: If set to True the error listener will reraise errors
+                        and not just log them
+        """
+        self.reraise = reraise
+
+    # TODO! Find out what these do
+    def reportAmbiguity(
+            self,
+            recognizer,
+            dfa,
+            startIndex,
+            stopIndex,
+            exact,
+            ambigAlts,
+            configs
+    ) -> None:
+        ...
+
+    def reportAttemptingFullContext(
+            self,
+            recognizer,
+            dfa,
+            startIndex,
+            stopIndex,
+            conflictingAlts,
+            configs
+    ) -> None:
+        ...
+
+    def reportContextSensitivity(
+            self,
+            recognizer,
+            dfa,
+            startIndex,
+            stopIndex,
+            prediction,
+            configs
+    ) -> None:
+        ...
+
     def syntaxError(
             self,
             recognizer,
@@ -412,11 +490,12 @@ class ParacErrorListener(ErrorListener):
             line: int,
             column: int,
             msg: str,
-            e):
+            e
+    ) -> None:
         """
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
-        logger.error(f"Error [{line}:{column}] > {msg}")
-        # TODO! Add proper error handling
 
+        # TODO! Add proper error handling
+        logger.error(f"At line: {line}, column: {column} - {msg}")

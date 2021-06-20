@@ -11,14 +11,15 @@ from rich.progress import Progress
 from typing import Tuple, Union
 
 from . import __version__, __title__
+from .para_exceptions import InvalidArgumentsError
 from .core import (CompilationProcess, FinishedProcess, ParacCompiler,
-                   DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH,
+                   DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, BasicProcess,
                    is_c_compiler_ready, initialise_c_compiler)
 from .logger import (get_rich_console as console, init_rich_console,
-                     print_finish_banner, create_prompt, print_init_banner,
+                     print_result_banner, create_prompt, print_init_banner,
                      format_default)
-from .utils import (abortable, requires_init, keep_open_callback, escape_ansi,
-                    escape_ansi_param)
+from .utils import (abortable, requires_init, keep_open_callback,
+                    escape_ansi_param, SpecialBoolDefault)
 
 __all__ = [
     'para_compiler',
@@ -37,23 +38,41 @@ para_compiler = ParacCompiler()
 
 @abortable(step="Setup")
 def create_process(
-        file: str,
-        log_path: str,
+        file: Union[str, PathLike],
+        encoding: str,
+        log_path: Union[str, PathLike],
         build_path: str,
         dist_path: str
 ) -> CompilationProcess:
     """
-    Creates a compilation process and returns it.
+    Creates a compilation process, which can be used for compiling Para-C code
+    and returns it.
     Activates logging on default
     """
     if not para_compiler.log_initialised:
         para_compiler.init_logging_session(log_path)
 
-    return CompilationProcess(file, build_path, dist_path)
+    return CompilationProcess(file, encoding, build_path, dist_path)
 
 
-@abortable
-def _dir_already_exists(folder: str) -> bool:
+def create_basic_process(
+        file: Union[str, PathLike],
+        encoding: str,
+        log_path: Union[str, PathLike]
+) -> BasicProcess:
+    """
+    Creates a basic process, which can be used for syntax validation and
+    returns it.
+    Activates logging on default
+    """
+    if not para_compiler.log_initialised:
+        para_compiler.init_logging_session(log_path)
+
+    return BasicProcess(file, encoding)
+
+
+@abortable(step="Validating Output")
+def _dir_already_exists(folder: Union[str, PathLike]) -> bool:
     """ Asks the user whether the build folder should be overwritten """
     _input = console().input(
         f"[bright_yellow] > [bright_white]The {folder} "
@@ -125,7 +144,7 @@ def run_process(p: CompilationProcess) -> FinishedProcess:
     """
     finished_process = p.compile()
     if para_compiler.log_initialised:
-        print_finish_banner()
+        print_result_banner()
     return finished_process
 
 
@@ -153,7 +172,7 @@ def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
 
     console().print("\n", end="")
     if para_compiler.log_initialised:
-        print_finish_banner()
+        print_result_banner()
     return finished_process
 
 
@@ -199,6 +218,12 @@ def parac_init(*args, **kwargs):
          "should start the compilation process."
 )
 @click.option(
+    "--encoding",
+    default="utf-8",
+    type=str,
+    help="The encoding the files should be opened with"
+)
+@click.option(
     "-l",
     "--log",
     default=format_default("parac.log"),
@@ -223,12 +248,30 @@ def parac_init(*args, **kwargs):
     is_flag=True,
     type=bool,
     default=False,
-    help="If set to True the dist folder will always be overwritten without "
+    help="If flag is set the dist folder will always be overwritten without "
          "consideration of pre-existing data"
+)
+@click.option(
+    "--source/--no-source",
+    is_flag=True,
+    type=bool,
+    default=True,
+    help="If flag is set the compiler will compile the code down to native C"
+         " (C11). If set with --executable, the executable will be also "
+         "generated next the source C code."
+)
+@click.option(
+    "--executable/--no-executable",
+    type=bool,
+    default=False,
+    help="If flag is set the compiler will compile the native C code and "
+         "directly generate an executable. If set with --source, the source C"
+         "code will be also generated next the executable."
 )
 @click.option(
     "--debug/--no-debug",
     is_flag=True,
+    type=bool,
     default=False,
     help="If set the compiler will add additional debug information"
 )
@@ -248,6 +291,12 @@ def parac_compile(*args, **kwargs):
     prompt=create_prompt("Specify the entry-point of your program"),
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
+)
+@click.option(
+    "--encoding",
+    default="utf-8",
+    type=str,
+    help="The encoding the files should be opened with"
 )
 @click.option(
     "-l",
@@ -273,19 +322,61 @@ def parac_compile(*args, **kwargs):
     is_flag=True,
     type=bool,
     default=False,
-    help="If set to True the dist folder will always be overwritten without "
+    help="If flag is set the dist folder will always be overwritten without "
          "consideration of pre-existing data"
 )
 @click.option(
     "--debug/--no-debug",
     is_flag=True,
+    type=bool,
     default=False,
     help="If set the compiler will add additional debug information"
 )
 @abortable
 def parac_run(*args, **kwargs):
-    """ Compile a Para-C program and runs it """
-    ParacCLI.parac_run(*map(escape_ansi, args), **map(escape_ansi, kwargs))
+    """ Compile a Para-C program, creates the output and runs it """
+    ParacCLI.parac_run(*args, **kwargs)
+
+
+@cli.command(name="syntax-check")
+@click.option("--keep-open", is_flag=True)
+@click.option(
+    "-f",
+    "--file",
+    type=str,
+    default=format_default("entry.para"),
+    prompt=create_prompt("Specify the entry-point of your program"),
+    help="The entry-point of the program where the compiler "
+         "should start the compilation process."
+)
+@click.option(
+    "--encoding",
+    default="utf-8",
+    type=str,
+    help="The encoding the files should be opened with"
+)
+@click.option(
+    "-l",
+    "--log",
+    type=str,
+    default=format_default("parac.log"),
+    prompt=create_prompt(
+        "Specify where the console .log file should be created"),
+    help="Path of the output .log file where program messages should be logged"
+         ". If set to None it will not use a log file and only use the console"
+         " as the output method"
+)
+@click.option(
+    "--debug/--no-debug",
+    is_flag=True,
+    type=bool,
+    default=False,
+    help="If set the compiler will add additional debug information"
+)
+@abortable
+def parac_syntax_check(*args, **kwargs):
+    """ Validates the syntax of a Para-C program and logs errors if needed """
+    ParacCLI.parac_syntax_check(*args, **kwargs)
 
 
 class ParacCLI:
@@ -304,19 +395,19 @@ class ParacCLI:
         if console() is None:
             init_rich_console()
 
-        c = console()
+        out = console()
         if version:
-            return c.print(' '.join([__title__.title(), __version__]))
+            return out.print(' '.join([__title__.title(), __version__]))
         else:
             print_init_banner()
-            c.print('')
+            out.print('')
 
             # Sleeping to prevent that subcommands sending to stderr
             # causing the banner to be displayed at the end of the output
             time.sleep(.100)
 
         if not ctx.invoked_subcommand:
-            c.print(ctx.get_help())
+            out.print(ctx.get_help())
 
     @staticmethod
     @abortable
@@ -334,14 +425,16 @@ class ParacCLI:
 
     @staticmethod
     @abortable
-    @requires_init
     @keep_open_callback
     @escape_ansi_param
     def parac_compile(
             file: str,
+            encoding: str,
             log: str,
             overwrite_build: bool,
             overwrite_dist: bool,
+            source: SpecialBoolDefault,
+            executable: SpecialBoolDefault,
             debug: bool
     ) -> FinishedProcess:
         """
@@ -350,7 +443,13 @@ class ParacCLI:
         """
         if not para_compiler.log_initialised:
             para_compiler.init_logging_session(
+                log,
                 level=logging.DEBUG if debug else logging.INFO,
+            )
+
+        if not source and not executable:
+            raise InvalidArgumentsError(
+                "--source and --executable can not be both set to False"
             )
 
         # Validating the output directories and whether they already exist
@@ -367,6 +466,7 @@ class ParacCLI:
         # be finished but does not need to be finished
         p: CompilationProcess = abortable(create_process, step="Setup")(
             file,
+            encoding,
             log,
             build_path,
             dist_path
@@ -381,6 +481,7 @@ class ParacCLI:
     @escape_ansi_param
     def parac_run(
             file: str,
+            encoding: str,
             log: str,
             overwrite_build: bool,
             overwrite_dist: bool,
@@ -389,9 +490,62 @@ class ParacCLI:
         """ CLI interface for compiling and running a program. """
         p = ParacCLI.parac_compile(
             file,
+            encoding,
             log,
             overwrite_build,
             overwrite_dist,
             debug
         )
         # TODO! Run the process. Requires GCC Integration
+
+    @staticmethod
+    @abortable
+    @keep_open_callback
+    @escape_ansi_param
+    def parac_syntax_check(
+            file: str,
+            encoding: str,
+            log: str,
+            debug: bool
+    ):
+        """ Runs a syntax check on the specified file (imports excluded) """
+        if not para_compiler.log_initialised:
+            para_compiler.init_logging_session(
+                log,
+                level=logging.DEBUG if debug else logging.INFO,
+                banner_name="Syntax Check"
+            )
+
+        p = create_basic_process(file, encoding, log)
+
+        # Exception won't be reraised and directly logged to the console
+        result = p.validate_syntax(enable_out=True)
+
+        errors = para_compiler.stream_handler.errors
+        warnings = para_compiler.stream_handler.warnings
+        if result is True:
+            print_result_banner("Syntax Check")
+            logger.info(
+                "[bold bright_cyan]"
+                "Syntax check finished successfully"
+                "[/bold bright_cyan]"
+            )
+        else:
+            print_result_banner("Syntax Check", success=False)
+            logger.info(
+                "[bold yellow]"
+                "Syntax check detected "
+                f"{'an error' if errors == 1 else 'multiple errors' }"
+                "[/bold yellow]"
+            )
+
+        logger.info(
+            "[bold yellow]"
+            f"Warnings: {warnings}"
+            "[/bold yellow]"
+        )
+        logger.info(
+            "[bold red]"
+            f"Errors: {errors}"
+            "[/bold red]"
+        )

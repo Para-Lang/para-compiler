@@ -1,15 +1,19 @@
 # coding=utf-8
-""" Tests for the Tokenizer """
+""" Tests for the Lexer and Parser """
 import logging
 import os
 from typing import List
 
 import paraccompiler
+from paraccompiler import BasicProcess
 from . import reset_input
 
 
 logger = logging.getLogger('paraccompiler')
 
+paraccompiler.para_compiler.init_logging_session(
+    level=logging.DEBUG, print_banner=False
+)
 paraccompiler.set_avoid_print_banner_overwrite(True)
 compiler = paraccompiler.ParacCompiler()
 
@@ -20,7 +24,8 @@ test_para_files = f"{os.getcwd()}{sep}test_files{sep}"
 
 
 class TestParser:
-    def teardown_method(self, method):
+    @staticmethod
+    def teardown_method(_):
         """
         This method is being called after each test case, and it will revert
         input back to the original function
@@ -30,8 +35,8 @@ class TestParser:
     def test_entry_file(self):
         logger.debug(f"\nParsing {main_file_path}")
 
-        stream = compiler.get_file_stream(main_file_path, "ascii")
-        compiler.parse(stream)
+        p = BasicProcess(main_file_path, 'utf-8')
+        p.validate_syntax(True)
 
     def test_para_files(self):
         files: List[os.DirEntry] = []
@@ -43,8 +48,7 @@ class TestParser:
 
         for file in files:
             logger.debug(f"Parsing {file.path}")
-            stream = compiler.get_file_stream(file.path, "ascii")
-            compiler.parse(stream)
+            BasicProcess(file.path, 'utf-8').validate_syntax(True)
 
     def test_c_files(self):
         files: List[os.DirEntry] = []
@@ -56,5 +60,4 @@ class TestParser:
 
         for file in files:
             logger.debug(f"Parsing {file.path}")
-            stream = compiler.get_file_stream(file.path, "ascii")
-            compiler.parse(stream)
+            BasicProcess(file.path, 'utf-8').validate_syntax(True)

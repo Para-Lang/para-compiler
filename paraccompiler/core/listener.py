@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 
 
 __all__ = [
-    'Listener',
+    'Listener'
 ]
 
 
@@ -40,17 +40,28 @@ class Listener(ParaCListener.ParaCListener):
         self.file_ctx = FileCompilationContext()
         self.unit_ctx = unit_ctx
         self.code_str = ""
-        self._compiling = False
 
-    def walk(self) -> None:
+        self._compiling = False
+        self._enable_out = False
+
+    def walk(self, enable_out: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. (Errors will then NOT be raised but only
+                           logged)
         """
+        self._enable_out = enable_out
+
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.unit_ctx)
 
-    def walk_and_compile(self) -> None:
+        ...  # TODO! Add warnings system
+
+    def walk_and_compile(self, enable_out: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens and fills the FileCompilationContext
@@ -59,9 +70,14 @@ class Listener(ParaCListener.ParaCListener):
         The FileCompilationContext can then be used inside the
         CompilationContext to be linked with other files and to finish
         the compilation for the program
+
+        :param enable_out: If set to True errors, warnings and info will be
+                   logged onto the console using the local logger
+                   instance. (Errors will then NOT be raised but only
+                   logged)
         """
         self._compiling = True
-        self.walk()
+        self.walk(enable_out)
 
         # TODO! Add wrap-up and 'compilation'
 
@@ -1746,24 +1762,6 @@ class Listener(ParaCListener.ParaCListener):
     ): 
         """
         Exit a parse tree produced by ParaCParser#translationUnit.
-        """
-        ...
-
-    def enterExternalDeclaration(
-            self,
-            ctx: ParaCParser.ExternalDeclarationContext
-    ): 
-        """
-        Enter a parse tree produced by ParaCParser#externalDeclaration.
-        """
-        ...
-
-    def exitExternalDeclaration(
-            self,
-            ctx: ParaCParser.ExternalDeclarationContext
-    ): 
-        """
-        Exit a parse tree produced by ParaCParser#externalDeclaration.
         """
         ...
 

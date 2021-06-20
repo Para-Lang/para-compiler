@@ -26,7 +26,8 @@ __all__ = [
     'requires_init',
     'keep_open_callback',
     'escape_ansi',
-    'escape_ansi_param'
+    'escape_ansi_param',
+    'SpecialBoolDefault'
 ]
 
 logger = logging.getLogger(__name__)
@@ -143,12 +144,15 @@ def deprecated(_func, *, instead=None):
         return _decorator(_func)
 
 
-def decode_if_bytes(byte_like: Union[str, bytes, PathLike, Type]):
+def decode_if_bytes(
+        byte_like: Union[str, bytes, PathLike, Type],
+        encoding: str = "utf-8"
+):
     """ Decodes the passed PathLike if it is in bytes """
     if type(byte_like) is str:
         return byte_like
     elif type(byte_like) is bytes or isinstance(bytes, byte_like):
-        return byte_like.decode()
+        return byte_like.decode(encoding)
     else:
         return byte_like
 
@@ -179,7 +183,7 @@ def keep_open_callback(_func=None):
             # then the console will stay open until a key is pressed
             if keep_open:
                 console().print("\n\n", end="")
-                console().input("Press any key to continue ...")
+                console().input("Press any key to close the process ...")
                 console().print("")
             return r
 
@@ -227,3 +231,31 @@ def escape_ansi_param(_func):
         return _decorator
     else:
         return _decorator(_func)
+
+
+class SpecialBoolDefault:
+    """
+    Special Bool serving to separate wanted flags with default flags
+    """
+
+    def __init__(self, value: bool):
+        if type(value) is not bool:
+            raise ValueError("Expected boolean")
+        self.true_default: bool = bool(value)
+        self.actual_value: bool = bool(value)
+
+    def set(self, value):
+        """ Sets the actual_value in the instance """
+        if type(bool) is bool:
+            self.actual_value = value
+        else:
+            raise ValueError("Expected boolean")
+
+    def __eq__(self, other):
+        return self.actual_value == other
+
+    def __hash__(self):
+        return hash(self.actual_value)
+
+    def __bool__(self):
+        return self.actual_value

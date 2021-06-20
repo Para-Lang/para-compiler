@@ -11,7 +11,8 @@ paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
 class TestProcess:
-    def teardown_method(self, method):
+    @staticmethod
+    def teardown_method(_):
         """
         This method is being called after each test case, and it will revert
         input back to the original function
@@ -21,7 +22,9 @@ class TestProcess:
     def test_init(self):
         b_path = f"{os.getcwd()}\\build\\"
         d_path = f"{os.getcwd()}\\dist\\"
-        p = paraccompiler.CompilationProcess(main_file_path, b_path, d_path)
+        p = paraccompiler.CompilationProcess(
+            main_file_path, 'utf-8', b_path, d_path
+        )
 
         assert p.build_path == b_path
         assert p.dist_path == d_path
@@ -31,7 +34,9 @@ class TestProcess:
 
         b_path = f"{os.getcwd()}\\build\\".encode()
         d_path = f"{os.getcwd()}\\dist\\".encode()
-        p = paraccompiler.CompilationProcess(path, b_path, d_path)
+        p = paraccompiler.CompilationProcess(
+            path, 'utf-8', b_path, d_path
+        )
 
         assert p.build_path == b_path.decode()
         assert p.dist_path == d_path.decode()
