@@ -854,6 +854,24 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ParaCParser#paracPragmaDirective.
+    def enterParacPragmaDirective(self, ctx:ParaCParser.ParacPragmaDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#paracPragmaDirective.
+    def exitParacPragmaDirective(self, ctx:ParaCParser.ParacPragmaDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#otherPragmaDirective.
+    def enterOtherPragmaDirective(self, ctx:ParaCParser.OtherPragmaDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#otherPragmaDirective.
+    def exitOtherPragmaDirective(self, ctx:ParaCParser.OtherPragmaDirectiveContext):
+        pass
+
+
     # Enter a parse tree produced by ParaCParser#functionDefinition.
     def enterFunctionDefinition(self, ctx:ParaCParser.FunctionDefinitionContext):
         pass

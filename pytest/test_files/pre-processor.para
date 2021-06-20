@@ -1,6 +1,10 @@
-#include <stdio.h>  // -*- lang: C -*-
+#pragma PARAC lang C
+#include <stdio.h>
+
+#define HEADER_H "header.h"
 
 #include "example_header.parah"
+#include HEADER_H
 
 #define example1 (smth + smth)
 #define example2 "smth"

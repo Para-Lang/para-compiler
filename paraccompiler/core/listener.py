@@ -217,6 +217,42 @@ class Listener(ParaCListener.ParaCListener):
         """
         ...
 
+    def enterParacPragmaDirective(
+            self,
+            ctx: ParaCParser.ParacPragmaDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#paracPragmaDirective.
+        """
+        ...
+
+    def exitParacPragmaDirective(
+            self,
+            ctx: ParaCParser.ParacPragmaDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#paracPragmaDirective.
+        """
+        ...
+
+    def enterOtherPragmaDirective(
+            self,
+            ctx: ParaCParser.OtherPragmaDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#otherPragmaDirective.
+        """
+        ...
+
+    def exitOtherPragmaDirective(
+            self,
+            ctx: ParaCParser.OtherPragmaDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#otherPragmaDirective.
+        """
+        ...
+
     def enterExtFunctionDefinition(
             self,
             ctx: ParaCParser.ExtFunctionDefinitionContext

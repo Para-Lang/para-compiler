@@ -511,6 +511,8 @@ preProcessorDirective
     |   complexDefineDirective
     |   computedIncludeDirective
     |   undefDirective
+    |   paracPragmaDirective
+    |   otherPragmaDirective
     ;
 
 complexDefineDirective
@@ -518,12 +520,10 @@ complexDefineDirective
         (
             '(' (.)+? ')' | (.)+?
         )
-        Newline?
     ;
 
 undefDirective
     :   '#' Whitespace? 'undef' Whitespace? Identifier
-        Newline?
     ;
 
 includeDirective
@@ -531,15 +531,23 @@ includeDirective
     |   computedIncludeDirective
     ;
 
+// #include "header.h" / #include <header.h>
 fileIncludeDirective
-    :   '#' Whitespace? 'include' Whitespace? ((StringLiteral) | (LibIncludeLiteral))
-    Newline?
+    :   '#' Whitespace? (LibIncludeLiteral | StringIncludeLiteral)
     ;
 
+// #include MACRO_H
 computedIncludeDirective
-    :   '#' Whitespace? 'include' Whitespace? ((StringLiteral) | (LibIncludeLiteral)) Newline?
+    :   '#' 'include' Whitespace? Identifier Whitespace?
     ;
 
+paracPragmaDirective
+    :   '#' 'pragma' 'PARAC' Identifier+
+    ;
+
+otherPragmaDirective
+    :   '#' 'pragma' Whitespace? Identifier+
+    ;
 
 functionDefinition
     :   declarationSpecifiers? declarator declarationList? compoundStatement
@@ -665,6 +673,8 @@ ElseIf : 'elif';
 EndIf : 'endif';
 Error : 'error';
 Pragma : 'pragma';
+GCCParacPrefix : 'GCC';
+PragmaParacPrefix : 'PARAC';
 Defined : 'defined'; // Only usable inside #if or #elif
 
 Identifier
@@ -672,6 +682,21 @@ Identifier
         (   IdentifierNondigit
         |   Digit
         )*
+    ;
+
+LibIncludeLiteral
+    :   Include Whitespace+ '<' IncludeLiteral+ '>'
+    ;
+
+StringIncludeLiteral
+    :   Include Whitespace+ '"' IncludeLiteral+ '"'
+    ;
+
+fragment
+IncludeLiteral
+    :   Nondigit
+    |   Digit
+    |   '.'
     ;
 
 fragment
@@ -884,10 +909,6 @@ StringLiteral
     :   EncodingPrefix? '"' SCharSequence? '"'
     ;
 
-LibIncludeLiteral
-    :  '<' SCharSequence? '>'
-    ;
-
 fragment
 EncodingPrefix
     :   'u8'
@@ -934,10 +955,6 @@ LineDirective
         -> skip
     ;
 
-PragmaDirective
-    :   '#' Whitespace? 'pragma' Whitespace ~[\r\n]*
-        -> skip
-    ;
 
 Whitespace
     :   [ \t]+
@@ -945,9 +962,7 @@ Whitespace
     ;
 
 Newline
-    :   (   '\r' '\n'?
-        |   '\n'
-        )
+    :   (  '\r' '\n'? | '\n')
         -> skip
     ;
 
