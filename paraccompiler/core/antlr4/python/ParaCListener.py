@@ -809,21 +809,75 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#complexDefineDirective.
-    def enterComplexDefineDirective(self, ctx:ParaCParser.ComplexDefineDirectiveContext):
+    # Enter a parse tree produced by ParaCParser#logicalIfDirective.
+    def enterLogicalIfDirective(self, ctx:ParaCParser.LogicalIfDirectiveContext):
         pass
 
-    # Exit a parse tree produced by ParaCParser#complexDefineDirective.
-    def exitComplexDefineDirective(self, ctx:ParaCParser.ComplexDefineDirectiveContext):
+    # Exit a parse tree produced by ParaCParser#logicalIfDirective.
+    def exitLogicalIfDirective(self, ctx:ParaCParser.LogicalIfDirectiveContext):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#undefDirective.
-    def enterUndefDirective(self, ctx:ParaCParser.UndefDirectiveContext):
+    # Enter a parse tree produced by ParaCParser#logicalIfDefinedDirective.
+    def enterLogicalIfDefinedDirective(self, ctx:ParaCParser.LogicalIfDefinedDirectiveContext):
         pass
 
-    # Exit a parse tree produced by ParaCParser#undefDirective.
-    def exitUndefDirective(self, ctx:ParaCParser.UndefDirectiveContext):
+    # Exit a parse tree produced by ParaCParser#logicalIfDefinedDirective.
+    def exitLogicalIfDefinedDirective(self, ctx:ParaCParser.LogicalIfDefinedDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalIfNotDefinedDirective.
+    def enterLogicalIfNotDefinedDirective(self, ctx:ParaCParser.LogicalIfNotDefinedDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalIfNotDefinedDirective.
+    def exitLogicalIfNotDefinedDirective(self, ctx:ParaCParser.LogicalIfNotDefinedDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalDirectiveBlock.
+    def enterLogicalDirectiveBlock(self, ctx:ParaCParser.LogicalDirectiveBlockContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalDirectiveBlock.
+    def exitLogicalDirectiveBlock(self, ctx:ParaCParser.LogicalDirectiveBlockContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalDirectiveAlternatives.
+    def enterLogicalDirectiveAlternatives(self, ctx:ParaCParser.LogicalDirectiveAlternativesContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalDirectiveAlternatives.
+    def exitLogicalDirectiveAlternatives(self, ctx:ParaCParser.LogicalDirectiveAlternativesContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalElifDirective.
+    def enterLogicalElifDirective(self, ctx:ParaCParser.LogicalElifDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalElifDirective.
+    def exitLogicalElifDirective(self, ctx:ParaCParser.LogicalElifDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalElseDirective.
+    def enterLogicalElseDirective(self, ctx:ParaCParser.LogicalElseDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalElseDirective.
+    def exitLogicalElseDirective(self, ctx:ParaCParser.LogicalElseDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCParser#logicalDirectiveCompoundStatement.
+    def enterLogicalDirectiveCompoundStatement(self, ctx:ParaCParser.LogicalDirectiveCompoundStatementContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#logicalDirectiveCompoundStatement.
+    def exitLogicalDirectiveCompoundStatement(self, ctx:ParaCParser.LogicalDirectiveCompoundStatementContext):
         pass
 
 
@@ -851,24 +905,6 @@ class ParaCListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParaCParser#computedIncludeDirective.
     def exitComputedIncludeDirective(self, ctx:ParaCParser.ComputedIncludeDirectiveContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#paracPragmaDirective.
-    def enterParacPragmaDirective(self, ctx:ParaCParser.ParacPragmaDirectiveContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#paracPragmaDirective.
-    def exitParacPragmaDirective(self, ctx:ParaCParser.ParacPragmaDirectiveContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#otherPragmaDirective.
-    def enterOtherPragmaDirective(self, ctx:ParaCParser.OtherPragmaDirectiveContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#otherPragmaDirective.
-    def exitOtherPragmaDirective(self, ctx:ParaCParser.OtherPragmaDirectiveContext):
         pass
 
 

@@ -508,22 +508,44 @@ externalDeclaration
 
 preProcessorDirective
     :   includeDirective
-    |   complexDefineDirective
     |   computedIncludeDirective
-    |   undefDirective
-    |   paracPragmaDirective
-    |   otherPragmaDirective
+    |   logicalPreProcessorDirective
+    |   ComplexDefineDirective
+    |   PragmaDirective
+    |   UndefDirective
     ;
 
-complexDefineDirective
-    :   '#' Whitespace? 'define' Whitespace? Identifier
-        (
-            '(' (.)+? ')' | (.)+?
-        )
+// logical pre processor directives
+// #if smth
+// /* code */
+// #elif smth
+// /* code */
+// #else
+// /* code */
+logicalPreProcessorDirective
+    :   IfDirective '('? expression ')'? logicalDirectiveBlock # logicalIfDirective
+    |   IfDefinedDirective Identifier logicalDirectiveBlock # logicalIfDefinedDirective
+    |   IfNotDefinedDirective Identifier logicalDirectiveBlock # logicalIfNotDefinedDirective
     ;
 
-undefDirective
-    :   '#' Whitespace? 'undef' Whitespace? Identifier
+logicalDirectiveBlock
+    :   logicalDirectiveCompoundStatement? logicalDirectiveAlternatives EndifDirective
+    ;
+
+logicalDirectiveAlternatives
+    :   logicalElifDirective* logicalElseDirective?
+    ;
+
+logicalElifDirective
+    :   ElifDirective logicalDirectiveCompoundStatement
+    ;
+
+logicalElseDirective
+    :   ElseDirective logicalDirectiveCompoundStatement
+    ;
+
+logicalDirectiveCompoundStatement
+    :   (blockItemList | logicalPreProcessorDirective | preProcessorDirective)+
     ;
 
 includeDirective
@@ -533,20 +555,12 @@ includeDirective
 
 // #include "header.h" / #include <header.h>
 fileIncludeDirective
-    :   '#' Whitespace? (LibIncludeLiteral | StringIncludeLiteral)
+    :   (LibIncludeLiteral | StringIncludeLiteral)
     ;
 
 // #include MACRO_H
 computedIncludeDirective
-    :   '#' 'include' Whitespace? Identifier Whitespace?
-    ;
-
-paracPragmaDirective
-    :   '#' 'pragma' 'PARAC' Identifier+
-    ;
-
-otherPragmaDirective
-    :   '#' 'pragma' Whitespace? Identifier+
+    :   ComputedIncludeLiteral
     ;
 
 functionDefinition
@@ -660,23 +674,6 @@ Arrow : '->';
 Dot : '.';
 Ellipsis : '...';
 
-// Pre-Processor definitions
-// #if and #else are excluded since they are already defined in the standard
-// grammar
-PreProcessorDirective : '#';
-Include : 'include';
-Define : 'define';
-Undefine : 'undef';
-IfDefined : 'ifdef';
-IfNotDefined : 'ifndef';
-ElseIf : 'elif';
-EndIf : 'endif';
-Error : 'error';
-Pragma : 'pragma';
-GCCParacPrefix : 'GCC';
-PragmaParacPrefix : 'PARAC';
-Defined : 'defined'; // Only usable inside #if or #elif
-
 Identifier
     :   IdentifierNondigit
         (   IdentifierNondigit
@@ -684,18 +681,123 @@ Identifier
         )*
     ;
 
+
+FileComment
+    :   (BlockComment | LineComment)
+        -> skip
+    ;
+
+fragment
+BlockComment
+    :   '/*' .*? '*/'
+    ;
+
+fragment
+LineComment
+    :   '//' ~[\r\n]*
+    ;
+
+// Due to token recognition the lexer rules already contain the keywords
+// to avoid the lexer recongnising certain other tokens inside the
+// pre-processor
+
+IfNotDefinedDirective
+    :   IfNotDefined Whitespace+
+    ;
+
+IfDefinedDirective
+    :   IfDefined Whitespace+
+    ;
+
+IfDirective
+    :   PreProcessorDirective If
+    ;
+
+ElifDirective
+    :   ElseIf Whitespace+
+    ;
+
+ElseDirective
+    :   PreProcessorDirective Else Whitespace?
+    ;
+
+EndifDirective
+    :   EndIf
+    ;
+
+PragmaDirective
+    :   Pragma (GCCParacPrefix | PragmaParacPrefix | Identifier)
+        (Whitespace+ Identifier)+
+    ;
+
+UndefDirective
+    :   Undefine Identifier
+    ;
+
+// Since a define accepts almost ANY character the rules here need to be
+// special to avoid causing the lexer to possibly miss newlines/includes or
+// include comments into the directive
+ComplexDefineDirective
+    :   Define Identifier '('? (. ~[\r\n/]* | '/' ~'/')+? ')'?
+    |   Define Identifier '('? (. ~[\r\n/*]* | '/' ~'*' | '*' ~ '/')+? ')'?
+    ;
+
+ComputedIncludeLiteral
+    :   Include Identifier
+    ;
+
 LibIncludeLiteral
-    :   Include Whitespace+ '<' IncludeLiteral+ '>'
+    :   Include '<' IncludeLiteral+ '>'
     ;
 
 StringIncludeLiteral
-    :   Include Whitespace+ '"' IncludeLiteral+ '"'
+    :   Include '"' IncludeLiteral+ '"'
     ;
+
+// Pre-Processor definitions
+// #if and #else are excluded since they are already defined in the standard
+// grammar
+fragment
+PreProcessorDirective : Whitespace* '#' Whitespace*;
+
+fragment
+Include : PreProcessorDirective 'include' Whitespace+;
+
+fragment
+Define : PreProcessorDirective 'define' Whitespace+;
+
+fragment
+Undefine : PreProcessorDirective 'undef' Whitespace+;
+
+fragment
+IfDefined : PreProcessorDirective 'ifdef' Whitespace+;
+
+fragment
+IfNotDefined : PreProcessorDirective 'ifndef' Whitespace+;
+
+fragment
+ElseIf : PreProcessorDirective 'elif' Whitespace+;
+
+fragment
+EndIf : PreProcessorDirective 'endif' Whitespace?;
+
+fragment
+Error : PreProcessorDirective 'error' Whitespace+;
+
+fragment
+Pragma : PreProcessorDirective 'pragma' Whitespace+;
+
+fragment
+GCCParacPrefix : PreProcessorDirective 'GCC' Whitespace+;
+
+fragment
+PragmaParacPrefix : PreProcessorDirective 'PARAC' Whitespace+;
 
 fragment
 IncludeLiteral
     :   Nondigit
     |   Digit
+    |   EscapedHashtag
     |   '.'
     ;
 
@@ -704,6 +806,11 @@ IdentifierNondigit
     :   Nondigit
     |   UniversalCharacterName
     //|   // other implementation-defined characters...
+    ;
+
+fragment
+EscapedHashtag
+    :   '\\#'
     ;
 
 fragment
@@ -963,15 +1070,5 @@ Whitespace
 
 Newline
     :   (  '\r' '\n'? | '\n')
-        -> skip
-    ;
-
-BlockComment
-    :   '/*' .*? '*/'
-        -> skip
-    ;
-
-LineComment
-    :   '//' ~[\r\n]*
         -> skip
     ;

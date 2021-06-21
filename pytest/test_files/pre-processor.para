@@ -1,22 +1,30 @@
-#pragma PARAC lang C
-#include <stdio.h>
+#define HEADER_H "header.h" /* defining a header as a macro */
+#include "example_header.parah" // String Include
+#include HEADER_H // Computed Include
 
-#define HEADER_H "header.h"
+#pragma PARAC lang C // Lang-Pragma C
+#include <stdio.h> // Library Include
+#pragma PARAC lang ParaC // Lang-Pragma ParaC
 
-#include "example_header.parah"
-#include HEADER_H
+#define example1 (smth + smth) // define (expression)
+#define example2 "smth" // define value
+#define example3 (if (smth == smth) { smth }) // define (expression)
 
-#define example1 (smth + smth)
-#define example2 "smth"
-#define example3 (if (smth == smth) { smth })
+#if defined(x) // Logical pre-processor directive
+#else
+# if ("x" == "x") // Nested logical if pre-processor directive
+/* do smth */
+# endif
+#endif
 
-#define x "X"
-# /**/undef x
+#define y "Y" // define value
+#undef y // undef value
 
-#define y "Y"
-#undef y
+// Spaces
+# define  z  "Z" // define value
+# undef  Z  // undef value
 
-# /**/define x "x"
+#define x "x"
 
 entry status Main()
 {

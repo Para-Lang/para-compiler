@@ -33,6 +33,8 @@ will likely also adopt a few Python conventions  and integrate some ideas of the
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
 ![Coverage](https://raw.githubusercontent.com/Luna-Klatzer/Para-C/main/coverage.svg)
+![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
+![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
 
 ### Building
 
