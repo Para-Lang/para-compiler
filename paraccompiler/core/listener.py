@@ -128,39 +128,150 @@ class Listener(ParaCListener.ParaCListener):
         """
         ...
 
-    def enterComplexDefineDirective(
+    def enterLogicalIfDirective(
             self,
-            ctx: ParaCParser.ComplexDefineDirectiveContext
+            ctx: ParaCParser.LogicalIfDirectiveContext
     ):
         """
-        Enter a parse tree produced by ParaCParser#complexDefineDirective.
+        Enter a parse tree produced by ParaCParser#logicalIfDirective.
         """
         ...
 
-    def exitComplexDefineDirective(
+    def exitLogicalIfDirective(
             self,
-            ctx: ParaCParser.ComplexDefineDirectiveContext
+            ctx: ParaCParser.LogicalIfDirectiveContext
     ):
         """
-        Exit a parse tree produced by ParaCParser#complexDefineDirective.
+        Exit a parse tree produced by ParaCParser#logicalIfDirective.
         """
         ...
 
-    def enterUndefDirective(
+    def enterLogicalIfDefinedDirective(
             self,
-            ctx: ParaCParser.UndefDirectiveContext
+            ctx: ParaCParser.LogicalIfDefinedDirectiveContext
     ):
         """
-        Enter a parse tree produced by ParaCParser#undefDirective.
+        Enter a parse tree produced by ParaCParser#logicalIfDefinedDirective.
         """
         ...
 
-    def exitUndefDirective(
+    def exitLogicalIfDefinedDirective(
             self,
-            ctx: ParaCParser.UndefDirectiveContext
+            ctx: ParaCParser.LogicalIfDefinedDirectiveContext
     ):
         """
-        Exit a parse tree produced by ParaCParser#undefDirective.
+        Exit a parse tree produced by ParaCParser#logicalIfDefinedDirective.
+        """
+        ...
+
+    def enterLogicalIfNotDefinedDirective(
+            self,
+            ctx: ParaCParser.LogicalIfNotDefinedDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#logicalIfNotDefinedDirective.
+        """
+        ...
+
+    def exitLogicalIfNotDefinedDirective(
+            self,
+            ctx: ParaCParser.LogicalIfNotDefinedDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#logicalIfNotDefinedDirective.
+        """
+        ...
+
+    def enterLogicalDirectiveBlock(
+            self,
+            ctx: ParaCParser.LogicalDirectiveBlockContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#logicalDirectiveBlock.
+        """
+        ...
+
+    def exitLogicalDirectiveBlock(
+            self,
+            ctx: ParaCParser.LogicalDirectiveBlockContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#logicalDirectiveBlock.
+        """
+        ...
+
+    def enterLogicalDirectiveAlternatives(
+            self,
+            ctx: ParaCParser.LogicalDirectiveAlternativesContext
+    ):
+        """
+        Enter a parse tree produced by 
+        ParaCParser#logicalDirectiveAlternatives.
+        """
+        ...
+
+    def exitLogicalDirectiveAlternatives(
+            self,
+            ctx: ParaCParser.LogicalDirectiveAlternativesContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#logicalDirectiveAlternatives.
+        """
+        ...
+
+    def enterLogicalElifDirective(
+            self,
+            ctx: ParaCParser.LogicalElifDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#logicalElifDirective.
+        """
+        ...
+
+    def exitLogicalElifDirective(
+            self,
+            ctx: ParaCParser.LogicalElifDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#logicalElifDirective.
+        """
+        ...
+
+    def enterLogicalElseDirective(
+            self,
+            ctx: ParaCParser.LogicalElseDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCParser#logicalElseDirective.
+        """
+        ...
+
+    def exitLogicalElseDirective(
+            self,
+            ctx: ParaCParser.LogicalElseDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCParser#logicalElseDirective.
+        """
+        ...
+
+    def enterLogicalDirectiveCompoundStatement(
+            self,
+            ctx: ParaCParser.LogicalDirectiveCompoundStatementContext
+    ):
+        """
+        Enter a parse tree produced by 
+        ParaCParser#logicalDirectiveCompoundStatement.
+        """
+        ...
+ 
+    def exitLogicalDirectiveCompoundStatement(
+            self,
+            ctx: ParaCParser.LogicalDirectiveCompoundStatementContext
+    ):
+        """
+        Exit a parse tree produced by 
+        ParaCParser#logicalDirectiveCompoundStatement.
         """
         ...
 
@@ -175,7 +286,8 @@ class Listener(ParaCListener.ParaCListener):
 
     def exitIncludeDirective(
             self,
-            ctx: ParaCParser.IncludeDirectiveContext):
+            ctx: ParaCParser.IncludeDirectiveContext
+    ):
         """
         Exit a parse tree produced by ParaCParser#includeDirective.
         """
@@ -214,42 +326,6 @@ class Listener(ParaCListener.ParaCListener):
     ):
         """
         Exit a parse tree produced by ParaCParser#computedIncludeDirective.
-        """
-        ...
-
-    def enterParacPragmaDirective(
-            self,
-            ctx: ParaCParser.ParacPragmaDirectiveContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#paracPragmaDirective.
-        """
-        ...
-
-    def exitParacPragmaDirective(
-            self,
-            ctx: ParaCParser.ParacPragmaDirectiveContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#paracPragmaDirective.
-        """
-        ...
-
-    def enterOtherPragmaDirective(
-            self,
-            ctx: ParaCParser.OtherPragmaDirectiveContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#otherPragmaDirective.
-        """
-        ...
-
-    def exitOtherPragmaDirective(
-            self,
-            ctx: ParaCParser.OtherPragmaDirectiveContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#otherPragmaDirective.
         """
         ...
 
