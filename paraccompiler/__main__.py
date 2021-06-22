@@ -12,7 +12,7 @@ from typing import Tuple, Union
 
 from . import __version__, __title__
 from .para_exceptions import InvalidArgumentsError
-from .core import (CompilationProcess, FinishedProcess, ParacCompiler,
+from .core import (ProgramCompilationProcess, FinishedProcess, ParacCompiler,
                    DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, BasicProcess,
                    is_c_compiler_ready, initialise_c_compiler)
 from .logger import (get_rich_console as console, init_rich_console,
@@ -43,7 +43,7 @@ def create_process(
         log_path: Union[str, PathLike],
         build_path: str,
         dist_path: str
-) -> CompilationProcess:
+) -> ProgramCompilationProcess:
     """
     Creates a compilation process, which can be used for compiling Para-C code
     and returns it.
@@ -52,7 +52,7 @@ def create_process(
     if not para_compiler.log_initialised:
         para_compiler.init_logging_session(log_path)
 
-    return CompilationProcess(file, encoding, build_path, dist_path)
+    return ProgramCompilationProcess(file, encoding, build_path, dist_path)
 
 
 def create_basic_process(
@@ -137,7 +137,7 @@ def run_output_dir_validation(
     return build_path, dist_path
 
 
-def run_process(p: CompilationProcess) -> FinishedProcess:
+def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
     """
     Runs the process and returns the finished compilation process
     Calls p.compile(), adds additional formatting and returns the result
@@ -148,7 +148,7 @@ def run_process(p: CompilationProcess) -> FinishedProcess:
     return finished_process
 
 
-def run_process_with_logging(p: CompilationProcess) -> FinishedProcess:
+def run_process_with_logging(p: ProgramCompilationProcess) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
     finished_process = None
 
@@ -464,7 +464,7 @@ class ParacCLI:
 
         # Creates a CompilationProcess which represents a process that can
         # be finished but does not need to be finished
-        p: CompilationProcess = abortable(create_process, step="Setup")(
+        p: ProgramCompilationProcess = abortable(create_process, step="Setup")(
             file,
             encoding,
             log,

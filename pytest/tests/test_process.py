@@ -22,7 +22,7 @@ class TestProcess:
     def test_init(self):
         b_path = f"{os.getcwd()}\\build\\"
         d_path = f"{os.getcwd()}\\dist\\"
-        p = paraccompiler.CompilationProcess(
+        p = paraccompiler.ProgramCompilationProcess(
             main_file_path, 'utf-8', b_path, d_path
         )
 
@@ -34,7 +34,7 @@ class TestProcess:
 
         b_path = f"{os.getcwd()}\\build\\".encode()
         d_path = f"{os.getcwd()}\\dist\\".encode()
-        p = paraccompiler.CompilationProcess(
+        p = paraccompiler.ProgramCompilationProcess(
             path, 'utf-8', b_path, d_path
         )
 

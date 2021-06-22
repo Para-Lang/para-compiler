@@ -8,33 +8,40 @@ from __future__ import annotations
 
 __all__ = [
     'FileCompilationContext',
-    'CompilationContext'
+    'ProgramCompilationContext'
 ]
 
 from typing import Dict, Union, List, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from .compiler import CompilationProcess
+    from .compiler import ProgramCompilationProcess
 
 
 class FileCompilationContext:
     """
-    Class used inside the listener which 'listens' to events / registers
-    tokens, which will keep track of variables, the stack, logic and
+    Class used inside the listener for managing the context of a single file,
+    which will keep track of variables, the stack, logic and
     general compiling information which is only related to the specified file.
+    -> Unknown identifiers will not count as an error, since they might be
+    from another file that is included.
 
     Dependencies will be managed using the CompilationContext, which will keep
     track of all files and in the end process the resulting dependencies and
-    whether they work
+    whether they work. (-> Linker and Semantic Analysis)
     """
     ...
 
 
 # TODO! Add proper logic and dependency management
-class CompilationContext:
-    """ Compilation Context """
+class ProgramCompilationContext:
+    """
+    Program Compilation Context, which serves as the base for the compilation
+    of an entire program containing possibly more than one file. Holds the
+    entire context of the program and is used in the linker and last step of
+    semantic analysis to validate the program.
+    """
 
-    def __init__(self, process: CompilationProcess):
+    def __init__(self, process: ProgramCompilationProcess):
         self._entry_ctx: Union[FileCompilationContext, None] = None
         self._ctx_list: List[FileCompilationContext] = []
         self.process = process
@@ -67,7 +74,7 @@ class CompilationContext:
 
     def generate_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
-        Generates the source C-code from the tokens stored inside the class
+        Generates the source C-code from the tokens stored inside the class.
 
         :returns: Dict[
                   str - Name of the file (Relative name),

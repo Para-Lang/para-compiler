@@ -12,7 +12,7 @@ from typing import Union, Generator, Tuple, Dict, TYPE_CHECKING
 import antlr4
 from .antlr4.python import ParaCLexer
 from .antlr4.python import ParaCParser
-from .compilation_ctx import CompilationContext
+from .compilation_ctx import ProgramCompilationContext
 from .listener import Listener
 
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
@@ -32,14 +32,14 @@ __all__ = [
     'INIT_OVERWRITE',
     'COMPILER_DIR',
     'is_c_compiler_ready',
-    'CompilationContext',
+    'ProgramCompilationContext',
     'initialise_c_compiler',
     'DEFAULT_LOG_PATH',
     'DEFAULT_BUILD_PATH',
     'DEFAULT_DIST_PATH',
     'ParacCompiler',
     'BasicProcess',
-    'CompilationProcess',
+    'ProgramCompilationProcess',
     'FinishedProcess'
 ]
 
@@ -217,13 +217,13 @@ class BasicProcess:
 class FinishedProcess(BasicProcess):
     """ Class used to represent a done compilation process """
 
-    def __init__(self, process: CompilationProcess):
+    def __init__(self, process: ProgramCompilationProcess):
         self.done_process = process
         super().__init__(process.entry_file, process.encoding)
 
 
-class CompilationProcess(BasicProcess):
-    """ Process instance used for a single compilation process """
+class ProgramCompilationProcess(BasicProcess):
+    """ Process instance used for a program compilation process """
 
     def __init__(
             self,
@@ -252,10 +252,10 @@ class CompilationProcess(BasicProcess):
 
         self._build_path = build_path
         self._dist_path = dist_path
-        self._context = CompilationContext(self)
+        self._context = ProgramCompilationContext(self)
 
     @property
-    def context(self) -> CompilationContext:
+    def context(self) -> ProgramCompilationContext:
         """ Context for the compilation """
         return self._context
 
@@ -448,7 +448,7 @@ class ParacCompiler:
     @classmethod
     def antlr_parse_and_compile(
             cls,
-            ctx: CompilationContext,
+            ctx: ProgramCompilationContext,
             enable_out: bool = True
     ) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
