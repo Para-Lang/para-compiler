@@ -9,25 +9,25 @@ project designed for learning and testing purposes, which we do not intend for a
 
 ## Introduction
 
-Para-C (From Greek Origin: Beside C  ) is a programming language designed to integrate C, 
-compile to C and serve as an extension to C with additional functionality, 
-simplification and helper tools. Including adding more features, like new 
-built-in Macros, simplified or new functions, OOP-structures (Under consideration),
-list and malloc-handling, expanded data types and additional project-management features.
+Para-C (From Greek Origin: Beside C) is a programming language designed to 
+integrate C (and other languages), compile to C and serve as an extension to C
+with additional functionality, simplifications and helper tools. Including
+adding more features, like new built-in Macros, simplified or new functions, 
+OOP-structures (Under consideration), more straightforward array, list and
+malloc-handling, expanded data types and additional project-management features. 
 
-The compiler will take the Para-C code to compile it down to simple C with the integrated functionality. 
-That means that programming in Para-C will be similar but simpler and well looking due to the 
-simplifications, new structures, keywords and helper functions. Syntax-wise Para-C will still 
-lay onto C to avoid causing issues with more compiler code that would be required for a new 
-syntax that can’t be easily integrated into the C-syntax. So newer structures won’t look so new,
-and possibly similar to C# or C++, like data-types, one-liners, overloads and getters etc. 
-
-Furthermore, formatting and non-fetal syntax warnings will also be reported, as a help/motivator
-to avoid causing inconsistent writing and style. Including possibly harder conventions, that will
-try to improve on the loose C-conventions, which are more open to writing code. That means Para-C 
-will introduce more conventions regarding naming, type declarations, formatting, commenting and 
-will likely also adopt a few Python conventions  and integrate some ideas of the Zen of Python
-(Since the Compiler is also written in Cython).  
+The compiler will take the Para-C code and compile it down to simple C with the
+integrated functionality. That means that programming in Para-C will be similar
+but simpler and well looking due to the simplifications, new structures, 
+keywords and helper functions. Some new structures will not look so new, and 
+possibly like C#, Python or C++, like datatypes, one-liners, overloads and
+getters etc. To that using Language Extensions, code from other languages can 
+be integrated directly into the code, making it possible to for example use 
+Python inside Para-C, specify the return and convert the datatypes to simple
+Para-C types, so you can continue coding in Para-C. Using this, you can for 
+example integrate async functionality from Python directly into the program, 
+which is not supported in C and so also Para-C.
+ 
 
 ## Development
 
