@@ -445,6 +445,7 @@ blockItemList
 blockItem
     :   statement
     |   declaration
+    |   preProcessorDirective
     ;
 
 expressionStatement
@@ -529,23 +530,24 @@ logicalPreProcessorDirective
     ;
 
 logicalDirectiveBlock
-    :   logicalDirectiveCompoundStatement? logicalDirectiveAlternatives EndifDirective
+    :   preProcessorCompoundStatement logicalDirectiveAlternatives EndifDirective
     ;
 
 logicalDirectiveAlternatives
     :   logicalElifDirective* logicalElseDirective?
     ;
 
+
 logicalElifDirective
-    :   ElifDirective logicalDirectiveCompoundStatement
+    :   ElifDirective '('? expression ')'? preProcessorCompoundStatement
     ;
 
 logicalElseDirective
-    :   ElseDirective logicalDirectiveCompoundStatement
+    :   ElseDirective preProcessorCompoundStatement
     ;
 
-logicalDirectiveCompoundStatement
-    :   (blockItemList | logicalPreProcessorDirective | preProcessorDirective)+
+preProcessorCompoundStatement
+    :   ((blockItemList | logicalPreProcessorDirective | preProcessorDirective))?
     ;
 
 includeDirective
@@ -702,11 +704,11 @@ LineComment
 // pre-processor
 
 IfNotDefinedDirective
-    :   IfNotDefined Whitespace+
+    :   IfNotDefined
     ;
 
 IfDefinedDirective
-    :   IfDefined Whitespace+
+    :   IfDefined
     ;
 
 IfDirective
@@ -714,11 +716,11 @@ IfDirective
     ;
 
 ElifDirective
-    :   ElseIf Whitespace+
+    :   ElseIf
     ;
 
 ElseDirective
-    :   PreProcessorDirective Else Whitespace?
+    :   PreProcessorDirective Else
     ;
 
 EndifDirective
@@ -758,7 +760,7 @@ StringIncludeLiteral
 // #if and #else are excluded since they are already defined in the standard
 // grammar
 fragment
-PreProcessorDirective : Whitespace* '#' Whitespace*;
+PreProcessorDirective : '#' Whitespace*;
 
 fragment
 Include : PreProcessorDirective 'include' Whitespace+;

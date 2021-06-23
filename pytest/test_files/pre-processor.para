@@ -28,6 +28,8 @@
 
 entry status Main()
 {
+    #undef x
+    #define x "This is the wanted output to the console"
     printf("%i", x);
 
     return (status) { .status_code = 0 };
