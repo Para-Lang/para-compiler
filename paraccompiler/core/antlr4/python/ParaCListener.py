@@ -872,12 +872,12 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#logicalDirectiveCompoundStatement.
-    def enterLogicalDirectiveCompoundStatement(self, ctx:ParaCParser.LogicalDirectiveCompoundStatementContext):
+    # Enter a parse tree produced by ParaCParser#preProcessorCompoundStatement.
+    def enterPreProcessorCompoundStatement(self, ctx:ParaCParser.PreProcessorCompoundStatementContext):
         pass
 
-    # Exit a parse tree produced by ParaCParser#logicalDirectiveCompoundStatement.
-    def exitLogicalDirectiveCompoundStatement(self, ctx:ParaCParser.LogicalDirectiveCompoundStatementContext):
+    # Exit a parse tree produced by ParaCParser#preProcessorCompoundStatement.
+    def exitPreProcessorCompoundStatement(self, ctx:ParaCParser.PreProcessorCompoundStatementContext):
         pass
 
 

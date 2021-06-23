@@ -34,6 +34,7 @@ __all__ = [
     'is_c_compiler_ready',
     'ProgramCompilationContext',
     'initialise_c_compiler',
+    'VALID_FILE_ENDINGS',
     'DEFAULT_LOG_PATH',
     'DEFAULT_BUILD_PATH',
     'DEFAULT_DIST_PATH',
@@ -44,6 +45,8 @@ __all__ = [
 ]
 
 logger = logging.getLogger(__name__)
+
+VALID_FILE_ENDINGS = [".para", ".parah", ".c", ".h", ".ph"]
 
 DEFAULT_LOG_PATH: str = "./para.log"
 DEFAULT_BUILD_PATH: str = "./build"
@@ -58,6 +61,10 @@ CONFIG_PATH = ""
 DEFAULT_CONFIG = {
     "c-compiler-path": ""
 }
+
+
+def _valid_file_ending(path: Union[str, PathLike]) -> bool:
+    return all(map(path.endswith, VALID_FILE_ENDINGS))
 
 
 def validate_path_like(path_like: Union[PathLike, str]) -> None:
@@ -163,11 +170,10 @@ class BasicProcess:
             ParacCompiler.logger.warning(
                 "The given file does not seem to be in the correct format!"
             )
-        elif (not _last_path_elem.endswith('.para')
-              and not _last_path_elem.endswith('.ph')):
+        elif _valid_file_ending(_last_path_elem):
             ParacCompiler.logger.warning(
                 "The given file ending does not follow "
-                "the Para-C conventions (.para, .ph, .parah)!"
+                "the Para-C conventions (.para, .ph, .c, .h, .parah)!"
             )
 
         try:
