@@ -9,24 +9,24 @@ project designed for learning and testing purposes, which we do not intend for a
 
 ## Introduction
 
-Para-C (From Greek Origin: Beside C) is a programming language designed to 
-integrate C (and other languages), compile to C and serve as an extension to C
-with additional functionality, simplifications and helper tools. Including
-adding more features, like new built-in Macros, simplified or new functions, 
-OOP-structures (Under consideration), more straightforward array, list and
-malloc-handling, expanded data types and additional project-management features. 
+Para-C (From Greek Origin: Beside C ) is a programming language that is 
+designed to integrate other languages and allow for advanced management of
+programs / code-bases inside a program, where the language will serve as a 
+base overhead language with extended C-functionality and simplifications to
+write simpler code. Including adding more features, like new built-in 
+functions, libraries, data structures, decorators, function-handling, OOP
+structures (Under consideration), and additional project-management features.  
 
-The compiler will take the Para-C code and compile it down to simple C with the
-integrated functionality. That means that programming in Para-C will be similar
-but simpler and well looking due to the simplifications, new structures, 
-keywords and helper functions. Some new structures will not look so new, and 
-possibly like C#, Python or C++, like datatypes, one-liners, overloads and
-getters etc. To that using Language Extensions, code from other languages can 
-be integrated directly into the code, making it possible to for example use 
-Python inside Para-C, specify the return and convert the datatypes to simple
-Para-C types, so you can continue coding in Para-C. Using this, you can for 
-example integrate async functionality from Python directly into the program, 
-which is not supported in C and so also Para-C.
+To achieve the multiple language “support” / integration-functionality, the 
+compiler will take the Para-C code and compile the source code down to simple
+C and generate the code required to integrate the wanted language, using their 
+required compiler/interpreter for the language. That means that programming in
+Para-C will be similar to C and partly C#, due to the new features, keywords 
+and helper functions, but add the simple option to integrate and manage simple 
+code or even programs that should be directly embedded into the program. Using
+this, you can for example embed async functionality from Python directly into
+the program, which is not natively supported, and then pass generated data to
+a C++ program, which then uses that to run something else. 
  
 
 ## Development
