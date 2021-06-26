@@ -1,5 +1,10 @@
 /src/venv
 /src/lib/.idea
 /src/.idea/
-/.idea
+**/.idea
 /parac_compiler/.idea/
+/venv/
+**/cmake-build-debug
+*.java
+/gen
+*.log
