@@ -10,11 +10,11 @@ import time
 from os import PathLike
 from typing import Union, Generator, Tuple, Dict, TYPE_CHECKING
 import antlr4
-from .antlr4.python import ParaCLexer
-from .antlr4.python import ParaCParser
-from .compilation_ctx import ProgramCompilationContext
-from .listener import Listener
 
+from .parser.python import ParaCLexer
+from .parser.python import ParaCParser
+from .parser.listener import Listener
+from .compilation_ctx import ProgramCompilationContext
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                       get_rich_console as console, print_log_banner,
                       ParacErrorListener)
@@ -25,7 +25,7 @@ from ..para_exceptions import (EntryFilePermissionError,
                                ParacCompilerError)
 
 if TYPE_CHECKING:
-    from .listener import CompilationUnitContext
+    from .parser.listener import CompilationUnitContext
     from .compilation_ctx import FileCompilationContext
 
 __all__ = [

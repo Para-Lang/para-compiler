@@ -63,29 +63,34 @@ will take is uncertain, since the amount of work depend on what changes
 are made in the grammar (.g4 file)*
 
 To generate use:
+- For Pre-Processor:
+  - Python:
+      ```bash
+      antlr4 -o ./paraccompiler/core/preprocessor/python -Dlanguage=Python3 ./paraccompiler/core/preprocessor/ParaCPreProcessor.g4
+      ```
+  - Java:
+      ```bash
+      antlr4 -o ./paraccompiler/core/preprocessor/python -Dlanguage=Java ./paraccompiler/core/preprocessor/ParaCPreProcessor.g4
+      ```
 
-- Python:
-    ```bash
-    antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/antlr4/ParaC.g4
-    ```
-- Java:
-    ```bash
-    antlr4 -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/antlr4/ParaC.g4
-    ```
-
-Afterwards correctly move the folder using:
+- For Core Language:
+  - Python:
+      ```bash
+      antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Python3 ./paraccompiler/core/parser/ParaC.g4
+      ```
+  - Java:
+      ```bash
+      antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Java ./paraccompiler/core/parser/ParaC.g4
+      ```
+  
+Afterwards *if needed* correctly move the folder using:
 ```bash
-mv ./paraccompiler/core/antlr4/python/paraccompiler/core/antlr4/* ./paraccompiler/core/antlr4/python/
+mv ./path/to/generated/output* ./paraccompiler/core/<insert-destination>/
 ```
 
 and delete the remaining folder:
 ```bash
-rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
-```
-
-Everything together:
-```bash
-antlr4 -o ./paraccompiler/core/antlr4/python/ -Dlanguage=Python3 ./paraccompiler/core/antlr4/ParaC.g4 && antlr4 -o ./paraccompiler/core/antlr4/java/ -Dlanguage=Java ./paraccompiler/core/antlr4/ParaC.g4 && mv ./paraccompiler/core/antlr4/python/paraccompiler/core/antlr4/* ./paraccompiler/core/antlr4/python/ && rm -rf ./paraccompiler/core/antlr4/python/paraccompiler/
+rm -rf ./path/to/generated/output
 ```
 
 *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
