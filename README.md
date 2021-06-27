@@ -1,4 +1,4 @@
-![para-c](https://socialify.git.ci/Luna-Klatzer/Para-C/image?description=1&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FLuna-Klatzer%2FPara-C%2Fmain%2Fparac.ico&owner=1&pulls=1&stargazers=1&theme=Light)
+![para-c](https://socialify.git.ci/Luna-Klatzer/Para-C/image?description=1&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FLuna-Klatzer%2FPara-C%2Fmain%2Fparac.png&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Light)
 
 <br>
 <br>
