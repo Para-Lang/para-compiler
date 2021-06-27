@@ -2,9 +2,9 @@
 #include "example_header.parah" // String Include
 #include HEADER_H // Computed Include
 
-#pragma PARAC lang C // Lang-Pragma C
+#pragma PARACC lang C // Lang-Pragma C
 #include <stdio.h> // Library Include
-#pragma PARAC lang ParaC // Lang-Pragma ParaC
+#pragma PARACC lang PARAC // Lang-Pragma ParaC
 
 #define example1 (smth + smth) // define (expression)
 #define example2 "smth" // define value
