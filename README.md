@@ -1,15 +1,29 @@
-![para-c](https://socialify.git.ci/Luna-Klatzer/Para-C/image?description=1&font=Inter&forks=1&issues=1&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FLuna-Klatzer%2FPara-C%2Fmain%2Fparac.png&owner=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Light)
-
-<br>
-<br>
-<br>
+![para-c](./Para-C-Redesign-Banner.png)
 
 *Para-C is not intended to be a widely „optimised“ or „production-ready“ programming language. It is solely a free-time
 project designed for learning and testing purposes, which we do not intend for anything other than that.*
 
+*Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
+programming language. It is for now solely a free-time project designed for
+learning and testing purposes, which we do not intend for anything other than that.*
+
+## Key-Features
+*Planned/Intended features (Development is still ongoing)*
+- Ability to stream-line calling processes and handling return
+- More advanced and specialised functionality for managing embedded code
+- Program-State Saving for continuing execution at a later point
+- Multi-Threaded processing with embedded languages in multiple threads
+- Ability to integrate processes quickly
+- Simplification of the base C language with simplified syntax and additional helper functions
+- Ability to manage exceptions and issues with programs (Including Fallback Options)
+- Any-Type and integrated conversion functions for type
+- Decorator and Overload Functions
+- Language Library with additional helper functions
+- Simplified syntax and handling of C components for easier coding
+
 ## Introduction
 
-Para-C (From Greek Origin: Beside C ) is a programming language that is 
+Para-C (From Greek Origin: Beside C) is a programming language that is 
 designed to integrate other languages and allow for advanced management of
 programs / code-bases inside a program, where the language will serve as a 
 base overhead language with extended C-functionality and simplifications to
