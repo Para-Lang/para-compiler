@@ -5,6 +5,7 @@ programming language. It is for now solely a free-time project designed for
 learning and testing purposes, which we do not intend for anything other than that.*
 
 ## Key-Features
+*Planned/Intended features (Development is still ongoing)*
 - Ability to stream-line calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
 - Program-State Saving for continuing execution at a later point
