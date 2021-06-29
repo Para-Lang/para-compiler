@@ -5,7 +5,7 @@ programming language. It is for now solely a free-time project designed for
 learning and testing purposes, which we do not intend for anything other than that.*
 
 ## Key-Features
-*Planned/Intended features (Development is still ongoing. Info is [here](#development))*
+*Planned/Intended features (Development is still ongoing)*
 - Ability to stream-line calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
 - Program-State Saving for continuing execution at a later point
@@ -49,20 +49,17 @@ a C++ program, which then uses that to run something else.
 
 ### Building
 
-The building process is relatively simple since it uses simple PyInstaller with a wrapper script.
-The output will consist of the `./dist/` and `./build` folder. The `./dist/` folder will be the
-distribution-ready version, which will contain the executable in the `./bin/` folder and its
-python-binaries, which are required for it to run.
+#### Generating the Parser and Lexer
 
-#### Build the Parser and Lexer with Antlr4
+*Required for Lexer and Parser Development which include changes on the .g4 grammar files*
 
-##### Downloading
+##### Downloading Antlr4
 
 To download Antlr4 go [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
 
 Quickstart Installation Guide on the Main Website: [here](https://www.antlr.org/)
 
-##### Using Antlr4
+##### Generating the Source files
 
 Generating the Parser and Lexer is made up of two parts:
 
@@ -107,20 +104,22 @@ rm -rf ./path/to/generated/output
 
 #### Build the Executable and binaries
 
-As previously stated, pyinstaller with a wrapper script will be used to generate the binaries for the Compiler.
-This script will automatically run the generation of source files, compilation and copying of data.
+For generating the binaries, PyInstaller with a wrapper script will be used.
+This script will automatically run the generation of source files and copying of data.
 
 To run the script simply use (Python3):
 ```bash
 python ./build-exe.py
 ```
 
-After running the script, the `./build/` and `./dist/` folder will be generated.
-The build folder will contain the raw data and logs, while the dist folder will contain the distribution-ready binaries and data.
+The script will create a `./build/` and `./dist/` folder.
+The `./build/` folder will contain the raw data and logs, while the `./dist/`
+folder will contain the distribution-ready binaries and data.
 
 ### Installation
  
-To install Para-C, you can either use the pre-built installer for the specified version or build and install the compiler yourself. 
+To install Para-C, you can either use the pre-built installer for the specified 
+version or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
 
 #### Build inno-setup installer for Windows 
 
@@ -137,14 +136,23 @@ will automatically do the installation based on your input.
 
 #### For unix-based systems
 
-Initialise the compiler using:
-```bash
-parac init
-```
-
-Add the compiler to the PATH:
+On unix-based systems the installation is open to the user, including the folder
+where the compiler will be placed (It is recommended though to use `/opt`, 
+`/usr`, `/usr/local` or similar)
 
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
 2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
 4. Restart your terminal.
+
+#### Initialising the C Compiler
+
+Start the initialisation setup for the C-Compiler using:
+
+```bash
+parac c-init
+```
+
+This will add the C-Compiler path to the Para-C compiler and make commands
+related to running a Para-C program available. It is not required though and
+without it the compiler will simply generate C source files.

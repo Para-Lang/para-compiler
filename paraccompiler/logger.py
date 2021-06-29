@@ -407,7 +407,7 @@ def print_result_banner(
     get_rich_console().print("\n", end="")
 
 
-def print_log_banner(name: str = "Compiler") -> None:
+def print_log_banner(name: str = "Compiler", newline: bool = True) -> None:
     """
     Prints a simple colored banner screen showing the logs are active and
     the process started
@@ -415,7 +415,8 @@ def print_log_banner(name: str = "Compiler") -> None:
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
-    output_console.print("\n", end="")
+    if newline:
+        output_console.print("\n", end="")
     output_console.rule(
         f"[bold bright_cyan]{name} Logs[white]\n",
         style="bright_white rule.line"

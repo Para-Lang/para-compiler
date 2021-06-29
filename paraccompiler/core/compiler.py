@@ -325,11 +325,21 @@ class ParacCompiler:
             log_path: Union[str, PathLike] = None,
             level: int = logging.INFO,
             print_banner: bool = True,
-            banner_name: str = "Compiler"
+            banner_name: str = "Compiler",
+            additional_newline: bool = True
     ):
         """
         Initialising the logging module for the Compiler
         and adds the formatting defaults
+
+        :param log_path: Path where the log file should be placed. If None
+                         logging to files will be ignored
+        :param level: Level the logger should be initialised with.
+                      Defaults to INFO
+        :param print_banner: If set to True the logging banner will be printed
+        :param banner_name: The name used for the logging banner
+        :param additional_newline: If set to True an additional newline
+                                   will be added before the logging banner
         """
         if print_banner:
             print_log_banner(banner_name)

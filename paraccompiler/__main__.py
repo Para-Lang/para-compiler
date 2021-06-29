@@ -195,15 +195,14 @@ def cli(*args, **kwargs):
     ParacCLI.cli(*args, **kwargs)
 
 
-@cli.command(name="init")
+@cli.command(name="c-init")
 @click.option("--keep-open", is_flag=True)
 @abortable
-def parac_init(*args, **kwargs):
+def parac_c_init(*args, **kwargs):
     """
-    Console Line Interface for the Initialisation of the Para-C compiler
-    and the configuration of the c-compiler
+    Console Line Interface for the configuration of the C-compiler
     """
-    ParacCLI.parac_init(*args, **kwargs)
+    ParacCLI.parac_c_init(*args, **kwargs)
 
 
 @cli.command(name="compile")
@@ -413,13 +412,13 @@ class ParacCLI:
     @abortable
     @keep_open_callback
     @escape_ansi_param
-    def parac_init():
-        """ Initialises the Para-C compiler """
+    def parac_c_init():
+        """ Initialises the C compiler """
         if not para_compiler.log_initialised:
-            para_compiler.init_logging_session()
+            para_compiler.init_logging_session(print_banner=False)
         logger.info(
             'Reinitialising' if is_c_compiler_ready() else 'Initialising'
-            "Para-C Compiler"
+            " Para-C Compiler"
         )
         initialise_c_compiler()
 
