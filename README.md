@@ -5,7 +5,7 @@ programming language. It is for now solely a free-time project designed for
 learning and testing purposes, which we do not intend for anything other than that.*
 
 ## Key-Features
-*Planned/Intended features (Development is still ongoing)*
+*Planned/Intended features (Development is still ongoing. Info is [here](#development))*
 - Ability to stream-line calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
 - Program-State Saving for continuing execution at a later point
@@ -49,16 +49,18 @@ a C++ program, which then uses that to run something else.
 
 ### Building
 
-The building process is relatively simple since it uses simple PyInstaller and Inno-setup to automate the building
-process. The compiler is shipped as a one-file executable file and can be run 
+The building process is relatively simple since it uses simple PyInstaller with a wrapper script.
+The output will consist of the `./dist/` and `./build` folder. The `./dist/` folder will be the
+distribution-ready version, which will contain the executable in the `./bin/` folder and its
+python-binaries, which are required for it to run.
 
 #### Build the Parser and Lexer with Antlr4
 
 ##### Downloading
 
-To download Antlr4 go to [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
+To download Antlr4 go [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
 
-Quickstart Installation Guide: [here](https://www.antlr.org/)
+Quickstart Installation Guide on the Main Website: [here](https://www.antlr.org/)
 
 ##### Using Antlr4
 
@@ -67,15 +69,12 @@ Generating the Parser and Lexer is made up of two parts:
 - Using Antlr4 to compile the .g4 file to actual source code
 - Implementing the Runtime (The user code that is shipped with the binaries)
 
-*Note: Generating the Parser and Lexer means that the implementation
-will be gone. There will be a code base, but regenerating the lexer will
-require new a new implementation into the compiler. How long this
-will take is uncertain, since the amount of work depend on what changes 
-are made in the grammar (.g4 file)*
+*Note: Generating the Parser and Lexer means that depending on the changes
+the implementation code needs to be changed.*
 
-To generate use:
-- For Pre-Processor:
-  - Python:
+To generate in the command-line use:
+- For the Pre-Processor:
+  - Python (Required for the Compiler):
       ```bash
       antlr4 -o ./paraccompiler/core/preprocessor/python -Dlanguage=Python3 ./paraccompiler/core/preprocessor/ParaCPreProcessor.g4
       ```
@@ -84,12 +83,13 @@ To generate use:
       antlr4 -o ./paraccompiler/core/preprocessor/python -Dlanguage=Java ./paraccompiler/core/preprocessor/ParaCPreProcessor.g4
       ```
 
-- For Core Language:
-  - Python:
+- For the Core Language:
+  - Python (Required for the Compiler):
       ```bash
       antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Python3 ./paraccompiler/core/parser/ParaC.g4
       ```
   - Java:
+      ```bash
        antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Java ./paraccompiler/core/parser/ParaC.g4
       ```
   
@@ -107,25 +107,26 @@ rm -rf ./path/to/generated/output
 
 #### Build the Executable and binaries
 
-This specified script will automatically build the project and create a dist and build folder containing all the binaries 
-as well as the executable file. The build folder will contain the raw data and logs, meaning it
-is not intended for distribution. The dist folder will contain the distribution-ready data
+As previously stated, pyinstaller with a wrapper script will be used to generate the binaries for the Compiler.
+This script will automatically run the generation of source files, compilation and copying of data.
 
+To run the script simply use (Python3):
 ```bash
 python ./build-exe.py
 ```
 
-##### Installing Antlr
+After running the script, the `./build/` and `./dist/` folder will be generated.
+The build folder will contain the raw data and logs, while the dist folder will contain the distribution-ready binaries and data.
+
+### Installation
+ 
+To install Para-C, you can either use the pre-built installer for the specified version or build and install the compiler yourself. 
 
 #### Build inno-setup installer for Windows 
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
 Build inside this folder and use the inno-setup.iss file. The generated installer will be placed inside `./Output`
-
-### Installation
- 
-To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
 
 ### Setup
 
