@@ -95,7 +95,7 @@ To generate use:
   
 Afterwards *if needed* correctly move the folder using:
 ```bash
-mv ./path/to/generated/output* ./paraccompiler/core/<insert-destination>/
+mv ./path/to/generated/output/* ./paraccompiler/core/<insert-destination>/
 ```
 
 and delete the remaining folder:
