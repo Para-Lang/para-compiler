@@ -8,8 +8,8 @@ with open("requirements.txt") as file:
     requirements = file.read()
 
 setuptools.setup(
-    name="parac-compiler",
-    version="0.1",
+    name="paraccompiler",
+    version="0.1.dev1",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",
     description="Python-Compiler for Para-C",

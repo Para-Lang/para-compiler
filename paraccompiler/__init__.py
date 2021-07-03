@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Compiler for the Para-C programming language"""
 
-__title__ = "parac-compiler"
+__title__ = "paraccompiler"
 __description__ = "Para-C compiler written in Python"
 __url__ = "https://github.com/Luna-Klatzer/Para-C/"
 __author__ = "Luna Klatzer"

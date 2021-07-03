@@ -15,6 +15,10 @@ __all__ = [
 class Optimiser:
     """ Optimiser Class used to optimise the code """
 
-    def optimise(self, ctx: ProgramCompilationContext, cu: FileCompilationContext):
+    def optimise(
+            self,
+            ctx: ProgramCompilationContext,
+            cu: FileCompilationContext
+    ):
         """ Optimises the CompileUnit code """
 
