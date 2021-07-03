@@ -43,7 +43,7 @@ a C++ program, which then uses that to run something else.
 ## Development
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
-![Coverage](https://raw.githubusercontent.com/Luna-Klatzer/Para-C/main/coverage.svg)
+![Coverage](./coverage.svg)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
 
