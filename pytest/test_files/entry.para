@@ -16,5 +16,9 @@ status AdditionalFunction(int x)
 entry status Main()
 {
     int some_number = 4;
+
+    some_number = some_number ? 4 : 5; // => 4
+    some_number ? printf("yes") : printf("no");
+
     return AdditionalFunction(some_number);
 }

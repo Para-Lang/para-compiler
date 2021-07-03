@@ -111,7 +111,7 @@ def is_c_compiler_ready() -> bool:
 
 def initialise_c_compiler() -> None:
     """
-    Initialises the Para-C compiler and creates the config-examples file.
+    Initialises the Para-C compiler and creates the config file.
     Will prompt the user to enter the compiler path
     """
     _input = console().input(

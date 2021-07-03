@@ -25,7 +25,7 @@ PBL_PATH: str = f"{CURRENT_PATH}{SEPARATOR}parac-base-library"
 CONFIG_EXAMPLE_PATH: str = f"{CURRENT_PATH}{SEPARATOR}config-examples"
 EXAMPLE_PATH: str = f"{CURRENT_PATH}{SEPARATOR}examples"
 
-path: str = pkg_resources.resource_filename(__name__, 'compiler.py')
+path: str = pkg_resources.resource_filename(__name__, 'compiler-cli.py')
 icon_path: str = f"{CURRENT_PATH}{SEPARATOR}parac.ico"
 
 PyInstaller.__main__.run([

@@ -38,13 +38,32 @@ grammar ParaC;
 
 primaryExpression
     :   Identifier
+    |   'spawn' Identifier
     |   Constant
     |   StringLiteral+
     |   '(' expression ')'
     |   genericSelection
+    |   lambdaFunction
     |   '__extension__'? '(' compoundStatement ')' // Blocks (GCC extension)
     |   '__builtin_va_arg' '(' unaryExpression ',' typeName ')'
     |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
+    ;
+
+lambdaFunction
+    :   '(' parameterList? ')' lambdaBody
+    ;
+
+lambdaBody
+    :    expressionLambda
+    |    statementLambda
+    ;
+
+expressionLambda
+    :   '=>' expression
+    ;
+
+statementLambda
+    :   '=>' compoundStatement
     ;
 
 genericSelection
@@ -79,7 +98,7 @@ unaryExpression
     :
     ('++' |  '--' |  'sizeof')*
     (postfixExpression
-    |   unaryOperator castExpression
+    |   unaryOperator castOrConvertExpression
     |   ('sizeof' | '_Alignof') '(' typeName ')'
     |   '&&' Identifier // GCC extension address of label
     )
@@ -89,14 +108,15 @@ unaryOperator
     :   '&' | '*' | '+' | '-' | '~' | '!'
     ;
 
-castExpression
-    :   '__extension__'? '(' typeName ')' castExpression
+castOrConvertExpression
+    :   '__extension__'? '(' typeName ')' castOrConvertExpression
+    |   castOrConvertExpression 'as' typeName
     |   unaryExpression
     |   DigitSequence // for
     ;
 
 multiplicativeExpression
-    :   castExpression (('*'|'/'|'%') castExpression)*
+    :   castOrConvertExpression (('*'|'/'|'%') castOrConvertExpression)*
     ;
 
 additiveExpression
@@ -166,10 +186,6 @@ declarationSpecifiers
     :   declarationSpecifier+
     ;
 
-declarationSpecifiers2
-    :   declarationSpecifier+
-    ;
-
 declarationSpecifier
     :   storageClassSpecifier
     |   entryPointSpecifier
@@ -210,6 +226,8 @@ typeSpecifier
     |   'float'
     |   'double'
     |   'signed'
+    |   'list' '<' typeSpecifier '>'
+    |   'lambda' '<' parameterTypeList '>'
     |   'unsigned'
     |   '_Bool'
     |   '_Complex'
@@ -221,12 +239,12 @@ typeSpecifier
     |   structOrUnionSpecifier
     |   enumSpecifier
     |   typedefName
-    |   '__typeof__' '(' constantExpression ')' // GCC extension
+    |   ('__typeof__' | 'typeof') '(' constantExpression ')' // GCC extension
     |   typeSpecifier pointer
     ;
 
 structOrUnionSpecifier
-    :   structOrUnion Identifier? '{' structDeclarationList '}'
+    :   structOrUnion Identifier? '{' structDeclarationList* '}'
     |   structOrUnion Identifier
     ;
 
@@ -245,7 +263,7 @@ structDeclaration
     ;
 
 specifierQualifierList
-    :   (typeSpecifier| typeQualifier) specifierQualifierList?
+    :   (typeSpecifier | typeQualifier) specifierQualifierList?
     ;
 
 structDeclaratorList
@@ -357,8 +375,8 @@ parameterList
     ;
 
 parameterDeclaration
-    :   declarationSpecifiers declarator
-    |   declarationSpecifiers2 abstractDeclarator?
+    :   declarationSpecifiers declarator #regularParameterDeclaration
+    |   declarationSpecifiers abstractDeclarator? #abstractParameterDeclaration
     ;
 
 identifierList
@@ -422,6 +440,7 @@ statement
     :   labeledStatement
     |   compoundStatement
     |   expressionStatement
+    |   tryExceptStatement
     |   selectionStatement
     |   iterationStatement
     |   jumpStatement
@@ -449,6 +468,22 @@ blockItem
 
 expressionStatement
     :   expression? ';'
+    ;
+
+tryExceptStatement
+    :   'try' compoundStatement exceptBlock+ (finallyBlock elseBlock? | elseBlock finallyBlock?)?
+    ;
+
+exceptBlock
+    :   'except' '(' (Identifier |  identifierList ) ')' ('as' Identifier)?  compoundStatement
+    ;
+
+finallyBlock
+    :   'finally' compoundStatement
+    ;
+
+elseBlock
+    :   'else' compoundStatement
     ;
 
 selectionStatement
@@ -492,21 +527,43 @@ compilationUnit
     ;
 
 translationUnit
-    :   externalItem+
+    :   (externalItem | ';')+
     ;
 
 externalItem
-    :   externalDeclaration
-    |   ';' // stray ;
-    ;
-
-externalDeclaration
-    :   functionDefinition # extFunctionDefinition
-    |   declaration # extDeclaration
+    :   functionDefinition # externalFunctionDefinition
+    |   declaration # externalDeclaration
+    |   extensionTaskDefinition # externalExtTaskDefinition
     ;
 
 functionDefinition
-    :   declarationSpecifiers? declarator declarationList? compoundStatement
+    :   functionDeclarationSpecifiers declarator declarationList? compoundStatement  # standardFunctionDefinition
+    |   functionDeclarationSpecifiers declarator declarationList? expressionLambda ';' # simpleFunctionDefinition
+    ;
+
+functionDeclarationSpecifiers
+    :   decoratorSpecifier* declarationSpecifiers?
+    ;
+
+decoratorSpecifier
+    :   '@' Identifier
+    ;
+
+// extension
+extensionTaskDefinition
+    :   'exttask' Identifier directDeclarator declarationList? extensionTaskParameterList extensionTaskLambda?
+    ;
+
+extensionTaskParameterList
+    :   '{' (extensionTaskParameter (',' extensionTaskParameter)*)? '}'
+    ;
+
+extensionTaskParameter
+    :   Identifier ':' primaryExpression
+    ;
+
+extensionTaskLambda
+    :   '=>' ExtensionTaskLambda
     ;
 
 declarationList
@@ -515,6 +572,7 @@ declarationList
 
 // Lexer Rules (tokens / token rules)
 
+As : 'as';
 Auto : 'auto';
 Break : 'break';
 Case : 'case';
@@ -525,6 +583,7 @@ Default : 'default';
 Do : 'do';
 Double : 'double';
 Else : 'else';
+ExtensionTask : 'exttask';
 Entry : 'entry';
 Enum : 'enum';
 Extern : 'extern';
@@ -534,6 +593,8 @@ Goto : 'goto';
 If : 'if';
 Inline : 'inline';
 Int : 'int';
+Lambda : 'lambda';
+List : 'list';
 Long : 'long';
 Register : 'register';
 Restrict : 'restrict';
@@ -541,10 +602,12 @@ Return : 'return';
 Short : 'short';
 Signed : 'signed';
 Sizeof : 'sizeof';
+Spawn : 'spawn';
 Static : 'static';
 Status : 'status';
 Struct : 'struct';
 Switch : 'switch';
+Typeof : 'typeof';
 Typedef : 'typedef';
 Union : 'union';
 Unsigned : 'unsigned';
@@ -593,6 +656,8 @@ Caret : '^';
 Not : '!';
 Tilde : '~';
 
+DecoratorSign : '@';
+LambdaStartBlock : '=>';
 Question : '?';
 Colon : ':';
 Semi : ';';
@@ -638,6 +703,17 @@ BlockComment
 fragment
 LineComment
     :   '//' ~[\r\n]*
+    ;
+
+ExtensionTaskLambda
+    :   '@' Whitespace* Identifier
+        Whitespace* ExtensionTaskBlock Whitespace*
+        '@' Whitespace* 'end' Newline
+    ;
+
+fragment
+ExtensionTaskBlock
+    :   '{' [\u0000-\uFFFE]* '}'
     ;
 
 PreProcessorDirective

@@ -12,6 +12,14 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
+# Preprocessor Import
+import sys
+import os
+# Adding the working directory (location of compiler-cli.py)
+sys.path.append(os.getcwd())
+# Importing from the added path the preprocessor
+import preprocessor
+
 # Main imports
 from . import logger
 from . import utils
@@ -37,6 +45,7 @@ __all__ = [
     '__release__',
     '__copyright__',
     'WIN',
+    'preprocessor',
     *logger.__all__,
     *para_exceptions.__all__,
     *utils.__all__,
@@ -51,4 +60,3 @@ colorama.init(autoreset=True)
 logging.getLogger(__name__).addHandler(logging.NullHandler())
 
 WIN: bool = click.utils.WIN
-
