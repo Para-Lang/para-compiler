@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-File containing the class which will be used to track and run a compilation.
-The compile unit will track variables, stack, logic and general compiling
-information which is only related to the specified file.
+File containing the classes which will be used to track and run a compilation.
+The context classes will track variables, stack, logic and general compiling
+information.
 """
 from __future__ import annotations
 

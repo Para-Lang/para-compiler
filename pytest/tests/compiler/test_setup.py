@@ -3,7 +3,7 @@
 import paraccompiler
 import os
 
-from paraccompiler.para_exceptions import AbortError
+from paraccompiler.para_exceptions import InterruptError
 
 from . import (add_folder, overwrite_input, reset_input,
                create_test_file)
@@ -69,7 +69,7 @@ class TestCLISetup:
             paraccompiler.create_process(
                 "not_existing.para", 'utf-8', 'para.log', b_path, d_path
             )
-        except AbortError:
+        except InterruptError:
             pass
         else:
             assert False

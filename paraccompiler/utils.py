@@ -13,7 +13,7 @@ from os import PathLike
 from typing import Union, Type
 from functools import wraps
 
-from .para_exceptions import AbortError
+from .para_exceptions import InterruptError
 from .logger import (get_rich_console as console, log_traceback,
                      print_abort_banner, init_rich_console)
 
@@ -46,7 +46,7 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
         def _wrapper(*args, **kwargs):
             try:
                 return func(*args, **kwargs)
-            except AbortError:
+            except InterruptError:
                 if print_abort:
                     print_abort_banner(step)
                 exit(1)
@@ -61,7 +61,7 @@ def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
                     brief="Exception in the compilation setup",
                     exc_info=sys.exc_info()
                 )
-                raise AbortError(exception=e) from e
+                raise InterruptError(exception=e) from e
 
         return _wrapper
 

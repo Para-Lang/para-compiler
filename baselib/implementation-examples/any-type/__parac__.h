@@ -6,55 +6,56 @@
 /// Imports
 #include <stdbool.h>
 #include <stdarg.h>
+#include <stdlib.h>
 
 #ifndef __PARAC___H_
 #define __PARAC___H_
 
-/*
- * If the code is included in an CPP environment which Para-C supports,
- * it will be treated as regular C-code
- */
 #if __cplusplus
 extern "C" {
 #endif
 
-/// =========================================
-/// User Project Configuration
-/// =========================================
+// =========================================
+// User Project Configuration
+// =========================================
+
 const char* ph_name;
 const char* ph_description;
 const char* ph_author;
 const char* ph_version;
 const char* ph_license;
 
-/// =========================================
-/// Compiler Configuration
-/// C-Compiler Paths are included, so that
-/// using 'parac finish' the compilation can
-/// be automatically finished
-/// =========================================
+// =========================================
+// Compiler Configuration
+// C-Compiler Paths are included, so that
+// using 'parac finish' the compilation can
+// be automatically finished
+// =========================================
+
 #define __PARAC_VERSION__ "Compiler-Inserted"
 
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
 const char* ph_pcl_path;
 
-/// =========================================
-/// Types definition
-/// =========================================
+// =========================================
+// Types definition
+// =========================================
 
 // Basic name declarations
-#define VAR_NAME_SIGNED_CHAR "SIGNED_CHAR"
-#define VAR_NAME_UNSIGNED_CHAR "UNSIGNED_CHAR"
-#define VAR_NAME_CHAR "CHAR"
-#define VAR_NAME_SIGNED_INT "SIGNED_INT"
-#define VAR_NAME_UNSIGNED_INT "UNSIGNED_INT"
-#define VAR_NAME_SIGNED_LONG "SIGNED_LONG"
-#define VAR_NAME_UNSIGNED_LONG "UNSIGNED_LONG"
-#define VAR_NAME_SIGNED_SHORT "SIGNED_SHORT"
-#define VAR_NAME_UNSIGNED_SHORT "UNSIGNED_SHORT"
-#define VAR_NAME_SIGNED_LONG_LONG "SIGNED_LONG_LONG"
-#define VAR_NAME_UNSIGNED_LONG_LONG "UNSIGNED_LONG_LONG"
+
+#define VAR_NAME_SIGNED_CHAR "BUILT_IN_SIGNED_CHAR"
+#define VAR_NAME_UNSIGNED_CHAR "BUILT_IN_UNSIGNED_CHAR"
+#define VAR_NAME_CHAR "BUILT_IN_CHAR"
+#define VAR_NAME_SIGNED_INT "BUILT_IN_SIGNED_INT"
+#define VAR_NAME_UNSIGNED_INT "BUILT_IN_UNSIGNED_INT"
+#define VAR_NAME_SIGNED_LONG "BUILT_IN_SIGNED_LONG"
+#define VAR_NAME_UNSIGNED_LONG "BUILT_IN_UNSIGNED_LONG"
+#define VAR_NAME_SIGNED_SHORT "BUILT_IN_SIGNED_SHORT"
+#define VAR_NAME_UNSIGNED_SHORT "BUILT_IN_UNSIGNED_SHORT"
+#define VAR_NAME_SIGNED_LONG_LONG "BUILT_IN_SIGNED_LONG_LONG"
+#define VAR_NAME_UNSIGNED_LONG_LONG "BUILT_IN_UNSIGNED_LONG_LONG"
+#define VAR_NAME_DEALLOCATED "DEALLOCATED_NULL"
 
 /// Exit Status structure storing the basic values for a closing return aka. entry-point function return */
 typedef struct ph_ExitStatus {
@@ -68,12 +69,13 @@ typedef struct ph_ExitStatus {
 typedef struct ph_AnyType {
     void* var_pointer;
     char* type_name;
-    char* var_name;
+    bool built_in_type;
+    size_t byte_size;
 } ph_AnyType;
 
-/// =========================================
-/// Function Return Types
-/// =========================================
+// =========================================
+// Function Return Types
+// =========================================
 
 /// Undefined Base Return which serves as the base for all ReturnTypes.  Compiler-Generated
 typedef struct ph_UndefBaseReturn {
@@ -89,15 +91,15 @@ typedef struct ph_ReturnTypeInt {
     int actual_value;
 } ph_ReturnTypeInt;
 
-/// =========================================
-/// Decorator Return Types - Function Pointer Types
-/// =========================================
+// =========================================
+// Decorator Return Types - Function Pointer Types
+// =========================================
 
 typedef ph_ReturnTypeInt (*ph_DecoType_Int_Int)(int);
 
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Decorator 'main_DecorateFunc' from the file <insert-file-name>
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 typedef struct main_DecorateFunc_WrapContext main_DecorateFunc_WrapContext;
 
 /// Signature of the wrapper - Returns int and contains as parameters a int return function and an int
@@ -114,9 +116,15 @@ typedef struct main_DecorateFunc_WrapContext {
     main_DecorateFunc_WrapContext *child_ctx;
 } main_DecorateFunc_WrapContext;
 
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Additional Function declarations
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// Additional Function declarations
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+/// Deallocates the memory of the any_type and defuses the dangling pointer
+void DeallocateAny(ph_AnyType*);
+/// Changes the type of the AnyType, reallocated the memory to fit the specified memory and overwrites the properties
+/// correctly
+ph_AnyType* ChangeTypeAny(ph_AnyType *, char *, size_t, bool);
 
 #if __cplusplus
 }

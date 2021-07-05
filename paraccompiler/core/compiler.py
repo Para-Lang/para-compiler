@@ -19,10 +19,10 @@ from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                       get_rich_console as console, print_log_banner,
                       ParacErrorListener)
 from ..utils import decode_if_bytes, cleanup_path, SEPARATOR
-from ..para_exceptions import (EntryFilePermissionError,
-                               EntryFileNotFoundError, EntryFileAccessError,
+from ..para_exceptions import (FilePermissionError,
+                               FileNotFoundError, FileAccessError,
                                CCompilerError, LexerError, LinkerError,
-                               ParacCompilerError)
+                               ParacCompilerError, CCompilerNotFoundError)
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -77,12 +77,12 @@ def validate_path_like(path_like: Union[PathLike, str]) -> None:
     """
     if not os.access(path_like, os.R_OK):  # Can be read
         if not os.access(path_like, os.F_OK):  # Exists
-            raise EntryFileNotFoundError(
+            raise FileNotFoundError(
                 f"Failed to read entry-point '{path_like}'."
                 f" File does not exist!"
             )
         else:
-            raise EntryFilePermissionError(
+            raise FilePermissionError(
                 f"Missing file reading permissions for ''{path_like}'"
             )
 
@@ -123,14 +123,14 @@ def initialise_c_compiler() -> None:
     path = cleanup_path(decode_if_bytes(_input))
 
     # it exists
-    if not os.access(_input, os.X_OK):
-        raise CCompilerError(
+    if not os.access(_input, os.F_OK):
+        raise CCompilerNotFoundError(
             f"The passed path '{path}' for the executable does not exist"
         )
 
     # is executable
     if not os.access(_input, os.X_OK):
-        raise CCompilerError(
+        raise FilePermissionError(
             f"The passed path '{path}' for the executable can't be executed."
             " Possibly missing Permissions?"
         )
@@ -178,7 +178,7 @@ class BasicProcess:
 
         try:
             validate_path_like(entry_file)
-        except EntryFileAccessError as e:
+        except FileAccessError as e:
             # If the validation failed the path might be a relative path
             # that does not have a . signalising its going python from the
             # current path meaning the work-directory path needs to be
@@ -188,7 +188,7 @@ class BasicProcess:
             failed = False
             try:
                 validate_path_like(absolute_path)
-            except EntryFileAccessError:
+            except FileAccessError:
                 failed = True
             if failed:
                 raise e
@@ -364,7 +364,7 @@ class ParacCompiler:
             try:
                 cls.file_handler = ParacFileHandler(filename=f'./{log_path}')
             except PermissionError:
-                raise EntryFilePermissionError(
+                raise FilePermissionError(
                     "Failed to access the specified log file-path"
                 )
             cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
@@ -438,7 +438,7 @@ class ParacCompiler:
 
             # Walking through the tree but without compiling! -> Only default
             # structure and syntax will be validated and checked
-            listener = Listener(unit_ctx)
+            listener = Listener(unit_ctx, stream)
             listener.walk(enable_out)
 
         except (LexerError, LinkerError, ParacCompilerError):
@@ -482,7 +482,7 @@ class ParacCompiler:
 
         # Walking through the file and triggering the functions inside the
         # listener -> Basic compilation
-        listener = Listener(unit_ctx)
+        listener = Listener(unit_ctx, stream)
         listener.walk_and_compile(enable_out)
 
         ctx.set_entry_ctx(listener.file_ctx)

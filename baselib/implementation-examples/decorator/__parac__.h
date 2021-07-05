@@ -10,38 +10,37 @@
 #ifndef __PARAC___H_
 #define __PARAC___H_
 
-/*
- * If the code is included in an CPP environment which Para-C supports,
- * it will be treated as regular C-code
- */
+// If the code is included in an CPP environment which Para-C supports,
+// it will be treated as regular C-code
 #if __cplusplus
 extern "C" {
 #endif
 
-/// =========================================
-/// User Project Configuration
-/// =========================================
+// =========================================
+// User Project Configuration
+// =========================================
 const char* ph_name;
 const char* ph_description;
 const char* ph_author;
 const char* ph_version;
 const char* ph_license;
 
-/// =========================================
-/// Compiler Configuration
-/// C-Compiler Paths are included, so that
-/// using 'parac finish' the compilation can
-/// be automatically finished
-/// =========================================
+// =========================================
+// Compiler Configuration
+// C-Compiler Paths are included, so that
+// using 'parac finish' the compilation can
+// be automatically finished
+// =========================================
+
 #define __PARAC_VERSION__ "Compiler-Inserted"
 
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
 const char* ph_pcl_path;
 
-/// =========================================
-/// Types definition
-/// =========================================
+// =========================================
+// Types definition
+// =========================================
 
 /// Exit Status structure storing the basic values for a closing return aka. entry-point function return */
 typedef struct ph_ExitStatus {
@@ -51,9 +50,10 @@ typedef struct ph_ExitStatus {
     int status_code;
 } ph_Status;
 
-/// =========================================
-/// Function Return Types
-/// =========================================
+// =========================================
+// Function Return Types
+// =========================================
+
 
 /// Undefined Base Return which serves as the base for all ReturnTypes.  Compiler-Generated
 typedef struct ph_UndefBaseReturn {
@@ -69,15 +69,15 @@ typedef struct ph_ReturnTypeInt {
     int actual_value;
 } ph_ReturnTypeInt;
 
-/// =========================================
-/// Decorator Return Types - Function Pointer Types
-/// =========================================
+// =========================================
+// Decorator Return Types - Function Pointer Types
+// =========================================
 
 typedef ph_ReturnTypeInt (*ph_DecoType_Int_Int)(int);
 
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Decorator 'main_DecorateFunc' from the file <insert-file-name>
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 typedef struct main_DecorateFunc_WrapContext main_DecorateFunc_WrapContext;
 
 /// Signature of the wrapper - Returns int and contains as parameters a int return function and an int
@@ -94,9 +94,9 @@ typedef struct main_DecorateFunc_WrapContext {
     main_DecorateFunc_WrapContext *child_ctx;
 } main_DecorateFunc_WrapContext;
 
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Additional Function declarations
-/// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 #if __cplusplus
 }
