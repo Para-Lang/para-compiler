@@ -8,7 +8,6 @@ import traceback
 import re
 from logging import StreamHandler
 
-from antlr4.error.ErrorListener import ErrorListener
 from rich.console import Console
 from typing import Optional, Callable, Tuple, Type, Union, Literal
 from types import FunctionType, TracebackType
@@ -22,7 +21,6 @@ __all__ = [
     'CLICK_FORMAT_IGNORE_REGEX',
     'set_avoid_print_banner_overwrite',
     'custom_theme',
-    'ParacErrorListener',
     'ParacStreamHandler',
     'ParacFileHandler',
     'ParacFormatter',
@@ -436,67 +434,3 @@ def create_prompt(string: str) -> str:
     """
     return f'{ansi_col.make_bold(ansi_col.bright_cyan)} > {string}'
 
-
-class ParacErrorListener(ErrorListener):
-    """ Error-Listener for the Para-C compiler """
-
-    def __init__(self, reraise: bool):
-        """
-        Initialises the instance
-
-        :param reraise: If set to True the error listener will reraise errors
-                        and not just log them
-        """
-        self.reraise = reraise
-
-    # TODO! Find out what these do
-    def reportAmbiguity(
-            self,
-            recognizer,
-            dfa,
-            startIndex,
-            stopIndex,
-            exact,
-            ambigAlts,
-            configs
-    ) -> None:
-        ...
-
-    def reportAttemptingFullContext(
-            self,
-            recognizer,
-            dfa,
-            startIndex,
-            stopIndex,
-            conflictingAlts,
-            configs
-    ) -> None:
-        ...
-
-    def reportContextSensitivity(
-            self,
-            recognizer,
-            dfa,
-            startIndex,
-            stopIndex,
-            prediction,
-            configs
-    ) -> None:
-        ...
-
-    def syntaxError(
-            self,
-            recognizer,
-            offendingSymbol,
-            line: int,
-            column: int,
-            msg: str,
-            e
-    ) -> None:
-        """
-        Method which will be called if the ANTLR4 Lexer or Parser detect
-        an error inside the program
-        """
-
-        # TODO! Add proper error handling
-        logger.error(f"At line: {line}, column: {column} - {msg}")

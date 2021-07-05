@@ -13,7 +13,9 @@ from os import PathLike
 from typing import Union, Type
 from functools import wraps
 
-from .para_exceptions import InterruptError
+from .para_exceptions import (InterruptError, ParacCompilerError,
+                              InternalError, ErrorCodes)
+
 from .logger import (get_rich_console as console, log_traceback,
                      print_abort_banner, init_rich_console)
 
@@ -35,33 +37,69 @@ logger = logging.getLogger(__name__)
 SEPARATOR = "\\" if WIN else "/"
 
 
-def abortable(_func=None, *, print_abort: bool = True, step: str = "Process"):
+def abortable(
+        _func=None,
+        *,
+        reraise: bool,
+        print_abort: bool = True,
+        step: str = "Process"
+):
     """
-    Marks the function as abort-able and adds traceback logging to it.
-    If re-raise is False it will exit the program
+    Marks the function as abortable and adds traceback logging to it.
+    If reraise is False it will exit the program
     """
 
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
             try:
-                return func(*args, **kwargs)
-            except InterruptError:
-                if print_abort:
-                    print_abort_banner(step)
-                exit(1)
+                try:
+                    return func(*args, **kwargs)
+                except InterruptError as e:
+                    if print_abort:
+                        print_abort_banner(step)
+                    exit(e.code)
+
+                except KeyboardInterrupt as e:
+                    raise InterruptError(exception=e) from e
+
+                except ParacCompilerError as e:
+                    from .__main__ import para_compiler
+                    if not para_compiler.log_initialised:
+                        para_compiler.init_logging_session()
+
+                    log_traceback(
+                        level="critical",
+                        brief="Encountered unexpected exception while running",
+                        exc_info=sys.exc_info()
+                    )
+                    raise InterruptError(exception=e) from e
+
+                except Exception as e:
+                    from .__main__ import para_compiler
+                    if not para_compiler.log_initialised:
+                        para_compiler.init_logging_session()
+
+                    log_traceback(
+                        level="critical",
+                        brief="Exception",
+                        exc_info=sys.exc_info()
+                    )
+                    raise InternalError(
+                        "Encountered unexpected exception while running"
+                    ) from e
+
+            except ParacCompilerError as e:
+                if reraise:
+                    raise e
+                else:
+                    exit(e.code)
 
             except Exception as e:
-                from .__main__ import para_compiler
-                if not para_compiler.log_initialised:
-                    para_compiler.init_logging_session()
-
-                log_traceback(
-                    level="critical",
-                    brief="Exception in the compilation setup",
-                    exc_info=sys.exc_info()
-                )
-                raise InterruptError(exception=e) from e
+                if reraise:
+                    raise e
+                else:
+                    exit(ErrorCodes.UNKNOWN)
 
         return _wrapper
 
@@ -147,7 +185,7 @@ def deprecated(_func, *, instead=None):
 def decode_if_bytes(
         byte_like: Union[str, bytes, PathLike, Type],
         encoding: str = "utf-8"
-):
+) -> Union[str, PathLike]:
     """ Decodes the passed PathLike if it is in bytes """
     if type(byte_like) is str:
         return byte_like

@@ -5,6 +5,7 @@ import shutil
 import sys
 
 import paraccompiler
+from paraccompiler import SEPARATOR
 
 github_run = '--github=true' in sys.argv
 
@@ -24,22 +25,29 @@ def reset_input():
     getattr(paraccompiler.logger, 'output_console').input = prev_input
 
 
-def add_folder(folder_name: str):
-    """ Removes any pre-existing data if it exists and adds the folder """
+def add_folder(folder_name: str) -> str:
+    """
+    Removes any pre-existing data if it exists and adds the folder
+
+    :returns: The path of the folder
+    """
     cwd = os.getcwd()
     remove_folder(folder_name)
-    os.mkdir(f"{cwd}/{folder_name}")
+
+    p = f"{cwd}{SEPARATOR}{folder_name}"
+    os.mkdir(p)
+    return p
 
 
 def remove_folder(folder_name: str):
     """ Removes the build and dist folder if they exist """
     cwd = os.getcwd()
-    path = f"{cwd}/{folder_name}"
+    path = f"{cwd}{SEPARATOR}{folder_name}"
     if os.path.exists(path):
         shutil.rmtree(path)
 
     counter = 2
-    while os.path.exists(path := f"{cwd}/{folder_name}_{counter}"):
+    while os.path.exists(path := f"{cwd}{SEPARATOR}{folder_name}_{counter}"):
         shutil.rmtree(path)
         counter += 1
 

@@ -4,6 +4,7 @@ import os
 import paraccompiler
 
 from . import reset_input
+from .. import add_folder
 
 sep = paraccompiler.SEPARATOR
 main_file_path = f"{os.getcwd()}{sep}test_files{sep}entry.para"
@@ -20,8 +21,8 @@ class TestProcess:
         reset_input()
 
     def test_init(self):
-        b_path = f"{os.getcwd()}\\build\\"
-        d_path = f"{os.getcwd()}\\dist\\"
+        b_path = add_folder("build")
+        d_path = add_folder("dist")
         p = paraccompiler.ProgramCompilationProcess(
             main_file_path, 'utf-8', b_path, d_path
         )
@@ -32,8 +33,8 @@ class TestProcess:
     def test_bytes_init(self):
         path = main_file_path.encode()
 
-        b_path = f"{os.getcwd()}\\build\\".encode()
-        d_path = f"{os.getcwd()}\\dist\\".encode()
+        b_path = add_folder("build").encode()
+        d_path = add_folder("dist").encode()
         p = paraccompiler.ProgramCompilationProcess(
             path, 'utf-8', b_path, d_path
         )

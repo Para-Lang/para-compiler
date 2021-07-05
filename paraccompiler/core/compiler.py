@@ -6,27 +6,27 @@ import json
 import logging
 import os
 import sys
-import time
 from os import PathLike
-from typing import Union, Generator, Tuple, Dict, TYPE_CHECKING
+from typing import Union, Generator, Tuple, TYPE_CHECKING, List, Optional
 import antlr4
 
+from preprocessor import PreProcessor
+from preprocessor.ctx import ProgramPreProcessorContext
+from .err_handler import ParacErrorListener
+from .logicstream import ParacLogicStream, CLogicStream
 from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
 from .parser.listener import Listener
 from .compilation_ctx import ProgramCompilationContext
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-                      get_rich_console as console, print_log_banner,
-                      ParacErrorListener)
+                      get_rich_console as console, print_log_banner)
 from ..utils import decode_if_bytes, cleanup_path, SEPARATOR
-from ..para_exceptions import (FilePermissionError,
-                               FileNotFoundError, FileAccessError,
-                               CCompilerError, LexerError, LinkerError,
+from ..para_exceptions import (FilePermissionError, FileNotFoundError,
+                               FileAccessError, LexerError, LinkerError,
                                ParacCompilerError, CCompilerNotFoundError)
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
-    from .compilation_ctx import FileCompilationContext
 
 __all__ = [
     'INIT_OVERWRITE',
@@ -213,8 +213,9 @@ class BasicProcess:
 
         :param enable_out: If set to True errors, warnings and info will be
                            logged onto the console using the local logger
-                           instance. (Errors will then NOT be raised but only
-                           logged)
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
         return ParacCompiler.validate_syntax(self, enable_out)
@@ -229,7 +230,13 @@ class FinishedProcess(BasicProcess):
 
 
 class ProgramCompilationProcess(BasicProcess):
-    """ Process instance used for a program compilation process """
+    """
+    Process instance used for a program compilation process. Interface for
+    running a compilation and storing basic values.
+
+    This does not contain direct program vital data like
+    ProgramCompilationContext.
+    """
 
     def __init__(
             self,
@@ -258,12 +265,55 @@ class ProgramCompilationProcess(BasicProcess):
 
         self._build_path = build_path
         self._dist_path = dist_path
-        self._context = ProgramCompilationContext(self)
+        self._temp_files: List[str] = []
+        self._temp_entry_file: Union[str, None] = None
+        self._preprocessor_ctx = ProgramPreProcessorContext(self)
+        self._compilation_ctx = ProgramCompilationContext(self)
+        self._make_temp_folder()
 
     @property
-    def context(self) -> ProgramCompilationContext:
+    def preprocessor_ctx(self) -> ProgramPreProcessorContext:
+        """ Context for the Pre-Processor """
+        return self._preprocessor_ctx
+
+    @property
+    def compilation_ctx(self) -> ProgramCompilationContext:
         """ Context for the compilation """
-        return self._context
+        return self._compilation_ctx
+
+    @property
+    def temp_build_folder(self) -> Union[str, PathLike]:
+        """ Returns the temp folder in the build folder """
+        # SEPARATOR should in this case point to the correct path separator
+        # due to the cleanup of paths in the initialisation
+        if self.dist_path.endswith(SEPARATOR):
+            return f"{self.dist_path}temp"
+        else:
+            return f"{self.dist_path}{SEPARATOR}temp"
+
+    @property
+    def temp_dist_folder(self) -> Union[str, PathLike]:
+        """ Returns the temp folder in the dist folder """
+        # SEPARATOR should in this case point to the correct path separator
+        # due to the cleanup of paths in the initialisation
+        if self.dist_path.endswith(SEPARATOR):
+            return f"{self.dist_path}temp"
+        else:
+            return f"{self.dist_path}{SEPARATOR}temp"
+
+    @property
+    def temp_files(self) -> List[str]:
+        """
+        Returns the temporary files that were created by the Pre-Processor
+        """
+        return self._temp_files
+
+    @property
+    def temp_entry_file(self) -> str:
+        """
+        Returns the temporary entry-file that was created by the Pre-Processor
+        """
+        return self._temp_entry_file
 
     @property
     def entry_file(self) -> Union[str, PathLike]:
@@ -280,32 +330,89 @@ class ProgramCompilationProcess(BasicProcess):
         """ Path to the dist folder """
         return self._dist_path
 
-    def compile_with_progress_iterator(
-            self
-    ) -> Generator[Tuple[int, str, int, FinishedProcess], None, None]:
+    def _make_temp_folder(self):
+        """
+        Creates the folder for the temporary files that will be created by the
+        preprocessor
+        """
+        os.makedirs(self.temp_build_folder, exist_ok=True)
+        os.makedirs(self.temp_dist_folder, exist_ok=True)
+        logger.debug("Created temp folders for the Pre-Processor")
+
+    def compile_with_progress_iterator(self) -> Generator[
+        Tuple[
+            int,
+            Optional[str],
+            int,
+            Optional[FinishedProcess]
+        ], None, None
+    ]:
         """
         Runs the compilation but yields the progress in form of tuples:
+
         int - Progress count from 0 to 1000 (0 = 0%, 1000 = 100%)
-        str - Name of the next step in form of a string. Is None when the
-              process finished
+        Optional[str] - Name of the next step in form of a string. Is None
+                        when the  process finished
         int - Log level for the returned string message
-        FinishedProcess - None until the process finally finished
+        Optional[FinishedProcess] - None until the process finally finished
 
-        For info on compiling go to compile()
+        For info about compilation see compile()
         """
-
-        # Currently only a replacement for testing purposes
-        yield 50, "Fetching files", logging.INFO, None
-        time.sleep(5)
-        yield 1000, None, logging.INFO, FinishedProcess(self)
+        return self._compile(True)
 
     def compile(self) -> FinishedProcess:
         """
         Default function which compiles the passed input data and returns
         a new finished process instance
         """
-        # Currently empty since the compilation is not done yet
-        ...
+        for result in self._compile(False):
+            if type(result[3]) is FinishedProcess:
+                return result[3]
+
+    def _compile(self, track_progress: bool) -> Generator[
+        Tuple[
+            int,
+            Optional[str],
+            int,
+            Optional[FinishedProcess]
+        ], None, None
+    ]:
+        """
+        Actual compile that serves as implementation for compile() and
+        compile_with_progress_iterator()
+        """
+        if track_progress:
+            # Currently only a replacement for testing purposes
+            yield 50, "Fetching files", logging.INFO, None
+
+        logger.debug("Starting Pre-Processor parsing and processing")
+        PreProcessor.parse_and_process(self.preprocessor_ctx)
+        logger.debug("Generating the modified temporary files")
+        gen_src_o = self.preprocessor_ctx.gen_source()
+
+        # Generating the temp files which are then used for the further
+        # compilation
+        tmp: Tuple[str, List[str]] = self.preprocessor_ctx.make_temp_files(
+            gen_src_o,
+            self.temp_build_folder,
+            self.temp_dist_folder
+        )
+        logger.debug("Wrote processed files to temp storage")
+        self._temp_entry_file, self._temp_files = tmp
+
+        stream = ParacCompiler.get_file_stream(
+            self._temp_entry_file, self.encoding
+        )
+        unit_ctx = ParacCompiler.parse(stream)
+
+        # Walking through the file and triggering the functions inside the
+        # listener -> Basic compilation
+        listener = Listener(unit_ctx, stream)
+        listener.walk_and_compile(True)
+
+        self.compilation_ctx.set_entry_ctx(listener.file_ctx)
+
+        yield 1000, None, logging.INFO, FinishedProcess(self)
 
 
 class ParacCompiler:
@@ -342,7 +449,7 @@ class ParacCompiler:
                                    will be added before the logging banner
         """
         if print_banner:
-            print_log_banner(banner_name)
+            print_log_banner(banner_name, additional_newline)
 
         cls.logger: logging.Logger = logging.getLogger("paraccompiler")
         cls.logger.setLevel(level)
@@ -388,15 +495,19 @@ class ParacCompiler:
 
         :param input_stream: The token stream of the file
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. (Errors will then NOT be raised but only
-                   logged)
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
-        # Listener which will implement the ParaC exceptions
+        # Error handler which uses the default error strategy to handle the 
+        # incoming antlr4 errors
         error_listener = ParacErrorListener(enable_out)
 
-        # Initialising the lexer, which will analyse the input_stream and
+        # Initialising the lexer, which will tokenize the input_stream and
         # raise basic errors if needed
         lexer = ParaCLexer.ParaCLexer(input_stream)
         lexer.removeErrorListeners()
@@ -409,7 +520,7 @@ class ParacCompiler:
 
         logger.debug("Parsing the tokens and generating the logic tree")
 
-        # Parser which should generate the logic trees
+        # Parser which generates based on the top entry rule the logic tree
         parser = ParaCParser.ParaCParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
@@ -427,8 +538,9 @@ class ParacCompiler:
         :param process: The BasicProcess containing the path to the entry-file
         :param enable_out: If set to True errors, warnings and info will be
                            logged onto the console using the local logger
-                           instance. (Errors will then NOT be raised but only
-                           logged)
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
         stream = cls.get_file_stream(process.entry_file, process.encoding)
@@ -443,7 +555,6 @@ class ParacCompiler:
 
         except (LexerError, LinkerError, ParacCompilerError):
             # TODO! Add proper error handling and logging
-            ...
             return False
 
         from ..__main__ import para_compiler
@@ -462,35 +573,17 @@ class ParacCompiler:
         return stream
 
     @classmethod
-    def antlr_parse_and_compile(
+    def gen_logic_stream(
             cls,
-            ctx: ProgramCompilationContext,
-            enable_out: bool = True
-    ) -> Dict[str, Dict[str, FileCompilationContext]]:
-        """
-        Parses the file using Antlr and runs the compilation over the listener.
-        The listener here will serve as the base where the logical processes
-        will run over and where the resulting C-code will be constructed.
+            ctx: ProgramCompilationProcess
+    ) -> ParacLogicStream:
+        """ Generates a logic stream based on the passed context """
+        ...
 
-        :returns: Generated Output Dict
-                  -> see CompilationContext.generate_source()
-        """
-        stream = cls.get_file_stream(
-            ctx.process.entry_file, ctx.process.encoding
-        )
-        unit_ctx = cls.parse(stream, enable_out)
-
-        # Walking through the file and triggering the functions inside the
-        # listener -> Basic compilation
-        listener = Listener(unit_ctx, stream)
-        listener.walk_and_compile(enable_out)
-
-        ctx.set_entry_ctx(listener.file_ctx)
-
-        # TODO! Generate the tokens based on the return of the listener and
-        # manage all dependencies -> generating the tokens for these files as
-        # well. Merging in the end all files in the CompilationContext, where
-        # the final compiling and logical checking will occur. In the end
-        # the optimiser should optimise the imports and remove unneeded parts.
-
-        return ctx.generate_source()
+    @classmethod
+    def compile_logic_stream(
+            cls,
+            logic_stream: ParacLogicStream
+    ) -> CLogicStream:
+        """ Compiles the passed ParacLogicStream into the Parac counterpart """
+        ...

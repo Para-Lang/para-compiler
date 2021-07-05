@@ -52,6 +52,11 @@ class ProgramCompilationContext:
         return self.process.entry_file
 
     @property
+    def temp_entry_file(self) -> str:
+        """ Returns the temporary preprocessor modified entry file """
+        return self.process.temp_entry_file
+
+    @property
     def entry_ctx(self) -> FileCompilationContext:
         """ Returns the entry context """
         return self._entry_ctx
@@ -72,7 +77,7 @@ class ProgramCompilationContext:
 
         # TODO! Logical integration
 
-    def generate_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
+    def gen_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
         Generates the source C-code from the tokens stored inside the class.
 

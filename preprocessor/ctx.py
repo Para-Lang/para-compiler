@@ -11,7 +11,8 @@ __all__ = [
     'ProgramPreProcessorContext'
 ]
 
-from typing import Dict, Union, List, TYPE_CHECKING
+from os import PathLike
+from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 
 if TYPE_CHECKING:
     from paraccompiler import ProgramCompilationProcess
@@ -36,6 +37,11 @@ class ProgramPreProcessorContext:
         self._entry_ctx: Union[FilePreProcessorContext, None] = None
         self._ctx_list: List[FilePreProcessorContext] = []
         self.process = process
+
+    @property
+    def encoding(self) -> str:
+        """ Returns the encoding of the project """
+        return self.process.encoding
 
     @property
     def entry_file(self) -> str:
@@ -65,7 +71,7 @@ class ProgramPreProcessorContext:
 
         # TODO! Logical integration
 
-    def generate_source(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
+    def gen_source(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
         """
         Generates the source C-code from the tokens stored inside the class.
 
@@ -73,8 +79,23 @@ class ProgramPreProcessorContext:
                   str - Name of the file (Relative name),
                   Dict[
                     str - The code-string,
-                    FileCompilationContext - The context of the file
+                    FilePreProcessorContext - The context of the file
                   ]
                  ]
+        """
+        ...
+
+    def make_temp_files(
+            self,
+            gen_src_o: Dict[str, Dict[str, FilePreProcessorContext]],
+            build_path: Union[str, PathLike],
+            dist_path: Union[str, PathLike]
+    ) -> Tuple[str, List[str]]:
+        """
+        Creates the temporary files based on the passed output of
+        generated_source()
+
+        :returns: A tuple containing at 0 the path to the entry-file and at 1
+                  a list of all paths of all other files.
         """
         ...

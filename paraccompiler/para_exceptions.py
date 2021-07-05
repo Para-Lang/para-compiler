@@ -128,6 +128,8 @@ class InterruptError(InternalError, RuntimeError):
         if exception:
             if hasattr(exception, 'code'):
                 code = exception.code
+        elif type(exception) is KeyboardInterrupt:
+            code = ErrorCodes.INTERRUPT
 
         super().__init__(code=code, *args)
 
@@ -141,7 +143,7 @@ class InterruptError(InternalError, RuntimeError):
 class FailedToProcessError(InternalError):
     """
     A specific error that is raised inside a compilation process or
-    pre-processor process, which represents a failure in processing the wanted
+    Pre-Processor process, which represents a failure in processing the wanted
     input. This class replaces the actual error that would be logged and all
     error logs will be printed onto the console.
     """

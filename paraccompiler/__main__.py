@@ -36,7 +36,7 @@ colorama.init(autoreset=True)
 para_compiler = ParacCompiler()
 
 
-@abortable(step="Setup")
+@abortable(step="Setup", reraise=True)
 def create_process(
         file: Union[str, PathLike],
         encoding: str,
@@ -71,7 +71,7 @@ def create_basic_process(
     return BasicProcess(file, encoding)
 
 
-@abortable(step="Validating Output")
+@abortable(step="Validating Output", reraise=True)
 def _dir_already_exists(folder: Union[str, PathLike]) -> bool:
     """ Asks the user whether the build folder should be overwritten """
     _input = console().input(
@@ -189,7 +189,7 @@ def run_process_with_logging(p: ProgramCompilationProcess) -> FinishedProcess:
     help="Show this message and exit."
 )
 @click.pass_context
-@abortable
+@abortable(reraise=False)
 def cli(*args, **kwargs):
     """ Console Line Interface for the Para-C Compiler """
     ParacCLI.cli(*args, **kwargs)
@@ -197,7 +197,7 @@ def cli(*args, **kwargs):
 
 @cli.command(name="c-init")
 @click.option("--keep-open", is_flag=True)
-@abortable
+@abortable(reraise=False)
 def parac_c_init(*args, **kwargs):
     """
     Console Line Interface for the configuration of the C-compiler
@@ -274,7 +274,7 @@ def parac_c_init(*args, **kwargs):
     default=False,
     help="If set the compiler will add additional debug information"
 )
-@abortable
+@abortable(reraise=False)
 def parac_compile(*args, **kwargs):
     """ Compile a Para-C program to C or executable """
     ParacCLI.parac_compile(*args, **kwargs)
@@ -331,7 +331,7 @@ def parac_compile(*args, **kwargs):
     default=False,
     help="If set the compiler will add additional debug information"
 )
-@abortable
+@abortable(reraise=False)
 def parac_run(*args, **kwargs):
     """ Compile a Para-C program, creates the output and runs it """
     ParacCLI.parac_run(*args, **kwargs)
@@ -372,7 +372,7 @@ def parac_run(*args, **kwargs):
     default=False,
     help="If set the compiler will add additional debug information"
 )
-@abortable
+@abortable(reraise=False)
 def parac_syntax_check(*args, **kwargs):
     """ Validates the syntax of a Para-C program and logs errors if needed """
     ParacCLI.parac_syntax_check(*args, **kwargs)
@@ -382,7 +382,7 @@ class ParacCLI:
     """ CLI for the main Para-C Compiler process """
 
     @staticmethod
-    @abortable
+    @abortable(reraise=True)
     @keep_open_callback
     @escape_ansi_param
     def cli(ctx: click.Context, version, *args, **kwargs):
@@ -409,7 +409,7 @@ class ParacCLI:
             out.print(ctx.get_help())
 
     @staticmethod
-    @abortable
+    @abortable(reraise=True)
     @keep_open_callback
     @escape_ansi_param
     def parac_c_init():
@@ -423,7 +423,7 @@ class ParacCLI:
         initialise_c_compiler()
 
     @staticmethod
-    @abortable
+    @abortable(reraise=True)
     @keep_open_callback
     @escape_ansi_param
     def parac_compile(
@@ -463,7 +463,11 @@ class ParacCLI:
 
         # Creates a CompilationProcess which represents a process that can
         # be finished but does not need to be finished
-        p: ProgramCompilationProcess = abortable(create_process, step="Setup")(
+        p: ProgramCompilationProcess = abortable(
+            create_process,
+            step="Setup",
+            reraise=True
+        )(
             file,
             encoding,
             log,
@@ -474,7 +478,7 @@ class ParacCLI:
         return run_process_with_logging(p)
 
     @staticmethod
-    @abortable
+    @abortable(reraise=True)
     @requires_init
     @keep_open_callback
     @escape_ansi_param
@@ -498,7 +502,7 @@ class ParacCLI:
         # TODO! Run the process. Requires GCC Integration
 
     @staticmethod
-    @abortable
+    @abortable(reraise=True)
     @keep_open_callback
     @escape_ansi_param
     def parac_syntax_check(

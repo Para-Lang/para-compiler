@@ -53,8 +53,8 @@ class TestCLISetup:
         add_folder("dist")
 
     def test_simple_setup(self):
-        b_path = f"{os.getcwd()}\\build\\"
-        d_path = f"{os.getcwd()}\\dist\\"
+        b_path = add_folder("build")
+        d_path = add_folder("dist")
         p = paraccompiler.create_process(
             main_file_path, 'utf-8', 'para.log', b_path, d_path
         )
@@ -63,8 +63,8 @@ class TestCLISetup:
         assert p.dist_path == d_path
 
     def test_wrong_path(self):
-        b_path = f"{os.getcwd()}\\build\\"
-        d_path = f"{os.getcwd()}\\dist\\"
+        b_path = add_folder("build")
+        d_path = add_folder("dist")
         try:
             paraccompiler.create_process(
                 "not_existing.para", 'utf-8', 'para.log', b_path, d_path

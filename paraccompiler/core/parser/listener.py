@@ -45,6 +45,7 @@ class Listener(ParaCListener.ParaCListener):
 
         self._compiling = False
         self._enable_out = False
+        logger.debug("Initialised listener for Antlr4")
 
     def walk(self, enable_out: bool) -> None:
         """
@@ -53,7 +54,9 @@ class Listener(ParaCListener.ParaCListener):
 
         :param enable_out: If set to True errors, warnings and info will be
                            logged onto the console using the local logger
-                           instance. Errors will then be merged into a
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError. Errors will then be merged into a
                            single error
         """
         self._enable_out = enable_out
