@@ -104,14 +104,16 @@ class TestGetRelativeFileName:
         name = utils.get_relative_file_name(
             file_name="entry.para",
             file_path="D:\\dir\\entry.para",
-            base_path="D:\\dir\\"
+            base_path="D:\\dir\\",
+            win_path=True
         )
         assert name == "entry"
 
         name = utils.get_relative_file_name(
             file_name="entry.para",
             file_path="D:\\dir\\x\\entry.para",
-            base_path="D:\\dir\\"
+            base_path="D:\\dir\\",
+            win_path=True
         )
         assert name == "x.entry"
 
@@ -153,7 +155,8 @@ class TestGetRelativeFileName:
             name = utils.get_relative_file_name(
                 file_name=" ",
                 file_path="\\dir\\name.para",
-                base_path="D:\\dir\\"
+                base_path="D:\\dir\\",
+                win_path=True
             )
         except RuntimeError:
             ...

@@ -5,8 +5,7 @@ import re
 import os
 from click.utils import WIN
 from os import PathLike
-from typing import Union, Type
-
+from typing import Union, Type, Optional
 
 __all__ = [
     'SEPARATOR',
@@ -56,17 +55,22 @@ def escape_ansi(string: str) -> str:
     return ansi_escape.sub('', string)
 
 
-def check_valid_path_name(path: Union[str, PathLike]) -> bool:
+def check_valid_path_name(
+        path: Union[str, PathLike],
+        win_path: Optional[bool] = None
+) -> bool:
     """
     Checks whether the name is a valid path-name. This means the file name
-    cannot contain < , > , : , " , / , \ , | , ? , *
+    cannot contain < , > , : , " , / , \\ (Escaped) , | , ? , *
 
     :param path: A path-like or file-name which should be checked
+    :param win_path: If explicitly set to True, the path will be checked if it
+                     was a windows path, even if it's a os of a different kind
     """
     path = cleanup_path(path)
     path = path.replace(SEPARATOR, '')
 
-    if WIN and path[1:].startswith(':'):
+    if (WIN or win_path) and path[1:].startswith(':'):
         path = path[2:]
 
     for c in path:
@@ -78,16 +82,19 @@ def check_valid_path_name(path: Union[str, PathLike]) -> bool:
 def get_relative_file_name(
         file_name: str,
         file_path: Union[str, PathLike],
-        base_path: Union[str, PathLike]
+        base_path: Union[str, PathLike],
+        win_path: Optional[bool] = None
 ) -> str:
     """
     Gets the relative file name from the passed str. If the file_path does not
     match the file_name passed RuntimeError will be raised
 
     :param file_name: Simple file name which cannot contain < , > , : , " , / ,
-                      \ , | , ? , *
+                      \\ (Escaped) , | , ? , *
     :param file_path: Full path of the file
     :param base_path: Full base path for the working directory
+    :param win_path: If explicitly set to True, the path will be checked if it
+                     was a windows path, even if it's a os of a different kind
     """
     file_path = cleanup_path(file_path)
     base_path = cleanup_path(base_path)
@@ -107,9 +114,15 @@ def get_relative_file_name(
     if relative_path.startswith(SEPARATOR):
         relative_path = relative_path[len(SEPARATOR):]
 
-    if not all(map(check_valid_path_name, (file_path, base_path))):
+    if not check_valid_path_name(file_path, win_path):
         raise RuntimeError(
-            "One or more paths contain invalid characters that can not be "
+            "The file_path contains invalid characters that can not be "
+            "processed"
+        )
+
+    if not check_valid_path_name(base_path, win_path):
+        raise RuntimeError(
+            "The base_path contains invalid characters that can not be "
             "processed"
         )
 
