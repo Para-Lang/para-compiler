@@ -12,9 +12,8 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
-# Importing the base error handler which is needed in the preprocessor
-from . import base_err_handler
-from .base_err_handler import *
+# Importing the files that are used in the Pre-Processor and Compiler
+from .core import abc  # Abstract Classes
 
 # Preprocessor Import
 import sys
@@ -48,14 +47,13 @@ __all__ = [
     '__code_name__',
     '__release__',
     '__copyright__',
-    'BaseErrorListener',
+    'abc',
     'WIN',
     'preprocessor',
-    *logger.__all__,
+    'utils',
+    'logger',
     *para_exceptions.__all__,
-    *utils.__all__,
     *__main__.__all__,
-    *base_err_handler.__all__
 ]
 
 import logging

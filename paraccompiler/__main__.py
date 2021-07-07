@@ -18,8 +18,9 @@ from .core import (ProgramCompilationProcess, FinishedProcess, ParacCompiler,
 from .logger import (get_rich_console as console, init_rich_console,
                      print_result_banner, create_prompt, print_init_banner,
                      format_default)
-from .utils import (abortable, requires_init, keep_open_callback,
-                    escape_ansi_param, SpecialBoolDefault)
+from .utils import SpecialBoolDefault
+from .decorators import (abortable, requires_init, keep_open_callback,
+                         escape_ansi_param)
 
 __all__ = [
     'para_compiler',

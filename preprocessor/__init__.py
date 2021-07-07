@@ -12,6 +12,7 @@ from .python import (ParaCPreProcessorLexer, ParaCPreProcessorListener,
 from . import ctx
 from . import listener
 from . import __main__
+from . import logic_tokens
 from .__main__ import *
 
 # Adding the working directory (location of compiler-cli.py)
@@ -22,7 +23,9 @@ __all__ = [
     'ParaCPreProcessorLexer',
     'ParaCPreProcessorListener',
     'ParaCPreProcessorParser',
+    'logic_tokens',
     'listener',
     'ctx',
+    *ctx.__all__,
     *__main__.__all__
 ]
