@@ -7,17 +7,17 @@ from paraccompiler import utils
 class TestCheckValidPathName:
     def test_simple_assert(self):
         assert not utils.check_valid_path_name(
-            "dest\\na*me?.pa\\ra",
+            "dest/na*me?.pa\\ra",
         )
 
     def test_wrong_path(self):
         assert not utils.check_valid_path_name(
-            "dest*\\na*me?.pa\\ra",
+            "/dest*/na*me?.pa\\ra",
         )
 
     def test_valid_path(self):
         assert utils.check_valid_path_name(
-            "dest\\name.para",
+            "/dest/name.para",
         )
 
     def test_wrong_name(self):
@@ -33,6 +33,11 @@ class TestCheckValidPathName:
     def test_win_path(self):
         assert utils.check_valid_path_name(
             "D:\\name.para",
+            win_path=True
+        )
+
+        assert utils.check_valid_path_name(
+            "\\dest\\name.para",
         )
 
 
