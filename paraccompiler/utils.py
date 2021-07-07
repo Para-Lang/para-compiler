@@ -20,6 +20,7 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 SEPARATOR = "\\" if WIN else "/"
+# TODO! Add linux option for paths
 INVALID_FILE_NAME_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*')
 
 
