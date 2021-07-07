@@ -10,7 +10,6 @@ from .python import ParaCPreProcessorParser as parser
 _p = parser.ParaCPreProcessorParser
 
 
-# TODO! Add missing listener functions when grammar file was finished
 class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
@@ -20,13 +19,18 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
 
     def __init__(
             self,
-            unit_ctx: _p.CompilationUnitContext,
-            file_stream: antlr4.FileStream
+            antlr4_file_ctx: _p.CompilationUnitContext,
+            file_stream: antlr4.FileStream,
+            relative_file_name: str
     ):
-        self.file_ctx = FilePreProcessorContext()
-        self.unit_ctx = unit_ctx
+        self._file_ctx = FilePreProcessorContext(relative_file_name)
+        self.antlr4_file_ctx = antlr4_file_ctx
         self.file_stream = file_stream
         self._enable_out = False
+
+    def get_file_ctx(self) -> FilePreProcessorContext:
+        """ Fetches the file context for this class """
+        return self._file_ctx
 
     def walk_and_process_directives(self, enable_out: bool) -> None:
         """

@@ -2,7 +2,8 @@
 """ Listener Class """
 from __future__ import annotations
 import logging
-from typing import TYPE_CHECKING
+from os import PathLike
+from typing import TYPE_CHECKING, Union
 
 import antlr4
 
@@ -36,16 +37,21 @@ class Listener(ParaCListener.ParaCListener):
 
     def __init__(
             self,
-            unit_ctx: CompilationUnitContext,
-            file_stream: antlr4.FileStream
+            antlr4_file_ctx: CompilationUnitContext,
+            file_stream: antlr4.FileStream,
+            relative_file_name: Union[str, PathLike]
     ):
-        self.file_ctx = FileCompilationContext()
-        self.unit_ctx = unit_ctx
+        self._file_ctx = FileCompilationContext(relative_file_name)
+        self.antlr4_file_ctx = antlr4_file_ctx
         self.file_stream = file_stream
 
         self._compiling = False
         self._enable_out = False
         logger.debug("Initialised listener for Antlr4")
+
+    def get_file_ctx(self) -> FileCompilationContext:
+        """ Fetches the file context for this class """
+        return self._file_ctx
 
     def walk(self, enable_out: bool) -> None:
         """
@@ -56,13 +62,13 @@ class Listener(ParaCListener.ParaCListener):
                            logged onto the console using the local logger
                            instance. If an exception is raised or error is
                            encountered, it will be reraised with the
-                           FailedToProcessError. Errors will then be merged into a
-                           single error
+                           FailedToProcessError. Errors will then be merged
+                           into a single error
         """
         self._enable_out = enable_out
 
         walker = antlr4.ParseTreeWalker()
-        walker.walk(self, self.unit_ctx)
+        walker.walk(self, self.antlr4_file_ctx)
 
         ...
 

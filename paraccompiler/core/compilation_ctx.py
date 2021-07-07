@@ -32,12 +32,22 @@ class FileCompilationContext:
     track of all files and in the end process the resulting dependencies and
     whether they work. (-> Linker and Semantic Analysis)
     """
+
     def __init__(
             self,
             relative_file_name: Union[str, PathLike]
     ):
         self._program_ctx: Union[ProgramCompilationContext, None] = None
         self._content: Dict[str, ParacLogicToken] = {}
+        self._relative_file_name = relative_file_name
+
+    @property
+    def relative_file_name(self) -> Union[str, PathLike]:
+        """
+        Returns the relative file name, which goes out from the entry file
+        and has a relative path to every file imported and used.
+        """
+        return self._relative_file_name
 
     @property
     def program_ctx(self) -> Union[ProgramCompilationContext, None]:
@@ -75,14 +85,23 @@ class ProgramCompilationContext:
         self.process = process
 
     @property
+    def work_dir(self) -> Union[str, PathLike]:
+        """
+        Returns the working directory / base-path for the program. If the entry
+        file path was relative, then the working directory where the compiler
+        is run is used as the working directory.
+        """
+        return self.process.work_dir
+
+    @property
     def encoding(self) -> str:
         """ Returns the encoding of the project """
         return self.process.encoding
 
     @property
-    def entry_file(self) -> str:
-        """ Returns the entry_file of the context """
-        return self.process.entry_file
+    def entry_file_path(self) -> str:
+        """ Returns the entry_file_path of the context """
+        return self.process.entry_file_path
 
     @property
     def entry_ctx(self) -> FileCompilationContext:
@@ -91,8 +110,8 @@ class ProgramCompilationContext:
 
     @property
     def context_dict(self) -> Dict[
-            Union[str, PathLike], FileCompilationContext
-        ]:
+        Union[str, PathLike], FileCompilationContext
+    ]:
         """ Returns a list for all context instances """
         return self._context_dict
 

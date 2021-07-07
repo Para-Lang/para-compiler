@@ -7,8 +7,7 @@ import warnings
 from sys import exit
 from functools import wraps
 
-from .para_exceptions import (InterruptError, ParacCompilerError,
-                              InternalError, ErrorCodes)
+from .para_exceptions import (InterruptError, ParacCompilerError, InternalError)
 
 from .logger import (get_rich_console as console, log_traceback,
                      print_abort_banner, init_rich_console)
@@ -47,7 +46,7 @@ def abortable(
                 except InterruptError as e:
                     if print_abort:
                         print_abort_banner(step)
-                    exit(e.code)
+                    exit(1)
 
                 except KeyboardInterrupt as e:
                     raise InterruptError(exception=e) from e
@@ -71,7 +70,7 @@ def abortable(
 
                     log_traceback(
                         level="critical",
-                        brief="Exception",
+                        brief="Encountered unexpected exception while running",
                         exc_info=sys.exc_info()
                     )
                     raise InternalError(
@@ -82,13 +81,13 @@ def abortable(
                 if reraise:
                     raise e
                 else:
-                    exit(e.code)
+                    exit(1)
 
             except Exception as e:
                 if reraise:
                     raise e
                 else:
-                    exit(ErrorCodes.UNKNOWN)
+                    exit(1)
 
         return _wrapper
 

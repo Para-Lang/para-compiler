@@ -13,12 +13,15 @@ __all__ = [
     'decode_if_bytes',
     'cleanup_path',
     'escape_ansi',
+    'check_valid_path_name',
+    'get_relative_file_name',
     'SpecialBoolDefault'
 ]
 
 logger = logging.getLogger(__name__)
 
 SEPARATOR = "\\" if WIN else "/"
+INVALID_FILE_NAME_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*')
 
 
 def decode_if_bytes(
@@ -51,6 +54,78 @@ def escape_ansi(string: str) -> str:
     """ Removes ansi colouring in the passed string """
     ansi_escape = re.compile(r'(?:\x1B[@-_]|[\x80-\x9F])[0-?]*[ -/]*[@-~]')
     return ansi_escape.sub('', string)
+
+
+def check_valid_path_name(path: Union[str, PathLike]) -> bool:
+    """
+    Checks whether the name is a valid path-name. This means the file name
+    cannot contain < , > , : , " , / , \ , | , ? , *
+
+    :param path: A path-like or file-name which should be checked
+    """
+    path = cleanup_path(path)
+    path = path.replace(SEPARATOR, '')
+
+    if WIN and path[1:].startswith(':'):
+        path = path[2:]
+
+    for c in path:
+        if c in INVALID_FILE_NAME_CHARS:
+            return False
+    return True
+
+
+def get_relative_file_name(
+        file_name: str,
+        file_path: Union[str, PathLike],
+        base_path: Union[str, PathLike]
+) -> str:
+    """
+    Gets the relative file name from the passed str. If the file_path does not
+    match the file_name passed RuntimeError will be raised
+
+    :param file_name: Simple file name which cannot contain < , > , : , " , / ,
+                      \ , | , ? , *
+    :param file_path: Full path of the file
+    :param base_path: Full base path for the working directory
+    """
+    file_path = cleanup_path(file_path)
+    base_path = cleanup_path(base_path)
+
+    if base_path not in file_path:
+        raise RuntimeError(
+            "base_path and file_path are mismatching. file_path is not in "
+            "base_path"
+        )
+
+    if ' ' in file_name:
+        raise RuntimeError(
+            "file_name can not contain spaces"
+        )
+
+    relative_path = file_path.replace(base_path, '')
+    if relative_path.startswith(SEPARATOR):
+        relative_path = relative_path[len(SEPARATOR):]
+
+    if not all(map(check_valid_path_name, (file_path, base_path))):
+        raise RuntimeError(
+            "One or more paths contain invalid characters that can not be "
+            "processed"
+        )
+
+    if relative_path.split(SEPARATOR)[-1] != file_name:
+        raise RuntimeError(
+            "Mismatching file_names (file_path and file_name do not match)"
+        )
+
+    relative_file_name = ""
+
+    relative_elements = relative_path.split(SEPARATOR)[:-1]
+    for elem in relative_elements:
+        relative_file_name += "".join((elem, "."))
+
+    relative_file_name += file_name.split('.')[0]
+    return relative_file_name
 
 
 class SpecialBoolDefault:

@@ -12,6 +12,11 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
+# Main imports
+from . import logger
+from . import utils
+from . import para_exceptions
+
 # Importing the files that are used in the Pre-Processor and Compiler
 from .core import abc  # Abstract Classes
 
@@ -23,10 +28,6 @@ sys.path.append(os.getcwd())
 # Importing from the added path the preprocessor
 import preprocessor
 
-# Main imports
-from . import logger
-from . import utils
-from . import para_exceptions
 from . import __main__
 from .__main__ import *
 

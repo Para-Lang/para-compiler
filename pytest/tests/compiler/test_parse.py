@@ -32,7 +32,7 @@ class TestParser:
          """
         reset_input()
 
-    def test_entry_file(self):
+    def test_entry_file_path(self):
         logger.debug(f"\nParsing {main_file_path}")
 
         p = BasicProcess(main_file_path, 'utf-8')

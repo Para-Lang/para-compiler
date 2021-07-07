@@ -20,7 +20,8 @@ from .parser.listener import Listener
 from .compilation_ctx import ProgramCompilationContext
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                       get_rich_console as console, print_log_banner)
-from ..utils import decode_if_bytes, cleanup_path, SEPARATOR
+from ..utils import decode_if_bytes, cleanup_path, SEPARATOR, \
+    get_relative_file_name
 from ..para_exceptions import (FilePermissionError, FileNotFoundError,
                                FileAccessError, LexerError, LinkerError,
                                ParacCompilerError, CCompilerNotFoundError)
@@ -150,20 +151,20 @@ class BasicProcess:
 
     def __init__(
             self,
-            entry_file: Union[str, bytes, PathLike],
+            entry_file_path: Union[str, bytes, PathLike],
             encoding: str
     ):
         """
         Initialises the instance and validates the passed entry file for
         further usage.
 
-        :param entry_file: The entry-file of the program. The compiler will use
-                           the working directory as base dir if the path is
-                           relative
+        :param entry_file_path: The entry-file of the program. The compiler
+                                will use the working directory as base dir if
+                                the path is relative
         """
-        entry_file = cleanup_path(decode_if_bytes(entry_file))
+        entry_file_path = cleanup_path(decode_if_bytes(entry_file_path))
 
-        _last_path_elem = entry_file.replace("/", "\\").split("\\")[-1]
+        _last_path_elem = entry_file_path.replace("/", "\\").split("\\")[-1]
         # for the sake of checking; all paths used are converted into
         # the windows path-style
         if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
@@ -177,14 +178,14 @@ class BasicProcess:
             )
 
         try:
-            validate_path_like(entry_file)
+            validate_path_like(entry_file_path)
         except FileAccessError as e:
             # If the validation failed the path might be a relative path
             # that does not have a . signalising its going python from the
             # current path meaning the work-directory path needs to be
             # appended. If that also fails it is an invalid path or permissions
             # are missing
-            absolute_path = cleanup_path(f"{os.getcwd()}\\{entry_file}")
+            absolute_path = cleanup_path(f"{os.getcwd()}\\{entry_file_path}")
             failed = False
             try:
                 validate_path_like(absolute_path)
@@ -192,19 +193,33 @@ class BasicProcess:
                 failed = True
             if failed:
                 raise e
-            entry_file = absolute_path
-        self._entry_file = entry_file
+            entry_file_path = absolute_path
+        self._entry_file_path = entry_file_path
         self._encoding = encoding
+        self._work_dir = self._get_work_dir()
 
     @property
-    def entry_file(self) -> Union[str, PathLike]:
+    def work_dir(self) -> Union[str, PathLike]:
+        """
+        Returns the working directory / base-path for the program. If the entry
+        file path was relative, then the working directory where the compiler
+        is run is used as the working directory.
+        """
+        return self._work_dir
+
+    @property
+    def entry_file_path(self) -> Union[str, PathLike]:
         """ Returns the entry-file of the process """
-        return self._entry_file
+        return self._entry_file_path
 
     @property
     def encoding(self) -> str:
         """ Returns the encoding of the process """
         return self._encoding
+
+    def _get_work_dir(self) -> str:
+        """ Gets the working directory for the program """
+        return SEPARATOR.join(self.entry_file_path.split(SEPARATOR)[:-1])
 
     def validate_syntax(self, enable_out: bool) -> bool:
         """
@@ -226,7 +241,7 @@ class FinishedProcess(BasicProcess):
 
     def __init__(self, process: ProgramCompilationProcess):
         self.done_process = process
-        super().__init__(process.entry_file, process.encoding)
+        super().__init__(process.entry_file_path, process.encoding)
 
 
 class ProgramCompilationProcess(BasicProcess):
@@ -240,7 +255,7 @@ class ProgramCompilationProcess(BasicProcess):
 
     def __init__(
             self,
-            entry_file: Union[str, bytes, PathLike],
+            entry_file_path: Union[str, bytes, PathLike],
             encoding: str,
             build_path: Union[str, bytes, PathLike],
             dist_path: Union[str, bytes, PathLike]
@@ -250,23 +265,23 @@ class ProgramCompilationProcess(BasicProcess):
         process. In case of an error an exception will be raised and the
         process cancelled.
 
-        :param entry_file: The entry-file of the program. The compiler will use
-                           the working directory as base dir if the path is
-                            relative
+        :param entry_file_path: The entry-file of the program. The compiler
+                                will use the working directory as base dir
+                                if the path is relative
         :param build_path: The path to the output folder
         :param dist_path: The path to the dist folder
         :returns: The file name, the output build path, the output dist path
                   and the arguments passed for the compilation
         """
-        super().__init__(entry_file, encoding)
+        super().__init__(entry_file_path, encoding)
 
         build_path: Union[str, PathLike] = decode_if_bytes(build_path)
         dist_path: Union[str, PathLike] = decode_if_bytes(dist_path)
 
-        self._build_path = build_path
-        self._dist_path = dist_path
+        self._build_path = cleanup_path(build_path)
+        self._dist_path = cleanup_path(dist_path)
         self._temp_files: List[str] = []
-        self._temp_entry_file: Union[str, None] = None
+        self._temp_entry_file_path: Union[str, None] = None
         self._preprocessor_ctx = ProgramPreProcessorContext(self)
         self._compilation_ctx = ProgramCompilationContext(self)
         self._make_temp_folder()
@@ -286,10 +301,10 @@ class ProgramCompilationProcess(BasicProcess):
         """ Returns the temp folder in the build folder """
         # SEPARATOR should in this case point to the correct path separator
         # due to the cleanup of paths in the initialisation
-        if self.dist_path.endswith(SEPARATOR):
-            return f"{self.dist_path}temp"
+        if self.build_path.endswith(SEPARATOR):
+            return cleanup_path(f"{self.build_path}temp")
         else:
-            return f"{self.dist_path}{SEPARATOR}temp"
+            return cleanup_path(f"{self.build_path}{SEPARATOR}temp")
 
     @property
     def temp_dist_folder(self) -> Union[str, PathLike]:
@@ -297,9 +312,9 @@ class ProgramCompilationProcess(BasicProcess):
         # SEPARATOR should in this case point to the correct path separator
         # due to the cleanup of paths in the initialisation
         if self.dist_path.endswith(SEPARATOR):
-            return f"{self.dist_path}temp"
+            return cleanup_path(f"{self.dist_path}temp")
         else:
-            return f"{self.dist_path}{SEPARATOR}temp"
+            return cleanup_path(f"{self.dist_path}{SEPARATOR}temp")
 
     @property
     def temp_files(self) -> List[str]:
@@ -309,16 +324,16 @@ class ProgramCompilationProcess(BasicProcess):
         return self._temp_files
 
     @property
-    def temp_entry_file(self) -> str:
+    def temp_entry_file_path(self) -> str:
         """
         Returns the temporary entry-file that was created by the Pre-Processor
         """
-        return self._temp_entry_file
+        return self._temp_entry_file_path
 
     @property
-    def entry_file(self) -> Union[str, PathLike]:
+    def entry_file_path(self) -> Union[str, PathLike]:
         """ Entry file of the program """
-        return self._entry_file
+        return self._entry_file_path
 
     @property
     def build_path(self) -> Union[str, PathLike]:
@@ -367,7 +382,50 @@ class ProgramCompilationProcess(BasicProcess):
         """
         for result in self._compile(False):
             if type(result[3]) is FinishedProcess:
-                return result[3]
+                return result[3]  # Optional[FinishedProcess]
+
+    def _run_preprocessor(self) -> None:
+        """ Runs the Pre-Processor and generates the temporary files """
+        logger.debug("Starting Pre-Processor parsing and processing")
+        PreProcessor.parse_and_process(self.preprocessor_ctx)
+        logger.debug("Generating the modified temporary files")
+        gen_src_o = self.preprocessor_ctx.gen_source()
+
+        # Generating the temp files which are then used for the further
+        # compilation
+        tmp: Tuple[str, List[str]] = self.preprocessor_ctx.make_temp_files(
+            gen_src_o,
+            self.temp_build_folder,
+            self.temp_dist_folder
+        )
+        logger.debug("Wrote processed files to temp storage")
+        self._temp_entry_file_path, self._temp_files = tmp
+
+    def _run_entry_file_path_parsing(self) -> None:
+        """ Runs the parsing process for the entry-file """
+        stream = ParacCompiler.get_file_stream(
+            self._temp_entry_file_path, self.encoding
+        )
+        relative_file_name = get_relative_file_name(
+            stream.name,
+            stream.fileName,
+            self.work_dir
+        )
+        antlr4_file_ctx = ParacCompiler.parse(stream)
+
+        # Walking through the file and triggering the functions inside the
+        # listener -> Basic compilation
+        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
+        listener.walk_and_compile(True)
+
+        # Adding the context to the compilation_ctx. Until now the file_ctx /
+        # entry_ctx was handled as a standalone file without relation. With
+        # this function the ctx will be passed and registered in the
+        # compilation ctx, which will manage all ctx instances for the entire
+        # compilation.
+        self.compilation_ctx.set_entry_ctx(
+            listener.get_file_ctx(), relative_file_name
+        )
 
     def _compile(self, track_progress: bool) -> Generator[
         Tuple[
@@ -385,32 +443,8 @@ class ProgramCompilationProcess(BasicProcess):
             # Currently only a replacement for testing purposes
             yield 50, "Fetching files", logging.INFO, None
 
-        logger.debug("Starting Pre-Processor parsing and processing")
-        PreProcessor.parse_and_process(self.preprocessor_ctx)
-        logger.debug("Generating the modified temporary files")
-        gen_src_o = self.preprocessor_ctx.gen_source()
-
-        # Generating the temp files which are then used for the further
-        # compilation
-        tmp: Tuple[str, List[str]] = self.preprocessor_ctx.make_temp_files(
-            gen_src_o,
-            self.temp_build_folder,
-            self.temp_dist_folder
-        )
-        logger.debug("Wrote processed files to temp storage")
-        self._temp_entry_file, self._temp_files = tmp
-
-        stream = ParacCompiler.get_file_stream(
-            self._temp_entry_file, self.encoding
-        )
-        unit_ctx = ParacCompiler.parse(stream)
-
-        # Walking through the file and triggering the functions inside the
-        # listener -> Basic compilation
-        listener = Listener(unit_ctx, stream)
-        listener.walk_and_compile(True)
-
-        self.compilation_ctx.set_entry_ctx(listener.file_ctx)
+        self._run_preprocessor()
+        self._run_entry_file_path_parsing()
 
         yield 1000, None, logging.INFO, FinishedProcess(self)
 
@@ -498,8 +532,8 @@ class ParacCompiler:
                            logged onto the console using the local logger
                            instance. If an exception is raised or error is
                            encountered, it will be reraised with the
-                           FailedToProcessError. If an exception is raised or error is
-                           encountered, it will be reraised with the
+                           FailedToProcessError. If an exception is raised or
+                           error is encountered, it will be reraised with the
                            FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
@@ -543,14 +577,19 @@ class ParacCompiler:
                            FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
-        stream = cls.get_file_stream(process.entry_file, process.encoding)
+        stream = cls.get_file_stream(process.entry_file_path, process.encoding)
 
         try:
-            unit_ctx = cls.parse(stream, enable_out)
+            antlr4_file_ctx = cls.parse(stream, enable_out)
+            relative_file_name = get_relative_file_name(
+                stream.name,
+                stream.fileName,
+                process.work_dir
+            )
 
             # Walking through the tree but without compiling! -> Only default
             # structure and syntax will be validated and checked
-            listener = Listener(unit_ctx, stream)
+            listener = Listener(antlr4_file_ctx, stream, relative_file_name)
             listener.walk(enable_out)
 
         except (LexerError, LinkerError, ParacCompilerError):

@@ -117,11 +117,20 @@ class PreProcessor:
 
         :returns: A preprocessor result instance
         """
+        from paraccompiler import get_relative_file_name
+
         stream = cls.get_file_stream(
-            ctx.process.entry_file, ctx.encoding
+            ctx.process.entry_file_path, ctx.encoding
         )
-        unit_ctx = cls.parse(stream, enable_out)
-        listener = Listener(unit_ctx, stream)
+        relative_file_name = get_relative_file_name(
+            file_name=stream.name,
+            file_path=stream.fileName,
+            base_path=ctx.work_dir
+        )
+        antlr4_file_ctx = cls.parse(stream, enable_out)
+        
+        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
         listener.walk_and_process_directives(enable_out)
+        ctx.set_entry_ctx(listener.get_file_ctx(), relative_file_name)
 
         return cls.process_directives(ctx)
