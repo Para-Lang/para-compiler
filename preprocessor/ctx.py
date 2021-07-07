@@ -6,13 +6,15 @@ commands as given in the file.
 """
 from __future__ import annotations
 
+from os import PathLike
+from typing import Dict, Union, List, TYPE_CHECKING, Tuple
+
+from .abc import PreProcessorLogicToken
+
 __all__ = [
     'FilePreProcessorContext',
     'ProgramPreProcessorContext'
 ]
-
-from os import PathLike
-from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 
 if TYPE_CHECKING:
     from paraccompiler import ProgramCompilationProcess
@@ -21,12 +23,36 @@ if TYPE_CHECKING:
 class FilePreProcessorContext:
     """
     Class used inside the listener for managing the context of a single file,
-    where specific directives are used and stated.
+    where directives and code are stored and managed.
     """
-    ...
+
+    def __init__(
+            self,
+            relative_file_name: Union[str, PathLike]
+    ):
+        self._program_ctx: Union[ProgramPreProcessorContext, None] = None
+        self._content: Dict[str, PreProcessorLogicToken] = {}
+
+    @property
+    def program_ctx(self) -> Union[ProgramPreProcessorContext, None]:
+        """
+        Returns the program_ctx if it was already set using set_program_ctx()
+        """
+        return self._program_ctx
+
+    @property
+    def content(self) -> Dict[str, PreProcessorLogicToken]:
+        """ Returns the content of the file represented as a dict """
+        return self._content
+
+    def set_program_ctx(self, ctx: ProgramPreProcessorContext) -> None:
+        """
+        Sets the program context, containing the information for the entire
+        compilation and relative structure
+        """
+        self._program_ctx = ctx
 
 
-# TODO! Add proper logic
 class ProgramPreProcessorContext:
     """
     Program Compilation Context, which serves as the base for an entire
@@ -35,7 +61,9 @@ class ProgramPreProcessorContext:
 
     def __init__(self, process: ProgramCompilationProcess):
         self._entry_ctx: Union[FilePreProcessorContext, None] = None
-        self._ctx_list: List[FilePreProcessorContext] = []
+        self._context_dict: Dict[
+            Union[str, PathLike], FilePreProcessorContext
+        ] = {}
         self.process = process
 
     @property
@@ -54,22 +82,33 @@ class ProgramPreProcessorContext:
         return self._entry_ctx
 
     @property
-    def ctx_list(self) -> List[FilePreProcessorContext]:
+    def context_dict(self) -> Dict[
+            Union[str, PathLike], FilePreProcessorContext
+        ]:
         """ Returns a list for all context instances """
-        return self._ctx_list
+        return self._context_dict
 
-    def set_entry_ctx(self, ctx: FilePreProcessorContext) -> None:
-        """ Sets the entry-file FileCompilationContext """
+    def set_entry_ctx(
+            self,
+            ctx: FilePreProcessorContext,
+            relative_file_name: Union[str, PathLike]
+    ) -> None:
+        """ Sets the entry-file FilePreProcessorContext """
+        ctx.set_program_ctx(self)
         self._entry_ctx = ctx
-        self._ctx_list.append(ctx)
+        self._context_dict[relative_file_name] = ctx
 
-    def add_file_ctx(self, ctx: FilePreProcessorContext) -> None:
+    def add_file_ctx(
+            self,
+            ctx: FilePreProcessorContext,
+            relative_file_name: Union[str, PathLike]
+    ) -> None:
         """
-        Adds a FilePreProcessorContext to the list of file ctx instances
+        Adds a FilePreProcessorContext to the list of file ctx instances.
+        The context instance should only be created using this class
         """
-        self._ctx_list.append(ctx)
-
-        # TODO! Logical integration
+        ctx.set_program_ctx(self)
+        self._context_dict[relative_file_name] = ctx
 
     def gen_source(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
         """

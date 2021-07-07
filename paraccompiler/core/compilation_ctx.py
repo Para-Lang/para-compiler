@@ -11,7 +11,10 @@ __all__ = [
     'ProgramCompilationContext'
 ]
 
-from typing import Dict, Union, List, TYPE_CHECKING
+from os import PathLike
+from typing import Dict, Union, TYPE_CHECKING
+
+from .abc import ParacLogicToken
 
 if TYPE_CHECKING:
     from .compiler import ProgramCompilationProcess
@@ -29,10 +32,33 @@ class FileCompilationContext:
     track of all files and in the end process the resulting dependencies and
     whether they work. (-> Linker and Semantic Analysis)
     """
-    ...
+    def __init__(
+            self,
+            relative_file_name: Union[str, PathLike]
+    ):
+        self._program_ctx: Union[ProgramCompilationContext, None] = None
+        self._content: Dict[str, ParacLogicToken] = {}
+
+    @property
+    def program_ctx(self) -> Union[ProgramCompilationContext, None]:
+        """
+        Returns the program_ctx if it was already set using set_program_ctx()
+        """
+        return self._program_ctx
+
+    @property
+    def content(self) -> Dict[str, ParacLogicToken]:
+        """ Returns the content of the file represented as a dict """
+        return self._content
+
+    def set_program_ctx(self, ctx: ProgramCompilationContext) -> None:
+        """
+        Sets the program context, containing the information for the entire
+        compilation and relative structure
+        """
+        self._program_ctx = ctx
 
 
-# TODO! Add proper logic and dependency management
 class ProgramCompilationContext:
     """
     Program Compilation Context, which serves as the base for the compilation
@@ -43,8 +69,15 @@ class ProgramCompilationContext:
 
     def __init__(self, process: ProgramCompilationProcess):
         self._entry_ctx: Union[FileCompilationContext, None] = None
-        self._ctx_list: List[FileCompilationContext] = []
+        self._context_dict: Dict[
+            Union[str, PathLike], FileCompilationContext
+        ] = {}
         self.process = process
+
+    @property
+    def encoding(self) -> str:
+        """ Returns the encoding of the project """
+        return self.process.encoding
 
     @property
     def entry_file(self) -> str:
@@ -52,30 +85,38 @@ class ProgramCompilationContext:
         return self.process.entry_file
 
     @property
-    def temp_entry_file(self) -> str:
-        """ Returns the temporary preprocessor modified entry file """
-        return self.process.temp_entry_file
-
-    @property
     def entry_ctx(self) -> FileCompilationContext:
         """ Returns the entry context """
         return self._entry_ctx
 
     @property
-    def ctx_list(self) -> List[FileCompilationContext]:
+    def context_dict(self) -> Dict[
+            Union[str, PathLike], FileCompilationContext
+        ]:
         """ Returns a list for all context instances """
-        return self._ctx_list
+        return self._context_dict
 
-    def set_entry_ctx(self, ctx: FileCompilationContext) -> None:
+    def set_entry_ctx(
+            self,
+            ctx: FileCompilationContext,
+            relative_file_name: Union[str, PathLike]
+    ) -> None:
         """ Sets the entry-file FileCompilationContext """
+        ctx.set_program_ctx(self)
         self._entry_ctx = ctx
-        self._ctx_list.append(ctx)
+        self._context_dict[relative_file_name] = ctx
 
-    def add_file_ctx(self, ctx: FileCompilationContext) -> None:
-        """ Adds a FileCompilationContext to the list of file ctx instances """
-        self._ctx_list.append(ctx)
-
-        # TODO! Logical integration
+    def add_file_ctx(
+            self,
+            ctx: FileCompilationContext,
+            relative_file_name: Union[str, PathLike]
+    ) -> None:
+        """
+        Adds a FileCompilationContext to the list of file ctx instances.
+        The context instance should only be created using this class
+        """
+        ctx.set_program_ctx(self)
+        self._context_dict[relative_file_name] = ctx
 
     def gen_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
