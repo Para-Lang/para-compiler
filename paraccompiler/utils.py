@@ -20,8 +20,8 @@ __all__ = [
 logger = logging.getLogger(__name__)
 
 SEPARATOR = "\\" if WIN else "/"
-# TODO! Add linux option for paths
-INVALID_FILE_NAME_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*')
+INVALID_UNIX_FILE_NAME_CHARS = ('/', '<', '>', '\0', '|', ':', '&')
+INVALID_WIN_FILE_NAME_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*')
 
 
 def decode_if_bytes(
@@ -71,12 +71,23 @@ def check_valid_path_name(
     path = cleanup_path(path)
     path = path.replace(SEPARATOR, '')
 
-    if (WIN or win_path) and path[1:].startswith(':'):
-        path = path[2:]
+    if WIN or win_path:
+        if path[1:].startswith(':'):
+            path = path[2:]
 
-    for c in path:
-        if c in INVALID_FILE_NAME_CHARS:
+        if path.endswith(' ') or path.endswith('.'):
             return False
+        char_set = INVALID_WIN_FILE_NAME_CHARS
+    else:
+        char_set = INVALID_UNIX_FILE_NAME_CHARS
+
+    count = 0
+    for c in path:
+        if 0 <= ord(c) < 28:  # Control chars are forbidden
+            return False
+        if c in char_set:
+            return False
+        count += 1
     return True
 
 
@@ -108,7 +119,7 @@ def get_relative_file_name(
 
     if ' ' in file_name:
         raise RuntimeError(
-            "file_name can not contain spaces"
+            "The Para-C naming conventions do not allow spaces in the filename"
         )
 
     relative_path = file_path.replace(base_path, '')
