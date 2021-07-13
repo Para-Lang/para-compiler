@@ -13,6 +13,7 @@ from . import ctx
 from . import listener
 from . import __main__
 from . import logic_tokens
+from .logic_tokens import *
 from .__main__ import *
 
 # Adding the working directory (location of compiler-cli.py)
@@ -26,6 +27,7 @@ __all__ = [
     'logic_tokens',
     'listener',
     'ctx',
+    *logic_tokens.__all__,
     *ctx.__all__,
     *__main__.__all__
 ]

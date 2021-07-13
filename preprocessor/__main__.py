@@ -62,8 +62,8 @@ class PreProcessor:
     ) -> ParaCPreProcessorParser.CompilationUnitContext:
         """
         Parses the passed input_stream using antlr4 and returns the
-        compilation unit context which can be used with the listener to compile
-        and process the file
+        compilation unit context which can be used with the listener to
+        process the file and generate a logic stream
 
         :param input_stream: The token stream of the file
         :param enable_out: If set to True errors, warnings and info will be

@@ -12,7 +12,7 @@ __all__ = [
 ]
 
 from os import PathLike
-from typing import Dict, Union, TYPE_CHECKING
+from typing import Dict, Union, TYPE_CHECKING, List
 
 from .abc import ParacLogicToken
 
@@ -38,7 +38,7 @@ class FileCompilationContext:
             relative_file_name: Union[str, PathLike]
     ):
         self._program_ctx: Union[ProgramCompilationContext, None] = None
-        self._content: Dict[str, ParacLogicToken] = {}
+        self._logic_stream: List[ParacLogicToken] = []
         self._relative_file_name = relative_file_name
 
     @property
@@ -57,9 +57,12 @@ class FileCompilationContext:
         return self._program_ctx
 
     @property
-    def content(self) -> Dict[str, ParacLogicToken]:
-        """ Returns the content of the file represented as a dict """
-        return self._content
+    def logic_stream(self) -> List[ParacLogicToken]:
+        """
+        Returns the content of the file represented as a stream containing
+        LogicTokens
+        """
+        return self._logic_stream
 
     def set_program_ctx(self, ctx: ProgramCompilationContext) -> None:
         """
@@ -112,7 +115,10 @@ class ProgramCompilationContext:
     def context_dict(self) -> Dict[
         Union[str, PathLike], FileCompilationContext
     ]:
-        """ Returns a list for all context instances """
+        """
+        Returns a list for all context instances. The key is a relative path
+        name to the FileContext
+        """
         return self._context_dict
 
     def set_entry_ctx(

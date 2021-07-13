@@ -12,32 +12,35 @@ else:
 def serializedATN():
     with StringIO() as buf:
         buf.write("\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\24")
-        buf.write("R\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
-        buf.write("\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\3\2\5\2")
-        buf.write("\34\n\2\3\2\3\2\3\3\6\3!\n\3\r\3\16\3\"\3\4\3\4\5\4\'")
-        buf.write("\n\4\3\5\3\5\3\6\3\6\3\6\3\6\3\6\3\6\5\6\61\n\6\3\7\3")
-        buf.write("\7\7\7\65\n\7\f\7\16\78\13\7\3\7\5\7;\n\7\3\7\3\7\3\b")
-        buf.write("\3\b\5\bA\n\b\3\t\3\t\5\tE\n\t\3\n\3\n\3\n\3\13\3\13\5")
-        buf.write("\13L\n\13\3\f\3\f\3\r\3\r\3\r\2\2\16\2\4\6\b\n\f\16\20")
-        buf.write("\22\24\26\30\2\5\4\2\4\5\b\b\4\2\6\7\t\t\3\2\20\21\2R")
-        buf.write("\2\33\3\2\2\2\4 \3\2\2\2\6&\3\2\2\2\b(\3\2\2\2\n\60\3")
-        buf.write("\2\2\2\f\62\3\2\2\2\16>\3\2\2\2\20B\3\2\2\2\22F\3\2\2")
-        buf.write("\2\24K\3\2\2\2\26M\3\2\2\2\30O\3\2\2\2\32\34\5\4\3\2\33")
-        buf.write("\32\3\2\2\2\33\34\3\2\2\2\34\35\3\2\2\2\35\36\7\2\2\3")
-        buf.write("\36\3\3\2\2\2\37!\5\6\4\2 \37\3\2\2\2!\"\3\2\2\2\" \3")
-        buf.write("\2\2\2\"#\3\2\2\2#\5\3\2\2\2$\'\5\n\6\2%\'\5\b\5\2&$\3")
-        buf.write("\2\2\2&%\3\2\2\2\'\7\3\2\2\2()\7\3\2\2)\t\3\2\2\2*\61")
-        buf.write("\5\24\13\2+\61\5\30\r\2,\61\5\f\7\2-\61\7\16\2\2.\61\7")
-        buf.write("\f\2\2/\61\7\r\2\2\60*\3\2\2\2\60+\3\2\2\2\60,\3\2\2\2")
-        buf.write("\60-\3\2\2\2\60.\3\2\2\2\60/\3\2\2\2\61\13\3\2\2\2\62")
-        buf.write("\66\5\16\b\2\63\65\5\20\t\2\64\63\3\2\2\2\658\3\2\2\2")
-        buf.write("\66\64\3\2\2\2\66\67\3\2\2\2\67:\3\2\2\28\66\3\2\2\29")
-        buf.write(";\5\22\n\2:9\3\2\2\2:;\3\2\2\2;<\3\2\2\2<=\7\13\2\2=\r")
-        buf.write("\3\2\2\2>@\t\2\2\2?A\5\f\7\2@?\3\2\2\2@A\3\2\2\2A\17\3")
-        buf.write("\2\2\2BD\t\3\2\2CE\5\f\7\2DC\3\2\2\2DE\3\2\2\2E\21\3\2")
-        buf.write("\2\2FG\7\n\2\2GH\5\f\7\2H\23\3\2\2\2IL\5\26\f\2JL\5\30")
-        buf.write("\r\2KI\3\2\2\2KJ\3\2\2\2L\25\3\2\2\2MN\t\4\2\2N\27\3\2")
-        buf.write("\2\2OP\7\17\2\2P\31\3\2\2\2\13\33\"&\60\66:@DK")
+        buf.write("^\4\2\t\2\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b")
+        buf.write("\t\b\4\t\t\t\4\n\t\n\4\13\t\13\4\f\t\f\4\r\t\r\4\16\t")
+        buf.write("\16\4\17\t\17\4\20\t\20\3\2\5\2\"\n\2\3\2\3\2\3\3\6\3")
+        buf.write("\'\n\3\r\3\16\3(\3\4\3\4\5\4-\n\4\3\5\3\5\3\6\3\6\3\6")
+        buf.write("\3\6\3\6\3\6\5\6\67\n\6\3\7\3\7\3\b\3\b\3\t\3\t\3\n\3")
+        buf.write("\n\7\nA\n\n\f\n\16\nD\13\n\3\n\5\nG\n\n\3\n\3\n\3\13\3")
+        buf.write("\13\5\13M\n\13\3\f\3\f\5\fQ\n\f\3\r\3\r\3\r\3\16\3\16")
+        buf.write("\5\16X\n\16\3\17\3\17\3\20\3\20\3\20\2\2\21\2\4\6\b\n")
+        buf.write("\f\16\20\22\24\26\30\32\34\36\2\5\4\2\4\5\b\b\4\2\6\7")
+        buf.write("\t\t\3\2\20\21\2[\2!\3\2\2\2\4&\3\2\2\2\6,\3\2\2\2\b.")
+        buf.write("\3\2\2\2\n\66\3\2\2\2\f8\3\2\2\2\16:\3\2\2\2\20<\3\2\2")
+        buf.write("\2\22>\3\2\2\2\24J\3\2\2\2\26N\3\2\2\2\30R\3\2\2\2\32")
+        buf.write("W\3\2\2\2\34Y\3\2\2\2\36[\3\2\2\2 \"\5\4\3\2! \3\2\2\2")
+        buf.write("!\"\3\2\2\2\"#\3\2\2\2#$\7\2\2\3$\3\3\2\2\2%\'\5\6\4\2")
+        buf.write("&%\3\2\2\2\'(\3\2\2\2(&\3\2\2\2()\3\2\2\2)\5\3\2\2\2*")
+        buf.write("-\5\n\6\2+-\5\b\5\2,*\3\2\2\2,+\3\2\2\2-\7\3\2\2\2./\7")
+        buf.write("\3\2\2/\t\3\2\2\2\60\67\5\32\16\2\61\67\5\36\20\2\62\67")
+        buf.write("\5\22\n\2\63\67\5\f\7\2\64\67\5\16\b\2\65\67\5\20\t\2")
+        buf.write("\66\60\3\2\2\2\66\61\3\2\2\2\66\62\3\2\2\2\66\63\3\2\2")
+        buf.write("\2\66\64\3\2\2\2\66\65\3\2\2\2\67\13\3\2\2\289\7\16\2")
+        buf.write("\29\r\3\2\2\2:;\7\f\2\2;\17\3\2\2\2<=\7\r\2\2=\21\3\2")
+        buf.write("\2\2>B\5\24\13\2?A\5\26\f\2@?\3\2\2\2AD\3\2\2\2B@\3\2")
+        buf.write("\2\2BC\3\2\2\2CF\3\2\2\2DB\3\2\2\2EG\5\30\r\2FE\3\2\2")
+        buf.write("\2FG\3\2\2\2GH\3\2\2\2HI\7\13\2\2I\23\3\2\2\2JL\t\2\2")
+        buf.write("\2KM\5\22\n\2LK\3\2\2\2LM\3\2\2\2M\25\3\2\2\2NP\t\3\2")
+        buf.write("\2OQ\5\22\n\2PO\3\2\2\2PQ\3\2\2\2Q\27\3\2\2\2RS\7\n\2")
+        buf.write("\2ST\5\22\n\2T\31\3\2\2\2UX\5\34\17\2VX\5\36\20\2WU\3")
+        buf.write("\2\2\2WV\3\2\2\2X\33\3\2\2\2YZ\t\4\2\2Z\35\3\2\2\2[\\")
+        buf.write("\7\17\2\2\\\37\3\2\2\2\13!(,\66BFLPW")
         return buf.getvalue()
 
 
@@ -65,16 +68,20 @@ class ParaCPreProcessorParser ( Parser ):
     RULE_externalItem = 2
     RULE_coreLanguageItem = 3
     RULE_preProcessorDirective = 4
-    RULE_logicalPreProcessorDirective = 5
-    RULE_startSelectionBlock = 6
-    RULE_logicalDirectiveAlternatives = 7
-    RULE_logicalElseDirective = 8
-    RULE_includeDirective = 9
-    RULE_fileIncludeDirective = 10
-    RULE_computedIncludeDirective = 11
+    RULE_complexDefineDirective = 5
+    RULE_pragmaDirective = 6
+    RULE_undefDirective = 7
+    RULE_selectionPreProcessorDirective = 8
+    RULE_startSelectionBlock = 9
+    RULE_logicalDirectiveAlternatives = 10
+    RULE_logicalElseDirective = 11
+    RULE_includeDirective = 12
+    RULE_fileIncludeDirective = 13
+    RULE_computedIncludeDirective = 14
 
     ruleNames =  [ "compilationUnit", "translationUnit", "externalItem", 
-                   "coreLanguageItem", "preProcessorDirective", "logicalPreProcessorDirective", 
+                   "coreLanguageItem", "preProcessorDirective", "complexDefineDirective", 
+                   "pragmaDirective", "undefDirective", "selectionPreProcessorDirective", 
                    "startSelectionBlock", "logicalDirectiveAlternatives", 
                    "logicalElseDirective", "includeDirective", "fileIncludeDirective", 
                    "computedIncludeDirective" ]
@@ -143,15 +150,15 @@ class ParaCPreProcessorParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 25
+            self.state = 31
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.NonPreProcessorItemBlock) | (1 << ParaCPreProcessorParser.IfNotDefinedDirective) | (1 << ParaCPreProcessorParser.IfDefinedDirective) | (1 << ParaCPreProcessorParser.IfDirective) | (1 << ParaCPreProcessorParser.PragmaDirective) | (1 << ParaCPreProcessorParser.UndefDirective) | (1 << ParaCPreProcessorParser.ComplexDefineDirective) | (1 << ParaCPreProcessorParser.ComputedIncludeLiteral) | (1 << ParaCPreProcessorParser.LibIncludeLiteral) | (1 << ParaCPreProcessorParser.StringIncludeLiteral))) != 0):
-                self.state = 24
+                self.state = 30
                 self.translationUnit()
 
 
-            self.state = 27
+            self.state = 33
             self.match(ParaCPreProcessorParser.EOF)
         except RecognitionException as re:
             localctx.exception = re
@@ -197,13 +204,13 @@ class ParaCPreProcessorParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 30 
+            self.state = 36 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 29
+                self.state = 35
                 self.externalItem()
-                self.state = 32 
+                self.state = 38 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.NonPreProcessorItemBlock) | (1 << ParaCPreProcessorParser.IfNotDefinedDirective) | (1 << ParaCPreProcessorParser.IfDefinedDirective) | (1 << ParaCPreProcessorParser.IfDirective) | (1 << ParaCPreProcessorParser.PragmaDirective) | (1 << ParaCPreProcessorParser.UndefDirective) | (1 << ParaCPreProcessorParser.ComplexDefineDirective) | (1 << ParaCPreProcessorParser.ComputedIncludeLiteral) | (1 << ParaCPreProcessorParser.LibIncludeLiteral) | (1 << ParaCPreProcessorParser.StringIncludeLiteral))) != 0)):
@@ -252,17 +259,17 @@ class ParaCPreProcessorParser ( Parser ):
         localctx = ParaCPreProcessorParser.ExternalItemContext(self, self._ctx, self.state)
         self.enterRule(localctx, 4, self.RULE_externalItem)
         try:
-            self.state = 36
+            self.state = 42
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [ParaCPreProcessorParser.IfNotDefinedDirective, ParaCPreProcessorParser.IfDefinedDirective, ParaCPreProcessorParser.IfDirective, ParaCPreProcessorParser.PragmaDirective, ParaCPreProcessorParser.UndefDirective, ParaCPreProcessorParser.ComplexDefineDirective, ParaCPreProcessorParser.ComputedIncludeLiteral, ParaCPreProcessorParser.LibIncludeLiteral, ParaCPreProcessorParser.StringIncludeLiteral]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 34
+                self.state = 40
                 self.preProcessorDirective()
                 pass
             elif token in [ParaCPreProcessorParser.NonPreProcessorItemBlock]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 35
+                self.state = 41
                 self.coreLanguageItem()
                 pass
             else:
@@ -307,7 +314,7 @@ class ParaCPreProcessorParser ( Parser ):
         self.enterRule(localctx, 6, self.RULE_coreLanguageItem)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 38
+            self.state = 44
             self.match(ParaCPreProcessorParser.NonPreProcessorItemBlock)
         except RecognitionException as re:
             localctx.exception = re
@@ -333,18 +340,21 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getTypedRuleContext(ParaCPreProcessorParser.ComputedIncludeDirectiveContext,0)
 
 
-        def logicalPreProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext,0)
+        def selectionPreProcessorDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,0)
 
 
-        def ComplexDefineDirective(self):
-            return self.getToken(ParaCPreProcessorParser.ComplexDefineDirective, 0)
+        def complexDefineDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.ComplexDefineDirectiveContext,0)
 
-        def PragmaDirective(self):
-            return self.getToken(ParaCPreProcessorParser.PragmaDirective, 0)
 
-        def UndefDirective(self):
-            return self.getToken(ParaCPreProcessorParser.UndefDirective, 0)
+        def pragmaDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.PragmaDirectiveContext,0)
+
+
+        def undefDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.UndefDirectiveContext,0)
+
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_preProcessorDirective
@@ -365,43 +375,43 @@ class ParaCPreProcessorParser ( Parser ):
         localctx = ParaCPreProcessorParser.PreProcessorDirectiveContext(self, self._ctx, self.state)
         self.enterRule(localctx, 8, self.RULE_preProcessorDirective)
         try:
-            self.state = 46
+            self.state = 52
             self._errHandler.sync(self)
             la_ = self._interp.adaptivePredict(self._input,3,self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 40
+                self.state = 46
                 self.includeDirective()
                 pass
 
             elif la_ == 2:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 41
+                self.state = 47
                 self.computedIncludeDirective()
                 pass
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 42
-                self.logicalPreProcessorDirective()
+                self.state = 48
+                self.selectionPreProcessorDirective()
                 pass
 
             elif la_ == 4:
                 self.enterOuterAlt(localctx, 4)
-                self.state = 43
-                self.match(ParaCPreProcessorParser.ComplexDefineDirective)
+                self.state = 49
+                self.complexDefineDirective()
                 pass
 
             elif la_ == 5:
                 self.enterOuterAlt(localctx, 5)
-                self.state = 44
-                self.match(ParaCPreProcessorParser.PragmaDirective)
+                self.state = 50
+                self.pragmaDirective()
                 pass
 
             elif la_ == 6:
                 self.enterOuterAlt(localctx, 6)
-                self.state = 45
-                self.match(ParaCPreProcessorParser.UndefDirective)
+                self.state = 51
+                self.undefDirective()
                 pass
 
 
@@ -414,7 +424,130 @@ class ParaCPreProcessorParser ( Parser ):
         return localctx
 
 
-    class LogicalPreProcessorDirectiveContext(ParserRuleContext):
+    class ComplexDefineDirectiveContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def ComplexDefineDirective(self):
+            return self.getToken(ParaCPreProcessorParser.ComplexDefineDirective, 0)
+
+        def getRuleIndex(self):
+            return ParaCPreProcessorParser.RULE_complexDefineDirective
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterComplexDefineDirective" ):
+                listener.enterComplexDefineDirective(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitComplexDefineDirective" ):
+                listener.exitComplexDefineDirective(self)
+
+
+
+
+    def complexDefineDirective(self):
+
+        localctx = ParaCPreProcessorParser.ComplexDefineDirectiveContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 10, self.RULE_complexDefineDirective)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 54
+            self.match(ParaCPreProcessorParser.ComplexDefineDirective)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class PragmaDirectiveContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def PragmaDirective(self):
+            return self.getToken(ParaCPreProcessorParser.PragmaDirective, 0)
+
+        def getRuleIndex(self):
+            return ParaCPreProcessorParser.RULE_pragmaDirective
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterPragmaDirective" ):
+                listener.enterPragmaDirective(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitPragmaDirective" ):
+                listener.exitPragmaDirective(self)
+
+
+
+
+    def pragmaDirective(self):
+
+        localctx = ParaCPreProcessorParser.PragmaDirectiveContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 12, self.RULE_pragmaDirective)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 56
+            self.match(ParaCPreProcessorParser.PragmaDirective)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class UndefDirectiveContext(ParserRuleContext):
+        __slots__ = 'parser'
+
+        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+            super().__init__(parent, invokingState)
+            self.parser = parser
+
+        def UndefDirective(self):
+            return self.getToken(ParaCPreProcessorParser.UndefDirective, 0)
+
+        def getRuleIndex(self):
+            return ParaCPreProcessorParser.RULE_undefDirective
+
+        def enterRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "enterUndefDirective" ):
+                listener.enterUndefDirective(self)
+
+        def exitRule(self, listener:ParseTreeListener):
+            if hasattr( listener, "exitUndefDirective" ):
+                listener.exitUndefDirective(self)
+
+
+
+
+    def undefDirective(self):
+
+        localctx = ParaCPreProcessorParser.UndefDirectiveContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 14, self.RULE_undefDirective)
+        try:
+            self.enterOuterAlt(localctx, 1)
+            self.state = 58
+            self.match(ParaCPreProcessorParser.UndefDirective)
+        except RecognitionException as re:
+            localctx.exception = re
+            self._errHandler.reportError(self, re)
+            self._errHandler.recover(self, re)
+        finally:
+            self.exitRule()
+        return localctx
+
+
+    class SelectionPreProcessorDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
         def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
@@ -440,47 +573,47 @@ class ParaCPreProcessorParser ( Parser ):
 
 
         def getRuleIndex(self):
-            return ParaCPreProcessorParser.RULE_logicalPreProcessorDirective
+            return ParaCPreProcessorParser.RULE_selectionPreProcessorDirective
 
         def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLogicalPreProcessorDirective" ):
-                listener.enterLogicalPreProcessorDirective(self)
+            if hasattr( listener, "enterSelectionPreProcessorDirective" ):
+                listener.enterSelectionPreProcessorDirective(self)
 
         def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLogicalPreProcessorDirective" ):
-                listener.exitLogicalPreProcessorDirective(self)
+            if hasattr( listener, "exitSelectionPreProcessorDirective" ):
+                listener.exitSelectionPreProcessorDirective(self)
 
 
 
 
-    def logicalPreProcessorDirective(self):
+    def selectionPreProcessorDirective(self):
 
-        localctx = ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 10, self.RULE_logicalPreProcessorDirective)
+        localctx = ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext(self, self._ctx, self.state)
+        self.enterRule(localctx, 16, self.RULE_selectionPreProcessorDirective)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 48
+            self.state = 60
             self.startSelectionBlock()
-            self.state = 52
+            self.state = 64
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.ElIfNotDefinedDirective) | (1 << ParaCPreProcessorParser.ElIfDefinedDirective) | (1 << ParaCPreProcessorParser.ElIfDirective))) != 0):
-                self.state = 49
+                self.state = 61
                 self.logicalDirectiveAlternatives()
-                self.state = 54
+                self.state = 66
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 56
+            self.state = 68
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==ParaCPreProcessorParser.ElseDirective:
-                self.state = 55
+                self.state = 67
                 self.logicalElseDirective()
 
 
-            self.state = 58
+            self.state = 70
             self.match(ParaCPreProcessorParser.EndifDirective)
         except RecognitionException as re:
             localctx.exception = re
@@ -507,8 +640,8 @@ class ParaCPreProcessorParser ( Parser ):
         def IfNotDefinedDirective(self):
             return self.getToken(ParaCPreProcessorParser.IfNotDefinedDirective, 0)
 
-        def logicalPreProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext,0)
+        def selectionPreProcessorDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,0)
 
 
         def getRuleIndex(self):
@@ -528,23 +661,23 @@ class ParaCPreProcessorParser ( Parser ):
     def startSelectionBlock(self):
 
         localctx = ParaCPreProcessorParser.StartSelectionBlockContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 12, self.RULE_startSelectionBlock)
+        self.enterRule(localctx, 18, self.RULE_startSelectionBlock)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 60
+            self.state = 72
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.IfNotDefinedDirective) | (1 << ParaCPreProcessorParser.IfDefinedDirective) | (1 << ParaCPreProcessorParser.IfDirective))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 62
+            self.state = 74
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.IfNotDefinedDirective) | (1 << ParaCPreProcessorParser.IfDefinedDirective) | (1 << ParaCPreProcessorParser.IfDirective))) != 0):
-                self.state = 61
-                self.logicalPreProcessorDirective()
+                self.state = 73
+                self.selectionPreProcessorDirective()
 
 
         except RecognitionException as re:
@@ -572,8 +705,8 @@ class ParaCPreProcessorParser ( Parser ):
         def ElIfNotDefinedDirective(self):
             return self.getToken(ParaCPreProcessorParser.ElIfNotDefinedDirective, 0)
 
-        def logicalPreProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext,0)
+        def selectionPreProcessorDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,0)
 
 
         def getRuleIndex(self):
@@ -593,23 +726,23 @@ class ParaCPreProcessorParser ( Parser ):
     def logicalDirectiveAlternatives(self):
 
         localctx = ParaCPreProcessorParser.LogicalDirectiveAlternativesContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 14, self.RULE_logicalDirectiveAlternatives)
+        self.enterRule(localctx, 20, self.RULE_logicalDirectiveAlternatives)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 64
+            self.state = 76
             _la = self._input.LA(1)
             if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.ElIfNotDefinedDirective) | (1 << ParaCPreProcessorParser.ElIfDefinedDirective) | (1 << ParaCPreProcessorParser.ElIfDirective))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
                 self.consume()
-            self.state = 66
+            self.state = 78
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.IfNotDefinedDirective) | (1 << ParaCPreProcessorParser.IfDefinedDirective) | (1 << ParaCPreProcessorParser.IfDirective))) != 0):
-                self.state = 65
-                self.logicalPreProcessorDirective()
+                self.state = 77
+                self.selectionPreProcessorDirective()
 
 
         except RecognitionException as re:
@@ -631,8 +764,8 @@ class ParaCPreProcessorParser ( Parser ):
         def ElseDirective(self):
             return self.getToken(ParaCPreProcessorParser.ElseDirective, 0)
 
-        def logicalPreProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext,0)
+        def selectionPreProcessorDirective(self):
+            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,0)
 
 
         def getRuleIndex(self):
@@ -652,13 +785,13 @@ class ParaCPreProcessorParser ( Parser ):
     def logicalElseDirective(self):
 
         localctx = ParaCPreProcessorParser.LogicalElseDirectiveContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 16, self.RULE_logicalElseDirective)
+        self.enterRule(localctx, 22, self.RULE_logicalElseDirective)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 68
+            self.state = 80
             self.match(ParaCPreProcessorParser.ElseDirective)
-            self.state = 69
-            self.logicalPreProcessorDirective()
+            self.state = 81
+            self.selectionPreProcessorDirective()
         except RecognitionException as re:
             localctx.exception = re
             self._errHandler.reportError(self, re)
@@ -700,19 +833,19 @@ class ParaCPreProcessorParser ( Parser ):
     def includeDirective(self):
 
         localctx = ParaCPreProcessorParser.IncludeDirectiveContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 18, self.RULE_includeDirective)
+        self.enterRule(localctx, 24, self.RULE_includeDirective)
         try:
-            self.state = 73
+            self.state = 85
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [ParaCPreProcessorParser.LibIncludeLiteral, ParaCPreProcessorParser.StringIncludeLiteral]:
                 self.enterOuterAlt(localctx, 1)
-                self.state = 71
+                self.state = 83
                 self.fileIncludeDirective()
                 pass
             elif token in [ParaCPreProcessorParser.ComputedIncludeLiteral]:
                 self.enterOuterAlt(localctx, 2)
-                self.state = 72
+                self.state = 84
                 self.computedIncludeDirective()
                 pass
             else:
@@ -757,11 +890,11 @@ class ParaCPreProcessorParser ( Parser ):
     def fileIncludeDirective(self):
 
         localctx = ParaCPreProcessorParser.FileIncludeDirectiveContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 20, self.RULE_fileIncludeDirective)
+        self.enterRule(localctx, 26, self.RULE_fileIncludeDirective)
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 75
+            self.state = 87
             _la = self._input.LA(1)
             if not(_la==ParaCPreProcessorParser.LibIncludeLiteral or _la==ParaCPreProcessorParser.StringIncludeLiteral):
                 self._errHandler.recoverInline(self)
@@ -804,10 +937,10 @@ class ParaCPreProcessorParser ( Parser ):
     def computedIncludeDirective(self):
 
         localctx = ParaCPreProcessorParser.ComputedIncludeDirectiveContext(self, self._ctx, self.state)
-        self.enterRule(localctx, 22, self.RULE_computedIncludeDirective)
+        self.enterRule(localctx, 28, self.RULE_computedIncludeDirective)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 77
+            self.state = 89
             self.match(ParaCPreProcessorParser.ComputedIncludeLiteral)
         except RecognitionException as re:
             localctx.exception = re

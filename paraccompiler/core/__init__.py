@@ -5,6 +5,6 @@ from . import parser
 from . import abc
 from . import err_handler
 from . import logicstream
-from .compilation_ctx import *
+from .ctx import *
 from .compiler import *
 from .. import *

@@ -53,12 +53,39 @@ class ParaCPreProcessorListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCPreProcessorParser#logicalPreProcessorDirective.
-    def enterLogicalPreProcessorDirective(self, ctx:ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext):
+    # Enter a parse tree produced by ParaCPreProcessorParser#complexDefineDirective.
+    def enterComplexDefineDirective(self, ctx:ParaCPreProcessorParser.ComplexDefineDirectiveContext):
         pass
 
-    # Exit a parse tree produced by ParaCPreProcessorParser#logicalPreProcessorDirective.
-    def exitLogicalPreProcessorDirective(self, ctx:ParaCPreProcessorParser.LogicalPreProcessorDirectiveContext):
+    # Exit a parse tree produced by ParaCPreProcessorParser#complexDefineDirective.
+    def exitComplexDefineDirective(self, ctx:ParaCPreProcessorParser.ComplexDefineDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#pragmaDirective.
+    def enterPragmaDirective(self, ctx:ParaCPreProcessorParser.PragmaDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#pragmaDirective.
+    def exitPragmaDirective(self, ctx:ParaCPreProcessorParser.PragmaDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#undefDirective.
+    def enterUndefDirective(self, ctx:ParaCPreProcessorParser.UndefDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#undefDirective.
+    def exitUndefDirective(self, ctx:ParaCPreProcessorParser.UndefDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#selectionPreProcessorDirective.
+    def enterSelectionPreProcessorDirective(self, ctx:ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#selectionPreProcessorDirective.
+    def exitSelectionPreProcessorDirective(self, ctx:ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext):
         pass
 
 

@@ -9,7 +9,7 @@ import antlr4
 
 from .python import ParaCListener
 from .python import ParaCParser as parser
-from ..compilation_ctx import FileCompilationContext
+from ..ctx import FileCompilationContext
 
 logger = logging.getLogger(__name__)
 ParaCParser = parser.ParaCParser

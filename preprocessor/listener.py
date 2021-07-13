@@ -1,8 +1,10 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
+from typing import List
 
 import antlr4
 
+from .abc import PreProcessorLogicToken
 from .python import ParaCPreProcessorListener
 from .ctx import FilePreProcessorContext
 from .python import ParaCPreProcessorParser as parser
@@ -27,6 +29,11 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         self.antlr4_file_ctx = antlr4_file_ctx
         self.file_stream = file_stream
         self._enable_out = False
+
+    @property
+    def logic_stream(self) -> List[PreProcessorLogicToken]:
+        """ Stream which stores the logical tokens for the passed file. """
+        return self._file_ctx.logic_stream
 
     def get_file_ctx(self) -> FilePreProcessorContext:
         """ Fetches the file context for this class """
@@ -133,21 +140,21 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         """
         ...
 
-    def enterLogicalPreProcessorDirective(
+    def enterSelectionPreProcessorDirective(
             self,
-            ctx: _p.LogicalPreProcessorDirectiveContext
+            ctx: _p.SelectionPreProcessorDirectiveContext
     ):
         """
-        Enter a parse tree produced by parser#logicalPreProcessorDirective.
+        Enter a parse tree produced by parser#selectionPreProcessorDirective.
         """
         ...
 
-    def exitLogicalPreProcessorDirective(
+    def exitSelectionPreProcessorDirective(
             self,
-            ctx: _p.LogicalPreProcessorDirectiveContext
+            ctx: _p.SelectionPreProcessorDirectiveContext
     ):
         """
-        Exit a parse tree produced by parser#logicalPreProcessorDirective.
+        Exit a parse tree produced by parser#selectionPreProcessorDirective.
         """
         ...
 
@@ -256,5 +263,59 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
     ):
         """
         Exit a parse tree produced by parser#computedIncludeDirective.
+        """
+        ...
+
+    def enterComplexDefineDirective(
+            self,
+            ctx: _p.ComplexDefineDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by _p#complexDefineDirective.
+        """
+        ...
+
+    def exitComplexDefineDirective(
+            self,
+            ctx: _p.ComplexDefineDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by _p#complexDefineDirective.
+        """
+        ...
+
+    def enterPragmaDirective(
+            self,
+            ctx: _p.PragmaDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by _p#pragmaDirective.
+        """
+        ...
+
+    def exitPragmaDirective(
+            self,
+            ctx: _p.PragmaDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by _p#pragmaDirective.
+        """
+        ...
+
+    def enterUndefDirective(
+            self,
+            ctx: _p.UndefDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by _p#undefDirective.
+        """
+        ...
+
+    def exitUndefDirective(
+            self,
+            ctx: _p.UndefDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by _p#undefDirective.
         """
         ...

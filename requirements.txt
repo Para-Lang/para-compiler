@@ -5,3 +5,4 @@ setuptools>=51.1.2
 pyinstaller>=4.0
 rich>=10.0.0
 antlr4-python3-runtime>=4.9
+cached-property>=1.5.1

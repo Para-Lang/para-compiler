@@ -17,7 +17,7 @@ from .logicstream import ParacLogicStream, CLogicStream
 from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
 from .parser.listener import Listener
-from .compilation_ctx import ProgramCompilationContext
+from .ctx import ProgramCompilationContext
 from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                       get_rich_console as console, print_log_banner)
 from ..utils import decode_if_bytes, cleanup_path, SEPARATOR, \

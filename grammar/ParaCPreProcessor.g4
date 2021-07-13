@@ -28,33 +28,45 @@ coreLanguageItem
 preProcessorDirective
     :   includeDirective
     |   computedIncludeDirective
-    |   logicalPreProcessorDirective
-    |   ComplexDefineDirective
-    |   PragmaDirective
-    |   UndefDirective
+    |   selectionPreProcessorDirective
+    |   complexDefineDirective
+    |   pragmaDirective
+    |   undefDirective
     ;
 
-// logical pre processor directives
+complexDefineDirective
+    :   ComplexDefineDirective
+    ;
+
+pragmaDirective
+    :   PragmaDirective
+    ;
+
+undefDirective
+    :   UndefDirective
+    ;
+
+// selection pre processor directives
 // #if smth
 // /* code */
 // #elif smth
 // /* code */
 // #else
 // /* code */
-logicalPreProcessorDirective
+selectionPreProcessorDirective
     :   startSelectionBlock logicalDirectiveAlternatives* logicalElseDirective? EndifDirective
     ;
 
 startSelectionBlock
-    :   (IfDirective | IfDefinedDirective | IfNotDefinedDirective) logicalPreProcessorDirective?
+    :   (IfDirective | IfDefinedDirective | IfNotDefinedDirective) selectionPreProcessorDirective?
     ;
 
 logicalDirectiveAlternatives
-    :   (ElIfDirective | ElIfDefinedDirective | ElIfNotDefinedDirective) logicalPreProcessorDirective?
+    :   (ElIfDirective | ElIfDefinedDirective | ElIfNotDefinedDirective) selectionPreProcessorDirective?
     ;
 
 logicalElseDirective
-    :   ElseDirective logicalPreProcessorDirective
+    :   ElseDirective selectionPreProcessorDirective
     ;
 
 includeDirective
@@ -75,8 +87,7 @@ computedIncludeDirective
 // Lexer Rules (tokens / token rules)
 
 NonPreProcessorItemBlock
-    :   ~[#\r\n]+
-        -> skip
+    :   ~[#]+
     ;
 
 fragment
@@ -274,5 +285,4 @@ Whitespace
 
 Newline
     :   (  '\r' '\n'? | '\n')
-        -> skip
     ;

@@ -16,6 +16,9 @@ from os import PathLike
 
 from typing import Optional, Any, List, TypeVar, Union
 
+import antlr4
+from antlr4 import ParserRuleContext
+
 NULL_CHILDREN = TypeVar('NULL_CHILDREN')
 
 
@@ -88,8 +91,7 @@ class LogicToken(Token, ABC):
             as_str: str,
             line: int,
             column: int,
-            relative_parent_file_name:  Union[str, PathLike],
-            antlr4_item,
+            relative_parent_file_name: Union[str, PathLike],
             parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
@@ -97,7 +99,6 @@ class LogicToken(Token, ABC):
             self.children = NULL_CHILDREN
         else:
             self.children = children
-        self.antlr4_item = antlr4_item
         self.parent = parent
 
         super().__init__(name, as_str, line, column, relative_parent_file_name)
@@ -110,4 +111,32 @@ class CLogicToken(LogicToken, ABC):
 
 class ParacLogicToken(LogicToken, ABC):
     """ Tokens of the Para-C language """
-    ...
+
+    @abstractmethod
+    def __init__(
+            self,
+            name: str,
+            as_str: str,
+            line: int,
+            column: int,
+            relative_parent_file_name: Union[str, PathLike],
+            antlr4_ctx: ParserRuleContext,
+            parent: Optional[Any] = None,
+            children: Optional[List[Any]] = NULL_CHILDREN,
+    ):
+        self.antlr4_ctx = antlr4_ctx
+        super().__init__(
+            name, as_str, line, column, relative_parent_file_name,
+            antlr4_ctx, parent, children
+        )
+
+    @property
+    def input_stream(self) -> antlr4.FileStream:
+        """ Input Stream for the file of this element """
+        return self.antlr4_ctx.start.getTokenSource().inputStream
+
+    def extract_original_text(self) -> str:
+        """ Extracts the original text based on the ctx """
+        return self.input_stream.getText(
+            self.antlr4_ctx.start.start, self.antlr4_ctx.stop.stop
+        )

@@ -2,7 +2,9 @@
 """ Base Pre-Processor token used in other classes to represent directives """
 from os import PathLike
 
-from paraccompiler.core.abc import LogicToken, NULL_CHILDREN
+from antlr4 import ParserRuleContext
+
+from paraccompiler.core.abc import ParacLogicToken, NULL_CHILDREN
 from abc import ABC, abstractmethod
 from typing import Union, Optional, Any, List
 
@@ -11,7 +13,7 @@ __all__ = [
 ]
 
 
-class PreProcessorLogicToken(LogicToken, ABC):
+class PreProcessorLogicToken(ParacLogicToken, ABC):
     """ Pre-Processor Logic-Token, which is used to represent Directives """
 
     @abstractmethod
@@ -22,14 +24,18 @@ class PreProcessorLogicToken(LogicToken, ABC):
             line: int,
             column: int,
             relative_parent_file_name: Union[str, PathLike],
-            antlr4_item,
+            antlr4_ctx: ParserRuleContext,
             parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
             name, as_str, line, column, relative_parent_file_name,
-            antlr4_item, parent, children
+            antlr4_ctx, parent, children
         )
+
+    def get_as_str(self) -> str:
+        """ Gets the value of the Pre-Processor token as a string """
+        return self.extract_original_text()
 
     @abstractmethod
     def is_directive(self) -> bool:
@@ -45,7 +51,7 @@ class PreProcessorLogicToken(LogicToken, ABC):
     def has_code_block_scope(self) -> bool:
         """
         Returns whether it is possible to pass a code-block after the
-        directive. If this is False, then has_code_block_child can only be
+        item. If this is False, then has_code_block_child can only be
         False as well
         """
         ...
