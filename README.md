@@ -147,7 +147,7 @@ where the compiler will be placed (It is recommended though to use `/opt`,
 
 #### Initialising the C Compiler
 
-Start the initialisation setup for the C-Compiler using:
+To start the initialisation setup for the C-Compiler use:
 
 ```bash
 parac c-init
