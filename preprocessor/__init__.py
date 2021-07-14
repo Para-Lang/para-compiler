@@ -9,9 +9,9 @@ import sys
 
 from .python import (ParaCPreProcessorLexer, ParaCPreProcessorListener,
                      ParaCPreProcessorParser)
-from . import ctx
-from . import listener
 from . import __main__
+from . import listener
+from . import ctx
 from . import logic_tokens
 from .logic_tokens import *
 from .__main__ import *

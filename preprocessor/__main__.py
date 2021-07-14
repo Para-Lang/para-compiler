@@ -2,19 +2,21 @@
 """
 File containing the functions and class for the Pre-Processor parsing process
 """
+from __future__ import annotations
 
 import logging
 from os import PathLike
-from typing import Union
+from typing import Union, TYPE_CHECKING
 from click.utils import WIN
 import antlr4
 
-from .listener import Listener
-from .ctx import ProgramPreProcessorContext
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
 
 from .error_handler import PreProcessorErrorListener
+
+if TYPE_CHECKING:
+    from .ctx import ProgramPreProcessorContext
 
 __all__ = [
     'SEPARATOR',
@@ -41,7 +43,9 @@ class PreProcessor:
     logic tree will be used by the Pre-Processor listener to generate a
     FilePreProcessorContext instance for the file and then process everything
     appropriately with the ProgramPreProcessorContext. After generation, the
-    preprocessor will walk through and modify the file based on the directives.
+    preprocessor will walk through and modify the file based on the directives
+    contained in the logic stream.
+
     The output will be a file-stream / str, which can be used to write to a
     file or parsed to the main Para-C compiler for further processing.
     """
@@ -67,9 +71,10 @@ class PreProcessor:
 
         :param input_stream: The token stream of the file
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. (Errors will then NOT be raised but only
-                   logged)
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
         # Error handler which uses the default error strategy to handle the
@@ -88,11 +93,11 @@ class PreProcessor:
         stream = antlr4.CommonTokenStream(lexer)
 
         logger.debug("Parsing the tokens and generating the logic tree")
-
         # Parser which generates based on the top entry rule the logic tree
         parser = ParaCPreProcessorParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
+        logger.debug("Finished generation of compilationUnit for the file")
         return parser.compilationUnit()
 
     @staticmethod
@@ -102,35 +107,3 @@ class PreProcessor:
     ) -> PreProcessorProcessResult:
         """ Processing the directives populated in the passed ctx """
         ...
-
-    @classmethod
-    def parse_and_process(
-            cls,
-            ctx: ProgramPreProcessorContext,
-            enable_out: bool = True
-    ) -> PreProcessorProcessResult:
-        """
-        Parses the files and processes the directives inside of them. To
-        generate the source file use ProgramPreProcessorContext.gen_source()
-
-        This function only modifies the context
-
-        :returns: A preprocessor result instance
-        """
-        from paraccompiler import get_relative_file_name
-
-        stream = cls.get_file_stream(
-            ctx.process.entry_file_path, ctx.encoding
-        )
-        relative_file_name = get_relative_file_name(
-            file_name=stream.name,
-            file_path=stream.fileName,
-            base_path=ctx.work_dir
-        )
-        antlr4_file_ctx = cls.parse(stream, enable_out)
-        
-        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-        listener.walk_and_process_directives(enable_out)
-        ctx.set_entry_ctx(listener.get_file_ctx(), relative_file_name)
-
-        return cls.process_directives(ctx)

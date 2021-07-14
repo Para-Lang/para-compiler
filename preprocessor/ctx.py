@@ -8,16 +8,21 @@ from __future__ import annotations
 
 from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
+import antlr4
+import logging
+
+from .logic_stream import PreProcessorStream
+from .__main__ import PreProcessor, PreProcessorProcessResult
+
+if TYPE_CHECKING:
+    from paraccompiler import ProgramCompilationProcess
 
 __all__ = [
     'FilePreProcessorContext',
     'ProgramPreProcessorContext'
 ]
 
-from .logic_stream import PreProcessorStream
-
-if TYPE_CHECKING:
-    from paraccompiler import ProgramCompilationProcess
+logger = logging.getLogger(__name__)
 
 
 class FilePreProcessorContext:
@@ -138,6 +143,8 @@ class ProgramPreProcessorContext:
         """
         Generates the source C-code from the tokens stored inside the class.
 
+        :raises RuntimeError: If the files were not correctly generated yet.
+                              Use process_program() for that.
         :returns: Dict[
                   str - Name of the file (Relative name),
                   Dict[
@@ -156,9 +163,79 @@ class ProgramPreProcessorContext:
     ) -> Tuple[str, List[str]]:
         """
         Creates the temporary files based on the passed output of
-        generated_source()
+        gen_source()
 
         :returns: A tuple containing at 0 the path to the entry-file and at 1
                   a list of all paths of all other files.
         """
         ...
+
+    def process_program(self, enable_out: bool) -> PreProcessorProcessResult:
+        """
+        Processes this instance and generates the logic streams required
+        for generating the finished code.
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        :returns: A PreProcessorProcessResult instance
+        """
+        self.parse_entry_file(enable_out)
+
+        ...  # TODO! Run listener for every file
+
+        return PreProcessor.process_directives(self)
+
+    def parse_single_file(
+            self,
+            stream: antlr4.FileStream,
+            enable_out: bool,
+    ) -> FilePreProcessorContext:
+        """
+        Parses a single file and generates the FilePreProcessorContext
+
+        :param stream: The Antlr4 FileStream
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        :returns: The generated FilePreProcessorContext instance
+        """
+        from paraccompiler import get_relative_file_name
+        from .listener import Listener
+
+        relative_file_name = get_relative_file_name(
+            file_name=stream.name,
+            file_path=stream.fileName,
+            base_path=self.work_dir
+        )
+
+        antlr4_file_ctx = PreProcessor.parse(stream, enable_out)
+
+        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
+        listener.walk_and_process_directives(enable_out)
+        return listener.get_file_ctx()
+
+    def parse_entry_file(
+            self,
+            enable_out: bool
+    ) -> None:
+        """
+        Parses an entry file and sets the entry-ctx of this instance
+        to the generated context for the file.
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        """
+        stream = PreProcessor.get_file_stream(
+            self.process.entry_file_path, self.encoding
+        )
+
+        entry_ctx = self.parse_single_file(stream, enable_out)
+        self.set_entry_ctx(entry_ctx, entry_ctx.relative_file_name)

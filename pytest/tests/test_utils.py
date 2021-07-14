@@ -1,19 +1,26 @@
 # coding=utf-8
-""" Test for the utility functions in Para-C (test_utils.py and decorators.py) """
+"""
+Test for the utility functions in Para-C (test_utils.py and decorators.py)
+"""
 
-from paraccompiler import utils
+from paraccompiler import utils, WIN
 
 
 class TestCheckValidPathName:
     def test_simple_assert(self):
-        assert not utils.check_valid_path_name(
-            "dest/na*me?.pa\\ra",
+        assert utils.check_valid_path_name(
+            "dest/temp/name.para",
         )
 
     def test_wrong_path(self):
-        assert not utils.check_valid_path_name(
-            "/dest*/na*me?.pa\\ra",
-        )
+        if WIN:
+            assert not utils.check_valid_path_name(
+                "/dest*/na*me?.pa\\ra",
+            )
+        else:
+            assert not utils.check_valid_path_name(
+                "/dest/&name.para",
+            )
 
     def test_valid_path(self):
         assert utils.check_valid_path_name(
@@ -21,9 +28,14 @@ class TestCheckValidPathName:
         )
 
     def test_wrong_name(self):
-        assert not utils.check_valid_path_name(
-            "na*me?.pa\\ra",
-        )
+        if WIN:
+            assert not utils.check_valid_path_name(
+                "na*me?.pa\\ra",
+            )
+        else:
+            assert not utils.check_valid_path_name(
+                "name.pa&ra",
+            )
 
     def test_valid_name(self):
         assert utils.check_valid_path_name(

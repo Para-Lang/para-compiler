@@ -384,10 +384,15 @@ class ProgramCompilationProcess(BasicProcess):
             if type(result[3]) is FinishedProcess:
                 return result[3]  # Optional[FinishedProcess]
 
-    def _run_preprocessor(self) -> None:
+    def _run_preprocessor(self, enable_out: bool) -> None:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.debug("Starting Pre-Processor parsing and processing")
-        PreProcessor.parse_and_process(self.preprocessor_ctx)
+        self.preprocessor_ctx.process_program(enable_out)
+
+    def _gen_preprocessor_temp_files(self):
+        """
+        Generates the temp files based on the output of the preprocessor
+        """
         logger.debug("Generating the modified temporary files")
         gen_src_o = self.preprocessor_ctx.gen_source()
 
@@ -401,32 +406,6 @@ class ProgramCompilationProcess(BasicProcess):
         logger.debug("Wrote processed files to temp storage")
         self._temp_entry_file_path, self._temp_files = tmp
 
-    def _run_entry_file_path_parsing(self) -> None:
-        """ Runs the parsing process for the entry-file """
-        stream = ParacCompiler.get_file_stream(
-            self._temp_entry_file_path, self.encoding
-        )
-        relative_file_name = get_relative_file_name(
-            stream.name,
-            stream.fileName,
-            self.work_dir
-        )
-        antlr4_file_ctx = ParacCompiler.parse(stream)
-
-        # Walking through the file and triggering the functions inside the
-        # listener -> Basic compilation
-        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-        listener.walk_and_compile(True)
-
-        # Adding the context to the compilation_ctx. Until now the file_ctx /
-        # entry_ctx was handled as a standalone file without relation. With
-        # this function the ctx will be passed and registered in the
-        # compilation ctx, which will manage all ctx instances for the entire
-        # compilation.
-        self.compilation_ctx.set_entry_ctx(
-            listener.get_file_ctx(), relative_file_name
-        )
-
     def _compile(self, track_progress: bool) -> Generator[
         Tuple[
             int,
@@ -439,18 +418,33 @@ class ProgramCompilationProcess(BasicProcess):
         Actual compile that serves as implementation for compile() and
         compile_with_progress_iterator()
         """
+
         if track_progress:
             # Currently only a replacement for testing purposes
-            yield 50, "Fetching files", logging.INFO, None
+            yield 5, "Running Pre-Processor", logging.INFO, None
 
-        self._run_preprocessor()
-        self._run_entry_file_path_parsing()
+        self._run_preprocessor(True)
 
-        yield 1000, None, logging.INFO, FinishedProcess(self)
+        if track_progress:
+            # Currently only a replacement for testing purposes
+            yield 15, "Generating modified temp files", logging.INFO, None
+
+        self._gen_preprocessor_temp_files()
+
+        if track_progress:
+            # Currently only a replacement for testing purposes
+            yield 20, "Parsing files and generating logic streams",\
+                  logging.INFO, None
+
+        self.compilation_ctx.process_program(True)
+
+        ...
+
+        yield 100, None, logging.INFO, FinishedProcess(self)
 
 
 class ParacCompiler:
-    """ Main Class for the Para-C compiler containing the main functions """
+    """ Main Class for the entire Compiler containing processing functions """
     logger: logging.Logger = None
     stream_handler: ParacStreamHandler = None
     file_handler: ParacFileHandler = None
@@ -532,8 +526,6 @@ class ParacCompiler:
                            logged onto the console using the local logger
                            instance. If an exception is raised or error is
                            encountered, it will be reraised with the
-                           FailedToProcessError. If an exception is raised or
-                           error is encountered, it will be reraised with the
                            FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
@@ -551,8 +543,6 @@ class ParacCompiler:
 
         # Parsing the lexer and generating a token stream
         stream = antlr4.CommonTokenStream(lexer)
-
-        logger.debug("Parsing the tokens and generating the logic tree")
 
         # Parser which generates based on the top entry rule the logic tree
         parser = ParaCParser.ParaCParser(stream)

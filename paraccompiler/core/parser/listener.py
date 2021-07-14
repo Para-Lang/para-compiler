@@ -27,7 +27,6 @@ __all__ = [
 ]
 
 
-# TODO! Add missing listener functions when grammar file was finished
 class Listener(ParaCListener.ParaCListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
@@ -47,9 +46,9 @@ class Listener(ParaCListener.ParaCListener):
 
         self._compiling = False
         self._enable_out = False
-        logger.debug("Initialised listener for Antlr4")
 
-    def get_file_ctx(self) -> FileCompilationContext:
+    @property
+    def file_ctx(self) -> FileCompilationContext:
         """ Fetches the file context for this class """
         return self._file_ctx
 
@@ -62,9 +61,11 @@ class Listener(ParaCListener.ParaCListener):
                            logged onto the console using the local logger
                            instance. If an exception is raised or error is
                            encountered, it will be reraised with the
-                           FailedToProcessError. Errors will then be merged
-                           into a single error
+                           FailedToProcessError.
         """
+        logger.debug(
+            "Walking through the logic tree and generating the logic stream"
+        )
         self._enable_out = enable_out
 
         walker = antlr4.ParseTreeWalker()
@@ -72,25 +73,24 @@ class Listener(ParaCListener.ParaCListener):
 
         ...
 
-    def walk_and_compile(self, enable_out: bool) -> None:
+    def walk_and_generate_logic_stream(self, enable_out: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
-        events / goes through the tokens and fills the FileCompilationContext
-        (self.file_ctx) appropriately with the data.
+        events / goes through the tokens and generates the logic stream
+        for the FileCompilationContext (self.file_ctx)
 
         The FileCompilationContext can then be used inside the
         CompilationContext to be linked with other files and to finish
         the compilation for the program
 
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. (Errors will then NOT be raised but only
-                   logged)
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         """
         self._compiling = True
         self.walk(enable_out)
-
-        # TODO! Add wrap-up and 'compilation'
 
     # =========================================
     # Beginning of the file

@@ -13,11 +13,12 @@ __all__ = [
 
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
+import antlr4
 
 from .logic_stream import ParacLogicStream
 
 if TYPE_CHECKING:
-    from .compiler import ProgramCompilationProcess
+    from .compiler import ProgramCompilationProcess, ParacCompiler
 
 
 class FileCompilationContext:
@@ -156,3 +157,69 @@ class ProgramCompilationContext:
                  ]
         """
         ...
+
+    def process_program(self, enable_out: bool) -> None:
+        """
+        Processes this instance and generates the logic streams required
+        for generating the finished code.
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        """
+        self.parse_entry_file(enable_out)
+
+        ...  # TODO! Run listener for every file
+
+    def parse_single_file(
+            self,
+            stream: antlr4.FileStream,
+            enable_out: bool,
+    ) -> FileCompilationContext:
+        """
+        Parses a single file and generates the FilePreProcessorContext
+
+        :param stream: The Antlr4 FileStream
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        :returns: The generated FilePreProcessorContext instance
+        """
+        from paraccompiler import get_relative_file_name
+        from .parser.listener import Listener
+
+        relative_file_name = get_relative_file_name(
+            file_name=stream.name,
+            file_path=stream.fileName,
+            base_path=self.work_dir
+        )
+
+        antlr4_file_ctx = ParacCompiler.parse(stream, enable_out)
+
+        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
+        listener.walk_and_generate_logic_stream(enable_out)
+        return listener.file_ctx
+
+    def parse_entry_file(
+            self,
+            enable_out: bool
+    ) -> None:
+        """
+        Parses an entry file and sets the entry-ctx of this instance
+        to the generated context for the file.
+
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
+        """
+        stream = ParacCompiler.get_file_stream(
+            self.process.temp_entry_file_path, self.encoding
+        )
+        entry_ctx = self.parse_single_file(stream, enable_out)
+        self.set_entry_ctx(entry_ctx, entry_ctx.relative_file_name)

@@ -155,7 +155,7 @@ def run_process_with_logging(p: ProgramCompilationProcess) -> FinishedProcess:
 
     # Some testing for now
     with Progress(console=console(), refresh_per_second=30) as progress:
-        max_progress = 1000
+        max_progress = 100
         current_progress = 0
         main_task = progress.add_task(
             "[green]Processing...",

@@ -16,6 +16,7 @@ __copyright__ = "Luna Klatzer"
 from . import logger
 from . import utils
 from . import para_exceptions
+from . import core
 
 # Importing the files that are used in the Pre-Processor and Compiler
 from .core import abc  # Abstract Classes
@@ -53,6 +54,7 @@ __all__ = [
     'preprocessor',
     'utils',
     'logger',
+    *core.__all__,
     *para_exceptions.__all__,
     *__main__.__all__,
 ]

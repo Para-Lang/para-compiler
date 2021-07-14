@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
 from typing import List
-
+import logging
 import antlr4
 
 from .abc import PreProcessorLogicToken
@@ -10,6 +10,13 @@ from .ctx import FilePreProcessorContext
 from .python import ParaCPreProcessorParser as parser
 
 _p = parser.ParaCPreProcessorParser
+
+
+__all__ = [
+    'Listener'
+]
+
+logger = logging.getLogger(__name__)
 
 
 class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
@@ -45,9 +52,15 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         The file_ctx will be populated and able to be used for finishing
         the preprocessor processing steps
 
-        :param enable_out: If set to True, warnings and errors will be logged
-                           onto the console, but the errors won't be raised
+        :param enable_out: If set to True errors, warnings and info will be
+                           logged onto the console using the local logger
+                           instance. If an exception is raised or error is
+                           encountered, it will be reraised with the
+                           FailedToProcessError.
         """
+        logger.debug(
+            "Walking through the logic tree and generating the logic stream"
+        )
         self._enable_out = enable_out
 
     def enterCompilationUnit(
