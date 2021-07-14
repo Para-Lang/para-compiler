@@ -3,7 +3,6 @@
 from typing import List
 import antlr4
 
-from paraccompiler.logging import logger
 from .abc import PreProcessorLogicToken
 from .python import ParaCPreProcessorListener
 from .ctx import FilePreProcessorContext
@@ -57,8 +56,10 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        logger.debug(
-            "Walking through the logic tree and generating the logic stream"
+        from paraccompiler import para_compiler
+
+        para_compiler.logger.debug(
+            "Walking through the logic tree and generating logic stream"
         )
         self._enable_out = enable_out
 

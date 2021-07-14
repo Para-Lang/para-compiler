@@ -388,7 +388,9 @@ class ProgramCompilationProcess(BasicProcess):
             self, enable_out: bool
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
-        logger.debug("Starting Pre-Processor parsing and processing")
+        logger.info(
+            "Processing files in the Pre-Processor"
+        )
         return await self.preprocessor_ctx.process_program(enable_out)
 
     async def _gen_preprocessor_temp_files(
@@ -571,6 +573,7 @@ class ParacCompiler:
             process.entry_file_path, process.encoding
         )
         try:
+            cls.logger.info(f"Parsing file ({stream.fileName})")
             antlr4_file_ctx = await cls.parse(stream, enable_out)
             relative_file_name = get_relative_file_name(
                 stream.name,

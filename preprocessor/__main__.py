@@ -11,7 +11,6 @@ import antlr4
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
-from paraccompiler.logging import logger
 from .error_handler import PreProcessorErrorListener
 
 if TYPE_CHECKING:
@@ -90,6 +89,8 @@ class PreProcessor:
                            FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
+        from paraccompiler import para_compiler
+
         # Error handler which uses the default error strategy to handle the
         # incoming antlr4 errors
         error_listener = PreProcessorErrorListener(enable_out)
@@ -100,17 +101,21 @@ class PreProcessor:
         lexer.removeErrorListeners()
         lexer.addErrorListener(error_listener)
 
-        logger.debug("Lexing the file and generating the tokens")
+        para_compiler.logger.debug("Lexing file and generating tokens")
 
         # Parsing the lexer and generating a token stream
         stream = antlr4.CommonTokenStream(lexer)
 
-        logger.debug("Parsing the tokens and generating the logic tree")
+        para_compiler.logger.debug(
+            "Parsing the tokens and generating the logic tree"
+        )
         # Parser which generates based on the top entry rule the logic tree
         parser = ParaCPreProcessorParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
-        logger.debug("Finished generation of compilationUnit for the file")
+        para_compiler.logger.debug(
+            "Finished generation of compilationUnit for the file"
+        )
         return parser.compilationUnit()
 
     @staticmethod

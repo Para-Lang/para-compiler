@@ -3,7 +3,6 @@
 from typing import Union
 from paraccompiler.core.abc.base_error_handler import BaseErrorListener
 
-from paraccompiler.logging import logger
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,
@@ -92,6 +91,7 @@ class PreProcessorErrorListener(BaseErrorListener):
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
+        from paraccompiler import para_compiler
 
         # TODO! Add proper error handling
-        logger.error(f"At line: {line}, column: {column} - {msg}")
+        para_compiler.logger.error(f"At line: {line}, column: {column} - {msg}")

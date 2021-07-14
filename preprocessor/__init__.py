@@ -5,6 +5,7 @@ generated code for the preprocessor based on the ParaCPreProcessor.g4 grammar
 file
 """
 import os
+import logging
 import sys
 
 from .python import (ParaCPreProcessorLexer, ParaCPreProcessorListener,
@@ -31,3 +32,5 @@ __all__ = [
     *ctx.__all__,
     *__main__.__all__
 ]
+
+logging.getLogger(__name__).addHandler(logging.NullHandler())

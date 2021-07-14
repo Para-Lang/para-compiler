@@ -4,15 +4,15 @@ import logging
 import os
 from typing import List
 
-import paraccompiler
-from paraccompiler import ParacCompiler, BasicProcess
-from . import reset_input
+import asyncio
 
+import paraccompiler
+from . import reset_input
 
 logger = logging.getLogger('paraccompiler')
 
 sep = paraccompiler.SEPARATOR
-compiler = ParacCompiler()
+compiler = paraccompiler.ParacCompiler()
 paraccompiler.para_compiler.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
@@ -32,9 +32,8 @@ class TestParser:
         reset_input()
 
     def test_entry_file_path(self):
-        logger.debug(f"\nParsing {main_file_path}")
-
-        BasicProcess(main_file_path, 'utf-8').validate_syntax(True)
+        p = paraccompiler.BasicProcess(main_file_path, 'utf-8')
+        asyncio.run(p.validate_syntax(True))
 
     def test_para_files(self):
         files: List[os.DirEntry] = []
@@ -45,8 +44,8 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            logger.debug(f"Parsing {file.path}")
-            BasicProcess(file.path, 'utf-8').validate_syntax(True)
+            p = paraccompiler.BasicProcess(file.path, 'utf-8')
+            asyncio.run(p.validate_syntax(True))
 
     def test_c_files(self):
         files: List[os.DirEntry] = []
@@ -57,5 +56,5 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            logger.debug(f"Parsing {file.path}")
-            BasicProcess(file.path, 'utf-8').validate_syntax(True)
+            p = paraccompiler.BasicProcess(file.path, 'utf-8')
+            asyncio.run(p.validate_syntax(True))

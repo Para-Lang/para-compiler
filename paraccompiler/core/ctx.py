@@ -6,11 +6,7 @@ information.
 """
 from __future__ import annotations
 
-__all__ = [
-    'FileCompilationContext',
-    'ProgramCompilationContext'
-]
-
+import logging
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
 import antlr4
@@ -19,6 +15,13 @@ from .logic_stream import ParacLogicStream
 
 if TYPE_CHECKING:
     from .compiler import ProgramCompilationProcess, ParacCompiler
+
+__all__ = [
+    'FileCompilationContext',
+    'ProgramCompilationContext'
+]
+
+logger = logging.getLogger(__name__ )
 
 
 class FileCompilationContext:
@@ -198,6 +201,7 @@ class ProgramCompilationContext:
             base_path=self.work_dir
         )
 
+        logger.debug(f"Parsing file ({relative_file_name})")
         antlr4_file_ctx = await ParacCompiler.parse(stream, enable_out)
 
         listener = Listener(antlr4_file_ctx, stream, relative_file_name)
@@ -218,8 +222,11 @@ class ProgramCompilationContext:
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
+        entry_file = self.process.temp_entry_file_path
         stream = await ParacCompiler.get_file_stream(
-            self.process.temp_entry_file_path, self.encoding
+            entry_file, self.encoding
         )
+
+        logger.debug(f"Parsing entry-file ({entry_file})")
         entry_ctx = await self.parse_single_file(stream, enable_out)
         self.set_entry_ctx(entry_ctx, entry_ctx.relative_file_name)

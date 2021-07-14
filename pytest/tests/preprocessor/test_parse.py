@@ -4,6 +4,8 @@ import logging
 import os
 from typing import List
 
+import asyncio
+
 import paraccompiler
 from paraccompiler import ParacCompiler, ProgramCompilationProcess
 from . import reset_input
@@ -40,13 +42,12 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            logger.debug(f"Parsing {file.path}")
             b_path = add_folder("build")
             d_path = add_folder("dist")
             
-            ProgramCompilationProcess(
+            asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True)
+            )._run_preprocessor(True))
             
             remove_folder("build")
             remove_folder("dist")
@@ -60,13 +61,12 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            logger.debug(f"Parsing {file.path}")
             b_path = add_folder("build")
             d_path = add_folder("dist")
 
-            ProgramCompilationProcess(
+            asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True)
+            )._run_preprocessor(True))
 
             remove_folder("build")
             remove_folder("dist")
@@ -80,13 +80,12 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            logger.debug(f"Parsing {file.path}")
             b_path = add_folder("build")
             d_path = add_folder("dist")
 
-            ProgramCompilationProcess(
+            asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True)
+            )._run_preprocessor(True))
 
             remove_folder("build")
             remove_folder("dist")

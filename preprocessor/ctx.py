@@ -10,7 +10,6 @@ from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
 
-from paraccompiler.logging import logger
 from .logic_stream import PreProcessorStream
 from .__main__ import PreProcessor, PreProcessorProcessResult
 
@@ -164,7 +163,8 @@ class ProgramPreProcessorContext:
                            FailedToProcessError.
         :returns: A PreProcessorProcessResult instance
         """
-        logger.info("Processing Program Directives")
+        from paraccompiler import para_compiler
+
         await self.parse_entry_file(enable_out)
 
         ...  # TODO! Run listener for every file
@@ -217,9 +217,13 @@ class ProgramPreProcessorContext:
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        logger.info("Parsing entry-file")
+        from paraccompiler import para_compiler
+
+        entry_file = self.process.entry_file_path
+        para_compiler.logger.debug(f"Parsing entry-file ({entry_file})")
+
         stream = await PreProcessor.get_file_stream(
-            self.process.entry_file_path, self.encoding
+            entry_file, self.encoding
         )
 
         entry_ctx = await self.parse_single_file(stream, enable_out)

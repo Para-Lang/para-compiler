@@ -64,7 +64,7 @@ class Listener(ParaCListener.ParaCListener):
                            FailedToProcessError.
         """
         logger.debug(
-            "Walking through the logic tree and generating the logic stream"
+            "Walking through logic tree and generating the logic stream"
         )
         self._enable_out = enable_out
 
