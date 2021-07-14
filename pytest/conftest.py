@@ -2,7 +2,7 @@
 """ Configuration file for pytest """
 import sys
 import pytest
-from paraccompiler import logging
+import logging
 
 logging.basicConfig(level=logging.DEBUG)
 

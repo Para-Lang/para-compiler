@@ -144,7 +144,7 @@ class ProgramCompilationContext:
         ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
-    def gen_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
+    async def gen_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
         """
         Generates the source C-code from the tokens stored inside the class.
 
@@ -158,7 +158,7 @@ class ProgramCompilationContext:
         """
         ...
 
-    def process_program(self, enable_out: bool) -> None:
+    async def process_program(self, enable_out: bool) -> None:
         """
         Processes this instance and generates the logic streams required
         for generating the finished code.
@@ -169,11 +169,11 @@ class ProgramCompilationContext:
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        self.parse_entry_file(enable_out)
+        await self.parse_entry_file(enable_out)
 
         ...  # TODO! Run listener for every file
 
-    def parse_single_file(
+    async def parse_single_file(
             self,
             stream: antlr4.FileStream,
             enable_out: bool,
@@ -198,13 +198,13 @@ class ProgramCompilationContext:
             base_path=self.work_dir
         )
 
-        antlr4_file_ctx = ParacCompiler.parse(stream, enable_out)
+        antlr4_file_ctx = await ParacCompiler.parse(stream, enable_out)
 
         listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-        listener.walk_and_generate_logic_stream(enable_out)
+        await listener.walk_and_generate_logic_stream(enable_out)
         return listener.file_ctx
 
-    def parse_entry_file(
+    async def parse_entry_file(
             self,
             enable_out: bool
     ) -> None:
@@ -218,8 +218,8 @@ class ProgramCompilationContext:
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        stream = ParacCompiler.get_file_stream(
+        stream = await ParacCompiler.get_file_stream(
             self.process.temp_entry_file_path, self.encoding
         )
-        entry_ctx = self.parse_single_file(stream, enable_out)
+        entry_ctx = await self.parse_single_file(stream, enable_out)
         self.set_entry_ctx(entry_ctx, entry_ctx.relative_file_name)

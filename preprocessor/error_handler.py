@@ -1,9 +1,9 @@
 # coding=utf-8
 """ Error handler for the preprocessor parser and lexer """
-import logging
 from typing import Union
 from paraccompiler.core.abc.base_error_handler import BaseErrorListener
 
+from paraccompiler import logger
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,
@@ -13,8 +13,6 @@ from antlr4.error.Errors import (InputMismatchException,
 __all__ = [
     'PreProcessorErrorListener',
 ]
-
-logger = logging.getLogger(__name__)
 
 
 class PreProcessorErrorListener(BaseErrorListener):

@@ -3,7 +3,7 @@
 #include HEADER_H // Computed Include
 
 #pragma PARACC lang C // Lang-Pragma C
-#include <stdio.h> // Library Include
+#include <c-stdio.h> // Library Include
 #pragma PARACC lang PARAC // Lang-Pragma ParaC
 
 #define example1 (smth + smth) // define (expression)

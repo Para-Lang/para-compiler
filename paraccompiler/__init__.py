@@ -13,7 +13,7 @@ __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
 # Main imports
-from . import logger
+from . import logging
 from . import utils
 from . import para_exceptions
 from . import core
@@ -33,7 +33,7 @@ from . import __main__
 from .__main__ import *
 
 # Module Imports
-from .logger import *
+from .logging import *
 from .para_exceptions import *
 from .core import *
 from .utils import *
@@ -53,17 +53,18 @@ __all__ = [
     'WIN',
     'preprocessor',
     'utils',
+    'logging',
     'logger',
     *core.__all__,
     *para_exceptions.__all__,
     *__main__.__all__,
 ]
 
-import logging
+import logging as lib_logging
 import click
 import colorama
 
-colorama.init(autoreset=True)
-logging.getLogger(__name__).addHandler(logging.NullHandler())
 
+lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
+colorama.init(autoreset=True)
 WIN: bool = click.utils.WIN

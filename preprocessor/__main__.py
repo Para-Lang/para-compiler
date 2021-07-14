@@ -4,19 +4,18 @@ File containing the functions and class for the Pre-Processor parsing process
 """
 from __future__ import annotations
 
-import logging
 from os import PathLike
-from typing import Union, TYPE_CHECKING
+from typing import Union, TYPE_CHECKING, Dict
 from click.utils import WIN
 import antlr4
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
-
+from paraccompiler import logger
 from .error_handler import PreProcessorErrorListener
 
 if TYPE_CHECKING:
-    from .ctx import ProgramPreProcessorContext
+    from .ctx import ProgramPreProcessorContext, FilePreProcessorContext
 
 __all__ = [
     'SEPARATOR',
@@ -24,15 +23,29 @@ __all__ = [
     'PreProcessorProcessResult'
 ]
 
-logger = logging.getLogger(__name__)
-
 SEPARATOR = "\\" if WIN else "/"
 
 
 class PreProcessorProcessResult:
     """
-    The result of a Pre-Processor parse_and_process() call
+    The result of a Pre-Processor Execution for a Program. Contains the
+    modified files, pragmas and general information collected by the
+    Pre-Processor
     """
+
+    def generated_files(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
+        """
+        Returns the generated files, which are represented in a dictionary.
+
+        :returns: Dict[
+          str - Name of the file (Relative name),
+          Dict[
+            str - The code-string,
+            FilePreProcessorContext - The context of the file
+          ]
+         ]
+         """
+        ...
 
 
 class PreProcessor:
@@ -51,7 +64,7 @@ class PreProcessor:
     """
 
     @staticmethod
-    def get_file_stream(
+    async def get_file_stream(
             path: Union[str, PathLike], encoding: str
     ) -> antlr4.FileStream:
         """ Fetches the FileStream from a file"""
@@ -60,7 +73,7 @@ class PreProcessor:
         return stream
 
     @staticmethod
-    def parse(
+    async def parse(
             input_stream: antlr4.FileStream,
             enable_out: bool = True
     ) -> ParaCPreProcessorParser.CompilationUnitContext:
@@ -101,9 +114,11 @@ class PreProcessor:
         return parser.compilationUnit()
 
     @staticmethod
-    def process_directives(
+    async def process_directives(
             ctx: ProgramPreProcessorContext,
             enable_out: bool = True
     ) -> PreProcessorProcessResult:
-        """ Processing the directives populated in the passed ctx """
+        """
+        Processing the directives in the passed ctx and
+        """
         ...

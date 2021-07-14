@@ -9,8 +9,8 @@ from functools import wraps
 
 from .para_exceptions import (InterruptError, ParacCompilerError, InternalError)
 
-from .logger import (get_rich_console as console, log_traceback,
-                     print_abort_banner, init_rich_console)
+from .logging import (get_rich_console as console, log_traceback,
+                      print_abort_banner, init_rich_console)
 from .utils import escape_ansi
 
 
@@ -68,11 +68,6 @@ def abortable(
                     if not para_compiler.log_initialised:
                         para_compiler.init_logging_session()
 
-                    log_traceback(
-                        level="critical",
-                        brief="Encountered unexpected exception while running",
-                        exc_info=sys.exc_info()
-                    )
                     raise InternalError(
                         "Encountered unexpected exception while running"
                     ) from e

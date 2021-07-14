@@ -9,8 +9,8 @@ from __future__ import annotations
 from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
-import logging
 
+from paraccompiler import logger
 from .logic_stream import PreProcessorStream
 from .__main__ import PreProcessor, PreProcessorProcessResult
 
@@ -21,8 +21,6 @@ __all__ = [
     'FilePreProcessorContext',
     'ProgramPreProcessorContext'
 ]
-
-logger = logging.getLogger(__name__)
 
 
 class FilePreProcessorContext:
@@ -37,6 +35,7 @@ class FilePreProcessorContext:
     ):
         self._program_ctx: Union[ProgramPreProcessorContext, None] = None
         self._logic_stream: PreProcessorStream = PreProcessorStream()
+        self._processed_stream = None
         self._relative_file_name = relative_file_name
 
     @property
@@ -139,38 +138,21 @@ class ProgramPreProcessorContext:
         ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
-    def gen_source(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
-        """
-        Generates the source C-code from the tokens stored inside the class.
-
-        :raises RuntimeError: If the files were not correctly generated yet.
-                              Use process_program() for that.
-        :returns: Dict[
-                  str - Name of the file (Relative name),
-                  Dict[
-                    str - The code-string,
-                    FilePreProcessorContext - The context of the file
-                  ]
-                 ]
-        """
-        ...
-
-    def make_temp_files(
-            self,
-            gen_src_o: Dict[str, Dict[str, FilePreProcessorContext]],
-            build_path: Union[str, PathLike],
-            dist_path: Union[str, PathLike]
+    async def make_temp_files(
+            self, process: PreProcessorProcessResult
     ) -> Tuple[str, List[str]]:
         """
         Creates the temporary files based on the passed output of
-        gen_source()
+        process_program()
 
         :returns: A tuple containing at 0 the path to the entry-file and at 1
                   a list of all paths of all other files.
         """
         ...
 
-    def process_program(self, enable_out: bool) -> PreProcessorProcessResult:
+    async def process_program(
+            self, enable_out: bool
+    ) -> PreProcessorProcessResult:
         """
         Processes this instance and generates the logic streams required
         for generating the finished code.
@@ -182,13 +164,15 @@ class ProgramPreProcessorContext:
                            FailedToProcessError.
         :returns: A PreProcessorProcessResult instance
         """
-        self.parse_entry_file(enable_out)
+        logger.info("Processing Program Directives")
+        await self.parse_entry_file(enable_out)
 
         ...  # TODO! Run listener for every file
 
-        return PreProcessor.process_directives(self)
+        # Processing the directives
+        return await PreProcessor.process_directives(self)
 
-    def parse_single_file(
+    async def parse_single_file(
             self,
             stream: antlr4.FileStream,
             enable_out: bool,
@@ -213,13 +197,13 @@ class ProgramPreProcessorContext:
             base_path=self.work_dir
         )
 
-        antlr4_file_ctx = PreProcessor.parse(stream, enable_out)
+        antlr4_file_ctx = await PreProcessor.parse(stream, enable_out)
 
         listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-        listener.walk_and_process_directives(enable_out)
-        return listener.get_file_ctx()
+        await listener.walk_and_process_directives(enable_out)
+        return listener.file_ctx
 
-    def parse_entry_file(
+    async def parse_entry_file(
             self,
             enable_out: bool
     ) -> None:
@@ -233,9 +217,10 @@ class ProgramPreProcessorContext:
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        stream = PreProcessor.get_file_stream(
+        logger.info("Parsing entry-file")
+        stream = await PreProcessor.get_file_stream(
             self.process.entry_file_path, self.encoding
         )
 
-        entry_ctx = self.parse_single_file(stream, enable_out)
+        entry_ctx = await self.parse_single_file(stream, enable_out)
         self.set_entry_ctx(entry_ctx, entry_ctx.relative_file_name)

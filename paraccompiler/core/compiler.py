@@ -7,10 +7,10 @@ import logging
 import os
 import sys
 from os import PathLike
-from typing import Union, Generator, Tuple, TYPE_CHECKING, List, Optional
+from typing import Union, Tuple, TYPE_CHECKING, List, Optional, AsyncGenerator
 import antlr4
 
-from preprocessor import PreProcessor
+from preprocessor import PreProcessorProcessResult
 from preprocessor.ctx import ProgramPreProcessorContext
 from .error_handler import ParacErrorListener
 from .logic_stream import ParacLogicStream, CLogicStream
@@ -18,8 +18,8 @@ from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
 from .parser.listener import Listener
 from .ctx import ProgramCompilationContext
-from ..logger import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-                      get_rich_console as console, print_log_banner)
+from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
+                       get_rich_console as console, print_log_banner)
 from ..utils import decode_if_bytes, cleanup_path, SEPARATOR, \
     get_relative_file_name
 from ..para_exceptions import (FilePermissionError, FileNotFoundError,
@@ -221,7 +221,7 @@ class BasicProcess:
         """ Gets the working directory for the program """
         return SEPARATOR.join(self.entry_file_path.split(SEPARATOR)[:-1])
 
-    def validate_syntax(self, enable_out: bool) -> bool:
+    async def validate_syntax(self, enable_out: bool) -> bool:
         """
         Validates the syntax of the file of this entry-file and logs or raises
         errors while running
@@ -233,7 +233,7 @@ class BasicProcess:
                            FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
-        return ParacCompiler.validate_syntax(self, enable_out)
+        return await ParacCompiler.validate_syntax(self, enable_out)
 
 
 class FinishedProcess(BasicProcess):
@@ -354,7 +354,7 @@ class ProgramCompilationProcess(BasicProcess):
         os.makedirs(self.temp_dist_folder, exist_ok=True)
         logger.debug("Created temp folders for the Pre-Processor")
 
-    def compile_with_progress_iterator(self) -> Generator[
+    async def compile_with_progress_iterator(self) -> AsyncGenerator[
         Tuple[
             int,
             Optional[str],
@@ -375,38 +375,39 @@ class ProgramCompilationProcess(BasicProcess):
         """
         return self._compile(True)
 
-    def compile(self) -> FinishedProcess:
+    async def compile(self) -> FinishedProcess:
         """
         Default function which compiles the passed input data and returns
         a new finished process instance
         """
-        for result in self._compile(False):
+        async for result in self._compile(False):
             if type(result[3]) is FinishedProcess:
                 return result[3]  # Optional[FinishedProcess]
 
-    def _run_preprocessor(self, enable_out: bool) -> None:
+    async def _run_preprocessor(
+            self, enable_out: bool
+    ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.debug("Starting Pre-Processor parsing and processing")
-        self.preprocessor_ctx.process_program(enable_out)
+        return await self.preprocessor_ctx.process_program(enable_out)
 
-    def _gen_preprocessor_temp_files(self):
+    async def _gen_preprocessor_temp_files(
+            self, preprocessor_result: PreProcessorProcessResult
+    ) -> None:
         """
         Generates the temp files based on the output of the preprocessor
         """
         logger.debug("Generating the modified temporary files")
-        gen_src_o = self.preprocessor_ctx.gen_source()
 
         # Generating the temp files which are then used for the further
         # compilation
-        tmp: Tuple[str, List[str]] = self.preprocessor_ctx.make_temp_files(
-            gen_src_o,
-            self.temp_build_folder,
-            self.temp_dist_folder
+        tmp = await self.preprocessor_ctx.make_temp_files(
+            preprocessor_result
         )
-        logger.debug("Wrote processed files to temp storage")
         self._temp_entry_file_path, self._temp_files = tmp
+        logger.debug("Wrote processed files to temp storage")
 
-    def _compile(self, track_progress: bool) -> Generator[
+    async def _compile(self, track_progress: bool) -> AsyncGenerator[
         Tuple[
             int,
             Optional[str],
@@ -418,25 +419,24 @@ class ProgramCompilationProcess(BasicProcess):
         Actual compile that serves as implementation for compile() and
         compile_with_progress_iterator()
         """
-
         if track_progress:
             # Currently only a replacement for testing purposes
             yield 5, "Running Pre-Processor", logging.INFO, None
 
-        self._run_preprocessor(True)
+        preprocessor_result = await self._run_preprocessor(True)
 
         if track_progress:
             # Currently only a replacement for testing purposes
             yield 15, "Generating modified temp files", logging.INFO, None
 
-        self._gen_preprocessor_temp_files()
+        await self._gen_preprocessor_temp_files(preprocessor_result)
 
         if track_progress:
             # Currently only a replacement for testing purposes
             yield 20, "Parsing files and generating logic streams",\
                   logging.INFO, None
 
-        self.compilation_ctx.process_program(True)
+        await self.compilation_ctx.process_program(True)
 
         ...
 
@@ -512,7 +512,7 @@ class ParacCompiler:
                 )
 
     @staticmethod
-    def parse(
+    async def parse(
             input_stream: antlr4.FileStream,
             enable_out: bool = True
     ) -> CompilationUnitContext:
@@ -551,7 +551,7 @@ class ParacCompiler:
         return parser.compilationUnit()
 
     @classmethod
-    def validate_syntax(
+    async def validate_syntax(
             cls,
             process: BasicProcess,
             enable_out: bool = True
@@ -567,10 +567,11 @@ class ParacCompiler:
                            FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
-        stream = cls.get_file_stream(process.entry_file_path, process.encoding)
-
+        stream = await cls.get_file_stream(
+            process.entry_file_path, process.encoding
+        )
         try:
-            antlr4_file_ctx = cls.parse(stream, enable_out)
+            antlr4_file_ctx = await cls.parse(stream, enable_out)
             relative_file_name = get_relative_file_name(
                 stream.name,
                 stream.fileName,
@@ -580,7 +581,7 @@ class ParacCompiler:
             # Walking through the tree but without compiling! -> Only default
             # structure and syntax will be validated and checked
             listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-            listener.walk(enable_out)
+            await listener.walk(enable_out)
 
         except (LexerError, LinkerError, ParacCompilerError):
             # TODO! Add proper error handling and logging
@@ -593,7 +594,7 @@ class ParacCompiler:
         return True
 
     @staticmethod
-    def get_file_stream(
+    async def get_file_stream(
             path: Union[str, PathLike], encoding: str
     ) -> antlr4.FileStream:
         """ Fetches the FileStream from a file"""
@@ -602,7 +603,7 @@ class ParacCompiler:
         return stream
 
     @classmethod
-    def compile_logic_stream(
+    async def compile_logic_stream(
             cls,
             logic_stream: ParacLogicStream
     ) -> CLogicStream:

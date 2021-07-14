@@ -2,15 +2,26 @@
 """ Tokens in the Para-C compiler """
 from os import PathLike
 from typing import Optional, Any, List, Union
-
 from cached_property import cached_property
 
 from paraccompiler.core.abc.base_tokens import NULL_CHILDREN
 from .abc import PreProcessorLogicToken
 
 __all__ = [
+    'NonPreProcessorItem',
     'PreProcessorDirective',
-    'NonPreProcessorItem'
+    'DefineDirective',
+    'IncludeDirective',
+    'ComputedIncludeDirective',
+    'FileIncludeDirective',
+    'SelectionDirective',
+    'StartSelectionDirective',
+    'AlternativeSelectionDirective',
+    'ElseSelectionDirective',
+    'EndIfDirective',
+    'ErrorDirective',
+    'LineDirective',
+    'PragmaDirective',
 ]
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
