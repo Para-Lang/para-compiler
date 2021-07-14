@@ -116,24 +116,6 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         """
         ...
 
-    def enterCoreLanguageItem(
-            self,
-            ctx: _p.CoreLanguageItemContext
-    ):
-        """
-        Enter a parse tree produced by parser#coreLanguageItem.
-        """
-        ...
-
-    def exitCoreLanguageItem(
-            self,
-            ctx: _p.CoreLanguageItemContext
-    ):
-        """
-        Exit a parse tree produced by parser#coreLanguageItem.
-        """
-        ...
-
     def enterPreProcessorDirective(
             self,
             ctx: _p.PreProcessorDirectiveContext
@@ -361,5 +343,255 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
     ):
         """
         Exit a parse tree produced by _p#undefDirective.
+        """
+        ...
+
+    def enterIfNotDefinedDirective(
+            self,
+            ctx: _p.IfNotDefinedDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+         ParaCPreProcessorParser#ifNotDefinedDirective.
+        """
+        ...
+
+    def exitIfNotDefinedDirective(
+            self,
+            ctx: _p.IfNotDefinedDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#ifNotDefinedDirective.
+        """
+        ...
+
+    #
+    def enterIfDefinedDirective(
+            self,
+            ctx: _p.IfDefinedDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+        ParaCPreProcessorParser#ifDefinedDirective.
+        """
+        ...
+
+    def exitIfDefinedDirective(
+            self,
+            ctx: _p.IfDefinedDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#ifDefinedDirective.
+        """
+        ...
+
+    def enterElIfNotDefinedDirective(
+            self,
+            ctx: _p.ElIfNotDefinedDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+         ParaCPreProcessorParser#elIfNotDefinedDirective.
+        """
+        ...
+
+    def exitElIfNotDefinedDirective(
+            self,
+            ctx: _p.ElIfNotDefinedDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#elIfNotDefinedDirective.
+        """
+        ...
+
+    def enterElIfDefinedDirective(
+            self,
+            ctx: _p.ElIfDefinedDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+        ParaCPreProcessorParser#elIfDefinedDirective.
+        """
+        ...
+
+    def exitElIfDefinedDirective(
+            self,
+            ctx: _p.ElIfDefinedDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#elIfDefinedDirective.
+        """
+        ...
+
+    def enterIfDirective(
+            self,
+            ctx: _p.IfDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#ifDirective.
+        """
+        ...
+
+    def exitIfDirective(
+            self,
+            ctx: _p.IfDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#ifDirective.
+        """
+        ...
+
+    def enterElIfDirective(
+            self,
+            ctx: _p.ElIfDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#elIfDirective.
+        """
+        ...
+
+    def exitElIfDirective(
+            self,
+            ctx: _p.ElIfDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#elIfDirective.
+        """
+        ...
+
+    def enterElseDirective(
+            self,
+            ctx: _p.ElseDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#elseDirective.
+        """
+        ...
+
+    def exitElseDirective(
+            self,
+            ctx: _p.ElseDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#elseDirective.
+        """
+        ...
+
+    def enterEndIfDirective(
+            self,
+            ctx: _p.EndIfDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#endIfDirective.
+        """
+        ...
+
+    def exitEndIfDirective(
+            self,
+            ctx: _p.EndIfDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#endIfDirective.
+        """
+        ...
+
+    def enterLibIncludeDirective(
+            self,
+            ctx: _p.LibIncludeDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+        ParaCPreProcessorParser#libIncludeDirective.
+        """
+        ...
+
+    def exitLibIncludeDirective(
+            self,
+            ctx: _p.LibIncludeDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#libIncludeDirective.
+        """
+        ...
+
+    def enterStringIncludeDirective(
+            self,
+            ctx: _p.StringIncludeDirectiveContext
+    ):
+        """
+        Enter a parse tree produced by
+         ParaCPreProcessorParser#stringIncludeDirective.
+        """
+        ...
+
+    #
+    def exitStringIncludeDirective(
+            self,
+            ctx: _p.StringIncludeDirectiveContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#stringIncludeDirective.
+        """
+        ...
+
+    def enterNonPreProcessorItem(
+            self,
+            ctx: _p.NonPreProcessorItemContext
+    ):
+        """
+        Enter a parse tree produced by
+        ParaCPreProcessorParser#nonPreProcessorItem.
+        """
+        ...
+
+    def exitNonPreProcessorItem(
+            self,
+            ctx: _p.NonPreProcessorItemContext
+    ):
+        """
+        Exit a parse tree produced by
+        ParaCPreProcessorParser#nonPreProcessorItem.
+        """
+        ...
+
+    def enterAnySequence(
+            self,
+            ctx: _p.AnySequenceContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#anySequence.
+        """
+        ...
+
+    def exitAnySequence(
+            self,
+            ctx: _p.AnySequenceContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#anySequence.
+        """
+        ...
+
+    def enterPreProcessorEnd(
+            self,
+            ctx: _p.PreProcessorEndContext
+    ):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#preProcessorEnd.
+        """
+        ...
+
+    def exitPreProcessorEnd(
+            self,
+            ctx: _p.PreProcessorEndContext
+    ):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#preProcessorEnd.
         """
         ...

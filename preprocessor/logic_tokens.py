@@ -24,7 +24,7 @@ __all__ = [
     'PragmaDirective',
 ]
 
-from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
+from .python.ParaCPreProcessorParser import ParaCPreProcessorParser as _p
 
 
 class NonPreProcessorItem(PreProcessorLogicToken):
@@ -40,7 +40,7 @@ class NonPreProcessorItem(PreProcessorLogicToken):
             line: int,
             column: int,
             relative_parent_file_name: Union[str, PathLike],
-            antlr4_ctx: ParaCPreProcessorParser.CoreLanguageItemContext,
+            antlr4_ctx: _p.NonPreProcessorItemSequenceContext,
             parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
@@ -49,7 +49,6 @@ class NonPreProcessorItem(PreProcessorLogicToken):
             antlr4_ctx, parent, children
         )
 
-    @property
     @cached_property
     def relative_parent_file_name(self) -> str:
         """ Returns the relative name of the parent file """
