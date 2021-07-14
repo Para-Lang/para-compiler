@@ -1,9 +1,9 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
 from typing import List
-import logging
 import antlr4
 
+from paraccompiler.logging import logger
 from .abc import PreProcessorLogicToken
 from .python import ParaCPreProcessorListener
 from .ctx import FilePreProcessorContext
@@ -15,8 +15,6 @@ _p = parser.ParaCPreProcessorParser
 __all__ = [
     'Listener'
 ]
-
-logger = logging.getLogger(__name__)
 
 
 class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
@@ -42,11 +40,12 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         """ Stream which stores the logical tokens for the passed file. """
         return self._file_ctx.logic_stream
 
-    def get_file_ctx(self) -> FilePreProcessorContext:
-        """ Fetches the file context for this class """
+    @property
+    def file_ctx(self) -> FilePreProcessorContext:
+        """ The file context for this class """
         return self._file_ctx
 
-    def walk_and_process_directives(self, enable_out: bool) -> None:
+    async def walk_and_process_directives(self, enable_out: bool) -> None:
         """
         Walks through the passed compilation unit context and processes it.
         The file_ctx will be populated and able to be used for finishing

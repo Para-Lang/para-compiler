@@ -16,13 +16,13 @@ paraccompiler.set_avoid_print_banner_overwrite(True)
 
 def overwrite_input(overwrite: str):
     """ Overwrites the input with a lambda that returns the specified value """
-    getattr(paraccompiler.logger, 'output_console').input =\
+    getattr(paraccompiler.logging, 'output_console').input =\
         lambda *args, **kwargs: overwrite
 
 
 def reset_input():
     """ Resets the output method of the console object """
-    getattr(paraccompiler.logger, 'output_console').input = prev_input
+    getattr(paraccompiler.logging, 'output_console').input = prev_input
 
 
 def add_folder(folder_name: str) -> str:

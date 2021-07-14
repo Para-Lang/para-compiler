@@ -2,6 +2,8 @@
 """ Main file of the Para-Compiler"""
 import shutil
 import time
+
+import asyncio
 import click
 import colorama
 import logging
@@ -15,9 +17,9 @@ from .para_exceptions import InvalidArgumentsError
 from .core import (ProgramCompilationProcess, FinishedProcess, ParacCompiler,
                    DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, BasicProcess,
                    is_c_compiler_ready, initialise_c_compiler)
-from .logger import (get_rich_console as console, init_rich_console,
-                     print_result_banner, create_prompt, print_init_banner,
-                     format_default)
+from .logging import (get_rich_console as console, init_rich_console,
+                      print_result_banner, create_prompt, print_init_banner,
+                      format_default)
 from .utils import SpecialBoolDefault
 from .decorators import (abortable, requires_init, keep_open_callback,
                          escape_ansi_param)
@@ -138,18 +140,20 @@ def run_output_dir_validation(
     return build_path, dist_path
 
 
-def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
+async def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
     """
     Runs the process and returns the finished compilation process
     Calls p.compile(), adds additional formatting and returns the result
     """
-    finished_process = p.compile()
+    finished_process = await p.compile()
     if para_compiler.log_initialised:
         print_result_banner()
     return finished_process
 
 
-def run_process_with_logging(p: ProgramCompilationProcess) -> FinishedProcess:
+async def run_process_with_logging(
+        p: ProgramCompilationProcess
+) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
     finished_process = None
 
@@ -162,7 +166,8 @@ def run_process_with_logging(p: ProgramCompilationProcess) -> FinishedProcess:
             total=max_progress
         )
 
-        for p, status, level, end in p.compile_with_progress_iterator():
+        async for p, status, level, end in \
+                await p.compile_with_progress_iterator():
             if end is not None:
                 finished_process = end
                 progress.update(main_task, advance=p-current_progress)
@@ -476,7 +481,7 @@ class ParacCLI:
             dist_path
         )
         # Running the process with additional formatting and logging
-        return run_process_with_logging(p)
+        return asyncio.run(run_process_with_logging(p))
 
     @staticmethod
     @abortable(reraise=True)
@@ -523,7 +528,7 @@ class ParacCLI:
         p = create_basic_process(file, encoding, log)
 
         # Exception won't be reraised and directly logged to the console
-        result = p.validate_syntax(enable_out=True)
+        result = asyncio.run(p.validate_syntax(enable_out=True))
 
         errors = para_compiler.stream_handler.errors
         warnings = para_compiler.stream_handler.warnings

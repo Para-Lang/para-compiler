@@ -35,7 +35,8 @@ __all__ = [
     'print_log_banner',
     'print_result_banner',
     'create_prompt',
-    'format_default'
+    'format_default',
+    'logger'
 ]
 
 _bracket_s = re.escape('[')

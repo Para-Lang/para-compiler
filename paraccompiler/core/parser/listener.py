@@ -52,7 +52,7 @@ class Listener(ParaCListener.ParaCListener):
         """ Fetches the file context for this class """
         return self._file_ctx
 
-    def walk(self, enable_out: bool) -> None:
+    async def walk(self, enable_out: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens
@@ -73,7 +73,7 @@ class Listener(ParaCListener.ParaCListener):
 
         ...
 
-    def walk_and_generate_logic_stream(self, enable_out: bool) -> None:
+    async def walk_and_generate_logic_stream(self, enable_out: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens and generates the logic stream
@@ -90,7 +90,7 @@ class Listener(ParaCListener.ParaCListener):
                            FailedToProcessError.
         """
         self._compiling = True
-        self.walk(enable_out)
+        await self.walk(enable_out)
 
     # =========================================
     # Beginning of the file
