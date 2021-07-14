@@ -9,12 +9,12 @@ from __future__ import annotations
 from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 
-from .abc import PreProcessorLogicToken
-
 __all__ = [
     'FilePreProcessorContext',
     'ProgramPreProcessorContext'
 ]
+
+from .logic_stream import PreProcessorStream
 
 if TYPE_CHECKING:
     from paraccompiler import ProgramCompilationProcess
@@ -31,7 +31,7 @@ class FilePreProcessorContext:
             relative_file_name: Union[str, PathLike]
     ):
         self._program_ctx: Union[ProgramPreProcessorContext, None] = None
-        self._logic_stream: List[PreProcessorLogicToken] = []
+        self._logic_stream: PreProcessorStream = PreProcessorStream()
         self._relative_file_name = relative_file_name
 
     @property
@@ -50,10 +50,10 @@ class FilePreProcessorContext:
         return self._program_ctx
 
     @property
-    def logic_stream(self) -> List[PreProcessorLogicToken]:
+    def logic_stream(self) -> PreProcessorStream:
         """
         Returns the content of the file represented as a stream containing
-        LogicTokens
+        PreProcessorLogicToken
         """
         return self._logic_stream
 

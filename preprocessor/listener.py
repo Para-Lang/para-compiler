@@ -158,57 +158,89 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         """
         ...
 
-    def enterStartSelectionBlock(
+    def enterStartOfSelectionBlock(
             self,
-            ctx: _p.StartSelectionBlockContext
+            ctx: _p.StartOfSelectionBlockContext
     ):
         """
         Enter a parse tree produced by parser#startSelectionBlock.
         """
         ...
 
-    def exitStartSelectionBlock(
+    def exitStartOfSelectionBlock(
             self,
-            ctx: _p.StartSelectionBlockContext
+            ctx: _p.StartOfSelectionBlockContext
     ):
         """
         Exit a parse tree produced by parser#startSelectionBlock.
         """
         ...
 
-    def enterLogicalDirectiveAlternatives(
+    def enterSelectionDirectiveAlternatives(
             self,
-            ctx: _p.LogicalDirectiveAlternativesContext
+            ctx: _p.SelectionDirectiveAlternativesContext
     ):
         """
         Enter a parse tree produced by parser#logicalDirectiveAlternatives.
         """
         ...
 
-    def exitLogicalDirectiveAlternatives(
+    def exitSelectionDirectiveAlternatives(
             self,
-            ctx: _p.LogicalDirectiveAlternativesContext
+            ctx: _p.SelectionDirectiveAlternativesContext
     ):
         """
         Exit a parse tree produced by parser#logicalDirectiveAlternatives.
         """
         ...
 
-    def enterLogicalElseDirective(
+    def enterSelectionElseDirective(
             self,
-            ctx: _p.LogicalElseDirectiveContext
+            ctx: _p.SelectionElseDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#logicalElseDirective.
         """
         ...
 
-    def exitLogicalElseDirective(
+    def exitSelectionElseDirective(
             self,
-            ctx: _p.LogicalElseDirectiveContext
+            ctx: _p.SelectionElseDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#logicalElseDirective.
+        """
+        ...
+
+    def enterErrorDirective(
+            self,
+            ctx: _p.ErrorDirectiveContext):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#errorDirective.
+        """
+        ...
+
+    def exitErrorDirective(
+            self,
+            ctx: _p.ErrorDirectiveContext):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#errorDirective.
+        """
+        ...
+
+    def enterLineDirective(
+            self,
+            ctx: _p.LineDirectiveContext):
+        """
+        Enter a parse tree produced by ParaCPreProcessorParser#lineDirective.
+        """
+        ...
+
+    def exitLineDirective(
+            self,
+            ctx: _p.LineDirectiveContext):
+        """
+        Exit a parse tree produced by ParaCPreProcessorParser#lineDirective.
         """
         ...
 

@@ -12,9 +12,9 @@ __all__ = [
 ]
 
 from os import PathLike
-from typing import Dict, Union, TYPE_CHECKING, List
+from typing import Dict, Union, TYPE_CHECKING
 
-from .abc import ParacLogicToken
+from .logic_stream import ParacLogicStream
 
 if TYPE_CHECKING:
     from .compiler import ProgramCompilationProcess
@@ -38,7 +38,7 @@ class FileCompilationContext:
             relative_file_name: Union[str, PathLike]
     ):
         self._program_ctx: Union[ProgramCompilationContext, None] = None
-        self._logic_stream: List[ParacLogicToken] = []
+        self._logic_stream: ParacLogicStream = ParacLogicStream()
         self._relative_file_name = relative_file_name
 
     @property
@@ -57,7 +57,7 @@ class FileCompilationContext:
         return self._program_ctx
 
     @property
-    def logic_stream(self) -> List[ParacLogicToken]:
+    def logic_stream(self) -> ParacLogicStream:
         """
         Returns the content of the file represented as a stream containing
         LogicTokens

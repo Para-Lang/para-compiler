@@ -71,6 +71,15 @@ class ParaCPreProcessorListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ParaCPreProcessorParser#errorDirective.
+    def enterErrorDirective(self, ctx:ParaCPreProcessorParser.ErrorDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#errorDirective.
+    def exitErrorDirective(self, ctx:ParaCPreProcessorParser.ErrorDirectiveContext):
+        pass
+
+
     # Enter a parse tree produced by ParaCPreProcessorParser#undefDirective.
     def enterUndefDirective(self, ctx:ParaCPreProcessorParser.UndefDirectiveContext):
         pass
@@ -89,30 +98,39 @@ class ParaCPreProcessorListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCPreProcessorParser#startSelectionBlock.
-    def enterStartSelectionBlock(self, ctx:ParaCPreProcessorParser.StartSelectionBlockContext):
+    # Enter a parse tree produced by ParaCPreProcessorParser#startOfSelectionBlock.
+    def enterStartOfSelectionBlock(self, ctx:ParaCPreProcessorParser.StartOfSelectionBlockContext):
         pass
 
-    # Exit a parse tree produced by ParaCPreProcessorParser#startSelectionBlock.
-    def exitStartSelectionBlock(self, ctx:ParaCPreProcessorParser.StartSelectionBlockContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCPreProcessorParser#logicalDirectiveAlternatives.
-    def enterLogicalDirectiveAlternatives(self, ctx:ParaCPreProcessorParser.LogicalDirectiveAlternativesContext):
-        pass
-
-    # Exit a parse tree produced by ParaCPreProcessorParser#logicalDirectiveAlternatives.
-    def exitLogicalDirectiveAlternatives(self, ctx:ParaCPreProcessorParser.LogicalDirectiveAlternativesContext):
+    # Exit a parse tree produced by ParaCPreProcessorParser#startOfSelectionBlock.
+    def exitStartOfSelectionBlock(self, ctx:ParaCPreProcessorParser.StartOfSelectionBlockContext):
         pass
 
 
-    # Enter a parse tree produced by ParaCPreProcessorParser#logicalElseDirective.
-    def enterLogicalElseDirective(self, ctx:ParaCPreProcessorParser.LogicalElseDirectiveContext):
+    # Enter a parse tree produced by ParaCPreProcessorParser#selectionDirectiveAlternatives.
+    def enterSelectionDirectiveAlternatives(self, ctx:ParaCPreProcessorParser.SelectionDirectiveAlternativesContext):
         pass
 
-    # Exit a parse tree produced by ParaCPreProcessorParser#logicalElseDirective.
-    def exitLogicalElseDirective(self, ctx:ParaCPreProcessorParser.LogicalElseDirectiveContext):
+    # Exit a parse tree produced by ParaCPreProcessorParser#selectionDirectiveAlternatives.
+    def exitSelectionDirectiveAlternatives(self, ctx:ParaCPreProcessorParser.SelectionDirectiveAlternativesContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#selectionElseDirective.
+    def enterSelectionElseDirective(self, ctx:ParaCPreProcessorParser.SelectionElseDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#selectionElseDirective.
+    def exitSelectionElseDirective(self, ctx:ParaCPreProcessorParser.SelectionElseDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#selectionBlock.
+    def enterSelectionBlock(self, ctx:ParaCPreProcessorParser.SelectionBlockContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#selectionBlock.
+    def exitSelectionBlock(self, ctx:ParaCPreProcessorParser.SelectionBlockContext):
         pass
 
 
@@ -122,6 +140,15 @@ class ParaCPreProcessorListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParaCPreProcessorParser#includeDirective.
     def exitIncludeDirective(self, ctx:ParaCPreProcessorParser.IncludeDirectiveContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaCPreProcessorParser#lineDirective.
+    def enterLineDirective(self, ctx:ParaCPreProcessorParser.LineDirectiveContext):
+        pass
+
+    # Exit a parse tree produced by ParaCPreProcessorParser#lineDirective.
+    def exitLineDirective(self, ctx:ParaCPreProcessorParser.LineDirectiveContext):
         pass
 
 

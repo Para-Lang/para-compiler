@@ -12,8 +12,8 @@ import antlr4
 
 from preprocessor import PreProcessor
 from preprocessor.ctx import ProgramPreProcessorContext
-from .err_handler import ParacErrorListener
-from .logicstream import ParacLogicStream, CLogicStream
+from .error_handler import ParacErrorListener
+from .logic_stream import ParacLogicStream, CLogicStream
 from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
 from .parser.listener import Listener
@@ -610,14 +610,6 @@ class ParacCompiler:
         stream = antlr4.FileStream(path, encoding)
         stream.name = path.split(SEPARATOR)[-1]
         return stream
-
-    @classmethod
-    def gen_logic_stream(
-            cls,
-            ctx: ProgramCompilationProcess
-    ) -> ParacLogicStream:
-        """ Generates a logic stream based on the passed context """
-        ...
 
     @classmethod
     def compile_logic_stream(

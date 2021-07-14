@@ -14,7 +14,7 @@ from .ctx import ProgramPreProcessorContext
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
 
-from .err_handler import PreProcessorErrorListener
+from .error_handler import PreProcessorErrorListener
 
 __all__ = [
     'SEPARATOR',

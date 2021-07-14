@@ -2,7 +2,7 @@
 """ Error handler for the preprocessor parser and lexer """
 import logging
 from typing import Union
-from paraccompiler.core.abc.base_err_handler import BaseErrorListener
+from paraccompiler.core.abc.base_error_handler import BaseErrorListener
 
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,

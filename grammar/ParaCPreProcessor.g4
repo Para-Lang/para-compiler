@@ -30,7 +30,9 @@ preProcessorDirective
     |   computedIncludeDirective
     |   selectionPreProcessorDirective
     |   complexDefineDirective
+    |   errorDirective
     |   pragmaDirective
+    |   lineDirective
     |   undefDirective
     ;
 
@@ -40,6 +42,10 @@ complexDefineDirective
 
 pragmaDirective
     :   PragmaDirective
+    ;
+
+errorDirective
+    :   ErrorDirective
     ;
 
 undefDirective
@@ -54,19 +60,23 @@ undefDirective
 // #else
 // /* code */
 selectionPreProcessorDirective
-    :   startSelectionBlock logicalDirectiveAlternatives* logicalElseDirective? EndifDirective
+    :   startOfSelectionBlock selectionDirectiveAlternatives* selectionElseDirective? EndIfDirective
     ;
 
-startSelectionBlock
-    :   (IfDirective | IfDefinedDirective | IfNotDefinedDirective) selectionPreProcessorDirective?
+startOfSelectionBlock
+    :   (IfDirective | IfDefinedDirective | IfNotDefinedDirective) selectionBlock
     ;
 
-logicalDirectiveAlternatives
-    :   (ElIfDirective | ElIfDefinedDirective | ElIfNotDefinedDirective) selectionPreProcessorDirective?
+selectionDirectiveAlternatives
+    :   (ElIfDirective | ElIfDefinedDirective | ElIfNotDefinedDirective) selectionBlock
     ;
 
-logicalElseDirective
-    :   ElseDirective selectionPreProcessorDirective
+selectionElseDirective
+    :   ElseDirective selectionBlock
+    ;
+
+selectionBlock
+    :   (coreLanguageItem | selectionPreProcessorDirective)*
     ;
 
 includeDirective
@@ -74,9 +84,13 @@ includeDirective
     |   computedIncludeDirective
     ;
 
+lineDirective
+    :   LineDirective
+    ;
+
 // #include "header.h" / #include <header.h>
 fileIncludeDirective
-    :   (LibIncludeLiteral | StringIncludeLiteral)
+    :   (LibIncludeDirective | StringIncludeDirective)
     ;
 
 // #include MACRO_H
@@ -88,6 +102,11 @@ computedIncludeDirective
 
 NonPreProcessorItemBlock
     :   ~[#]+
+    ;
+
+fragment
+LiteralBlock
+    :   ~[\r\n]+
     ;
 
 fragment
@@ -105,7 +124,7 @@ BlockComment
 
 fragment
 LineComment
-    :   '//' ~[\r\n]*
+    :   '//' LiteralBlock*
     ;
 
 // Due to token recognition the lexer rules already contain the keywords
@@ -113,63 +132,76 @@ LineComment
 // preprocessor
 
 IfNotDefinedDirective
-    :   IfNotDefined Identifier
+    :   IfNotDefined Identifier (Newline | EOF)
     ;
 
 IfDefinedDirective
-    :   IfDefined Identifier
+    :   IfDefined Identifier (Newline | EOF)
     ;
 
 ElIfNotDefinedDirective
-    :   ElIfNotDefined Identifier
+    :   ElIfNotDefined Identifier (Newline | EOF)
     ;
 
 ElIfDefinedDirective
-    :   ElIfDefined Identifier
+    :   ElIfDefined Identifier (Newline | EOF)
     ;
 
 IfDirective
-    :   If ~[\r\n]*
+    :   If LiteralBlock* (Newline | EOF)
     ;
 
 ElIfDirective
-    :   ElseIf ~[\r\n]*
+    :   ElseIf LiteralBlock* (Newline | EOF)
     ;
 
 ElseDirective
-    :   Else
+    :   Else (Newline | EOF)
     ;
 
-EndifDirective
-    :   EndIf
+EndIfDirective
+    :   EndIf (Newline | EOF)
     ;
 
 PragmaDirective
     :   Pragma (GCCParacPrefix | PragmaParacPrefix | Identifier)
-        (Whitespace+ Identifier)+
+        (Whitespace+ Identifier)+ (Newline | EOF)
+    ;
+
+ErrorDirective
+    :   Error LiteralBlock+ (Newline | EOF)
     ;
 
 UndefDirective
-    :   Undefine Identifier
+    :   Undefine Identifier (Newline | EOF)
     ;
 
 // Since a define accepts almost ANY character the rules here need to be
 // special to avoid causing the lexer to possibly miss newlines/includes or
 // include comments into the directive
 ComplexDefineDirective
-    :   Define Identifier '('? ~[\r\n]* ')'?
+    :   Define Identifier (Whitespace ComplexDefineItem)? (Newline | EOF)
+    ;
+
+fragment
+ComplexDefineItem
+    :   '('? LiteralBlock* ')'?
     ;
 
 ComputedIncludeLiteral
-    :   Include Identifier
+    :   Include Identifier (Newline | EOF)
     ;
 
-LibIncludeLiteral
-    :   Include '<' IncludeLiteral+ '>'
+LibIncludeDirective
+    :   Include LibStringLiteral (Newline | EOF)
     ;
 
-StringIncludeLiteral
-    :   Include '"' IncludeLiteral+ '"'
+StringIncludeDirective
+    :   Include StringLiteral (Newline | EOF)
+    ;
+
+LineDirective
+    :   Line Digit+ Whitespace (StringLiteral)? (Newline | EOF)
     ;
 
 // Pre-Processor definitions
@@ -198,7 +230,7 @@ fragment
 IfNotDefined : PreProcessorBegin 'ifndef' Whitespace+;
 
 fragment
-ElIfNotDefined : PreProcessorBegin 'elifnotdef' Whitespace+;
+ElIfNotDefined : PreProcessorBegin 'elifndef' Whitespace+;
 
 fragment
 ElIfDefined : PreProcessorBegin 'elifdef' Whitespace+;
@@ -210,10 +242,13 @@ fragment
 EndIf : PreProcessorBegin 'endif' Whitespace?;
 
 fragment
-Error : PreProcessorBegin 'error' Whitespace+;
+Error : PreProcessorBegin 'error' Whitespace;
 
 fragment
-Pragma : PreProcessorBegin 'pragma' Whitespace+;
+Pragma : PreProcessorBegin 'pragma' Whitespace;
+
+fragment
+Line : PreProcessorBegin 'line' Whitespace;
 
 fragment
 GCCParacPrefix : PreProcessorBegin 'GCC' Whitespace+;
@@ -233,6 +268,50 @@ IdentifierNondigit
     :   Nondigit
     |   UniversalCharacterName
     //|   // other implementation-defined characters...
+    ;
+
+LibStringLiteral
+    :   '<' SCharSequence? '>'
+    ;
+
+StringLiteral
+    :   '"' SCharSequence? '"'
+    ;
+
+fragment
+SCharSequence
+    :   SChar+
+    ;
+
+fragment
+SChar
+    :   ~["\\\r\n]
+    |   EscapeSequence
+    |   '\\\n'   // Added line
+    |   '\\\r\n' // Added line
+    ;
+
+fragment
+EscapeSequence
+    :   SimpleEscapeSequence
+    |   OctalEscapeSequence
+    |   HexadecimalEscapeSequence
+    |   UniversalCharacterName
+    ;
+
+fragment
+SimpleEscapeSequence
+    :   '\\' ['"?abfnrtv\\]
+    ;
+
+fragment
+OctalEscapeSequence
+    :   '\\' OctalDigit OctalDigit? OctalDigit?
+    ;
+
+fragment
+HexadecimalEscapeSequence
+    :   '\\x' HexadecimalDigit+
     ;
 
 fragment

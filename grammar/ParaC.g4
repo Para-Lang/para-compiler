@@ -716,160 +716,6 @@ ExtensionTaskBlock
     :   '{' [\u0000-\uFFFE]* '}'
     ;
 
-PreProcessorDirective
-    : ((SelectionPreProcessorDirective ~[\r\n/]*)
-    |   ElseDirective
-    |   EndifDirective
-    |   PragmaDirective
-    |   UndefDirective
-    |   ComplexDefineDirective
-    |   ComputedIncludeLiteral
-    |   LibIncludeLiteral
-    |   StringIncludeLiteral
-    ) Whitespace*
-    -> skip
-    ;
-
-// Due to token recognition the lexer rules already contain the keywords
-// to avoid the lexer recongnising certain other tokens inside the
-// preprocessor
-
-fragment
-SelectionPreProcessorDirective
-    :   IfNotDefinedDirective
-    |   IfDefinedDirective
-    |   ElIfDefinedDirective
-    |   ElIfNotDefinedDirective
-    |   IfDirective
-    |   ElifDirective
-    ;
-
-fragment
-IfNotDefinedDirective
-    :   IfNotDefined
-    ;
-
-fragment
-IfDefinedDirective
-    :   IfDefined
-    ;
-
-fragment
-ElIfNotDefinedDirective
-    :   ElIfNotDefined Identifier
-    ;
-
-fragment
-ElIfDefinedDirective
-    :   ElIfDefined Identifier
-    ;
-
-fragment
-IfDirective
-    :   PreProcessorBegin If
-    ;
-
-fragment
-ElifDirective
-    :   ElseIf
-    ;
-
-fragment
-ElseDirective
-    :   PreProcessorBegin Else
-    ;
-
-fragment
-EndifDirective
-    :   EndIf
-    ;
-
-fragment
-PragmaDirective
-    :   Pragma (GCCParacPrefix | PragmaParacPrefix | Identifier)
-        (Whitespace+ Identifier)+
-    ;
-
-fragment
-UndefDirective
-    :   Undefine Identifier
-    ;
-
-// Since a define accepts almost ANY character the rules here need to be
-// special to avoid causing the lexer to possibly miss newlines/includes or
-// include comments into the directive
-fragment
-ComplexDefineDirective
-    :   Define Identifier '('? ~[\r\n]* ')'?
-    ;
-
-fragment
-ComputedIncludeLiteral
-    :   Include Identifier
-    ;
-
-fragment
-LibIncludeLiteral
-    :   Include '<' IncludeLiteral+ '>'
-    ;
-
-fragment
-StringIncludeLiteral
-    :   Include '"' IncludeLiteral+ '"'
-    ;
-
-// Pre-Processor definitions
-// #if and #else are excluded since they are already defined in the standard
-// grammar
-fragment
-PreProcessorBegin : '#' Whitespace*;
-
-fragment
-Include : PreProcessorBegin 'include' Whitespace+;
-
-fragment
-Define : PreProcessorBegin 'define' Whitespace+;
-
-fragment
-Undefine : PreProcessorBegin 'undef' Whitespace+;
-
-fragment
-IfDefined : PreProcessorBegin 'ifdef' Whitespace+;
-
-fragment
-IfNotDefined : PreProcessorBegin 'ifndef' Whitespace+;
-
-fragment
-ElIfNotDefined : PreProcessorBegin 'elifnotdef' Whitespace+;
-
-fragment
-ElIfDefined : PreProcessorBegin 'elifdef' Whitespace+;
-
-fragment
-ElseIf : PreProcessorBegin 'elif' Whitespace+;
-
-fragment
-EndIf : PreProcessorBegin 'endif' Whitespace?;
-
-fragment
-Error : PreProcessorBegin 'error' Whitespace+;
-
-fragment
-Pragma : PreProcessorBegin 'pragma' Whitespace+;
-
-fragment
-GCCParacPrefix : PreProcessorBegin 'GCC' Whitespace+;
-
-fragment
-PragmaParacPrefix : PreProcessorBegin 'PARAC' Whitespace+;
-
-fragment
-IncludeLiteral
-    :   Nondigit
-    |   Digit
-    |   '.'
-    ;
-
 fragment
 IdentifierNondigit
     :   Nondigit
@@ -1111,6 +957,11 @@ SChar
 AsmBlock
     :   'asm' ~'{'* '{' ~'}'* '}'
 	-> skip
+    ;
+
+Directive
+    :   '#' ~[\r\n]*
+        -> skip
     ;
 
 Whitespace
