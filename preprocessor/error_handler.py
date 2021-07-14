@@ -3,7 +3,7 @@
 from typing import Union
 from paraccompiler.core.abc.base_error_handler import BaseErrorListener
 
-from paraccompiler import logger
+from paraccompiler.logging import logger
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,

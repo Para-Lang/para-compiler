@@ -3,7 +3,7 @@
 from typing import List
 import antlr4
 
-from paraccompiler import logger
+from paraccompiler.logging import logger
 from .abc import PreProcessorLogicToken
 from .python import ParaCPreProcessorListener
 from .ctx import FilePreProcessorContext

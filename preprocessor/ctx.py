@@ -10,7 +10,7 @@ from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
 
-from paraccompiler import logger
+from paraccompiler.logging import logger
 from .logic_stream import PreProcessorStream
 from .__main__ import PreProcessor, PreProcessorProcessResult
 

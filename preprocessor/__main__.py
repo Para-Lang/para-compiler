@@ -11,7 +11,7 @@ import antlr4
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
-from paraccompiler import logger
+from paraccompiler.logging import logger
 from .error_handler import PreProcessorErrorListener
 
 if TYPE_CHECKING:
