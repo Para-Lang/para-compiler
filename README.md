@@ -99,7 +99,9 @@ and delete the remaining folder:
 rm -rf ./path/to/generated/output
 ```
 
-*Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
+**Notes:**
+- *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
+- *Comments are only partly ignored in ParaC.g4, due the intended removal in the Pre-Processor. Errors can occur!*
 
 #### Build the Executable and binaries
 

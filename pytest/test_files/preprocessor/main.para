@@ -1,4 +1,6 @@
-#include "a_file.h"
+#include "a_file.h" /*
+    defining a header as a macro
+ */
 #include "a/b_file.h"
 #define X a_name
 #define Z

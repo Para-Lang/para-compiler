@@ -697,7 +697,7 @@ FileComment
 
 fragment
 BlockComment
-    :   '/*' .*? '*/'
+    :   '/*' [\u0000-\uFFFE]*? '*/'
     ;
 
 fragment

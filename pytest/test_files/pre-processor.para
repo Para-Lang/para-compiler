@@ -1,6 +1,4 @@
-#define HEADER_H "header.h" /*
-    defining a header as a macro
- */
+#define HEADER_H "header.h"
 #include "example_header.parah" // String Include
 #include HEADER_H // Computed Include
 
