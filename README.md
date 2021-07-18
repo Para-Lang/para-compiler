@@ -46,6 +46,16 @@ a C++ program, which then uses that to run something else.
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
 
+### Parsing and Processing Procedure
+
+Due to the two components, which are the Pre-Processor, and the core Compiler
+the entire module is split into two modules: `preprocessor` and `paraccompiler`,
+which both implement their own handling for the source-code. This means that 
+when compiling a file, the file will be sent through the Pre-Processor first,
+modified and then sent to the Para-C Compiler. This also means errors reported
+will be from the modified file, so that the modified code is visible to the 
+user, instead of the file without correct Pre-Processor processing.
+
 ### Building
 
 #### Generating the Parser and Lexer
