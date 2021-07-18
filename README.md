@@ -1,8 +1,7 @@
 ![para-c](./Para-C-Redesign-Banner.png)
 
 *Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
-programming language. It is for now solely a free-time project designed for
-learning and testing purposes, which we do not intend for anything other than that.*
+programming language. It is for now solely a free-time/college project*
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -140,6 +139,7 @@ On unix-based systems the installation is open to the user, including the folder
 where the compiler will be placed (It is recommended though to use `/opt`, 
 `/usr`, `/usr/local` or similar)
 
+Steps to add the alias `parac` to your terminal:
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
 2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
