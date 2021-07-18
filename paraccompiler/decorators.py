@@ -43,7 +43,7 @@ def abortable(
             try:
                 try:
                     return func(*args, **kwargs)
-                except InterruptError as e:
+                except InterruptError:
                     if print_abort:
                         print_abort_banner(step)
                     exit(1)
@@ -101,8 +101,8 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from .core.compiler import (is_c_compiler_ready, INIT_OVERWRITE,
-                                        initialise_c_compiler)
+            from . import (is_c_compiler_ready, INIT_OVERWRITE,
+                           initialise_c_compiler)
             if not is_c_compiler_ready() and not INIT_OVERWRITE:
                 from . import para_compiler
                 if not para_compiler.log_initialised:

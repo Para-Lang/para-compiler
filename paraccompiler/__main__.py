@@ -15,12 +15,11 @@ from typing import Tuple, Union
 from . import __version__, __title__
 from .para_exceptions import InvalidArgumentsError
 from .core import (ProgramCompilationProcess, FinishedProcess, ParacCompiler,
-                   DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, BasicProcess,
-                   is_c_compiler_ready, initialise_c_compiler)
+                   BasicProcess)
 from .logging import (get_rich_console as console, init_rich_console,
                       print_result_banner, create_prompt, print_init_banner,
                       format_default)
-from .utils import SpecialBoolDefault
+from .utils import is_c_compiler_ready, initialise_c_compiler
 from .decorators import (abortable, requires_init, keep_open_callback,
                          escape_ansi_param)
 
@@ -127,6 +126,7 @@ def run_output_dir_validation(
     :param overwrite_dist: If set to True if a dist folder already exists
                            it will be deleted and overwritten
     """
+    from . import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
     build_path = _check_destination(
         "build",
         DEFAULT_BUILD_PATH,
@@ -438,8 +438,8 @@ class ParacCLI:
             log: str,
             overwrite_build: bool,
             overwrite_dist: bool,
-            source: SpecialBoolDefault,
-            executable: SpecialBoolDefault,
+            source: bool,
+            executable: bool,
             debug: bool
     ) -> FinishedProcess:
         """

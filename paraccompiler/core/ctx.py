@@ -14,7 +14,8 @@ import antlr4
 from .logic_stream import ParacLogicStream
 
 if TYPE_CHECKING:
-    from .compiler import ProgramCompilationProcess, ParacCompiler
+    from .process import ProgramCompilationProcess
+    from .compiler import ParacCompiler
 
 __all__ = [
     'FileCompilationContext',

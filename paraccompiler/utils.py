@@ -1,14 +1,17 @@
 # coding=utf-8
 """ Utility in the Para-C Compiler"""
+import json
 import logging
 import re
 import os
-from click.utils import WIN
 from os import PathLike
 from typing import Union, Type, Optional
 
 __all__ = [
-    'SEPARATOR',
+    'validate_file_ending',
+    'validate_path_like',
+    'is_c_compiler_ready',
+    'initialise_c_compiler',
     'decode_if_bytes',
     'cleanup_path',
     'escape_ansi',
@@ -17,11 +20,96 @@ __all__ = [
     'SpecialBoolDefault'
 ]
 
+
+from .logging import get_rich_console as console
+from .para_exceptions import FilePermissionError, CCompilerNotFoundError
+
 logger = logging.getLogger(__name__)
 
-SEPARATOR = "\\" if WIN else "/"
-INVALID_UNIX_FILE_NAME_CHARS = ('/', '<', '>', '\0', '|', ':', '&')
-INVALID_WIN_FILE_NAME_CHARS = ('<', '>', ':', '"', '/', '\\', '|', '?', '*')
+
+def validate_file_ending(path: Union[str, PathLike]) -> bool:
+    """
+    Validates the file ending of the passed path and returns as bool whether
+    it follows the correct requirements
+    """
+    from . import VALID_FILE_ENDINGS
+    return all(map(path.endswith, VALID_FILE_ENDINGS))
+
+
+def validate_path_like(path_like: Union[PathLike, str]) -> None:
+    """
+    Checking whether path exists and the user has permission to access it.
+    Raises Exception on failure else returns
+
+    :raises EntryFileNotFoundError: If the file can't be found
+    :raises EntryFilePermissionError: If the file can't be read from
+    """
+    if not os.access(path_like, os.R_OK):  # Can be read
+        if not os.access(path_like, os.F_OK):  # Exists
+            raise FileNotFoundError(
+                f"Failed to read entry-point '{path_like}'."
+                f" File does not exist!"
+            )
+        else:
+            raise FilePermissionError(
+                f"Missing file reading permissions for ''{path_like}'"
+            )
+
+
+def is_c_compiler_ready() -> bool:
+    """
+    Returns whether the Para-C Compiler is correctly
+    initialised and the c-compiler can be found
+    """
+    from . import INIT_OVERWRITE, CONFIG_PATH
+    if INIT_OVERWRITE:
+        return True
+
+    if os.access(CONFIG_PATH, os.R_OK):
+        with open(CONFIG_PATH, "r") as file:
+            config: dict = json.loads(file.read())
+            if config.get('c-compiler-path'):
+                # if executable
+                return os.access(config['c-compiler-path'], os.X_OK)
+    return False
+
+
+def initialise_c_compiler() -> None:
+    """
+    Initialises the Para-C compiler and creates the config file.
+    Will prompt the user to enter the compiler path
+    """
+    from . import CONFIG_PATH
+    _input = console().input(
+        "[bold bright_cyan]"
+        " > Please enter the path for the C-compiler: "
+        "[/bold bright_cyan]"
+    )
+    console().print('\n', end="")
+    path = cleanup_path(decode_if_bytes(_input))
+
+    # it exists
+    if not os.access(_input, os.F_OK):
+        raise CCompilerNotFoundError(
+            f"The passed path '{path}' for the executable does not exist"
+        )
+
+    # is executable
+    if not os.access(_input, os.X_OK):
+        raise FilePermissionError(
+            f"The passed path '{path}' for the executable can't be executed."
+            " Possibly missing Permissions?"
+        )
+
+    from . import DEFAULT_CONFIG
+    config = DEFAULT_CONFIG
+    config['c-compiler-path'] = path
+    with open(CONFIG_PATH, "w+") as file:
+        file.write(json.dumps(config, indent=4))
+
+    logger.info(
+        "Validated path and successfully created compile-config.json"
+    )
 
 
 def decode_if_bytes(
@@ -39,6 +127,7 @@ def decode_if_bytes(
 
 def cleanup_path(_p: str) -> str:
     """ Cleans the path for the specific current os """
+    from . import WIN, SEPARATOR
     if WIN:
         _p = _p.replace("/", SEPARATOR).replace("\\\\", SEPARATOR)
     else:
@@ -68,6 +157,8 @@ def check_valid_path_name(
     :param win_path: If explicitly set to True, the path will be checked if it
                      was a windows path, even if it's a os of a different kind
     """
+    from . import (SEPARATOR, INVALID_UNIX_FILE_NAME_CHARS,
+                   INVALID_WIN_FILE_NAME_CHARS, WIN)
     path = cleanup_path(path)
     path = path.replace(SEPARATOR, '')
 
@@ -108,6 +199,7 @@ def get_relative_file_name(
     :param win_path: If explicitly set to True, the path will be checked if it
                      was a windows path, even if it's a os of a different kind
     """
+    from . import SEPARATOR
     file_path = cleanup_path(file_path)
     base_path = cleanup_path(base_path)
 

@@ -163,8 +163,6 @@ class ProgramPreProcessorContext:
                            FailedToProcessError.
         :returns: A PreProcessorProcessResult instance
         """
-        from paraccompiler import para_compiler
-
         await self.parse_entry_file(enable_out)
 
         ...  # TODO! Run listener for every file

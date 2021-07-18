@@ -4,7 +4,7 @@ Core Optimiser for the C code and Para-C code which will optimise the code
 and manage imports and additional content using the __parac__.h file
 """
 from ..ctx import FileCompilationContext
-from ..compiler import ProgramCompilationContext
+from ..process import ProgramCompilationContext
 
 
 __all__ = [

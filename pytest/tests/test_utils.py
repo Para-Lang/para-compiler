@@ -136,7 +136,7 @@ class TestGetRelativeFileName:
 
     def test_spaces(self):
         try:
-            name = utils.get_relative_file_name(
+            utils.get_relative_file_name(
                 file_name="name .para",
                 file_path="/usr/name/files/name .para",
                 base_path="/usr/name/files/"
@@ -147,7 +147,7 @@ class TestGetRelativeFileName:
             assert False
 
         try:
-            name = utils.get_relative_file_name(
+             utils.get_relative_file_name(
                 file_name="name .para",
                 file_path="/dir/name .para",
                 base_path="/dir/"
@@ -158,7 +158,7 @@ class TestGetRelativeFileName:
             assert False
 
         try:
-            name = utils.get_relative_file_name(
+            utils.get_relative_file_name(
                 file_name=" ",
                 file_path="/dir/ ",
                 base_path="/dir/"
@@ -169,7 +169,7 @@ class TestGetRelativeFileName:
             assert False
 
         try:
-            name = utils.get_relative_file_name(
+             utils.get_relative_file_name(
                 file_name=" ",
                 file_path="\\dir\\name.para",
                 base_path="D:\\dir\\",
