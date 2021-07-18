@@ -38,6 +38,15 @@ this, you can for example embed async functionality from Python directly into
 the program, which is not natively supported, and then pass generated data to
 a C++ program, which then uses that to run something else. 
  
+## CLI
+
+### Commands
+*Commands displayed are mostly only partly implemented*
+- `parac compile` - Compile a Para-C program to C or executable
+- `parac run` - Compiles a Para-C program and runs it (Creates build and dist as well)
+- `parac c-init` - Console Line Interface for the configuration of the C-compiler
+- `parac syntax-check` - Validates the syntax of a Para-C program and logs errors if needed
+- `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax (Not added yet. See #9 and #10)
 
 ## Development
 

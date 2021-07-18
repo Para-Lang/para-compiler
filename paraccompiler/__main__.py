@@ -339,7 +339,9 @@ def parac_compile(*args, **kwargs):
 )
 @abortable(reraise=False)
 def parac_run(*args, **kwargs):
-    """ Compile a Para-C program, creates the output and runs it """
+    """
+    Compiles a Para-C program and runs it (Creates build and dist as well)
+    """
     ParacCLI.parac_run(*args, **kwargs)
 
 
