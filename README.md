@@ -46,7 +46,7 @@ a C++ program, which then uses that to run something else.
 - `parac run` - Compiles a Para-C program and runs it (Creates build and dist as well)
 - `parac c-init` - Console Line Interface for the configuration of the C-compiler
 - `parac syntax-check` - Validates the syntax of a Para-C program and logs errors if needed
-- `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax (Not added yet. See #9 and #10)
+- `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax (Not added yet. See [#9](/../../issues/9) and [#10](/../../issues/10))
 
 ## Development
 
