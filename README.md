@@ -140,6 +140,7 @@ On unix-based systems the installation is open to the user, including the folder
 where the compiler will be placed (It is recommended though to use `/opt`, 
 `/usr`, `/usr/local` or similar)
 
+Steps to add the alias `parac` to your terminal:
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
 2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
