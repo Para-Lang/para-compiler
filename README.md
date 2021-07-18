@@ -1,8 +1,7 @@
 ![para-c](./Para-C-Redesign-Banner.png)
 
 *Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
-programming language. It is for now solely a free-time project designed for
-learning and testing purposes, which we do not intend for anything other than that.*
+programming language. It is for now solely a free-time/college project*
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
