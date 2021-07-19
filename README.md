@@ -1,4 +1,4 @@
-![para-c](./Para-C-Redesign-Banner.png)
+![para-c](parac-banner.png)
 
 *Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
 programming language. It is for now solely a free-time/college project*
@@ -101,16 +101,16 @@ To generate in the command-line use:
 - For the Core Language:
   - Python (Required for the Compiler):
       ```bash
-      antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
+      antlr4 -o ./compiler/core/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
       ```
   - Java:
       ```bash
-       antlr4 -o ./paraccompiler/core/parser/python -Dlanguage=Java ./grammar/ParaC.g4
+       antlr4 -o ./compiler/core/parser/python -Dlanguage=Java ./grammar/ParaC.g4
       ```
   
 Afterwards *if needed* correctly move the folder using:
 ```bash
-mv ./path/to/generated/output/* ./paraccompiler/core/<insert-destination>/
+mv ./path/to/generated/output/* ./compiler/core/<insert-destination>/
 ```
 
 and delete the remaining folder:
