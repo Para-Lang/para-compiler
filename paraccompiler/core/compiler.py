@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import logging
 from os import PathLike
-from typing import Union, TYPE_CHECKING
+from typing import Union, TYPE_CHECKING, Tuple, Literal
 import antlr4
 
 from .process import BasicProcess
@@ -27,6 +27,11 @@ __all__ = [
 ]
 
 logger = logging.getLogger(__name__)
+
+ONE_LINE_COMMENT_START: str = '//'
+ONE_LINE_COMMENT_END: Tuple[str, str, str] = ('\n', '\r\n', '\r')
+MULTI_LINE_COMMENT_START: str = '/*'
+MULTI_LINE_COMMENT_END: str = '*/'
 
 
 class ParacCompiler:
@@ -179,6 +184,48 @@ class ParacCompiler:
         if para_compiler.stream_handler.errors > 0:
             return False
         return True
+
+    @staticmethod
+    def remove_comments_from_str(
+        string: str, line_ending: str = '\n'
+    ) -> str:
+        """
+        Removes comments from the passed string and returns the modified
+        string. Only comments in the (// ... \\n) and (/* ... */) format will
+        be removed, but else the string will be ignored.
+
+        For proper handling line-endings are all set to \\n, if this is
+        not wanted the wanted line ending should be passed. Note: This will
+        not make the function ignore every other line-ending but simply in the
+        end replace every occurrence of \n with the wanted line-ending.
+        """
+        prev_c: str = ""
+        result: str = ""
+        in_type: Literal['std', 'one_c', 'mult_c'] = "std"
+
+        # For ease replacing \r and \r\n with \n
+        string = string.replace('\r\n', '\n').replace('\r', '\n')
+
+        for c in string:
+            c: str
+            _: str = f'{prev_c}{c}'
+            if in_type == "std":
+                if _ == ONE_LINE_COMMENT_START:
+                    result = result[0:-1]  # Removing the previous char
+                    in_type = "one_c"
+                elif _ == MULTI_LINE_COMMENT_START:
+                    result = result[0:-1]  # Removing the previous char
+                    in_type = "mult_c"
+                else:
+                    result += c
+            else:
+                if any((
+                    in_type == "one_c" and c in ONE_LINE_COMMENT_END,
+                    in_type == "mult_c" and _ == MULTI_LINE_COMMENT_END
+                )):
+                    in_type = 'std'
+            prev_c = c
+        return result.replace('\n', line_ending)
 
     @staticmethod
     async def get_file_stream(

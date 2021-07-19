@@ -45,6 +45,7 @@ class BasicProcess:
         """
         entry_file_path = cleanup_path(decode_if_bytes(entry_file_path))
 
+        # Getting the last element aka. the lowest level of the path
         _last_path_elem = entry_file_path.replace("/", "\\").split("\\")[-1]
         # for the sake of checking; all paths used are converted into
         # the windows path-style

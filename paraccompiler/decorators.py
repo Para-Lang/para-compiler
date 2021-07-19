@@ -29,12 +29,25 @@ def abortable(
         _func=None,
         *,
         reraise: bool,
+        preserve_exception: bool = False,
         print_abort: bool = True,
         step: str = "Process"
 ):
     """
     Marks the function as abortable and adds traceback logging to it.
-    If reraise is False it will exit the program
+
+    Raised InterruptError will close the program entirely!
+
+    :param _func: Function to apply the decorator
+    :param reraise: If set to True, any exception will be reraised. If False,
+                    it will close the program and write the error onto the
+                    console.
+    :param preserve_exception: If set to True, the original exception will be
+                               returned and not the wrapped exception using
+                               InternalError or InterruptError
+    :param print_abort: If True, it will print the abort banner when closing
+    :param step: The step that should be passed onto print_abort_banner.
+                 Only valid argument when print_abort is True
     """
 
     def _decorator(func):
@@ -49,7 +62,10 @@ def abortable(
                     exit(1)
 
                 except KeyboardInterrupt as e:
-                    raise InterruptError(exception=e) from e
+                    if preserve_exception:
+                        raise e
+                    else:
+                        raise InterruptError(exc=e) from e
 
                 except ParacCompilerError as e:
                     from .__main__ import para_compiler
@@ -61,22 +77,23 @@ def abortable(
                         brief="Encountered unexpected exception while running",
                         exc_info=sys.exc_info()
                     )
-                    raise InterruptError(exception=e) from e
+                    if preserve_exception:
+                        raise e
+                    else:
+                        raise InterruptError(exc=e) from e
 
                 except Exception as e:
                     from .__main__ import para_compiler
                     if not para_compiler.log_initialised:
                         para_compiler.init_logging_session()
 
-                    raise InternalError(
-                        "Encountered unexpected exception while running"
-                    ) from e
-
-            except ParacCompilerError as e:
-                if reraise:
-                    raise e
-                else:
-                    exit(1)
+                    if preserve_exception:
+                        raise e
+                    else:
+                        raise InternalError(
+                            "Encountered unexpected exception while running",
+                            exc=e
+                        ) from e
 
             except Exception as e:
                 if reraise:

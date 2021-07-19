@@ -1,14 +1,16 @@
 # coding=utf-8
 """ Exceptions in the Para-C Compiler """
 from enum import IntEnum
-from typing import NewType, Optional
+from types import TracebackType
+from typing import NewType, Union, Type
 
 from .logging import log_msg
 
 __all__ = [
     'ErrorCodes', 'ParacCompilerError',
 
-    'InternalError', 'InterruptError', 'FailedToProcessError',
+    'InternalError', 'InternalErrorInfo', 'InterruptError',
+    'FailedToProcessError',
 
     'UserInputError', 'FileAccessError', 'FilePermissionError',
     'FileNotFoundError', 'IsDirectoryError', 'InvalidArgumentsError',
@@ -101,6 +103,36 @@ class ParacCompilerError(Exception):
 
 
 # 1** - INTERNAL ERRORS
+
+class InternalErrorInfo:
+    """ Class storing info about an exception causing an InternalError """
+    
+    def __init__(
+            self,
+            exc_type: Type[Exception],
+            exc_value: Exception,
+            exc_tb: TracebackType
+    ):
+        self._exc_type = exc_type
+        self._exc_value = exc_value
+        self._exc_tb = exc_tb
+    
+    @property
+    def exc_type(self) -> Type[Exception]:
+        """ Exception Type """
+        return self._exc_type
+
+    @property
+    def exc_value(self) -> Exception:
+        """ Exception Instance """
+        return self._exc_value
+
+    @property
+    def exc_tb(self) -> TracebackType:
+        """ Traceback of Exception Instance """
+        return self._exc_tb
+
+
 class InternalError(ParacCompilerError):
     """
     Encountered an error in the internal compiler structure. This is an
@@ -109,6 +141,32 @@ class InternalError(ParacCompilerError):
     error_msg = "Failed due to internal error! Please checks the logs and " \
                 "report the issue if the issue can't be resolved!"
     _default_code = ErrorCodes.INTERNAL_ERROR
+
+    def __init__(
+            self,
+            *args,
+            exc: Union[Exception, ParacCompilerError],
+            code: int = _default_code,
+    ):
+        if exc:
+            if hasattr(exc, 'code'):
+                code = exc.code
+        else:
+            code = self._default_code  # always default to INTERRUPT
+
+        self._origin = InternalErrorInfo(
+            type(exc),
+            exc,
+            exc.__traceback__
+        )
+        super().__init__(code=code, *args)
+
+    @property
+    def origin(self) -> InternalErrorInfo:
+        """
+        InternalErrorInfo for the original Exception causing the InternalError
+        """
+        return self._origin
 
 
 class InterruptError(InternalError, RuntimeError):
@@ -123,21 +181,24 @@ class InterruptError(InternalError, RuntimeError):
             self,
             *args,
             code: int = _default_code,
-            exception: Optional[BaseException] = None
+            exc: Union[Exception, KeyboardInterrupt] = None,
+            print_abort_code: bool = True
     ):
-        if exception:
-            if hasattr(exception, 'code'):
-                code = exception.code
-        elif type(exception) is KeyboardInterrupt:
-            code = ErrorCodes.INTERRUPT
+        if exc:
+            if hasattr(exc, 'code'):
+                code = exc.code
+        else:
+            code = self._default_code  # always default to INTERRUPT
 
+        self.origin_exc = exc
         super().__init__(code=code, *args)
 
-        log_msg(
-            level='critical',
-            msg=f"Aborting setup with error code "
-                f"{repr(self.code)}" if hasattr(self, 'code') else ""
-        )
+        if print_abort_code:
+            log_msg(
+                level='critical',
+                msg=f"Aborting setup with error code "
+                    f"{repr(self.code)}" if hasattr(self, 'code') else ""
+            )
 
 
 class FailedToProcessError(InternalError):
@@ -172,10 +233,10 @@ class FilePermissionError(UserInputError):
     _default_code = ErrorCodes.FILE_PERM_ERROR
 
 
-_FileNotFoundError = FileNotFoundError
+_in_FileNotFoundError = FileNotFoundError
 
 
-class FileNotFoundError(UserInputError, _FileNotFoundError):
+class FileNotFoundError(UserInputError, _in_FileNotFoundError):
     """ File does not exist """
     error_msg = "Specified Entry File does not exist"
     _default_code = ErrorCodes.FILE_NOT_FOUND

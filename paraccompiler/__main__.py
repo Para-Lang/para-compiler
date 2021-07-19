@@ -38,7 +38,7 @@ colorama.init(autoreset=True)
 para_compiler = ParacCompiler()
 
 
-@abortable(step="Setup", reraise=True)
+@abortable(step="Setup", reraise=True, preserve_exception=True)
 def create_process(
         file: Union[str, PathLike],
         encoding: str,
@@ -74,7 +74,7 @@ def create_basic_process(
 
 
 @abortable(step="Validating Output", reraise=True)
-def _dir_already_exists(folder: Union[str, PathLike]) -> bool:
+def _err_dir_already_exists(folder: Union[str, PathLike]) -> bool:
     """ Asks the user whether the build folder should be overwritten """
     _input = console().input(
         f"[bright_yellow] > [bright_white]The {folder} "
@@ -101,7 +101,7 @@ def _check_destination(
     elif len(os.listdir(default_path)) > 0:
         # If the overwrite is set to False then a prompt will appear
         if overwrite is False:
-            overwrite = _dir_already_exists(output_type)
+            overwrite = _err_dir_already_exists(output_type)
 
         if overwrite:
             shutil.rmtree(default_path)

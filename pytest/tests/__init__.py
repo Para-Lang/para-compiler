@@ -14,7 +14,7 @@ prev_input = paraccompiler.get_rich_console().input
 paraccompiler.set_avoid_print_banner_overwrite(True)
 
 
-def overwrite_input(overwrite: str):
+def overwrite_builtin_input(overwrite: str):
     """ Overwrites the input with a lambda that returns the specified value """
     getattr(paraccompiler.logging, 'output_console').input =\
         lambda *args, **kwargs: overwrite

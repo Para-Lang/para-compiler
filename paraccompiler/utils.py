@@ -5,9 +5,10 @@ import logging
 import re
 import os
 from os import PathLike
-from typing import Union, Type, Optional
+from typing import Union, Type, Optional, Callable
 
 __all__ = [
+    'CleanUpManager',
     'validate_file_ending',
     'validate_path_like',
     'is_c_compiler_ready',
@@ -20,11 +21,60 @@ __all__ = [
     'SpecialBoolDefault'
 ]
 
+# Preserving the internal FileNotFoundError
+_in_FileNotFoundError = FileNotFoundError
 
 from .logging import get_rich_console as console
-from .para_exceptions import FilePermissionError, CCompilerNotFoundError
+from .para_exceptions import (FilePermissionError, CCompilerNotFoundError,
+                              FileNotFoundError)
 
 logger = logging.getLogger(__name__)
+
+
+class CleanUpManager:
+    """
+    Cleanup class used for managing cases where specific handing needs to be
+    implemented and a cleanup method called in certain cases, but not
+    necessarily all. This class will call after being used as a contextmanager
+    the method passed during initialisation.
+
+    Args and Kwargs can also be passed to the cleanup function by just passing
+    a tuple and the dict to init as args: tuple and kwargs: dict
+
+    These can also be manipulated inside the context manager block by setting
+    f_args and f_kwargs
+    """
+
+    class Cancel(Exception):
+        """
+        Simple Puppet class for serving as a way to differentiate between
+        exceptions
+        """
+        ...
+
+    def __init__(self, f_cleanup: Callable, args: tuple, kwargs: dict):
+        self.f_cleanup: Callable = f_cleanup
+        self.f_args = args
+        self.f_kwargs = kwargs
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        cancelled: bool = issubclass(exc_type, self.__class__.Cancel)
+
+        if not cancelled:
+            self.f_cleanup(*self.f_args, **self.f_kwargs)
+        else:
+            if exc_value:
+                raise exc_value  # re-raising exception
+
+    def cancel(self):
+        """
+        Cancel the execution of the cleanup method after returning from the
+        context manager
+        """
+        raise self.__class__.Cancel
 
 
 def validate_file_ending(path: Union[str, PathLike]) -> bool:
