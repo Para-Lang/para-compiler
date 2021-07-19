@@ -285,21 +285,6 @@ AsmBlock
 	-> skip
     ;
 
-Comment
-    :   (BlockComment | LineComment)
-    -> skip
-    ;
-
-fragment
-BlockComment
-    :   '/*' .*? '*/'
-    ;
-
-fragment
-LineComment
-    :   '//' ~[\r\n]+
-    ;
-
 Whitespace
     :   [ \t]+
     ;

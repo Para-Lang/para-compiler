@@ -690,21 +690,6 @@ Identifier
         )*
     ;
 
-FileComment
-    :   (BlockComment | LineComment)
-        -> skip
-    ;
-
-fragment
-BlockComment
-    :   '/*' [\u0000-\uFFFE]*? '*/'
-    ;
-
-fragment
-LineComment
-    :   '//' ~[\r\n]*
-    ;
-
 ExtensionTaskLambda
     :   '@' Whitespace* Identifier
         Whitespace* ExtensionTaskBlock Whitespace*
