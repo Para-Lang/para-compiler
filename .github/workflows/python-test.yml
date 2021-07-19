@@ -36,8 +36,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: pytest with coverage
       run: |
-        python3 -m pip install -e .
-        cd pytest
+        python3 -m pip install --upgrade -e ./src
+        cd ./src/pytest
         python -m pytest -q --github=true
 
   coverage-badge:
