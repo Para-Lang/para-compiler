@@ -71,7 +71,7 @@ jobs:
       - name: pytest with coverage
         run: |
           python3 -m pip install --upgrade -e ./src
-          cd pytest
+          cd ./src/pytest/
           coverage run -m pytest -q --github=true ;
           if [ -f ../coverage.svg ]; then rm ../coverage.svg; fi
           coverage-badge -o ../coverage.svg
@@ -150,13 +150,13 @@ jobs:
       - name: pytest with coverage
         run: |
           python3 -m pip install --upgrade -e ./src
-          cd ./pytest/
+          cd ./src/pytest/
           coverage run -m pytest -q --github=true ;
-          cd ..
+          cd ../..
       - name: coverage-html
         run: |
-          cd ./pytest/ ; coverage html ; cd ..
-          mv ./pytest/htmlcov/ /tmp/htmlcov/
+          cd ./src/pytest/ ; coverage html ; cd ..
+          mv ./src/pytest/htmlcov/ /tmp/htmlcov/
           mv ./parac.ico /tmp/parac.ico
           rm -rf *
           mv /tmp/htmlcov/* .
