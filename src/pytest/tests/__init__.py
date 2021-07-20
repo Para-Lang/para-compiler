@@ -9,8 +9,6 @@ sys.path.append(os.getcwd())
 import parac
 from parac.compiler import SEPARATOR
 
-github_run = '--github=true' in sys.argv
-
 parac.compiler.init_rich_console()
 prev_input = parac.compiler.get_rich_console().input
 parac.compiler.set_avoid_print_banner_overwrite(True)

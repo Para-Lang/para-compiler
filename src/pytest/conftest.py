@@ -18,13 +18,6 @@ parac.compiler.para_compiler.init_logging_session(
 )
 
 
-def pytest_addoption(parser):
-    """ Adds the --github command line option"""
-    parser.addoption(
-        "--github", action="store", default="", help="Signalises it's run by github actions"
-    )
-
-
 @pytest.fixture(autouse=True)
 def capture_wrap():
     """
