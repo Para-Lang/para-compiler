@@ -8,11 +8,14 @@ import os
 
 # Installing new version of the package
 os.system("pip install --upgrade -e ..")
-logging.basicConfig(level=logging.DEBUG)
 shutil.rmtree("../parac.egg-info")
 
 import parac
 assert parac
+
+parac.compiler.para_compiler.init_logging_session(
+    level=logging.DEBUG, print_banner=False
+)
 
 
 def pytest_addoption(parser):

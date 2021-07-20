@@ -70,7 +70,7 @@ class ParacCompiler:
         if print_banner:
             print_log_banner(banner_name, additional_newline)
 
-        cls.logger: logging.Logger = logging.getLogger("compiler")
+        cls.logger: logging.Logger = logging.getLogger("parac")
         cls.logger.setLevel(level)
 
         # if the stream handler exists it will always get removed by default

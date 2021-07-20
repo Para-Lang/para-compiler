@@ -43,13 +43,11 @@ __all__ = [
     'INIT_OVERWRITE'
 ]
 
-import logging as lib_logging
 import click
 import colorama
 from typing import List
 
 
-lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
 colorama.init(autoreset=True)
 
 WIN: bool = click.utils.WIN

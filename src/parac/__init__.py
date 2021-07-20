@@ -29,3 +29,7 @@ __all__ = [
     'compiler',
     'preprocessor'
 ]
+
+import logging as lib_logging
+
+lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())

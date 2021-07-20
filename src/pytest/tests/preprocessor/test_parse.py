@@ -11,8 +11,6 @@ from parac.compiler import ParacCompiler, ProgramCompilationProcess, \
 from . import reset_input
 from .. import add_folder, remove_folder
 
-logger = logging.getLogger('compiler')
-
 compiler = ParacCompiler()
 para_compiler.init_logging_session(
     level=logging.DEBUG, print_banner=False
