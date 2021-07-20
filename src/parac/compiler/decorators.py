@@ -30,6 +30,7 @@ def abortable(
         *,
         reraise: bool,
         preserve_exception: bool = False,
+        abort_on_internal_errors: bool = False,
         print_abort: bool = True,
         step: str = "Process"
 ):
@@ -45,6 +46,11 @@ def abortable(
     :param preserve_exception: If set to True, the original exception will be
                                returned and not the wrapped exception using
                                InternalError or InterruptError
+    :param abort_on_internal_errors: If set to True when receiving an
+                                     InternalError it will treat it as a call
+                                     for aborting the process. This means it
+                                     will stop the program and print the
+                                     abort banner if print_abort is True.
     :param print_abort: If True, it will print the abort banner when closing
     :param step: The step that should be passed onto print_abort_banner.
                  Only valid argument when print_abort is True
@@ -53,13 +59,17 @@ def abortable(
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
+            def _handle_abort(print_out: bool):
+                if print_out:
+                    print_abort_banner(step)
+                exit(1)
+
             try:
                 try:
                     return func(*args, **kwargs)
+
                 except InterruptError:
-                    if print_abort:
-                        print_abort_banner(step)
-                    exit(1)
+                    _handle_abort(print_abort)
 
                 except KeyboardInterrupt as e:
                     if preserve_exception:
@@ -96,10 +106,12 @@ def abortable(
                         ) from e
 
             except Exception as e:
-                if reraise:
+                if abort_on_internal_errors and type(e) is InternalError:
+                    _handle_abort(print_abort)
+                elif reraise:
                     raise e
                 else:
-                    exit(1)
+                    _handle_abort(print_abort)
 
         return _wrapper
 
