@@ -36,9 +36,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: pytest with coverage
       run: |
-        python3 -m pip install -e .
-        cd pytest
-        python -m pytest -q --github=true
+        python -m pip install --upgrade -e ./src/
+        cd ./src/pytest
+        python -m pytest -q
 
   coverage-badge:
     needs: build
@@ -70,9 +70,9 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest with coverage
         run: |
-          python3 -m pip install -e .
-          cd pytest
-          coverage run -m pytest -q --github=true ;
+          python -m pip install --upgrade -e ./src/
+          cd ./src/pytest/
+          coverage run -m pytest -q ;
           if [ -f ../coverage.svg ]; then rm ../coverage.svg; fi
           coverage-badge -o ../coverage.svg
           cd ..
@@ -149,15 +149,16 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest with coverage
         run: |
-          python3 -m pip install -e .
-          cd ./pytest/
-          coverage run -m pytest -q --github=true ;
-          cd ..
+          python -m pip install --upgrade -e ./src/
+          cd ./src/pytest/
+          coverage run -m pytest -q ;
+          cd ../..
       - name: coverage-html
         run: |
-          cd ./pytest/ ; coverage html ; cd ..
-          mv ./pytest/htmlcov/ /tmp/htmlcov/
-          mv ./parac.ico /tmp/parac.ico
+          python -m pip install --upgrade -e ./src/
+          cd ./src/pytest/ ; coverage html ; cd ../..
+          mv ./src/pytest/htmlcov/ /tmp/htmlcov/
+          mv ./img/parac.ico /tmp/parac.ico
           rm -rf *
           mv /tmp/htmlcov/* .
           mv /tmp/parac.ico favicon.ico
