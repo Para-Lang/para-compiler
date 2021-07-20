@@ -70,7 +70,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest with coverage
         run: |
-          python3 -m pip install -e .
+          python3 -m pip install --upgrade -e ./src
           cd pytest
           coverage run -m pytest -q --github=true ;
           if [ -f ../coverage.svg ]; then rm ../coverage.svg; fi
@@ -149,7 +149,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest with coverage
         run: |
-          python3 -m pip install -e .
+          python3 -m pip install --upgrade -e ./src
           cd ./pytest/
           coverage run -m pytest -q --github=true ;
           cd ..
