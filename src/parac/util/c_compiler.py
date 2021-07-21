@@ -21,8 +21,8 @@ def is_c_compiler_ready() -> bool:
     Returns whether the Para-C Compiler is correctly
     initialised and the c-compiler can be found
     """
-    from ..const import INIT_OVERWRITE, CONFIG_PATH
-    if INIT_OVERWRITE:
+    from ..const import C_COM_EXISTENCE_OVERWRITE, CONFIG_PATH
+    if C_COM_EXISTENCE_OVERWRITE:
         return True
 
     if os.access(CONFIG_PATH, os.R_OK):
@@ -68,5 +68,5 @@ def cli_initialise_c_compiler() -> None:
         file.write(json.dumps(config, indent=4))
 
     logger.info(
-        "Validated path and successfully created compile-config.json"
+        "Validated path and successfully created compiler-config.json"
     )

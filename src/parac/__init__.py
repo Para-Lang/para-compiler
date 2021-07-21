@@ -54,7 +54,7 @@ __all__ = [
     'DEFAULT_DIST_PATH',
     'DEFAULT_BUILD_PATH',
     'DEFAULT_CONFIG',
-    'INIT_OVERWRITE',
+    'C_COM_EXISTENCE_OVERWRITE',
     *exceptions.__all__,
     *const.__all__,
     *MODULES

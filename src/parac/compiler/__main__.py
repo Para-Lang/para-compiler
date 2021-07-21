@@ -228,7 +228,7 @@ def parac_c_init(*args, **kwargs):
 @click.option(
     "-l",
     "--log",
-    default=cli_format_default("parac.log"),
+    default=cli_format_default("./parac.log"),
     type=str,
     prompt=cli_create_prompt(
         "Specify where the console .log file should be created"
@@ -304,7 +304,7 @@ def parac_compile(*args, **kwargs):
     "-l",
     "--log",
     type=str,
-    default=cli_format_default("parac.log"),
+    default=cli_format_default("./parac.log"),
     prompt=cli_create_prompt(
         "Specify where the console .log file should be created"),
     help="Path of the output .log file where program messages should be logged"
@@ -363,7 +363,7 @@ def parac_run(*args, **kwargs):
     "-l",
     "--log",
     type=str,
-    default=cli_format_default("parac.log"),
+    default=cli_format_default("./parac.log"),
     prompt=cli_create_prompt(
         "Specify where the console .log file should be created"),
     help="Path of the output .log file where program messages should be logged"

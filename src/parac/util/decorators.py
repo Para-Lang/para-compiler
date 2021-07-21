@@ -130,10 +130,10 @@ def requires_init(_func=None):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
             from ..compiler import para_compiler
-            from .. import INIT_OVERWRITE
+            from .. import C_COM_EXISTENCE_OVERWRITE
             from . import (is_c_compiler_ready, cli_initialise_c_compiler)
 
-            if not is_c_compiler_ready() and not INIT_OVERWRITE:
+            if not is_c_compiler_ready() and not C_COM_EXISTENCE_OVERWRITE:
                 if not para_compiler.log_initialised:
                     para_compiler.init_logging_session()
 

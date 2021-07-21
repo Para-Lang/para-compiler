@@ -80,6 +80,27 @@ that can be contributed to, since changes are made while the theory is made
 as well. This means contributions are going to be limited until the basic
 structure is finished.
 
+### Running Info
+There are two different usage (run) options where the compiler can be used:
+- Python module, which is either the source code execution or usage of the
+  imported module
+- Compiled distribution, which is the compiled version of Para-C, which included the
+  CLI. Due to the difference in implementation, only this version can be 
+  configured, since the python module is intended for customised behaviour, 
+  meaning the pre-configured runtime options are not available. 
+  
+To differentiate between the two, there are constant variables that are set
+during initialisation (Only one can be true, if one is true the other is 
+automatically false):
+ - `DIST_VERSION: bool` - If `True` it's the distribution version
+ - `MODULE_VERSION: bool` - If `True` it's the module version
+
+*Note: The most notable difference between the two options is the location of
+the lib folder, containing the C implementation. The folder is in the module
+version in the root folder of the **module**, aka. where setup.py is/was located
+and in the distribution folder in the main **root** folder. The entry point is
+in this case in the ./bin/ folder*
+
 ### CLI
 ...
 

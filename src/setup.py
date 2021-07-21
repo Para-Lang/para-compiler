@@ -1,15 +1,17 @@
 # coding=utf-8
 """ Setup file for the entire project """
+import os
+
 import setuptools
 from pathlib import Path
 
-BASE_PATH = Path(__file__).parent.parent.resolve()
+SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
 
 # TODO! Insert here the README for pypi
-with open(BASE_PATH / "README.md", "r", encoding='utf-8') as file:
+with open(SRC_PATH / "README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 
-with open(BASE_PATH / "src" / "requirements.txt", encoding='utf-8') as file:
+with open(SRC_PATH / "requirements.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(

@@ -1,11 +1,5 @@
 # coding=utf-8
 """ Compiler for the Para-C programming language """
-
-from pathlib import Path
-
-BASE_DIR: Path = Path(__file__).parent.parent.resolve()
-
-# Main imports
 from . import __main__
 from .__main__ import *
 from . import optimiser
