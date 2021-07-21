@@ -11,9 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Pure syntax check command (`parac syntax-check`, For info see #9 and #10)
+- Added const file `const.py` for containing constant values that are used
+  throughout the module
+- Structure as proper module, so it can be distributed to `pypi` as module as well  
+- Distinction between distribution and module version and const Values 
+  (`const.py`) `DIST_VERSION` and `MODULE_VERSION` for separating Distribution
+  and Module/Source-Code Version.
 - Pre-Processor module, including its own grammar and handling for files
 - Integration of the compiled Antlr4 lexer and parser in both Pre-Processor and Compiler
-- ABC Base Class Files for both Pre-Processor and Para-Compiler
+- ABC Base Class Files (in module `parac/abc/`) for both Pre-Processor and Para-Compiler
 - New Exception Classes (With appropriate Update of `class ErrorCodes(IntEnum)`): 
   - `InternalError`
   - `FailedToProcessError`
@@ -48,8 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Property `origin_exc` to `InterrruptError` for saving the original exception instance that was raised.
 
 ### Changed
-- Token Classes and refined items
 - Restructured module and added new parent module `parac` for both compiler and preprocessor.
+- Token Classes and refined items  
 - In `build-exe.py`; Implemented `pathlib.Path` usage and proper handling changed based on the new structure
 - Antlr4 Grammar file to include Pre-Processor statements and 
   the basic entry-file specification syntax
@@ -66,6 +72,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `README.md` and added appropriate documentation on antlr4, cli and changes
 - Renamed cli command `init` to `c-init`
 - Renamed `parac-base-library` to `lib` and moved it to `src/lib`
+- Moved `logging` to base folder `parac`
+- Moved `utils.py` and split items into multiple files in `parac/util`
+- Renamed `para_exceptions.py` to `exceptions.py` and moved it to base folder `parac`
 
 ### Removed
 - pytest option `--github=<true/false>` (Became unnecessary and deprecated)
