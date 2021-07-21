@@ -10,7 +10,7 @@ from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
 
-from ..compiler.core.abc import ProgramRunContext, FileRunContext
+from ..abc import ProgramRunContext, FileRunContext
 from .logic_stream import PreProcessorStream
 from .__main__ import PreProcessor, PreProcessorProcessResult
 
@@ -186,8 +186,10 @@ class ProgramPreProcessorContext(ProgramRunContext):
                    FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
-        from ..compiler import (get_file_stream, get_relative_file_name,
-                                get_input_stream, ParacCompiler)
+        from ..compiler import ParacCompiler
+        from ..util import (get_file_stream, get_relative_file_name,
+                            get_input_stream)
+
         file_stream = get_file_stream(file_path, self.encoding)
         relative_file_name = get_relative_file_name(
             file_name=file_stream.name,

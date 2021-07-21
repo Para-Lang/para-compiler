@@ -2,10 +2,11 @@
 """ Test for the compiler process setup """
 import os
 
-from parac.compiler import (ProgramCompilationProcess, SEPARATOR as SEP,
-                            set_avoid_print_banner_overwrite)
-from . import reset_input
-from .. import add_folder
+from parac import SEPARATOR as SEP
+from parac.compiler import ProgramCompilationProcess
+from parac.logging import set_avoid_print_banner_overwrite
+
+from .. import add_folder, reset_input
 
 main_file_path = f"{os.getcwd()}{SEP}test_files{SEP}entry.para"
 set_avoid_print_banner_overwrite(True)

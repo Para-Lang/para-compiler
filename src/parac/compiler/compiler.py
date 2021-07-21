@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import logging
 from os import PathLike
+from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal
 import antlr4
 
@@ -15,9 +16,9 @@ from .parser.python import ParaCParser
 from .parser.listener import Listener
 from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                        print_log_banner)
-from ..utils import get_relative_file_name, get_input_stream, get_file_stream
-from ..para_exceptions import (FilePermissionError, LexerError, LinkerError,
-                               ParacCompilerError)
+from ..util import get_relative_file_name, get_input_stream, get_file_stream
+from ..exceptions import (FilePermissionError, LexerError, LinkerError,
+                          ParacCompilerError)
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -88,7 +89,8 @@ class ParacCompiler:
 
         if type(log_path) is str and log_path.lower() != 'none':
             try:
-                cls.file_handler = ParacFileHandler(filename=f'./{log_path}')
+                path: Path = Path(log_path).resolve()
+                cls.file_handler = ParacFileHandler(filename=path)
             except PermissionError:
                 raise FilePermissionError(
                     "Failed to access the specified log file-path"
@@ -184,7 +186,7 @@ class ParacCompiler:
             # TODO! Add proper error handling and logging
             return False
 
-        from ..__main__ import para_compiler
+        from . import para_compiler
 
         if para_compiler.stream_handler.errors > 0:
             return False

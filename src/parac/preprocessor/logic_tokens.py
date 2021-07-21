@@ -4,7 +4,7 @@ from os import PathLike
 from typing import Optional, Any, List, Union
 from cached_property import cached_property
 
-from ..compiler.core.abc import NULL_CHILDREN
+from ..abc import NULL_CHILDREN
 from .abc import PreProcessorLogicToken
 
 __all__ = [

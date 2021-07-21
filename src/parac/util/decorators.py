@@ -7,19 +7,20 @@ import warnings
 from sys import exit
 from functools import wraps
 
-from .para_exceptions import (InterruptError, ParacCompilerError, InternalError)
+from ..exceptions import (InterruptError, ParacCompilerError,
+                          InternalError)
 
-from .logging import (get_rich_console as console, log_traceback,
-                      print_abort_banner, init_rich_console)
-from .utils import escape_ansi
+from ..logging import (get_rich_console as console, log_traceback,
+                       print_abort_banner, init_rich_console)
+from .strtools import escape_ansi
 
 
 __all__ = [
     'deprecated',
     'abortable',
     'requires_init',
-    'keep_open_callback',
-    'escape_ansi_param'
+    'cli_keep_open_callback',
+    'escape_ansi_args'
 ]
 
 logger = logging.getLogger(__name__)
@@ -65,9 +66,9 @@ def abortable(
                 exit(1)
 
             try:
+                from ..compiler import para_compiler
                 try:
                     return func(*args, **kwargs)
-
                 except InterruptError:
                     _handle_abort(print_abort)
 
@@ -78,7 +79,6 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except ParacCompilerError as e:
-                    from .__main__ import para_compiler
                     if not para_compiler.log_initialised:
                         para_compiler.init_logging_session()
 
@@ -93,7 +93,6 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except Exception as e:
-                    from .__main__ import para_compiler
                     if not para_compiler.log_initialised:
                         para_compiler.init_logging_session()
 
@@ -130,10 +129,11 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from . import (is_c_compiler_ready, INIT_OVERWRITE,
-                           initialise_c_compiler)
+            from ..compiler import para_compiler
+            from .. import INIT_OVERWRITE
+            from . import (is_c_compiler_ready, cli_initialise_c_compiler)
+
             if not is_c_compiler_ready() and not INIT_OVERWRITE:
-                from . import para_compiler
                 if not para_compiler.log_initialised:
                     para_compiler.init_logging_session()
 
@@ -149,7 +149,7 @@ def requires_init(_func=None):
                     "Initialising Para-C compiler due to missing configuration"
                     "\n"
                 )
-                initialise_c_compiler()
+                cli_initialise_c_compiler()
                 logger.info("Setup may continue\n")
             return func(*args, **kwargs)
 
@@ -194,7 +194,7 @@ def deprecated(_func, *, instead=None):
         return _decorator(_func)
 
 
-def keep_open_callback(_func=None):
+def cli_keep_open_callback(_func=None):
     """ Keeps the console open after finishing until the user presses a key """
 
     def _decorator(func):
@@ -219,7 +219,7 @@ def keep_open_callback(_func=None):
         return _decorator(_func)
 
 
-def escape_ansi_param(_func):
+def escape_ansi_args(_func):
     """
     Calls the function but removes ansi colouring on the args and kwargs on str
     items if it exists

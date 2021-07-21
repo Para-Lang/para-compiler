@@ -9,7 +9,7 @@ from antlr4.error.Errors import (InputMismatchException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
 
-from .abc.base_error_handler import BaseErrorListener
+from ..abc.base_error_handler import BaseErrorListener
 
 __all__ = [
     'ParacErrorListener',

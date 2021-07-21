@@ -4,13 +4,14 @@ import pytest
 
 import os
 
+from parac import (FileNotFoundError as ParaFileNotFoundError,
+                   SEPARATOR as SEP)
+from parac.logging import set_avoid_print_banner_overwrite
 from parac.compiler import (ParacCompiler, create_process,
-                            FileNotFoundError as ParaFileNotFoundError,
-                            set_avoid_print_banner_overwrite, SEPARATOR as SEP,
                             run_output_dir_validation)
 
-from . import (add_folder, overwrite_builtin_input, reset_input,
-               create_test_file)
+from .. import (add_folder, overwrite_builtin_input, reset_input,
+                create_test_file)
 
 LOG_PATH = 'para.log'
 ENCODING = 'utf-8'

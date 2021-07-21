@@ -7,12 +7,12 @@ import sys
 import traceback
 import re
 from logging import StreamHandler
-
 from rich.console import Console
 from typing import Optional, Callable, Tuple, Type, Union, Literal
 from types import FunctionType, TracebackType
-
 from rich.theme import Theme
+
+from .const import WIN, DEFAULT_LOG_PATH
 
 __all__ = [
     'OVERWRITE_AVOID_PRINT_BANNER',
@@ -32,8 +32,8 @@ __all__ = [
     'print_abort_banner',
     'print_log_banner',
     'print_result_banner',
-    'create_prompt',
-    'format_default',
+    'cli_create_prompt',
+    'cli_format_default',
     'logger'
 ]
 
@@ -65,7 +65,6 @@ def set_avoid_print_banner_overwrite(value: bool):
 
 def get_terminal_size() -> Optional[int]:
     """ Gets the terminal size """
-    from . import WIN
     width: Optional[int] = None
     if "PYCHARM_HOSTED" in os.environ:
         width = 150
@@ -161,7 +160,7 @@ class ParacFileHandler(logging.FileHandler):
 
     def __init__(
             self,
-            filename='./parac.log',
+            filename=DEFAULT_LOG_PATH,
             encoding='utf-8',
             mode='w',
             *args,
@@ -357,7 +356,7 @@ ansi_col = TerminalANSIColor()
 
 def print_init_banner() -> None:
     """ Creates the init screen string that can be printed """
-    from .. import __version__
+    from . import __version__
 
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
@@ -422,13 +421,13 @@ def print_log_banner(name: str = "Compiler", newline: bool = True) -> None:
     )
 
 
-def format_default(string: str) -> str:
+def cli_format_default(string: str) -> str:
     """ Creates a colored string for a command default """
     return f"{ansi_col.bright_green}{string}" \
            f"{ansi_col.make_bold(ansi_col.bright_cyan)}"
 
 
-def create_prompt(string: str) -> str:
+def cli_create_prompt(string: str) -> str:
     """
     Creates a colored prompt string for a click.prompt() call
     (Uses ansi instead of rich because of compatibility issues)

@@ -8,12 +8,11 @@ from .python import ParaCPreProcessorListener
 from .ctx import FilePreProcessorContext
 from .python import ParaCPreProcessorParser as parser
 
-_p = parser.ParaCPreProcessorParser
-
-
 __all__ = [
     'Listener'
 ]
+
+_p = parser.ParaCPreProcessorParser
 
 
 class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):

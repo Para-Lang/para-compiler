@@ -13,7 +13,7 @@ __all__ = [
 
 from typing import List
 
-from .abc import ParacLogicToken, CLogicToken, LogicStream
+from ..abc import ParacLogicToken, CLogicToken, LogicStream
 
 logger = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Error handler for the preprocessor parser and lexer """
 from typing import Union
-from ..compiler.core.abc import BaseErrorListener
+from ..abc import BaseErrorListener
 
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,

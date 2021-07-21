@@ -10,13 +10,13 @@ import os
 from os import PathLike
 from typing import Union, Tuple, List, Optional, AsyncGenerator
 
-from ...preprocessor import PreProcessorProcessResult
-from ...preprocessor.ctx import ProgramPreProcessorContext
+from ..preprocessor import PreProcessorProcessResult
+from ..preprocessor.ctx import ProgramPreProcessorContext
 
 from .ctx import ProgramCompilationContext
-from ..utils import (decode_if_bytes, cleanup_path, validate_file_ending,
-                     validate_path_like)
-from ..para_exceptions import FileAccessError
+from ..util import (decode_if_bytes, cleanup_path, validate_file_ending,
+                    validate_path_like)
+from ..exceptions import FileAccessError
 
 __all__ = [
     'BasicProcess',

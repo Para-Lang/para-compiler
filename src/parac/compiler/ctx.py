@@ -11,7 +11,7 @@ from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
 import antlr4
 
-from .abc import FileRunContext, ProgramRunContext
+from ..abc import FileRunContext, ProgramRunContext
 from .logic_stream import ParacLogicStream
 
 if TYPE_CHECKING:
@@ -199,8 +199,8 @@ class ProgramCompilationContext(ProgramRunContext):
         :returns: The FilePreProcessorContext instance for the file
         """
         from .compiler import ParacCompiler
-        from ..utils import (get_file_stream, get_relative_file_name,
-                             get_input_stream)
+        from ..util import (get_file_stream, get_relative_file_name,
+                            get_input_stream)
 
         file_stream = get_file_stream(file_path, self.encoding)
         relative_file_name = get_relative_file_name(

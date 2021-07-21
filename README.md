@@ -39,6 +39,9 @@ the program, which is not natively supported, and then pass generated data to
 a C++ program, which then uses that to run something else. 
  
 ## CLI
+The Para-C CLI is the standard CLI for interacting with the standard compiler
+implementation. When [installing](#installation) with a generated installer
+or `build-exe.py`, this will be the interface used when running the compiler.
 
 ### Commands
 *Commands displayed are mostly only partly implemented*
@@ -47,6 +50,15 @@ a C++ program, which then uses that to run something else.
 - `parac c-init` - Console Line Interface for the configuration of the C-compiler
 - `parac syntax-check` - Validates the syntax of a Para-C program and logs errors if needed
 - `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax (Not added yet. See [#9](/../../issues/9) and [#10](/../../issues/10))
+
+## Python Module 
+
+The `parac` module serves the purpose of combining the entire compiler with
+lib into a simple module, which can be imported and used in ways that are not
+implemented in the standard CLI. This means both the `preprocessor` and 
+`compiler` are available for customisable usage.
+
+For more info see [Module README](./src/README.md).
 
 ## Development
 

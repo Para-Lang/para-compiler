@@ -5,7 +5,7 @@ from antlr4 import ParserRuleContext
 from abc import ABC, abstractmethod
 from typing import Union, Optional, Any, List
 
-from ...compiler.core.abc import ParacLogicToken, NULL_CHILDREN
+from ...abc import ParacLogicToken, NULL_CHILDREN
 
 
 __all__ = [

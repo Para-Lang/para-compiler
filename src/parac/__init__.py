@@ -12,10 +12,25 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
-from pathlib import Path
-
+from .const import *
+from . import const
+from .exceptions import *
+from . import exceptions
+from . import abc
+from . import logging
+from . import util
 from . import compiler
 from . import preprocessor
+
+MODULES = [
+    "const",
+    "exceptions",
+    "abc",
+    "logging",
+    "util"
+    "compiler",
+    "preprocessor"
+]
 
 __all__ = [
     '__title__',
@@ -31,12 +46,22 @@ __all__ = [
     'compiler',
     'preprocessor',
     'BASE_DIR',
-    'C_LIB_PATH'
+    'C_LIB_PATH',
+    'WIN',
+    'CONFIG_PATH',
+    'VALID_FILE_ENDINGS',
+    'DEFAULT_LOG_PATH',
+    'DEFAULT_DIST_PATH',
+    'DEFAULT_BUILD_PATH',
+    'DEFAULT_CONFIG',
+    'INIT_OVERWRITE',
+    *exceptions.__all__,
+    *const.__all__,
+    *MODULES
 ]
 
 import logging as lib_logging
+import colorama
 
+colorama.init(autoreset=True)
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
-
-BASE_DIR: Path = Path(__file__).parent.parent.resolve()
-C_LIB_PATH: Path = BASE_DIR / "lib"

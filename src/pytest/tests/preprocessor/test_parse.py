@@ -6,10 +6,12 @@ from typing import List
 
 import asyncio
 
-from parac.compiler import ParacCompiler, ProgramCompilationProcess, \
-    para_compiler, set_avoid_print_banner_overwrite, SEPARATOR as SEP
-from . import reset_input
-from .. import add_folder, remove_folder
+from parac.compiler import (ParacCompiler, ProgramCompilationProcess,
+                            para_compiler)
+from parac import SEPARATOR as SEP
+from parac.logging import set_avoid_print_banner_overwrite
+
+from .. import add_folder, remove_folder, reset_input
 
 compiler = ParacCompiler()
 para_compiler.init_logging_session(

@@ -2,26 +2,24 @@
 """ Main file of the Para-Compiler"""
 import shutil
 import time
-
 import asyncio
+from typing import Union, Tuple
 import click
 import colorama
 import logging
 import os
 from os import PathLike
 from rich.progress import Progress
-from typing import Tuple, Union
 
-
-from .para_exceptions import InvalidArgumentsError
-from .core import (ProgramCompilationProcess, FinishedProcess, ParacCompiler,
-                   BasicProcess)
-from .logging import (get_rich_console as console, init_rich_console,
-                      print_result_banner, create_prompt, print_init_banner,
-                      format_default)
-from .utils import is_c_compiler_ready, initialise_c_compiler
-from .decorators import (abortable, requires_init, keep_open_callback,
-                         escape_ansi_param)
+from ..exceptions import InvalidArgumentsError
+from ..const import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+from ..util import (cli_keep_open_callback, escape_ansi_args,
+                    requires_init, is_c_compiler_ready,
+                    cli_initialise_c_compiler, abortable)
+from ..logging import get_rich_console as console, print_result_banner, \
+    cli_create_prompt, cli_format_default, init_rich_console, print_init_banner
+from .compiler import ParacCompiler
+from .process import ProgramCompilationProcess, BasicProcess, FinishedProcess
 
 __all__ = [
     'para_compiler',
@@ -126,7 +124,6 @@ def run_output_dir_validation(
     :param overwrite_dist: If set to True if a dist folder already exists
                            it will be deleted and overwritten
     """
-    from . import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
     build_path = _check_destination(
         "build",
         DEFAULT_BUILD_PATH,
@@ -216,8 +213,8 @@ def parac_c_init(*args, **kwargs):
 @click.option(
     "-f",
     "--file",
-    prompt=create_prompt("Specify the entry-point of your program"),
-    default=format_default("entry.para"),
+    prompt=cli_create_prompt("Specify the entry-point of your program"),
+    default=cli_format_default("entry.para"),
     type=str,
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
@@ -231,9 +228,9 @@ def parac_c_init(*args, **kwargs):
 @click.option(
     "-l",
     "--log",
-    default=format_default("parac.log"),
+    default=cli_format_default("parac.log"),
     type=str,
-    prompt=create_prompt(
+    prompt=cli_create_prompt(
         "Specify where the console .log file should be created"
     ),
     help="Path of the output .log file where program messages should be logged"
@@ -292,8 +289,8 @@ def parac_compile(*args, **kwargs):
     "-f",
     "--file",
     type=str,
-    default=format_default("entry.para"),
-    prompt=create_prompt("Specify the entry-point of your program"),
+    default=cli_format_default("entry.para"),
+    prompt=cli_create_prompt("Specify the entry-point of your program"),
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
 )
@@ -307,8 +304,8 @@ def parac_compile(*args, **kwargs):
     "-l",
     "--log",
     type=str,
-    default=format_default("parac.log"),
-    prompt=create_prompt(
+    default=cli_format_default("parac.log"),
+    prompt=cli_create_prompt(
         "Specify where the console .log file should be created"),
     help="Path of the output .log file where program messages should be logged"
          ". If set to None it will not use a log file and only use the console"
@@ -351,8 +348,8 @@ def parac_run(*args, **kwargs):
     "-f",
     "--file",
     type=str,
-    default=format_default("entry.para"),
-    prompt=create_prompt("Specify the entry-point of your program"),
+    default=cli_format_default("entry.para"),
+    prompt=cli_create_prompt("Specify the entry-point of your program"),
     help="The entry-point of the program where the compiler "
          "should start the compilation process."
 )
@@ -366,8 +363,8 @@ def parac_run(*args, **kwargs):
     "-l",
     "--log",
     type=str,
-    default=format_default("parac.log"),
-    prompt=create_prompt(
+    default=cli_format_default("parac.log"),
+    prompt=cli_create_prompt(
         "Specify where the console .log file should be created"),
     help="Path of the output .log file where program messages should be logged"
          ". If set to None it will not use a log file and only use the console"
@@ -391,8 +388,8 @@ class ParacCLI:
 
     @staticmethod
     @abortable(reraise=True)
-    @keep_open_callback
-    @escape_ansi_param
+    @cli_keep_open_callback
+    @escape_ansi_args
     def cli(ctx: click.Context, version, *args, **kwargs):
         """
         Main entry point of the cli.
@@ -419,8 +416,8 @@ class ParacCLI:
 
     @staticmethod
     @abortable(reraise=True)
-    @keep_open_callback
-    @escape_ansi_param
+    @cli_keep_open_callback
+    @escape_ansi_args
     def parac_c_init():
         """ Initialises the C compiler """
         if not para_compiler.log_initialised:
@@ -429,12 +426,12 @@ class ParacCLI:
             'Reinitialising' if is_c_compiler_ready() else 'Initialising'
             " Para-C Compiler"
         )
-        initialise_c_compiler()
+        cli_initialise_c_compiler()
 
     @staticmethod
     @abortable(reraise=True)
-    @keep_open_callback
-    @escape_ansi_param
+    @cli_keep_open_callback
+    @escape_ansi_args
     def parac_compile(
             file: str,
             encoding: str,
@@ -489,8 +486,8 @@ class ParacCLI:
     @staticmethod
     @abortable(reraise=True)
     @requires_init
-    @keep_open_callback
-    @escape_ansi_param
+    @cli_keep_open_callback
+    @escape_ansi_args
     def parac_run(
             file: str,
             encoding: str,
@@ -512,8 +509,8 @@ class ParacCLI:
 
     @staticmethod
     @abortable(reraise=True)
-    @keep_open_callback
-    @escape_ansi_param
+    @cli_keep_open_callback
+    @escape_ansi_args
     def parac_syntax_check(
             file: str,
             encoding: str,

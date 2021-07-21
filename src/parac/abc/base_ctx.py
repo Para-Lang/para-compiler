@@ -203,7 +203,7 @@ class ProgramRunContext(ABC):
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        from ... import para_compiler
+        from ..compiler import para_compiler
 
         entry_path = self._process.entry_file_path
         para_compiler.logger.debug(f"Parsing entry-file ({entry_path})")

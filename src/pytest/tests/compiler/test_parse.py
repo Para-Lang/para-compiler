@@ -5,10 +5,11 @@ import os
 from typing import List
 import asyncio
 
-from parac.compiler import (SEPARATOR as SEP, ParacCompiler, para_compiler,
-                            set_avoid_print_banner_overwrite, BasicProcess,)
+from parac import SEPARATOR as SEP
+from parac.logging import set_avoid_print_banner_overwrite
+from parac.compiler import ParacCompiler, para_compiler, BasicProcess
 
-from . import reset_input
+from .. import reset_input
 
 logger = logging.getLogger('compiler')
 

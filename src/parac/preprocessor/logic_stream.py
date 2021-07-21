@@ -3,7 +3,7 @@
 from typing import List
 from cached_property import cached_property
 
-from ..compiler.core.abc import LogicStream
+from ..abc import LogicStream
 from .logic_tokens import NonPreProcessorItem
 from .abc import PreProcessorLogicToken
 
