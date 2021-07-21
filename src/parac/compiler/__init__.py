@@ -4,7 +4,7 @@
 from pathlib import Path
 
 # argv[0] returns the path of the starting script
-BASE_DIR: Path = Path("../..")
+BASE_DIR: Path = Path(__file__).parent.parent.resolve()
 
 # Main imports
 from . import logging

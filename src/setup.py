@@ -1,11 +1,15 @@
 # coding=utf-8
 """ Setup file for the entire project """
 import setuptools
+from pathlib import Path
 
-with open("../README.md", "r", encoding='utf-8') as file:
+BASE_PATH = Path(__file__).parent.parent.resolve()
+
+# TODO! Insert here the README for pypi
+with open(BASE_PATH / "README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 
-with open("requirements.txt", encoding='utf-8') as file:
+with open(BASE_PATH / "src" / "requirements.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(
@@ -20,7 +24,7 @@ setuptools.setup(
     url="https://github.com/Luna-Klatzer/Para-C/",
     project_urls={
         "Issue-Page": "https://github.com/Luna-Klatzer/Para-C/issues/",
-        "Changelog": "https://github.com/Luna-Klatzer/Para-C/releases"
+        "CHANGELOG.md": "https://github.com/Luna-Klatzer/Para-C/releases"
     },
     packages=setuptools.find_packages(),
     classifiers=[

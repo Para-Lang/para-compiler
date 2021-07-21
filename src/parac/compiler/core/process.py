@@ -304,7 +304,7 @@ class ProgramCompilationProcess(BasicProcess):
         ], None, None
     ]:
         """
-        Actual compile that serves as implementation for compile() and
+        Actual compile that serves as c-implementation for compile() and
         compile_with_progress_iterator()
         """
         if track_progress:

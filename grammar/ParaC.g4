@@ -705,7 +705,7 @@ fragment
 IdentifierNondigit
     :   Nondigit
     |   UniversalCharacterName
-    //|   // other implementation-defined characters...
+    //|   // other c-implementation-defined characters...
     ;
 
 fragment

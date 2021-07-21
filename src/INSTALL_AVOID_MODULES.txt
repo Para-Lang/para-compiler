@@ -1,0 +1,4 @@
+jedi
+IPython
+numpy
+matplotlib

@@ -128,7 +128,7 @@ class ParacStreamHandler(StreamHandler):
 
     def emit(self, record: logging.LogRecord):
         """
-        Emit a record using rich and the set implementation
+        Emit a record using rich and the set c-implementation
 
         If a formatter is specified, it is used to format the record.
         The record is then written to the stream with a trailing newline.

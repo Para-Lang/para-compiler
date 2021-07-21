@@ -10,7 +10,7 @@ import shutil
 import os
 
 
-BASE_PATH: Path = Path("..")
+BASE_PATH: Path = Path(__file__).parent.parent.resolve()
 DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
 PBL_PATH: Path = BASE_PATH / "lib"
@@ -24,22 +24,38 @@ required: List[Path] = [
     BASE_PATH / "img" / "parac.ico",
     BASE_PATH / "img" / "parac-banner.png",
     BASE_PATH / "img" / "parac.png",
+    BASE_PATH / "CHANGELOG.md",
     BASE_PATH / "LICENSE",
     BASE_PATH / "USAGE-README.md"
 ]
 
-for i in (DIST_PATH, BUILD_PATH):
-    if not os.path.exists(str(i.absolute())):
-        os.makedirs(str(i.absolute()), exist_ok=True)
+with open(
+        BASE_PATH / "src" / "INSTALL_AVOID_MODULES.txt", "r", encoding='utf-8'
+) as file:
+    AVOID_MODULES: List[str] = list(
+        i.removesuffix('\n') for i in file.readlines()
+    )
+    _ = []
+    for i in AVOID_MODULES:
+        _.append("--exclude-module")
+        _.append(i)
+    AVOID_MODULES = _
 
-PyInstaller.__main__.run([
+for i in (DIST_PATH, BUILD_PATH):
+    if not os.path.exists(str(i.resolve())):
+        os.makedirs(str(i.resolve()), exist_ok=True)
+
+run_config = [
     entry_path,
     "--log-level",
     "DEBUG",
     "--name",
     "parac",
-    f"--icon={icon_path.absolute()}"
-])
+    "--icon",
+    str(icon_path.resolve()),
+    *AVOID_MODULES,
+]
+PyInstaller.__main__.run(run_config)
 
 
 def create_parac_modules(output_type: str):
@@ -50,8 +66,8 @@ def create_parac_modules(output_type: str):
     lib_path: Path = destination / "lib"
     avoid = ["bin", "lib"]
 
-    os.makedirs(str(bin_path.absolute()), exist_ok=True)
-    os.makedirs(str(lib_path.absolute()), exist_ok=True)
+    os.makedirs(str(bin_path.resolve()), exist_ok=True)
+    os.makedirs(str(lib_path.resolve()), exist_ok=True)
 
     for entry in os.scandir(origin):
         entry: os.DirEntry
@@ -62,23 +78,23 @@ def create_parac_modules(output_type: str):
     for entry in os.scandir(PBL_PATH):
         entry: os.DirEntry
         if entry.is_dir():
-            copy_tree(entry.path, str((lib_path / entry.name).absolute()))
+            copy_tree(entry.path, str((lib_path / entry.name).resolve()))
         else:
             shutil.copy(entry.path, lib_path)
 
     for entry in required:
         entry: Path
-        shutil.copy(str(entry.absolute()), destination)
+        shutil.copy(str(entry.resolve()), destination)
 
     shutil.copy(
         BASE_PATH / "README.md", destination / "PROJECT-DESCRIPTION.md"
     )
     copy_tree(
-        str(EXAMPLE_PATH.absolute()),
-        str((destination / "examples").absolute())
+        str(EXAMPLE_PATH.resolve()),
+        str((destination / "examples").resolve())
     )
 
-    shutil.rmtree(origin)
+    shutil.rmtree(str((BASE_PATH / "src" / output_type).resolve()))
 
 
 create_parac_modules("dist")

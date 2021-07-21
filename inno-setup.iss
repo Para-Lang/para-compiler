@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 LicenseFile=LICENSE
 PrivilegesRequired=admin
 OutputBaseFilename=parac
-SetupIconFile=parac.ico
+SetupIconFile=img/parac.ico
 Compression=lzma
 UsePreviousAppDir=no
 SolidCompression=yes
@@ -55,10 +55,6 @@ Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environmen
 [Icons]
 Name: "{autoprograms}\{#ExeName}"; Filename: "{app}\bin\{#ExeExeName}"
 Name: "{autodesktop}\{#ExeName}"; Filename: "{app}\bin\{#ExeExeName}"; Tasks: desktopicon
-
-[Run]
-Filename: "{app}\bin\{#ExeExeName}"; Parameters: "init --keep_open"; Description: "Initialise Para-C compiler with C-Compiler"; Flags: nowait postinstall shellexec skipifsilent
-Filename: "{app}\bin\{#ExeExeName}"; Parameters: "--help --keep_open"; Description: "Show Para-C help interface"; Flags: nowait postinstall shellexec skipifsilent
 
 [Code]
 function NeedsAddPath(Param: string): boolean;

@@ -303,7 +303,7 @@ class LogicalError(ParacCompilerError):
 class LinkerError(ParacCompilerError):
     """
     Exception in the Linker, which binds the files and checks
-    the dependencies and implementation
+    the dependencies and c-implementation
     """
     error_msg = "The Linker encountered an error while linking the files"
     _default_code = ErrorCodes.LINKER_ERROR
