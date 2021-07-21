@@ -1,4 +1,4 @@
-![para-c](parac-banner.png)
+![para-c](img/parac-banner.png)
 
 *Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
 programming language. It is for now solely a free-time/college project*
