@@ -12,6 +12,8 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
+from pathlib import Path
+
 from . import compiler
 from . import preprocessor
 
@@ -27,9 +29,14 @@ __all__ = [
     '__release__',
     '__copyright__',
     'compiler',
-    'preprocessor'
+    'preprocessor',
+    'BASE_DIR',
+    'C_LIB_PATH'
 ]
 
 import logging as lib_logging
 
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
+
+BASE_DIR: Path = Path(__file__).parent.parent.resolve()
+C_LIB_PATH: Path = BASE_DIR / "lib"

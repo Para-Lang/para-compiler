@@ -65,6 +65,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `ParacErrorListener` and let it inherit base ABC class `BaseErrorListener`
 - `README.md` and added appropriate documentation on antlr4, cli and changes
 - Renamed cli command `init` to `c-init`
+- Renamed `parac-base-library` to `lib` and moved it to `src/lib`
 
 ### Removed
 - pytest option `--github=<true/false>` (Became unnecessary and deprecated)

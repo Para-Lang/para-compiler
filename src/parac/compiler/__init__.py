@@ -1,9 +1,8 @@
 # coding=utf-8
-""" Compiler for the Para-C programming language"""
+""" Compiler for the Para-C programming language """
 
 from pathlib import Path
 
-# argv[0] returns the path of the starting script
 BASE_DIR: Path = Path(__file__).parent.parent.resolve()
 
 # Main imports
@@ -63,10 +62,13 @@ INIT_OVERWRITE: bool = False
 DEFAULT_CONFIG: dict = {
     "c-compiler-path": ""
 }
-INVALID_UNIX_FILE_NAME_CHARS: List[str] = ['/', '<', '>', '\0', '|', ':', '&']
+INVALID_UNIX_FILE_NAME_CHARS: List[str] = [
+    '/', '<', '>', '\0', '|', ':', '&'
+]
 INVALID_WIN_FILE_NAME_CHARS: List[str] = [
     '<', '>', ':', '"', '/', '\\', '|', '?', '*'
 ]
+C_LIB_PATH: Path = BASE_DIR / "lib"
 
 # Main-Class
 ParacCompiler = core.compiler.ParacCompiler
