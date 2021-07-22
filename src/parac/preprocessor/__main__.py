@@ -4,8 +4,8 @@ File containing the functions and class for the Pre-Processor parsing process
 """
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING, Dict
-from click.utils import WIN
 import antlr4
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
@@ -16,12 +16,11 @@ if TYPE_CHECKING:
     from .ctx import ProgramPreProcessorContext, FilePreProcessorContext
 
 __all__ = [
-    'SEPARATOR',
     'PreProcessor',
     'PreProcessorProcessResult'
 ]
 
-SEPARATOR = "\\" if WIN else "/"
+logger = logging.getLogger(__name__)
 
 
 class PreProcessorProcessResult:
@@ -79,8 +78,6 @@ class PreProcessor:
                            FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
-        from ..compiler import para_compiler
-
         # Error handler which uses the default error strategy to handle the
         # incoming antlr4 errors
         error_listener = PreProcessorErrorListener(enable_out)
@@ -91,19 +88,19 @@ class PreProcessor:
         lexer.removeErrorListeners()
         lexer.addErrorListener(error_listener)
 
-        para_compiler.logger.debug("Lexing file and generating tokens")
+        logger.debug("Lexing file and generating tokens")
 
         # Parsing the lexer and generating a token stream
         stream = antlr4.CommonTokenStream(lexer)
 
-        para_compiler.logger.debug(
+        logger.debug(
             "Parsing the tokens and generating the logic tree"
         )
         # Parser which generates based on the top entry rule the logic tree
         parser = ParaCPreProcessorParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
-        para_compiler.logger.debug(
+        logger.debug(
             "Finished generation of compilationUnit for the file"
         )
         return parser.compilationUnit()

@@ -2,18 +2,18 @@
 """
 Base Program ABC classes for the Pre-Processor and Compiler Context Classes
 """
-
+import logging
+from abc import ABC, abstractmethod
+from os import PathLike
+from typing import Union, Dict, Any
+import antlr4
 
 __all__ = [
     'FileRunContext',
     'ProgramRunContext'
 ]
 
-from abc import ABC, abstractmethod
-from os import PathLike
-from typing import Union, Dict, Any
-
-import antlr4
+logger = logging.getLogger(__name__)
 
 
 class FileRunContext(ABC):
@@ -203,10 +203,8 @@ class ProgramRunContext(ABC):
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        from ..compiler import para_compiler
-
         entry_path = self._process.entry_file_path
-        para_compiler.logger.debug(f"Parsing entry-file ({entry_path})")
+        logger.debug(f"Parsing entry-file ({entry_path})")
 
         entry_ctx = await self.get_stream_and_parse(entry_path, enable_out)
         self.set_entry_ctx(entry_ctx)

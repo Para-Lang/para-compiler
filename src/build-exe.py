@@ -19,7 +19,7 @@ PBL_PATH: Path = BASE_PATH / "src" / "lib"
 EXAMPLE_PATH: Path = BASE_PATH / "examples"
 
 # get entry path for the compiler
-entry_path: Path = pkg_resources.resource_filename(__name__, "cli.py")
+entry_path: Path = pkg_resources.resource_filename(__name__, "entry_cli.py")
 icon_path: Path = BASE_PATH / "img" / "parac.ico"
 
 required: List[Path] = [

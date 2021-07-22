@@ -1,7 +1,5 @@
 # coding=utf-8
 """ Compiler for the Para-C programming language """
-from . import __main__
-from .__main__ import *
 from . import optimiser
 from . import parser
 from . import error_handler
@@ -17,7 +15,6 @@ __all__ = [
     *compiler.__all__,
     *ctx.__all__,
     *process.__all__,
-    *__main__.__all__,
     'optimiser',
     'parser',
     'error_handler',

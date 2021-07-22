@@ -55,6 +55,7 @@ __all__ = [
     'DEFAULT_BUILD_PATH',
     'DEFAULT_CONFIG',
     'C_COM_EXISTENCE_OVERWRITE',
+    'RUNTIME_COMPILER',
     *exceptions.__all__,
     *const.__all__,
     *MODULES
@@ -65,3 +66,7 @@ import colorama
 
 colorama.init(autoreset=True)
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
+
+# An instance of the compiler, which should be generally used in the module
+# due to the logging logic
+RUNTIME_COMPILER: compiler.ParacCompiler = compiler.ParacCompiler()

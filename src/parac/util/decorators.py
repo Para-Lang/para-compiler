@@ -66,7 +66,7 @@ def abortable(
                 exit(1)
 
             try:
-                from ..compiler import para_compiler
+                from .. import RUNTIME_COMPILER
                 try:
                     return func(*args, **kwargs)
                 except InterruptError:
@@ -79,8 +79,8 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except ParacCompilerError as e:
-                    if not para_compiler.log_initialised:
-                        para_compiler.init_logging_session()
+                    if not RUNTIME_COMPILER.log_initialised:
+                        RUNTIME_COMPILER.init_logging_session()
 
                     log_traceback(
                         level="critical",
@@ -93,8 +93,8 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except Exception as e:
-                    if not para_compiler.log_initialised:
-                        para_compiler.init_logging_session()
+                    if not RUNTIME_COMPILER.log_initialised:
+                        RUNTIME_COMPILER.init_logging_session()
 
                     if preserve_exception:
                         raise e
@@ -129,13 +129,13 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from ..compiler import para_compiler
+            from .. import RUNTIME_COMPILER
             from .. import C_COM_EXISTENCE_OVERWRITE
             from . import (is_c_compiler_ready, cli_initialise_c_compiler)
 
             if not is_c_compiler_ready() and not C_COM_EXISTENCE_OVERWRITE:
-                if not para_compiler.log_initialised:
-                    para_compiler.init_logging_session()
+                if not RUNTIME_COMPILER.log_initialised:
+                    RUNTIME_COMPILER.init_logging_session()
 
                 init_rich_console()
                 console().print('')

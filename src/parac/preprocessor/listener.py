@@ -1,7 +1,9 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
+import logging
 from typing import List
 import antlr4
+import logging
 
 from .abc import PreProcessorLogicToken
 from .python import ParaCPreProcessorListener
@@ -12,6 +14,7 @@ __all__ = [
     'Listener'
 ]
 
+logger = logging.getLogger(__name__)
 _p = parser.ParaCPreProcessorParser
 
 
@@ -55,9 +58,7 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
                            encountered, it will be reraised with the
                            FailedToProcessError.
         """
-        from ..compiler import para_compiler
-
-        para_compiler.logger.debug(
+        logger.debug(
             "Walking through the logic tree and generating logic stream"
         )
         self._enable_out = enable_out

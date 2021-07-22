@@ -186,9 +186,9 @@ class ParacCompiler:
             # TODO! Add proper error handling and logging
             return False
 
-        from . import para_compiler
+        from .. import RUNTIME_COMPILER
 
-        if para_compiler.stream_handler.errors > 0:
+        if RUNTIME_COMPILER.stream_handler.errors > 0:
             return False
         return True
 

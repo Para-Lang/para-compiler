@@ -355,8 +355,18 @@ ansi_col = TerminalANSIColor()
 
 
 def print_init_banner() -> None:
-    """ Creates the init screen string that can be printed """
+    """
+    Creates the init screen string that can be printed
+
+    Required init_rich_console to be called before it!
+    """
     from . import __version__
+
+    if get_rich_console() is None:
+        raise RuntimeError(
+            "Rich console was not initialised. Use init_rich_console to"
+            " utilise this function"
+        )
 
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
@@ -374,7 +384,15 @@ def print_init_banner() -> None:
 def print_abort_banner(process: str) -> None:
     """
     Prints a simple colored Exception banner showing it crashed / was aborted
+
+    Required init_rich_console to be called before it!
     """
+    if get_rich_console() is None:
+        raise RuntimeError(
+            "Rich console was not initialised. Use init_rich_console to"
+            " utilise this function"
+        )
+
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
@@ -391,9 +409,17 @@ def print_result_banner(
     Prints a simple colored banner screen showing the process finished and a
     result is available
 
+    Required init_rich_console to be called before it!
+
     :param name: The name that should be printed before the ' Result'
     :param success: If success if True then the banner will be in green
     """
+    if get_rich_console() is None:
+        raise RuntimeError(
+            "Rich console was not initialised. Use init_rich_console to"
+            " utilise this function"
+        )
+
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
@@ -408,14 +434,22 @@ def print_result_banner(
 def print_log_banner(name: str = "Compiler", newline: bool = True) -> None:
     """
     Prints a simple colored banner screen showing the logs are active and
-    the process started
+    the process started.
+
+    Required init_rich_console to be called before it!
     """
+    if get_rich_console() is None:
+        raise RuntimeError(
+            "Rich console was not initialised. Use init_rich_console to"
+            " utilise this function"
+        )
+
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
     if newline:
-        output_console.print("\n", end="")
-    output_console.rule(
+        get_rich_console().print("\n", end="")
+    get_rich_console().rule(
         f"[bold bright_cyan]{name} Logs[white]\n",
         style="bright_white rule.line"
     )

@@ -1,17 +1,20 @@
 # coding=utf-8
 """ Error handler for the preprocessor parser and lexer """
+import logging
 from typing import Union
-from ..abc import BaseErrorListener
-
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
 
+from ..abc import BaseErrorListener
+
 __all__ = [
     'PreProcessorErrorListener',
 ]
+
+logger = logging.getLogger(__name__)
 
 
 class PreProcessorErrorListener(BaseErrorListener):
@@ -91,7 +94,5 @@ class PreProcessorErrorListener(BaseErrorListener):
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
-        from ..compiler import para_compiler
-
         # TODO! Add proper error handling
-        para_compiler.logger.error(f"At line: {line}, column: {column} - {msg}")
+        logger.error(f"At line: {line}, column: {column} - {msg}")

@@ -107,9 +107,7 @@ in this case in the ./bin/ folder*
 #### Naming convention
 All functions associated with the cli and implement special logging (take input,
 or create graphic output) must be prefixed with `cli_` for vars and functions, 
-and `CLI` for classes. 
-
-This does not apply to items in the `cli.py` file
+and `CLI` for classes.
 
 ### Compiler
 ...

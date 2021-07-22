@@ -11,33 +11,33 @@ import os
 from os import PathLike
 from rich.progress import Progress
 
-from ..exceptions import InvalidArgumentsError
-from ..const import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
-from ..util import (cli_keep_open_callback, escape_ansi_args,
-                    requires_init, is_c_compiler_ready,
-                    cli_initialise_c_compiler, abortable)
-from ..logging import get_rich_console as console, print_result_banner, \
-    cli_create_prompt, cli_format_default, init_rich_console, print_init_banner
-from .compiler import ParacCompiler
-from .process import ProgramCompilationProcess, BasicProcess, FinishedProcess
+from parac import RUNTIME_COMPILER
+from parac.exceptions import InvalidArgumentsError
+from parac.const import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+from parac.util import (cli_keep_open_callback, escape_ansi_args,
+                        requires_init, is_c_compiler_ready,
+                        cli_initialise_c_compiler, abortable)
+from parac.logging import (get_rich_console as console, print_result_banner,
+                           cli_create_prompt, cli_format_default,
+                           init_rich_console, print_init_banner)
+from parac.compiler import (ParacCompiler, ProgramCompilationProcess,
+                            BasicProcess, FinishedProcess)
 
 __all__ = [
-    'para_compiler',
-    'create_process',
-    'run_output_dir_validation',
-    'run_process_with_logging',
-    'cli',
-    'parac_compile',
+    'cli_create_process',
+    'cli_run_output_dir_validation',
+    'cli_run_process_with_logging',
+    'cli_entry',
+    'cli_parac_compile',
     'ParacCLI'
 ]
 
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
-para_compiler = ParacCompiler()
 
 
 @abortable(step="Setup", reraise=True, preserve_exception=True)
-def create_process(
+def cli_create_process(
         file: Union[str, PathLike],
         encoding: str,
         log_path: Union[str, PathLike],
@@ -49,8 +49,8 @@ def create_process(
     and returns it.
     Activates logging on default
     """
-    if not para_compiler.log_initialised:
-        para_compiler.init_logging_session(log_path)
+    if not RUNTIME_COMPILER.log_initialised:
+        RUNTIME_COMPILER.init_logging_session(log_path)
 
     return ProgramCompilationProcess(file, encoding, build_path, dist_path)
 
@@ -65,8 +65,8 @@ def create_basic_process(
     returns it.
     Activates logging on default
     """
-    if not para_compiler.log_initialised:
-        para_compiler.init_logging_session(log_path)
+    if not RUNTIME_COMPILER.log_initialised:
+        RUNTIME_COMPILER.init_logging_session(log_path)
 
     return BasicProcess(file, encoding)
 
@@ -113,7 +113,7 @@ def _check_destination(
     return output
 
 
-def run_output_dir_validation(
+def cli_run_output_dir_validation(
         overwrite_build: bool,
         overwrite_dist: bool
 ) -> Tuple[str, str]:
@@ -143,12 +143,12 @@ async def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
     Calls p.compile(), adds additional formatting and returns the result
     """
     finished_process = await p.compile()
-    if para_compiler.log_initialised:
+    if RUNTIME_COMPILER.log_initialised:
         print_result_banner()
     return finished_process
 
 
-async def run_process_with_logging(
+async def cli_run_process_with_logging(
         p: ProgramCompilationProcess
 ) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
@@ -174,7 +174,7 @@ async def run_process_with_logging(
                 current_progress = p
 
     console().print("\n", end="")
-    if para_compiler.log_initialised:
+    if RUNTIME_COMPILER.log_initialised:
         print_result_banner()
     return finished_process
 
@@ -193,12 +193,17 @@ async def run_process_with_logging(
 )
 @click.pass_context
 @abortable(reraise=False)
-def cli(*args, **kwargs):
-    """ Console Line Interface for the Para-C Compiler """
+def cli_entry(*args, **kwargs):
+    """
+    Console Line Interface for the Para-C Compiler
+    \f
+    Entry point for the CLI. This should be called when wanting to start the
+    cli. It will utilise the args passed to the program as the click arguments
+    """
     ParacCLI.cli(*args, **kwargs)
 
 
-@cli.command(name="c-init")
+@cli_entry.command(name="c-init")
 @click.option("--keep-open", is_flag=True)
 @abortable(reraise=False)
 def parac_c_init(*args, **kwargs):
@@ -208,7 +213,7 @@ def parac_c_init(*args, **kwargs):
     ParacCLI.parac_c_init(*args, **kwargs)
 
 
-@cli.command(name="compile")
+@cli_entry.command(name="compile")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -278,12 +283,12 @@ def parac_c_init(*args, **kwargs):
     help="If set the compiler will add additional debug information"
 )
 @abortable(reraise=False)
-def parac_compile(*args, **kwargs):
+def cli_parac_compile(*args, **kwargs):
     """ Compile a Para-C program to C or executable """
     ParacCLI.parac_compile(*args, **kwargs)
 
 
-@cli.command(name="run")
+@cli_entry.command(name="run")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -342,7 +347,7 @@ def parac_run(*args, **kwargs):
     ParacCLI.parac_run(*args, **kwargs)
 
 
-@cli.command(name="syntax-check")
+@cli_entry.command(name="syntax-check")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -401,7 +406,7 @@ class ParacCLI:
 
         out = console()
         if version:
-            from .. import __version__, __title__
+            from parac import __version__, __title__
             return out.print(' '.join([__title__.title(), __version__]))
         else:
             print_init_banner()
@@ -420,8 +425,8 @@ class ParacCLI:
     @escape_ansi_args
     def parac_c_init():
         """ Initialises the C compiler """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(print_banner=False)
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(print_banner=False)
         logger.info(
             'Reinitialising' if is_c_compiler_ready() else 'Initialising'
             " Para-C Compiler"
@@ -446,8 +451,8 @@ class ParacCLI:
         CLI interface for the parac_compile command.
         Will create a compilation-process and run it
         """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(
                 log,
                 level=logging.DEBUG if debug else logging.INFO,
             )
@@ -462,7 +467,7 @@ class ParacCLI:
         # the case a prompt will appear asking the user to either answer yes
         # or no to overwriting it. If it's false a new directory with the same
         # name but a number added will be created e.g. build_2
-        build_path, dist_path = run_output_dir_validation(
+        build_path, dist_path = cli_run_output_dir_validation(
             overwrite_build,
             overwrite_dist
         )
@@ -470,7 +475,7 @@ class ParacCLI:
         # Creates a CompilationProcess which represents a process that can
         # be finished but does not need to be finished
         p: ProgramCompilationProcess = abortable(
-            create_process,
+            cli_create_process,
             step="Setup",
             reraise=True
         )(
@@ -481,7 +486,7 @@ class ParacCLI:
             dist_path
         )
         # Running the process with additional formatting and logging
-        return asyncio.run(run_process_with_logging(p))
+        return asyncio.run(cli_run_process_with_logging(p))
 
     @staticmethod
     @abortable(reraise=True)
@@ -518,8 +523,8 @@ class ParacCLI:
             debug: bool
     ):
         """ Runs a syntax check on the specified file (imports excluded) """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(
                 log,
                 level=logging.DEBUG if debug else logging.INFO,
                 banner_name="Syntax Check"
@@ -530,8 +535,8 @@ class ParacCLI:
         # Exception won't be reraised and directly logged to the console
         result = asyncio.run(p.validate_syntax(enable_out=True))
 
-        errors = para_compiler.stream_handler.errors
-        warnings = para_compiler.stream_handler.warnings
+        errors = RUNTIME_COMPILER.stream_handler.errors
+        warnings = RUNTIME_COMPILER.stream_handler.warnings
         if result is True:
             print_result_banner("Syntax Check")
             logger.info(

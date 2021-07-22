@@ -5,7 +5,7 @@ import pytest
 import logging
 import parac
 
-parac.compiler.para_compiler.init_logging_session(
+parac.RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 

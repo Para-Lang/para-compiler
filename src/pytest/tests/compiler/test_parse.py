@@ -5,16 +5,16 @@ import os
 from typing import List
 import asyncio
 
-from parac import SEPARATOR as SEP
+from parac import SEPARATOR as SEP, RUNTIME_COMPILER
 from parac.logging import set_avoid_print_banner_overwrite
-from parac.compiler import ParacCompiler, para_compiler, BasicProcess
+from parac.compiler import ParacCompiler, BasicProcess
 
 from .. import reset_input
 
 logger = logging.getLogger('compiler')
 
 compiler = ParacCompiler()
-para_compiler.init_logging_session(
+RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 set_avoid_print_banner_overwrite(True)
