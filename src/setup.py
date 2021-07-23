@@ -38,11 +38,11 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Development Status :: 2 - Pre-Alpha",
         "Environment :: Console",
-        "Environment :: Other Environment"
+        "Environment :: Other Environment",
         "Topic :: Software Development :: Code Generators",
         "Topic :: Software Development :: Compilers",
         "Intended Audience :: Developers",
-        "Intended Audience :: Information Technology"
+        "Intended Audience :: Information Technology",
         "Operating System :: POSIX",
         "Operating System :: MacOS :: MacOS X",
         "Operating System :: Microsoft :: Windows"
