@@ -78,7 +78,7 @@ For more info see [Module README](./src/README.md).
 To install Para-C, you can either use the pre-built installer for the windows,
 by going through the [releases](https://github.com/Para-C/Para-C/releases)
 or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
-(The last is simpler as it might seem)
+(The last is simpler than it might seem)
 
 #### Install the python module
 
