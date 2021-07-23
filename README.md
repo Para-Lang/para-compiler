@@ -12,10 +12,10 @@
   - [Disclaimer](#disclaimer)
   - [Copyright and License](#copyright-and-license)
 
-# [The Para-C programming language](#)
+# [The Para-C programming language](#content)
 *This is version 0.1.dev4*
 
-## [Key-Features](#)
+## [Key-Features](#content)
 *Planned/Intended features (Development is still ongoing)*
 - Ability to streamline calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
@@ -29,7 +29,7 @@
 - Language Library with additional helper functions
 - Simplified syntax and handling of C components for easier coding
 
-## [Introduction](#)
+## [Introduction](#content)
 
 Para-C (From Greek Origin: Beside C ) is a programming language that is 
 designed to integrate other languages and allow for advanced management of
@@ -50,7 +50,7 @@ this, you can for example embed async functionality from Python directly into
 the program, which is not natively supported, and then pass generated data to
 a C++ program, which then uses that to run something else. 
  
-## [CLI](#)
+## [CLI](#content)
 The Para-C CLI is the standard CLI for interacting with the standard compiler
 implementation. When [installing](#installation) with a generated installer
 or `build-exe.py`, this will be the interface used when running the compiler.
@@ -64,7 +64,7 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 - `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax 
   (Not added yet. See [#16](/../../issues/16))
 
-## [Python Module](#)
+## [Python Module](#content)
 
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 
@@ -75,7 +75,7 @@ implemented in the standard CLI. This means both the `preprocessor` and
 
 For more info see [Module README](./src/README.md).
 
-## [Installation](#)
+## [Installation](#content)
  
 To install Para-C, you can either use the pre-built installer for the windows,
 by going through the [releases](https://github.com/Para-C/Para-C/releases)
@@ -142,7 +142,7 @@ related to running a Para-C program available. It is not required though and
 without it the compiler will simply generate C source files.
 
 
-## [Development](#)
+## [Development](#content)
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
 ![Coverage](./coverage.svg)
@@ -236,7 +236,7 @@ The script will create a `./build/` and `./dist/` folder.
 The `./build/` folder will contain the raw data and logs, while the `./dist/`
 folder will contain the distribution-ready binaries and data.
 
-## [Disclaimer](#)
+## [Disclaimer](#content)
 Para-C is not intended as a language for production code or professional usage
 as of now. It is for now solely a free-time/college project.
 
@@ -244,7 +244,7 @@ This also means that issues or bugs while running can likely occur, and it's
 not a stable or production-ready language as of the point of writing.
 (*2021-07-23*).
 
-## [Copyright and License](#)
+## [Copyright and License](#content)
 
 Copyright (c) 2001-2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer). All rights reserved.
 
