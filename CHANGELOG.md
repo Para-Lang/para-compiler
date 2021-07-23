@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pure syntax check command (`parac syntax-check`, For info see #9 and #10)
 - Added const file `const.py` for containing constant values that are used
   throughout the module
-- Structure as proper module, so it can be distributed to `pypi` as module as well  
+- pypi Module Structure with new parent `parac`. Releases from now on will be uploaded to pypi.org as module
 - Distinction between distribution and module version and const Values 
   (`const.py`) `DIST_VERSION` and `MODULE_VERSION` for separating Distribution
   and Module/Source-Code Version.
@@ -52,9 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     are treated like `InterruptErrors` and will abort the compilation
 - Class `InternalErrorInfo` for saving information about an exception causing an `InternalError`
 - Property `origin_exc` to `InterrruptError` for saving the original exception instance that was raised.
+- New module `parac_cli` for implementing the `parac` module
 
 ### Changed
-- Restructured module and added new parent module `parac` for both compiler and preprocessor.
+- Module Structure and added new parent module `parac` for both compiler and preprocessor.
 - Token Classes and refined items  
 - In `build-exe.py`; Implemented `pathlib.Path` usage and proper handling changed based on the new structure
 - Antlr4 Grammar file to include Pre-Processor statements and 
