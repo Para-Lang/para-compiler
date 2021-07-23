@@ -1,5 +1,3 @@
-![para-c](../img/parac-banner.png)
-
 # `parac` - The Python Module for the Para-C Compiler
 
 [![Python Version](https://img.shields.io/badge/python->=3.8-blue?logo=python)](https://python.org)

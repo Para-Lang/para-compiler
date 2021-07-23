@@ -15,6 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [v0.1.dev3] - 2021-07-23
+
+### Changed
+- Tags in setup.py, since commas were missing causing faulty identifiers
+
+### Removed
+- Banner in README.md to avoid the image processing issue on pypi.org
+
 ## [v0.1.dev2] - 2021-07-23
 
 ### Added
@@ -102,6 +110,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...antlr4-dev
+[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...antlr4-dev
+[v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
 [v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2
 [v0.1.dev1]: https://github.com/Para-C/Para-C/releases/tag/v0.1.dev1
