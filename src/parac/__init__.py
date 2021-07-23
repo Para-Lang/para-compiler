@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Init file for managing both compiler and preprocessor """
+""" Para-C (parac) Module for the Para-C Compiler and Pre-Processor """
 
 __title__ = "parac"
 __description__ = "Para-C Module"
