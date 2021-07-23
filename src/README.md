@@ -95,11 +95,17 @@ automatically false):
  - `DIST_VERSION: bool` - If `True` it's the distribution version
  - `MODULE_VERSION: bool` - If `True` it's the module version
 
-*Note: The most notable difference between the two options is the location of
-the lib folder, containing the C implementation. The folder is in the module
-version in the root folder of the **module**, aka. where setup.py is/was located
-and in the distribution folder in the main **root** folder. The entry point is
-in this case in the ./bin/ folder*
+**Notes:**
+1. The most notable difference between the two options is the location of
+   the lib folder, containing the C implementation. The folder is in the module
+   version in the root folder of the **module**, aka. where setup.py is/was located
+   and in the distribution folder in the main **root** folder. The entry point is
+   in this case in the ./bin/ folder
+2. Currently, both commands `run` and `compile` will raise after 15% completion 
+   `TypeError: cannot unpack non-iterable NoneType object`, which is expected,
+   since the code-generation is not completed and therefore the compilation
+   can not be finished as wanted.
+
 
 ### CLI
 ...

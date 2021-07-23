@@ -53,7 +53,7 @@ def decode_if_bytes(
     """ Decodes the passed PathLike if it is in bytes """
     if type(byte_like) is str:
         return byte_like
-    elif type(byte_like) is bytes or isinstance(bytes, byte_like):
+    elif type(byte_like) is bytes or isinstance(byte_like, bytes):
         return byte_like.decode(encoding)
     else:
         return byte_like

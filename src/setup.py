@@ -16,7 +16,7 @@ with open(SRC_PATH / "requirements.txt", encoding='utf-8') as file:
 
 setuptools.setup(
     name="parac",
-    version="0.1.dev1",
+    version="0.1.dev2",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",
     maintainer="Luna Klatzer",
