@@ -2,7 +2,6 @@
 
 [![Python Version](https://img.shields.io/badge/python->=3.8-blue?logo=python)](https://python.org)
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
-![Coverage](../coverage.svg)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
 
@@ -13,6 +12,17 @@ The `parac` module serves the purpose of combining the entire compiler with
 lib into a simple module, which can be imported and used in ways that are not
 implemented in the standard CLI. This means both the `preprocessor` and 
 `compiler` are available for customisable usage. 
+
+### Installation
+
+```bash
+python3 -m pip install -U parac
+```
+
+*With specific version*:
+```bash
+python3 -m pip install -U parac==version
+```
 
 ### Structure
 

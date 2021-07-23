@@ -15,7 +15,7 @@ with open(SRC_PATH / "requirements.txt", encoding='utf-8') as file:
 
 setuptools.setup(
     name="parac",
-    version="0.1.dev3",
+    version="0.1.dev4",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",
     maintainer="Luna Klatzer",
@@ -31,12 +31,12 @@ setuptools.setup(
     },
     packages=setuptools.find_packages(),
     classifiers=[
+        "Development Status :: 2 - Pre-Alpha",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: C",
-        "License :: OSI Approved :: MIT License",
-        "Development Status :: 2 - Pre-Alpha",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Environment :: Console",
         "Environment :: Other Environment",
         "Topic :: Software Development :: Code Generators",
