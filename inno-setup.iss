@@ -1,11 +1,15 @@
 #define ExeName "Para-C"
-#define ExeVersion "0.1.dev2"
+#define ExeVersion "0.1.dev4"
 #define ExePublisher "Luna-Klatzer"
 #define ExeURL "https://github.com/Para-C/Para-C.git"
 #define ExeExeName "parac.exe"
 #define ExeAssocName ExeName + " Source File"
-#define ExeAssocExt ".para"
-#define ExeAssocKey StringChange(ExeAssocName, " ", "") + ExeAssocExt
+#define ExeAssocExt1 ".para"
+#define ExeAssocExt2 ".ph"
+#define ExeAssocExt3 ".parah"
+#define ExeAssocKey1 StringChange(ExeAssocName, " ", "") + ExeAssocExt1
+#define ExeAssocKey2 StringChange(ExeAssocName, " ", "") + ExeAssocExt2
+#define ExeAssocKey3 StringChange(ExeAssocName, " ", "") + ExeAssocExt3
 
 [Setup]
 AppId={{5B1968C6-36C6-4E50-B6B8-B62051E67B0F}
@@ -43,10 +47,11 @@ Source: "dist\parac\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs cr
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
-Root: HKA; Subkey: "Software\Classes\{#ExeAssocExt}\OpenWithProgids"; ValueType: string; ValueName: "{#ExeAssocKey}"; ValueData: ""; Flags: uninsdeletevalue
-Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey}"; ValueType: string; ValueName: ""; ValueData: "{#ExeAssocName}"; Flags: uninsdeletekey
-Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#ExeExeName},0"
-Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#ExeExeName}"" ""%1"""
+Root: HKA; Subkey: "Software\Classes\{#ExeAssocExt1}\OpenWithProgids"; ValueType: string; ValueName: "{#ExeAssocKey1}"; ValueData: ""; Flags: uninsdeletevalue
+Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey1}"; ValueType: string; ValueName: ""; ValueData: "{#ExeAssocName}"; Flags: uninsdeletekey
+Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey1}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\bin\{#ExeExeName},0"
+Root: HKA; Subkey: "Software\Classes\{#ExeAssocKey1}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\bin\{#ExeExeName}"" ""%1"""
+
 Root: HKA; Subkey: "Software\Classes\Applications\{#ExeExeName}\SupportedTypes"; ValueType: string; ValueName: ".myp"; ValueData: ""
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; \
     ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}\bin"; \
