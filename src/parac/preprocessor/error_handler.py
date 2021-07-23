@@ -25,7 +25,7 @@ class PreProcessorErrorListener(BaseErrorListener):
         Initialises the instance
 
         :param reraise: If set to True the error listener will reraise errors
-                        and not just log them
+        and not just log them
         """
         super().__init__(reraise)
 

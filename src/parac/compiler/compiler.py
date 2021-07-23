@@ -60,13 +60,13 @@ class ParacCompiler:
         and adds the formatting defaults
 
         :param log_path: Path where the log file should be placed. If None
-                         logging to files will be ignored
+        logging to files will be ignored
         :param level: Level the logger should be initialised with.
-                      Defaults to INFO
+        Defaults to INFO
         :param print_banner: If set to True the logging banner will be printed
         :param banner_name: The name used for the logging banner
-        :param additional_newline: If set to True an additional newline
-                                   will be added before the logging banner
+        :param additional_newline: If set to True an additional newline will be
+        added before the logging banner
         """
         if print_banner:
             print_log_banner(banner_name, additional_newline)
@@ -116,10 +116,9 @@ class ParacCompiler:
 
         :param input_stream: The token stream of the file
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
         # Error handler which uses the default error strategy to handle the 
@@ -154,10 +153,9 @@ class ParacCompiler:
 
         :param process: The BasicProcess containing the path to the entry-file
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
         file_stream: antlr4.FileStream = get_file_stream(

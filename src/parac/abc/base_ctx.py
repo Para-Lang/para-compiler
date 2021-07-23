@@ -159,10 +159,9 @@ class ProgramRunContext(ABC):
 
         :param file_path: Path to the file
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. If an exception is raised or error is
-                   encountered, it will be reraised with the
-                   FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
         ...
@@ -179,12 +178,11 @@ class ProgramRunContext(ABC):
 
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able
-                                   using get_relative_file_name)
+        using get_relative_file_name)
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The generated FilePreProcessorContext instance
         """
         ...
@@ -198,10 +196,9 @@ class ProgramRunContext(ABC):
         to the generated context for the file.
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         """
         entry_path = self._process.entry_file_path
         logger.debug(f"Parsing entry-file ({entry_path})")

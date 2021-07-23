@@ -5,7 +5,7 @@ import pytest
 import os
 
 from parac import (FileNotFoundError as ParaFileNotFoundError,
-                   SEPARATOR as SEP)
+                   SEPARATOR as SEP, UserInputError)
 from parac.logging import set_avoid_print_banner_overwrite
 from parac.compiler import ParacCompiler
 from parac_cli import cli_run_output_dir_validation, cli_create_process
@@ -72,20 +72,43 @@ class TestCLISetup:
 
     @pytest.mark.parametrize(
         "path", [
-            "not_existing.para", "not_existing", " ", ""
+            "not_existing.para", "not_existing"
         ]
     )
-    def test_wrong_path_compilation_process(self, path: str):
+    def test_wrong_path_compilation_process_1(self, path: str):
         b_path = add_folder("build")
         d_path = add_folder("dist")
         try:
-            cli_create_process(
-                path, ENCODING, LOG_PATH, b_path, d_path
+            p = cli_create_process(
+                file=path,
+                encoding=ENCODING,
+                log_path=LOG_PATH,
+                build_path=b_path,
+                dist_path=d_path
             )
+            assert False
         except ParaFileNotFoundError as e:
             ...
-        else:
+
+    @pytest.mark.parametrize(
+        "path", [
+            "", "", "ddf $  &/`='|.*"
+        ]
+    )
+    def test_wrong_path_compilation_process_2(self, path: str):
+        b_path = add_folder("build")
+        d_path = add_folder("dist")
+        try:
+            p = cli_create_process(
+                file=path,
+                encoding=ENCODING,
+                log_path=LOG_PATH,
+                build_path=b_path,
+                dist_path=d_path
+            )
             assert False
+        except UserInputError:
+            ...
 
     @pytest.mark.parametrize(
         "expected,input_str,line_ending", [

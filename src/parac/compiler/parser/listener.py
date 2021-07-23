@@ -58,10 +58,9 @@ class Listener(ParaCListener.ParaCListener):
         events / goes through the tokens
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         """
         logger.debug(
             "Walking through logic tree and generating the logic stream"
@@ -84,10 +83,9 @@ class Listener(ParaCListener.ParaCListener):
         the compilation for the program
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         """
         self._compiling = True
         await self.walk(enable_out)

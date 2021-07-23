@@ -54,7 +54,7 @@ class BaseErrorListener(ErrorListener, ABC):
         Initialises the instance
 
         :param reraise: If set to True the error listener will reraise errors
-                        and not just log them
+        and not just log them
         """
         self.reraise = reraise
 

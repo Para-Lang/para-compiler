@@ -53,10 +53,9 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         the preprocessor processing steps
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         """
         logger.debug(
             "Walking through the logic tree and generating logic stream"

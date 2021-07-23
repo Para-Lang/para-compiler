@@ -14,7 +14,7 @@ from ..preprocessor import PreProcessorProcessResult
 from ..preprocessor.ctx import ProgramPreProcessorContext
 
 from .ctx import ProgramCompilationContext
-from ..util import (decode_if_bytes, cleanup_path, validate_file_ending,
+from ..util import (decode_if_bytes, cleanup_path_str, validate_file_ending,
                     validate_path_like)
 from ..exceptions import FileAccessError
 
@@ -40,10 +40,10 @@ class BasicProcess:
         further usage.
 
         :param entry_file_path: The entry-file of the program. The compiler
-                                will use the working directory as base dir if
-                                the path is relative
+        will use the working directory as base dir if
+        the path is relative
         """
-        entry_file_path = cleanup_path(decode_if_bytes(entry_file_path))
+        entry_file_path = cleanup_path_str(decode_if_bytes(entry_file_path))
 
         # Getting the last element aka. the lowest level of the path
         _last_path_elem = entry_file_path.replace("/", "\\").split("\\")[-1]
@@ -67,7 +67,7 @@ class BasicProcess:
             # current path meaning the work-directory path needs to be
             # appended. If that also fails it is an invalid path or permissions
             # are missing
-            absolute_path = cleanup_path(f"{os.getcwd()}\\{entry_file_path}")
+            absolute_path = cleanup_path_str(f"{os.getcwd()}\\{entry_file_path}")
             failed = False
             try:
                 validate_path_like(absolute_path)
@@ -110,10 +110,9 @@ class BasicProcess:
         errors while running
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
         from .compiler import ParacCompiler
@@ -150,20 +149,20 @@ class ProgramCompilationProcess(BasicProcess):
         process cancelled.
 
         :param entry_file_path: The entry-file of the program. The compiler
-                                will use the working directory as base dir
-                                if the path is relative
+        will use the working directory as base dir
+        if the path is relative
         :param build_path: The path to the output folder
         :param dist_path: The path to the dist folder
         :returns: The file name, the output build path, the output dist path
-                  and the arguments passed for the compilation
+        and the arguments passed for the compilation
         """
         super().__init__(entry_file_path, encoding)
 
         build_path: Union[str, PathLike] = decode_if_bytes(build_path)
         dist_path: Union[str, PathLike] = decode_if_bytes(dist_path)
 
-        self._build_path = cleanup_path(build_path)
-        self._dist_path = cleanup_path(dist_path)
+        self._build_path = cleanup_path_str(build_path)
+        self._dist_path = cleanup_path_str(dist_path)
         self._temp_files: List[str] = []
         self._temp_entry_file_path: Union[str, None] = None
         self._preprocessor_ctx = ProgramPreProcessorContext(self)
@@ -187,9 +186,9 @@ class ProgramCompilationProcess(BasicProcess):
         # due to the cleanup of paths in the initialisation
         from .. import SEPARATOR
         if self.build_path.endswith(SEPARATOR):
-            return cleanup_path(f"{self.build_path}temp")
+            return cleanup_path_str(f"{self.build_path}temp")
         else:
-            return cleanup_path(f"{self.build_path}{SEPARATOR}temp")
+            return cleanup_path_str(f"{self.build_path}{SEPARATOR}temp")
 
     @property
     def temp_dist_folder(self) -> Union[str, PathLike]:
@@ -198,9 +197,9 @@ class ProgramCompilationProcess(BasicProcess):
         # due to the cleanup of paths in the initialisation
         from .. import SEPARATOR
         if self.dist_path.endswith(SEPARATOR):
-            return cleanup_path(f"{self.dist_path}temp")
+            return cleanup_path_str(f"{self.dist_path}temp")
         else:
-            return cleanup_path(f"{self.dist_path}{SEPARATOR}temp")
+            return cleanup_path_str(f"{self.dist_path}{SEPARATOR}temp")
 
     @property
     def temp_files(self) -> List[str]:

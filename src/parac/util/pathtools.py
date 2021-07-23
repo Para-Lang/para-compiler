@@ -12,7 +12,7 @@ __all__ = [
     "validate_file_ending",
     "validate_path_like",
     "decode_if_bytes",
-    "cleanup_path",
+    "cleanup_path_str",
     "check_valid_path_name",
     "get_relative_file_name"
 ]
@@ -34,16 +34,19 @@ def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
     :raises EntryFileNotFoundError: If the file can't be found
     :raises EntryFilePermissionError: If the file can't be read from
     """
-    if not os.access(path_like, os.R_OK):  # Can be read
-        if not os.access(path_like, os.F_OK):  # Exists
-            raise FileNotFoundError(
-                f"Failed to read entry-point '{path_like}'."
-                f" File does not exist!"
-            )
-        else:
-            raise FilePermissionError(
-                f"Missing file reading permissions for ''{path_like}'"
-            )
+    # Due to an empty string '' being recognised as existing it will be
+    # excluded from the check
+    valid_in = str(path_like).strip() != ''
+
+    if not valid_in or not os.access(path_like, os.F_OK):  # Exists
+        raise FileNotFoundError(
+            f"Failed to read entry-point '{path_like}'."
+            f" File does not exist!"
+        )
+    elif not os.access(path_like, os.R_OK):  # Can be read:
+        raise FilePermissionError(
+            f"Missing file reading permissions for ''{path_like}'"
+        )
 
 
 def decode_if_bytes(
@@ -59,7 +62,7 @@ def decode_if_bytes(
         return byte_like
 
 
-def cleanup_path(_p: str) -> str:
+def cleanup_path_str(_p: str) -> str:
     """ Cleans the path for the specific current os """
     if WIN:
         _p = _p.replace("/", SEPARATOR).replace("\\\\", SEPARATOR)
@@ -82,9 +85,9 @@ def check_valid_path_name(
 
     :param path: A path-like or file-name which should be checked
     :param win_path: If explicitly set to True, the path will be checked if it
-                     was a windows path, even if it's a os of a different kind
+    was a windows path, even if it's a os of a different kind
     """
-    path = cleanup_path(path)
+    path = cleanup_path_str(path)
     path = path.replace(SEPARATOR, '')
 
     if WIN or win_path:
@@ -118,14 +121,14 @@ def get_relative_file_name(
     match the file_name passed RuntimeError will be raised
 
     :param file_name: Simple file name which cannot contain < , > , : , " , / ,
-                      \\ (Escaped) , | , ? , *
+    \\ (Escaped) , | , ? , *
     :param file_path: Full path of the file
     :param base_path: Full base path for the working directory
     :param win_path: If explicitly set to True, the path will be checked if it
-                     was a windows path, even if it's a os of a different kind
+    was a windows path, even if it's a os of a different kind
     """
-    file_path = cleanup_path(file_path)
-    base_path = cleanup_path(base_path)
+    file_path = cleanup_path_str(file_path)
+    base_path = cleanup_path_str(base_path)
 
     if base_path not in file_path:
         raise RuntimeError(

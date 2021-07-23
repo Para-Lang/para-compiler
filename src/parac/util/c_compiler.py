@@ -4,7 +4,7 @@ import json
 import os
 import logging
 
-from .pathtools import cleanup_path, decode_if_bytes
+from .pathtools import cleanup_path_str, decode_if_bytes
 from ..exceptions import FilePermissionError, CCompilerNotFoundError
 from ..logging import get_rich_console as console
 
@@ -46,7 +46,7 @@ def cli_initialise_c_compiler() -> None:
         "[/bold bright_cyan]"
     )
     console().print('\n', end="")
-    path = cleanup_path(decode_if_bytes(_input))
+    path = cleanup_path_str(decode_if_bytes(_input))
 
     # it exists
     if not os.access(_input, os.F_OK):

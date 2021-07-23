@@ -42,19 +42,17 @@ def abortable(
 
     :param _func: Function to apply the decorator
     :param reraise: If set to True, any exception will be reraised. If False,
-                    it will close the program and write the error onto the
-                    console.
+    it will close the program and write the error onto the console.
     :param preserve_exception: If set to True, the original exception will be
-                               returned and not the wrapped exception using
-                               InternalError or InterruptError
+    returned and not the wrapped exception using InternalError or
+    InterruptError
     :param abort_on_internal_errors: If set to True when receiving an
-                                     InternalError it will treat it as a call
-                                     for aborting the process. This means it
-                                     will stop the program and print the
-                                     abort banner if print_abort is True.
+    InternalError it will treat it as a call for aborting the process. This
+    means it will stop the program and print the abort banner if print_abort is
+    True.
     :param print_abort: If True, it will print the abort banner when closing
     :param step: The step that should be passed onto print_abort_banner.
-                 Only valid argument when print_abort is True
+    Only valid argument when print_abort is True
     """
 
     def _decorator(func):

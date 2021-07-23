@@ -6,7 +6,7 @@ from os import PathLike
 from pathlib import Path
 from typing import Union, Tuple
 
-from parac import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
+from parac import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, UserInputError
 from parac.util import abortable, decode_if_bytes
 from parac.logging import get_rich_console as console
 
@@ -24,9 +24,18 @@ def cli_resolve_path(path: Union[bytes, str, Path, PathLike]) -> str:
     and return it as a string, else it will be passed through decode_if_bytes,
     made to a pathlib.Path to resolve all symlinks and then returned as a
     string
+
+    :raise UserInputError: If the inserted path can not be resolved due to an
+    invalid format
     """
+    if str(path.strip()) == "":
+        raise UserInputError("Path can not be empty")
     if type(path) in (bytes, str, PathLike):
-        path = Path(decode_if_bytes(path))
+        try:
+            path = Path(decode_if_bytes(path))
+        # pathlib.Path raised error -> Invalid path
+        except Exception as e:
+            raise UserInputError("Path is in an invalid format") from e
     return str(path.resolve())
 
 
@@ -79,9 +88,9 @@ def cli_run_output_dir_validation(
     """ Validates whether the output folder /build/ and /dist/ can be used
 
     :param overwrite_build: If set to True if a build folder already exists
-                            it will be deleted and overwritten
+    it will be deleted and overwritten
     :param overwrite_dist: If set to True if a dist folder already exists
-                           it will be deleted and overwritten
+    it will be deleted and overwritten
     """
     build_path = cli_check_destination(
         "build",
