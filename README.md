@@ -12,6 +12,7 @@
   - [Disclaimer](#disclaimer)
 
 # The Para-C programming language
+*This is version 0.1.dev1*
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
