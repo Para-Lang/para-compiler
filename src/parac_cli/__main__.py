@@ -1,57 +1,60 @@
 # coding=utf-8
 """ Main file of the Para-Compiler"""
-import shutil
 import time
 import asyncio
-from typing import Union, Tuple
+from pathlib import Path
+from typing import Union
 import click
 import colorama
 import logging
-import os
 from os import PathLike
 from rich.progress import Progress
 
-from ..exceptions import InvalidArgumentsError
-from ..const import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH
-from ..util import (cli_keep_open_callback, escape_ansi_args,
-                    requires_init, is_c_compiler_ready,
-                    cli_initialise_c_compiler, abortable)
-from ..logging import get_rich_console as console, print_result_banner, \
-    cli_create_prompt, cli_format_default, init_rich_console, print_init_banner
-from .compiler import ParacCompiler
-from .process import ProgramCompilationProcess, BasicProcess, FinishedProcess
+from parac import RUNTIME_COMPILER
+from parac.exceptions import InvalidArgumentsError
+from parac.util import (cli_keep_open_callback, escape_ansi_args,
+                        requires_init, is_c_compiler_ready,
+                        cli_initialise_c_compiler, abortable)
+from parac.logging import (get_rich_console as console, print_result_banner,
+                           cli_create_prompt, cli_format_default,
+                           init_rich_console, print_init_banner)
+from parac.compiler import (ProgramCompilationProcess,
+                            BasicProcess, FinishedProcess)
+from .utils import cli_run_output_dir_validation, cli_resolve_path
 
 __all__ = [
-    'para_compiler',
-    'create_process',
-    'run_output_dir_validation',
-    'run_process_with_logging',
-    'cli',
-    'parac_compile',
+    'cli_create_process',
+    'cli_run_output_dir_validation',
+    'cli_run_process_with_logging',
+    'cli_entry',
+    'cli_parac_compile',
     'ParacCLI'
 ]
 
 logger = logging.getLogger(__name__)
 colorama.init(autoreset=True)
-para_compiler = ParacCompiler()
 
 
 @abortable(step="Setup", reraise=True, preserve_exception=True)
-def create_process(
-        file: Union[str, PathLike],
+def cli_create_process(
+        file: Union[str, PathLike, Path],
         encoding: str,
-        log_path: Union[str, PathLike],
-        build_path: str,
-        dist_path: str
+        log_path: Union[str, PathLike, Path],
+        build_path: Union[str, PathLike, Path],
+        dist_path: Union[str, PathLike, Path]
 ) -> ProgramCompilationProcess:
     """
     Creates a compilation process, which can be used for compiling Para-C code
     and returns it.
     Activates logging on default
     """
-    if not para_compiler.log_initialised:
-        para_compiler.init_logging_session(log_path)
+    if not RUNTIME_COMPILER.log_initialised:
+        RUNTIME_COMPILER.init_logging_session(log_path)
 
+    # Resolving path and stripping whitespaces
+    file: str = cli_resolve_path(file).strip()
+    build_path: str = cli_resolve_path(build_path).strip()
+    dist_path: str = cli_resolve_path(dist_path).strip()
     return ProgramCompilationProcess(file, encoding, build_path, dist_path)
 
 
@@ -65,76 +68,10 @@ def create_basic_process(
     returns it.
     Activates logging on default
     """
-    if not para_compiler.log_initialised:
-        para_compiler.init_logging_session(log_path)
+    if not RUNTIME_COMPILER.log_initialised:
+        RUNTIME_COMPILER.init_logging_session(log_path)
 
     return BasicProcess(file, encoding)
-
-
-@abortable(step="Validating Output", reraise=True)
-def _err_dir_already_exists(folder: Union[str, PathLike]) -> bool:
-    """ Asks the user whether the build folder should be overwritten """
-    _input = console().input(
-        f"[bright_yellow] > [bright_white]The {folder} "
-        "folder already exists. Overwrite data? (y\\N): "
-    ).lower() == 'y'
-    return _input
-
-
-def _check_destination(
-        output_type: str,
-        default_path: Union[str, PathLike],
-        overwrite: bool
-) -> str:
-    """
-    Validates the destination and checks whether the specified output
-    folder is available. If the folder already exists it will show a prompt
-    to the user what should be done about the existing folder.
-
-    :returns: The path to the folder
-    """
-    output = default_path
-    if not os.path.exists(default_path):
-        os.mkdir(default_path)
-    elif len(os.listdir(default_path)) > 0:
-        # If the overwrite is set to False then a prompt will appear
-        if overwrite is False:
-            overwrite = _err_dir_already_exists(output_type)
-
-        if overwrite:
-            shutil.rmtree(default_path)
-            os.mkdir(default_path)
-        else:
-            counter = 2
-            while os.path.exists(f"{os.getcwd()}/{output_type}_{counter}"):
-                counter += 1
-            output = f"{os.getcwd()}/{output_type}_{counter}"
-            os.mkdir(output)
-    return output
-
-
-def run_output_dir_validation(
-        overwrite_build: bool,
-        overwrite_dist: bool
-) -> Tuple[str, str]:
-    """ Validates whether the output folder /build/ and /dist/ can be used
-
-    :param overwrite_build: If set to True if a build folder already exists
-                            it will be deleted and overwritten
-    :param overwrite_dist: If set to True if a dist folder already exists
-                           it will be deleted and overwritten
-    """
-    build_path = _check_destination(
-        "build",
-        DEFAULT_BUILD_PATH,
-        overwrite_build
-    )
-    dist_path = _check_destination(
-        "dist",
-        DEFAULT_DIST_PATH,
-        overwrite_dist
-    )
-    return build_path, dist_path
 
 
 async def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
@@ -143,12 +80,12 @@ async def run_process(p: ProgramCompilationProcess) -> FinishedProcess:
     Calls p.compile(), adds additional formatting and returns the result
     """
     finished_process = await p.compile()
-    if para_compiler.log_initialised:
+    if RUNTIME_COMPILER.log_initialised:
         print_result_banner()
     return finished_process
 
 
-async def run_process_with_logging(
+async def cli_run_process_with_logging(
         p: ProgramCompilationProcess
 ) -> FinishedProcess:
     """ Runs the compilation process with console logs and formatting """
@@ -174,7 +111,7 @@ async def run_process_with_logging(
                 current_progress = p
 
     console().print("\n", end="")
-    if para_compiler.log_initialised:
+    if RUNTIME_COMPILER.log_initialised:
         print_result_banner()
     return finished_process
 
@@ -193,12 +130,17 @@ async def run_process_with_logging(
 )
 @click.pass_context
 @abortable(reraise=False)
-def cli(*args, **kwargs):
-    """ Console Line Interface for the Para-C Compiler """
+def cli_entry(*args, **kwargs):
+    """
+    Console Line Interface for the Para-C Compiler
+    \f
+    Entry point for the CLI. This should be called when wanting to start the
+    cli. It will utilise the args passed to the program as the click arguments
+    """
     ParacCLI.cli(*args, **kwargs)
 
 
-@cli.command(name="c-init")
+@cli_entry.command(name="c-init")
 @click.option("--keep-open", is_flag=True)
 @abortable(reraise=False)
 def parac_c_init(*args, **kwargs):
@@ -208,7 +150,7 @@ def parac_c_init(*args, **kwargs):
     ParacCLI.parac_c_init(*args, **kwargs)
 
 
-@cli.command(name="compile")
+@cli_entry.command(name="compile")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -278,12 +220,12 @@ def parac_c_init(*args, **kwargs):
     help="If set the compiler will add additional debug information"
 )
 @abortable(reraise=False)
-def parac_compile(*args, **kwargs):
+def cli_parac_compile(*args, **kwargs):
     """ Compile a Para-C program to C or executable """
     ParacCLI.parac_compile(*args, **kwargs)
 
 
-@cli.command(name="run")
+@cli_entry.command(name="run")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -342,7 +284,7 @@ def parac_run(*args, **kwargs):
     ParacCLI.parac_run(*args, **kwargs)
 
 
-@cli.command(name="syntax-check")
+@cli_entry.command(name="syntax-check")
 @click.option("--keep-open", is_flag=True)
 @click.option(
     "-f",
@@ -401,7 +343,7 @@ class ParacCLI:
 
         out = console()
         if version:
-            from .. import __version__, __title__
+            from parac import __version__, __title__
             return out.print(' '.join([__title__.title(), __version__]))
         else:
             print_init_banner()
@@ -420,8 +362,8 @@ class ParacCLI:
     @escape_ansi_args
     def parac_c_init():
         """ Initialises the C compiler """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(print_banner=False)
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(print_banner=False)
         logger.info(
             'Reinitialising' if is_c_compiler_ready() else 'Initialising'
             " Para-C Compiler"
@@ -446,8 +388,8 @@ class ParacCLI:
         CLI interface for the parac_compile command.
         Will create a compilation-process and run it
         """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(
                 log,
                 level=logging.DEBUG if debug else logging.INFO,
             )
@@ -462,7 +404,7 @@ class ParacCLI:
         # the case a prompt will appear asking the user to either answer yes
         # or no to overwriting it. If it's false a new directory with the same
         # name but a number added will be created e.g. build_2
-        build_path, dist_path = run_output_dir_validation(
+        build_path, dist_path = cli_run_output_dir_validation(
             overwrite_build,
             overwrite_dist
         )
@@ -470,7 +412,7 @@ class ParacCLI:
         # Creates a CompilationProcess which represents a process that can
         # be finished but does not need to be finished
         p: ProgramCompilationProcess = abortable(
-            create_process,
+            cli_create_process,
             step="Setup",
             reraise=True
         )(
@@ -481,7 +423,7 @@ class ParacCLI:
             dist_path
         )
         # Running the process with additional formatting and logging
-        return asyncio.run(run_process_with_logging(p))
+        return asyncio.run(cli_run_process_with_logging(p))
 
     @staticmethod
     @abortable(reraise=True)
@@ -518,8 +460,8 @@ class ParacCLI:
             debug: bool
     ):
         """ Runs a syntax check on the specified file (imports excluded) """
-        if not para_compiler.log_initialised:
-            para_compiler.init_logging_session(
+        if not RUNTIME_COMPILER.log_initialised:
+            RUNTIME_COMPILER.init_logging_session(
                 log,
                 level=logging.DEBUG if debug else logging.INFO,
                 banner_name="Syntax Check"
@@ -530,8 +472,8 @@ class ParacCLI:
         # Exception won't be reraised and directly logged to the console
         result = asyncio.run(p.validate_syntax(enable_out=True))
 
-        errors = para_compiler.stream_handler.errors
-        warnings = para_compiler.stream_handler.warnings
+        errors = RUNTIME_COMPILER.stream_handler.errors
+        warnings = RUNTIME_COMPILER.stream_handler.warnings
         if result is True:
             print_result_banner("Syntax Check")
             logger.info(

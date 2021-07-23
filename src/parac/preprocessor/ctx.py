@@ -144,7 +144,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
         process_program()
 
         :returns: A tuple containing at 0 the path to the entry-file and at 1
-                  a list of all paths of all other files.
+        a list of all paths of all other files.
         """
         ...
 
@@ -156,10 +156,9 @@ class ProgramPreProcessorContext(ProgramRunContext):
         for generating the finished code.
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: A PreProcessorProcessResult instance
         """
         await self.parse_entry_file(enable_out)
@@ -180,10 +179,9 @@ class ProgramPreProcessorContext(ProgramRunContext):
 
         :param file_path: Path to the file
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. If an exception is raised or error is
-                   encountered, it will be reraised with the
-                   FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
         from ..compiler import ParacCompiler
@@ -216,12 +214,11 @@ class ProgramPreProcessorContext(ProgramRunContext):
 
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able
-                                   using get_relative_file_name)
+        using get_relative_file_name)
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The generated FilePreProcessorContext instance
         """
         from .listener import Listener

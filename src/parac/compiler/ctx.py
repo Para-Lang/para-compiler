@@ -157,12 +157,12 @@ class ProgramCompilationContext(ProgramRunContext):
         Generates the source C-code from the tokens stored inside the class.
 
         :returns: Dict[
-                  str - Name of the file (Relative name),
-                  Dict[
-                    str - The code-string,
-                    FileCompilationContext - The context of the file
-                  ]
-                 ]
+          str - Name of the file (Relative name),
+          Dict[
+            str - The code-string,
+            FileCompilationContext - The context of the file
+          ]
+         ]
         """
         ...
 
@@ -172,10 +172,9 @@ class ProgramCompilationContext(ProgramRunContext):
         for generating the finished code.
 
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         """
         await self.parse_entry_file(enable_out)
 
@@ -192,10 +191,9 @@ class ProgramCompilationContext(ProgramRunContext):
 
         :param file_path: Path to the file
         :param enable_out: If set to True errors, warnings and info will be
-                   logged onto the console using the local logger
-                   instance. If an exception is raised or error is
-                   encountered, it will be reraised with the
-                   FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
         from .compiler import ParacCompiler
@@ -227,13 +225,12 @@ class ProgramCompilationContext(ProgramRunContext):
         Parses a single file and generates the FilePreProcessorContext
 
         :param stream: The Antlr4 InputStream which represents a string stream
-        :param relative_file_name: Relative name of the file (fetch-able
-                                   using get_relative_file_name)
+        :param relative_file_name: Relative name of the file (fetch-able using
+        get_relative_file_name)
         :param enable_out: If set to True errors, warnings and info will be
-                           logged onto the console using the local logger
-                           instance. If an exception is raised or error is
-                           encountered, it will be reraised with the
-                           FailedToProcessError.
+        logged onto the console using the local logger instance. If an
+        exception is raised or error is encountered, it will be reraised with
+        the FailedToProcessError.
         :returns: The generated FilePreProcessorContext instance
         """
         from .compiler import ParacCompiler

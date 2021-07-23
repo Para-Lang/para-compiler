@@ -5,10 +5,10 @@ import pytest
 import os
 
 from parac import (FileNotFoundError as ParaFileNotFoundError,
-                   SEPARATOR as SEP)
+                   SEPARATOR as SEP, UserInputError)
 from parac.logging import set_avoid_print_banner_overwrite
-from parac.compiler import (ParacCompiler, create_process,
-                            run_output_dir_validation)
+from parac.compiler import ParacCompiler
+from parac_cli import cli_run_output_dir_validation, cli_create_process
 
 from .. import (add_folder, overwrite_builtin_input, reset_input,
                 create_test_file)
@@ -33,14 +33,14 @@ class TestCLISetup:
         create_test_file("build", "example.txt")
 
         overwrite_builtin_input('True')
-        run_output_dir_validation(False, True)
+        cli_run_output_dir_validation(False, True)
         assert not os.path.exists("./build_2/example.txt")
         assert os.path.exists("./build/example.txt")
 
         create_test_file("build", "example.txt")
 
         overwrite_builtin_input('False')
-        run_output_dir_validation(True, True)
+        cli_run_output_dir_validation(True, True)
         assert not os.path.exists("./build/example.txt")
         add_folder("build")
 
@@ -49,13 +49,13 @@ class TestCLISetup:
         create_test_file("dist", "example.txt")
 
         overwrite_builtin_input('True')  # Overwrite data -> True
-        run_output_dir_validation(True, False)
+        cli_run_output_dir_validation(True, False)
         assert not os.path.exists("./dist_2/example.txt")
         assert os.path.exists("./dist/example.txt")
 
         create_test_file("dist", "example.txt")
         overwrite_builtin_input('False')  # Overwrite data -> False
-        run_output_dir_validation(True, True)
+        cli_run_output_dir_validation(True, True)
         assert not os.path.exists("./dist/example.txt")
         add_folder("dist")
 
@@ -63,7 +63,7 @@ class TestCLISetup:
         b_path = add_folder("build")
         d_path = add_folder("dist")
 
-        p = create_process(
+        p = cli_create_process(
             main_file_path, ENCODING, LOG_PATH, b_path, d_path
         )
 
@@ -72,20 +72,43 @@ class TestCLISetup:
 
     @pytest.mark.parametrize(
         "path", [
-            "not_existing.para", "not_existing", " ", ""
+            "not_existing.para", "not_existing"
         ]
     )
-    def test_wrong_path_compilation_process(self, path: str):
+    def test_wrong_path_compilation_process_1(self, path: str):
         b_path = add_folder("build")
         d_path = add_folder("dist")
         try:
-            create_process(
-                path, ENCODING, LOG_PATH, b_path, d_path
+            p = cli_create_process(
+                file=path,
+                encoding=ENCODING,
+                log_path=LOG_PATH,
+                build_path=b_path,
+                dist_path=d_path
             )
+            assert False
         except ParaFileNotFoundError as e:
             ...
-        else:
+
+    @pytest.mark.parametrize(
+        "path", [
+            "", "", "ddf $  &/`='|.*"
+        ]
+    )
+    def test_wrong_path_compilation_process_2(self, path: str):
+        b_path = add_folder("build")
+        d_path = add_folder("dist")
+        try:
+            p = cli_create_process(
+                file=path,
+                encoding=ENCODING,
+                log_path=LOG_PATH,
+                build_path=b_path,
+                dist_path=d_path
+            )
             assert False
+        except UserInputError:
+            ...
 
     @pytest.mark.parametrize(
         "expected,input_str,line_ending", [

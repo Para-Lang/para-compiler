@@ -3,18 +3,16 @@
 import logging
 import os
 from typing import List
-
 import asyncio
 
-from parac.compiler import (ParacCompiler, ProgramCompilationProcess,
-                            para_compiler)
-from parac import SEPARATOR as SEP
+from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
+from parac import SEPARATOR as SEP, RUNTIME_COMPILER
 from parac.logging import set_avoid_print_banner_overwrite
 
 from .. import add_folder, remove_folder, reset_input
 
 compiler = ParacCompiler()
-para_compiler.init_logging_session(
+RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 set_avoid_print_banner_overwrite(True)

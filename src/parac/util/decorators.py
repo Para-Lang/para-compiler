@@ -42,19 +42,17 @@ def abortable(
 
     :param _func: Function to apply the decorator
     :param reraise: If set to True, any exception will be reraised. If False,
-                    it will close the program and write the error onto the
-                    console.
+    it will close the program and write the error onto the console.
     :param preserve_exception: If set to True, the original exception will be
-                               returned and not the wrapped exception using
-                               InternalError or InterruptError
+    returned and not the wrapped exception using InternalError or
+    InterruptError
     :param abort_on_internal_errors: If set to True when receiving an
-                                     InternalError it will treat it as a call
-                                     for aborting the process. This means it
-                                     will stop the program and print the
-                                     abort banner if print_abort is True.
+    InternalError it will treat it as a call for aborting the process. This
+    means it will stop the program and print the abort banner if print_abort is
+    True.
     :param print_abort: If True, it will print the abort banner when closing
     :param step: The step that should be passed onto print_abort_banner.
-                 Only valid argument when print_abort is True
+    Only valid argument when print_abort is True
     """
 
     def _decorator(func):
@@ -66,7 +64,7 @@ def abortable(
                 exit(1)
 
             try:
-                from ..compiler import para_compiler
+                from .. import RUNTIME_COMPILER
                 try:
                     return func(*args, **kwargs)
                 except InterruptError:
@@ -79,8 +77,8 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except ParacCompilerError as e:
-                    if not para_compiler.log_initialised:
-                        para_compiler.init_logging_session()
+                    if not RUNTIME_COMPILER.log_initialised:
+                        RUNTIME_COMPILER.init_logging_session()
 
                     log_traceback(
                         level="critical",
@@ -93,8 +91,8 @@ def abortable(
                         raise InterruptError(exc=e) from e
 
                 except Exception as e:
-                    if not para_compiler.log_initialised:
-                        para_compiler.init_logging_session()
+                    if not RUNTIME_COMPILER.log_initialised:
+                        RUNTIME_COMPILER.init_logging_session()
 
                     if preserve_exception:
                         raise e
@@ -129,13 +127,13 @@ def requires_init(_func=None):
     def _decorator(func):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
-            from ..compiler import para_compiler
+            from .. import RUNTIME_COMPILER
             from .. import C_COM_EXISTENCE_OVERWRITE
             from . import (is_c_compiler_ready, cli_initialise_c_compiler)
 
             if not is_c_compiler_ready() and not C_COM_EXISTENCE_OVERWRITE:
-                if not para_compiler.log_initialised:
-                    para_compiler.init_logging_session()
+                if not RUNTIME_COMPILER.log_initialised:
+                    RUNTIME_COMPILER.init_logging_session()
 
                 init_rich_console()
                 console().print('')
