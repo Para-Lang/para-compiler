@@ -19,7 +19,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Installation section in the README.md
-
+- `.parah` and `.ph` as valid file extensions 
+ 
 ### Changed
 - Wrong license classifier in setup.py
 
