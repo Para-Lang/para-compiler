@@ -1,0 +1,8 @@
+entry status Main()
+{
+    lambda<int> multiply_by_two = (int x) => x * 2;
+    lambda<int> func = ((int x) => x as int) as lambda<int>;
+    lambda<int, int > func2 = (int x, int y) => (int) x * y;
+
+    return (status) { .status_code = 0 };
+}

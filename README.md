@@ -1,11 +1,7 @@
-![para-c](./Para-C-Redesign-Banner.png)
-
-*Para-C is not intended to be a widely „optimised“ or „production-ready“ programming language. It is solely a free-time
-project designed for learning and testing purposes, which we do not intend for anything other than that.*
+![para-c](img/parac-banner.png)
 
 *Note: Para-C is not intended to be a widely „optimised“ or „production-ready“
-programming language. It is for now solely a free-time project designed for
-learning and testing purposes, which we do not intend for anything other than that.*
+programming language. It is for now solely a free-time/college project*
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -23,7 +19,7 @@ learning and testing purposes, which we do not intend for anything other than th
 
 ## Introduction
 
-Para-C (From Greek Origin: Beside C) is a programming language that is 
+Para-C (From Greek Origin: Beside C ) is a programming language that is 
 designed to integrate other languages and allow for advanced management of
 programs / code-bases inside a program, where the language will serve as a 
 base overhead language with extended C-functionality and simplifications to
@@ -42,79 +38,126 @@ this, you can for example embed async functionality from Python directly into
 the program, which is not natively supported, and then pass generated data to
 a C++ program, which then uses that to run something else. 
  
+## CLI
+The Para-C CLI is the standard CLI for interacting with the standard compiler
+implementation. When [installing](#installation) with a generated installer
+or `build-exe.py`, this will be the interface used when running the compiler.
+
+### Commands
+*Commands displayed are mostly only partly implemented*
+- `parac compile` - Compile a Para-C program to C or executable
+- `parac run` - Compiles a Para-C program and runs it (Creates build and dist as well)
+- `parac c-init` - Console Line Interface for the configuration of the C-compiler
+- `parac syntax-check` - Validates the syntax of a Para-C program and logs errors if needed
+- `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax (Not added yet. See [#9](/../../issues/9) and [#10](/../../issues/10))
+
+## Python Module 
+
+The `parac` module serves the purpose of combining the entire compiler with
+lib into a simple module, which can be imported and used in ways that are not
+implemented in the standard CLI. This means both the `preprocessor` and 
+`compiler` are available for customisable usage.
+
+For more info see [Module README](./src/README.md).
+
 ## Development
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
-![Coverage](https://raw.githubusercontent.com/Luna-Klatzer/Para-C/main/coverage.svg)
+![Coverage](./coverage.svg)
+![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
+![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
+
+### Parsing and Processing Procedure
+
+Due to the two components, which are the Pre-Processor, and the core Compiler
+the entire module is split into two modules: `preprocessor` and `paraccompiler`,
+which both implement their own handling for the source-code. This means that 
+when compiling a file, the file will be sent through the Pre-Processor first,
+modified and then sent to the Para-C Compiler. This also means errors reported
+will be from the modified file, so that the modified code is visible to the 
+user, instead of the file without correct Pre-Processor processing.
 
 ### Building
 
-The building process is relatively simple since it uses simple PyInstaller and Inno-setup to automate the building
-process. The compiler is shipped as a one-file executable file and can be run 
+#### Generating the Parser and Lexer
 
-#### Build the Parser and Lexer with Antlr4
+*Required for Lexer and Parser Development which include changes on the .g4 grammar files*
 
-##### Downloading
+##### Downloading Antlr4
 
-To download Antlr4 go to [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
+To download Antlr4 go [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
 
-Quickstart Installation Guide: [here](https://www.antlr.org/)
+Quickstart Installation Guide on the Main Website: [here](https://www.antlr.org/)
 
-##### Using Antlr4
+##### Generating the Source files
 
 Generating the Parser and Lexer is made up of two parts:
 
 - Using Antlr4 to compile the .g4 file to actual source code
 - Implementing the Runtime (The user code that is shipped with the binaries)
 
-*Note: Generating the Parser and Lexer means that the implementation
-will be gone. There will be a code base, but regenerating the lexer will
-require new a new implementation into the compiler. How long this
-will take is uncertain, since the amount of work depend on what changes 
-are made in the grammar (.g4 file)*
+*Note: Generating the Parser and Lexer means that depending on the changes
+the implementation code needs to be changed.*
 
-To generate use:
-```bash
-antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4
-```
+To generate in the command-line use:
+- For the Pre-Processor:
+  - Python (Required for the Compiler):
+      ```bash
+      antlr4 -o ./src/parac/preprocessor/python -Dlanguage=Python3 ./grammar/ParaCPreProcessor.g4
+      ```
+  - Java:
+      ```bash
+      antlr4 -o ./src/parac/preprocessor/python -Dlanguage=Java ./grammar/ParaCPreProcessor.g4
+      ```
 
-Afterwards correctly move the folder using:
+- For the Core Language:
+  - Python (Required for the Compiler):
+      ```bash
+      antlr4 -o ./src/parac/compiler/core/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
+      ```
+  - Java:
+      ```bash
+      antlr4 -o ./src/parac/compiler/core/parser/python -Dlanguage=Java ./grammar/ParaC.g4
+      ```
+  
+Afterwards *if needed* correctly move the folder using:
 ```bash
-mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/
+mv ./path/to/generated/output/* ./src/compiler/core/<insert-destination>/
 ```
 
 and delete the remaining folder:
 ```bash
-rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
+rm -rf ./path/to/generated/output
 ```
 
-Everything together:
-```bash
-antlr -o ./paraccompiler/antlr/implem/out/ -Dlanguage=Python3 ./paraccompiler/antlr/g4/ParaC.g4 && mv ./paraccompiler/antlr/implem/out/paraccompiler/antlr/g4/* ./paraccompiler/antlr/implem/out/ && rm -rf ./paraccompiler/antlr/implem/out/paraccompiler/
-```
+**Notes:**
+- *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
+- *Comments are only partly ignored in ParaC.g4, due the intended removal in the Pre-Processor. Errors can occur!*
 
-*Make sure the alias for antlr4 exists! Else the command will not work*
 #### Build the Executable and binaries
 
-This specified script will automatically build the project and create a dist and build folder containing all the binaries 
-as well as the executable file. The build folder will contain the raw data and logs, meaning it
-is not intended for distribution. The dist folder will contain the distribution-ready data
+For generating the binaries, PyInstaller with a wrapper script will be used.
+This script will automatically run the generation of source files and copying of data.
 
+To run the script simply use (Python3):
 ```bash
 python ./build-exe.py
 ```
 
-##### Installing Antlr
+The script will create a `./build/` and `./dist/` folder.
+The `./build/` folder will contain the raw data and logs, while the `./dist/`
+folder will contain the distribution-ready binaries and data.
+
+### Installation
+ 
+To install Para-C, you can either use the pre-built installer for the specified 
+version or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
 
 #### Build inno-setup installer for Windows 
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
 Build inside this folder and use the inno-setup.iss file. The generated installer will be placed inside `./Output`
-
-### Installation
- 
-To install Para-C, you can either use the pre-built installer for the specified version or build the compiler yourself. 
 
 ### Setup
 
@@ -125,14 +168,24 @@ will automatically do the installation based on your input.
 
 #### For unix-based systems
 
-Initialise the compiler using:
+On unix-based systems the installation is open to the user, including the folder
+where the compiler will be placed (It is recommended though to use `/opt`, 
+`/usr`, `/usr/local` or similar)
 
-```bash
-parac init
-```
-And add the compiler to the PATH:
-
+Steps to add the alias `parac` to your terminal:
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
 2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
 3. Save the .bashrc file.
 4. Restart your terminal.
+
+#### Initialising the C Compiler
+
+To start the initialisation setup for the C-Compiler use:
+
+```bash
+parac c-init
+```
+
+This will add the C-Compiler path to the Para-C compiler and make commands
+related to running a Para-C program available. It is not required though and
+without it the compiler will simply generate C source files.
