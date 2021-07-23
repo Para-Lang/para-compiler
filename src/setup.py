@@ -1,7 +1,6 @@
 # coding=utf-8
 """ Setup file for the entire project """
 import os
-
 import setuptools
 from pathlib import Path
 
