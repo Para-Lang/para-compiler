@@ -1,6 +1,6 @@
 ![para-c](img/parac-banner.png)
 
-# Content
+# [Content](#content)
 
 - [The Para-C programming language](#the-para-c-programming-language)
   - [Key-Features](#key-features)
