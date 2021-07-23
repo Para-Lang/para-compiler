@@ -6,16 +6,31 @@
   - [Key-Features](#key-features)
   - [Introduction](#introduction)
   - [CLI](#cli)
+    - [Commands](#commands)
   - [Python Module](#python-module)
   - [Installation](#installation)
+    - [Install the Python module](#install-the-python-module)
+    - [Build the Compiler](#build-the-compiler)
+    - [Setting up the Compiler](#setting-up-the-compiler)
+      - [For Windows](#for-windows)
+      - [For unix-based systems (Including MacOS)](#for-unix-based-systems-including-macos)
+         - [Adding the compiler alias on Linux](#adding-the-compiler-alias-on-linux)
+      - [Initialising the C Compiler](#initialising-the-c-compiler)
   - [Development](#development)
+    - [Parsing and Processing Procedure](#parsing-and-processing-procedure)
+    - [Build inno-setup installer for Windows](#build-inno-setup-installer-for-windows)
+    - [Building](#building)
+      - [Generating the Parser and Lexer](#generating-the-parser-and-lexer)
+        - [Downloading Antlr4](#downloading-antlr4)
+        - [Generating the Python files](#generating-the-python-files)
+        - [Build the executable and binaries](#build-the-executable-and-binaries)
   - [Disclaimer](#disclaimer)
   - [Copyright and License](#copyright-and-license)
 
-# [The Para-C programming language](#content)
+# The Para-C programming language
 *This is version 0.1.dev4*
 
-## [Key-Features](#content)
+## Key-Features
 *Planned/Intended features (Development is still ongoing)*
 - Ability to streamline calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
@@ -29,7 +44,7 @@
 - Language Library with additional helper functions
 - Simplified syntax and handling of C components for easier coding
 
-## [Introduction](#content)
+## Introduction
 
 Para-C (From Greek Origin: Beside C ) is a programming language that is 
 designed to integrate other languages and allow for advanced management of
@@ -50,7 +65,7 @@ this, you can for example embed async functionality from Python directly into
 the program, which is not natively supported, and then pass generated data to
 a C++ program, which then uses that to run something else. 
  
-## [CLI](#content)
+## CLI
 The Para-C CLI is the standard CLI for interacting with the standard compiler
 implementation. When [installing](#installation) with a generated installer
 or `build-exe.py`, this will be the interface used when running the compiler.
@@ -64,7 +79,7 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 - `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax 
   (Not added yet. See [#16](/../../issues/16))
 
-## [Python Module](#content)
+## Python Module
 
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 
@@ -75,14 +90,14 @@ implemented in the standard CLI. This means both the `preprocessor` and
 
 For more info see [Module README](./src/README.md).
 
-## [Installation](#content)
+## Installation
  
 To install Para-C, you can either use the pre-built installer for the windows,
 by going through the [releases](https://github.com/Para-C/Para-C/releases)
 or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
 (The last is simpler than it might seem)
 
-### [Install the python module](#installation)
+### Install the Python module
 
 When wanting to use the compiler as a python module it is recommended to 
 install the distributed version on [pypi.org](https://pypi.org/project/parac/),
@@ -99,7 +114,7 @@ python3 -m pip install -U parac==version
 ```
 
 
-### [Build the Compiler](#installation)
+### Build the Compiler
 
 Building the compiler will generate a `build` and `dist` folder, where the
 `dist` folder will contain the actual compiler directory. In this case, the 
@@ -108,20 +123,20 @@ Building the compiler will generate a `build` and `dist` folder, where the
 For the info about building the compiler see 
 [Build the executable and binaries](#build-the-executable-and-binaries)
 
-### [Setting up the Compiler](#installation)
+### Setting up the Compiler
 
-#### [For Windows](#installation)
+#### For Windows
 
 For Windows, the configured inno-setup installer should be used. The installer
 will automatically do the installation based on your input.
 
-#### [For unix-based systems (Including MacOS)](#installation)
+#### For unix-based systems (Including MacOS)
 
 On UNIX-based systems the installation is open to the user, including the folder
 where the compiler will be placed (It is recommended though to use `/opt`, 
 `/usr`, `/usr/local` or similar)
 
-##### [Adding the compiler alias on Linux](#installation)
+##### Adding the compiler alias on Linux
 
 Steps to add the alias `parac` to your terminal:
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
@@ -129,7 +144,7 @@ Steps to add the alias `parac` to your terminal:
 3. Save the .bashrc file.
 4. Restart your terminal.
 
-#### [Initialising the C Compiler](#installation)
+#### Initialising the C Compiler
 
 To start the initialisation setup for the C-Compiler use:
 
@@ -142,14 +157,14 @@ related to running a Para-C program available. It is not required though and
 without it the compiler will simply generate C source files.
 
 
-## [Development](#content)
+## Development
 
 ![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
 ![Coverage](./coverage.svg)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
 
-### [Parsing and Processing Procedure](#development)
+### Parsing and Processing Procedure
 
 Due to the two components, which are the Pre-Processor, and the core Compiler
 the entire module is split into two modules: `preprocessor` and `paraccompiler`,
@@ -159,25 +174,25 @@ modified and then sent to the Para-C Compiler. This also means errors reported
 will be from the modified file, so that the modified code is visible to the 
 user, instead of the file without correct Pre-Processor processing.
 
-### [Build inno-setup installer for Windows](#development)
+### Build inno-setup installer for Windows
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
 Build inside this folder and use the inno-setup.iss file. The generated installer will be placed inside `./Output`
 
-### [Building](#development)
+### Building
 
-#### [Generating the Parser and Lexer](#development)
+#### Generating the Parser and Lexer
 
 *Required for Lexer and Parser Development which include changes on the .g4 grammar files*
 
-##### [Downloading Antlr4](#development)
+##### Downloading Antlr4
 
 To download Antlr4 go [here](https://www.antlr.org/download/antlr-4.9.2-complete.jar)
 
 Quickstart Installation Guide on the Main Website: [here](https://www.antlr.org/)
 
-##### [Generating the Python files](#development)
+##### Generating the Python files
 
 Generating the Parser and Lexer is made up of two parts:
 
@@ -222,7 +237,7 @@ rm -rf ./path/to/generated/output
 - *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
 - *Comments are only partly ignored in ParaC.g4, due the intended removal in the Pre-Processor. Errors can occur!*
 
-#### [Build the executable and binaries](#development)
+#### Build the executable and binaries
 
 For generating the binaries, PyInstaller with a wrapper script will be used.
 This script will automatically run the generation of source files and copying of data.
@@ -236,7 +251,7 @@ The script will create a `./build/` and `./dist/` folder.
 The `./build/` folder will contain the raw data and logs, while the `./dist/`
 folder will contain the distribution-ready binaries and data.
 
-## [Disclaimer](#content)
+## Disclaimer
 Para-C is not intended as a language for production code or professional usage
 as of now. It is for now solely a free-time/college project.
 
@@ -244,10 +259,10 @@ This also means that issues or bugs while running can likely occur, and it's
 not a stable or production-ready language as of the point of writing.
 (*2021-07-23*).
 
-## [Copyright and License](#content)
+## Copyright and License
 
 Copyright (c) 2001-2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer). All rights reserved.
 
 See the [LICENSE](./LICENSE) for information on terms & conditions for usage
 
-###### Legal name, which does not match the preferred and commonly used name Luna Klatzer
+###### *Legal name, which does not match the preferred and commonly used name Luna Klatzer
