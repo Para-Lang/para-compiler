@@ -15,7 +15,7 @@
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
-- Ability to stream-line calling processes and handling return
+- Ability to streamline calling processes and handling return
 - More advanced and specialised functionality for managing embedded code
 - Program-State Saving for continuing execution at a later point
 - Multi-Threaded processing with embedded languages in multiple threads
@@ -100,7 +100,7 @@ python3 -m pip install -U parac==version
 #### Build the Compiler
 
 Building the compiler will generate a `build` and `dist` folder, where the
-`dist` folder will contain the actual compiler directory. In thiu case the 
+`dist` folder will contain the actual compiler directory. In this case, the 
 `build` folder can be ignored and deleted after building.
 
 For the info about building the compiler see 
@@ -110,16 +110,16 @@ For the info about building the compiler see
 
 #### For Windows
 
-For Windows the configured inno-setup installer should be used. The installer
+For Windows, the configured inno-setup installer should be used. The installer
 will automatically do the installation based on your input.
 
 #### For unix-based systems (Including MacOS)
 
-On unix-based systems the installation is open to the user, including the folder
+On UNIX-based systems the installation is open to the user, including the folder
 where the compiler will be placed (It is recommended though to use `/opt`, 
 `/usr`, `/usr/local` or similar)
 
-##### Adding the compiler alias on linux
+##### Adding the compiler alias on Linux
 
 Steps to add the alias `parac` to your terminal:
 1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
@@ -151,7 +151,7 @@ without it the compiler will simply generate C source files.
 
 Due to the two components, which are the Pre-Processor, and the core Compiler
 the entire module is split into two modules: `preprocessor` and `paraccompiler`,
-which both implement their own handling for the source-code. This means that 
+which both implement their handling for the source-code. This means that 
 when compiling a file, the file will be sent through the Pre-Processor first,
 modified and then sent to the Para-C Compiler. This also means errors reported
 will be from the modified file, so that the modified code is visible to the 
@@ -235,7 +235,7 @@ The `./build/` folder will contain the raw data and logs, while the `./dist/`
 folder will contain the distribution-ready binaries and data.
 
 ## Disclaimer
-Para-C is not intended as a language for production-code or professional usage
+Para-C is not intended as a language for production code or professional usage
 as of now. It is for now solely a free-time/college project.
 
 This also means that issues or bugs while running can likely occur, and it's 
