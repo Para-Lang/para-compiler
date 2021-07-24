@@ -1,6 +1,6 @@
 ---
 name: Language Feature request
-about: Suggest an idea for this project
+about: Suggest an enhancement for the Para-C language
 title: "[Enhancement Proposal] ..."
 labels: enhancement proposal
 assignees: Luna-Klatzer
