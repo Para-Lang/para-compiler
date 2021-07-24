@@ -2,7 +2,7 @@
 name: Language Enhancement Proposal
 about: Suggest an idea for this project
 title: "[Enhancement Proposal] ..."
-labels: Suggest an enhancement for the Para-C language
+labels: enhancement proposal
 assignees: Luna-Klatzer
 
 ---
