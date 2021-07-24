@@ -30,14 +30,5 @@ be included if they matter or have a big influence on the code/project
 -->
 
 ### Added
-<!---
-CodeQL, Tests and while running
--->
 ### Changed
-<!---
-CodeQL, Tests and while running
--->
 ### Removed
-<!---
-CodeQL, Tests and while running
--->
