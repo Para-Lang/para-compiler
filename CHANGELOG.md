@@ -12,10 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
-- Merged `list<t>` with default array type, meaning that all arrays will be
-  dynamic lists/arrays, which can utilise list functionality, but also 
-  practically stay normal arrays at the same time. For more info see the lang
-  document.
+- Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
+  which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
+  more info see the lang document.
 
 ### Removed
 - `list<t>` type from the Grammar file
