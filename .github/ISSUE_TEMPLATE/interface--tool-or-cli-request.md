@@ -1,8 +1,8 @@
 ---
 name: Interface, Tool or CLI Proposal
 about: Suggest an idea for the interface, Compiler tools or CLI.
-title: ''
-labels: ''
+title: [Tool Proposal] ...
+labels: enhancement proposal
 assignees: ''
 
 ---
