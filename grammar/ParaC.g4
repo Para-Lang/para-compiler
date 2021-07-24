@@ -226,7 +226,6 @@ typeSpecifier
     |   'float'
     |   'double'
     |   'signed'
-    |   'list' '<' typeSpecifier '>'
     |   'lambda' '<' parameterTypeList '>'
     |   'unsigned'
     |   '_Bool'
@@ -412,7 +411,7 @@ typedefName
 
 initializer
     :   assignmentExpression
-    |   '{' initializerList ','? '}'
+    |   '{' initializerList? ','? '}' // array
     ;
 
 initializerList
@@ -594,7 +593,6 @@ If : 'if';
 Inline : 'inline';
 Int : 'int';
 Lambda : 'lambda';
-List : 'list';
 Long : 'long';
 Register : 'register';
 Restrict : 'restrict';

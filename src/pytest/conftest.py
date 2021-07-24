@@ -1,10 +1,17 @@
 # coding=utf-8
 """ Configuration file for pytest """
+import os
+import shutil
 import sys
+from pathlib import Path
+
 import pytest
 import logging
-import parac
 
+p = Path("..").absolute()
+sys.path.append(str(p))
+
+import parac
 parac.RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )

@@ -1,5 +1,5 @@
 [run]
-source = ../parac
+source = ../
 omit =
    *\pkg_resources\*
    *\out\*
