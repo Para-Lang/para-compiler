@@ -1,7 +1,7 @@
 ---
-name: Feature request
+name: Feature Proposal
 about: Suggest an idea for this project
-title: "[Enhancement Proposal] ..."
+title: "[Feature Proposal] ..."
 labels: enhancement proposal
 assignees: Luna-Klatzer
 

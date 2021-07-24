@@ -1,5 +1,5 @@
 ---
-name: Interface, Tool or CLI request
+name: Interface, Tool or CLI Proposal
 about: Suggest an idea for the interface, Compiler tools or CLI.
 title: ''
 labels: ''
