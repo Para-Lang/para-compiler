@@ -1,17 +1,34 @@
 ![para-c](img/parac-banner.png)
 
-# Content
+# [Content](#content)
 
 - [The Para-C programming language](#the-para-c-programming-language)
   - [Key-Features](#key-features)
   - [Introduction](#introduction)
   - [CLI](#cli)
+    - [Commands](#commands)
   - [Python Module](#python-module)
   - [Installation](#installation)
+    - [Install the Python module](#install-the-python-module)
+    - [Build the Compiler](#build-the-compiler)
+    - [Setting up the Compiler](#setting-up-the-compiler)
+      - [For Windows](#for-windows)
+      - [For unix-based systems (Including MacOS)](#for-unix-based-systems-including-macos)
+         - [Adding the compiler alias on Linux](#adding-the-compiler-alias-on-linux)
+      - [Initialising the C Compiler](#initialising-the-c-compiler)
   - [Development](#development)
+    - [Parsing and Processing Procedure](#parsing-and-processing-procedure)
+    - [Build inno-setup installer for Windows](#build-inno-setup-installer-for-windows)
+    - [Building](#building)
+      - [Generating the Parser and Lexer](#generating-the-parser-and-lexer)
+        - [Downloading Antlr4](#downloading-antlr4)
+        - [Generating the Python files](#generating-the-python-files)
+        - [Build the executable and binaries](#build-the-executable-and-binaries)
   - [Disclaimer](#disclaimer)
+  - [Copyright and License](#copyright-and-license)
 
 # The Para-C programming language
+*This is version 0.1.dev4*
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -29,24 +46,31 @@
 
 ## Introduction
 
-Para-C (From Greek Origin: Beside C ) is a programming language that is 
-designed to integrate other languages and allow for advanced management of
-programs / code-bases inside a program, where the language will serve as a 
-base overhead language with extended C-functionality and simplifications to
-write simpler code. Including adding more features, like new built-in 
-functions, libraries, data structures, decorators, function-handling, OOP
-structures (Under consideration), and additional project-management features.  
+Para-C (From Greek "para": Beside/Alongside C) is a programming language that 
+is designed to integrate other languages and allow for advanced management of 
+programs / code-bases inside a program, where the language will serve as a base
+for writing overhead and connector programs, which manage instances, can listen
+for events, stop and start processes and generally manage in- and out-data. 
+This also includes adding more features for the C11 standard, like new built-in
+functions, libraries, struct-like data structures, decorators,
+memory-management, console handling with management for stdin, stdout and
+stderr, additional function-handling, lightweight OOP structures, and 
+additional project-management features.  
 
 To achieve the multiple language “support” / integration-functionality, the 
-compiler will take the Para-C code and compile the source code down to simple
-C and generate the code required to integrate the wanted language, using their 
-required compiler/interpreter for the language. That means that programming in
-Para-C will be similar to C and partly C#, due to the new features, keywords 
-and helper functions, but add the simple option to integrate and manage simple 
-code or even programs that should be directly embedded into the program. Using
-this, you can for example embed async functionality from Python directly into
-the program, which is not natively supported, and then pass generated data to
-a C++ program, which then uses that to run something else. 
+compiler will take the Para-C code and compile the source code down to simple 
+C and generate the code required to integrate the wanted language, using their
+required compiler/interpreter for the language. That means that programming in 
+Para-C will be more similar to higher-level languages than to C, due to the new
+features, keywords and helper functions. Including adding the simple option to
+integrate and manage code or programs that should be directly embedded into the
+management program. Using this, you can for example embed async functionality 
+from Python directly into the program, which is not natively supported, and 
+then pass generated data to a C++ program, which then uses that to run 
+something else. This can also include proper management based on web events and
+data or using the Para-C project configuration to compile code on runtime as 
+well with specified compilers so that in the end the project can be compiled in
+one go and properly merged with the Para-C program. 
  
 ## CLI
 The Para-C CLI is the standard CLI for interacting with the standard compiler
@@ -62,7 +86,7 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 - `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax 
   (Not added yet. See [#16](/../../issues/16))
 
-## Python Module 
+## Python Module
 
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 
@@ -80,7 +104,7 @@ by going through the [releases](https://github.com/Para-C/Para-C/releases)
 or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
 (The last is simpler than it might seem)
 
-#### Install the python module
+### Install the Python module
 
 When wanting to use the compiler as a python module it is recommended to 
 install the distributed version on [pypi.org](https://pypi.org/project/parac/),
@@ -97,7 +121,7 @@ python3 -m pip install -U parac==version
 ```
 
 
-#### Build the Compiler
+### Build the Compiler
 
 Building the compiler will generate a `build` and `dist` folder, where the
 `dist` folder will contain the actual compiler directory. In this case, the 
@@ -157,7 +181,7 @@ modified and then sent to the Para-C Compiler. This also means errors reported
 will be from the modified file, so that the modified code is visible to the 
 user, instead of the file without correct Pre-Processor processing.
 
-### Build inno-setup installer for Windows 
+### Build inno-setup installer for Windows
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
@@ -175,7 +199,7 @@ To download Antlr4 go [here](https://www.antlr.org/download/antlr-4.9.2-complete
 
 Quickstart Installation Guide on the Main Website: [here](https://www.antlr.org/)
 
-##### Generating the Source files
+##### Generating the Python files
 
 Generating the Parser and Lexer is made up of two parts:
 
@@ -241,3 +265,11 @@ as of now. It is for now solely a free-time/college project.
 This also means that issues or bugs while running can likely occur, and it's 
 not a stable or production-ready language as of the point of writing.
 (*2021-07-23*).
+
+## Copyright and License
+
+Copyright (c) 2001-2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer). All rights reserved.
+
+See the [LICENSE](./LICENSE) for information on terms & conditions for usage
+
+###### *Legal name, which does not match the preferred and commonly used name Luna Klatzer
