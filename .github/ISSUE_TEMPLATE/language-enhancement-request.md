@@ -1,7 +1,7 @@
 ---
 name: Language Enhancement Proposal
 about: Suggest an idea for this project
-title: "[Enhancement Proposal] ..."
+title: "[Lang Enhancement Proposal] ..."
 labels: enhancement proposal
 assignees: Luna-Klatzer
 
