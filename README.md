@@ -28,7 +28,9 @@
   - [Copyright and License](#copyright-and-license)
 
 # The Para-C programming language
-*This is version 0.1.dev4*
+[![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -166,10 +168,10 @@ without it the compiler will simply generate C source files.
 
 ## Development
 
-![Deploy and test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
+![Test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
 ![Coverage](./coverage.svg)
-![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
+[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
 
 ### Parsing and Processing Procedure
 
@@ -267,6 +269,8 @@ not a stable or production-ready language as of the point of writing.
 (*2021-07-23*).
 
 ## Copyright and License
+
+![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 
 Copyright (c) 2001-2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer). All rights reserved.
 
