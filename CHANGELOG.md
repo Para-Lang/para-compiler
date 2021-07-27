@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `initialise_default_paths` in `parac.const` to initialise the set the const
    variables DEFAULT_LOG_PATH, DEFAULT_BUILD_PATH and DEFAULT_DIST_PATH. This
    allows for more customisation for the defaults paths in Para-C and avoids
-   the default paths being wrong after changing the work-directory while running.
+   the default paths being wrong after changing the working directory while running.
   
 ### Changed
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
