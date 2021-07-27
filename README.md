@@ -27,6 +27,9 @@
   - [Disclaimer](#disclaimer)
   - [Copyright and License](#copyright-and-license)
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_large)
+
 # The Para-C programming language
 *This is version 0.1.dev4*
 
@@ -89,6 +92,7 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 ## Python Module
 
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_shield)
 
 The `parac` module serves the purpose of combining the entire compiler with
 lib into a simple module, which can be imported and used in ways that are not
