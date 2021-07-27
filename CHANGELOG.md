@@ -15,7 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    allows for more customisation for the defaults paths in Para-C and avoids
    the default paths being wrong after changing the work-directory while running.
   
-  
 ### Changed
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
   which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
