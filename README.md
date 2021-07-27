@@ -272,8 +272,14 @@ not a stable or production-ready language as of the point of writing.
 
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 
-Copyright (c) 2001-2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer). All rights reserved.
+Copyright (c) 2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer).
+All rights reserved.
 
 See the [LICENSE](./LICENSE) for information on terms & conditions for usage
 
 ###### *Legal name, which does not match the preferred and commonly used name Luna Klatzer
+
+### FOSSA License Report
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_large)
+
