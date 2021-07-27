@@ -8,7 +8,6 @@ from distutils.dir_util import copy_tree
 import pkg_resources
 import shutil
 import os
-from parac import DEFAULT_CONFIG
 
 BASE_PATH: Path = Path(
     os.path.dirname(os.path.realpath(__file__))
@@ -63,7 +62,8 @@ PyInstaller.__main__.run(run_config)
 def create_default_config(dest_dir: Path) -> None:
     """ Creates the default config file """
     with open(dest_dir / "compiler-config.json", "w+") as f:
-        f.write(json.dumps(DEFAULT_CONFIG, indent=4))
+        from parac import const
+        f.write(json.dumps(const.DEFAULT_CONFIG, indent=4))
 
 
 def create_parac_modules(output_type: str) -> None:

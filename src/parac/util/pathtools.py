@@ -5,8 +5,7 @@ from typing import Union, Type, Optional
 
 _in_FileNotFoundError = FileNotFoundError
 from ..exceptions import FilePermissionError, FileNotFoundError
-from ..const import (SEPARATOR, INVALID_UNIX_FILE_NAME_CHARS,
-                     INVALID_WIN_FILE_NAME_CHARS, WIN, VALID_FILE_ENDINGS)
+
 
 __all__ = [
     "validate_file_ending",
@@ -23,7 +22,8 @@ def validate_file_ending(path: Union[str, os.PathLike]) -> bool:
     Validates the file ending of the passed path and returns as bool whether
     it follows the correct requirements
     """
-    return all(map(path.endswith, VALID_FILE_ENDINGS))
+    from .. import const
+    return all(map(path.endswith, const.VALID_FILE_ENDINGS))
 
 
 def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
@@ -64,13 +64,15 @@ def decode_if_bytes(
 
 def cleanup_path_str(_p: str) -> str:
     """ Cleans the path for the specific current os """
-    if WIN:
-        _p = _p.replace("/", SEPARATOR).replace("\\\\", SEPARATOR)
+    from .. import const
+
+    if const.WIN:
+        _p = _p.replace("/", const.SEPARATOR).replace("\\\\", const.SEPARATOR)
     else:
         # UNIX path
-        _p = _p.replace("\\", SEPARATOR).replace("\\\\", SEPARATOR)
+        _p = _p.replace("\\", const.SEPARATOR).replace("\\\\", const.SEPARATOR)
 
-    if _p.startswith(f".{SEPARATOR}"):
+    if _p.startswith(f".{const.SEPARATOR}"):
         _p = os.getcwd() + _p[1:]  # Replacing . with current directory
     return _p
 
@@ -87,18 +89,20 @@ def check_valid_path_name(
     :param win_path: If explicitly set to True, the path will be checked if it
     was a windows path, even if it's a os of a different kind
     """
-    path = cleanup_path_str(path)
-    path = path.replace(SEPARATOR, '')
+    from .. import const
 
-    if WIN or win_path:
+    path = cleanup_path_str(path)
+    path = path.replace(const.SEPARATOR, '')
+
+    if const.WIN or win_path:
         if path[1:].startswith(':'):
             path = path[2:]
 
         if path.endswith(' ') or path.endswith('.'):
             return False
-        char_set = INVALID_WIN_FILE_NAME_CHARS
+        char_set = const.INVALID_WIN_FILE_NAME_CHARS
     else:
-        char_set = INVALID_UNIX_FILE_NAME_CHARS
+        char_set = const.INVALID_UNIX_FILE_NAME_CHARS
 
     count = 0
     for c in path:
@@ -127,6 +131,8 @@ def get_relative_file_name(
     :param win_path: If explicitly set to True, the path will be checked if it
     was a windows path, even if it's a os of a different kind
     """
+    from .. import const
+
     file_path = cleanup_path_str(file_path)
     base_path = cleanup_path_str(base_path)
 
@@ -142,8 +148,8 @@ def get_relative_file_name(
         )
 
     relative_path = file_path.replace(base_path, '')
-    if relative_path.startswith(SEPARATOR):
-        relative_path = relative_path[len(SEPARATOR):]
+    if relative_path.startswith(const.SEPARATOR):
+        relative_path = relative_path[len(const.SEPARATOR):]
 
     if not check_valid_path_name(file_path, win_path):
         raise RuntimeError(
@@ -157,14 +163,14 @@ def get_relative_file_name(
             "processed"
         )
 
-    if relative_path.split(SEPARATOR)[-1] != file_name:
+    if relative_path.split(const.SEPARATOR)[-1] != file_name:
         raise RuntimeError(
             "Mismatching file_names (file_path and file_name do not match)"
         )
 
     relative_file_name = ""
 
-    relative_elements = relative_path.split(SEPARATOR)[:-1]
+    relative_elements = relative_path.split(const.SEPARATOR)[:-1]
     for elem in relative_elements:
         relative_file_name += "".join((elem, "."))
 

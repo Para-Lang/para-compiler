@@ -6,19 +6,27 @@ from typing import List
 import asyncio
 
 from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
-from parac import SEPARATOR as SEP, RUNTIME_COMPILER
+from parac import SEPARATOR as SEP, RUNTIME_COMPILER, initialise_default_paths
 from parac.logging import set_avoid_print_banner_overwrite
 
-from .. import add_folder, remove_folder, reset_input
+from .. import add_folder, remove_folder, reset_input, BASE_TEST_PATH
 
 compiler = ParacCompiler()
+
+# Initialises the logging session for the compiler
 RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
+
+test_c_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}c_files{SEP}"
+test_para_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}"
+test_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}preprocessor{SEP}"
+
+# Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)
-test_c_files_dir = f"{os.getcwd()}{SEP}test_files{SEP}c_files{SEP}"
-test_para_files_dir = f"{os.getcwd()}{SEP}test_files{SEP}"
-test_files_dir = f"{os.getcwd()}{SEP}test_files{SEP}preprocessor{SEP}"
+
+# Initialises the default paths for the compiler using the work directory
+initialise_default_paths(BASE_TEST_PATH)
 
 
 class TestParser:

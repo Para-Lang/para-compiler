@@ -14,9 +14,9 @@ def get_file_stream(
         path: Union[str, PathLike], encoding: str
 ) -> antlr4.FileStream:
     """ Fetches the FileStream from a file """
-    from ..const import SEPARATOR
+    from .. import const
     stream = antlr4.FileStream(path, encoding)
-    stream.name = path.split(SEPARATOR)[-1]
+    stream.name = path.split(const.SEPARATOR)[-1]
     return stream
 
 

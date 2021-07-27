@@ -6,7 +6,7 @@ from os import PathLike
 from pathlib import Path
 from typing import Union, Tuple
 
-from parac import DEFAULT_BUILD_PATH, DEFAULT_DIST_PATH, UserInputError
+from parac import UserInputError
 from parac.util import abortable, decode_if_bytes
 from parac.logging import get_rich_console as console
 
@@ -52,7 +52,8 @@ def cli_err_dir_already_exists(folder: Union[str, PathLike]) -> bool:
 def cli_check_destination(
         output_type: str,
         default_path: Union[str, PathLike],
-        overwrite: bool
+        overwrite: bool,
+        work_dir: Union[str, PathLike, Path] = os.getcwd()
 ) -> str:
     """
     Validates the destination and checks whether the specified output
@@ -62,44 +63,52 @@ def cli_check_destination(
     :returns: The path to the folder
     """
     output = default_path
-    if not os.path.exists(default_path):
-        os.mkdir(default_path)
-    elif len(os.listdir(default_path)) > 0:
+    if not os.path.exists(output):
+        os.mkdir(output)
+    elif len(os.listdir(output)) > 0:
         # If the overwrite is set to False then a prompt will appear
         if overwrite is False:
             overwrite = cli_err_dir_already_exists(output_type)
 
         if overwrite:
-            shutil.rmtree(default_path)
-            os.mkdir(default_path)
+            shutil.rmtree(output)
+            os.mkdir(output)
         else:
             counter = 2
-            while os.path.exists(f"{os.getcwd()}/{output_type}_{counter}"):
+            while os.path.exists(f"{work_dir}/{output_type}_{counter}"):
                 counter += 1
-            output = f"{os.getcwd()}/{output_type}_{counter}"
+            output = f"{work_dir}/{output_type}_{counter}"
             os.mkdir(output)
     return output
 
 
 def cli_run_output_dir_validation(
         overwrite_build: bool,
-        overwrite_dist: bool
+        overwrite_dist: bool,
+        work_dir: Union[str, PathLike, Path] = os.getcwd()
 ) -> Tuple[str, str]:
-    """ Validates whether the output folder /build/ and /dist/ can be used
+    """
+    Validates whether the output folder /build/ and /dist/ can be used and
+    creates a prompt if one of the folder already exists
 
     :param overwrite_build: If set to True if a build folder already exists
     it will be deleted and overwritten
     :param overwrite_dist: If set to True if a dist folder already exists
     it will be deleted and overwritten
+    :param work_dir: Work Directory that should be used for the check
     """
+    from parac import const
+
     build_path = cli_check_destination(
         "build",
-        DEFAULT_BUILD_PATH,
-        overwrite_build
+        default_path=const.DEFAULT_BUILD_PATH,
+        overwrite=overwrite_build,
+        work_dir=work_dir
     )
     dist_path = cli_check_destination(
         "dist",
-        DEFAULT_DIST_PATH,
-        overwrite_dist
+        default_path=const.DEFAULT_DIST_PATH,
+        overwrite=overwrite_dist,
+        work_dir=work_dir
     )
     return build_path, dist_path

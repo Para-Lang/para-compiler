@@ -21,12 +21,12 @@ def is_c_compiler_ready() -> bool:
     Returns whether the Para-C Compiler is correctly
     initialised and the c-compiler can be found
     """
-    from ..const import C_COM_EXISTENCE_OVERWRITE, CONFIG_PATH
-    if C_COM_EXISTENCE_OVERWRITE:
+    from .. import const
+    if const.C_COM_EXISTENCE_OVERWRITE:
         return True
 
-    if os.access(CONFIG_PATH, os.R_OK):
-        with open(CONFIG_PATH, "r") as file:
+    if os.access(const.CONFIG_PATH, os.R_OK):
+        with open(const.CONFIG_PATH, "r") as file:
             config: dict = json.loads(file.read())
             if config.get('c-compiler-path'):
                 # if executable
@@ -39,7 +39,7 @@ def cli_initialise_c_compiler() -> None:
     Initialises the Para-C compiler and creates the config file.
     Will prompt the user to enter the compiler path
     """
-    from ..const import CONFIG_PATH
+    from .. import const
     _input = console().input(
         "[bold bright_cyan]"
         " > Please enter the path for the C-compiler: "
@@ -61,10 +61,10 @@ def cli_initialise_c_compiler() -> None:
             " Possibly missing Permissions?"
         )
 
-    from ..const import DEFAULT_CONFIG
-    config = DEFAULT_CONFIG
+    config = const.DEFAULT_CONFIG
     config['c-compiler-path'] = path
-    with open(CONFIG_PATH, "w+") as file:
+
+    with open(const.CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))
 
     logger.info(

@@ -1,22 +1,26 @@
 # coding=utf-8
 """ Test for the cli setup """
 import pytest
-
 import os
 
 from parac import (FileNotFoundError as ParaFileNotFoundError,
-                   SEPARATOR as SEP, UserInputError)
+                   SEPARATOR as SEP, UserInputError, initialise_default_paths)
 from parac.logging import set_avoid_print_banner_overwrite
 from parac.compiler import ParacCompiler
 from parac_cli import cli_run_output_dir_validation, cli_create_process
 
 from .. import (add_folder, overwrite_builtin_input, reset_input,
-                create_test_file)
+                create_test_file, BASE_TEST_PATH)
 
 LOG_PATH = 'para.log'
 ENCODING = 'utf-8'
-main_file_path = f"{os.getcwd()}{SEP}test_files{SEP}entry.para"
+main_file_path = f"{BASE_TEST_PATH}{SEP}test_files{SEP}entry.para"
+
+# Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)
+
+# Initialises the default paths for the compiler using the work directory
+initialise_default_paths(BASE_TEST_PATH)
 
 
 class TestCLISetup:
@@ -33,15 +37,21 @@ class TestCLISetup:
         create_test_file("build", "example.txt")
 
         overwrite_builtin_input('True')
-        cli_run_output_dir_validation(False, True)
-        assert not os.path.exists("./build_2/example.txt")
-        assert os.path.exists("./build/example.txt")
+        cli_run_output_dir_validation(False, True, BASE_TEST_PATH)
+        assert not os.path.exists(
+            _ := str(BASE_TEST_PATH / "build_2" / "example.txt")
+        ), _
+        assert os.path.exists(
+            _ := str(BASE_TEST_PATH / "build" / "example.txt")
+        ), _
 
         create_test_file("build", "example.txt")
 
         overwrite_builtin_input('False')
-        cli_run_output_dir_validation(True, True)
-        assert not os.path.exists("./build/example.txt")
+        cli_run_output_dir_validation(True, True, BASE_TEST_PATH)
+        assert not os.path.exists(
+            _ := str(BASE_TEST_PATH / "build" / "example.txt")
+        ), _
         add_folder("build")
 
     def test_dist_exists_setup(self):
@@ -49,14 +59,20 @@ class TestCLISetup:
         create_test_file("dist", "example.txt")
 
         overwrite_builtin_input('True')  # Overwrite data -> True
-        cli_run_output_dir_validation(True, False)
-        assert not os.path.exists("./dist_2/example.txt")
-        assert os.path.exists("./dist/example.txt")
+        cli_run_output_dir_validation(True, False, BASE_TEST_PATH)
+        assert not os.path.exists(
+            _ := str(BASE_TEST_PATH / "dist_2" / "example.txt")
+        ), _
+        assert os.path.exists(
+            _ := str(BASE_TEST_PATH / "dist" / "example.txt")
+        ), _
 
         create_test_file("dist", "example.txt")
         overwrite_builtin_input('False')  # Overwrite data -> False
-        cli_run_output_dir_validation(True, True)
-        assert not os.path.exists("./dist/example.txt")
+        cli_run_output_dir_validation(True, True, BASE_TEST_PATH)
+        assert not os.path.exists(
+            _ := str(BASE_TEST_PATH / "dist" / "example.txt")
+        ), _
         add_folder("dist")
 
     def test_simple_setup_compilation_process(self):

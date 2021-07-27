@@ -2,14 +2,19 @@
 """ Test for the compiler process setup """
 import os
 
-from parac import SEPARATOR as SEP
+from parac import SEPARATOR as SEP, initialise_default_paths
 from parac.compiler import ProgramCompilationProcess
 from parac.logging import set_avoid_print_banner_overwrite
 
-from .. import add_folder, reset_input
+from .. import add_folder, reset_input, BASE_TEST_PATH
 
-main_file_path = f"{os.getcwd()}{SEP}test_files{SEP}entry.para"
+main_file_path = f"{BASE_TEST_PATH}{SEP}test_files{SEP}entry.para"
+
+# Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)
+
+# Initialises the default paths for the compiler using the work directory
+initialise_default_paths(BASE_TEST_PATH)
 
 
 class TestProcess:
