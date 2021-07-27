@@ -101,8 +101,9 @@ class BasicProcess:
 
     def _get_work_dir(self) -> str:
         """ Gets the working directory for the program """
-        from .. import SEPARATOR
-        return SEPARATOR.join(self.entry_file_path.split(SEPARATOR)[:-1])
+        from .. import const
+        sep = const.SEPARATOR
+        return sep.join(self.entry_file_path.split(sep)[:-1])
 
     async def validate_syntax(self, enable_out: bool) -> bool:
         """
@@ -184,22 +185,24 @@ class ProgramCompilationProcess(BasicProcess):
         """ Returns the temp folder in the build folder """
         # SEPARATOR should in this case point to the correct path separator
         # due to the cleanup of paths in the initialisation
-        from .. import SEPARATOR
-        if self.build_path.endswith(SEPARATOR):
+        from .. import const
+        sep = const.SEPARATOR
+        if self.build_path.endswith(sep):
             return cleanup_path_str(f"{self.build_path}temp")
         else:
-            return cleanup_path_str(f"{self.build_path}{SEPARATOR}temp")
+            return cleanup_path_str(f"{self.build_path}{sep}temp")
 
     @property
     def temp_dist_folder(self) -> Union[str, PathLike]:
         """ Returns the temp folder in the dist folder """
         # SEPARATOR should in this case point to the correct path separator
         # due to the cleanup of paths in the initialisation
-        from .. import SEPARATOR
-        if self.dist_path.endswith(SEPARATOR):
+        from .. import const
+        sep = const.SEPARATOR
+        if self.dist_path.endswith(sep):
             return cleanup_path_str(f"{self.dist_path}temp")
         else:
-            return cleanup_path_str(f"{self.dist_path}{SEPARATOR}temp")
+            return cleanup_path_str(f"{self.dist_path}{sep}temp")
 
     @property
     def temp_files(self) -> List[str]:

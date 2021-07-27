@@ -7,12 +7,12 @@ import sys
 import traceback
 import re
 from logging import StreamHandler
+from pathlib import Path
+
 from rich.console import Console
 from typing import Optional, Callable, Tuple, Type, Union, Literal
 from types import FunctionType, TracebackType
 from rich.theme import Theme
-
-from .const import WIN, DEFAULT_LOG_PATH
 
 __all__ = [
     'OVERWRITE_AVOID_PRINT_BANNER',
@@ -65,10 +65,12 @@ def set_avoid_print_banner_overwrite(value: bool):
 
 def get_terminal_size() -> Optional[int]:
     """ Gets the terminal size """
+    from . import const
+
     width: Optional[int] = None
     if "PYCHARM_HOSTED" in os.environ:
         width = 150
-    elif WIN:  # pragma: no cover
+    elif const.WIN:  # pragma: no cover
         width, _ = shutil.get_terminal_size()
     else:
         try:
@@ -86,8 +88,8 @@ def get_terminal_size() -> Optional[int]:
 
 
 def _get_color_system() -> Union[Literal["windows", "auto"], str]:
-    from . import WIN
-    return "windows" if WIN else "auto"
+    from . import const
+    return "windows" if const.WIN else "auto"
 
 
 def init_rich_console() -> None:
@@ -160,12 +162,16 @@ class ParacFileHandler(logging.FileHandler):
 
     def __init__(
             self,
-            filename=DEFAULT_LOG_PATH,
-            encoding='utf-8',
-            mode='w',
+            filename: Union[str, os.PathLike, Path] = None,
+            encoding: str = 'utf-8',
+            mode: str = 'w',
             *args,
             **kwargs
     ):
+        from . import const
+        if filename is None:
+            filename = str(const.DEFAULT_LOG_PATH)
+
         super().__init__(
             filename=filename,
             encoding=encoding,

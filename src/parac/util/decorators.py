@@ -128,10 +128,11 @@ def requires_init(_func=None):
         @functools.wraps(func)
         def _wrapper(*args, **kwargs):
             from .. import RUNTIME_COMPILER
-            from .. import C_COM_EXISTENCE_OVERWRITE
+            from .. import const
             from . import (is_c_compiler_ready, cli_initialise_c_compiler)
 
-            if not is_c_compiler_ready() and not C_COM_EXISTENCE_OVERWRITE:
+            if not is_c_compiler_ready() and \
+                    not const.C_COM_EXISTENCE_OVERWRITE:
                 if not RUNTIME_COMPILER.log_initialised:
                     RUNTIME_COMPILER.init_logging_session()
 
