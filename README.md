@@ -137,7 +137,9 @@ For the info about building the compiler see
 #### For Windows
 
 For Windows, the configured inno-setup installer should be used. The installer
-will automatically do the installation based on your input.
+will automatically do the installation based on your input and create the
+correct entries to the system, so that you can utilise the compiler right after
+installation.
 
 #### For unix-based systems (Including MacOS)
 
@@ -147,11 +149,24 @@ where the compiler will be placed (It is recommended though to use `/opt`,
 
 ##### Adding the compiler alias on Linux
 
-Steps to add the alias `parac` to your terminal:
-1. Open the .bashrc file in your home directory (for example, /home/your-user-name/.bashrc) in a text editor.
-2. Add export `PATH="<your-dir>/bin:$PATH"` to the last line of the file, where your-dir is the directory you want to add.
-3. Save the .bashrc file.
-4. Restart your terminal.
+1. Open your `~/.bash_aliases` file using `nano ~/.bash_aliases`
+2. Add `alias parac="<your-dir>/bin/parac"` to the last line of the file, where your-dir is the directory you moved parac into.
+3. Save the `.bash_aliases` file.
+4. Activate for the terminal session using `source ~/.bash_aliases`
+5. Permanently add the alias by adding this line to the end of your `~/.bashrc` file:
+   
+  ```bash
+  if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+  fi
+  ```
+
+##### Adding the compiler alias on MacOS
+
+The previous instructions for linux also work on MacOS due to it being unix as well
+
+[Additional Info on MacOS Dock Aliases the official website](
+https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>)
 
 #### Initialising the C Compiler
 
@@ -253,7 +268,7 @@ This script will automatically run the generation of source files and copying of
 
 To run the script simply use (Python3):
 ```bash
-python ./build-exe.py
+python ./src/build-exe.py
 ```
 
 The script will create a `./build/` and `./dist/` folder.

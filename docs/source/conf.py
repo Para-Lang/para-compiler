@@ -47,9 +47,20 @@ exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 
-html_title = f"Para-C {release} Docs"
-html_theme = "furo"
-html_logo = "../../img/parac.ico"
+html_title = f'Para-C {release}'
+html_theme = 'furo'
+html_logo = '../../img/parac.ico'
+html_favicon = '../../img/parac.ico'
+html_theme_options = {
+    "light_css_variables": {
+        "color-brand-primary": "#9b3fd4",
+        "color-brand-content": "#9b3fd4",
+    },
+    "dark_css_variables": {
+        "color-brand-primary": "#9b3fd4",
+        "color-brand-content": "#9b3fd4",
+    },
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -57,7 +68,6 @@ html_logo = "../../img/parac.ico"
 html_static_path = ['_static']
 
 
-#
 def skip(app, what, name, obj, skip, options):
     """ Ensures that the __init__ method gets documented. """
     if name == "__init__":

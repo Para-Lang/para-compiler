@@ -10,9 +10,40 @@ import shutil
 import os
 from parac import DEFAULT_CONFIG
 
-BASE_PATH: Path = Path(
-    os.path.dirname(os.path.realpath(__file__))
-).parent.resolve()
+
+def resolve_base_path() -> Path:
+    """ Resolves the base path """
+    p: Path = Path(os.getcwd()).resolve()
+    if os.path.exists(p / "src"):
+        return p
+    elif p.name == "src":
+        p = p.parent
+    else:
+        raise RuntimeError(
+            "Failed to resolve base path. "
+            "Use as workdir either root or ./src"
+        )
+
+    return p.resolve()
+
+
+def resolve_origin_path(output_type: str) -> Path:
+    """ Resolves the origin path of pyinstaller """
+    p: Path = Path(os.getcwd()).resolve()
+    if os.path.exists(_ := p / "src" / output_type):
+        p = _
+    elif os.path.exists(_ := p / output_type):
+        p = _
+    else:
+        raise RuntimeError(
+            "Failed to resolve origin path. "
+            "Use as workdir either root or ./src"
+        )
+
+    return (p / "parac").resolve()
+
+
+BASE_PATH: Path = resolve_base_path()
 DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
 PBL_PATH: Path = BASE_PATH / "src" / "lib"
@@ -57,7 +88,6 @@ run_config = [
     str(icon_path.resolve()),
     *AVOID_MODULES,
 ]
-PyInstaller.__main__.run(run_config)
 
 
 def create_default_config(dest_dir: Path) -> None:
@@ -68,7 +98,17 @@ def create_default_config(dest_dir: Path) -> None:
 
 def create_parac_modules(output_type: str) -> None:
     """ Creates the required parac modules for the compiler """
-    origin = (BASE_PATH / "src" / output_type / "parac").resolve()
+    origin = resolve_origin_path(output_type)
+    if os.path.exists(_ := BASE_PATH / "tmp"):
+        try:
+            os.rmdir(_)
+        except Exception:
+            raise RuntimeError("./tmp folder already exists")
+    os.mkdir(_)
+
+    shutil.move(str(origin), _ := str((_ / output_type).resolve()))
+    origin = Path(_).resolve()
+
     destination = (BASE_PATH / output_type / "parac").resolve()
 
     if os.path.exists(destination):
@@ -111,8 +151,10 @@ def create_parac_modules(output_type: str) -> None:
 
     create_default_config(destination)
     # Remove automatically generated folder by pyinstaller
-    shutil.rmtree(str((BASE_PATH / "src" / output_type).resolve()))
+    shutil.rmtree(origin.parent)  # tmp
 
 
-create_parac_modules("dist")
-create_parac_modules("build")
+if __name__ == "__main__":
+    PyInstaller.__main__.run(run_config)
+    create_parac_modules("dist")
+    create_parac_modules("build")

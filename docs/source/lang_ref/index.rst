@@ -3,11 +3,6 @@
 Welcome to the Language Reference
 *********************************
 
-.. toctree::
-    :maxdepth: 1
-    :hidden:
-    :caption: Lang Reference
-
 This serves as a base reference for the Para-C Language. It will provide
 information about the planned implementations and ideas for Para-C.
 
