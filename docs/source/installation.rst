@@ -111,18 +111,24 @@ MacOS
 
 The previous instructions for linux also work on MacOS due to it being unix as well.
 
-`Additional Info on MacOS Dock Aliases the official website. <https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>`_
+.. seealso::
+
+    `Additional Info on MacOS Dock Aliases the official website. <https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>`_
 
 Windows
 ^^^^^^^
 
 For Windows an alias in not required, since the item can easily be added to
-the PATH, which will then automatically search for the item inside the specified
-directory.
+the *PATH*.
+
+If added, when using cmd or powershell, all items in the path will be
+searched through, including the added one, meaning if the executable is named
+``parac`` the usage of ``parac --help`` should display the CLI help interface
+of Para-C.
 
 .. seealso::
 
-    For more info on that go `here <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
+    `Info on adding an item to the PATH <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
 
 C-Compiler Setup
 ================
