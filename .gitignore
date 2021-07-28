@@ -8,3 +8,4 @@
 *.java
 /gen
 *.log
+/docs/build/

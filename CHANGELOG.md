@@ -7,6 +7,8 @@ The full summary will be in the CHANGELOG.md file the main folder
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+*Note that Documentation changes should not appear here!*
+
 ## [Unreleased]
 
 ### Added
@@ -20,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
   more info see the lang document.
 - Fixed workdir issue in pytest causing usage outside `./src/pytest` to raise errors
+- Fixed work-directory issue in `build-exe.py` and rewrote structure to allow runtime in the root directory
 
 ### Removed
 - `list<t>` type from the Grammar file
