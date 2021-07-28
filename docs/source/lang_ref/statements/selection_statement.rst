@@ -5,7 +5,7 @@ Selection Statement
 
 The selection statement is the standard way of executing a block of code depending
 on the evaluation of a expression which can either return ``1``/``true`` or
-``0``/``false``. These are in Para-C, like in C implemented with ``if`` statements
+``0``/``false``. These are in Para-C, like in C, implemented with ``if`` statements
 and ``switch`` statements.
 
 If Statement
