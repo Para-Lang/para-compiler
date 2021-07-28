@@ -4,13 +4,12 @@ Installation
 ************
 
 This section serves as the reference for how to install the Para-C compiler and
-CLI.
+CLI compiled standalone binaries.
 
 .. Caution::
     The installation of the Para-C Compiler binaries will only include the
-    compiled binaries and NOT the source code or module which is used in the
-    compiler. For info how to install that please go to
-    `Python API Reference <../api_ref/>`_
+    compiled binaries and NOT the source code or module of the compiler.
+    For info how to install that please go to `Python API Reference <../api_ref/index.html>`_
 
 Installer for Windows
 =====================
@@ -21,14 +20,15 @@ correct entries to the system, so that you can utilise the compiler right after
 installation.
 
 For the installer go to the `release page on github <https://github.com/Para-C/Para-C/releases>`_
-and download the version you want.
+and download the version you want. The installer will be named after the date of
+its creation in this format: ``parac-installer-<year>-<month>-<day>.exe``.
 
 Building it yourself (Unix+Win)
 ===============================
 
 For all other OS-systems, there are no installers yet for Para-C or entries
 in package managers, meaning the compiler needs to be either built yourself
-using python or used with python using the `module <../api_ref/>`_
+using python or used with a python runtime using the `distributed pypi module <../api_ref/index.html>`_.
 
 Downloading
 -----------
@@ -72,7 +72,7 @@ folder can be deleted after the module was moved to its destination.
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
-    It is recommended though to use `/opt`, `/usr`, `/usr/local` or similar on unix-like systems
+    It is recommended though to use `/opt`, `/usr`, `/usr/local` or similar on unix-like systems.
 
 Make parac executable on Linux
 ------------------------------
@@ -97,7 +97,7 @@ Linux
 1. Open your ``~/.bash_aliases`` file using ``nano ~/.bash_aliases``
 2. Add ``alias parac="<your-dir>/bin/parac"`` to the last line of the file, where your-dir is the directory you moved parac into.
 3. Save the ``.bash_aliases`` file.
-4. Activate for the terminal session using ``source ~/.bash_aliases``
+4. Activate for the terminal session using ``source ~/.bash_aliases``.
 5. Permanently add the alias by adding this line to the end of your ``~/.bashrc`` file:
 
 .. code:: bash
@@ -109,18 +109,26 @@ Linux
 MacOS
 ^^^^^
 
-The previous instructions for linux also work on MacOS due to it being unix as well
+The previous instructions for linux also work on MacOS due to it being unix as well.
 
-`Additional Info on MacOS Dock Aliases the official website <https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>`_
+.. seealso::
+
+    `Additional Info on MacOS Dock Aliases the official website. <https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>`_
 
 Windows
 ^^^^^^^
 
 For Windows an alias in not required, since the item can easily be added to
-the PATH, which will then automatically search for the item inside the specified
-directory.
+the *PATH*.
 
-For info on that go `here <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_
+If added, when using cmd or powershell, all items in the path will be
+searched through, including the added one, meaning if the executable is named
+``parac`` the usage of ``parac --help`` should display the CLI help interface
+of Para-C.
+
+.. seealso::
+
+    `Info on adding an item to the PATH <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
 
 C-Compiler Setup
 ================

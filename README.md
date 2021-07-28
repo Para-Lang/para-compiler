@@ -262,6 +262,20 @@ rm -rf ./path/to/generated/output
 - *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
 - *Comments are only partly ignored in ParaC.g4, due the intended removal in the Pre-Processor. Errors can occur!*
 
+### Generating Documentation
+
+To generate one time use:
+
+```bash
+./docs/make.bat html
+```
+
+or for active http server, which will reload changes:
+
+```bash
+sphinx-autobuild ./docs/source ./docs/build/html
+```
+
 #### Build the executable and binaries
 
 For generating the binaries, PyInstaller with a wrapper script will be used.
@@ -288,7 +302,7 @@ not a stable or production-ready language as of the point of writing.
 
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 
-Copyright (c) 2021 Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer).
+Copyright (c) 2021, Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer).
 All rights reserved.
 
 See the [LICENSE](./LICENSE) for information on terms & conditions for usage
