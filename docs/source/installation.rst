@@ -4,13 +4,12 @@ Installation
 ************
 
 This section serves as the reference for how to install the Para-C compiler and
-CLI.
+CLI compiled standalone binaries.
 
 .. Caution::
     The installation of the Para-C Compiler binaries will only include the
-    compiled binaries and NOT the source code or module which is used in the
-    compiler. For info how to install that please go to
-    `Python API Reference <../api_ref/index.html>`_
+    compiled binaries and NOT the source code or module of the compiler.
+    For info how to install that please go to `Python API Reference <../api_ref/index.html>`_
 
 Installer for Windows
 =====================
@@ -121,7 +120,9 @@ For Windows an alias in not required, since the item can easily be added to
 the PATH, which will then automatically search for the item inside the specified
 directory.
 
-For more info on that go `here <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
+.. seealso::
+
+    For more info on that go `here <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
 
 C-Compiler Setup
 ================

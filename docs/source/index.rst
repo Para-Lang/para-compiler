@@ -2,7 +2,7 @@
 
 .. toctree::
     :caption: Docs
-    :maxdepth: 1
+    :maxdepth: 2
     :hidden:
 
     Installation <installation>
@@ -13,18 +13,27 @@
 
 
 .. toctree::
-    :caption: Meta
-    :maxdepth: 1
+    :caption: Contributing
+    :maxdepth: 2
     :hidden:
 
+    Overview <contributing>
+
+
+.. toctree::
+    :caption: Meta
+    :maxdepth: 2
+    :hidden:
+
+    License <license>
     GitHub Repository <https://github.com/Para-C/Para-C>
+    Report a bug or issue <https://github.com/Para-C/Para-C/issues/new/choose>
 
 ******************************
 Para-C v0.1.dev4 Documentation
 ******************************
 
 .. image:: ./../../img/parac-banner.png
-    :alt: Banner
 
 Welcome to the Para-C Documentation,
 
@@ -38,7 +47,16 @@ document <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx
     functionality and design of Para-C. Changes **are going** to occur and so
     information can also quickly become outdated and not relevant anymore!
 
+Overview
+========
+
+- `Installation <installation>`_ - Installation and setup
+- `Tutorial <tutorial/index>`_ - Tutorial on the Para-C Language
+- `Language Reference <lang_ref/index>`_ - Throughout detailed reference for the Para-C language
+- `Library Reference <lib_ref/index>`_ - Throughout detailed reference for the Para-C Base Library
+- `Python API <api_ref/index>`_ - Python API for running the source code yourself using the `parac` module
+
 Documentation Releases
-===============================
+======================
 
 * `Para-C v0.1 (In development) <https://para-c.readthedocs.io/en/latest/>`_

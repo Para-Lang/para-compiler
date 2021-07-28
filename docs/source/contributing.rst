@@ -1,4 +1,7 @@
-# Contributing to the Para-C Project
+
+***************************
+Contributing to the Project
+***************************
 
 Due to active and early development not available. (Can be expected with later
 versions, such as v0.1 or v0.2) - Reason for that is the there is not a lot
