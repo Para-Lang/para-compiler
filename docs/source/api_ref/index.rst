@@ -7,6 +7,20 @@ This serves as a throughout reference for the Python module `parac` and API,
 which can be used for customised usage of the Para-C Compiler, Pre-Processor
 and utilities.
 
+Through the structure of Para-C, the compiler module can be used independently
+from the binaries and CLI, and modified as wanted to also allow for specific
+customisation or runtime usage.
+
+This also means it enables for example; Running the Pre-Processor alone, using
+syntax-checks on specific files or running project-structure tools inside a
+Python script made by you.
+
+.. Note::
+
+    The Python API requires an active Python installation (``>=3.8``), since
+    using the API means running the Compiler source code itself. If you want
+    compiled standalone binaries go to the page `Installation <../installation>`_
+
 Installation
 ############
 
