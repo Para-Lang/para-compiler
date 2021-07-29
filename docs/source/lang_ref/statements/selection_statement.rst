@@ -120,11 +120,50 @@ and the program simply end.
 Switch Statement
 ================
 
+The switch-statement is a compare-statement, which compares a passed value
+with the so-called ``cases``, which define a value that can be compared against.
+Those cases must be either a constant value, a single int-based value or an
+expression that evaluates to one of the two.
+
+.. Important::
+
+    Int-based variables are variables that are actually represented as integers.
+    This does not include floating point integers at the moment, due to the
+    restrictions of the base of the Para-C switch: the C switch. This uses a
+    so-called lookup table, where integers are strictly enforced, meaning that
+    other values will need to be compared using an :ref:`if statement<If Statement>`
+
+Those ``cases`` are not like in if-statements limited to their own branch, but
+``cases`` can fall-through (enter blocks of other cases) if no `break` statement
+is used. This means that the ``cases`` actually define `entry-points` for the code
+that was written inside these cases. It will execute all code downwards from
+the point it reached a compare that returned ``true``. This can be stopped
+though using a `break` statement, which will abort any further execution.
+
+If no case is met, the ``default`` branch is called if it exists.
+
+.. Warning::
+
+    If the ``default`` keyword is hit, every case after it will **not** be compared
+    against anymore, since ```default``` always returns ``true``. Fall-through
+    will still work though, but the `case` will practically be useless with
+    the exception of the code written inside the block.
+
 Syntax
 ------
 
-Usage & Examples
-----------------
+At least one ``case`` or ``default`` block is required.
 
-Additional Notes
+.. code:: c
+
+    switch ( <expression> )
+    {
+        case <constant-or-variable>:
+            <block>
+        default:
+            <block>
+    }
+
+
+Usage & Examples
 ----------------
