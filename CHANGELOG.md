@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    the default paths being wrong after changing the working directory while running.
   
 ### Changed
+- Style of the init banner in the CLI and added docs link
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
   which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
   more info see the lang document.
