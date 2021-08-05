@@ -377,11 +377,11 @@ def print_init_banner() -> None:
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
-    base_str = f"Para-C Compiler{' ' * 5}"
+    base_str = f"Para-C Compiler | {__version__} | Docs: para-c.readthedocs.io"
 
     get_rich_console().rule(style="bright_white rule.line")
     get_rich_console().print(
-        f"[bold bright_cyan]{base_str}{__version__}[/bold bright_cyan]",
+        f"[bold bright_cyan]{base_str}[/bold bright_cyan]",
         justify="center"
     )
     get_rich_console().rule(style="bright_white rule.line")
