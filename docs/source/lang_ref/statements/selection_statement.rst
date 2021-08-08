@@ -39,7 +39,8 @@ Syntax
 Usage & Examples
 ----------------
 
-1. Simple Example of a comparison of two values:
+1. Example of a comparison of two values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -67,7 +68,8 @@ In this case the evaluation will *"fail"* and the program will proceed to execut
 the else block, since no other option exists, which could be attempted to be
 evaluated.
 
-2. Simple Example of the previous example without { }
+2. Example of the previous example without { }
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -87,7 +89,8 @@ In this case the program will do the exact same as in the first program but
 in this case without a `compound statement <./compound_statement.html>`_ and just
 a regular statement (call of a function).
 
-3. Simple Example of an ``if`` statement with multiple options and nested ``if`` statement
+3. Example of an ``if`` statement with multiple options and nested ``if`` statement
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -111,11 +114,10 @@ a regular statement (call of a function).
         }
     }
 
-In this case the evaluation of the first block can either lead to another
-if-statement or the continuation to an ``else if`` statement. Though no ``else``
-block exists, meaning when reaching the second statement, if variable ``x`` is not
-smaller than ``5``, the selection statement will end without any block execution
-and the program simply end.
+In this case the evaluation of the first block can either lead to a block
+or to an ``else if`` statement. Though no ``else`` block exists, meaning when
+reaching the second statement and the evaluation is ``false``, the selection
+statement will end without any block execution.
 
 Switch Statement
 ================
@@ -167,3 +169,86 @@ At least one ``case`` or ``default`` block is required.
 
 Usage & Examples
 ----------------
+
+1. Example with integer
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: c
+
+    entry status main()
+    {
+        int x = 5;
+
+        switch (x)
+        {
+            case 4:
+                print("It's a 4");
+                break;
+            case 5:
+                print("It's a 5");
+                break;
+            case 6:
+                print("It's a 6");
+                break;
+            default:
+                print("It's not between or equal to 4 and 6");
+        }
+    }
+
+In this case, the variable ``x`` is compared to all cases and if one case hits,
+excluding ``default``, a line is printed saying ``"It's a <insert-number>"``.
+
+2. Example with characters (ascii numeric)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Since characters are simply numeric values representing characters the type
+``char`` can also be used in the switch statement.
+
+.. code:: c
+
+    entry status main()
+    {
+        char character = 'c';
+
+        switch (character)
+        {
+            case 'a':
+                print("It's: a");
+                break;
+            case 'b':
+                print("It's: b");
+                break;
+            case 'c':
+                print("It's: c");
+                break;
+        }
+    }
+
+.. note::
+
+    This does not apply though to strings, since they are under the hood simple
+    arrays of characters. They need to be compared using strict value compare
+    (``===``) in :ref:`if statements<If Statement>`
+
+3. Example with fall-through
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code:: c
+
+    entry status main()
+    {
+        int x = 4;
+
+        switch (x)
+        {
+            case 4:
+                print("It's a 4");
+            default:
+                print("Ending");
+        }
+    }
+
+In this snippet no ``break`` statements are used, meaning if ``case 4:`` is hit
+and it evaluates to true, the underlying block will be executed with the block
+of ``default``. This is due to the ``case`` statement falling through and so
+reaching the ``default`` branch.
