@@ -50,11 +50,11 @@ document <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx
 Overview
 ========
 
-- `Installation <installation>`_ - Installation and setup
-- `Tutorial <tutorial/index>`_ - Tutorial on the Para-C Language
-- `Language Reference <lang_ref/index>`_ - Throughout detailed reference for the Para-C language
-- `Library Reference <lib_ref/index>`_ - Throughout detailed reference for the Para-C Base Library
-- `Python API <api_ref/index>`_ - Python API for running the source code yourself using the `parac` module
+- `Installation <./installation.html>`_ - Installation and setup
+- `Tutorial <./tutorial/index.html>`_ - Tutorial on the Para-C Language
+- `Language Reference <./lang_ref/index.html>`_ - Throughout detailed reference for the Para-C language
+- `Library Reference <./lib_ref/index.html>`_ - Throughout detailed reference for the Para-C Base Library
+- `Python API <./api_ref/index.html>`_ - Python API for running the source code yourself using the `parac` module
 
 Documentation Releases
 ======================
