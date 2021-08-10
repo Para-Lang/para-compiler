@@ -300,7 +300,7 @@ not a stable or production-ready language as of the point of writing.
 
 ## Copyright and License
 
-![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
+![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
 
 Copyright (c) 2021, Nicolas Klatzer[*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer).
 All rights reserved.
