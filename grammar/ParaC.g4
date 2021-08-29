@@ -688,6 +688,7 @@ Identifier
         )*
     ;
 
+// Deprecated!
 ExtensionTaskLambda
     :   '@' Whitespace* Identifier
         Whitespace* ExtensionTaskBlock Whitespace*
