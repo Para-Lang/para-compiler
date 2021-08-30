@@ -29,9 +29,11 @@
 
 
 # The Para-C programming language
+![Build](https://img.shields.io/github/workflow/status/Luna-Klatzer/openhiven.py/CodeQL?logo=github)
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
+![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
