@@ -76,7 +76,7 @@ something else. This can also include proper management based on web events and
 data or using the Para-C project configuration to compile code on runtime as 
 well with specified compilers so that in the end the project can be compiled in
 one go and properly merged with the Para-C program. 
- 
+
 ## CLI
 The Para-C CLI is the standard CLI for interacting with the standard compiler
 implementation. When [installing](#installation) with a generated installer
