@@ -550,7 +550,7 @@ decoratorSpecifier
 
 // extension
 extensionTaskDefinition
-    :   'exttask' Identifier directDeclarator declarationList? extensionTaskParameterList extensionTaskLambda?
+    :   'exttask' Identifier directDeclarator declarationList? extensionTaskParameterList
     ;
 
 extensionTaskParameterList
@@ -559,10 +559,6 @@ extensionTaskParameterList
 
 extensionTaskParameter
     :   Identifier ':' primaryExpression
-    ;
-
-extensionTaskLambda
-    :   '=>' ExtensionTaskLambda
     ;
 
 declarationList
@@ -686,13 +682,6 @@ Identifier
         (   IdentifierNondigit
         |   Digit
         )*
-    ;
-
-// Deprecated!
-ExtensionTaskLambda
-    :   '@' Whitespace* Identifier
-        Whitespace* ExtensionTaskBlock Whitespace*
-        '@' Whitespace* 'end' Newline
     ;
 
 fragment

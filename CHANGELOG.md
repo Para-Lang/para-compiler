@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `list<t>` type from the Grammar file
 - `WORK_DIR` in `parac.const` and implemented dynamic fetching to allow for 
    workdir changes while running.
+- Full Support for extensionTaskLambda (deprecated)
 
 ## [v0.1.dev4] - 2021-07-23
 

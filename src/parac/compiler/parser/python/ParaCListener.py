@@ -1,4 +1,3 @@
-# coding=utf-8
 # Generated from ./grammar/ParaC.g4 by ANTLR 4.9.2
 from antlr4 import *
 if __name__ is not None and "." in __name__:
@@ -933,15 +932,6 @@ class ParaCListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParaCParser#extensionTaskParameter.
     def exitExtensionTaskParameter(self, ctx:ParaCParser.ExtensionTaskParameterContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#extensionTaskLambda.
-    def enterExtensionTaskLambda(self, ctx:ParaCParser.ExtensionTaskLambdaContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#extensionTaskLambda.
-    def exitExtensionTaskLambda(self, ctx:ParaCParser.ExtensionTaskLambdaContext):
         pass
 
 

@@ -3,13 +3,15 @@ exttask python TestFunc() {
     file_entry : NULL
 }
 
-exttask python TestFunc2() {} => @python {
-    print("x")
-} @end
+// At the moment invalid due to missing configuration, but antlr4 will let it slide
+// => logical compiler will raise an error!
+exttask python TestFunc2() {}
 
 entry status Main()
 {
-    spawn TestFunc();
+    ExtTaskReturn r_1 = spawn TestFunc();
+
+    ExtTaskReturn r_2 = spawn TestFunc2();
 
     return (status) { .status_code = 0 };
 }

@@ -243,11 +243,11 @@ To generate in the command-line use:
 - For the Core Language:
   - Python (Required for the Compiler):
       ```bash
-      antlr4 -o ./src/parac/compiler/core/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
+      antlr4 -o ./src/parac/compiler/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
       ```
   - Java:
       ```bash
-      antlr4 -o ./src/parac/compiler/core/parser/python -Dlanguage=Java ./grammar/ParaC.g4
+      antlr4 -o ./src/parac/compiler/parser/python -Dlanguage=Java ./grammar/ParaC.g4
       ```
   
 Afterwards *if needed* correctly move the folder using:
