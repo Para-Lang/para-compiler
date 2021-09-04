@@ -944,5 +944,14 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ParaCParser#endOfItem.
+    def enterEndOfItem(self, ctx:ParaCParser.EndOfItemContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#endOfItem.
+    def exitEndOfItem(self, ctx:ParaCParser.EndOfItemContext):
+        pass
+
+
 
 del ParaCParser
