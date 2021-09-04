@@ -87,7 +87,7 @@ def check_valid_path_name(
 
     :param path: A path-like or file-name which should be checked
     :param win_path: If explicitly set to True, the path will be checked if it
-    was a windows path, even if it's a os of a different kind
+     was a windows path, even if it's a os of a different kind
     """
     from .. import const
 
@@ -125,11 +125,11 @@ def get_relative_file_name(
     match the file_name passed RuntimeError will be raised
 
     :param file_name: Simple file name which cannot contain < , > , : , " , / ,
-    \\ (Escaped) , | , ? , *
+     \\ (Escaped) , | , ? , *
     :param file_path: Full path of the file
     :param base_path: Full base path for the working directory
     :param win_path: If explicitly set to True, the path will be checked if it
-    was a windows path, even if it's a os of a different kind
+     was a windows path, even if it's a os of a different kind
     """
     from .. import const
 

@@ -470,7 +470,7 @@ class ParacCLI:
         p = create_basic_process(file, encoding, log)
 
         # Exception won't be reraised and directly logged to the console
-        result = asyncio.run(p.validate_syntax(enable_out=True))
+        result = asyncio.run(p.validate_syntax(log_errors_and_warnings=True))
 
         errors = RUNTIME_COMPILER.stream_handler.errors
         warnings = RUNTIME_COMPILER.stream_handler.warnings

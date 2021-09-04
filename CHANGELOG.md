@@ -16,7 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    variables DEFAULT_LOG_PATH, DEFAULT_BUILD_PATH and DEFAULT_DIST_PATH. This
    allows for more customisation for the defaults paths in Para-C and avoids
    the default paths being wrong after changing the working directory while running.
-  
+- Property `errors` in `BaseErrorListener` for storing received errors during
+  the parsing process (Both for the Pre-Processor and Compiler)
+- New Exception `ParaCSyntaxError`
+- New Exception `ParaCSyntaxErrorCollection` for storing multiple SyntaxErrors
+  and report them at once when initialised.
+- New Util functions: `get_input_stream_from_ctx`, `get_original_text` and
+  `get_original_text_from_token`
+- Implemented SyntaxError handling  
+
 ### Changed
 - Style of the init banner in the CLI and added docs link
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,

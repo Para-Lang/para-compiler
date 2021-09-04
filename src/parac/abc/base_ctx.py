@@ -151,17 +151,17 @@ class ProgramRunContext(ABC):
     async def get_stream_and_parse(
             self,
             file_path: Union[str, PathLike],
-            enable_out: bool
+            log_errors_and_warnings: bool
     ) -> FileRunContext:
         """
         Gets a FileStream, converts it to a string stream and parses it
         returning the resulting FilePreProcessorContext
 
         :param file_path: Path to the file
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
         ...
@@ -171,37 +171,37 @@ class ProgramRunContext(ABC):
     async def parse_single_file(
             stream: antlr4.InputStream,
             relative_file_name: str,
-            enable_out: bool,
+            log_errors_and_warnings: bool,
     ) -> FileRunContext:
         """
         Parses a single file and generates a file context for it
 
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able
-        using get_relative_file_name)
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+         using get_relative_file_name)
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The generated FilePreProcessorContext instance
         """
         ...
 
     async def parse_entry_file(
             self,
-            enable_out: bool
+            log_errors_and_warnings: bool
     ) -> None:
         """
         Parses an entry file and sets the entry-ctx of this instance
         to the generated context for the file.
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
         entry_path = self._process.entry_file_path
         logger.debug(f"Parsing entry-file ({entry_path})")
 
-        entry_ctx = await self.get_stream_and_parse(entry_path, enable_out)
+        entry_ctx = await self.get_stream_and_parse(entry_path, log_errors_and_warnings)
         self.set_entry_ctx(entry_ctx)

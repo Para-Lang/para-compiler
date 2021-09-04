@@ -3,12 +3,16 @@
 from abc import ABC, abstractmethod
 from typing import Union
 
+from antlr4.Token import CommonToken
 from antlr4.error.ErrorListener import ErrorListener
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
+from parac import ParaCSyntaxError
+from parac.compiler.parser.python.ParaCParser import ParaCParser
+
 
 __all__ = [
     'BaseErrorListener',
@@ -49,14 +53,10 @@ class BaseErrorListener(ErrorListener, ABC):
     """
 
     @abstractmethod
-    def __init__(self, reraise: bool):
-        """
-        Initialises the instance
+    def __init__(self):
+        self.errors = [
 
-        :param reraise: If set to True the error listener will reraise errors
-        and not just log them
-        """
-        self.reraise = reraise
+        ]
 
     @abstractmethod
     def reportAmbiguity(
@@ -110,8 +110,8 @@ class BaseErrorListener(ErrorListener, ABC):
     @abstractmethod
     def syntaxError(
             self,
-            recognizer,
-            offendingSymbol,
+            recognizer: ParaCParser,
+            offendingSymbol: CommonToken,
             line: int,
             column: int,
             msg: str,
@@ -125,6 +125,14 @@ class BaseErrorListener(ErrorListener, ABC):
     ) -> None:
         """
         Method which will be called if the ANTLR4 Lexer or Parser detect
-        an error inside the
+        an error inside the given input.
         """
-        ...
+        self.errors.append(
+            ParaCSyntaxError(
+                recognizer,
+                offendingSymbol,
+                line,
+                column,
+                msg
+            )
+        )

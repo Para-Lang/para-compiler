@@ -92,9 +92,9 @@ def cli_run_output_dir_validation(
     creates a prompt if one of the folder already exists
 
     :param overwrite_build: If set to True if a build folder already exists
-    it will be deleted and overwritten
+     it will be deleted and overwritten
     :param overwrite_dist: If set to True if a dist folder already exists
-    it will be deleted and overwritten
+     it will be deleted and overwritten
     :param work_dir: Work Directory that should be used for the check
     """
     from parac import const

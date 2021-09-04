@@ -40,8 +40,8 @@ class BasicProcess:
         further usage.
 
         :param entry_file_path: The entry-file of the program. The compiler
-        will use the working directory as base dir if
-        the path is relative
+         will use the working directory as base dir if
+         he path is relative
         """
         entry_file_path = cleanup_path_str(decode_if_bytes(entry_file_path))
 
@@ -105,19 +105,19 @@ class BasicProcess:
         sep = const.SEPARATOR
         return sep.join(self.entry_file_path.split(sep)[:-1])
 
-    async def validate_syntax(self, enable_out: bool) -> bool:
+    async def validate_syntax(self, log_errors_and_warnings: bool) -> bool:
         """
         Validates the syntax of the file of this entry-file and logs or raises
         errors while running
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: True if the syntax check was successful else False
         """
         from .compiler import ParacCompiler
-        return await ParacCompiler.validate_syntax(self, enable_out)
+        return await ParacCompiler.validate_syntax(self, log_errors_and_warnings)
 
 
 class FinishedProcess(BasicProcess):
@@ -150,12 +150,12 @@ class ProgramCompilationProcess(BasicProcess):
         process cancelled.
 
         :param entry_file_path: The entry-file of the program. The compiler
-        will use the working directory as base dir
-        if the path is relative
+         will use the working directory as base dir
+         if the path is relative
         :param build_path: The path to the output folder
         :param dist_path: The path to the dist folder
         :returns: The file name, the output build path, the output dist path
-        and the arguments passed for the compilation
+         and the arguments passed for the compilation
         """
         super().__init__(entry_file_path, encoding)
 
@@ -273,13 +273,13 @@ class ProgramCompilationProcess(BasicProcess):
                 return result[3]  # Optional[FinishedProcess]
 
     async def _run_preprocessor(
-            self, enable_out: bool
+            self, log_errors_and_warnings: bool
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.info(
             "Processing files in the Pre-Processor"
         )
-        return await self.preprocessor_ctx.process_program(enable_out)
+        return await self.preprocessor_ctx.process_program(log_errors_and_warnings)
 
     async def _gen_preprocessor_temp_files(
             self, preprocessor_result: PreProcessorProcessResult

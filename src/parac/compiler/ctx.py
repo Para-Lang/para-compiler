@@ -10,6 +10,7 @@ import logging
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
 import antlr4
+from parac.util import get_input_stream
 
 from ..abc import FileRunContext, ProgramRunContext
 from .logic_stream import ParacLogicStream
@@ -166,39 +167,38 @@ class ProgramCompilationContext(ProgramRunContext):
         """
         ...
 
-    async def process_program(self, enable_out: bool) -> None:
+    async def process_program(self, log_errors_and_warnings: bool) -> None:
         """
         Processes this instance and generates the logic streams required
         for generating the finished code.
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
-        await self.parse_entry_file(enable_out)
+        await self.parse_entry_file(log_errors_and_warnings)
 
         ...  # TODO! Run listener for every file
 
     async def get_stream_and_parse(
             self,
             file_path: Union[str, PathLike],
-            enable_out: bool
+            log_errors_and_warnings: bool
     ) -> FileCompilationContext:
         """
         Gets a FileStream, converts it to a string stream and parses it
         returning the resulting FilePreProcessorContext
 
         :param file_path: Path to the file
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
         from .compiler import ParacCompiler
-        from ..util import (get_file_stream, get_relative_file_name,
-                            get_input_stream)
+        from ..util import (get_file_stream, get_relative_file_name)
 
         file_stream = get_file_stream(file_path, self.encoding)
         relative_file_name = get_relative_file_name(
@@ -212,33 +212,33 @@ class ProgramCompilationContext(ProgramRunContext):
             name=file_stream.name
         )
         return await self.parse_single_file(
-            stream, relative_file_name, enable_out
+            stream, relative_file_name, log_errors_and_warnings
         )
 
     @staticmethod
     async def parse_single_file(
             stream: antlr4.InputStream,
             relative_file_name: str,
-            enable_out: bool,
+            log_errors_and_warnings: bool,
     ) -> FileCompilationContext:
         """
         Parses a single file and generates the FilePreProcessorContext
 
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able using
-        get_relative_file_name)
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+         get_relative_file_name)
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The generated FilePreProcessorContext instance
         """
         from .compiler import ParacCompiler
         from .parser.listener import Listener
 
         logger.debug(f"Parsing file ({relative_file_name})")
-        antlr4_file_ctx = await ParacCompiler.parse(stream, enable_out)
+        antlr4_file_ctx = await ParacCompiler.parse(stream, log_errors_and_warnings)
 
         listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-        await listener.walk_and_generate_logic_stream(enable_out)
+        await listener.walk_and_generate_logic_stream(log_errors_and_warnings)
         return listener.file_ctx

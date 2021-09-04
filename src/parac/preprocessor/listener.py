@@ -1,6 +1,5 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
-import logging
 from typing import List
 import antlr4
 import logging
@@ -34,7 +33,7 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         self._file_ctx = FilePreProcessorContext(relative_file_name)
         self.antlr4_file_ctx: _p.CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
-        self._enable_out = False
+        self._log_errors_and_warnings = False
 
     @property
     def logic_stream(self) -> List[PreProcessorLogicToken]:
@@ -46,21 +45,21 @@ class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
         """ The file context for this class """
         return self._file_ctx
 
-    async def walk_and_process_directives(self, enable_out: bool) -> None:
+    async def walk_and_process_directives(self, log_errors_and_warnings: bool) -> None:
         """
         Walks through the passed compilation unit context and processes it.
         The file_ctx will be populated and able to be used for finishing
         the preprocessor processing steps
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
         logger.debug(
             "Walking through the logic tree and generating logic stream"
         )
-        self._enable_out = enable_out
+        self._log_errors_and_warnings = log_errors_and_warnings
 
     def enterCompilationUnit(
             self,

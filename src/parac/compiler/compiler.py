@@ -16,9 +16,10 @@ from .parser.python import ParaCParser
 from .parser.listener import Listener
 from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                        print_log_banner)
-from ..util import get_relative_file_name, get_input_stream, get_file_stream
+from ..util import get_relative_file_name, get_file_stream, get_input_stream
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
-                          ParacCompilerError)
+                          ParacCompilerError, FailedToProcessError,
+                          ParaCSyntaxErrorCollection)
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -60,13 +61,13 @@ class ParacCompiler:
         and adds the formatting defaults
 
         :param log_path: Path where the log file should be placed. If None
-        logging to files will be ignored
+         logging to files will be ignored
         :param level: Level the logger should be initialised with.
-        Defaults to INFO
+         Defaults to INFO
         :param print_banner: If set to True the logging banner will be printed
         :param banner_name: The name used for the logging banner
         :param additional_newline: If set to True an additional newline will be
-        added before the logging banner
+         added before the logging banner
         """
         if print_banner:
             print_log_banner(banner_name, additional_newline)
@@ -107,7 +108,7 @@ class ParacCompiler:
     @staticmethod
     async def parse(
             input_stream: antlr4.InputStream,
-            enable_out: bool = True
+            log_errors_and_warnings: bool = True
     ) -> CompilationUnitContext:
         """
         Parses the passed input_stream using antlr4 and returns the
@@ -115,15 +116,17 @@ class ParacCompiler:
         and process the file
 
         :param input_stream: The token stream of the file
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The compilationUnit (file) context
+        :raises ParaCSyntaxError: If the parsing failed due to a syntax issue
+         aka. input error from the user.
         """
-        # Error handler which uses the default error strategy to handle the 
+        # Error handler which uses the default error strategy to handle the
         # incoming antlr4 errors
-        error_listener = ParacErrorListener(enable_out)
+        error_listener = ParacErrorListener()
 
         # Initialising the lexer, which will tokenize the input_stream and
         # raise basic errors if needed
@@ -140,23 +143,39 @@ class ParacCompiler:
         parser = ParaCParser.ParaCParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
-        return parser.compilationUnit()
+
+        # Parsing from the entry - compilationUnit
+        cu = parser.compilationUnit()
+
+        # Raise one or multiple errors if they were caught during the parsing
+        if len(error_listener.errors) > 0:
+            raise ParaCSyntaxErrorCollection(
+                error_listener.errors,
+                log_errors_and_warnings
+            )  # Raising the syntax error/s
+
+        return cu
 
     @classmethod
     async def validate_syntax(
             cls,
             process: BasicProcess,
-            enable_out: bool = True
+            log_errors_and_warnings: bool = True
     ) -> bool:
         """
         Validates the syntax of a file and logs or raises errors while running
 
         :param process: The BasicProcess containing the path to the entry-file
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
-        :returns: True if the syntax check was successful else False
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance,
+         instead of directly returned. They will be 'raised from' with the
+         FailedToProcessError exception.
+        :returns: True if the syntax check was successful
+        :raises FailedToProcessError: If log_errors_and_warnings is True and
+         an exception is encountered. The logs of the exception will be printed
+         onto the console.
+        :raises ParacCompilerError: If any exception is encountered and
+         log_errors_and_warnings is False
         """
         file_stream: antlr4.FileStream = get_file_stream(
             process.entry_file_path, process.encoding
@@ -167,7 +186,7 @@ class ParacCompiler:
         )
         try:
             cls.logger.info(f"Parsing file ({file_stream.fileName})")
-            antlr4_file_ctx = await cls.parse(stream, enable_out)
+            antlr4_file_ctx = await cls.parse(stream, log_errors_and_warnings)
 
             relative_file_name = get_relative_file_name(
                 file_stream.name,
@@ -178,16 +197,15 @@ class ParacCompiler:
             # Walking through the tree but without compiling! -> Only default
             # structure and syntax will be validated and checked
             listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-            await listener.walk(enable_out)
+            await listener.walk(log_errors_and_warnings)
 
-        except (LexerError, LinkerError, ParacCompilerError):
-            # TODO! Add proper error handling and logging
-            return False
+        except (LexerError, ParaCSyntaxErrorCollection, LinkerError,
+                ParacCompilerError) as e:
+            if log_errors_and_warnings:
+                raise FailedToProcessError(exc=e) from e
+            else:
+                raise e
 
-        from .. import RUNTIME_COMPILER
-
-        if RUNTIME_COMPILER.stream_handler.errors > 0:
-            return False
         return True
 
     @staticmethod
@@ -239,5 +257,5 @@ class ParacCompiler:
             cls,
             logic_stream: ParacLogicStream
     ) -> CLogicStream:
-        """ Compiles the passed ParacLogicStream into the Parac counterpart """
+        """ Compiles the passed ParacLogicStream into the C counterpart """
         ...

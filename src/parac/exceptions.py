@@ -1,10 +1,15 @@
 # coding=utf-8
 """ Exceptions in the Para-C Compiler """
+from __future__ import annotations
+
 from enum import IntEnum
 from types import TracebackType
-from typing import NewType, Union, Type
+from typing import NewType, Union, Type, TYPE_CHECKING, List
 
 from .logging import log_msg
+
+if TYPE_CHECKING:
+    from .compiler.parser.python.ParaCParser import ParaCParser
 
 __all__ = [
     'ErrorCodes', 'ParacCompilerError',
@@ -19,6 +24,8 @@ __all__ = [
     'LexerError',
 
     'ParserError',
+
+    'ParaCSyntaxError', 'ParaCSyntaxErrorCollection',
 
     'LogicalError',
 
@@ -58,6 +65,7 @@ class ErrorCodes(IntEnum):
 
     # 4** - PARSER ERRORS
     PARSER_ERROR = ErrorCode(400)
+    SYNTAX_ERROR = ErrorCode(401)
     # -----------
 
     # 5** - LOGICAL ERRORS
@@ -211,6 +219,14 @@ class FailedToProcessError(InternalError):
     error_msg = "Failed to process the input! Check logs for information"
     _default_code = ErrorCodes.FAILED_TO_PROCESS
 
+    def __init__(
+            self,
+            exc: Union[Exception, ParacCompilerError],
+            code: int = _default_code,
+    ):
+        log_msg('error', str(exc))
+        super().__init__(self.error_msg, exc=exc, code=code)
+
 
 # 2** - USER INPUT ERRORS
 class UserInputError(ParacCompilerError):
@@ -288,6 +304,92 @@ class ParserError(ParacCompilerError):
     """
     error_msg = "The Parser encountered an error while processing"
     _default_code = ErrorCodes.PARSER_ERROR
+
+
+class ParaCSyntaxError(ParserError, LexerError, SyntaxError):
+    """
+    Syntax-Exception signalising an issue with the code of the user
+    """
+    error_msg = "Encountered a syntax error while processing"
+    _default_code = ErrorCodes.SYNTAX_ERROR
+
+    def __init__(
+            self,
+            parac_parser: ParaCParser,
+            offending_symbol,
+            line: int,
+            column: int,
+            msg: str,
+    ):
+        self.error_ctx = parac_parser
+        self.offending_symbol = offending_symbol
+        self.line = line
+        self.column = column
+        self.msg = msg
+        self.file = offending_symbol.source[1].name
+        self.gen_str = self.create_error_log_msg()
+
+        super().__init__(
+            msg,
+            code=self._default_code
+        )
+
+    def __str__(self):
+        return self.gen_str
+
+    def create_error_log_msg(self) -> str:
+        """ Creates the log message for this Exception """
+        from .util import get_original_text_from_token
+
+        original_str: str = get_original_text_from_token(
+            self.offending_symbol
+        )
+        gen_str: str = ''.join((
+            f'In file \'{self.file}\'',
+            '\n',
+            original_str,
+            '\n',
+            '^' * (len(original_str) if original_str else 1),
+            '\n',
+            f'SyntaxError at line {self.line}: {self.msg}'
+        ))
+        return gen_str
+
+
+class ParaCSyntaxErrorCollection(ParserError):
+    """ Collection of ParaCSyntaxErrors """
+    error_msg = "Encountered one or more syntax errors while processing"
+    _default_code = ErrorCodes.SYNTAX_ERROR
+
+    def __init__(
+            self,
+            errs: List[ParaCSyntaxError],
+            log_errors: bool
+    ):
+        """
+        :param errs: The list of syntax errors
+        :param log_errors: If set to True it will log all exceptions on
+         initialisation
+        """
+        self._errs: List[ParaCSyntaxError] = errs
+        self._err_msgs: List[str] = list(str(e) for e in errs)
+
+        # Logging for every instance the error
+        if log_errors:
+            for e in self.err_msgs:
+                log_msg('critical', e)
+
+        super().__init__()
+
+    @property
+    def errs(self) -> List[ParaCSyntaxError]:
+        """ A list of the received SyntaxErrors """
+        return self._errs
+
+    @property
+    def err_msgs(self) -> List[str]:
+        """ A list of all messages of the SyntaxErrors """
+        return self._err_msgs
 
 
 # 5** - LOGICAL ERRORS

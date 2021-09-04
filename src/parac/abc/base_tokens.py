@@ -2,6 +2,11 @@
 """ File containing the ABC classes for tokens """
 
 from abc import abstractmethod, ABC
+from os import PathLike
+from typing import Optional, Any, List, TypeVar, Union
+
+import antlr4
+from antlr4 import ParserRuleContext
 
 __all__ = [
     'NULL_CHILDREN',
@@ -11,13 +16,6 @@ __all__ = [
     'CLogicToken',
     'ParacLogicToken'
 ]
-
-from os import PathLike
-
-from typing import Optional, Any, List, TypeVar, Union
-
-import antlr4
-from antlr4 import ParserRuleContext
 
 NULL_CHILDREN = TypeVar('NULL_CHILDREN')
 
@@ -131,12 +129,12 @@ class ParacLogicToken(LogicToken, ABC):
         )
 
     @property
-    def input_stream(self) -> antlr4.FileStream:
+    def input_stream(self) -> antlr4.InputStream:
         """ Input Stream for the file of this element """
-        return self.antlr4_ctx.start.getTokenSource().inputStream
+        from ..util import get_input_stream_from_ctx
+        return get_input_stream_from_ctx(self.antlr4_ctx)
 
     def extract_original_text(self) -> str:
         """ Extracts the original text based on the ctx """
-        return self.input_stream.getText(
-            self.antlr4_ctx.start.start, self.antlr4_ctx.stop.stop
-        )
+        from ..util import get_original_text
+        return get_original_text(self.antlr4_ctx)

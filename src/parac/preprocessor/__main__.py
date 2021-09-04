@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Dict
 import antlr4
+from parac import ParaCSyntaxErrorCollection
 
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
@@ -63,7 +64,7 @@ class PreProcessor:
     @staticmethod
     async def parse(
             input_stream: antlr4.InputStream,
-            enable_out: bool = True
+            log_errors_and_warnings: bool = True
     ) -> ParaCPreProcessorParser.CompilationUnitContext:
         """
         Parses the passed input_stream using antlr4 and returns the
@@ -71,15 +72,15 @@ class PreProcessor:
         process the file and generate a logic stream
 
         :param input_stream: The token stream of the file
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         :returns: The compilationUnit (file) context
         """
         # Error handler which uses the default error strategy to handle the
         # incoming antlr4 errors
-        error_listener = PreProcessorErrorListener(enable_out)
+        error_listener = PreProcessorErrorListener()
 
         # Initialising the lexer, which will tokenize the input_stream and
         # raise basic errors if needed
@@ -102,12 +103,23 @@ class PreProcessor:
         logger.debug(
             "Finished generation of compilationUnit for the file"
         )
-        return parser.compilationUnit()
+
+        # Parsing from the entry - compilationUnit
+        cu = parser.compilationUnit()
+
+        # Raise one or multiple errors if they were caught during the parsing
+        if len(error_listener.errors) > 0:
+            raise ParaCSyntaxErrorCollection(
+                error_listener.errors,
+                log_errors_and_warnings
+            )  # Raising the syntax error/s
+
+        return cu
 
     @staticmethod
     async def process_directives(
             ctx: ProgramPreProcessorContext,
-            enable_out: bool = True
+            log_errors_and_warnings: bool = True
     ) -> PreProcessorProcessResult:
         """
         Processing the directives in the passed ctx and

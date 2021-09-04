@@ -45,34 +45,34 @@ class Listener(ParaCListener.ParaCListener):
         self.file_stream: antlr4.InputStream = file_stream
 
         self._compiling: bool = False
-        self._enable_out: bool = False
+        self._log_errors_and_warnings: bool = False
 
     @property
     def file_ctx(self) -> FileCompilationContext:
         """ Fetches the file context for this class """
         return self._file_ctx
 
-    async def walk(self, enable_out: bool) -> None:
+    async def walk(self, log_errors_and_warnings: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
         logger.debug(
             "Walking through logic tree and generating the logic stream"
         )
-        self._enable_out = enable_out
+        self._log_errors_and_warnings = log_errors_and_warnings
 
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)
 
         ...
 
-    async def walk_and_generate_logic_stream(self, enable_out: bool) -> None:
+    async def walk_and_generate_logic_stream(self, log_errors_and_warnings: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens and generates the logic stream
@@ -82,13 +82,13 @@ class Listener(ParaCListener.ParaCListener):
         CompilationContext to be linked with other files and to finish
         the compilation for the program
 
-        :param enable_out: If set to True errors, warnings and info will be
-        logged onto the console using the local logger instance. If an
-        exception is raised or error is encountered, it will be reraised with
-        the FailedToProcessError.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
         self._compiling = True
-        await self.walk(enable_out)
+        await self.walk(log_errors_and_warnings)
 
     # =========================================
     # Beginning of the file
@@ -424,24 +424,6 @@ class Listener(ParaCListener.ParaCListener):
     ):
         """
         Exit a parse tree produced by ParaCParser#extensionTaskParameter.
-        """
-        ...
-
-    def enterExtensionTaskLambda(
-            self,
-            ctx: ParaCParser.ExtensionTaskLambdaContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#extensionTaskLambda.
-        """
-        ...
-
-    def exitExtensionTaskLambda(
-            self,
-            ctx: ParaCParser.ExtensionTaskLambdaContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#extensionTaskLambda.
         """
         ...
 

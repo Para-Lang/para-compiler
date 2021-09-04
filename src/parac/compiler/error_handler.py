@@ -3,11 +3,13 @@
 import logging
 from typing import Union
 
+from antlr4.Token import CommonToken
 from antlr4.error.Errors import (InputMismatchException,
                                  FailedPredicateException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
+from parac.compiler.parser.python.ParaCParser import ParaCParser
 
 from ..abc.base_error_handler import BaseErrorListener
 
@@ -21,14 +23,8 @@ logger = logging.getLogger(__name__)
 class ParacErrorListener(BaseErrorListener):
     """ Error-Listener for the Para-C compiler """
 
-    def __init__(self, reraise: bool):
-        """
-        Initialises the instance
-
-        :param reraise: If set to True the error listener will reraise errors
-        and not just log them
-        """
-        super().__init__(reraise)
+    def __init__(self):
+        super().__init__()
 
     def reportAmbiguity(
             self,
@@ -78,8 +74,8 @@ class ParacErrorListener(BaseErrorListener):
 
     def syntaxError(
             self,
-            recognizer,
-            offendingSymbol,
+            recognizer: ParaCParser,
+            offendingSymbol: CommonToken,
             line: int,
             column: int,
             msg: str,
@@ -95,6 +91,6 @@ class ParacErrorListener(BaseErrorListener):
         Method which will be called if the ANTLR4 Lexer or Parser detect
         an error inside the program
         """
-
-        # TODO! Add proper error handling
-        logger.error(f"At line: {line}, column: {column} - {msg}")
+        super().syntaxError(
+            recognizer, offendingSymbol, line, column, msg, e
+        )
