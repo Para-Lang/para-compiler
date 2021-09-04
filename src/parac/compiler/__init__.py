@@ -1,5 +1,8 @@
 # coding=utf-8
-""" Compiler for the Para-C programming language """
+"""
+Para-C Compiler class, which is the main location, which stores functions
+for parsing, compiling and handling files.
+"""
 from . import optimiser
 from . import parser
 from . import error_handler

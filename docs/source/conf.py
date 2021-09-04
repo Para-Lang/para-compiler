@@ -11,7 +11,14 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/parac'))
+
+sys.path.insert(0, os.path.abspath('../../src/'))
+
+import parac
+import parac_cli
+
+assert parac.__version__
+assert parac_cli.__version__
 
 # -- Project information -----------------------------------------------------
 

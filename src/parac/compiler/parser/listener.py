@@ -8,11 +8,10 @@ from typing import TYPE_CHECKING, Union
 import antlr4
 
 from .python import ParaCListener
-from .python import ParaCParser as parser
+from .python import ParaCParser
 from ..ctx import FileCompilationContext
 
 logger = logging.getLogger(__name__)
-ParaCParser = parser.ParaCParser
 
 if TYPE_CHECKING:
     # Assigning the variables to hold the imported classes for easier type
@@ -27,7 +26,7 @@ __all__ = [
 ]
 
 
-class Listener(ParaCListener.ParaCListener):
+class Listener(ParaCListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
     generated methods from the ParaCListener and then define the wanted

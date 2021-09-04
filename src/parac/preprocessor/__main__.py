@@ -35,13 +35,14 @@ class PreProcessorProcessResult:
         """
         Returns the generated files, which are represented in a dictionary.
 
-        :returns: Dict[
-          str - Name of the file (Relative name),
-          Dict[
-            str - The code-string,
-            FilePreProcessorContext - The context of the file
-          ]
-         ]
+        :returns:
+          (
+            str - Name of the file (Relative name),
+            (
+              str - The code-string,
+              FilePreProcessorContext - The context of the file
+            )
+          )
          """
         ...
 

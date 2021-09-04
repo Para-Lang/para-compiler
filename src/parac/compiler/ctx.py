@@ -157,13 +157,14 @@ class ProgramCompilationContext(ProgramRunContext):
         """
         Generates the source C-code from the tokens stored inside the class.
 
-        :returns: Dict[
-          str - Name of the file (Relative name),
-          Dict[
-            str - The code-string,
-            FileCompilationContext - The context of the file
-          ]
-         ]
+        :returns:
+          (
+            str - Name of the file (Relative name),
+            (
+              str - The code-string,
+              FileCompilationContext - The context of the file
+            )
+          )
         """
         ...
 

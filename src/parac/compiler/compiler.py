@@ -130,7 +130,7 @@ class ParacCompiler:
 
         # Initialising the lexer, which will tokenize the input_stream and
         # raise basic errors if needed
-        lexer = ParaCLexer.ParaCLexer(input_stream)
+        lexer = ParaCLexer(input_stream)
         lexer.removeErrorListeners()
         lexer.addErrorListener(error_listener)
 
@@ -140,7 +140,7 @@ class ParacCompiler:
         stream = antlr4.CommonTokenStream(lexer)
 
         # Parser which generates based on the top entry rule the logic tree
-        parser = ParaCParser.ParaCParser(stream)
+        parser = ParaCParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
 
@@ -214,13 +214,13 @@ class ParacCompiler:
     ) -> str:
         """
         Removes comments from the passed string and returns the modified
-        string. Only comments in the (// ... \\n) and (/* ... */) format will
+        string. Only comments in the (// ... ) and (/* ... */) format will
         be removed, but else the string will be ignored.
 
-        For proper handling line-endings are all set to \\n, if this is
+        For proper handling line-endings are all set to win-style, if this is
         not wanted the wanted line ending should be passed. Note: This will
         not make the function ignore every other line-ending but simply in the
-        end replace every occurrence of \n with the wanted line-ending.
+        end replace every occurrence of win-style with the wanted line-ending.
         """
         prev_c: str = ""
         result: str = ""

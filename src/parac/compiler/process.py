@@ -1,7 +1,9 @@
 # coding=utf-8
 """
-Compiler Process Implementations which represent a compilation process aka.
-one execution of the compiler as a whole
+Compilation Process Classes, which are the management classes, which then
+implement the Compilation Context classes. It's the main storage class, which
+also contains the functions for various usage cases and is intended as the
+main point where the compilation will happen.
 """
 from __future__ import annotations
 
@@ -255,7 +257,7 @@ class ProgramCompilationProcess(BasicProcess):
 
         int - Progress count from 0 to 1000 (0 = 0%, 1000 = 100%)
         Optional[str] - Name of the next step in form of a string. Is None
-                        when the  process finished
+         when the  process finished
         int - Log level for the returned string message
         Optional[FinishedProcess] - None until the process finally finished
 

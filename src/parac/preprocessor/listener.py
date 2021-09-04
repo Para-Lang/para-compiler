@@ -5,19 +5,17 @@ import antlr4
 import logging
 
 from .abc import PreProcessorLogicToken
-from .python import ParaCPreProcessorListener
+from .python import ParaCPreProcessorListener, ParaCPreProcessorParser as _p
 from .ctx import FilePreProcessorContext
-from .python import ParaCPreProcessorParser as parser
 
 __all__ = [
     'Listener'
 ]
 
 logger = logging.getLogger(__name__)
-_p = parser.ParaCPreProcessorParser
 
 
-class Listener(ParaCPreProcessorListener.ParaCPreProcessorListener):
+class Listener(ParaCPreProcessorListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
     generated methods from the ParaCPreProcessorListener and then define the
