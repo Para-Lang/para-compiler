@@ -1,4 +1,4 @@
-entry status Main()
+entry status main()
 {
     lambda<int> multiply_by_two = (int x) => x * 2;
     lambda<int> func = ((int x) => x as int) as lambda<int>;

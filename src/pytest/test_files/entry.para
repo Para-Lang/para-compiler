@@ -3,7 +3,7 @@
 
 int global_var = 2;
 
-status AdditionalFunction(int x)
+status additional_function(int x)
 {
     // Printing a number
     printf("%i", x);
@@ -13,12 +13,12 @@ status AdditionalFunction(int x)
     return r;
 }
 
-entry status Main()
+entry status main()
 {
     int some_number = 4;
 
     some_number = some_number ? 4 : 5; // => 4
     some_number ? printf("yes") : printf("no");
 
-    return AdditionalFunction(some_number);
+    return additional_function(some_number);
 }

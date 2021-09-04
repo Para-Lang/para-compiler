@@ -1,7 +1,9 @@
 # coding=utf-8
 """ File containing the abstract base error listener """
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from typing import Union
+from typing import Union, TYPE_CHECKING
 
 from antlr4.Token import CommonToken
 from antlr4.error.ErrorListener import ErrorListener
@@ -10,8 +12,10 @@ from antlr4.error.Errors import (InputMismatchException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
-from parac import ParaCSyntaxError
-from parac.compiler.parser.python.ParaCParser import ParaCParser
+from ..exceptions import ParaCSyntaxError
+
+if TYPE_CHECKING:
+    from ..compiler.parser.python.ParaCParser import ParaCParser
 
 
 __all__ = [

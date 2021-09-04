@@ -3,7 +3,7 @@ typedef struct CustomError {
     string display_name;
 } CustomError;
 
-entry status Main()
+entry status main()
 {
     CustomError e = {
         .error_msg="Something bad",

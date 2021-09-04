@@ -10,8 +10,8 @@ import logging
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
 import antlr4
-from parac.util import get_input_stream
 
+from ..util import get_input_stream
 from ..abc import FileRunContext, ProgramRunContext
 from .logic_stream import ParacLogicStream
 

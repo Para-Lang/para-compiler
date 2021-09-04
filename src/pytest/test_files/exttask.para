@@ -1,4 +1,4 @@
-exttask python TestFunc() {
+exttask python test_func() {
     file : NULL,
     file_entry : NULL
 }
@@ -7,7 +7,7 @@ exttask python TestFunc() {
 // => logical compiler will raise an error!
 exttask python TestFunc2() {}
 
-entry status Main()
+entry status main()
 {
     ExtTaskReturn r_1 = spawn TestFunc();
 
