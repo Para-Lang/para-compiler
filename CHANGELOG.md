@@ -23,7 +23,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   and report them at once when initialised.
 - New Util functions: `get_input_stream_from_ctx`, `get_original_text` and
   `get_original_text_from_token`
-- Implemented SyntaxError handling  
+- Implemented SyntaxError handling using the Antlr4 Error Handler - New Error Strategy is to collect all syntax errors and then at the end collect all warnings and 
+  errors and display them.
+- Support for Whitespaces in the Antlr4 Grammar file to allow for better error messages and separation.  
 
 ### Changed
 - Style of the init banner in the CLI and added docs link
