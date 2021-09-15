@@ -115,7 +115,9 @@ def get_rich_console() -> Union[Console, None]:
 
 
 class ParacStreamHandler(StreamHandler):
-    """ Specific Stream Handler for Para-C designed to implement rich """
+    """
+    Specific Logging Stream Handler for Para-C designed to implement rich
+    """
 
     def __init__(self, *args, **kwargs):
         self.warnings = 0
@@ -158,7 +160,9 @@ logger = logging.getLogger(__name__)
 
 
 class ParacFileHandler(logging.FileHandler):
-    """ Default FileHandler for the file handling in the Para-C compiler """
+    """
+    Default FileHandler for the logging file handling in the Para-C compiler
+    """
 
     def __init__(
             self,
@@ -193,7 +197,7 @@ class ParacFileHandler(logging.FileHandler):
 
 class ParacFormatter(logging.Formatter):
     """
-    Default Formatter class for the custom formatted output of the
+    Default Formatter class for the custom formatted logging output of the
     Para-C compiler
     """
     level_formatting = {

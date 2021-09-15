@@ -3,8 +3,9 @@
 import json
 import os
 import logging
+from pathlib import Path
 
-from .pathtools import cleanup_path_str, decode_if_bytes
+from .pathtools import decode_if_bytes, ensure_pathlib_path
 from ..exceptions import FilePermissionError, CCompilerNotFoundError
 from ..logging import get_rich_console as console
 
@@ -46,23 +47,23 @@ def cli_initialise_c_compiler() -> None:
         "[/bold bright_cyan]"
     )
     console().print('\n', end="")
-    path = cleanup_path_str(decode_if_bytes(_input))
+    path: Path = ensure_pathlib_path(_input)
 
     # it exists
-    if not os.access(_input, os.F_OK):
+    if not os.access(path, os.F_OK):
         raise CCompilerNotFoundError(
             f"The passed path '{path}' for the executable does not exist"
         )
 
     # is executable
-    if not os.access(_input, os.X_OK):
+    if not os.access(path, os.X_OK):
         raise FilePermissionError(
             f"The passed path '{path}' for the executable can't be executed."
             " Possibly missing Permissions?"
         )
 
     config = const.DEFAULT_CONFIG
-    config['c-compiler-path'] = path
+    config['c-compiler-path'] = str(path)
 
     with open(const.CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))

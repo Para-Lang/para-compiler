@@ -7,6 +7,7 @@ information.
 from __future__ import annotations
 
 import logging
+import pathlib
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
 import antlr4
@@ -184,7 +185,7 @@ class ProgramCompilationContext(ProgramRunContext):
 
     async def get_stream_and_parse(
             self,
-            file_path: Union[str, PathLike],
+            file_path: Union[str, PathLike, pathlib.Path],
             log_errors_and_warnings: bool
     ) -> FileCompilationContext:
         """
@@ -201,13 +202,18 @@ class ProgramCompilationContext(ProgramRunContext):
         from .compiler import ParacCompiler
         from ..util import (get_file_stream, get_relative_file_name)
 
-        file_stream = get_file_stream(file_path, self.encoding)
-        relative_file_name = get_relative_file_name(
+        if type(file_path) is not pathlib.Path:
+            file_path: pathlib.Path = pathlib.Path(str(file_path)).resolve()
+
+        file_stream: antlr4.FileStream = get_file_stream(
+            file_path, self.encoding
+        )
+        relative_file_name: str = get_relative_file_name(
             file_name=file_stream.name,
             file_path=file_stream.fileName,
             base_path=self.work_dir
         )
-        stream = get_input_stream(
+        stream: antlr4.InputStream = get_input_stream(
             # rm comments
             ParacCompiler.remove_comments_from_str(file_stream.strdata),
             name=file_stream.name

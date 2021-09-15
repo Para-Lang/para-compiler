@@ -7,8 +7,8 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Dict
 import antlr4
-from parac import ParaCSyntaxErrorCollection
 
+from ..exceptions import ParaCSyntaxErrorCollection
 from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 from .python.ParaCPreProcessorLexer import ParaCPreProcessorLexer
 from .error_handler import PreProcessorErrorListener

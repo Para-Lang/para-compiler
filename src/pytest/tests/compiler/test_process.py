@@ -1,6 +1,7 @@
 # coding=utf-8
 """ Test for the compiler process setup """
 import os
+from pathlib import Path
 
 from parac import SEPARATOR as SEP, initialise_default_paths
 from parac.compiler import ProgramCompilationProcess
@@ -27,8 +28,8 @@ class TestProcess:
         reset_input()
 
     def test_init(self):
-        b_path = add_folder("build")
-        d_path = add_folder("dist")
+        b_path: Path = add_folder("build")
+        d_path: Path = add_folder("dist")
         p = ProgramCompilationProcess(
             main_file_path, 'utf-8', b_path, d_path
         )
@@ -39,11 +40,11 @@ class TestProcess:
     def test_bytes_init(self):
         path = main_file_path.encode()
 
-        b_path = add_folder("build").encode()
-        d_path = add_folder("dist").encode()
-        p = ProgramCompilationProcess(
+        b_path: bytes = str(add_folder("build")).encode()
+        d_path: bytes = str(add_folder("dist")).encode()
+        p: ProgramCompilationProcess = ProgramCompilationProcess(
             path, 'utf-8', b_path, d_path
         )
 
-        assert p.build_path == b_path.decode()
-        assert p.dist_path == d_path.decode()
+        assert p.build_path == Path(b_path.decode())
+        assert p.dist_path == Path(d_path.decode())

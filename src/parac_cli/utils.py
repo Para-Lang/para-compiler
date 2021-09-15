@@ -28,7 +28,7 @@ def cli_resolve_path(path: Union[bytes, str, Path, PathLike]) -> str:
     :raise UserInputError: If the inserted path can not be resolved due to an
     invalid format
     """
-    if str(path.strip()) == "":
+    if str(path).strip() == "":
         raise UserInputError("Path can not be empty")
     if type(path) in (bytes, str, PathLike):
         try:

@@ -17,29 +17,38 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    allows for more customisation for the defaults paths in Para-C and avoids
    the default paths being wrong after changing the working directory while running.
 - Property `errors` in `BaseErrorListener` for storing received errors during
-  the parsing process (Both for the Pre-Processor and Compiler)
-- New Exception `ParaCSyntaxError`
+  the parsing process (Both for the Pre-Processor and Compiler).
+- New Exception `ParaCSyntaxError` with proper implementation of error logs.
 - New Exception `ParaCSyntaxErrorCollection` for storing multiple SyntaxErrors
   and report them at once when initialised.
 - New Util functions: `get_input_stream_from_ctx`, `get_original_text` and
-  `get_original_text_from_token`
+  `get_original_text_from_token`.
 - Implemented SyntaxError handling using the Antlr4 Error Handler - New Error Strategy is to collect all syntax errors and then at the end collect all warnings and 
   errors and display them.
 - Support for Whitespaces in the Antlr4 Grammar file to allow for better error messages and separation.  
+- Function in `util/pathtools.py` `ensure_pathlib_path`, which will convert
+  the passed value to a pathlib.Path, if it's not already one. It will also 
+  resolve all sys-links.
 
 ### Changed
-- Style of the init banner in the CLI and added docs link
+- Style of the init banner in the CLI and added docs link.
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
   which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
   more info see the lang document.
-- Fixed workdir issue in pytest causing usage outside `./src/pytest` to raise errors
-- Fixed work-directory issue in `build-exe.py` and rewrote structure to allow runtime in the root directory
+- Fixed workdir issue in pytest causing usage outside `./src/pytest` to raise errors.
+- Fixed work-directory issue in `build-exe.py` and rewrote structure to allow runtime in the root directory.
+- The modules will now commonly use `pathlib.Path` and convert to it if is
+  a different type (str, bytes).
+- Renamed `validate_file_ending` to `has_valid_file_ending` and fixed a minor bug replacing the
+  `all` call (all file endings must be true) to `any`, meaning now only one needs to be true, which
+  is the correct and intended way of handling this.
 
 ### Removed
-- `list<t>` type from the Grammar file
+- `list<t>` type from the Grammar file.
 - `WORK_DIR` in `parac.const` and implemented dynamic fetching to allow for 
    workdir changes while running.
-- Full Support for extensionTaskLambda (deprecated)
+- Full Support for extensionTaskLambda (deprecated).
+- Deprecated `cleanup_path_str()` and `check_valid_path_name()` from `util/pathtools.py`.
 
 ## [v0.1.dev4] - 2021-07-23
 

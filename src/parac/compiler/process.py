@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import logging
 import os
+from pathlib import Path
 from os import PathLike
 from typing import Union, Tuple, List, Optional, AsyncGenerator
 
@@ -16,8 +17,8 @@ from ..preprocessor import PreProcessorProcessResult
 from ..preprocessor.ctx import ProgramPreProcessorContext
 
 from .ctx import ProgramCompilationContext
-from ..util import (decode_if_bytes, cleanup_path_str, validate_file_ending,
-                    validate_path_like)
+from ..util import (has_valid_file_ending, validate_path_like,
+                    ensure_pathlib_path)
 from ..exceptions import FileAccessError
 
 __all__ = [
@@ -34,28 +35,26 @@ class BasicProcess:
 
     def __init__(
             self,
-            entry_file_path: Union[str, bytes, PathLike],
+            entry_file_path: Union[str, bytes, PathLike, Path],
             encoding: str
     ):
         """
         Initialises the instance and validates the passed entry file for
         further usage.
 
-        :param entry_file_path: The entry-file of the program. The compiler
-         will use the working directory as base dir if
-         he path is relative
-        """
-        entry_file_path = cleanup_path_str(decode_if_bytes(entry_file_path))
+        Important notice for the entry_file_path. This path should be in the
+        best case set absolute by the user and passed as such. Since passing
+        it as relative will mean the working directory of this program that
+        was fetched using os.getcwd() will be used to determine the parent
+        directory. Therefore watch out for correct usage!
 
-        # Getting the last element aka. the lowest level of the path
-        _last_path_elem = entry_file_path.replace("/", "\\").split("\\")[-1]
-        # for the sake of checking; all paths used are converted into
-        # the windows path-style
-        if "." not in _last_path_elem or _last_path_elem.endswith("\\"):
-            logger.warning(
-                "The given file does not seem to be in the correct format!"
-            )
-        elif validate_file_ending(_last_path_elem):
+        :param entry_file_path: The entry-file of the program. All possible
+         sys-links will be resolved and made absolute by ensure_pathlib_path()
+        """
+        entry_file_path: Path = ensure_pathlib_path(entry_file_path)
+
+        # Validating correct file endings
+        if has_valid_file_ending(entry_file_path.name) is False:
             logger.warning(
                 "The given file ending does not follow "
                 "the Para-C conventions (.para, .ph, .c, .h, .parah)!"
@@ -64,35 +63,25 @@ class BasicProcess:
         try:
             validate_path_like(entry_file_path)
         except FileAccessError as e:
-            # If the validation failed the path might be a relative path
-            # that does not have a . signalising its going python from the
-            # current path meaning the work-directory path needs to be
-            # appended. If that also fails it is an invalid path or permissions
-            # are missing
-            absolute_path = cleanup_path_str(f"{os.getcwd()}\\{entry_file_path}")
-            failed = False
-            try:
-                validate_path_like(absolute_path)
-            except FileAccessError:
-                failed = True
-            if failed:
-                raise e
-            entry_file_path = absolute_path
+            # If the validation failed the path might be an invalid path or
+            # permissions for proper accessing/reading are missing
+            raise e
         self._entry_file_path = entry_file_path
         self._encoding = encoding
         self._work_dir = self._get_work_dir()
 
     @property
-    def work_dir(self) -> Union[str, PathLike]:
+    def work_dir(self) -> Union[Path]:
         """
-        Returns the working directory / base-path for the program. If the entry
-        file path was relative, then the working directory where the compiler
-        is run is used as the working directory.
+        Returns the working directory / base-path for the program.
+
+        If the entry file path was relative, then the working directory where
+        the compiler is run is used as the working directory.
         """
         return self._work_dir
 
     @property
-    def entry_file_path(self) -> Union[str, PathLike]:
+    def entry_file_path(self) -> Union[Path]:
         """ Returns the entry-file of the process """
         return self._entry_file_path
 
@@ -101,11 +90,9 @@ class BasicProcess:
         """ Returns the encoding of the process """
         return self._encoding
 
-    def _get_work_dir(self) -> str:
+    def _get_work_dir(self) -> Path:
         """ Gets the working directory for the program """
-        from .. import const
-        sep = const.SEPARATOR
-        return sep.join(self.entry_file_path.split(sep)[:-1])
+        return self.entry_file_path.parent
 
     async def validate_syntax(self, log_errors_and_warnings: bool) -> bool:
         """
@@ -119,7 +106,9 @@ class BasicProcess:
         :returns: True if the syntax check was successful else False
         """
         from .compiler import ParacCompiler
-        return await ParacCompiler.validate_syntax(self, log_errors_and_warnings)
+        return await ParacCompiler.validate_syntax(
+            self, log_errors_and_warnings
+        )
 
 
 class FinishedProcess(BasicProcess):
@@ -161,11 +150,8 @@ class ProgramCompilationProcess(BasicProcess):
         """
         super().__init__(entry_file_path, encoding)
 
-        build_path: Union[str, PathLike] = decode_if_bytes(build_path)
-        dist_path: Union[str, PathLike] = decode_if_bytes(dist_path)
-
-        self._build_path = cleanup_path_str(build_path)
-        self._dist_path = cleanup_path_str(dist_path)
+        self._build_path = ensure_pathlib_path(build_path)
+        self._dist_path = ensure_pathlib_path(dist_path)
         self._temp_files: List[str] = []
         self._temp_entry_file_path: Union[str, None] = None
         self._preprocessor_ctx = ProgramPreProcessorContext(self)
@@ -185,26 +171,12 @@ class ProgramCompilationProcess(BasicProcess):
     @property
     def temp_build_folder(self) -> Union[str, PathLike]:
         """ Returns the temp folder in the build folder """
-        # SEPARATOR should in this case point to the correct path separator
-        # due to the cleanup of paths in the initialisation
-        from .. import const
-        sep = const.SEPARATOR
-        if self.build_path.endswith(sep):
-            return cleanup_path_str(f"{self.build_path}temp")
-        else:
-            return cleanup_path_str(f"{self.build_path}{sep}temp")
+        return (self.build_path / Path("temp")).resolve()
 
     @property
     def temp_dist_folder(self) -> Union[str, PathLike]:
         """ Returns the temp folder in the dist folder """
-        # SEPARATOR should in this case point to the correct path separator
-        # due to the cleanup of paths in the initialisation
-        from .. import const
-        sep = const.SEPARATOR
-        if self.dist_path.endswith(sep):
-            return cleanup_path_str(f"{self.dist_path}temp")
-        else:
-            return cleanup_path_str(f"{self.dist_path}{sep}temp")
+        return (self.dist_path / Path("temp")).resolve()
 
     @property
     def temp_files(self) -> List[str]:
@@ -221,17 +193,17 @@ class ProgramCompilationProcess(BasicProcess):
         return self._temp_entry_file_path
 
     @property
-    def entry_file_path(self) -> Union[str, PathLike]:
+    def entry_file_path(self) -> Path:
         """ Entry file of the program """
         return self._entry_file_path
 
     @property
-    def build_path(self) -> Union[str, PathLike]:
+    def build_path(self) -> Path:
         """ Path to the build folder """
         return self._build_path
 
     @property
-    def dist_path(self) -> Union[str, PathLike]:
+    def dist_path(self) -> Path:
         """ Path to the dist folder """
         return self._dist_path
 
@@ -281,7 +253,9 @@ class ProgramCompilationProcess(BasicProcess):
         logger.info(
             "Processing files in the Pre-Processor"
         )
-        return await self.preprocessor_ctx.process_program(log_errors_and_warnings)
+        return await self.preprocessor_ctx.process_program(
+            log_errors_and_warnings
+        )
 
     async def _gen_preprocessor_temp_files(
             self, preprocessor_result: PreProcessorProcessResult

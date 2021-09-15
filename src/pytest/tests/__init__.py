@@ -27,24 +27,24 @@ def resolve_test_path() -> Path:
     else:
         raise RuntimeError("Failed to resolve test path")
 
-    return Path(p).resolve()
+    return Path(str(p)).resolve()
 
 
 BASE_TEST_PATH = resolve_test_path()
 
 
-def overwrite_builtin_input(overwrite: str):
+def overwrite_builtin_input(overwrite: str) -> None:
     """ Overwrites the input with a lambda that returns the specified value """
     getattr(parac.logging, 'output_console').input =\
         lambda *args, **kwargs: overwrite
 
 
-def reset_input():
+def reset_input() -> None:
     """ Resets the output method of the console object """
     getattr(parac.logging, 'output_console').input = prev_input
 
 
-def add_folder(folder_name: str) -> str:
+def add_folder(folder_name: str) -> Path:
     """
     Removes any pre-existing data if it exists and adds the folder
 
@@ -52,10 +52,10 @@ def add_folder(folder_name: str) -> str:
     """
     remove_folder(folder_name)
     os.mkdir(p := BASE_TEST_PATH / folder_name)
-    return str(p)
+    return Path(str(p)).resolve()
 
 
-def remove_folder(folder_name: str):
+def remove_folder(folder_name: str) -> None:
     """ Removes the build and dist folder if they exist """
     path: Path = BASE_TEST_PATH / folder_name
     if os.path.exists(path):
@@ -67,7 +67,7 @@ def remove_folder(folder_name: str):
         counter += 1
 
 
-def create_test_file(folder_name: str, file_name: str):
+def create_test_file(folder_name: str, file_name: str) -> None:
     """ Creates a test file in the specified path with the specified name """
     with open(BASE_TEST_PATH / folder_name / file_name, 'w+') as file:
         file.write("x")

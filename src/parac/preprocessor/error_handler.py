@@ -9,7 +9,7 @@ from antlr4.error.Errors import (InputMismatchException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
-from parac.compiler.parser.python.ParaCParser import ParaCParser
+from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 
 from ..abc import BaseErrorListener
 
@@ -74,7 +74,7 @@ class PreProcessorErrorListener(BaseErrorListener):
 
     def syntaxError(
             self,
-            recognizer: ParaCParser,
+            recognizer: ParaCPreProcessorParser,
             offendingSymbol: CommonToken,
             line: int,
             column: int,

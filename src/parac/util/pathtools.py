@@ -1,29 +1,30 @@
 # coding=utf-8
 """ Path-tools for managing path usage and implementation in the Compiler """
 import os
-from typing import Union, Type, Optional
+import pathlib
+from typing import Union, Type, List
 
 _in_FileNotFoundError = FileNotFoundError
 from ..exceptions import FilePermissionError, FileNotFoundError
 
 
 __all__ = [
-    "validate_file_ending",
+    "has_valid_file_ending",
     "validate_path_like",
     "decode_if_bytes",
-    "cleanup_path_str",
-    "check_valid_path_name",
-    "get_relative_file_name"
+    "get_relative_file_name",
+    "ensure_pathlib_path"
 ]
 
 
-def validate_file_ending(path: Union[str, os.PathLike]) -> bool:
+def has_valid_file_ending(path: Union[str, os.PathLike]) -> bool:
     """
     Validates the file ending of the passed path and returns as bool whether
     it follows the correct requirements
     """
     from .. import const
-    return all(map(path.endswith, const.VALID_FILE_ENDINGS))
+    # If any target is met, it's valid
+    return any(map(path.endswith, const.VALID_FILE_ENDINGS))
 
 
 def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
@@ -36,14 +37,14 @@ def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
     """
     # Due to an empty string '' being recognised as existing it will be
     # excluded from the check
-    valid_in = str(path_like).strip() != ''
+    empty_path = str(path_like).strip() == ''
 
-    if not valid_in or not os.access(path_like, os.F_OK):  # Exists
+    if empty_path or not os.access(path_like, os.F_OK):  # Exists
         raise FileNotFoundError(
             f"Failed to read entry-point '{path_like}'."
             f" File does not exist!"
         )
-    elif not os.access(path_like, os.R_OK):  # Can be read:
+    elif not os.access(path_like, os.R_OK):  # Can be read
         raise FilePermissionError(
             f"Missing file reading permissions for ''{path_like}'"
         )
@@ -53,126 +54,86 @@ def decode_if_bytes(
         byte_like: Union[str, bytes, os.PathLike, Type],
         encoding: str = "utf-8"
 ) -> Union[str, os.PathLike]:
-    """ Decodes the passed PathLike if it is in bytes """
-    if type(byte_like) is str:
-        return byte_like
-    elif type(byte_like) is bytes or isinstance(byte_like, bytes):
+    """
+    Decodes the passed PathLike if it is in bytes
+
+    :raises UnicodeDecodeError: If the decoding failed
+    """
+    if type(byte_like) is bytes or isinstance(byte_like, bytes):
         return byte_like.decode(encoding)
     else:
         return byte_like
-
-
-def cleanup_path_str(_p: str) -> str:
-    """ Cleans the path for the specific current os """
-    from .. import const
-
-    if const.WIN:
-        _p = _p.replace("/", const.SEPARATOR).replace("\\\\", const.SEPARATOR)
-    else:
-        # UNIX path
-        _p = _p.replace("\\", const.SEPARATOR).replace("\\\\", const.SEPARATOR)
-
-    if _p.startswith(f".{const.SEPARATOR}"):
-        _p = os.getcwd() + _p[1:]  # Replacing . with current directory
-    return _p
-
-
-def check_valid_path_name(
-        path: Union[str, os.PathLike],
-        win_path: Optional[bool] = None
-) -> bool:
-    """
-    Checks whether the name is a valid path-name. This means the file name
-    cannot contain < , > , : , " , / , \\ (Escaped) , | , ? , *
-
-    :param path: A path-like or file-name which should be checked
-    :param win_path: If explicitly set to True, the path will be checked if it
-     was a windows path, even if it's a os of a different kind
-    """
-    from .. import const
-
-    path = cleanup_path_str(path)
-    path = path.replace(const.SEPARATOR, '')
-
-    if const.WIN or win_path:
-        if path[1:].startswith(':'):
-            path = path[2:]
-
-        if path.endswith(' ') or path.endswith('.'):
-            return False
-        char_set = const.INVALID_WIN_FILE_NAME_CHARS
-    else:
-        char_set = const.INVALID_UNIX_FILE_NAME_CHARS
-
-    count = 0
-    for c in path:
-        if 0 <= ord(c) < 28:  # Control chars are forbidden
-            return False
-        if c in char_set:
-            return False
-        count += 1
-    return True
 
 
 def get_relative_file_name(
         file_name: str,
         file_path: Union[str, os.PathLike],
         base_path: Union[str, os.PathLike],
-        win_path: Optional[bool] = None
 ) -> str:
     """
     Gets the relative file name from the passed str. If the file_path does not
     match the file_name passed RuntimeError will be raised
 
-    :param file_name: Simple file name which cannot contain < , > , : , " , / ,
-     \\ (Escaped) , | , ? , *
+    :param file_name: File name
     :param file_path: Full path of the file
     :param base_path: Full base path for the working directory
-    :param win_path: If explicitly set to True, the path will be checked if it
-     was a windows path, even if it's a os of a different kind
     """
     from .. import const
 
-    file_path = cleanup_path_str(file_path)
-    base_path = cleanup_path_str(base_path)
+    file_path: pathlib.Path = ensure_pathlib_path(file_path)
+    base_path: pathlib.Path = ensure_pathlib_path(base_path)
 
-    if base_path not in file_path:
+    if str(base_path) not in str(file_path):
         raise RuntimeError(
             "base_path and file_path are mismatching. file_path is not in "
             "base_path"
         )
-
     if ' ' in file_name:
         raise RuntimeError(
             "The Para-C naming conventions do not allow spaces in the filename"
         )
 
-    relative_path = file_path.replace(base_path, '')
+    relative_path: str = str(file_path).replace(str(base_path), '')
     if relative_path.startswith(const.SEPARATOR):
+        # removing the separator by stripping it from the path
         relative_path = relative_path[len(const.SEPARATOR):]
 
-    if not check_valid_path_name(file_path, win_path):
-        raise RuntimeError(
-            "The file_path contains invalid characters that can not be "
-            "processed"
-        )
+    # Resolving the relative path
+    relative_path: pathlib.Path = ensure_pathlib_path(relative_path)
 
-    if not check_valid_path_name(base_path, win_path):
-        raise RuntimeError(
-            "The base_path contains invalid characters that can not be "
-            "processed"
-        )
-
-    if relative_path.split(const.SEPARATOR)[-1] != file_name:
+    if relative_path.name != file_name:
         raise RuntimeError(
             "Mismatching file_names (file_path and file_name do not match)"
         )
 
+    # a/b/c/FILE.PARAC -> a.b.c.FILE
     relative_file_name = ""
-
-    relative_elements = relative_path.split(const.SEPARATOR)[:-1]
-    for elem in relative_elements:
+    # get every item except the last one
+    items: List[str] = list(relative_path.parts)[:-1]
+    for elem in items:
         relative_file_name += "".join((elem, "."))
 
+    # FILE.PARAC -> FILE
     relative_file_name += file_name.split('.')[0]
     return relative_file_name
+
+
+def ensure_pathlib_path(
+        p: Union[str, bytes, os.PathLike, pathlib.Path]
+) -> pathlib.Path:
+    """
+    Ensures the entered path is of type pathlib.Path. If it's in bytes or a
+    string, it will be converted to the pathlib.Path type.
+
+    This will also resolve all sys-links. If it is bytes and has to be
+    encoded, UTF-8 will be used by default.
+    """
+    if type(p) is str:
+        p: pathlib.Path = pathlib.Path(p)
+    elif type(p) is bytes:
+        p: pathlib.Path = pathlib.Path(decode_if_bytes(p))
+    elif not type(p) is pathlib.Path:
+        # if this is a unique type then it will just attempt to use str() on it
+        p: pathlib.Path = pathlib.Path(str(p))
+
+    return p.resolve()

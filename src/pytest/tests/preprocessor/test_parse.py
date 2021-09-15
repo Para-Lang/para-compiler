@@ -2,6 +2,7 @@
 """ Tests for the Pre-Processor Lexer and Parser """
 import logging
 import os
+from pathlib import Path
 from typing import List
 import asyncio
 
@@ -47,8 +48,8 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            b_path = add_folder("build")
-            d_path = add_folder("dist")
+            b_path: Path = add_folder("build")
+            d_path: Path = add_folder("dist")
             
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
@@ -66,8 +67,8 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            b_path = add_folder("build")
-            d_path = add_folder("dist")
+            b_path: Path = add_folder("build")
+            d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
@@ -85,8 +86,8 @@ class TestParser:
                 files.append(entry)
 
         for file in files:
-            b_path = add_folder("build")
-            d_path = add_folder("dist")
+            b_path: Path = add_folder("build")
+            d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path

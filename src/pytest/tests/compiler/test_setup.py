@@ -1,5 +1,7 @@
 # coding=utf-8
 """ Test for the cli setup """
+from pathlib import Path
+
 import pytest
 import os
 
@@ -76,8 +78,8 @@ class TestCLISetup:
         add_folder("dist")
 
     def test_simple_setup_compilation_process(self):
-        b_path = add_folder("build")
-        d_path = add_folder("dist")
+        b_path: Path = add_folder("build")
+        d_path: Path = add_folder("dist")
 
         p = cli_create_process(
             main_file_path, ENCODING, LOG_PATH, b_path, d_path
@@ -92,8 +94,8 @@ class TestCLISetup:
         ]
     )
     def test_wrong_path_compilation_process_1(self, path: str):
-        b_path = add_folder("build")
-        d_path = add_folder("dist")
+        b_path: Path = add_folder("build")
+        d_path: Path = add_folder("dist")
         try:
             p = cli_create_process(
                 file=path,
@@ -112,8 +114,8 @@ class TestCLISetup:
         ]
     )
     def test_wrong_path_compilation_process_2(self, path: str):
-        b_path = add_folder("build")
-        d_path = add_folder("dist")
+        b_path: Path = add_folder("build")
+        d_path: Path = add_folder("dist")
         try:
             p = cli_create_process(
                 file=path,

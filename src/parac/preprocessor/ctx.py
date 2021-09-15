@@ -11,8 +11,8 @@ from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
 
 
-from parac import (FailedToProcessError, ParserError, LexerError,
-                   ParaCSyntaxErrorCollection, ParacCompilerError)
+from ..exceptions import (FailedToProcessError, ParserError, LexerError,
+                          ParaCSyntaxErrorCollection, ParacCompilerError)
 from ..abc import ProgramRunContext, FileRunContext
 from .logic_stream import PreProcessorStream
 from .__main__ import PreProcessor, PreProcessorProcessResult

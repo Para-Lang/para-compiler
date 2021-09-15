@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+import pathlib
 from os import PathLike
 from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal
@@ -16,7 +17,8 @@ from .parser.python import ParaCParser
 from .parser.listener import Listener
 from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                        print_log_banner)
-from ..util import get_relative_file_name, get_file_stream, get_input_stream
+from ..util import (get_relative_file_name, get_file_stream, get_input_stream,
+                    ensure_pathlib_path)
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParacCompilerError, FailedToProcessError,
                           ParaCSyntaxErrorCollection)
@@ -50,7 +52,7 @@ class ParacCompiler:
     @classmethod
     def init_logging_session(
             cls,
-            log_path: Union[str, PathLike] = None,
+            log_path: Union[str, PathLike, pathlib.Path] = None,
             level: int = logging.INFO,
             print_banner: bool = True,
             banner_name: str = "Compiler",
@@ -88,9 +90,10 @@ class ParacCompiler:
         cls.stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
         cls.logger.addHandler(cls.stream_handler)
 
-        if type(log_path) is str and log_path.lower() != 'none':
+        if type(log_path) in (str, pathlib.Path) \
+                and log_path.lower() != 'none':
             try:
-                path: Path = Path(log_path).resolve()
+                path: Path = ensure_pathlib_path(log_path)
                 cls.file_handler = ParacFileHandler(filename=path)
             except PermissionError:
                 raise FilePermissionError(
@@ -248,7 +251,6 @@ class ParacCompiler:
                 )):
                     in_type = 'std'
                     result += '\n'
-                    prev_c = '\n'
             prev_c = c
         return result.replace('\n', line_ending)
 

@@ -14,8 +14,10 @@ from antlr4.error.Errors import (InputMismatchException,
                                  NoViableAltException)
 from ..exceptions import ParaCSyntaxError
 
+
 if TYPE_CHECKING:
     from ..compiler.parser.python.ParaCParser import ParaCParser
+    from ..preprocessor import ParaCPreProcessorParser
 
 
 __all__ = [
@@ -114,7 +116,7 @@ class BaseErrorListener(ErrorListener, ABC):
     @abstractmethod
     def syntaxError(
             self,
-            recognizer: ParaCParser,
+            recognizer: Union[ParaCParser, ParaCPreProcessorParser],
             offendingSymbol: CommonToken,
             line: int,
             column: int,

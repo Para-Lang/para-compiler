@@ -2,55 +2,35 @@
 """
 Test for the utility functions in Para-C (test_util.py and decorators.py)
 """
+from pathlib import Path
 
-from parac import util, WIN
+import pytest
+from src.parac import util
 
 
-class TestCheckValidPathName:
-    def test_simple_assert(self):
-        assert util.check_valid_path_name(
-            "dest/temp/name.para",
+class TestValidateFileEnding:
+    @pytest.mark.parametrize(
+        "file", (
+            "x.para",
+            "y.parah",
+            "z.c",
+            "x.h",
+            "y.ph"
         )
+    )
+    def test_valid(self, file):
+        assert util.has_valid_file_ending(file)
 
-    def test_wrong_path(self):
-        if WIN:
-            assert not util.check_valid_path_name(
-                "/dest*/na*me?.pa\\ra",
-            )
-        else:
-            assert not util.check_valid_path_name(
-                "/dest/&name.para",
-            )
-
-    def test_valid_path(self):
-        assert util.check_valid_path_name(
-            "/dest/name.para",
+    @pytest.mark.parametrize(
+        "file", (
+            "",
+            "yparah",
+            "z.x",
+            "x.hex"
         )
-
-    def test_wrong_name(self):
-        if WIN:
-            assert not util.check_valid_path_name(
-                "na*me?.pa\\ra",
-            )
-        else:
-            assert not util.check_valid_path_name(
-                "name.pa&ra",
-            )
-
-    def test_valid_name(self):
-        assert util.check_valid_path_name(
-            "name.para",
-        )
-
-    def test_win_path(self):
-        assert util.check_valid_path_name(
-            "D:\\name.para",
-            win_path=True
-        )
-
-        assert util.check_valid_path_name(
-            "\\dest\\name.para",
-        )
+    )
+    def test_invalid(self, file):
+        assert util.has_valid_file_ending(file) is False
 
 
 class TestGetRelativeFileName:
@@ -117,23 +97,6 @@ class TestGetRelativeFileName:
         else:
             assert False
 
-    def test_win(self):
-        name = util.get_relative_file_name(
-            file_name="entry.para",
-            file_path="D:\\dir\\entry.para",
-            base_path="D:\\dir\\",
-            win_path=True
-        )
-        assert name == "entry"
-
-        name = util.get_relative_file_name(
-            file_name="entry.para",
-            file_path="D:\\dir\\x\\entry.para",
-            base_path="D:\\dir\\",
-            win_path=True
-        )
-        assert name == "x.entry"
-
     def test_spaces(self):
         try:
             util.get_relative_file_name(
@@ -168,14 +131,37 @@ class TestGetRelativeFileName:
         else:
             assert False
 
-        try:
-            util.get_relative_file_name(
-                file_name=" ",
-                file_path="\\dir\\name.para",
-                base_path="D:\\dir\\",
-                win_path=True
-            )
-        except RuntimeError:
-            ...
-        else:
-            assert False
+
+class TestEnsurePathlibPath:
+    @pytest.mark.parametrize(
+        "file,expect", (
+            ("path", Path("path")),
+            ("path/path/path", Path("path/path/path")),
+            ("./x/path/path", Path("./x/path/path").resolve()),
+            ("../x/path/path", Path("../x/path/path").resolve())
+        )
+    )
+    def test_str(self, file, expect):
+        assert util.ensure_pathlib_path(file) == expect
+
+    @pytest.mark.parametrize(
+        "file,expect", (
+            ("path".encode(), Path("path")),
+            ("path/path/path".encode(), Path("path/path/path")),
+            ("./x/path/path".encode(), Path("./x/path/path").resolve()),
+            ("../x/path/path".encode(), Path("../x/path/path").resolve())
+        )
+    )
+    def test_bytes(self, file, expect):
+        assert util.ensure_pathlib_path(file) == expect
+
+    @pytest.mark.parametrize(
+        "file,expect", (
+            (Path("path"), Path("path")),
+            (Path("path/path/path"), Path("path/path/path")),
+            (Path("./x/path/path").resolve(), Path("./x/path/path").resolve()),
+            (Path("../x/path/path").resolve(), Path("../x/path/path").resolve())
+        )
+    )
+    def test_path(self, file, expect):
+        assert util.ensure_pathlib_path(file) == expect
