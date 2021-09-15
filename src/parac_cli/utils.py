@@ -6,9 +6,14 @@ from os import PathLike
 from pathlib import Path
 from typing import Union, Tuple
 
-from parac import UserInputError
-from parac.util import abortable, decode_if_bytes
-from parac.logging import get_rich_console as console
+try:
+    import parac
+except Exception as e:
+    raise ImportError("Failed to locate parent module parac") from e
+else:
+    from parac import UserInputError
+    from parac.util import abortable, decode_if_bytes
+    from parac.logging import get_rich_console as console
 
 __all__ = [
     "cli_err_dir_already_exists",

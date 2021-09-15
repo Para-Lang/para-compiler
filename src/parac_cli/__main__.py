@@ -10,16 +10,22 @@ import logging
 from os import PathLike
 from rich.progress import Progress
 
-from parac import RUNTIME_COMPILER
-from parac.exceptions import InvalidArgumentsError
-from parac.util import (cli_keep_open_callback, escape_ansi_args,
-                        requires_init, is_c_compiler_ready,
-                        cli_initialise_c_compiler, abortable)
-from parac.logging import (get_rich_console as console, print_result_banner,
-                           cli_create_prompt, cli_format_default,
-                           init_rich_console, print_init_banner)
-from parac.compiler import (ProgramCompilationProcess,
-                            BasicProcess, FinishedProcess)
+try:
+    import parac
+except Exception as e:
+    raise ImportError("Failed to locate parent module parac") from e
+else:
+    from parac import RUNTIME_COMPILER
+    from parac.exceptions import InvalidArgumentsError
+    from parac.util import (cli_keep_open_callback, escape_ansi_args,
+                            requires_init, is_c_compiler_ready,
+                            cli_initialise_c_compiler, abortable)
+    from parac.logging import (get_rich_console as console, print_result_banner,
+                               cli_create_prompt, cli_format_default,
+                               init_rich_console, print_init_banner)
+    from parac.compiler import (ProgramCompilationProcess,
+                                BasicProcess, FinishedProcess)
+
 from .utils import cli_run_output_dir_validation, cli_resolve_path
 
 __all__ = [
