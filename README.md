@@ -37,11 +37,9 @@
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
-- Ability to streamline calling processes and handling return
+- Ability to streamline calling processes and handling arguments and return data.
 - More advanced and specialised functionality for managing embedded code
-- Program-State Saving for continuing execution at a later point
 - Multi-Threaded processing with embedded languages in multiple threads
-- Ability to integrate processes quickly
 - Simplification of the base C language with simplified syntax and additional helper functions
 - Ability to manage exceptions and issues with programs (Including Fallback Options)
 - Any-Type and integrated conversion functions for type
