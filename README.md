@@ -23,7 +23,8 @@
       - [Generating the Parser and Lexer](#generating-the-parser-and-lexer)
         - [Downloading Antlr4](#downloading-antlr4)
         - [Generating the Python files](#generating-the-python-files)
-        - [Build the executable and binaries](#build-the-executable-and-binaries)
+      - [Build the executable and binaries](#build-the-executable-and-binaries)
+    - [Generating the Docs](#generating-the-docs)
   - [Disclaimer](#disclaimer)
   - [Copyright and License](#copyright-and-license)
 
@@ -84,12 +85,14 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 
 ### Commands
 *Commands displayed are mostly only partly implemented*
-- `parac compile` - Compile a Para-C program to C or executable
-- `parac run` - Compiles a Para-C program and runs it (Creates build and dist as well)
-- `parac c-init` - Console Line Interface for the configuration of the C-compiler
-- `parac syntax-check` - Validates the syntax of a Para-C program and logs errors if needed
-- `parac analyse` - Analyses a program by running the Pre-Processor and validating the syntax 
-  (Not added yet. See [#16](/../../issues/16))
+
+| Name                   | Description                                                                                      |
+|------------------------|--------------------------------------------------------------------------------------------------|
+| ``parac compile``      | Compiles a Para-C program to C or an executable.                                                 |
+| ``parac run``          | Compiles a Para-C program and runs it.                                                           |
+| ``parac c-init``       | Starts the CLI for the configuration of the C-compiler, which is required for running a program. |
+| ``parac syntax-check`` | Validates the syntax of a Para-C program and logs errors if needed. (Pre-Processor ignored)      |
+| ``parac analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
 
 ## Python Module
 
@@ -264,20 +267,6 @@ rm -rf ./path/to/generated/output
 - *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not work*
 - *Comments are only partly ignored in ParaC.g4, due the intended removal in the Pre-Processor. Errors can occur!*
 
-### Generating Documentation
-
-To generate one time use:
-
-```bash
-./docs/make.bat html
-```
-
-or for active http server, which will reload changes:
-
-```bash
-sphinx-autobuild ./docs/source ./docs/build/html
-```
-
 #### Build the executable and binaries
 
 For generating the binaries, PyInstaller with a wrapper script will be used.
@@ -291,6 +280,21 @@ python ./src/build-exe.py
 The script will create a `./build/` and `./dist/` folder.
 The `./build/` folder will contain the raw data and logs, while the `./dist/`
 folder will contain the distribution-ready binaries and data.
+
+### Generating the docs
+
+To generate one time use:
+
+```bash
+./docs/make.bat html
+```
+
+or for active http server, which will reload changes:
+
+```bash
+sphinx-autobuild ./docs/source ./docs/build/html
+```
+
 
 ## Disclaimer
 Para-C is not intended as a language for production code or professional usage
