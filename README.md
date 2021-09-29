@@ -39,14 +39,12 @@
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
 - Ability to streamline calling processes and handling arguments and return data.
-- More advanced and specialised functionality for managing embedded code
-- Multi-Threaded processing with embedded languages in multiple threads
-- Simplification of the base C language with simplified syntax and additional helper functions
-- Ability to manage exceptions and issues with programs (Including Fallback Options)
-- Any-Type and integrated conversion functions for type
-- Decorator and Overload Functions
-- Language Library with additional helper functions
-- Simplified syntax and handling of C components for easier coding
+- Multi-Threaded processing with embedded languages in multiple threads.
+- Ability to manage exceptions and issues with programs (Including Fallback Options).
+- Extended Base-Library (Para-C Base Library) with additional types and functions.
+- Decorator and Overload Functions.
+- Simplified syntax and handling of C components for easier coding.
+- Provide more Security by forbidding variable shadowing and removing undefined behaviour.
 
 ## Introduction
 
@@ -55,6 +53,7 @@ is designed to integrate other languages and allow for advanced management of
 programs / code-bases inside a program, where the language will serve as a base
 for writing overhead and connector programs, which manage instances, can listen
 for events, stop and start processes and generally manage in- and out-data. 
+
 This also includes adding more features for the C11 standard, like new built-in
 functions, libraries, struct-like data structures, decorators,
 memory-management, console handling with management for stdin, stdout and
@@ -64,14 +63,19 @@ additional project-management features.
 To achieve the multiple language “support” / integration-functionality, the 
 compiler will take the Para-C code and compile the source code down to simple 
 C and generate the code required to integrate the wanted language, using their
-required compiler/interpreter for the language. That means that programming in 
-Para-C will be more similar to higher-level languages than to C, due to the new
-features, keywords and helper functions. Including adding the simple option to
-integrate and manage code or programs that should be directly embedded into the
-management program. Using this, you can for example embed async functionality 
+required compiler/interpreter for the language. 
+
+That means that programming in Para-C will be more similar to higher-level languages 
+than to C, due to the new features, keywords and helper functions. Including adding 
+the simple option to integrate and manage code or programs that should be directly 
+embedded into the management program. 
+
+Using this, you can for example embed async functionality 
 from Python directly into the program, which is not natively supported, and 
 then pass generated data to a C++ program, which then uses that to run 
-something else. This can also include proper management based on web events and
+something else. 
+
+This can also include proper management based on web events and
 data or using the Para-C project configuration to compile code on runtime as 
 well with specified compilers so that in the end the project can be compiled in
 one go and properly merged with the Para-C program. 
