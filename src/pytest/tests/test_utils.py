@@ -5,7 +5,7 @@ Test for the utility functions in Para-C (test_util.py and decorators.py)
 from pathlib import Path
 
 import pytest
-from src.parac import util
+from parac import util
 
 
 class TestValidateFileEnding:

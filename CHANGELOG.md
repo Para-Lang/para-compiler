@@ -42,6 +42,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed `validate_file_ending` to `has_valid_file_ending` and fixed a minor bug replacing the
   `all` call (all file endings must be true) to `any`, meaning now only one needs to be true, which
   is the correct and intended way of handling this.
+- Renamed `compiler-version` tag in `parac-config.json` to `parac-version`
+- Renamed the following keywords in ParaC.g4:
+  - `_Alignas` to `alignas`
+  - `_Alignof` to `alignof`
+  - `_Atomic` to `atomic`
+  - `_Bool` to `bool`
+  - `_Complex` to `complex`
+  - `_Imaginary` to `imaginary`
+  - `_Noreturn` to `noreturn`
+  - `_Static_assert` to `static_assert`
+  - `__Thread_local` to `thread_local`
 
 ### Removed
 - `list<t>` type from the Grammar file.
@@ -49,6 +60,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
    workdir changes while running.
 - Full Support for extensionTaskLambda (deprecated).
 - Deprecated `cleanup_path_str()` and `check_valid_path_name()` from `util/pathtools.py`.
+- Independent rule `entryPointSpecifier` in ParaC.g4
+- Unsupported C keywords and statements from the grammar file (ParaC.g4):
+  - `__extension__`
+  - `__builtin_va_arg`
+  - `__builtin_offsetof`
+  - `_Generic` (Might be added later again with new syntax)
+  - `__inline__`
+  - `__stdcall`
+  - `__declspec`
+  - `__attribute__`
+  - `__asm`
+- Removed `__typeof__` version of `typeof` from the grammar file (ParaC.g4)
 
 ## [v0.1.dev4] - 2021-07-23
 

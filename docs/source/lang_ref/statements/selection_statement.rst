@@ -57,6 +57,8 @@ Usage & Examples
         {
             print(f"x does NOT equal y. Actual value: x={x}, y={y}");
         }
+
+        return (status) { .status_code = 0 };
     }
 
 
@@ -83,6 +85,8 @@ evaluated.
             print("x equals y");  // statement
         else
             print(f"x does NOT equal y. Actual value: x={x}, y={y}");  // statement
+
+        return (status) { .status_code = 0 };
     }
 
 In this case the program will do the exact same as in the first program but
@@ -112,6 +116,8 @@ a regular statement (call of a function).
         {
             print("x is smaller than 5");
         }
+
+        return (status) { .status_code = 0 };
     }
 
 In this case the evaluation of the first block can either lead to a block
@@ -171,7 +177,7 @@ Usage & Examples
 ----------------
 
 1. Example with integer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -193,13 +199,15 @@ Usage & Examples
             default:
                 print("It's not between or equal to 4 and 6");
         }
+
+        return (status) { .status_code = 0 };
     }
 
 In this case, the variable ``x`` is compared to all cases and if one case hits,
 excluding ``default``, a line is printed saying ``"It's a <insert-number>"``.
 
 2. Example with characters (ascii numeric)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Since characters are simply numeric values representing characters the type
 ``char`` can also be used in the switch statement.
@@ -222,6 +230,8 @@ Since characters are simply numeric values representing characters the type
                 print("It's: c");
                 break;
         }
+
+        return (status) { .status_code = 0 };
     }
 
 .. note::
@@ -246,6 +256,8 @@ Since characters are simply numeric values representing characters the type
             default:
                 print("Ending");
         }
+
+        return (status) { .status_code = 0 };
     }
 
 In this snippet no ``break`` statements are used, meaning if ``case 4:`` is hit

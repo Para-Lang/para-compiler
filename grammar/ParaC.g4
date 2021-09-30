@@ -42,11 +42,7 @@ primaryExpression
     |   Constant
     |   StringLiteral+
     |   '(' expression ')'
-    |   genericSelection
     |   lambdaFunction
-    |   '__extension__'? WS* '(' WS* compoundStatement WS* ')' // Blocks (GCC extension)
-    |   '__builtin_va_arg' WS* '(' WS* unaryExpression WS* ',' WS* typeName WS* ')'
-    |   '__builtin_offsetof' WS* '(' WS* typeName WS* ',' WS* unaryExpression WS* ')'
     ;
 
 lambdaFunction
@@ -66,22 +62,10 @@ statementLambda
     :   '=>' WS* compoundStatement
     ;
 
-genericSelection
-    :   '_Generic' WS* '(' WS* assignmentExpression WS* ',' WS* genericAssocList WS* ')'
-    ;
-
-genericAssocList
-    :   genericAssociation WS* (',' WS* genericAssociation WS*)*
-    ;
-
-genericAssociation
-    :   (typeName | 'default') WS* ':' WS* assignmentExpression
-    ;
-
 postfixExpression
     :
     (   primaryExpression
-    |   '__extension__'? WS* '(' WS* typeName WS* ')' WS* '{' WS* initializerList WS* ','? WS* '}'
+    |   '(' WS* typeName WS* ')' WS* '{' WS* initializerList WS* ','? WS* '}'
     )
     WS*
     ('[' WS* expression WS* ']'
@@ -100,7 +84,7 @@ unaryExpression
     ('++' |  '--' |  'sizeof')* WS*
     (postfixExpression
     |   unaryOperator WS* castOrConvertExpression
-    |   ('sizeof' | '_Alignof') WS* '(' WS* typeName WS* ')'
+    |   ('sizeof' | 'alignof') WS* '(' WS* typeName WS* ')'
     |   '&&' WS* Identifier // GCC extension address of label
     )
     ;
@@ -110,7 +94,7 @@ unaryOperator
     ;
 
 castOrConvertExpression
-    :   '__extension__'? WS* '(' WS* typeName WS* ')' WS* castOrConvertExpression
+    :   '(' WS* typeName WS* ')' WS* castOrConvertExpression
     |   castOrConvertExpression WS* 'as' WS* typeName
     |   unaryExpression
     |   DigitSequence // for
@@ -189,7 +173,6 @@ declarationSpecifiers
 
 declarationSpecifier
     :   storageClassSpecifier
-    |   entryPointSpecifier
     |   typeSpecifier
     |   typeQualifier
     |   functionSpecifier
@@ -204,15 +187,11 @@ initDeclarator
     :   declarator WS* ('=' WS* initializer WS*)?
     ;
 
-entryPointSpecifier
-    :   'entry' // Hinting the entry function for the program
-    ;
-
 storageClassSpecifier
     :   'typedef'
     |   'extern'
     |   'static'
-    |   '_Thread_local'
+    |   'thread_local'
     |   'auto'
     |   'register'
     ;
@@ -230,7 +209,7 @@ typeSpecifier
     |   'signed'
     |   'lambda' WS* '<' WS* parameterTypeList WS* '>'
     |   'unsigned'
-    |   '_Bool'
+    |   'bool'
     |   '_Complex'
     |   '__m128'
     |   '__m128d'
@@ -241,7 +220,7 @@ typeSpecifier
     |   structOrUnionSpecifier
     |   enumSpecifier
     |   typedefName
-    |   ('__typeof__' | 'typeof') WS* '(' WS* constantExpression WS* ')' // GCC extension
+    |   'typeof' WS* '(' WS* constantExpression WS* ')'
     |   typeSpecifier WS* pointer
     ;
 
@@ -295,32 +274,27 @@ enumerationConstant
     ;
 
 atomicTypeSpecifier
-    :   '_Atomic' WS* '(' WS* typeName WS* ')' WS*
+    :   'atomic' WS* '(' WS* typeName WS* ')' WS*
     ;
 
 typeQualifier
     :   'const'
     |   'restrict'
     |   'volatile'
-    |   '_Atomic'
+    |   'atomic'
     ;
 
 functionSpecifier
-    :   ('inline'
-    |   '_Noreturn'
-    |   '__inline__' // GCC extension
-    |   '__stdcall')
-    |   gccAttributeSpecifier
-    |   '__declspec' WS* '(' WS* Identifier WS* ')'
-    |   entryPointSpecifier
+    :   'noreturn'
+    |   'entry'
     ;
 
 alignmentSpecifier
-    :   '_Alignas' WS* '(' WS* (typeName | constantExpression) WS* ')'
+    :   'alignas' WS* '(' WS* (typeName | constantExpression) WS* ')'
     ;
 
 declarator
-    :   pointer? WS* directDeclarator WS* gccDeclaratorExtension*
+    :   pointer? WS* directDeclarator
     ;
 
 directDeclarator
@@ -336,23 +310,6 @@ directDeclarator
     |   '(' WS* typeSpecifier? WS* pointer WS* directDeclarator WS* ')' // function pointer like: (__cdecl *f)
     ;
 
-gccDeclaratorExtension
-    :   '__asm' WS* '(' WS* StringLiteral+ WS* ')'
-    |   gccAttributeSpecifier
-    ;
-
-gccAttributeSpecifier
-    :   '__attribute__' WS* '(' WS* '(' WS* gccAttributeList WS* ')' WS* ')'
-    ;
-
-gccAttributeList
-    :   gccAttribute? WS* (',' WS* gccAttribute? WS*)*
-    ;
-
-gccAttribute
-    :   ~(',' | '(' | ')') // relaxed def for "identifier or reserved word"
-        ('(' WS* argumentExpressionList? WS* ')' WS*)?
-    ;
 
 nestedParenthesesBlock
     :   (   ~('(' | ')')
@@ -391,21 +348,21 @@ typeName
 
 abstractDeclarator
     :   pointer
-    |   pointer? WS* directAbstractDeclarator WS* gccDeclaratorExtension*
+    |   pointer? WS* directAbstractDeclarator
     ;
 
 directAbstractDeclarator
-    :   '(' WS* abstractDeclarator WS* ')' WS* gccDeclaratorExtension*
+    :   '(' WS* abstractDeclarator WS* ')'
     |   '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
     |   '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
     |   '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
     |   '[' WS* '*' WS* ']'
-    |   '(' WS* parameterTypeList? WS* ')' WS* gccDeclaratorExtension*
+    |   '(' WS* parameterTypeList? WS* ')'
     |   directAbstractDeclarator WS* '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
     |   directAbstractDeclarator WS* '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
     |   directAbstractDeclarator WS* '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
     |   directAbstractDeclarator WS* '[' WS* '*' WS* ']'
-    |   directAbstractDeclarator WS* '(' WS* parameterTypeList? WS* ')' WS* gccDeclaratorExtension*
+    |   directAbstractDeclarator WS* '(' WS* parameterTypeList? WS* ')'
     ;
 
 typedefName
@@ -435,7 +392,7 @@ designator
     ;
 
 staticAssertDeclaration
-    :   '_Static_assert' WS* '(' WS* constantExpression WS* ',' WS* StringLiteral+ WS* ')' endOfItem
+    :   'static_assert' WS* '(' WS* constantExpression WS* ',' WS* StringLiteral+ WS* ')' endOfItem
     ;
 
 statement
@@ -620,16 +577,16 @@ Void : 'void';
 Volatile : 'volatile';
 While : 'while';
 
-Alignas : '_Alignas';
-Alignof : '_Alignof';
-Atomic : '_Atomic';
-Bool : '_Bool';
-Complex : '_Complex';
-Generic : '_Generic';
-Imaginary : '_Imaginary';
-Noreturn : '_Noreturn';
-StaticAssert : '_Static_assert';
-ThreadLocal : '_Thread_local';
+/* Special types */
+Alignas : 'alignas';
+Alignof : 'alignof';
+Atomic : 'atomic';
+Bool : 'bool';
+Complex : 'complex';
+Imaginary : 'imaginary';
+Noreturn : 'noreturn';
+StaticAssert : 'static_assert';
+ThreadLocal : 'thread_local';
 
 LeftParen : '(';
 RightParen : ')';

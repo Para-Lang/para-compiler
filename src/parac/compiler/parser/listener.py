@@ -516,60 +516,6 @@ class Listener(ParaCListener):
         """
         ...
 
-    def enterGenericSelection(
-            self,
-            ctx: ParaCParser.GenericSelectionContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#genericSelection.
-        """
-        ...
-
-    def exitGenericSelection(
-            self,
-            ctx: ParaCParser.GenericSelectionContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#genericSelection.
-        """
-        ...
-
-    def enterGenericAssocList(
-            self,
-            ctx: ParaCParser.GenericAssocListContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#genericAssocList.
-        """
-        ...
-
-    def exitGenericAssocList(
-            self,
-            ctx: ParaCParser.GenericAssocListContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#genericAssocList.
-        """
-        ...
-
-    def enterGenericAssociation(
-            self,
-            ctx: ParaCParser.GenericAssociationContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#genericAssociation.
-        """
-        ...
-
-    def exitGenericAssociation(
-            self,
-            ctx: ParaCParser.GenericAssociationContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#genericAssociation.
-        """
-        ...
-
     def enterPostfixExpression(
             self,
             ctx: ParaCParser.PostfixExpressionContext
@@ -1002,24 +948,6 @@ class Listener(ParaCListener):
         """
         ...
 
-    def enterEntryPointSpecifier(
-            self,
-            ctx: ParaCParser.EntryPointSpecifierContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#entryPointSpecifider.
-        """
-        ...
-
-    def exitEntryPointSpecifier(
-            self,
-            ctx: ParaCParser.EntryPointSpecifierContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#entryPointSpecifider.
-        """
-        ...
-
     def enterStorageClassSpecifier(
             self,
             ctx: ParaCParser.StorageClassSpecifierContext
@@ -1359,78 +1287,6 @@ class Listener(ParaCListener):
     ):
         """
         Exit a parse tree produced by ParaCParser#directDeclarator.
-        """
-        ...
-
-    def enterGccDeclaratorExtension(
-            self,
-            ctx: ParaCParser.GccDeclaratorExtensionContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#gccDeclaratorExtension.
-        """
-        ...
-
-    def exitGccDeclaratorExtension(
-            self,
-            ctx: ParaCParser.GccDeclaratorExtensionContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#gccDeclaratorExtension.
-        """
-        ...
-
-    def enterGccAttributeSpecifier(
-            self,
-            ctx: ParaCParser.GccAttributeSpecifierContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#gccAttributeSpecifier.
-        """
-        ...
-
-    def exitGccAttributeSpecifier(
-            self,
-            ctx: ParaCParser.GccAttributeSpecifierContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#gccAttributeSpecifier.
-        """
-        ...
-
-    def enterGccAttributeList(
-            self,
-            ctx: ParaCParser.GccAttributeListContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#gccAttributeList.
-        """
-        ...
-
-    def exitGccAttributeList(
-            self,
-            ctx: ParaCParser.GccAttributeListContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#gccAttributeList.
-        """
-        ...
-
-    def enterGccAttribute(
-            self,
-            ctx: ParaCParser.GccAttributeContext
-    ):
-        """
-        Enter a parse tree produced by ParaCParser#gccAttribute.
-        """
-        ...
-
-    def exitGccAttribute(
-            self,
-            ctx: ParaCParser.GccAttributeContext
-    ):
-        """
-        Exit a parse tree produced by ParaCParser#gccAttribute.
         """
         ...
 

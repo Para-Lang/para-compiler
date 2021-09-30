@@ -53,33 +53,6 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#genericSelection.
-    def enterGenericSelection(self, ctx:ParaCParser.GenericSelectionContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#genericSelection.
-    def exitGenericSelection(self, ctx:ParaCParser.GenericSelectionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#genericAssocList.
-    def enterGenericAssocList(self, ctx:ParaCParser.GenericAssocListContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#genericAssocList.
-    def exitGenericAssocList(self, ctx:ParaCParser.GenericAssocListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#genericAssociation.
-    def enterGenericAssociation(self, ctx:ParaCParser.GenericAssociationContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#genericAssociation.
-    def exitGenericAssociation(self, ctx:ParaCParser.GenericAssociationContext):
-        pass
-
-
     # Enter a parse tree produced by ParaCParser#postfixExpression.
     def enterPostfixExpression(self, ctx:ParaCParser.PostfixExpressionContext):
         pass
@@ -305,15 +278,6 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaCParser#entryPointSpecifier.
-    def enterEntryPointSpecifier(self, ctx:ParaCParser.EntryPointSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#entryPointSpecifier.
-    def exitEntryPointSpecifier(self, ctx:ParaCParser.EntryPointSpecifierContext):
-        pass
-
-
     # Enter a parse tree produced by ParaCParser#storageClassSpecifier.
     def enterStorageClassSpecifier(self, ctx:ParaCParser.StorageClassSpecifierContext):
         pass
@@ -482,42 +446,6 @@ class ParaCListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParaCParser#directDeclarator.
     def exitDirectDeclarator(self, ctx:ParaCParser.DirectDeclaratorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#gccDeclaratorExtension.
-    def enterGccDeclaratorExtension(self, ctx:ParaCParser.GccDeclaratorExtensionContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#gccDeclaratorExtension.
-    def exitGccDeclaratorExtension(self, ctx:ParaCParser.GccDeclaratorExtensionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#gccAttributeSpecifier.
-    def enterGccAttributeSpecifier(self, ctx:ParaCParser.GccAttributeSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#gccAttributeSpecifier.
-    def exitGccAttributeSpecifier(self, ctx:ParaCParser.GccAttributeSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#gccAttributeList.
-    def enterGccAttributeList(self, ctx:ParaCParser.GccAttributeListContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#gccAttributeList.
-    def exitGccAttributeList(self, ctx:ParaCParser.GccAttributeListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaCParser#gccAttribute.
-    def enterGccAttribute(self, ctx:ParaCParser.GccAttributeContext):
-        pass
-
-    # Exit a parse tree produced by ParaCParser#gccAttribute.
-    def exitGccAttribute(self, ctx:ParaCParser.GccAttributeContext):
         pass
 
 
