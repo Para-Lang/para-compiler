@@ -1,14 +1,19 @@
 # coding=utf-8
 """ Script for building the compiler as an executable """
-import json
-from pathlib import Path
-from typing import List
-import PyInstaller.__main__
-from distutils.dir_util import copy_tree
-import pkg_resources
-import shutil
-import os
-
+try:
+    import json
+    from pathlib import Path
+    from typing import List
+    import PyInstaller.__main__
+    from distutils.dir_util import copy_tree
+    import pkg_resources
+    import shutil
+    import os
+except ImportError as e:
+    raise RuntimeError(
+        "Failed to locate module. Please install using 'python -m pip "
+        "install <module>'"
+    ) from e
 
 def resolve_base_path() -> Path:
     """ Resolves the base path """
