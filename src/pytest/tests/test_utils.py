@@ -135,8 +135,8 @@ class TestGetRelativeFileName:
 class TestEnsurePathlibPath:
     @pytest.mark.parametrize(
         "file,expect", (
-            ("path", Path("path")),
-            ("path/path/path", Path("path/path/path")),
+            ("path", Path("path").resolve()),
+            ("path/path/path", Path("path/path/path").resolve()),
             ("./x/path/path", Path("./x/path/path").resolve()),
             ("../x/path/path", Path("../x/path/path").resolve())
         )
@@ -146,8 +146,8 @@ class TestEnsurePathlibPath:
 
     @pytest.mark.parametrize(
         "file,expect", (
-            ("path".encode(), Path("path")),
-            ("path/path/path".encode(), Path("path/path/path")),
+            ("path".encode(), Path("path").resolve()),
+            ("path/path/path".encode(), Path("path/path/path").resolve()),
             ("./x/path/path".encode(), Path("./x/path/path").resolve()),
             ("../x/path/path".encode(), Path("../x/path/path").resolve())
         )
@@ -157,8 +157,8 @@ class TestEnsurePathlibPath:
 
     @pytest.mark.parametrize(
         "file,expect", (
-            (Path("path"), Path("path")),
-            (Path("path/path/path"), Path("path/path/path")),
+            (Path("path"), Path("path").resolve()),
+            (Path("path/path/path"), Path("path/path/path").resolve()),
             (Path("./x/path/path").resolve(), Path("./x/path/path").resolve()),
             (Path("../x/path/path").resolve(), Path("../x/path/path").resolve())
         )
