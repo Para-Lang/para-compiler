@@ -78,8 +78,6 @@ def get_relative_file_name(
     :param file_path: Full path of the file
     :param base_path: Full base path for the working directory
     """
-    from .. import const
-
     file_path: pathlib.Path = ensure_pathlib_path(file_path)
     base_path: pathlib.Path = ensure_pathlib_path(base_path)
 
@@ -98,22 +96,14 @@ def get_relative_file_name(
     relative_path: str = str(file_path).replace(str(base_path), '')
 
     # Resolving the relative path of the split path
-    relative_path: pathlib.Path = ensure_pathlib_path(relative_path)
-
-    if getattr(relative_path, "drive", None) is not None:
-        # removing the separator by stripping it from the path - This is
-        # necessary as pathlib interprets a separator at the start as an linux
-        # path, which then gets converted to Windows, causing the filesystem
-        # character to also appear -> C:/...
-        relative_path: pathlib.Path = ensure_pathlib_path(
-            # fetching all items except the drive item -
-            # For reference see #44
-            str(relative_path).replace(relative_path.anchor, '')
-        )
+    relative_path: pathlib.Path = pathlib.Path(
+        relative_path[1:] if relative_path[0] in ("/", "\\") else relative_path
+    )
 
     if relative_path.name != file_name:
         raise RuntimeError(
-            "Mismatching file_names (file_path and file_name do not match)"
+            f"Mismatching file_names (file_path: {relative_path.name} and "
+            f"file_name: {file_name} do not match)"
         )
 
     # a/b/c/FILE.PARAC -> a.b.c.FILE

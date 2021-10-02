@@ -53,6 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `_Noreturn` to `noreturn`
   - `_Static_assert` to `static_assert`
   - `__Thread_local` to `thread_local`
+- Deprecated `const.SEPARATOR` and updated `get_relative_file_name` to properly
+  apply to the change
+- Updated Error message of `RuntimeError`(Mismatching file_names) in 
+  `get_relative_file_name`
 
 ### Removed
 - `list<t>` type from the Grammar file.
