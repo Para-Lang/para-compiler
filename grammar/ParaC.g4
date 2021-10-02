@@ -196,6 +196,13 @@ storageClassSpecifier
     |   'register'
     ;
 
+arraySpecifier
+    :   '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
+    |   '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
+    |   '[' WS* typeQualifierList WS* 'static' assignmentExpression WS* ']'
+    |   '[' WS* typeQualifierList? WS* '*' WS* ']'
+    ;
+
 typeSpecifier
     :
     (   'void'
@@ -210,12 +217,8 @@ typeSpecifier
     |   'lambda' WS* '<' WS* parameterTypeList WS* '>'
     |   'unsigned'
     |   'bool'
-    |   '_Complex'
-    |   '__m128'
-    |   '__m128d'
-    |   '__m128i'
-    )
-    |   '__extension__' WS* '(' WS* ('__m128' | '__m128d' | '__m128i') WS* ')'
+    |   'complex'
+    )   arraySpecifier*
     |   atomicTypeSpecifier
     |   structOrUnionSpecifier
     |   enumSpecifier
@@ -300,10 +303,6 @@ declarator
 directDeclarator
     :   Identifier
     |   '(' WS* declarator WS* ')'
-    |   directDeclarator WS* '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
-    |   directDeclarator WS* '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
-    |   directDeclarator WS* '[' WS* typeQualifierList WS* 'static' assignmentExpression WS* ']'
-    |   directDeclarator WS* '[' WS* typeQualifierList? WS* '*' WS* ']'
     |   directDeclarator WS* '(' WS* parameterTypeList WS* ')'
     |   directDeclarator WS* '(' WS* identifierList? WS* ')'
     |   Identifier WS* ':' WS* DigitSequence  // bit field
@@ -404,7 +403,6 @@ statement
     |   iterationStatement
     |   jumpStatement
     |   (
-            ('__asm' | '__asm__') WS*  ('volatile' | '__volatile__') WS*
             '(' WS* (logicalOrExpression WS* (',' WS* logicalOrExpression WS*)*)? WS*
             (':' WS* (logicalOrExpression WS* (',' WS* logicalOrExpression)*)?)* WS*
             ')' endOfItem

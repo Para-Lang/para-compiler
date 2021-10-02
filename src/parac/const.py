@@ -99,7 +99,8 @@ else:
 # If true OS is Windows
 WIN = click.utils.WIN
 
-# Path Separator
+# Path Separator - DEPRECATED! Should never be used, since it's a bad way of
+# handling path separators
 SEPARATOR = "\\" if WIN else "/"
 
 # Config path for compiler-config.json

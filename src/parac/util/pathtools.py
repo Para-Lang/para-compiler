@@ -93,13 +93,23 @@ def get_relative_file_name(
             "The Para-C naming conventions do not allow spaces in the filename"
         )
 
+    # removing the base_path, which is the work-directory/source, where the
+    # relative name should extend from -> ./../../
     relative_path: str = str(file_path).replace(str(base_path), '')
-    if relative_path.startswith(const.SEPARATOR):
-        # removing the separator by stripping it from the path
-        relative_path = relative_path[len(const.SEPARATOR):]
 
-    # Resolving the relative path
+    # Resolving the relative path of the split path
     relative_path: pathlib.Path = ensure_pathlib_path(relative_path)
+
+    if getattr(relative_path, "drive", None) is not None:
+        # removing the separator by stripping it from the path - This is
+        # necessary as pathlib interprets a separator at the start as an linux
+        # path, which then gets converted to Windows, causing the filesystem
+        # character to also appear -> C:/...
+        relative_path: pathlib.Path = ensure_pathlib_path(
+            # fetching all items except the drive item -
+            # For reference see #44
+            str(relative_path).replace(relative_path.anchor, '')
+        )
 
     if relative_path.name != file_name:
         raise RuntimeError(

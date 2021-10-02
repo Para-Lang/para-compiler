@@ -7,7 +7,7 @@ from typing import List
 import asyncio
 
 from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
-from parac import SEPARATOR as SEP, RUNTIME_COMPILER, initialise_default_paths
+from parac import RUNTIME_COMPILER, initialise_default_paths
 from parac.logging import set_avoid_print_banner_overwrite
 
 from .. import add_folder, remove_folder, reset_input, BASE_TEST_PATH
@@ -19,9 +19,9 @@ RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 
-test_c_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}c_files{SEP}"
-test_para_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}"
-test_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}preprocessor{SEP}"
+test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
+test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
+test_processor_files_dir: Path = BASE_TEST_PATH / "test_files" / "preprocessor"
 
 # Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)
@@ -42,7 +42,7 @@ class TestParser:
     def test_parse_preprocessor_targets(self):
         files: List[os.DirEntry] = []
 
-        for entry in os.scandir(test_files_dir):
+        for entry in os.scandir(test_processor_files_dir):
             entry: os.DirEntry
             if entry.path.endswith(".para") or entry.path.endswith(".parah"):
                 files.append(entry)

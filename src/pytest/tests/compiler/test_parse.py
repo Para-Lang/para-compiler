@@ -2,10 +2,11 @@
 """ Tests for the Lexer and Parser """
 import logging
 import os
+from pathlib import Path
 from typing import List
 import asyncio
 
-from parac import SEPARATOR as SEP, RUNTIME_COMPILER, initialise_default_paths
+from parac import RUNTIME_COMPILER, initialise_default_paths
 from parac.logging import set_avoid_print_banner_overwrite
 from parac.compiler import ParacCompiler, BasicProcess
 
@@ -20,9 +21,9 @@ RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 
-main_file_path = f"{BASE_TEST_PATH}{SEP}test_files{SEP}entry.para"
-test_c_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}c_files{SEP}"
-test_para_files_dir = f"{BASE_TEST_PATH}{SEP}test_files{SEP}"
+main_file_path: Path = BASE_TEST_PATH / "test_files" / "entry.para"
+test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
+test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
 
 # Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)

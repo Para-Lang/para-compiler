@@ -287,6 +287,15 @@ class ParaCListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by ParaCParser#arraySpecifier.
+    def enterArraySpecifier(self, ctx:ParaCParser.ArraySpecifierContext):
+        pass
+
+    # Exit a parse tree produced by ParaCParser#arraySpecifier.
+    def exitArraySpecifier(self, ctx:ParaCParser.ArraySpecifierContext):
+        pass
+
+
     # Enter a parse tree produced by ParaCParser#typeSpecifier.
     def enterTypeSpecifier(self, ctx:ParaCParser.TypeSpecifierContext):
         pass

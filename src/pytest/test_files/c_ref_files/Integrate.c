@@ -6,7 +6,8 @@ float f(float x)
 void main()
 {
     int i,n;
-    float x0,xn,h,y[20],so,se,ans,x[20];
+    float x0,xn,h,so,se,ans;
+    float[20] x, y;
     printf("\n Enter values of x0,xn,h:\n");
     scanf("%f%f%f",&x0,&xn,&h);
     n=(xn-x0)/h;
