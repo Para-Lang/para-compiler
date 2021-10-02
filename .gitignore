@@ -9,3 +9,4 @@
 /gen
 *.log
 /docs/build/
+**/__pycache__
