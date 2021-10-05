@@ -1,6 +1,6 @@
 # coding=utf-8
 """ Logic Stream for Pre-Processor Items """
-from typing import List
+from typing import List, Any
 from cached_property import cached_property
 
 from ..abc import LogicStream
@@ -32,6 +32,10 @@ class PreProcessorStream(LogicStream):
     def get_end(self) -> PreProcessorLogicToken:
         """ Gets the last item of the stream """
         return self[-1]
+
+    def append_antlr_ctx(self, _ctx: Any) -> None:
+        """ Appends a new ctx instance to the stream """
+        super().append_antlr_ctx(_ctx)
 
 
 class ProcessedFileStream(LogicStream):
@@ -68,3 +72,7 @@ class ProcessedFileStream(LogicStream):
     def get_end(self) -> NonPreProcessorItem:
         """ Gets the last item of the stream """
         return self[-1]
+
+    def append_antlr_ctx(self, _ctx: Any) -> None:
+        """ Appends a new ctx instance to the stream """
+        super().append_antlr_ctx(_ctx)

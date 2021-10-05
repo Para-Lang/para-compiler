@@ -166,9 +166,9 @@ class ProgramRunContext(ABC):
         """
         ...
 
-    @staticmethod
     @abstractmethod
     async def parse_single_file(
+            self,
             stream: antlr4.InputStream,
             relative_file_name: str,
             log_errors_and_warnings: bool,

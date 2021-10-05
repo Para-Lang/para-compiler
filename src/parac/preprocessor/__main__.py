@@ -144,9 +144,7 @@ class PreProcessor:
         :returns: A result that is represented in a PreProcessorProcessResult,
          containing the altered files.
         """
+        # TODO! Add proper logic to process the directives from the
+        #  logic-stream - ctx.process_directives()
 
-        #TODO! Process directives
-
-        return PreProcessorProcessResult(
-            ctx
-        )
+        return PreProcessorProcessResult(ctx)

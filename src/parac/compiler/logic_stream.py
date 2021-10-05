@@ -11,7 +11,7 @@ __all__ = [
     'CLogicStream'
 ]
 
-from typing import List
+from typing import List, Any
 
 from ..abc import ParacLogicToken, CLogicToken, LogicStream
 
@@ -44,6 +44,10 @@ class ParacLogicStream(LogicStream):
     def get_end(self) -> ParacLogicToken:
         """ Gets the last item of the stream """
         return self[-1]
+
+    def append_antlr_ctx(self, _ctx: Any) -> None:
+        """ Appends a new ctx instance to the stream """
+        super().append_antlr_ctx(_ctx)
 
 
 class CLogicStream(LogicStream):
@@ -86,3 +90,7 @@ class CLogicStream(LogicStream):
     def get_end(self) -> CLogicToken:
         """ Gets the last item of the stream """
         return self[-1]
+
+    def append_antlr_ctx(self, _ctx: Any) -> None:
+        """ Appends a new ctx instance to the stream """
+        super().append_antlr_ctx(_ctx)

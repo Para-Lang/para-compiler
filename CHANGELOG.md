@@ -29,6 +29,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Function in `util/pathtools.py` `ensure_pathlib_path`, which will convert
   the passed value to a pathlib.Path, if it's not already one. It will also 
   resolve all sys-links.
+- Property `logic_stream` to `Listener` and updated methods to allow for proper
+  future implementation of the logic stream.
+- New method `append_antlr_ctx` to the ABC Class `LogicStream` and its 
+  implementation.
+- Added addition of `program_ctx` to all `FileRunContext` implementation
+  classes.
 
 ### Changed
 - Style of the init banner in the CLI and added docs link.
@@ -57,6 +63,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   apply to the change
 - Updated Error message of `RuntimeError`(Mismatching file_names) in 
   `get_relative_file_name`
+- Changed behaviour of `ParacCompiler.validate_syntax()` and removed the 
+  additional usage of a listener to walk through the files, even though
+  a simple parse was enough for validating the syntax.
+- Updated logging messages and added more of them, where they are needed.  
 
 ### Removed
 - `list<t>` type from the Grammar file.

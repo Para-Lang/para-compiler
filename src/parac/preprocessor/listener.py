@@ -1,12 +1,11 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
-from typing import List
 import antlr4
 import logging
 
-from .abc import PreProcessorLogicToken
+from .logic_stream import PreProcessorStream
 from .python import ParaCPreProcessorListener, ParaCPreProcessorParser as _p
-from .ctx import FilePreProcessorContext
+from .ctx import FilePreProcessorContext, ProgramPreProcessorContext
 
 __all__ = [
     'Listener'
@@ -26,15 +25,18 @@ class Listener(ParaCPreProcessorListener):
             self,
             antlr4_file_ctx: _p.CompilationUnitContext,
             file_stream: antlr4.InputStream,
-            relative_file_name: str
+            relative_file_name: str,
+            program_ctx: ProgramPreProcessorContext
     ):
-        self._file_ctx = FilePreProcessorContext(relative_file_name)
+        self._file_ctx = FilePreProcessorContext(
+            relative_file_name, program_ctx
+        )
         self.antlr4_file_ctx: _p.CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
         self._log_errors_and_warnings = False
 
     @property
-    def logic_stream(self) -> List[PreProcessorLogicToken]:
+    def logic_stream(self) -> PreProcessorStream:
         """ Stream which stores the logical tokens for the passed file. """
         return self._file_ctx.logic_stream
 
@@ -43,7 +45,9 @@ class Listener(ParaCPreProcessorListener):
         """ The file context for this class """
         return self._file_ctx
 
-    async def walk_and_process_directives(self, log_errors_and_warnings: bool) -> None:
+    async def walk_and_process_directives(
+            self, log_errors_and_warnings: bool
+    ) -> None:
         """
         Walks through the passed compilation unit context and processes it.
         The file_ctx will be populated and able to be used for finishing
@@ -58,6 +62,9 @@ class Listener(ParaCPreProcessorListener):
             "Walking through the logic tree and generating logic stream"
         )
         self._log_errors_and_warnings = log_errors_and_warnings
+
+        walker = antlr4.ParseTreeWalker()
+        walker.walk(self, self.antlr4_file_ctx)
 
     def enterCompilationUnit(
             self,
@@ -242,7 +249,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#includeDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitIncludeDirective(
             self,
@@ -526,7 +533,6 @@ class Listener(ParaCPreProcessorListener):
         """
         ...
 
-    #
     def exitStringIncludeDirective(
             self,
             ctx: _p.StringIncludeDirectiveContext
@@ -545,7 +551,7 @@ class Listener(ParaCPreProcessorListener):
         Enter a parse tree produced by
         ParaCPreProcessorParser#nonPreProcessorItem.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitNonPreProcessorItem(
             self,

@@ -14,11 +14,9 @@ from .error_handler import ParacErrorListener
 from .logic_stream import ParacLogicStream, CLogicStream
 from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
-from .parser.listener import Listener
 from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
                        print_log_banner)
-from ..util import (get_relative_file_name, get_file_stream, get_input_stream,
-                    ensure_pathlib_path)
+from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParacCompilerError, FailedToProcessError,
                           ParaCSyntaxErrorCollection)
@@ -166,7 +164,7 @@ class ParacCompiler:
             log_errors_and_warnings: bool = True
     ) -> bool:
         """
-        Validates the syntax of a file and logs or raises errors while running
+        Validates the syntax of a file and logs or raises errors while running.
 
         :param process: The BasicProcess containing the path to the entry-file
         :param log_errors_and_warnings: If set to True errors, warnings and
@@ -189,18 +187,7 @@ class ParacCompiler:
         )
         try:
             cls.logger.info(f"Parsing file ({file_stream.fileName})")
-            antlr4_file_ctx = await cls.parse(stream, log_errors_and_warnings)
-
-            relative_file_name = get_relative_file_name(
-                file_stream.name,
-                file_stream.fileName,
-                process.work_dir
-            )
-
-            # Walking through the tree but without compiling! -> Only default
-            # structure and syntax will be validated and checked
-            listener = Listener(antlr4_file_ctx, stream, relative_file_name)
-            await listener.walk(log_errors_and_warnings)
+            await cls.parse(stream, log_errors_and_warnings)
 
         except (LexerError, ParaCSyntaxErrorCollection, LinkerError,
                 ParacCompilerError) as e:
@@ -209,6 +196,10 @@ class ParacCompiler:
             else:
                 raise e
 
+        cls.logger.info(
+            "Successfully finished syntax-check for file "
+            f"{file_stream.fileName}"
+        )
         return True
 
     @staticmethod

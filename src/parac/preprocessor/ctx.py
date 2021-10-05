@@ -37,10 +37,11 @@ class FilePreProcessorContext(FileRunContext):
 
     def __init__(
             self,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: Union[str, PathLike],
+            program_ctx: ProgramPreProcessorContext
     ):
         super().__init__(
-            program_ctx=None,
+            program_ctx=program_ctx,
             logic_stream=PreProcessorStream(),
             processed_stream=None,
             relative_file_name=relative_file_name
@@ -67,6 +68,15 @@ class FilePreProcessorContext(FileRunContext):
         compilation and relative structure
         """
         self._program_ctx = ctx
+
+    async def process_directives(self) -> str:
+        """
+        Process the directives for this single file and returns a string
+        containing the altered file
+        """
+        ...
+
+        # TODO! Implement this
 
 
 class ProgramPreProcessorContext(ProgramRunContext):
@@ -182,7 +192,12 @@ class ProgramPreProcessorContext(ProgramRunContext):
             log_errors_and_warnings
         )
 
-        ...  # TODO! Run listener for every file
+        # TODO! Fetch files that need to be imported - only the import related
+        #  directives will be taken into consideration
+
+        # TODO! Run listener for every single file of those
+
+        # TODO! Finish by processing the directives and altering the files
 
         # Processing the directives
         return await PreProcessor.process_directives(self)
@@ -223,8 +238,8 @@ class ProgramPreProcessorContext(ProgramRunContext):
             stream, relative_file_name, log_errors_and_warnings
         )
 
-    @staticmethod
     async def parse_single_file(
+            self,
             stream: antlr4.InputStream,
             relative_file_name: str,
             log_errors_and_warnings: bool,
@@ -247,9 +262,21 @@ class ProgramPreProcessorContext(ProgramRunContext):
         from .listener import Listener
 
         try:
-            antlr4_file_ctx = await PreProcessor.parse(stream, log_errors_and_warnings)
-            listener = Listener(antlr4_file_ctx, stream, relative_file_name)
+            antlr4_file_ctx = await PreProcessor.parse(
+                stream, log_errors_and_warnings
+            )
+            listener = Listener(
+                antlr4_file_ctx, stream, relative_file_name, program_ctx=self
+            )
             await listener.walk_and_process_directives(log_errors_and_warnings)
+            logger.info(
+                f"Finished parsing for file '{relative_file_name}' "
+                "(relative name)"
+            )
+
+            # NOTE! At the current version the result of the listener is a
+            # logic-stream that only contains include directives and
+            # non-preprocessor items
 
             return listener.file_ctx
         except (LexerError, ParserError, ParaCSyntaxErrorCollection,
@@ -276,7 +303,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
         entry_path = self._process.entry_file_path
         logger.debug(f"Parsing entry-file ({entry_path})")
 
-        entry_ctx = await self.get_stream_and_parse(
+        entry_ctx: FilePreProcessorContext = await self.get_stream_and_parse(
             entry_path, log_errors_and_warnings
         )
 

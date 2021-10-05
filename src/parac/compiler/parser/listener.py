@@ -9,7 +9,8 @@ import antlr4
 
 from .python import ParaCListener
 from .python import ParaCParser
-from ..ctx import FileCompilationContext
+from ..ctx import FileCompilationContext, ProgramCompilationContext
+from ..logic_stream import ParacLogicStream
 
 logger = logging.getLogger(__name__)
 
@@ -37,14 +38,22 @@ class Listener(ParaCListener):
             self,
             antlr4_file_ctx: CompilationUnitContext,
             file_stream: antlr4.InputStream,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: Union[str, PathLike],
+            program_ctx: ProgramCompilationContext
     ):
-        self._file_ctx = FileCompilationContext(relative_file_name)
+        self._file_ctx = FileCompilationContext(
+            relative_file_name, program_ctx
+        )
         self.antlr4_file_ctx: CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
 
         self._compiling: bool = False
         self._log_errors_and_warnings: bool = False
+
+    @property
+    def logic_stream(self) -> ParacLogicStream:
+        """ Stream which stores the logical tokens for the passed file. """
+        return self._file_ctx.logic_stream
 
     @property
     def file_ctx(self) -> FileCompilationContext:
@@ -54,7 +63,11 @@ class Listener(ParaCListener):
     async def walk(self, log_errors_and_warnings: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
-        events / goes through the tokens
+        events / goes through the tokens.
+
+        This is a non-compile version of walk_and_generate_logic_stream, which
+        is only used stand-alone for syntax-checking. This method does not
+        exist on the Pre-Processor counterpart, as it is not necessary.
 
         :param log_errors_and_warnings: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
@@ -69,9 +82,9 @@ class Listener(ParaCListener):
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)
 
-        ...
-
-    async def walk_and_generate_logic_stream(self, log_errors_and_warnings: bool) -> None:
+    async def walk_and_generate_logic_stream(
+            self, log_errors_and_warnings: bool
+    ) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens and generates the logic stream
@@ -86,6 +99,9 @@ class Listener(ParaCListener):
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
+
+        # Variable set to signalise that the items should be added to the
+        # logic stream
         self._compiling = True
         await self.walk(log_errors_and_warnings)
 

@@ -156,7 +156,6 @@ class ProgramCompilationProcess(BasicProcess):
         self._temp_entry_file_path: Union[str, None] = None
         self._preprocessor_ctx = ProgramPreProcessorContext(self)
         self._compilation_ctx = ProgramCompilationContext(self)
-        self._make_temp_folder()
 
     @property
     def preprocessor_ctx(self) -> ProgramPreProcessorContext:
@@ -209,7 +208,7 @@ class ProgramCompilationProcess(BasicProcess):
 
     def _make_temp_folder(self):
         """
-        Creates the folder for the temporary files that will be created by the
+        Creates the folder for the temporary files that will be used by the
         preprocessor
         """
         os.makedirs(self.temp_build_folder, exist_ok=True)
@@ -251,8 +250,9 @@ class ProgramCompilationProcess(BasicProcess):
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.info(
-            "Processing files in the Pre-Processor"
+            "Processing project files in the Pre-Processor"
         )
+        self._make_temp_folder()
         return await self.preprocessor_ctx.process_program(
             log_errors_and_warnings
         )
@@ -266,6 +266,7 @@ class ProgramCompilationProcess(BasicProcess):
         raise NotImplementedError("This function is not implemented yet")
 
         # TODO! This needs to be finished later
+
         logger.debug("Generating the modified temporary files")
 
         # Generating the temp files which are then used for the further
@@ -289,24 +290,21 @@ class ProgramCompilationProcess(BasicProcess):
         compile_with_progress_iterator()
         """
         if track_progress:
-            # Currently only a replacement for testing purposes
             yield 5, "Running Pre-Processor", logging.INFO, None
 
         preprocessor_result = await self._run_preprocessor(True)
 
         if track_progress:
-            # Currently only a replacement for testing purposes
             yield 15, "Generating modified temp files", logging.INFO, None
 
         await self._gen_preprocessor_temp_files(preprocessor_result)
 
         if track_progress:
-            # Currently only a replacement for testing purposes
             yield 20, "Parsing files and generating logic streams",\
                   logging.INFO, None
 
         await self.compilation_ctx.process_program(True)
 
-        ...
+        ...  # TODO! Add remaining stuff
 
         yield 100, None, logging.INFO, FinishedProcess(self)

@@ -42,9 +42,10 @@ class FileCompilationContext(FileRunContext):
 
     def __init__(
             self,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: Union[str, PathLike],
+            program_ctx: ProgramCompilationContext
     ):
-        self._program_ctx: Union[ProgramCompilationContext, None] = None
+        self._program_ctx: ProgramCompilationContext = program_ctx
         self._logic_stream: ParacLogicStream = ParacLogicStream()
         self._relative_file_name = relative_file_name
 
@@ -57,7 +58,7 @@ class FileCompilationContext(FileRunContext):
         return self._relative_file_name
 
     @property
-    def program_ctx(self) -> Union[ProgramCompilationContext, None]:
+    def program_ctx(self) -> ProgramCompilationContext:
         """
         Returns the program_ctx if it was already set using set_program_ctx()
         """
@@ -222,8 +223,8 @@ class ProgramCompilationContext(ProgramRunContext):
             stream, relative_file_name, log_errors_and_warnings
         )
 
-    @staticmethod
     async def parse_single_file(
+            self,
             stream: antlr4.InputStream,
             relative_file_name: str,
             log_errors_and_warnings: bool,
@@ -248,7 +249,9 @@ class ProgramCompilationContext(ProgramRunContext):
             stream, log_errors_and_warnings
         )
 
-        listener = Listener(antlr4_file_ctx, stream, relative_file_name)
+        listener = Listener(
+            antlr4_file_ctx, stream, relative_file_name, program_ctx=self
+        )
         await listener.walk_and_generate_logic_stream(log_errors_and_warnings)
         return listener.file_ctx
 

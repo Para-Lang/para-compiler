@@ -2,7 +2,7 @@
 """ File containing the ABC class for a LogicStream """
 
 from abc import abstractmethod, ABC
-from typing import List
+from typing import List, Any
 
 from .base_tokens import LogicToken
 
@@ -41,3 +41,8 @@ class LogicStream(list, ABC):
     def get_end(self) -> LogicToken:
         """ Gets the last item of the stream """
         return self[-1]
+
+    @abstractmethod
+    def append_antlr_ctx(self, _ctx: Any) -> None:
+        """ Appends a new ctx instance to the stream """
+        self.append(_ctx)

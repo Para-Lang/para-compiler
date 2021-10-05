@@ -30,7 +30,7 @@ set_avoid_print_banner_overwrite(True)
 initialise_default_paths(BASE_TEST_PATH)
 
 
-class TestParser:
+class TestProcessing:
     @staticmethod
     def teardown_method(_):
         """
