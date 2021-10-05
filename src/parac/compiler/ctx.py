@@ -244,8 +244,34 @@ class ProgramCompilationContext(ProgramRunContext):
         from .parser.listener import Listener
 
         logger.debug(f"Parsing file ({relative_file_name})")
-        antlr4_file_ctx = await ParacCompiler.parse(stream, log_errors_and_warnings)
+        antlr4_file_ctx = await ParacCompiler.parse(
+            stream, log_errors_and_warnings
+        )
 
         listener = Listener(antlr4_file_ctx, stream, relative_file_name)
         await listener.walk_and_generate_logic_stream(log_errors_and_warnings)
         return listener.file_ctx
+
+    async def parse_entry_file(
+            self,
+            log_errors_and_warnings: bool
+    ) -> FileCompilationContext:
+        """
+        Parses an entry file and sets the entry-ctx of this instance
+        to the generated context for the file.
+
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
+        :returns: The FilePreProcessorContext for the file
+        """
+        entry_path = self._process.entry_file_path
+        logger.debug(f"Parsing entry-file ({entry_path})")
+
+        entry_ctx: FileCompilationContext = await self.get_stream_and_parse(
+            entry_path, log_errors_and_warnings
+        )
+
+        self.set_entry_ctx(entry_ctx)
+        return entry_ctx

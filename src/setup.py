@@ -6,7 +6,6 @@ from pathlib import Path
 
 SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
 
-# TODO! Insert here the README for pypi
 with open(SRC_PATH / "README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 

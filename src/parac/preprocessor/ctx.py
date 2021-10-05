@@ -282,4 +282,3 @@ class ProgramPreProcessorContext(ProgramRunContext):
 
         self.set_entry_ctx(entry_ctx)
         return entry_ctx
-        
