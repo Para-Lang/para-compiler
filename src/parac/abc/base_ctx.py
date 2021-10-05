@@ -187,10 +187,11 @@ class ProgramRunContext(ABC):
         """
         ...
 
+    @abstractmethod
     async def parse_entry_file(
             self,
             log_errors_and_warnings: bool
-    ) -> None:
+    ) -> FileRunContext:
         """
         Parses an entry file and sets the entry-ctx of this instance
         to the generated context for the file.
@@ -199,9 +200,8 @@ class ProgramRunContext(ABC):
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
+        :returns: The FileRunContext. This should never be the actual ABC
+         class, but rather will be represented as FileCompilationContext and
+         FilePreProcessorContext
         """
-        entry_path = self._process.entry_file_path
-        logger.debug(f"Parsing entry-file ({entry_path})")
-
-        entry_ctx = await self.get_stream_and_parse(entry_path, log_errors_and_warnings)
-        self.set_entry_ctx(entry_ctx)
+        ...

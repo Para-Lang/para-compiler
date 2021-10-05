@@ -6,6 +6,7 @@ commands as given in the file.
 """
 from __future__ import annotations
 
+import logging
 from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
 import antlr4
@@ -24,6 +25,8 @@ __all__ = [
     'FilePreProcessorContext',
     'ProgramPreProcessorContext'
 ]
+
+logger = logging.getLogger(__name__)
 
 
 class FilePreProcessorContext(FileRunContext):
@@ -69,7 +72,13 @@ class FilePreProcessorContext(FileRunContext):
 class ProgramPreProcessorContext(ProgramRunContext):
     """
     Program Compilation Context, which serves as the base for an entire
-    pre-processor compilation
+    pre-processor compilation.
+
+    This class will be initialised using a ProgramCompilationProcess and
+    use the context info for fetching the files, parsing them and altering
+    them appropriately depending on their content. The result will be an
+    `PreProcessorProcessResult`, which is returned from the function
+    `async process_program()`
     """
 
     def __init__(self, process: ProgramCompilationProcess):
@@ -139,8 +148,9 @@ class ProgramPreProcessorContext(ProgramRunContext):
         ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
+    @staticmethod
     async def make_temp_files(
-            self, process: PreProcessorProcessResult
+            process: PreProcessorProcessResult
     ) -> Tuple[str, List[str]]:
         """
         Creates the temporary files based on the passed output of
@@ -149,7 +159,11 @@ class ProgramPreProcessorContext(ProgramRunContext):
         :returns: A tuple containing at 0 the path to the entry-file and at 1
         a list of all paths of all other files.
         """
-        ...
+        for name, context in process.generated_files():
+            name: str
+            context: Dict[str, FilePreProcessorContext]
+
+            # TODO! Add logic to properly generate these files
 
     async def process_program(
             self, log_errors_and_warnings: bool
@@ -164,7 +178,9 @@ class ProgramPreProcessorContext(ProgramRunContext):
          with the FailedToProcessError.
         :returns: A PreProcessorProcessResult instance
         """
-        await self.parse_entry_file(log_errors_and_warnings)
+        entry: FilePreProcessorContext = await self.parse_entry_file(
+            log_errors_and_warnings
+        )
 
         ...  # TODO! Run listener for every file
 
@@ -242,3 +258,28 @@ class ProgramPreProcessorContext(ProgramRunContext):
                 raise FailedToProcessError(exc=e) from e
             else:
                 raise e
+
+    async def parse_entry_file(
+            self,
+            log_errors_and_warnings: bool
+    ) -> FilePreProcessorContext:
+        """
+        Parses an entry file and sets the entry-ctx of this instance
+        to the generated context for the file.
+
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
+        :returns: The FilePreProcessorContext for the file
+        """
+        entry_path = self._process.entry_file_path
+        logger.debug(f"Parsing entry-file ({entry_path})")
+
+        entry_ctx = await self.get_stream_and_parse(
+            entry_path, log_errors_and_warnings
+        )
+
+        self.set_entry_ctx(entry_ctx)
+        return entry_ctx
+        

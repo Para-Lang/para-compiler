@@ -263,6 +263,9 @@ class ProgramCompilationProcess(BasicProcess):
         """
         Generates the temp files based on the output of the preprocessor
         """
+        raise NotImplementedError("This function is not implemented yet")
+
+        # TODO! This needs to be finished later
         logger.debug("Generating the modified temporary files")
 
         # Generating the temp files which are then used for the further

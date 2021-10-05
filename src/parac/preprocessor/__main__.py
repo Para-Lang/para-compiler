@@ -31,6 +31,12 @@ class PreProcessorProcessResult:
     Pre-Processor
     """
 
+    def __init__(
+            self,
+            origin: ProgramPreProcessorContext
+    ):
+        self.origin = origin
+
     def generated_files(self) -> Dict[str, Dict[str, FilePreProcessorContext]]:
         """
         Returns the generated files, which are represented in a dictionary.
@@ -43,7 +49,9 @@ class PreProcessorProcessResult:
               FilePreProcessorContext - The context of the file
             )
           )
-         """
+        """
+
+        # TODO! Return the generated files and properly process
         ...
 
 
@@ -123,6 +131,22 @@ class PreProcessor:
             log_errors_and_warnings: bool = True
     ) -> PreProcessorProcessResult:
         """
-        Processing the directives in the passed ctx and
+        Processing the directives in the passed ctx and generate an altered
+        PreProcessorProcessResult. This function will process the directives
+        of all PreProcessorContext files and alter the files appropriately.
+
+        :param ctx: The context instance containing the context instances for
+         the directives.
+        :param log_errors_and_warnings: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
+        :returns: A result that is represented in a PreProcessorProcessResult,
+         containing the altered files.
         """
-        ...
+
+        #TODO! Process directives
+
+        return PreProcessorProcessResult(
+            ctx
+        )
