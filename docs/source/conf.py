@@ -90,3 +90,6 @@ def setup(app):
 
 
 autodoc_member_order = 'groupwise'
+
+# Suppressing the warning 'duplicate label'
+suppress_warnings = ['autosectionlabel.*']

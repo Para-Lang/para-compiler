@@ -8,10 +8,11 @@ Extension Tasks
 
 The Extension Tasks in Para-C are a simple way to integrate programs or scripts
 into your program, which do not have to be compiled executables (but can be).
-These extension tasks are designed to allow for code- and program integration
-into your Para-C program in a function-style calling manner, where results and
-data of the extension task can be utilised in the Para-C program without
-creating your own  handling.
+
+These are designed to allow for code- and program integration into your Para-C
+program in a function-style calling manner, where results and data of the
+extension task can be utilised in the Para-C program without creating your own
+handling.
 
 .. note::
 

@@ -5,7 +5,9 @@ Selection Statement
 
 The selection statement is the standard way of executing a block of code depending
 on the evaluation of a expression which can either return ``1``/``true`` or
-``0``/``false``. These are in Para-C, like in C, implemented with ``if`` statements
+``0``/``false``.
+
+These are in Para-C, like in C, implemented with ``if`` statements
 and ``switch`` statements.
 
 If Statement
@@ -15,7 +17,7 @@ The if-statement is the most common way of utilising a selection statement.
 
 It performs, based on an initial ``if`` statement and possible following
 ``else if`` or ``else`` statements, evaluations of each expression one after
-one until an expression evaluates to ``1``/``true`` (This can also be one single
+one until an expression evaluates to ``1``/``true``. (This can also be one single
 initial ``if`` statement) or the else-block is reached (optional).
 
 .. Important::
@@ -40,7 +42,7 @@ Usage & Examples
 ----------------
 
 1. Example of a comparison of two values
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -61,6 +63,11 @@ Usage & Examples
         return (status) { .status_code = 0 };
     }
 
+*Output:*
+
+.. code:: bash
+
+    x does NOT equal y. Actual value: x=4, y=3
 
 In this case the expression that is evaluated is ``x == y`` which will return
 a bool value. The following block or `compound statement <./compound_statement.html>`_
@@ -70,8 +77,8 @@ In this case the evaluation will *"fail"* and the program will proceed to execut
 the else block, since no other option exists, which could be attempted to be
 evaluated.
 
-2. Example of the previous example without { }
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2. Example of the previous example without { } (compound statement)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: c
 
@@ -88,6 +95,12 @@ evaluated.
 
         return (status) { .status_code = 0 };
     }
+
+*Output:*
+
+.. code:: bash
+
+    x does NOT equal y. Actual value: x=4, y=3
 
 In this case the program will do the exact same as in the first program but
 in this case without a `compound statement <./compound_statement.html>`_ and just
@@ -114,11 +127,18 @@ a regular statement (call of a function).
         }
         else if (x < 5)
         {
-            print("x is smaller than 5");
+            print("x is smaller than 5, but equal or bigger to 3");
         }
 
         return (status) { .status_code = 0 };
     }
+
+*Output:*
+
+.. code:: bash
+
+    x is smaller than 5
+
 
 In this case the evaluation of the first block can either lead to a block
 or to an ``else if`` statement. Though no ``else`` block exists, meaning when
@@ -130,6 +150,7 @@ Switch Statement
 
 The switch-statement is a compare-statement, which compares a passed value
 with the so-called ``cases``, which define a value that can be compared against.
+
 Those cases must be either a constant value, a single int-based value or an
 expression that evaluates to one of the two.
 
@@ -141,21 +162,29 @@ expression that evaluates to one of the two.
     so-called lookup table, where integers are strictly enforced, meaning that
     other values will need to be compared using an :ref:`if statement<If Statement>`
 
-Those ``cases`` are not like in if-statements limited to their own branch, but
-``cases`` can fall-through (enter blocks of other cases) if no `break` statement
-is used. This means that the ``cases`` actually define `entry-points` for the code
-that was written inside these cases. It will execute all code downwards from
-the point it reached a compare that returned ``true``. This can be stopped
-though using a `break` statement, which will abort any further execution.
+Those cases are not like in if-statements limited to their own branch, but can
+fall-through (enter blocks of other cases) if no `break` statement is used.
+This means that the cases actually define "entry-points" for the code
+that was written inside these cases.
 
-If no case is met, the ``default`` branch is called if it exists.
+It will execute all code downwards from the point it reached a compare that
+returned ``true``. This can be stopped though using the ``break`` keyword,
+which will abort any further execution.
+
+If no case is met, the ``default`` branch is executed if it exists.
 
 .. Warning::
 
-    If the ``default`` keyword is hit, every case after it will **not** be compared
-    against anymore, since ```default``` always returns ``true``. Fall-through
-    will still work though, but the `case` will practically be useless with
-    the exception of the code written inside the block.
+    The ``switch`` statement in Para-C copies the behaviour of the regular C
+    statement and so this should be taken into consideration when using it:
+
+    If the ``default`` keyword is hit, while there are still other valid cases
+    after it exist, every case after it will **not** be compared
+    against anymore.
+
+    Fall-through will still work though, but the cases after will practically be
+    useless. With the exception of the code written inside the block being
+    executed.
 
 Syntax
 ------
@@ -203,6 +232,14 @@ Usage & Examples
         return (status) { .status_code = 0 };
     }
 
+
+*Output:*
+
+.. code:: bash
+
+    It's a 5
+
+
 In this case, the variable ``x`` is compared to all cases and if one case hits,
 excluding ``default``, a line is printed saying ``"It's a <insert-number>"``.
 
@@ -234,11 +271,11 @@ Since characters are simply numeric values representing characters the type
         return (status) { .status_code = 0 };
     }
 
-.. note::
+*Output:*
 
-    This does not apply though to strings, since they are under the hood simple
-    arrays of characters. They need to be compared using strict value compare
-    (``===``) in :ref:`if statements<If Statement>`
+.. code:: bash
+
+    It's: c
 
 3. Example with fall-through
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -251,6 +288,10 @@ Since characters are simply numeric values representing characters the type
 
         switch (x)
         {
+            case 2:
+                print("It's a 2");
+            case 3:
+                print("It's a 3");
             case 4:
                 print("It's a 4");
             default:
@@ -260,7 +301,14 @@ Since characters are simply numeric values representing characters the type
         return (status) { .status_code = 0 };
     }
 
-In this snippet no ``break`` statements are used, meaning if ``case 4:`` is hit
-and it evaluates to true, the underlying block will be executed with the block
-of ``default``. This is due to the ``case`` statement falling through and so
-reaching the ``default`` branch.
+*Output:*
+
+.. code:: bash
+
+    It's a 4
+    Ending
+
+In this snippet no ``break`` statements are used, meaning if ``case 4:`` is hit,
+the underlying block (``default`` block) will be executed. This is due to the
+``case`` statement falling through and so reaching ending up at the ``default``
+block.

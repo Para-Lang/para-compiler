@@ -6,9 +6,9 @@ Functions
 .. toctree::
     :hidden:
 
-  Declaring and defining a Function <defining_and_declaring_a_function>
-  Function Specifiers <function_specifiers>
-  Decorators <decorators>
+    Declaring and defining a Function <defining_and_declaring_a_function>
+    Function Specifiers <function_specifiers>
+    Decorators <decorators>
 
 This section of the docs serves the purpose of providing information about
 creating, defining, declaring, calling and referencing functions using pointers.
