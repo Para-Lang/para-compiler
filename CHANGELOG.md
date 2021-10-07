@@ -67,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   additional usage of a listener to walk through the files, even though
   a simple parse was enough for validating the syntax.
 - Updated logging messages and added more of them, where they are needed.  
+- Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
 
 ### Removed
 - `list<t>` type from the Grammar file.

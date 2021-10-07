@@ -15,10 +15,10 @@ import sys
 sys.path.insert(0, os.path.abspath('../../src/'))
 
 import parac
-import parac_cli
+import parac_ext_cli
 
 assert parac.__version__
-assert parac_cli.__version__
+assert parac_ext_cli.__version__
 
 # -- Project information -----------------------------------------------------
 
