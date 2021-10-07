@@ -35,6 +35,7 @@
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
+![](https://img.shields.io/pypi/pyversions/parac.svg)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*

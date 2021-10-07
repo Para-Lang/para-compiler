@@ -27,7 +27,7 @@ copyright = '2021, Luna Klatzer'
 author = 'Luna Klatzer'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.dev4'
+release = 'v0.1.dev5'
 
 
 # -- General configuration ---------------------------------------------------
