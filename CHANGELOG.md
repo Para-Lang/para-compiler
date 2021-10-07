@@ -191,7 +191,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...antlr4-dev
+[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...dev
 [v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
 [v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
 [v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2

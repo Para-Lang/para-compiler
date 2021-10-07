@@ -1,9 +1,8 @@
 # `parac` - The Python Module for the Para-C Compiler
 
-[![Python Version](https://img.shields.io/badge/python->=3.8-blue?logo=python)](https://python.org)
 ![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
-
+![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
 
 ##  Introduction to `parac` (as Python Module)
 

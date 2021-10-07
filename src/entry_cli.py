@@ -1,7 +1,19 @@
 # coding=utf-8
-""" Main compile function that calls the CLI """
-import parac_cli
-from parac.logging import init_rich_console
+"""
+Main file that calls the CLI - This file is used as the entry for pyinstaller
+"""
+try:
+    import parac_cli
+except Exception as e:
+    raise ImportError(
+        "Failed to locate child module 'parac_cli'. "
+        "This module has to be installed to utilise the CLI version of Para-C"
+    ) from e
+
+try:
+    from parac.logging import init_rich_console
+except Exception as e:
+    raise ImportError("Failed to locate parent module 'parac'") from e
 
 if __name__ == '__main__':
     init_rich_console()

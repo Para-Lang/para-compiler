@@ -30,12 +30,12 @@
 
 
 # The Para-C programming language
-![Build](https://img.shields.io/github/workflow/status/Luna-Klatzer/openhiven.py/CodeQL?logo=github)
+![Build](https://img.shields.io/github/workflow/status/Para-C/Para-C/CodeQL?logo=github)
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
-![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
+![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
-![](https://img.shields.io/pypi/pyversions/parac.svg)
+![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -203,9 +203,11 @@ Due to the two components, which are the Pre-Processor, and the core Compiler
 the entire module is split into two modules: `preprocessor` and `paraccompiler`,
 which both implement their handling for the source-code. This means that 
 when compiling a file, the file will be sent through the Pre-Processor first,
-modified and then sent to the Para-C Compiler. This also means errors reported
-will be from the modified file, so that the modified code is visible to the 
-user, instead of the file without correct Pre-Processor processing.
+modified and then sent to the Para-C Compiler. 
+
+This also means errors reported will be from the modified file, so that the 
+modified code is visible to the user, instead of the file without correct 
+Pre-Processor processing.
 
 ### Build inno-setup installer for Windows
 
