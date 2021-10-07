@@ -5,10 +5,12 @@ from pathlib import Path
 import click
 import os
 
+from .logging import logger
+
 __all__ = [
     "BASE_DIR",
     "C_LIB_PATH",
-    "DIST_VERSION",
+    "DIST_COMPILED_VERSION",
     "MODULE_VERSION",
     "C_COM_EXISTENCE_OVERWRITE",
     "DEFAULT_CONFIG",
@@ -27,7 +29,7 @@ __all__ = [
 # -- Signatures ---------------------------------------------------------------
 BASE_DIR: Path
 C_LIB_PATH: Path
-DIST_VERSION: bool
+DIST_COMPILED_VERSION: bool
 MODULE_VERSION: bool
 C_COM_EXISTENCE_OVERWRITE: bool
 DEFAULT_CONFIG: Dict[str, str]
@@ -63,38 +65,37 @@ def initialise_default_paths(work_dir: Union[str, os.PathLike, Path]):
 
 # -- Initialisation of Variables ----------------------------------------------
 
-# Base dir / root folder
-BASE_DIR = Path(
-    os.path.dirname(os.path.realpath(__file__))
-).parent.parent.resolve()
-
-# Path to the binary folder or in dev mode /src/
-BIN_DIR = Path(
-    os.path.dirname(os.path.realpath(__file__))
-).parent.resolve()
-
 # Initialising the default paths based on the work_dir
 initialise_default_paths(os.getcwd())
 
-# If the lib folder is in the module (./src or ./bin) then it's module runtime,
-# else if in the root folder then it's the dist runtime aka. the pyinstaller
-# compiled runtime
-if os.path.exists(BIN_DIR / "lib"):
-    DIST_VERSION = False
-    MODULE_VERSION = True
-    C_LIB_PATH = BIN_DIR / "lib"
-elif os.path.exists(BASE_DIR / "lib"):
-    DIST_VERSION = True
-    MODULE_VERSION = False
-    C_LIB_PATH = BASE_DIR / "lib"
+# Base dir / root folder
+# If module version -> ./ (valid)
+# If compiled version -> ./bin (will be changed with version check)
+BASE_DIR = Path(
+    os.path.dirname(os.path.realpath(__file__))
+).parent.resolve()
 
-    if not os.path.exists(BASE_DIR / "compiler-config.json"):
-        raise RuntimeError(
-            f"compiler-config.json not found! "
-            f"Expected {BASE_DIR / 'compiler-config.json'}"
-        )
+# If in the BIN_DIR the 'parac.exe' file exists, then it's compiled mode, else
+# it is the
+if os.path.exists(BASE_DIR / "lib"):
+    DIST_COMPILED_VERSION = False
+    MODULE_VERSION = True
+    C_LIB_PATH = BASE_DIR / "lib"
 else:
-    raise RuntimeError("Cannot locate lib folder")
+    # Assume compiled version -> current file: ./bin/parac/const.pyc
+    BASE_DIR = BASE_DIR.parent  # ./bin -> ./
+    if os.path.exists(BASE_DIR / "bin" / "parac.exe"):
+        DIST_COMPILED_VERSION = True
+        MODULE_VERSION = False
+        C_LIB_PATH = BASE_DIR / "lib"
+
+        if not os.path.exists(BASE_DIR / "compiler-config.json"):
+            raise RuntimeError(
+                f"compiler-config.json not found! "
+                f"Expected {BASE_DIR / 'compiler-config.json'}"
+            )
+    else:
+        raise RuntimeError("Cannot locate BASE_DIR - Invalid run directory")
 
 # If true OS is Windows
 WIN = click.utils.WIN

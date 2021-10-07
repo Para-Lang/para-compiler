@@ -4,7 +4,7 @@ Main file that calls the CLI - This file is used as the entry for pyinstaller
 """
 try:
     import parac_ext_cli
-except Exception as e:
+except ImportError as e:
     raise ImportError(
         "Failed to locate child module 'parac_ext_cli'. "
         "This module has to be installed to utilise the CLI version of Para-C"
@@ -12,7 +12,7 @@ except Exception as e:
 
 try:
     from parac.logging import init_rich_console
-except Exception as e:
+except ImportError as e:
     raise ImportError("Failed to locate parent module 'parac'") from e
 
 if __name__ == '__main__':
