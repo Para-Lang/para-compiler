@@ -6,7 +6,7 @@ from pathlib import Path
 
 SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
 
-with open(SRC_PATH / "README.md", "r", encoding='utf-8') as file:
+with open(SRC_PATH / "PYPI_README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 
 with open(SRC_PATH / "requirements.txt", encoding='utf-8') as file:

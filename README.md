@@ -106,7 +106,7 @@ lib into a simple module, which can be imported and used in ways that are not
 implemented in the standard CLI. This means both the `preprocessor` and 
 `compiler` are available for customisable usage.
 
-For more info see [Module README](./src/README.md).
+For more info see [Module README](src/PYPI_README.md).
 
 ## Installation
  

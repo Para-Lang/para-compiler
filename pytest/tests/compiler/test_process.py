@@ -1,6 +1,5 @@
 # coding=utf-8
 """ Test for the compiler process setup """
-import os
 from pathlib import Path
 
 from parac import SEPARATOR as SEP, initialise_default_paths

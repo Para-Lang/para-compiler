@@ -1,7 +1,7 @@
 # coding=utf-8
 """ Test for the cli setup """
 import pytest
-from parac import ParacCompiler
+from parac.compiler import ParacCompiler
 from .. import reset_input
 
 

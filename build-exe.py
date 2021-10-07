@@ -1,6 +1,15 @@
 # coding=utf-8
 """ Script for building the compiler as an executable """
 try:
+    try:
+        import parac_ext_cli
+    except Exception as e:
+        raise ImportError(
+            "Failed to locate child module 'parac_ext_cli'. "
+            "This module has to be installed to utilise the CLI version of "
+            "Para-C"
+        ) from e
+
     import json
     from pathlib import Path
     from typing import List
@@ -15,17 +24,17 @@ except ImportError as e:
         "install <module>'"
     ) from e
 
+
 def resolve_base_path() -> Path:
     """ Resolves the base path """
     p: Path = Path(os.getcwd()).resolve()
-    if os.path.exists(p / "src"):
+    if os.path.exists(p / "parac"):
         return p
-    elif p.name == "src":
+    elif p.name == "parac":
         p = p.parent
     else:
         raise RuntimeError(
-            "Failed to resolve base path. "
-            "Use as workdir either root or ./src"
+            "Failed to resolve base path. Use as workdir root"
         )
 
     return p.resolve()
@@ -34,42 +43,42 @@ def resolve_base_path() -> Path:
 def resolve_origin_path(output_type: str) -> Path:
     """ Resolves the origin path of pyinstaller """
     p: Path = Path(os.getcwd()).resolve()
-    if os.path.exists(_ := p / "src" / output_type):
-        p = _
-    elif os.path.exists(_ := p / output_type):
+    if os.path.exists(_ := p / output_type):
         p = _
     else:
         raise RuntimeError(
-            "Failed to resolve origin path. "
-            "Use as workdir either root or ./src"
+            "Failed to resolve base path. Use as workdir root"
         )
 
     return (p / "parac").resolve()
 
 
+# Base Constants
 BASE_PATH: Path = resolve_base_path()
 DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
-PBL_PATH: Path = BASE_PATH / "src" / "lib"
+PBL_PATH: Path = BASE_PATH / "lib"
 EXAMPLE_PATH: Path = BASE_PATH / "examples"
 
-# get entry path for the compiler
+# Entry path for the compiler - cli file
 entry_path: Path = Path(
     pkg_resources.resource_filename(__name__, "entry_cli.py")
 ).resolve()
 icon_path: Path = BASE_PATH / "img" / "parac.ico"
 
-required: List[Path] = [
+# Required additional data files that have to be added
+REQUIRED: List[Path] = [
     BASE_PATH / "img" / "parac.ico",
     BASE_PATH / "img" / "parac-banner.png",
     BASE_PATH / "img" / "parac.png",
     BASE_PATH / "CHANGELOG.md",
     BASE_PATH / "LICENSE",
-    BASE_PATH / "USAGE-README.md"
+    BASE_PATH / "PYPI_README.md"
 ]
 
+# Avoid modules that PyInstaller is detecting, even though they are unused
 with open(
-        BASE_PATH / "src" / "INSTALL_AVOID_MODULES.txt", "r", encoding='utf-8'
+        BASE_PATH / "INSTALL_AVOID_MODULES.txt", "r", encoding='utf-8'
 ) as file:
     AVOID_MODULES: List[str] = list(
         i.removesuffix('\n') for i in file.readlines()
@@ -80,12 +89,23 @@ with open(
         _.append(i)
     AVOID_MODULES = _
 
+# Hidden imports that PyInstaller is unable to detect, meaning we have to
+# specify it direclty as an argument
+HIDDEN_IMPORT = ["parac_ext_cli"]
+
+_ = []
+for i in HIDDEN_IMPORT:
+    _.append("--hiddenimport")
+    _.append(i)
+HIDDEN_IMPORT = _
+
+# Creating the dist and build path
 for i in (DIST_PATH, BUILD_PATH):
     if not os.path.exists(str(i.resolve())):
         os.makedirs(str(i.resolve()), exist_ok=True)
 
 run_config = [
-    entry_path,
+    str(entry_path.resolve()),
     "--log-level",
     "DEBUG",
     "--name",
@@ -93,6 +113,7 @@ run_config = [
     "--icon",
     str(icon_path.resolve()),
     *AVOID_MODULES,
+    *HIDDEN_IMPORT
 ]
 
 
@@ -144,12 +165,12 @@ def create_parac_modules(output_type: str) -> None:
         else:
             shutil.copy(entry.path, lib_path)
 
-    for entry in required:
+    for entry in REQUIRED:
         entry: Path
         shutil.copy(str(entry.resolve()), destination)
 
     shutil.copy(
-        BASE_PATH / "README.md", destination / "PROJECT-DESCRIPTION.md"
+        BASE_PATH / "PYPI_README.md", destination / "PROJECT-DESCRIPTION.md"
     )
     copy_tree(
         str(EXAMPLE_PATH.resolve()),
