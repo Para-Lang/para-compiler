@@ -7,7 +7,9 @@
 
 // String implementation
 
-/// Gets the required byte_size
+/// Gets the required byte_size for an allocation based on the passed length of the string.
+/// The algorithm will always be a multiple of 50 + 1 (for null char '\0').
+/// The calculated size is the next biggest multiple of 50 + 1, which is still bigger than the passed length.
 size_t __pbl_get_alloc_size_type_string(unsigned int len)
 {
     unsigned int alloc_len = 0;
@@ -22,6 +24,10 @@ size_t __pbl_get_alloc_size_type_string(unsigned int len)
     return (alloc_len + 1) * sizeof(char);
 }
 
+/// Resizes the string by reallocating the memory - The required size will be calculated from the passed length.
+/// The function used for the calculation is '__pbl_get_alloc_size_type_string'
+/// @param str The string that should be reallocated
+/// @param len The length of the string content that is used to calculate the required size
 void __pbl_resize_type_string(__pbl_type_string* str, unsigned int len)
 {
     size_t byte_size = __pbl_get_alloc_size_type_string(len);
@@ -73,7 +79,7 @@ __pbl_type_string __pbl_allocate_type_string(unsigned int len, const char* conte
     return str;
 }
 
-/// Deallocates the entire memory for the string and resets it's values
+/// Deallocates the entire memory for the string and resets it's struct properties
 void __pbl_deallocate_type_string(__pbl_type_string *lvalue)
 {
     free(lvalue->str);
