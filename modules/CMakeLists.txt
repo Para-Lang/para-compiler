@@ -7,4 +7,4 @@ include_directories(parac-modules)
 
 add_subdirectory(parac-modules)
 add_subdirectory(parac-modules-tests)
-target_link_libraries(parac-modules gtest_main)
+target_link_libraries(parac-modules)
