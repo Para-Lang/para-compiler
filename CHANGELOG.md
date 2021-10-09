@@ -151,6 +151,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Class `InternalErrorInfo` for saving information about an exception causing an `InternalError`
 - Property `origin_exc` to `InterrruptError` for saving the original exception instance that was raised.
 - New module `parac_cli` for implementing the `parac` module
+- `modules/parac-modules` as the base folder for the library items
+- `modules/parac-modules/types.h` for the types for Para-C and added basic string implementation
+- `modules/parac-modules/io.h` for IO management in Para-C - added basic `print` function
 
 ### Changed
 - Module Structure and added new parent module `parac` for both compiler and preprocessor.
