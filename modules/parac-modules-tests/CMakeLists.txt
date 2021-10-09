@@ -1,0 +1,4 @@
+project(parac-modules-tests)
+
+add_subdirectory(lib/gtest-1.11.0)
+add_subdirectory(tests)
