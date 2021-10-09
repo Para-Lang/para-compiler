@@ -312,6 +312,7 @@ not a stable or production-ready language as of the point of writing.
 ## Copyright and License
 
 ![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_shield)
 
 Copyright (C) 2021 [Nicolas Klatzer*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer).
 
