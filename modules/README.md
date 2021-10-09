@@ -8,6 +8,8 @@ For the Para-C Extension Library, go [to the lib folder](https://github.com/Para
 # Testing
 
 For testing purposes, [GTest (Google Test)](https://github.com/google/googletest/releases/tag/release-1.11.0)
-is used in an C++ environment, which will simply  include the C-files and run them. In 
-actual usage the Para-C Compiler will only use the bare C code as C, and only for testing 
+is used in an C++ environment, which will simply include the C-files and run them.
+
+In actual code usage, the Para-C Compiler will use the code as regular C, and only for testing 
 C++ will/must be used.
+
