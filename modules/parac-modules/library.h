@@ -11,4 +11,13 @@
 #ifndef PARAC_MODULES_LIBRARY_H
 #define PARAC_MODULES_LIBRARY_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif //PARAC_MODULES_LIBRARY_H

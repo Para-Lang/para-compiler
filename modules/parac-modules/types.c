@@ -17,7 +17,7 @@ size_t __pbl_get_alloc_size_type_string(unsigned int len)
         alloc_len = 50;
     }
     else if (len >= 50) {
-        while (alloc_len < len) alloc_len += 50;
+        while (alloc_len <= len) alloc_len += 50;
     }
     return (alloc_len + 1) * sizeof(char);
 }
@@ -38,9 +38,9 @@ void __pbl_resize_type_string(__pbl_type_string* str, unsigned int len)
 /// @param content The content of the string that should be written to the allocated memory
 void __pbl_write_to_string(__pbl_type_string* str, unsigned int len_to_write, const char* content)
 {
-    // smaller or equal means too little memory is available,
-    // since even if it's equal the null-byte needs to be added as well
-    if (__pbl_get_alloc_size_type_string(len_to_write) <= str->byte_size)
+    // bigger or equal means that the required space is bigger than the actual space available,
+    // equal is also included since even if it's equal the null-byte needs to be added as well (+1 size)s
+    if (__pbl_get_alloc_size_type_string(len_to_write) >= str->byte_size)
     {
         __pbl_resize_type_string(str, len_to_write);
     }

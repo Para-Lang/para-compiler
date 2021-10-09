@@ -7,6 +7,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // String implementation - uses memory allocation -> located in heap
 typedef struct __pbl_type_string {
     // Size of the allocated memory in bytes
@@ -24,5 +28,9 @@ void __pbl_resize_type_string(__pbl_type_string* str, unsigned int len);
 void __pbl_write_to_string(__pbl_type_string* str, unsigned int len_to_write, const char* content);
 __pbl_type_string __pbl_allocate_type_string(unsigned int len, const char* content);
 void __pbl_deallocate_type_string(__pbl_type_string *lvalue);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif //PARAC_MODULES_TYPES_H
