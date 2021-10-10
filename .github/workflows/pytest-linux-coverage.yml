@@ -40,7 +40,7 @@ jobs:
         python -m pytest -q
 
   coverage-badge:
-    needs: build
+    needs: run
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
