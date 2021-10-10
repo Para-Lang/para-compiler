@@ -1,4 +1,4 @@
-name: Pytest & Coverage
+name: Pytest Linux
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  run:
 
     runs-on: ubuntu-latest
     strategy:
@@ -40,7 +40,7 @@ jobs:
         python -m pytest -q
 
   coverage-badge:
-    needs: build
+    needs: run
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

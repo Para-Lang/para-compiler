@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  run:
 
     runs-on: macos-latest
     strategy:
