@@ -30,12 +30,20 @@
 
 
 # The Para-C programming language
-![Build](https://img.shields.io/github/workflow/status/Para-C/Para-C/CodeQL?logo=github)
-[![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
-[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
-![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
-![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
+
 ![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
+[![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+![Coverage](./coverage.svg)
+[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
+![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
+
+[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+![Build](https://img.shields.io/github/workflow/status/Para-C/Para-C/CodeQL?logo=github)
+![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)
+![Dr.Memory and GTest](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml/badge.svg)
+![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)
+![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)
+![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
@@ -131,7 +139,6 @@ Or for a specific version:
 python3 -m pip install -U parac==version
 ```
 
-
 ### Build the Compiler
 
 Building the compiler will generate a `build` and `dist` folder, where the
@@ -189,13 +196,7 @@ This will add the C-Compiler path to the Para-C compiler and make commands
 related to running a Para-C program available. It is not required though and
 without it the compiler will simply generate C source files.
 
-
 ## Development
-
-![Test workflow](https://github.com/Luna-Klatzer/Para-C/actions/workflows/python-test.yml/badge.svg)
-![Coverage](./coverage.svg)
-![Lines of Code](https://img.shields.io/tokei/lines/github/Luna-Klatzer/Para-C)
-[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
 
 ### Parsing and Processing Procedure
 
