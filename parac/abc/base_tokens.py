@@ -50,6 +50,12 @@ class Token(ABC):
         """ Returns the relative name of the parent file """
         ...
 
+    @property
+    @abstractmethod
+    def parent_file(self) -> Any:
+        """ Returns the parent file context instance """
+        ...
+
     @abstractmethod
     def get_as_str(self) -> str:
         """ Gets the value of the token as a string """
@@ -122,11 +128,19 @@ class ParacLogicToken(LogicToken, ABC):
             parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self.antlr4_ctx = antlr4_ctx
+        self._antlr4_ctx = antlr4_ctx
         super().__init__(
             name, as_str, line, column, relative_parent_file_name,
             antlr4_ctx, parent, children
         )
+
+    @property
+    @abstractmethod
+    def antlr4_ctx(self) -> ParserRuleContext:
+        """
+        Returns the Antlr4 ctx instance associated with this logic token
+        """
+        return getattr(self, '_antlr4_ctx')
 
     @property
     def input_stream(self) -> antlr4.InputStream:
