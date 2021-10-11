@@ -49,7 +49,7 @@ class ExternalPreProcessorItem(PreProcessorLogicToken):
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
-            self.name, parent_file, antlr4_ctx, children
+            parent_file, antlr4_ctx, children
         )
 
     @cached_property
@@ -135,7 +135,7 @@ class NonPreProcessorItem(PreProcessorLogicToken):
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
-            self.name, parent_file, antlr4_ctx, children
+            parent_file, antlr4_ctx, children
         )
 
     @cached_property

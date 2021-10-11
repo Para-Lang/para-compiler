@@ -1,14 +1,3 @@
-# Content
-  - [Development](#development)
-    - [Parsing and Processing Procedure](#parsing-and-processing-procedure)
-    - [Build inno-setup installer for Windows](#build-inno-setup-installer-for-windows)
-    - [Building](#building)
-      - [Generating the Parser and Lexer](#generating-the-parser-and-lexer)
-        - [Downloading Antlr4](#downloading-antlr4)
-        - [Generating the Python files](#generating-the-python-files)
-      - [Build the executable and binaries](#build-the-executable-and-binaries)
-    - [Generating the Docs](#generating-the-docs)
-
 # Development
 
 ## Parsing and Processing Procedure

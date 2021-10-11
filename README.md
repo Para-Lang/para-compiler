@@ -1,25 +1,5 @@
 ![para-c](img/parac-banner.png)
 
-# [Content](#content)
-
-- [The Para-C programming language](#the-para-c-programming-language)
-  - [Key-Features](#key-features)
-  - [Introduction](#introduction)
-  - [CLI](#cli)
-    - [Commands](#commands)
-  - [Python Module](#python-module)
-  - [Installation](#installation)
-    - [Install the Python module](#install-the-python-module)
-    - [Build the Compiler](#build-the-compiler)
-    - [Setting up the Compiler](#setting-up-the-compiler)
-      - [For Windows](#for-windows)
-      - [For unix-based systems (Including MacOS)](#for-unix-based-systems-including-macos)
-         - [Adding the compiler alias on Linux](#adding-the-compiler-alias-on-linux)
-      - [Initialising the C Compiler](#initialising-the-c-compiler)
-  - [Disclaimer](#disclaimer)
-  - [Copyright and License](#copyright-and-license)
-
-
 # The Para-C programming language
 
 ![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
@@ -27,14 +7,14 @@
 ![Coverage](./coverage.svg)
 [![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
 ![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
-
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
-![Build](https://img.shields.io/github/workflow/status/Para-C/Para-C/CodeQL?logo=github)
-![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)
-![Dr.Memory and GTest](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml/badge.svg)
-![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)
-![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)
-![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)
+
+[![Build](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codeql-analysis.yml)
+[![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codecov.yml)
+[![Dr.Memory and GTest](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml)
+[![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml)
+[![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml)
+[![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml)
 
 ## Key-Features
 *Planned/Intended features (Development is still ongoing)*
