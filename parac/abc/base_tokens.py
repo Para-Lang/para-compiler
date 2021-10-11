@@ -1,12 +1,13 @@
 # coding=utf-8
 """ File containing the ABC classes for tokens """
-
 from abc import abstractmethod, ABC
 from os import PathLike
 from typing import Optional, Any, List, TypeVar, Union
-
 import antlr4
 from antlr4 import ParserRuleContext
+
+from .base_ctx import FileRunContext
+
 
 __all__ = [
     'NULL_CHILDREN',
@@ -16,8 +17,6 @@ __all__ = [
     'CLogicToken',
     'ParacLogicToken'
 ]
-
-from parac.abc import FileRunContext
 
 NULL_CHILDREN = TypeVar('NULL_CHILDREN')
 
