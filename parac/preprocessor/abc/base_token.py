@@ -23,23 +23,16 @@ class PreProcessorLogicToken(ParacLogicToken, ABC):
     @abstractmethod
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: ParserRuleContext,
-            parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         self._parent_file = parent_file
-        super().__init__(
-            name, as_str, line, column, relative_parent_file_name,
-            antlr4_ctx, parent, children
-        )
+        super().__init__(antlr4_ctx, parent_file, children)
 
-    def get_as_str(self) -> str:
+    @property
+    @abstractmethod
+    def as_str(self) -> str:
         """ Gets the value of the Pre-Processor token as a string """
         return self.extract_original_text()
 

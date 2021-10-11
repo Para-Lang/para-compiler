@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from .ctx import FilePreProcessorContext
 
 __all__ = [
+    'ExternalPreProcessorItem',
     'NonPreProcessorItem',
     'PreProcessorDirective',
     'DefineDirective',
@@ -33,28 +34,114 @@ __all__ = [
 ]
 
 
+class ExternalPreProcessorItem(PreProcessorLogicToken):
+    """
+    External PreProcessor item - initialised as a general logic token, which
+    stores a child token (NonPreProcessorItem, PreProcessorDirective)
+    """
+
+    name = "externalItem"
+
+    def __init__(
+            self,
+            parent_file: FilePreProcessorContext,
+            antlr4_ctx: _p.ExternalItemContext,
+            children: Optional[List[Any]] = NULL_CHILDREN,
+    ):
+        super().__init__(
+            self.name, parent_file, antlr4_ctx, children
+        )
+
+    @cached_property
+    def as_str(self) -> str:
+        """ Gets the value of the Pre-Processor token as a string """
+        return super().as_str
+
+    @cached_property
+    def antlr4_ctx(self) -> _p.ExternalItemContext:
+        """
+        Returns the Antlr4 ctx instance associated with this logic token
+        """
+        return getattr(self, '_antlr4_ctx')
+
+    @cached_property
+    def parent_file(self) -> FilePreProcessorContext:
+        """ Returns the parent file context class """
+        return super().parent_file
+
+    @cached_property
+    def relative_parent_file_name(self) -> str:
+        """ Returns the relative name of the parent file """
+        return super().relative_parent_file_name
+
+    @cached_property
+    def get_name(self) -> str:
+        """ Gets the name of the token """
+        return super().get_name()
+
+    @cached_property
+    def get_line(self) -> int:
+        """ Gets the line of code of the token in the file """
+        return super().get_line()
+
+    @cached_property
+    def get_column(self) -> int:
+        """ Gets the column of the token in the file """
+        return super().get_column()
+
+    @cached_property
+    def is_directive(self) -> bool:
+        """
+        Returns whether the token is a directive. Always false for this class
+        """
+        return False
+
+    @cached_property
+    def has_children(self) -> bool:
+        """
+        Returns whether the token has children that are other tokens.
+        Always True for this class
+        """
+        return True
+
+    @cached_property
+    def has_code_block_scope(self) -> bool:
+        """
+        Returns whether it is possible to pass a code-block after the
+        item. Always false for this class
+        """
+        return False
+
+    @cached_property
+    def has_code_block_child(self) -> bool:
+        """
+        Returns whether the token has code-block children that are associated
+        with the tokens scope. Always false for this class
+        """
+        return False
+
+
 class NonPreProcessorItem(PreProcessorLogicToken):
     """
     Non Pre-Processor Token, which can be either a Para-C statement or a
     comment
     """
-    name = "NonPreProcessorItem"
+    name = "nonPreProcessorItemSequence"
 
     def __init__(
             self,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.NonPreProcessorItemSequenceContext,
-            parent: Optional[Any] = None,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
-            self.name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            self.name, parent_file, antlr4_ctx, children
         )
+
+    @cached_property
+    def as_str(self) -> str:
+        """ Gets the value of the Pre-Processor token as a string """
+        return super().as_str
 
     @cached_property
     def antlr4_ctx(self) -> Any:
@@ -66,27 +153,27 @@ class NonPreProcessorItem(PreProcessorLogicToken):
     @cached_property
     def parent_file(self) -> FilePreProcessorContext:
         """ Returns the parent file context class """
-        return self._parent_file
+        return super().parent_file
 
     @cached_property
     def relative_parent_file_name(self) -> str:
         """ Returns the relative name of the parent file """
-        return self._relative_parent_file_name
+        return super().relative_parent_file_name
 
     @cached_property
     def get_name(self) -> str:
         """ Gets the name of the token """
-        return self._name
+        return super().get_name()
 
     @cached_property
     def get_line(self) -> int:
         """ Gets the line of code of the token in the file """
-        return self.antlr4_ctx.start.getLine()
+        return super().get_line()
 
     @cached_property
     def get_column(self) -> int:
         """ Gets the column of the token in the file """
-        return self.antlr4_ctx.start.getCharPositionInLine()
+        return super().get_column()
 
     @cached_property
     def is_directive(self) -> bool:
@@ -126,47 +213,67 @@ class PreProcessorDirective(PreProcessorLogicToken, ABC):
     used to interact with the Compiler
     """
 
+    name = "preProcessorDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
-            antlr4_ctx: Any,
+            antlr4_ctx: _p.preProcessorDirective,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         self._children_code_block = children_code_block
         self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, children
         )
 
     @cached_property
     @abstractmethod
-    def antlr4_ctx(self) -> ParserRuleContext:
+    def antlr4_ctx(self) -> _p.preProcessorDirective:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
-        return super()._antlr4_ctx
+        return super().antlr4_ctx
+
+    @cached_property
+    def as_str(self) -> str:
+        """ Gets the value of the Pre-Processor token as a string """
+        return super().as_str
 
     @cached_property
     def parent_file(self) -> FilePreProcessorContext:
         """ Returns the parent file context class """
         return super().parent_file
 
-    @property
+    @cached_property
     def relative_parent_file_name(self) -> str:
         """ Returns the relative name of the parent file """
-        return self._relative_parent_file_name
+        return super().relative_parent_file_name
+
+    @cached_property
+    def get_name(self) -> str:
+        """ Gets the name of the token """
+        return super().get_name()
+
+    @cached_property
+    def get_line(self) -> int:
+        """ Gets the line of code of the token in the file """
+        return super().get_line()
+
+    @cached_property
+    def get_column(self) -> int:
+        """ Gets the column of the token in the file """
+        return super().get_column()
+
+    @cached_property
+    def is_directive(self) -> bool:
+        """ Returns whether the token is a directive """
+        return True
 
     @property
-    def children_code_block(self) -> Union[str, NULL_CHILDREN]:
+    def children_code_block(self) -> Union[str, NonPreProcessorItem]:
         """
         Returns the children code block that could be associated with a
         directive
@@ -182,26 +289,6 @@ class PreProcessorDirective(PreProcessorLogicToken, ABC):
             // associated code-block
         """
         return self._children_code_block
-
-    @cached_property
-    def get_name(self) -> str:
-        """ Gets the name of the token """
-        return self._name
-
-    @cached_property
-    def get_line(self) -> int:
-        """ Gets the line of code of the token in the file """
-        return self.antlr4_ctx.start.getLine()
-
-    @cached_property
-    def get_column(self) -> int:
-        """ Gets the column of the token in the file """
-        return self.antlr4_ctx.start.getCharPositionInLine()
-
-    @cached_property
-    def is_directive(self) -> bool:
-        """ Returns whether the token is a directive """
-        return True
 
     def has_children(self) -> bool:
         """ Returns whether the token has children that are other tokens """
@@ -245,29 +332,23 @@ class IncludeDirective(PreProcessorDirective):
     sub-class.
     """
 
+    name = "includeDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: Union[
                 _p.IncludeDirectiveContext,
                 _p.ComputedIncludeDirectiveContext,
                 _p.FileIncludeDirectiveContext
             ],
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -288,25 +369,19 @@ class FileIncludeDirective(IncludeDirective):
     can be either a library include or a regular file include.
     """
 
+    name = "fileIncludeDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.FileIncludeDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -326,25 +401,19 @@ class ComputedIncludeDirective(IncludeDirective):
     Computed Include Directive, which includes based on a macro a header.
     """
 
+    name = "computedIncludeDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.ComputedIncludeDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -365,25 +434,19 @@ class DefineDirective(PreProcessorDirective):
     be empty, an expression or a statement
     """
 
+    name = "defineDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.ComplexDefineDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -409,14 +472,11 @@ class SelectionDirective(PreProcessorDirective):
     sub-class.
     """
 
+    name = "selectionPreProcessorDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: Union[
                 _p.SelectionPreProcessorDirectiveContext,
                 _p.StartOfSelectionBlockContext,
@@ -425,15 +485,12 @@ class SelectionDirective(PreProcessorDirective):
                 _p.EndIfDirectiveContext
             ],
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -456,25 +513,19 @@ class StartSelectionDirective(SelectionDirective):
     directive.
     """
 
+    name = "startOfSelectionBlock"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.StartOfSelectionBlockContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -498,25 +549,19 @@ class AlternativeSelectionDirective(SelectionDirective):
     The entire statement must be closed with an EndIfDirective
     """
 
+    name = "selectionDirectiveAlternatives"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.SelectionDirectiveAlternativesContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -538,25 +583,19 @@ class ElseSelectionDirective(SelectionDirective):
     EndIfDirective.
     """
 
+    name = "selectionElseDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.SelectionElseDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -584,25 +623,19 @@ class EndIfDirective(SelectionDirective):
     #endif
     """
 
+    name = "endIfDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.EndIfDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -622,25 +655,19 @@ class ErrorDirective(PreProcessorDirective):
     Error Directive, which if encountered writes a string to stderr and
     """
 
+    name = "errorDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.ErrorDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -661,25 +688,19 @@ class LineDirective(PreProcessorDirective):
     If set the numeric value will be the __LINE__ macro in the next line.
     """
 
+    name = "lineDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.LineDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
@@ -700,25 +721,19 @@ class PragmaDirective(PreProcessorDirective):
     code, compilation or execution.
     """
 
+    name = "pragmaDirective"
+
     def __init__(
             self,
-            name: str,
-            as_str: str,
-            line: int,
-            column: int,
             parent_file: FilePreProcessorContext,
-            relative_parent_file_name: Union[str, PathLike],
             antlr4_ctx: _p.PragmaDirectiveContext,
             has_code_block_scope: bool,
-            parent: Optional[Any] = None,
-            children_code_block: Optional[str] = NULL_CHILDREN,
+            children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
-        self._children_code_block = children_code_block
-        self._has_code_block_scope = has_code_block_scope
         super().__init__(
-            name, as_str, line, column, parent_file,
-            relative_parent_file_name, antlr4_ctx, parent, children
+            parent_file, antlr4_ctx, has_code_block_scope,
+            children_code_block, children
         )
 
     @cached_property
