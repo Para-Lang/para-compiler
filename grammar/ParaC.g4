@@ -406,8 +406,7 @@ statement
     ;
 
 labeledStatement
-    :   Identifier WS* ':' WS* statement
-    |   'case' WS* constantExpression WS* ':' WS* statement
+    :   'case' WS* constantExpression WS* ':' WS* statement
     |   'default' WS* ':' WS* statement
     ;
 
