@@ -38,7 +38,6 @@ grammar ParaC;
 
 primaryExpression
     :   Identifier
-    |   'spawn' WS* Identifier
     |   Constant
     |   StringLiteral+
     |   '(' expression ')'
@@ -63,12 +62,11 @@ statementLambda
     ;
 
 postfixExpression
-    :
-    (   primaryExpression
-    |   '(' WS* typeName WS* ')' WS* '{' WS* initializerList WS* ','? WS* '}'
-    )
-    WS*
-    ('[' WS* expression WS* ']'
+    :   (
+        'spawn'? WS* primaryExpression
+        // type identifier = (type) { .name = value };
+        |   '(' WS* typeName WS* ')' WS* '{' WS* initializerList WS* ','? WS* '}'
+    ) WS* ('[' WS* expression WS* ']'
     | '(' WS* argumentExpressionList? WS* ')'
     | ('.' | '->') WS* Identifier
     | ('++' | '--')
@@ -80,12 +78,10 @@ argumentExpressionList
     ;
 
 unaryExpression
-    :
-    ('++' |  '--' |  'sizeof')* WS*
+    :   ('++' |  '--' |  'sizeof')* WS*
     (postfixExpression
     |   unaryOperator WS* castOrConvertExpression
     |   ('sizeof' | 'alignof') WS* '(' WS* typeName WS* ')'
-    |   '&&' WS* Identifier // GCC extension address of label
     )
     ;
 
@@ -355,12 +351,12 @@ directAbstractDeclarator
     |   '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
     |   '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
     |   '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
-    |   '[' WS* '*' WS* ']'
+    |   '[' WS* '*' WS* ']' // https://stackoverflow.com/questions/38775392/what-does-star-modifier-mean-in-c
     |   '(' WS* parameterTypeList? WS* ')'
     |   directAbstractDeclarator WS* '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
     |   directAbstractDeclarator WS* '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
     |   directAbstractDeclarator WS* '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
-    |   directAbstractDeclarator WS* '[' WS* '*' WS* ']'
+    |   directAbstractDeclarator WS* '[' WS* '*' WS* ']' // https://stackoverflow.com/questions/38775392/what-does-star-modifier-mean-in-c
     |   directAbstractDeclarator WS* '(' WS* parameterTypeList? WS* ')'
     ;
 
