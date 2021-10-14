@@ -474,10 +474,8 @@ forExpression
     ;
 
 jumpStatement
-    :   ('goto' WS* Identifier
-    |   ('continue' | 'break')
+    :   (('continue' | 'break')
     |   'return' WS* expression?
-    |   'goto' WS* unaryExpression // GCC extension
     )
     endOfItem
     ;
@@ -533,59 +531,100 @@ endOfItem
 
 // Lexer Rules (tokens / token rules)
 
-As : 'as';
-Auto : 'auto';
-Break : 'break';
-Case : 'case';
+// Built-In Types
+Bool : 'bool';
 Char : 'char';
-Const : 'const';
-Continue : 'continue';
-Default : 'default';
-Do : 'do';
+Complex : 'complex'; // complex number
 Double : 'double';
-Else : 'else';
-ExtensionTask : 'exttask';
 Entry : 'entry';
-Enum : 'enum';
-Extern : 'extern';
 Float : 'float';
-For : 'for';
-Goto : 'goto';
-If : 'if';
-Inline : 'inline';
+Imaginary : 'imaginary'; // imaginary number
 Int : 'int';
 Lambda : 'lambda';
 Long : 'long';
-Register : 'register';
-Restrict : 'restrict';
-Return : 'return';
-Short : 'short';
 Signed : 'signed';
-Sizeof : 'sizeof';
-Spawn : 'spawn';
-Static : 'static';
+Short : 'short';
 Status : 'status';
-Struct : 'struct';
-Switch : 'switch';
-Typeof : 'typeof';
-Typedef : 'typedef';
-Union : 'union';
 Unsigned : 'unsigned';
 Void : 'void';
+
+// Declaration specifier
+Const : 'const';
 Volatile : 'volatile';
+Atomic : 'atomic';
+
+// General Built-In Keywords
+
+// As keyword for built-in conversion
+As : 'as';
+
+// Storage Class Specifier
+Auto : 'auto';
+Register : 'register'; // DEPRECATED - SHADOWED MACRO
+Static : 'static';
+Extern : 'extern';
+
+// switch
+Switch : 'switch';
+Case : 'case';
+Default : 'default';
+
+// switch / loop : 'break'
+Break : 'break';
+
+// loop: 'continue'
+Continue : 'continue';
+
+// do-while / while loop
+Do : 'do';
 While : 'while';
 
-/* Special types */
+// selection statement - if
+If : 'if';
+Else : 'else';
+
+// for - loop
+For : 'for';
+
+// Enum Variable
+Enum : 'enum';
+
+// Pointer specifier 'restrict'
+Restrict : 'restrict';
+
+// Function return
+Return : 'return';
+
+// Ext-Task declaration keyword
+ExtensionTask : 'exttask';
+
+// Ext-Task spawn keyword
+Spawn : 'spawn';
+
+// Struct keyword
+Struct : 'struct';
+
+// Sizeof - Compile-replacement expression
+Sizeof : 'sizeof';
+
+// Typeof - Compile-replacement expression
+Typeof : 'typeof';
+
+// Typedef - Custom Type definition
+Typedef : 'typedef';
+
+// Type Union
+Union : 'union';
+
+// Special keywords
 Alignas : 'alignas';
 Alignof : 'alignof';
-Atomic : 'atomic';
-Bool : 'bool';
-Complex : 'complex';
-Imaginary : 'imaginary';
+Inline : 'inline';
 Noreturn : 'noreturn';
 StaticAssert : 'static_assert';
 ThreadLocal : 'thread_local';
 
+// Punctuators
 LeftParen : '(';
 RightParen : ')';
 LeftBracket : '[';
@@ -593,13 +632,11 @@ RightBracket : ']';
 LeftBrace : '{';
 RightBrace : '}';
 
-Less : '<';
-LessEqual : '<=';
-Greater : '>';
-GreaterEqual : '>=';
+// Byte shift Operators
 LeftShift : '<<';
 RightShift : '>>';
 
+// Arithmic Operators
 Plus : '+';
 PlusPlus : '++';
 Minus : '-';
@@ -608,22 +645,37 @@ Star : '*';
 Div : '/';
 Mod : '%';
 
-And : '&';
-Or : '|';
-AndAnd : '&&';
-OrOr : '||';
-Caret : '^';
-Not : '!';
-Tilde : '~';
+// Boolish Logical Operations
+And : '&'; // byte and
+Or : '|'; // byte or
+AndAnd : '&&'; // logical and
+OrOr : '||'; // logical or
+Caret : '^'; // byte xor
+Not : '!'; // logical not
+Tilde : '~'; // byte not
 
+// Decorator Apply Sign
 DecoratorSign : '@';
+
+// Lambda start
 LambdaStartBlock : '=>';
+
+// conditional expression
 Question : '?';
+
+// General colon
 Colon : ':';
+
+// semi-column -> statement end
 Semi : ';';
+
+// General comma
 Comma : ',';
 
+// assign
 Assign : '=';
+
+// arithmetic / byte assign
 // '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|='
 StarAssign : '*=';
 DivAssign : '/=';
@@ -636,11 +688,21 @@ AndAssign : '&=';
 XorAssign : '^=';
 OrAssign : '|=';
 
+// Value Comparison
 Equal : '==';
 NotEqual : '!=';
+Less : '<';
+LessEqual : '<=';
+Greater : '>';
+GreaterEqual : '>=';
 
+// pointer ->
 Arrow : '->';
+
+// struct property accessing
 Dot : '.';
+
+// Variadic macro
 Ellipsis : '...';
 
 Identifier

@@ -68,6 +68,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a simple parse was enough for validating the syntax.
 - Updated logging messages and added more of them, where they are needed.  
 - Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
+- `modules/parac-modules` as the base folder for the library items
+- `modules/parac-modules/types.h` for the types for Para-C and added basic string implementation
+- `modules/parac-modules/io.h` for IO management in Para-C - added basic `print` function
 
 ### Removed
 - `list<t>` type from the Grammar file.
@@ -87,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `__attribute__`
   - `__asm`
 - Removed `__typeof__` version of `typeof` from the grammar file (ParaC.g4)
+- Removed `goto` as it is not supported in the Para-C logic (ParaC.g4)
 
 ## [v0.1.dev4] - 2021-07-23
 
@@ -151,9 +155,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Class `InternalErrorInfo` for saving information about an exception causing an `InternalError`
 - Property `origin_exc` to `InterrruptError` for saving the original exception instance that was raised.
 - New module `parac_cli` for implementing the `parac` module
-- `modules/parac-modules` as the base folder for the library items
-- `modules/parac-modules/types.h` for the types for Para-C and added basic string implementation
-- `modules/parac-modules/io.h` for IO management in Para-C - added basic `print` function
 
 ### Changed
 - Module Structure and added new parent module `parac` for both compiler and preprocessor.
