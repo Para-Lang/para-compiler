@@ -91,6 +91,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `__asm`
 - Removed `__typeof__` version of `typeof` from the grammar file (ParaC.g4)
 - Removed `goto` as it is not supported in the Para-C logic (ParaC.g4)
+- Return-value `bool` from `ParacCompiler.validate_syntax()` as it is 
+  unnecessary with the raised exception when encountering a SyntaxError
 
 ## [v0.1.dev4] - 2021-07-23
 

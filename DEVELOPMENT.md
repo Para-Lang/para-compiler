@@ -44,21 +44,21 @@ To generate in the command-line use:
 - For the Pre-Processor:
   - Python (Required for the Compiler):
       ```bash
-      antlr4 -o ./src/parac/preprocessor/python -Dlanguage=Python3 ./grammar/ParaCPreProcessor.g4
+      antlr4 -o ./parac/preprocessor/python -Dlanguage=Python3 ./grammar/ParaCPreProcessor.g4
       ```
   - Java:
       ```bash
-      antlr4 -o ./src/parac/preprocessor/python -Dlanguage=Java ./grammar/ParaCPreProcessor.g4
+      antlr4 -o ./parac/preprocessor/python -Dlanguage=Java ./grammar/ParaCPreProcessor.g4
       ```
 
 - For the Core Language:
   - Python (Required for the Compiler):
       ```bash
-      antlr4 -o ./src/parac/compiler/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
+      antlr4 -o ./parac/compiler/parser/python -Dlanguage=Python3 ./grammar/ParaC.g4
       ```
   - Java:
       ```bash
-      antlr4 -o ./src/parac/compiler/parser/python -Dlanguage=Java ./grammar/ParaC.g4
+      antlr4 -o ./parac/compiler/parser/python -Dlanguage=Java ./grammar/ParaC.g4
       ```
   
 Afterwards *if needed* correctly move the folder using:
