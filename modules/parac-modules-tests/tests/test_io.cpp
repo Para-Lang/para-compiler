@@ -7,7 +7,7 @@
 #include "types.h"
 
 TEST(IOPrintTest, SimplePrint) {
-    __pbl_type_string string = __pbl_allocate_type_string(
+    __pbl_string_t string = __pbl_allocate_string_t(
         11, "hello world"
     );
 
@@ -17,5 +17,5 @@ TEST(IOPrintTest, SimplePrint) {
     __pbl_print(&string);
 
     // deallocating the string
-    __pbl_deallocate_type_string(&string);
+    __pbl_deallocate_string_t(&string);
 }

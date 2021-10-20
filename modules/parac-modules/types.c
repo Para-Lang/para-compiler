@@ -10,7 +10,7 @@
 /// Gets the required byte_size for an allocation based on the passed length of the string.
 /// The algorithm will always be a multiple of 50 + 1 (for null char '\0').
 /// The calculated size is the next biggest multiple of 50 + 1, which is still bigger than the passed length.
-size_t __pbl_get_alloc_size_type_string(unsigned int len)
+size_t __pbl_get_alloc_size_string_t(unsigned int len)
 {
     unsigned int alloc_len = 0;
     // The size of the allocated memory should always be bigger than the actual content
@@ -25,12 +25,12 @@ size_t __pbl_get_alloc_size_type_string(unsigned int len)
 }
 
 /// Resizes the string by reallocating the memory - The required size will be calculated from the passed length.
-/// The function used for the calculation is '__pbl_get_alloc_size_type_string'
+/// The function used for the calculation is '__pbl_get_alloc_size_string_t'
 /// @param str The string that should be reallocated
 /// @param len The length of the string content that is used to calculate the required size
-void __pbl_resize_type_string(__pbl_type_string* str, unsigned int len)
+void __pbl_resize_string_t(__pbl_string_t* str, unsigned int len)
 {
-    size_t byte_size = __pbl_get_alloc_size_type_string(len);
+    size_t byte_size = __pbl_get_alloc_size_string_t(len);
 
     // reallocating the memory with the new length - includes space for '\0' byte
     str->str = realloc(str->str, byte_size);
@@ -42,13 +42,13 @@ void __pbl_resize_type_string(__pbl_type_string* str, unsigned int len)
 /// Writes onto a allocated memory the string content
 /// @param len Length of the string (should not include null char)
 /// @param content The content of the string that should be written to the allocated memory
-void __pbl_write_to_string(__pbl_type_string* str, unsigned int len_to_write, const char* content)
+void __pbl_write_to_string_t(__pbl_string_t* str, unsigned int len_to_write, const char* content)
 {
     // bigger or equal means that the required space is bigger than the actual space available,
     // equal is also included since even if it's equal the null-byte needs to be added as well (+1 size)s
-    if (__pbl_get_alloc_size_type_string(len_to_write) >= str->byte_size)
+    if (__pbl_get_alloc_size_string_t(len_to_write) >= str->byte_size)
     {
-        __pbl_resize_type_string(str, len_to_write);
+        __pbl_resize_string_t(str, len_to_write);
     }
 
     int i = 0;
@@ -63,24 +63,24 @@ void __pbl_write_to_string(__pbl_type_string* str, unsigned int len_to_write, co
 /// Default size is 50 - will be resized with additional space required
 /// @param len Length of the string - will be used to calculate allocated memory space (should not include null char)
 /// @param content The content of the string that should be written to the allocated memory
-__pbl_type_string __pbl_allocate_type_string(unsigned int len, const char* content)
+__pbl_string_t __pbl_allocate_string_t(unsigned int len, const char* content)
 {
     // allocated memory - length = len * size char + 1 (null character (\0))
-    size_t byte_size = __pbl_get_alloc_size_type_string(len);
+    size_t byte_size = __pbl_get_alloc_size_string_t(len);
 
     char* alloc_begin = malloc(byte_size);
-    __pbl_type_string str = {
+    __pbl_string_t str = {
         .byte_size = byte_size,
         .allocated_len = byte_size / sizeof(char),
         .len = len,
         .str = alloc_begin
     };
-    __pbl_write_to_string(&str, len, content);
+    __pbl_write_to_string_t(&str, len, content);
     return str;
 }
 
 /// Deallocates the entire memory for the string and resets it's struct properties
-void __pbl_deallocate_type_string(__pbl_type_string *lvalue)
+void __pbl_deallocate_string_t(__pbl_string_t *lvalue)
 {
     free(lvalue->str);
     lvalue->str = NULL;

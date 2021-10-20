@@ -3,7 +3,7 @@
 
 
 /// Prints the content of the passed string
-void __pbl_print_base(__pbl_type_string* out, const char end)
+void __pbl_print_base(__pbl_string_t* out, const char end)
 {
     for (int i = 0; i < out->len; i++)
     {
@@ -12,9 +12,9 @@ void __pbl_print_base(__pbl_type_string* out, const char end)
     printf("%c", end);
 };
 
-void __var_print(__pbl_print_args in)
+void __pbl_print_args_in(__pbl_print_args_t in)
 {
-    __pbl_type_string* out = in.out;
+    __pbl_string_t* out = in.out;
     const char end = in.end ? in.end : '\n';
     return __pbl_print_base(out, end);
 }

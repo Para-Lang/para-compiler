@@ -8,14 +8,14 @@ extern "C" {
 #endif
 
 typedef struct {
-    __pbl_type_string* out;
+    __pbl_string_t* out;
     const char end;
-} __pbl_print_args;
+} __pbl_print_args_t;
 
-void __var_print(__pbl_print_args);
+void __pbl_print_args_in(__pbl_print_args_t in);
 
-// __pbl_print(__pbl_type_string*, const char)
-#define __pbl_print(...) __var_print((__pbl_print_args){__VA_ARGS__});
+// __pbl_print(__pbl_string_t*, const char)
+#define __pbl_print(...) __pbl_print_args_in((__pbl_print_args_t){__VA_ARGS__});
 
 #ifdef __cplusplus
 }
