@@ -15,7 +15,8 @@ __all__ = [
     'SpecialToken',
     'LogicToken',
     'CLogicToken',
-    'ParacLogicToken'
+    'ParacLogicToken',
+    'ParaCLogicParentContextToken'
 ]
 
 NULL_CHILDREN = TypeVar('NULL_CHILDREN')
