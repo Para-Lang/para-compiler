@@ -138,3 +138,14 @@ class ParacLogicToken(LogicToken, ABC):
         """ Extracts the original text based on the ctx """
         from ..util import get_original_text
         return get_original_text(self.antlr4_ctx)
+
+
+class ParaCLogicParentContextToken(ParacLogicToken, ABC):
+    """
+    This is a parent context token class, designed to serve as the actual base
+    class, where the compilation logic for each specific expression, statement
+    and token is written.
+    """
+
+    def __init__(self):
+        ...
