@@ -54,10 +54,8 @@ To install simply do the following:
 .. Hint::
 
     If the command ``pip`` is not found, try to either install it using your
-    package-manager (on linux) or run the script ``get-pip.py``. Go
-    `here for info about that <https://stackoverflow.com/questions/9780717/>`_
-
-
+    package-manager (for linux) or run the script ``get-pip.py`` (for Windows: `here <https://www.geeksforgeeks.org/how-to-install-pip-on-windows/>`_, for MacOS `here <https://www.geeksforgeeks.org/how-to-install-pip-in-macos/>`_).
+    
 Requirements
 ############
 

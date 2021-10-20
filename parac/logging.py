@@ -433,7 +433,7 @@ def print_result_banner(
     if OVERWRITE_AVOID_PRINT_BANNER:
         return get_rich_console().print("\n", end="")
 
-    col = 'green' if success else 'red'
+    col = 'bright_cyan' if success else 'red'
     get_rich_console().rule(
         f"\n[bold {col}]{name} Result[/bold {col}]\n",
         style="green rule.line"

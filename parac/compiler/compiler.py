@@ -162,7 +162,7 @@ class ParacCompiler:
             cls,
             process: BasicProcess,
             log_errors_and_warnings: bool = True
-    ) -> bool:
+    ) -> None:
         """
         Validates the syntax of a file and logs or raises errors while running.
 
@@ -171,7 +171,6 @@ class ParacCompiler:
          info will be logged onto the console using the local logger instance,
          instead of directly returned. They will be 'raised from' with the
          FailedToProcessError exception.
-        :returns: True if the syntax check was successful
         :raises FailedToProcessError: If log_errors_and_warnings is True and
          an exception is encountered. The logs of the exception will be printed
          onto the console.
@@ -200,7 +199,6 @@ class ParacCompiler:
             "Successfully finished syntax-check for file "
             f"{file_stream.fileName}"
         )
-        return True
 
     @staticmethod
     def remove_comments_from_str(

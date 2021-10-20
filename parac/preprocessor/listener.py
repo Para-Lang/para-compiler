@@ -1,11 +1,14 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
+from typing import Optional
+
 import antlr4
 import logging
 
 from .logic_stream import PreProcessorStream
 from .python import ParaCPreProcessorListener, ParaCPreProcessorParser as _p
 from .ctx import FilePreProcessorContext, ProgramPreProcessorContext
+from .logic_tokens import *
 
 __all__ = [
     'Listener'
@@ -34,6 +37,8 @@ class Listener(ParaCPreProcessorListener):
         self.antlr4_file_ctx: _p.CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
         self._log_errors_and_warnings = False
+
+        self._current_external_item: Optional[ExternalPreProcessorItem] = None
 
     @property
     def logic_stream(self) -> PreProcessorStream:
@@ -73,7 +78,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#compilationUnit.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitCompilationUnit(
             self,
@@ -82,7 +87,10 @@ class Listener(ParaCPreProcessorListener):
         """
         Exit a parse tree produced by parser#compilationUnit.
         """
-        ...
+        logger.debug(
+            "Finished walk through logic tree and finished generation"
+            " of logic stream"
+         )
 
     def enterTranslationUnit(
             self,
@@ -109,7 +117,9 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#externalItem.
         """
-        ...
+        item = ExternalPreProcessorItem(self._file_ctx, ctx)
+        self._current_external_item = item
+        self.logic_stream.append_antlr_ctx(item)
 
     def exitExternalItem(
             self,
@@ -118,7 +128,8 @@ class Listener(ParaCPreProcessorListener):
         """
         Exit a parse tree produced by parser#externalItem.
         """
-        ...
+        # Resetting the value
+        self._current_external_item = None
 
     def enterPreProcessorDirective(
             self,
@@ -127,7 +138,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#preProcessorDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitPreProcessorDirective(
             self,
@@ -145,7 +156,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#selectionPreProcessorDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitSelectionPreProcessorDirective(
             self,
@@ -163,7 +174,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#startSelectionBlock.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitStartOfSelectionBlock(
             self,
@@ -181,7 +192,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#logicalDirectiveAlternatives.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitSelectionDirectiveAlternatives(
             self,
@@ -199,7 +210,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by parser#logicalElseDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitSelectionElseDirective(
             self,
@@ -216,7 +227,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#errorDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitErrorDirective(
             self,
@@ -232,7 +243,7 @@ class Listener(ParaCPreProcessorListener):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#lineDirective.
         """
-        ...
+        self.logic_stream.append_antlr_ctx(ctx)
 
     def exitLineDirective(
             self,

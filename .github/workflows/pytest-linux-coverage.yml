@@ -1,4 +1,4 @@
-name: Pytest & Coverage
+name: Pytest Linux
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  run:
 
     runs-on: ubuntu-latest
     strategy:
@@ -16,7 +16,8 @@ jobs:
         python-version: [ 3.8, 3.9 ]
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
@@ -39,7 +40,7 @@ jobs:
         python -m pytest -q
 
   coverage-badge:
-    needs: build
+    needs: run
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
