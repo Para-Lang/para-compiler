@@ -1,14 +1,14 @@
-//
-// Testing for the header types.h - Created by Luna-K on 09/10/2021.
-//
+/// Testing for the header types.h
+///
+/// @author Luna-Klatzer
 
 #include "gtest/gtest.h"
 #include "types.h"
 
-// IMPORTANT! When actually using __pbl_string_t, do not use a bigger length than of the actual string
+// IMPORTANT! When actually using pbl_string_t, do not use a bigger length than of the actual string
 
 TEST(StringTypesTest, SimpleInitialisation1) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         15, "hello world"
     );
 
@@ -16,11 +16,11 @@ TEST(StringTypesTest, SimpleInitialisation1) {
     EXPECT_EQ(string.byte_size, (50 + 1) * sizeof(char));
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }
 
 TEST(StringTypesTest, SimpleInitialisation2) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         60, "hello world"
     );
 
@@ -28,11 +28,11 @@ TEST(StringTypesTest, SimpleInitialisation2) {
     EXPECT_EQ(string.byte_size, (100 + 1) * sizeof(char));
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }
 
 TEST(StringTypesTest, SimpleInitialisation3) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         600, "hello world"
     );
 
@@ -40,11 +40,11 @@ TEST(StringTypesTest, SimpleInitialisation3) {
     EXPECT_EQ(string.byte_size, (650 + 1) * sizeof(char));
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }
 
 TEST(StringTypesTest, ValidateDeallocation) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         49, "hello world"
     );
 
@@ -52,7 +52,7 @@ TEST(StringTypesTest, ValidateDeallocation) {
     EXPECT_EQ(string.byte_size, (50 + 1) * sizeof(char));
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 
     EXPECT_EQ(string.byte_size, sizeof(NULL));
     EXPECT_EQ(string.len, 0);
@@ -60,7 +60,7 @@ TEST(StringTypesTest, ValidateDeallocation) {
 }
 
 TEST(StringTypesTest, ValidateAllocation) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         49, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
@@ -69,11 +69,11 @@ TEST(StringTypesTest, ValidateAllocation) {
     EXPECT_EQ(string.allocated_len, 51);
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }
 
 TEST(StringTypesTest, ValidateOverwrite) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         11, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
@@ -81,17 +81,17 @@ TEST(StringTypesTest, ValidateOverwrite) {
     EXPECT_EQ(string.len, 11);
     EXPECT_EQ(string.allocated_len, 51);
 
-    __pbl_write_to_string_t(&string, 15, "Hello World!!!!");
+    pbl_write_to_string_t(&string, 15, "Hello World!!!!");
     EXPECT_EQ(string.byte_size, (50 + 1) * sizeof(char));
     EXPECT_EQ(string.len, 15);
     EXPECT_EQ(string.allocated_len, 51);
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }
 
 TEST(StringTypesTest, ValidateReallocOverwrite) {
-    __pbl_string_t string = __pbl_allocate_string_t(
+    pbl_string_t string = pbl_allocate_string_t(
         11, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
@@ -99,7 +99,7 @@ TEST(StringTypesTest, ValidateReallocOverwrite) {
     EXPECT_EQ(string.len, 11);
     EXPECT_EQ(string.allocated_len, 51);
 
-    __pbl_write_to_string_t(
+    pbl_write_to_string_t(
         &string,
         50,
         "12345678901234567890123456789012345678901234567890"
@@ -109,5 +109,5 @@ TEST(StringTypesTest, ValidateReallocOverwrite) {
     EXPECT_EQ(string.allocated_len, 101);
 
     // deallocating the string
-    __pbl_deallocate_string_t(&string);
+    pbl_deallocate_string_t(&string);
 }

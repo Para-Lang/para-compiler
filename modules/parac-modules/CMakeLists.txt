@@ -2,13 +2,12 @@ project(parac-modules)
 
 set(HEADER_FILES
         io.h
-        library.h
+        parac_modules.h
         types.h
         )
 
 set(SOURCE_FILES
         io.c
-        library.c
         types.c
         )
 
