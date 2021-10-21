@@ -1,7 +1,7 @@
 #include "types.h"
 
-#ifndef IO_H
-#define IO_H
+#ifndef PARAC_MODULES_IO_H
+#define PARAC_MODULES_IO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,4 +24,4 @@ void pbl_print_args_in(pbl_print_args_t in);
 }
 #endif
 
-#endif //IO_H
+#endif //PARAC_MODULES_IO_H
