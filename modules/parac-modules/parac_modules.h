@@ -1,5 +1,7 @@
 ///
 /// Main header for the Para-C Base Library (Static C library)
+/// Styling and naming are applied based on the Google C++ style guide
+/// @see https://google.github.io/styleguide/cppguide.html
 ///
 /// Headers of the library:
 /// - io.h
