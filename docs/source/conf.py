@@ -13,33 +13,9 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.insert(0, os.path.abspath('../../src/'))
+sys.path.insert(0, os.path.abspath('../../'))
 
-# -- Project Installation ----------------------------------------------------
-
-
-def resolve_src_path() -> Path:
-    """
-    Resolves the src path and tries to find the directory that contains the
-    source files
-    """
-    p: Path = Path(os.getcwd()).resolve()
-    if os.path.exists(_ := p.joinpath("parac")):
-        p = _
-    elif os.path.exists(_ := p.parent.joinpath("parac")):
-        p = _
-    else:
-        # detecting the path by going back each item until reaching a folder
-        # that contains the parac item
-        while not os.path.exists(_ := p.joinpath("parac")):
-            p = p.parent
-
-    return Path(str(p)).parent.resolve()
-
-
-os.system(f"pip install -e {resolve_src_path()}")
-
-# -- Testing libraries -------------------------------------------------------
+# -- Testing path ------------------------------------------------------------
 
 import parac
 import parac_ext_cli
