@@ -22,8 +22,6 @@ def resolve_test_path() -> Path:
         p = _
     elif os.path.exists(_ := p.parent.joinpath("pytest")):
         p = _
-    elif os.path.exists(_ := p.joinpath("src").joinpath("pytest")):
-        p = _
     elif "pytest" in str(p):
         # detecting the path by going back each item until reaching the pytest
         # folder
