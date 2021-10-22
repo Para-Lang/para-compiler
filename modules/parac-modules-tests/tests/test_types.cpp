@@ -5,10 +5,10 @@
 #include "gtest/gtest.h"
 #include "types.h"
 
-// IMPORTANT! When actually using pbl_string_t, do not use a bigger length than of the actual string
+// IMPORTANT! When actually using pblString_T, do not use a bigger length than of the actual string
 
 TEST(StringTypesTest, SimpleInitialisation1) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         15, "hello world"
     );
 
@@ -20,7 +20,7 @@ TEST(StringTypesTest, SimpleInitialisation1) {
 }
 
 TEST(StringTypesTest, SimpleInitialisation2) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         60, "hello world"
     );
 
@@ -32,7 +32,7 @@ TEST(StringTypesTest, SimpleInitialisation2) {
 }
 
 TEST(StringTypesTest, SimpleInitialisation3) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         600, "hello world"
     );
 
@@ -44,7 +44,7 @@ TEST(StringTypesTest, SimpleInitialisation3) {
 }
 
 TEST(StringTypesTest, ValidateDeallocation) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         49, "hello world"
     );
 
@@ -60,7 +60,7 @@ TEST(StringTypesTest, ValidateDeallocation) {
 }
 
 TEST(StringTypesTest, ValidateAllocation) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         49, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
@@ -73,7 +73,7 @@ TEST(StringTypesTest, ValidateAllocation) {
 }
 
 TEST(StringTypesTest, ValidateOverwrite) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         11, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
@@ -91,7 +91,7 @@ TEST(StringTypesTest, ValidateOverwrite) {
 }
 
 TEST(StringTypesTest, ValidateReallocOverwrite) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         11, "hello world"
     );
     // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60

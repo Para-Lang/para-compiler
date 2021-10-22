@@ -31,7 +31,7 @@ size_t pbl_get_alloc_size_string_t(unsigned int len)
 /// length calculation is 'pbl_get_alloc_size_string_t'
 /// @param str The string that should be reallocated
 /// @param len The length of the string content that is used to calculate the required size
-void pbl_resize_string_t(pbl_string_t* str, unsigned int len)
+void pbl_resize_string_t(pblString_T* str, unsigned int len)
 {
     size_t byte_size = pbl_get_alloc_size_string_t(len);
 
@@ -45,7 +45,7 @@ void pbl_resize_string_t(pbl_string_t* str, unsigned int len)
 /// @brief Writes onto the allocated memory the passed string content
 /// @param len Length of the string (should not include null char)
 /// @param content The content of the string that should be written to the allocated memory
-void pbl_write_to_string_t(pbl_string_t* str, unsigned int len_to_write, const char* content)
+void pbl_write_to_string_t(pblString_T* str, unsigned int len_to_write, const char* content)
 {
     // bigger or equal means that the required space is bigger than the actual space available,
     // equal is also included since even if it's equal the null-byte needs to be added as well (+1 size)s
@@ -67,13 +67,13 @@ void pbl_write_to_string_t(pbl_string_t* str, unsigned int len_to_write, const c
 /// @param len Length of the string - will be used to calculate allocated memory space (should not include null char)
 /// @param content The content of the string that should be written to the allocated memory
 /// @returns The new string type that was allocated
-pbl_string_t pbl_allocate_string_t(unsigned int len, const char* content)
+pblString_T pbl_allocate_string_t(unsigned int len, const char* content)
 {
     // allocated memory - length = len * size char + 1 (null character (\0))
     size_t byte_size = pbl_get_alloc_size_string_t(len);
 
     char* alloc_begin = malloc(byte_size);
-    pbl_string_t str = {
+    pblString_T str = {
         .byte_size = byte_size,
         .allocated_len = byte_size / sizeof(char),
         .len = len,
@@ -86,7 +86,7 @@ pbl_string_t pbl_allocate_string_t(unsigned int len, const char* content)
 /// @brief Deallocates the entire memory for the string and resets it's struct properties
 /// @note Writes to the string with '\0' before freeing the memory
 /// @param lvalue The value that should be de-allocated
-void pbl_deallocate_string_t(pbl_string_t *lvalue)
+void pbl_deallocate_string_t(pblString_T *lvalue)
 {
     // writing \0 onto the entire space of memory
     char nullify[lvalue->len];

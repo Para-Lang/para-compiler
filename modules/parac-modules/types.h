@@ -12,24 +12,25 @@ extern "C" {
 #endif
 
 /// parac string implementation - uses memory allocation -> located in heap
-typedef struct pbl_string_t {
+struct pblString_T {
     /// Size of the allocated memory in bytes
     size_t byte_size;
     /// Amount of the chars that can be written to - includes null char (\0)
     unsigned int allocated_len;
     /// The length of the string
     unsigned int len;
-    /// The void* pointer to the allocated memory
+    /// The char* pointer to the allocated memory
     char* str;
-} pbl_string_t;
+};
+typedef pblString_T pblString_T;
 
 // String implementations
 
 size_t pbl_get_alloc_size_string_t(unsigned int len);
-void pbl_resize_string_t(pbl_string_t* str, unsigned int len);
-void pbl_write_to_string_t(pbl_string_t* str, unsigned int len_to_write, const char* content);
-pbl_string_t pbl_allocate_string_t(unsigned int len, const char* content);
-void pbl_deallocate_string_t(pbl_string_t *lvalue);
+void pbl_resize_string_t(pblString_T* str, unsigned int len);
+void pbl_write_to_string_t(pblString_T* str, unsigned int len_to_write, const char* content);
+pblString_T pbl_allocate_string_t(unsigned int len, const char* content);
+void pbl_deallocate_string_t(pblString_T *lvalue);
 
 #ifdef __cplusplus
 }

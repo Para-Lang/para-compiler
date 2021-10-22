@@ -7,11 +7,28 @@
 extern "C" {
 #endif
 
-// Arguments struct for pbl_print (pbl_print_args_in)
+/// File Descriptor used to perform I/O actions on a file
+struct pblFileDescriptor {
+    // the unique integer identifier associated with the file Descriptor
+    int fb;
+    /// describes whether the file descriptor is currently in use
+    bool open;
+};
+typedef pblFileDescriptor pblFileDescriptor;
+
+/// Std-Stream for stdin, stdout and stderr
 typedef struct {
-    pbl_string_t* out;
+    /// file descriptor to the file
+    int fb;
+} pblStdStream;
+typedef pblStdStream pblStdStream;
+
+/// Arguments struct for pbl_print (pbl_print_args_in)
+struct pbl_print_args_t {
+    pblString_T* out;
     const char end;
-} pbl_print_args_t;
+};
+typedef pbl_print_args_t pbl_print_args_t;
 
 void pbl_print_args_in(pbl_print_args_t in);
 

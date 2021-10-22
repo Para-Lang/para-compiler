@@ -8,7 +8,7 @@
 #include "types.h"
 
 TEST(IOPrintTest, SimplePrint) {
-    pbl_string_t string = pbl_allocate_string_t(
+    pblString_T string = pbl_allocate_string_t(
         11, "hello world"
     );
 
