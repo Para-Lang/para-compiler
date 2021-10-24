@@ -26,6 +26,10 @@ TEST(StringTypesTest, GetStringConversion) {
   EXPECT_EQ(string_2.actual.len.actual, 5);
   EXPECT_EQ(string_2.actual.allocated_len.actual, 51);
   EXPECT_EQ(string_2.actual.str_alloc_size.actual, (size_t) 51);
+
+  // deallocating the strings
+  PblDeallocateStringT(&string_1);
+  PblDeallocateStringT(&string_2);
 }
 
 TEST(StringTypesTest, SimpleAllocation1) {
