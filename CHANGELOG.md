@@ -39,6 +39,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Proper meta-tracking for all Para-C types using `PblVarMeta_T`
 - Default declaration and definition macros for all types in `parac-modules`
 - `PblStream_T` and `PblFile_T` implementation for stream handling
+- Specified Int Types in `pbl-int.h` that wrap the int types in `stdint.h`
 
 ### Changed
 - Style of the init banner in the CLI and added docs link.
