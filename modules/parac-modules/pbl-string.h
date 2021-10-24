@@ -20,13 +20,7 @@ extern "C" {
 /// Returns the declaration default for the type `PblString_T`
 #define PblString_T_DeclDefault (PblString_T) {.meta={.defined=false, .byte_size=PblString_T_Size}}
 /// Returns the definition default for the type `PblString_T`
-#define PblString_T_DefDefault (PblString_T) {                                        \
-    .meta={.defined=true, .byte_size=PblString_T_Size},                               \
-    .actual={                                                                         \
-      .str_alloc_size=PblSize_T_DefDefault, .allocated_len=PblUInt_T_DefDefault,      \
-      .len=PblUInt_T_DefDefault, .str=NULL                                            \
-    }                                                                                 \
-  }
+#define PblString_T_DefDefault PblGetStringT("")
 
 /// Base Struct of PblString - avoid using this type
 struct PblStringBase {
@@ -61,7 +55,9 @@ void PblResizeStringT(PblString_T *str, PblUInt_T len);
 
 void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_write);
 
-PblString_T PblAllocateStringT(const char *content, PblUInt_T len);
+PblString_T PblCreateStringT(const char *content, PblUInt_T len);
+
+char* PblAllocateStringT(PblSize_T byte_size);
 
 void PblDeallocateStringT(PblString_T *lvalue);
 

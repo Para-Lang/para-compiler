@@ -10,8 +10,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-// String implementation
-
 /**
  * @brief Gets the Length of a C string (const char*)
  * @param content The char array (pointer)
@@ -30,7 +28,7 @@ PblUInt_T PblGetLengthOfCString(const char *content)
  */
 PblString_T PblGetStringT(const char *content)
 {
-  return PblAllocateStringT(content, PblGetLengthOfCString(content));
+  return PblCreateStringT(content, PblGetLengthOfCString(content));
 }
 
 /**
@@ -99,12 +97,14 @@ void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_w
  * used for converting char * and char[] to PblString_T
  * @returns The new string type that was allocated
  */
-PblString_T PblAllocateStringT(const char *content, PblUInt_T len) {
+PblString_T PblCreateStringT(const char *content, PblUInt_T len)
+{
   // allocated memory - length = len * size char + 1 (null character (\0))
   PblSize_T byte_size = PblGetAllocSizeStringT(len);
+  char *alloc_begin = PblAllocateStringT(byte_size);
 
-  char *alloc_begin = malloc(byte_size.actual);
-  PblString_T str = PblString_T_DefDefault;
+  // Using the DeclDefault to avoid recursion when `DefDefault` is `PblGetStringT("")` aka. an empty string
+  PblString_T str = PblString_T_DeclDefault;
   str.actual.str_alloc_size = byte_size;
   str.actual.allocated_len = PblGetUIntT(byte_size.actual / sizeof(char));
   str.actual.len = len;
@@ -112,6 +112,15 @@ PblString_T PblAllocateStringT(const char *content, PblUInt_T len) {
 
   PblWriteToStringT(&str, content, len);
   return str;
+}
+
+/**
+ * @brief Allocates new memory for a new string
+ * @param byte_size The byte_size that should be allocated
+ * @returns The char* pointer to the memory
+ */
+char* PblAllocateStringT(PblSize_T byte_size) {
+  return malloc(byte_size.actual);
 }
 
 /**

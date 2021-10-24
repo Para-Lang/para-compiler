@@ -33,7 +33,7 @@ TEST(StringTypesTest, GetStringConversion) {
 }
 
 TEST(StringTypesTest, SimpleAllocation1) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(15));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(15));
 
   // size is per default 50 + 1 (for null char)
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
@@ -43,7 +43,7 @@ TEST(StringTypesTest, SimpleAllocation1) {
 }
 
 TEST(StringTypesTest, SimpleAllocation2) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(60));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(60));
 
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (100 + 1) * sizeof(char));
@@ -53,7 +53,7 @@ TEST(StringTypesTest, SimpleAllocation2) {
 }
 
 TEST(StringTypesTest, SimpleAllocation3) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(600));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(600));
 
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (650 + 1) * sizeof(char));
@@ -63,7 +63,7 @@ TEST(StringTypesTest, SimpleAllocation3) {
 }
 
 TEST(StringTypesTest, ValidateDeallocation) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(49));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(49));
 
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
@@ -77,7 +77,7 @@ TEST(StringTypesTest, ValidateDeallocation) {
 }
 
 TEST(StringTypesTest, ValidateAllocation) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(49));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(49));
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
   EXPECT_EQ(str.actual.len.actual, 49);
@@ -88,7 +88,7 @@ TEST(StringTypesTest, ValidateAllocation) {
 }
 
 TEST(StringTypesTest, ValidateOverwrite) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(11));
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
   EXPECT_EQ(str.actual.len.actual, 11);
@@ -104,7 +104,7 @@ TEST(StringTypesTest, ValidateOverwrite) {
 }
 
 TEST(StringTypesTest, ValidateReallocOverwrite) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(11));
   // size is per default 50 + 1 (for null char) - will be resized to 100, since len is 60
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
   EXPECT_EQ(str.actual.len.actual, 11);

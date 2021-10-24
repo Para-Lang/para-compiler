@@ -35,11 +35,12 @@ TEST(IOStreamTest, ConversionCheck) {
 }
 
 TEST(IOPrintTest, SimplePrint) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(11));
 
   // size is per default 50 + 1 (for null char)
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
 
+  PblPrint(.out=&str, .end=PblGetCharT(' '));
   PblPrint(&str);
 
   // deallocating the string
@@ -47,7 +48,7 @@ TEST(IOPrintTest, SimplePrint) {
 }
 
 TEST(IOPrintTest, SimplePrintWithSetStream) {
-  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblCreateStringT("hello world", PblGetUIntT(11));
 
   // size is per default 50 + 1 (for null char)
   EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
