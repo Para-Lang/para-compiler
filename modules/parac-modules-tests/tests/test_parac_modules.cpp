@@ -3,9 +3,9 @@
 ///
 /// @author Luna-Klatzer
 
+#include <cstring>
 #include "pbl.h"
 #include "gtest/gtest.h"
-#include <cstring>
 
 TEST(MacroTest, SimpleCheckForExistances) {
   EXPECT_TRUE(PARAC_LANG);

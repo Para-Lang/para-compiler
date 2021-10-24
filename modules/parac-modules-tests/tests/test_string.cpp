@@ -3,6 +3,7 @@
 /// @author Luna-Klatzer
 
 #include "pbl-types.h"
+#include "pbl-string.h"
 #include "gtest/gtest.h"
 
 // IMPORTANT! When actually using PblString_T, do NOT use a bigger length than of the actual string
