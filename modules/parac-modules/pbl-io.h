@@ -26,7 +26,7 @@ extern "C" {
 #define PblFile_T_DeclDefault (PblFile_T) {.meta={.defined=false, .byte_size=PblFile_T_Size}}
 /// Returns the definition default for the type `PblFile_T`
 #define PblFile_T_DefDefault (PblFile_T) {                   \
-    .meta={.defined=false, .byte_size=PblFile_T_Size},       \
+    .meta={.defined=true, .byte_size=PblFile_T_Size},        \
     .actual=NULL                                             \
   }
 
@@ -43,13 +43,18 @@ typedef struct PblFile PblFile_T;
 // ---- Stream --------------------------------------------------------------------------------------------------------
 
 /// Size of the type `PblStream_T` in bytes
-#define PblStream_T_Size PblUInt_T_Size + PblFile_T_Size + PblBool_T_Size
+#define PblStream_T_Size PblUInt_T_Size + PblFile_T_Size + PblBool_T_Size + PblString_T_Size
 /// Returns the declaration default for the type `PblStream_T`
 #define PblStream_T_DeclDefault (PblStream_T) {.meta={.defined=false, .byte_size=PblStream_T_Size}}
 /// Returns the definition default for the type `PblStream_T`
 #define PblStream_T_DefDefault (PblStream_T) {                                                    \
-    .meta={.defined=false, .byte_size=PblStream_T_Size},                                          \
-    .actual={.fd=PblUInt_T_DefDefault, .file=PblFile_T_DefDefault, .open=PblBool_T_DefDefault}    \
+    .meta={.defined=true, .byte_size=PblStream_T_Size},                                           \
+    .actual={                                                                                     \
+      .fd=PblUInt_T_DefDefault,                                                                   \
+      .file=PblFile_T_DefDefault,                                                                 \
+      .open=PblBool_T_DefDefault,                                                                 \
+      .mode=PblString_T_DefDefault                                                                \
+    }                                                                                             \
   }
 
 /// Base Struct of PblString - avoid using this type
@@ -83,7 +88,7 @@ typedef struct PblStream PblStream_T;
       .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=0},              \
       .file=PblGetFileT(stdin),                                                       \
       .open=PblGetBoolT(true)                                                         \
-      .mode                                                                                  \
+      .mode=PblString_T_DefDefault                                                    \
     }                                                                                 \
   }
 
@@ -93,7 +98,8 @@ typedef struct PblStream PblStream_T;
     .actual={                                                                         \
       .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=1},              \
       .file=PblGetFileT(stdout),                                                      \
-      .open=PblGetBoolT(true)                                                         \
+      .open=PblGetBoolT(true),                                                        \
+      .mode=PblString_T_DefDefault                                                    \
     }                                                                                 \
   }
 
@@ -104,6 +110,7 @@ typedef struct PblStream PblStream_T;
       .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=2},              \
       .file=PblGetFileT(stderr),                                                      \
       .open=PblGetBoolT(true)                                                         \
+      .mode=PblString_T_DefDefault                                                    \
     }                                                                                 \
   }
 

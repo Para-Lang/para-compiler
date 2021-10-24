@@ -23,7 +23,7 @@ PblFile_T PblGetFileT(FILE* val) {
 /**
  * @brief Converts the low level C-Type to a PBL Stream type. Creates the FILE* pointer as well
  * @param fd The file descriptor that will be converted
- * @param fd The mode that should be used to open the FILE*
+ * @param mode The mode that should be used to open the FILE*
  * @return The newly created PBL Stream type
  * @note This is a C to Para-C type conversion function - args are therefore in C
  */
@@ -31,6 +31,7 @@ PblStream_T PblGetStreamT(int fd, const char* mode) {
   PblStream_T conv = PblStream_T_DefDefault;
   conv.actual.fd = PblGetUIntT(fd);
   conv.actual.file = PblGetFileT(fdopen(fd, mode));
+  conv.actual.mode = PblGetStringT(mode);
   conv.actual.open = PblGetBoolT(true);
   return conv;
 }

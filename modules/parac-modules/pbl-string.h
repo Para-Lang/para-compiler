@@ -21,7 +21,7 @@ extern "C" {
 #define PblString_T_DeclDefault (PblString_T) {.meta={.defined=false, .byte_size=PblString_T_Size}}
 /// Returns the definition default for the type `PblString_T`
 #define PblString_T_DefDefault (PblString_T) {                                        \
-    .meta={.defined=false, .byte_size=PblString_T_Size},                          \
+    .meta={.defined=true, .byte_size=PblString_T_Size},                               \
     .actual={                                                                         \
       .str_alloc_size=PblSize_T_DefDefault, .allocated_len=PblUInt_T_DefDefault,      \
       .len=PblUInt_T_DefDefault, .str=NULL                                            \
