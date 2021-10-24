@@ -33,8 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   future implementation of the logic stream.
 - New method `append_antlr_ctx` to the ABC Class `LogicStream` and its 
   implementation.
-- Added addition of `program_ctx` to all `FileRunContext` implementation
+- Addition of `program_ctx` to all `FileRunContext` implementation
   classes.
+- Base types in `pbl-types.h` that wrap the low-level C types
+- Proper meta-tracking for all Para-C types using `PblVarMeta_T`
+- Default declaration and definition macros for all types in `parac-modules`
+- `PblStream_T` and `PblFile_T` implementation for stream handling
 
 ### Changed
 - Style of the init banner in the CLI and added docs link.
