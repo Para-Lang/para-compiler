@@ -1,14 +1,14 @@
 project(parac-modules)
 
 set(HEADER_FILES
-        io.h
-        parac_modules.h
-        types.h
+        pbl-io.h
+        pbl.h
+        pbl-types.h
         )
 
 set(SOURCE_FILES
-        io.c
-        types.c
-        )
+        pbl-io.c
+        pbl-types.c
+        pbl-string.c pbl-string.h)
 
 add_library(parac-modules STATIC ${SOURCE_FILES} ${HEADER_FILES})

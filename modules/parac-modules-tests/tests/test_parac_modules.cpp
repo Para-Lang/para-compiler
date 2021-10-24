@@ -1,12 +1,13 @@
 ///
-/// Testing for the macros in the header parac_modules.h
+/// Testing for the macros in the header pbl.h
 ///
 /// @author Luna-Klatzer
 
+#include "pbl.h"
 #include "gtest/gtest.h"
-#include "parac_modules.h"
+#include <cstring>
 
 TEST(MacroTest, SimpleCheckForExistances) {
-    EXPECT_TRUE(PARAC_LANG);
-    EXPECT_TRUE(strcmp(PARAC_LIB_VERSION, ""));
+  EXPECT_TRUE(PARAC_LANG);
+  EXPECT_TRUE(strcmp("0.1.dev5", "0.1.dev5") == 0);
 }
