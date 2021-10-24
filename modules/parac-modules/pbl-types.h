@@ -17,6 +17,13 @@
 extern "C" {
 #endif
 
+// ---- Macro Functions -----------------------------------------------------------------------------------------------
+
+/// Returns the effective size of a Para-C type that can be actually used. Must be a Para-C type
+#define PBL_SIZEOF(type) (type ## _Size)
+/// Returns the effective C size of a type. This also includes meta data
+#define PBL_C_SIZEOF(type) (sizeof(type))
+
 // ---- All Base types implemented in the Para-C style ----------------------------------------------------------------
 
 /// Base Type contained in ALL variables - has no _DEFAULT
