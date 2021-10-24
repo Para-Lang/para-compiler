@@ -42,9 +42,7 @@ PblStream_T PblGetStreamT(int fd, const char* mode) {
  * @param end The end character that should be printed after `out`
  */
 void PblPrintBase(PblString_T *out, const PblStream_T stream, const PblChar_T end) {
-  for (int i = 0; i < out->actual.len.actual; i++) {
-    fprintf(stream.actual.file.actual, "%c", (char) out->actual.str[i]);
-  }
+  fprintf(stream.actual.file.actual, "%s", out->actual.str);
   fprintf(stream.actual.file.actual, "%c", end.actual);
 }
 
