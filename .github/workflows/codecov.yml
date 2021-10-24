@@ -40,11 +40,11 @@ jobs:
       run: |
         ./modules/parac-modules-tests/tests/runParacModulesTests
         tree .
-        gcov -abcfu ./modules/parac-modules/*.c
+        gcov -abcfu ./modules/parac-modules/CMakeFiles/parac-modules.dir/*.gc*
     - name: Upload C coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         directory: .
-        files: ./modules/parac-modules/*.gcov
+        files: ./*.gcov
         verbose: true
