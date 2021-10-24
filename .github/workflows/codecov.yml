@@ -40,7 +40,7 @@ jobs:
       run: |
         ./modules/parac-modules-tests/tests/runParacModulesTests
         tree .
-        gcov -abcfu ./parac-modules/*.c
+        gcov -abcfu ./parac-modules/CMakeFiles/parac-modules.dir/*.o
     - name: Upload C coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
