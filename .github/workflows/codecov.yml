@@ -35,7 +35,7 @@ jobs:
       run: |
         cd ./modules
         cmake .
-        cmake --build . --target runParacModulesTests -- -j 9 -ftest-coverage -fprofile-arcs
+        cmake --build . --target runParacModulesTests -- -j 9
     - name: Run C-Coverage
       run: |
         ./modules/parac-modules-tests/tests/runParacModulesTests
@@ -45,5 +45,5 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         directory: .
-        files: ./*.gcov
+        files: ./parac-modules/*.gcov
         verbose: true

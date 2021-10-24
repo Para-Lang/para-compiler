@@ -28,8 +28,8 @@
 /// // Returns the declaration default for the type `ITEM_T`
 /// #define ITEM_T_DeclarationDefault (ITEM_T) {.meta = {.defined=false, .byte_size=ITEM_T_Size}}
 /// // Returns the definition default for the type `ITEM_T`
-/// #define ITEM_T_DefinitionDefault (ITEM_T) { \
-///  .meta = {.defined=false, .byte_size=ITEM_T_Size} \
+/// #define ITEM_T_DefinitionDefault (ITEM_T) {               \
+///  .meta = {.defined=false, .byte_size=ITEM_T_Size}         \
 ///  .actual = ...                                            \
 /// }
 ///
