@@ -1,6 +1,8 @@
-//
-// Created by Nicol on 24/10/2021.
-//
+///
+/// Int Implementation based on stdint.h
+///
+/// @date 08-10-2021
+/// @author Luna-Klatzer
 
 #include "pbl-int.h"
 
