@@ -8,26 +8,26 @@
 #include "gtest/gtest.h"
 
 TEST(IOPrintTest, SimplePrint) {
-  PblString_T string = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
 
   // size is per default 50 + 1 (for null char)
-  EXPECT_EQ(string.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
+  EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
 
-  PblPrint(&string);
+  PblPrint(&str);
 
   // deallocating the string
-  PblDeallocateStringT(&string);
+  PblDeallocateStringT(&str);
 }
 
 TEST(IOPrintTest, SimplePrintWithSetStream) {
-  PblString_T string = PblAllocateStringT("hello world", PblGetUIntT(11));
+  PblString_T str = PblAllocateStringT("hello world", PblGetUIntT(11));
 
   // size is per default 50 + 1 (for null char)
-  EXPECT_EQ(string.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
+  EXPECT_EQ(str.actual.str_alloc_size.actual, (50 + 1) * sizeof(char));
 
-  PblPrint(.out = &string, .stream=PBL_STREAM_STDOUT);
+  PblPrint(.out = &str, .stream=PBL_STREAM_STDOUT);
 
   // deallocating the string
-  PblDeallocateStringT(&string);
+  PblDeallocateStringT(&str);
 }
 
