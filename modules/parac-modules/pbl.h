@@ -7,6 +7,7 @@
 /// - pbl-io.h
 /// - pbl-types.h
 /// - pbl-string.h
+/// - pbl-int.h
 ///
 /// @date 08-10-2021
 /// @author Luna-Klatzer
@@ -45,6 +46,7 @@
 /// typedef struct ITEM ITEM_T;
 
 // lib-headers includes
+#include "./pbl-int.h"
 #include "./pbl-io.h"
 #include "./pbl-string.h"
 #include "./pbl-types.h"

@@ -14,7 +14,7 @@
  * @return The newly created PBL File type
  * @note This is a C to Para-C type conversion function - args are in C therefore
  */
-PblFile_T PblGetFileT(FILE* val) {
+PblFile_T PblGetFileT(FILE *val) {
   PblFile_T conv = PblFile_T_DefDefault;
   conv.actual = val;
   return conv;
@@ -27,7 +27,7 @@ PblFile_T PblGetFileT(FILE* val) {
  * @return The newly created PBL Stream type
  * @note This is a C to Para-C type conversion function - args are therefore in C
  */
-PblStream_T PblGetStreamT(int fd, const char* mode) {
+PblStream_T PblGetStreamT(int fd, const char *mode) {
   PblStream_T conv = PblStream_T_DefDefault;
   conv.actual.fd = PblGetUIntT(fd);
   conv.actual.file = PblGetFileT(fdopen(fd, mode));
@@ -51,6 +51,6 @@ void PblPrintOverhead(struct PblPrintArgs in) {
   PblString_T *out = (PblString_T *) in.out;
   PblStream_T stream = in.stream.meta.defined ? in.stream : PBL_STREAM_STDOUT;
   PblChar_T end =
-    in.end.meta.defined ? in.end : (PblChar_T){.actual='\n', .meta={.defined = true, .byte_size = PblChar_T_Size}};
+    in.end.meta.defined ? in.end : (PblChar_T){.actual = '\n', .meta = {.defined = true, .byte_size = PblChar_T_Size}};
   return PblPrintBase(out, stream, end);
 }

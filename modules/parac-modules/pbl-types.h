@@ -20,7 +20,7 @@ extern "C" {
 // ---- Macro Functions -----------------------------------------------------------------------------------------------
 
 /// Returns the effective size of a Para-C type that can be actually used. Must be a Para-C type
-#define PBL_SIZEOF(type) (type ## _Size)
+#define PBL_SIZEOF(type) (type##_Size)
 /// Returns the effective C size of a type. This also includes meta data
 #define PBL_C_SIZEOF(type) (sizeof(type))
 
@@ -45,17 +45,28 @@ typedef struct PblVarMeta PblVarMeta_T;
 // All types that are not unsigned are signed by default to ensure consistency
 // Note that in those definitions the size is calculated using the C-type (as only one "real" property is there)
 
+/// Declaration constructor which initialised the meta data for the passed type
+#define PBL_DECLARATION_CONSTRUCTOR(type)                                                                              \
+  (type) {                                                                                                             \
+    .meta = {.defined = true, .byte_size = type##_Size }                                                               \
+  }
+/// Definition constructor which initialises the meta data for the passed type and passes to `.actual` the args as struct
+#define PBL_DEFINITION_STRUCT_CONSTRUCTOR(type, ...)                                                                   \
+  (type) {                                                                                                             \
+    .meta = {.defined = true, .byte_size = type##_Size}, .actual = { __VA_ARGS__ }                                     \
+  }
+/// Definition constructor which initialised the meta data for the passed type and passes to `.actual` the single arg
+#define PBL_DEFINITION_SINGLE_CONSTRUCTOR(type, var_actual)                                                            \
+  (type) { .meta = {.defined = true, .byte_size = type##_Size}, .actual = var_actual }
+
 // ---- Bool ----------------------------------------------------------------------------------------------------------
 
 /// Returns the size in bytes of the PBL Signed Char type
 #define PblBool_T_Size sizeof(bool)
 /// Returns the declaration default for the type `PblBool_T`
-#define PblBool_T_DeclDefault (PblBool_T) {.meta={.defined=false, .byte_size=PblBool_T_Size}}
+#define PblBool_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblBool_T)
 /// Returns the definition default for the type `PblBool_T`
-#define PblBool_T_DefDefault (PblBool_T) {                 \
-    .meta={.defined=true, .byte_size=PblBool_T_Size},      \
-    .actual=false                                          \
-  }
+#define PblBool_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblBool_T, false)
 
 /// PBL Bool implementation
 struct PblBool {
@@ -72,12 +83,9 @@ typedef struct PblBool PblBool_T;
 /// Returns the size in bytes of the PBL Signed Char type
 #define PblSize_T_Size sizeof(size_t)
 /// Returns the declaration default for the type `PblSize_T`
-#define PblSize_T_DeclDefault (PblSize_T) {.meta={.defined=false, .byte_size=PblSize_T_Size}}
+#define PblSize_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblSize_T)
 /// Returns the definition default for the type `PblSize_T`
-#define PblSize_T_DefDefault (PblSize_T) {                 \
-    .meta={.defined=true, .byte_size=PblSize_T_Size},      \
-    .actual=0                                              \
-  }
+#define PblSize_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblSize_T, 0)
 
 /// PBL Byte Size implementation
 struct PblSize {
@@ -94,12 +102,9 @@ typedef struct PblSize PblSize_T;
 /// Returns the size in bytes of the PBL Signed Char type
 #define PblChar_T_Size sizeof(signed char)
 /// Returns the declaration default for the type `PblChar_T`
-#define PblChar_T_DeclDefault (PblChar_T) {.meta={.defined=false, .byte_size=PblChar_T_Size}}
+#define PblChar_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblChar_T)
 /// Returns the definition default for the type `PblChar_T`
-#define PblChar_T_DefDefault (PblChar_T) {                 \
-    .meta={.defined=true, .byte_size=PblChar_T_Size},      \
-    .actual=0                                              \
-  }
+#define PblChar_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblChar_T, 0)
 
 /// PBL Signed Char implementation
 struct PblChar {
@@ -116,12 +121,9 @@ typedef struct PblChar PblChar_T;
 /// Returns the size in bytes of the PBL Unsigned Char type
 #define PblUChar_T_Size sizeof(unsigned char)
 /// Returns the declaration default for the type `PblUChar_T_Size`
-#define PblUChar_T_DeclDefault (PblUChar_T) {.meta={.defined=false, .byte_size=PblInt_T_Size}}
+#define PblUChar_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUChar_T)
 /// Returns the definition default for the type `PblUChar_T_Size`
-#define PblUChar_T_DefDefault (PblUChar_T) {               \
-    .meta={.defined=true, .byte_size=PblUChar_T_Size},     \
-    .actual=0                                              \
-  }
+#define PblUChar_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUChar_T, 0)
 
 /// PBL Unsigned Char implementation
 struct PblUChar {
@@ -138,12 +140,9 @@ typedef struct PblUChar PblUChar_T;
 /// Returns the size in bytes of the PBL Signed Short type
 #define PblShort_T_Size sizeof(signed short)
 /// Returns the declaration default for the type `PblShort_T`
-#define PblShort_T_DeclDefault (PblShort_T) {.meta={.defined=false, .byte_size=PblShort_T_Size}}
+#define PblShort_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblShort_T)
 /// Returns the definition default for the type `PblShort_T`
-#define PblShort_T_DefDefault (PblShort_T) {               \
-    .meta={.defined=true, .byte_size=PblShort_T_Size},     \
-    .actual=0                                              \
-  }
+#define PblShort_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblShort_T, 0)
 
 /// PBL Signed Short implementation
 struct PblShort {
@@ -160,12 +159,9 @@ typedef struct PblShort PblShort_T;
 /// Returns the size in bytes of the PBL Unsigned Short type
 #define PblUShort_T_Size sizeof(unsigned short)
 /// Returns the declaration default for the type `PblUShort_T_Size`
-#define PblUShort_T_DeclDefault (PblUShort_T) {.meta={.defined=false, .byte_size=PblInt_T_Size}}
+#define PblUShort_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUShort_T)
 /// Returns the definition default for the type `PblUShort_T_Size`
-#define PblUShort_T_DefDefault (PblUShort_T) {             \
-    .meta={.defined=true, .byte_size=PblUShort_T_Size},    \
-    .actual=0                                              \
-  }
+#define PblUShort_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUShort_T, 0)
 
 /// PBL Unsigned Short implementation
 struct PblUShort {
@@ -182,12 +178,9 @@ typedef struct PblUShort PblUShort_T;
 /// Returns the size in bytes of the PBL Signed Int type
 #define PblInt_T_Size sizeof(signed int)
 /// Returns the declaration default for the type `PblInt_T`
-#define PblInt_T_DeclDefault (PblInt_T) {.meta={.defined=false, .byte_size=PblInt_T_Size}}
+#define PblInt_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblInt_T)
 /// Returns the definition default for the type `PblInt_T`
-#define PblInt_T_DefDefault (PblInt_T) {                 \
-    .meta={.defined=true, .byte_size=PblInt_T_Size},     \
-    .actual=0                                            \
-  }
+#define PblInt_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblInt_T, 0)
 
 /// PBL Signed Int implementation
 struct PblInt {
@@ -204,12 +197,9 @@ typedef struct PblInt PblInt_T;
 /// Returns the size in bytes of the PBL Unsigned Int type
 #define PblUInt_T_Size sizeof(unsigned int)
 /// Returns the declaration default for the type `PblUInt_T`
-#define PblUInt_T_DeclDefault (PblUInt_T) {.meta={.defined=false, .byte_size=PblInt_T_Size}}
+#define PblUInt_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUInt_T)
 /// Returns the definition default for the type `PblUInt_T`
-#define PblUInt_T_DefDefault (PblUInt_T) {               \
-    .meta={.defined=true, .byte_size=PblUInt_T_Size},    \
-    .actual=0                                            \
-  }
+#define PblUInt_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUInt_T, 0)
 
 /// PBL Unsigned Int implementation
 struct PblUInt {
@@ -226,12 +216,9 @@ typedef struct PblUInt PblUInt_T;
 /// Returns the size in bytes of the PBL Signed Long type
 #define PblLong_T_Size sizeof(signed long)
 /// Returns the declaration default for the type `PblLong_T`
-#define PblLong_T_DeclDefault (PblLong_T) {.meta={.defined=false, .byte_size=PblLong_T_Size}}
+#define PblLong_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblLong_T)
 /// Returns the definition default for the type `PblLong_T`
-#define PblLong_T_DefDefault (PblLong_T) {               \
-    .meta={.defined=true, .byte_size=PblLong_T_Size},    \
-    .actual=0                                            \
-  }
+#define PblLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLong_T, 0)
 
 /// PBL Signed Long implementation
 struct PblLong {
@@ -248,12 +235,9 @@ typedef struct PblLong PblLong_T;
 /// Returns the size in bytes of the PBL Unsigned Long type
 #define PblULong_T_Size sizeof(unsigned long)
 /// Returns the declaration default for the type `PblULong_T`
-#define PblULong_T_DeclDefault (PblULong_T) {.meta={.defined=false, .byte_size=PblULong_T_Size}}
+#define PblULong_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblULong_T)
 /// Returns the definition default for the type `PblULong_T`
-#define PblULong_T_DefDefault (PblULong_T) {             \
-    .meta={.defined=true, .byte_size=PblULong_T_Size},   \
-    .actual=0                                            \
-  }
+#define PblULong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblULong_T, 0)
 
 /// PBL Unsigned Long implementation
 struct PblULong {
@@ -270,12 +254,9 @@ typedef struct PblULong PblULong_T;
 /// Returns the size in bytes of the PBL Signed Long Long type
 #define PblLongLong_T_Size sizeof(signed long long)
 /// Returns the declaration default for the type `PblLongLong_T`
-#define PblLongLong_T_DeclDefault (PblLongLong_T) {.meta={.defined=false, .byte_size=PblLongLong_T_Size}}
+#define PblLongLong_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblLongLong_T)
 /// Returns the definition default for the type `PblLongLong_T`
-#define PblLongLong_T_DefDefault (PblLongLong_T) {            \
-    .meta={.defined=true, .byte_size=PblLongLong_T_Size},     \
-    .actual=0                                                 \
-  }
+#define PblLongLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLongLong_T, 0)
 
 /// PBL Signed Long Long implementation
 struct PblLongLong {
@@ -292,12 +273,9 @@ typedef struct PblLongLong PblLongLong_T;
 /// Returns the size in bytes of the PBL Unsigned Long Long type
 #define PblULongLong_T_Size sizeof(unsigned long long)
 /// Returns the declaration default for the type `PblULongLong_T`
-#define PblULongLong_T_DeclDefault (PblULongLong_T) {.meta={.defined=false, .byte_size=PblULongLong_T_Size}}
+#define PblULongLong_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblULongLong_T)
 /// Returns the definition default for the type `PblULongLong_T`
-#define PblULongLong_T_DefDefault (PblULongLong_T) {           \
-    .meta={.defined=true, .byte_size=PblULongLong_T_Size},     \
-    .actual=0                                                  \
-  }
+#define PblULongLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblULongLong_T, 0)
 
 /// PBL Unsigned Long Long implementation
 struct PblULongLong {
@@ -314,12 +292,9 @@ typedef struct PblULongLong PblULongLong_T;
 /// Returns the size in bytes of the PBL Float type
 #define PblFloat_T_Size sizeof(float)
 /// Returns the declaration default for the type `PblFloat_T`
-#define PblFloat_T_DeclDefault (PblFloat_T) {.meta={.defined=false, .byte_size=PblFloat_T_Size}}
+#define PblFloat_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFloat_T)
 /// Returns the definition default for the type `PblFloat_T`
-#define PblFloat_T_DefDefault (PblFloat_T) {                \
-    .meta={.defined=true, .byte_size=PblFloat_T_Size},      \
-    .actual=0                                               \
-  }
+#define PblFloat_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFloat_T, 0)
 
 /// PBL Float implementation
 struct PblFloat {
@@ -336,12 +311,9 @@ typedef struct PblFloat PblFloat_T;
 /// Returns the size in bytes of the PBL Double type
 #define PblDouble_T_Size sizeof(double)
 /// Returns the declaration default for the type `PblDouble_T`
-#define PblDouble_T_DeclDefault (PblDouble_T) {.meta={.defined=false, .byte_size=PblDouble_T_Size}}
+#define PblDouble_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblDouble_T)
 /// Returns the definition default for the type `PblDouble_T`
-#define PblDouble_T_DefDefault (PblDouble_T) {               \
-    .meta={.defined=true, .byte_size=PblDouble_T_Size},      \
-    .actual=0                                                \
-  }
+#define PblDouble_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblDouble_T, 0)
 
 /// PBL Double implementation
 struct PblDouble {
@@ -358,12 +330,9 @@ typedef struct PblDouble PblDouble_T;
 /// Returns the size in bytes of the PBL Long Double type
 #define PblLongDouble_T_Size sizeof(long double)
 /// Returns the declaration default for the type `PblLongDouble_T`
-#define PblLongDouble_T_DeclDefault (PblLongDouble_T) {.meta={.defined=false, .byte_size=PblLongDouble_T_Size}}
+#define PblLongDouble_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblLongDouble_T)
 /// Returns the definition default for the type `PblLongDouble_T`
-#define PblLongDouble_T_DefDefault (PblLongDouble_T) {           \
-    .meta={.defined=true, .byte_size=PblLongDouble_T_Size},      \
-    .actual=0                                                    \
-  }
+#define PblLongDouble_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLongDouble_T, 0)
 
 /// PBL Long Double implementation
 struct PblLongDouble {
@@ -376,6 +345,16 @@ struct PblLongDouble {
 typedef struct PblLongDouble PblLongDouble_T;
 
 // ---- Helper Functions ----------------------------------------------------------------------------------------------
+
+/// This a macro function definition body constructor, which should be used to directly convert C types into their
+/// Para-C counterparts. This should be only used for Para-C types that have as actual a single property, as this does
+/// not support complex initialisation.
+#define PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(parac_type, c_type)                                                    \
+  {                                                                                                                    \
+    parac_type conv = parac_type##_DefDefault;                                                                         \
+    conv.actual = val;                                                                                                 \
+    return conv;                                                                                                       \
+  }
 
 PblBool_T PblGetBoolT(bool val);
 

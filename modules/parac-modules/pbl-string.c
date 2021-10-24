@@ -15,10 +15,7 @@
  * @param content The char array (pointer)
  * @return The length as Para-C Int
  */
-PblUInt_T PblGetLengthOfCString(const char *content)
-{
-  return PblGetUIntT(strlen(content));
-}
+PblUInt_T PblGetLengthOfCString(const char *content) { return PblGetUIntT(strlen(content)); }
 
 /**
  * @brief This directly converts a char* to a Para-C string type
@@ -26,10 +23,7 @@ PblUInt_T PblGetLengthOfCString(const char *content)
  * @return The new Para-C string type, which was created using `PblAllocateStringT`
  * @note This is a C to Para-C type conversion function - args are in C therefore
  */
-PblString_T PblGetStringT(const char *content)
-{
-  return PblCreateStringT(content, PblGetLengthOfCString(content));
-}
+PblString_T PblGetStringT(const char *content) { return PblCreateStringT(content, PblGetLengthOfCString(content)); }
 
 /**
  * @brief Gets the required byte_size for an allocation based on the passed length of the string.
@@ -97,8 +91,7 @@ void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_w
  * used for converting char * and char[] to PblString_T
  * @returns The new string type that was allocated
  */
-PblString_T PblCreateStringT(const char *content, PblUInt_T len)
-{
+PblString_T PblCreateStringT(const char *content, PblUInt_T len) {
   // allocated memory - length = len * size char + 1 (null character (\0))
   PblSize_T byte_size = PblGetAllocSizeStringT(len);
   char *alloc_begin = PblAllocateStringT(byte_size);
@@ -119,9 +112,7 @@ PblString_T PblCreateStringT(const char *content, PblUInt_T len)
  * @param byte_size The byte_size that should be allocated
  * @returns The char* pointer to the memory
  */
-char* PblAllocateStringT(PblSize_T byte_size) {
-  return malloc(byte_size.actual);
-}
+char *PblAllocateStringT(PblSize_T byte_size) { return malloc(byte_size.actual); }
 
 /**
  * @brief Deallocates the entire memory for the string and resets it's struct properties

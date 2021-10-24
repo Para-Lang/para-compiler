@@ -21,21 +21,18 @@ extern "C" {
 // ---- File ----------------------------------------------------------------------------------------------------------
 
 /// Size of the type `PblFile_T` in bytes
-#define PblFile_T_Size sizeof(FILE*)
+#define PblFile_T_Size sizeof(FILE *)
 /// Returns the declaration default for the type `PblFile_T`
-#define PblFile_T_DeclDefault (PblFile_T) {.meta={.defined=false, .byte_size=PblFile_T_Size}}
+#define PblFile_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFile_T)
 /// Returns the definition default for the type `PblFile_T`
-#define PblFile_T_DefDefault (PblFile_T) {                   \
-    .meta={.defined=true, .byte_size=PblFile_T_Size},        \
-    .actual=NULL                                             \
-  }
+#define PblFile_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFile_T, NULL)
 
 /// File Descriptor used to perform I/O actions on a file
 struct PblFile {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// Actual value
-  FILE* actual;
+  FILE *actual;
 };
 /// Stream type, which is a unique alias for PBLFileDescriptor_T
 typedef struct PblFile PblFile_T;
@@ -45,17 +42,11 @@ typedef struct PblFile PblFile_T;
 /// Size of the type `PblStream_T` in bytes
 #define PblStream_T_Size PblUInt_T_Size + PblFile_T_Size + PblBool_T_Size + PblString_T_Size
 /// Returns the declaration default for the type `PblStream_T`
-#define PblStream_T_DeclDefault (PblStream_T) {.meta={.defined=false, .byte_size=PblStream_T_Size}}
+#define PblStream_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblStream_T)
 /// Returns the definition default for the type `PblStream_T`
-#define PblStream_T_DefDefault (PblStream_T) {                                                    \
-    .meta={.defined=true, .byte_size=PblStream_T_Size},                                           \
-    .actual={                                                                                     \
-      .fd=PblUInt_T_DefDefault,                                                                   \
-      .file=PblFile_T_DefDefault,                                                                 \
-      .open=PblBool_T_DefDefault,                                                                 \
-      .mode=PblString_T_DefDefault                                                                \
-    }                                                                                             \
-  }
+#define PblStream_T_DefDefault                                                                                         \
+  PBL_DEFINITION_STRUCT_CONSTRUCTOR(PblStream_T, .fd = PblUInt_T_DefDefault, .file = PblFile_T_DefDefault,             \
+                                    .open = PblBool_T_DefDefault, .mode = PblString_T_DefDefault)
 
 /// Base Struct of PblString - avoid using this type
 struct PblStreamBase {
@@ -82,43 +73,25 @@ typedef struct PblStream PblStream_T;
 // ---- Streams -------------------------------------------------------------------------------------------------------
 
 /// Standard stream for getting input on the default program console
-#define PBL_STREAM_STDIN (PblStream_T) {                                              \
-    .meta={.defined=true, .byte_size=PblStream_T_Size},                               \
-    .actual={                                                                         \
-      .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=0},              \
-      .file=PblGetFileT(stdin),                                                       \
-      .open=PblGetBoolT(true)                                                         \
-      .mode=PblString_T_DefDefault                                                    \
-    }                                                                                 \
-  }
+#define PBL_STREAM_STDIN                                                                                               \
+  PBL_DEFINITION_STRUCT_CONSTRUCTOR(PblStream_T, .fd = PblGetUIntT(0), .file = PblGetFileT(stdin),                     \
+                                    .open = PblGetBoolT(true), .mode = PblGetStringT("a"))
 
 /// Standard stream for outputting to the default program console
-#define PBL_STREAM_STDOUT (PblStream_T) {                                             \
-    .meta={.defined=true, .byte_size=PblStream_T_Size},                               \
-    .actual={                                                                         \
-      .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=1},              \
-      .file=PblGetFileT(stdout),                                                      \
-      .open=PblGetBoolT(true),                                                        \
-      .mode=PblString_T_DefDefault                                                    \
-    }                                                                                 \
-  }
+#define PBL_STREAM_STDOUT                                                                                              \
+  PBL_DEFINITION_STRUCT_CONSTRUCTOR(PblStream_T, .fd = PblGetUIntT(1), .file = PblGetFileT(stdout),                    \
+                                    .open = PblGetBoolT(true), .mode = PblGetStringT("a"))
 
 /// Standard stream for outputting error messages to the default program console
-#define PBL_STREAM_STDERR (PblStream_T) {                                             \
-    .meta={.defined=true, .byte_size=PblStream_T_Size},                               \
-    .actual={                                                                         \
-      .fd={.meta={.defined=true, .byte_size=PblUInt_T_Size}, .actual=2},              \
-      .file=PblGetFileT(stderr),                                                      \
-      .open=PblGetBoolT(true)                                                         \
-      .mode=PblString_T_DefDefault                                                    \
-    }                                                                                 \
-  }
+#define PBL_STREAM_STDERR                                                                                              \
+  PBL_DEFINITION_STRUCT_CONSTRUCTOR(PblStream_T, .fd = PblGetUIntT(2), .file = PblGetFileT(stderr),                    \
+                                    .open = PblGetBoolT(true), .mode = PblGetStringT("a"))
 
 // ---- Handler functions ---------------------------------------------------------------------------------------------
 
-PblFile_T PblGetFileT(FILE* val);
+PblFile_T PblGetFileT(FILE *val);
 
-PblStream_T PblGetStreamT(int fd, const char* mode);
+PblStream_T PblGetStreamT(int fd, const char *mode);
 
 /// Arguments struct for PblPrint (PblPrintOverhead)
 struct PblPrintArgs {

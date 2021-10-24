@@ -16,9 +16,9 @@ extern "C" {
 // ---- Declaration ---------------------------------------------------------------------------------------------------
 
 /// Size of the type `PblString_T` in bytes
-#define PblString_T_Size PblSize_T_Size + PblUInt_T_Size + PblUInt_T_Size + sizeof(char*)
+#define PblString_T_Size PblSize_T_Size + PblUInt_T_Size + PblUInt_T_Size + sizeof(char *)
 /// Returns the declaration default for the type `PblString_T`
-#define PblString_T_DeclDefault (PblString_T) {.meta={.defined=false, .byte_size=PblString_T_Size}}
+#define PblString_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblString_T)
 /// Returns the definition default for the type `PblString_T`
 #define PblString_T_DefDefault PblGetStringT("")
 
@@ -57,7 +57,7 @@ void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_w
 
 PblString_T PblCreateStringT(const char *content, PblUInt_T len);
 
-char* PblAllocateStringT(PblSize_T byte_size);
+char *PblAllocateStringT(PblSize_T byte_size);
 
 void PblDeallocateStringT(PblString_T *lvalue);
 
