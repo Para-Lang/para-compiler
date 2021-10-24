@@ -46,18 +46,17 @@ typedef struct PblVarMeta PblVarMeta_T;
 // Note that in those definitions the size is calculated using the C-type (as only one "real" property is there)
 
 /// Declaration constructor which initialised the meta data for the passed type
-#define PBL_DECLARATION_CONSTRUCTOR(type)                                                                              \
-  (type) {                                                                                                             \
-    .meta = {.defined = true, .byte_size = type##_Size }                                                               \
+#define PBL_DECLARATION_CONSTRUCTOR(type) (type) {                                                                     \
+    .meta = {.defined = true, .byte_size = type##_Size}                                                                \
   }
 /// Definition constructor which initialises the meta data for the passed type and passes to `.actual` the args as struct
-#define PBL_DEFINITION_STRUCT_CONSTRUCTOR(type, ...)                                                                   \
-  (type) {                                                                                                             \
+#define PBL_DEFINITION_STRUCT_CONSTRUCTOR(type, ...) (type) {                                                          \
     .meta = {.defined = true, .byte_size = type##_Size}, .actual = { __VA_ARGS__ }                                     \
   }
 /// Definition constructor which initialised the meta data for the passed type and passes to `.actual` the single arg
-#define PBL_DEFINITION_SINGLE_CONSTRUCTOR(type, var_actual)                                                            \
-  (type) { .meta = {.defined = true, .byte_size = type##_Size}, .actual = var_actual }
+#define PBL_DEFINITION_SINGLE_CONSTRUCTOR(type, var_actual) (type) {                                                   \
+    .meta = {.defined = true, .byte_size = type##_Size}, .actual = var_actual                                          \
+  }
 
 // ---- Bool ----------------------------------------------------------------------------------------------------------
 
@@ -349,41 +348,130 @@ typedef struct PblLongDouble PblLongDouble_T;
 /// This a macro function definition body constructor, which should be used to directly convert C types into their
 /// Para-C counterparts. This should be only used for Para-C types that have as actual a single property, as this does
 /// not support complex initialisation.
-#define PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(parac_type, c_type)                                                    \
-  {                                                                                                                    \
+#define PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(parac_type, c_type) {                                                  \
     parac_type conv = parac_type##_DefDefault;                                                                         \
     conv.actual = val;                                                                                                 \
     return conv;                                                                                                       \
   }
 
+/**
+ * @brief Converts the low level C-Type to a PBL Bool type
+ * @param val The C-type to be converted
+ * @return The newly created PBL Bool type
+ * @note This is a C to Para-C type conversion function - args are in C therefore
+ */
 PblBool_T PblGetBoolT(bool val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Byte Size type
+* @param val The C-type to be converted
+* @return The newly created PBL Byte Size type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblSize_T PblGetSizeT(size_t val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Char type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblChar_T PblGetCharT(signed char val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Unsigned Char type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblUChar_T PblGetUCharT(unsigned char val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Short type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblShort_T PblGetShortT(signed short val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Unsigned Short type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblUShort_T PblGetUShortT(unsigned short val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Int type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblInt_T PblGetIntT(signed int val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Unsigned Int type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblUInt_T PblGetUIntT(unsigned int val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Long type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblLong_T PblGetLongT(signed long val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Unsigned Long type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblULong_T PblGetULongT(unsigned long val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Long Long type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblLongLong_T PblGetLongLongT(signed long long val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Unsigned Long Long type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblULongLong_T PblGetULongLongT(unsigned long long val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Float type
+* @param val The C-type to be converted
+* @return The newly created PBL Char type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblFloat_T PblGetFloatT(float val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Double type
+* @param val The C-type to be converted
+* @return The newly created PBL Double type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblDouble_T PblGetDoubleT(double val);
 
+/**
+* @brief Converts the low level C-Type to a PBL Long Double type
+* @param val The C-type to be converted
+* @return The newly created PBL Long Double type
+* @note This is a C to Para-C type conversion function - args are in C therefore
+*/
 PblLongDouble_T PblGetLongDoubleT(long double val);
 
 #ifdef __cplusplus

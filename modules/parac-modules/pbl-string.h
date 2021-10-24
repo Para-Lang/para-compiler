@@ -45,20 +45,69 @@ typedef struct PblString PblString_T;
 
 // ---- Handler functions ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief Gets the Length of a C string (const char*)
+ * @param content The char array (pointer)
+ * @return The length as Para-C Int
+ */
 PblUInt_T PblGetLengthOfCString(const char *content);
 
+/**
+ * @brief This directly converts a char* to a Para-C string type
+ * @param content The char array (pointer)
+ * @return The new Para-C string type, which was created using `PblAllocateStringT`
+ * @note This is a C to Para-C type conversion function - args are in C therefore
+ */
 PblString_T PblGetStringT(const char *content);
 
+/**
+ * @brief Gets the required byte_size for an allocation based on the passed length of the string.
+ * @note The algorithm will always be a multiple of 50 + 1 (for null char '\0').
+ * The calculated size is the next biggest multiple of 50 + 1, which is still bigger than the passed length.
+ * @param len The length of the actual string content, which will be used to calculate the allocation length.
+ * @returns The size as size_t (int)
+ */
 PblSize_T PblGetAllocSizeStringT(PblUInt_T len);
 
+/**
+ * @brief Resizes the string by reallocating the memory.
+ * @note Automatically calculates the size of the new allocated memory based on the length. The function used for the
+ * length calculation is `PblGetAllocSizeStringT`
+ * @param str The string that should be reallocated
+ * @param len The length of the string content that is used to calculate the required size
+ */
 void PblResizeStringT(PblString_T *str, PblUInt_T len);
 
+/**
+ * @brief Writes onto the allocated memory the passed string content
+ * @param len Length of the string (should not include null char)
+ * @param content The content of the string that should be written to the allocated memory - C type as this should be
+ * used in the back of the program
+ */
 void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_write);
 
+/**
+ * @brief Allocates new memory for a new string
+ * @note Default size/len is 50 - will be resized with additional space required using 'PblGetAllocSizeStringT'
+ * @param len Length of the string - will be used to calculate allocated memory space (should not include null char)
+ * @param content The content of the string that should be written to the allocated memory - C type as this should be
+ * used for converting char * and char[] to PblString_T
+ * @returns The new string type that was allocated
+ */
 PblString_T PblCreateStringT(const char *content, PblUInt_T len);
 
+/**
+ * @brief Allocates new memory for a new string
+ * @param byte_size The byte_size that should be allocated
+ * @returns The char* pointer to the memory
+ */
 char *PblAllocateStringT(PblSize_T byte_size);
 
+/**
+ * @brief Deallocates the entire memory for the string and resets it's struct properties
+ * @note Writes to the string with '\0' before freeing the memory
+ * @param lvalue The value that should be de-allocated
+ */
 void PblDeallocateStringT(PblString_T *lvalue);
 
 #ifdef __cplusplus

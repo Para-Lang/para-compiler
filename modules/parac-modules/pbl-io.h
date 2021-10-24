@@ -89,8 +89,21 @@ typedef struct PblStream PblStream_T;
 
 // ---- Handler functions ---------------------------------------------------------------------------------------------
 
+/**
+ * @brief Converts the low level C-Type to a PBL File type
+ * @param val The FILE pointer C-type
+ * @return The newly created PBL File type
+ * @note This is a C to Para-C type conversion function - args are in C therefore
+ */
 PblFile_T PblGetFileT(FILE *val);
 
+/**
+ * @brief Converts the low level C-Type to a PBL Stream type. Creates the FILE* pointer as well
+ * @param fd The file descriptor that will be converted
+ * @param mode The mode that should be used to open the FILE*
+ * @return The newly created PBL Stream type
+ * @note This is a C to Para-C type conversion function - args are therefore in C
+ */
 PblStream_T PblGetStreamT(int fd, const char *mode);
 
 /// Arguments struct for PblPrint (PblPrintOverhead)
@@ -100,6 +113,19 @@ struct PblPrintArgs {
   PblChar_T end;
 };
 
+/**
+ * @brief Prints the content of the passed string
+ * @param out The string that should be printed out
+ * @param stream The stream it should be printed onto
+ * @param end The end character that should be printed after `out`
+ * @note This is the base function that is wrapped using `PblPrintOverhead`
+ */
+void PblPrintBase(PblString_T *out, const PblStream_T stream, const PblChar_T end);
+
+/**
+ * @brief Printing overhead for `PblPrintBase` - this it the function called by the macro `PblPrint`
+ * @param in The parameter struct
+ */
 void PblPrintOverhead(struct PblPrintArgs in);
 
 /**
