@@ -10,6 +10,10 @@
 #ifndef PARAC_MODULES_INT_H
 #define PARAC_MODULES_INT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // ---- Exact Int -----------------------------------------------------------------------------------------------------
 
 // ---- Int8 ----------------------------------------------------------------------------------------------------------
@@ -39,6 +43,7 @@ typedef struct PblInt8 PblInt8_T;
 #define PblUInt8_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUInt8_T)
 /// Returns the definition default for the type `PblUInt8_T`
 #define PblUInt8_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUInt8_T, 0)
+
 /// PBL Unsigned Int8 implementation
 struct PblUInt8 {
   /// PBL meta type - keeps track of initialisation
@@ -46,7 +51,7 @@ struct PblUInt8 {
   /// actual value - C type
   uint8_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL Unsigned Int8 implementation
 typedef struct PblUInt8 PblUInt8_T;
 
 // ---- Int16 ---------------------------------------------------------------------------------------------------------
@@ -84,7 +89,7 @@ struct PblUInt16 {
   /// actual value - C type
   uint16_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL UInt16 implementation
 typedef struct PblUInt16 PblUInt16_T;
 
 // ---- Int32 ---------------------------------------------------------------------------------------------------------
@@ -122,7 +127,7 @@ struct PblUInt32 {
   /// actual value - C type
   uint32_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL UInt32 implementation
 typedef struct PblUInt32 PblUInt32_T;
 
 // ---- Int64 ---------------------------------------------------------------------------------------------------------
@@ -160,7 +165,7 @@ struct PblUInt64 {
   /// actual value - C type
   uint64_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL UInt64 implementation
 typedef struct PblUInt64 PblUInt64_T;
 
 // ---- Least Int -----------------------------------------------------------------------------------------------------
@@ -200,7 +205,7 @@ struct PblULeastInt8 {
   /// actual value - C type
   uint_least8_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL ULeastInt8 implementation
 typedef struct PblULeastInt8 PblULeastInt8_T;
 
 // ---- LeastInt16 ----------------------------------------------------------------------------------------------------
@@ -238,7 +243,7 @@ struct PblULeastInt16 {
   /// actual value - C type
   uint_least16_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL ULeastInt16 implementation
 typedef struct PblULeastInt16 PblULeastInt16_T;
 
 // ---- LeastInt32 ----------------------------------------------------------------------------------------------------
@@ -257,7 +262,7 @@ struct PblLeastInt32 {
   /// actual value - C type
   int_least32_t actual;
 };
-/// PBL Signed LeastInt32 implementation
+/// PBL LeastInt32 implementation
 typedef struct PblLeastInt32 PblLeastInt32_T;
 
 // ---- ULeastInt32 ---------------------------------------------------------------------------------------------------
@@ -276,7 +281,7 @@ struct PblULeastInt32 {
   /// actual value - C type
   uint_least32_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL ULeastInt32 implementation
 typedef struct PblULeastInt32 PblULeastInt32_T;
 
 // ---- LeastInt64 ----------------------------------------------------------------------------------------------------
@@ -314,162 +319,162 @@ struct PblULeastInt64 {
   /// actual value - C type
   uint_least64_t actual;
 };
-/// PBL Signed Long implementation
+/// PBL ULeastInt64 implementation
 typedef struct PblULeastInt64 PblULeastInt64_T;
 
 // ---- Fast Int ------------------------------------------------------------------------------------------------------
 
-// ---- FastestInt8 ---------------------------------------------------------------------------------------------------
+// ---- FastInt8 ---------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed FastestInt8 type
-#define PblFastestInt8_T_Size sizeof(int_fast8_t)
-/// Returns the declaration default for the type `PblFastestInt8_T`
-#define PblFastestInt8_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastestInt8_T)
-/// Returns the definition default for the type `PblFastestInt8_T`
-#define PblFastestInt8_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastestInt8_T, 0)
+/// Returns the size in bytes of the PBL Signed FastInt8 type
+#define PblFastInt8_T_Size sizeof(int_fast8_t)
+/// Returns the declaration default for the type `PblFastInt8_T`
+#define PblFastInt8_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastInt8_T)
+/// Returns the definition default for the type `PblFastInt8_T`
+#define PblFastInt8_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastInt8_T, 0)
 
-/// PBL FastestInt8 implementation
-struct PblFastestInt8 {
+/// PBL FastInt8 implementation
+struct PblFastInt8 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   int_fast8_t actual;
 };
-/// PBL Signed FastestInt8 implementation
-typedef struct PblFastestInt8 PblFastestInt8_T;
+/// PBL FastInt8 implementation
+typedef struct PblFastInt8 PblFastInt8_T;
 
-// ---- UFastestInt8 --------------------------------------------------------------------------------------------------
+// ---- UFastInt8 --------------------------------------------------------------------------------------------------
 
 /// Returns the size in bytes of the PBL Signed Long type
-#define PblUFastestInt8_T_Size sizeof(uint_fast8_t)
-/// Returns the declaration default for the type `PblUFastestInt8_T`
-#define PblUFastestInt8_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastestInt8_T)
-/// Returns the definition default for the type `PblUFastestInt8_T`
-#define PblUFastestInt8_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastestInt8_T, 0)
+#define PblUFastInt8_T_Size sizeof(uint_fast8_t)
+/// Returns the declaration default for the type `PblUFastInt8_T`
+#define PblUFastInt8_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastInt8_T)
+/// Returns the definition default for the type `PblUFastInt8_T`
+#define PblUFastInt8_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastInt8_T, 0)
 
-/// PBL UFastestInt8 implementation
-struct PblUFastestInt8 {
+/// PBL UFastInt8 implementation
+struct PblUFastInt8 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   uint_fast8_t actual;
 };
-/// PBL Signed Long implementation
-typedef struct PblUFastestInt8 PblUFastestInt8_T;
+/// PBL UFastInt8 implementation
+typedef struct PblUFastInt8 PblUFastInt8_T;
 
-// ---- FastestInt16 --------------------------------------------------------------------------------------------------
+// ---- FastInt16 --------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed FastestInt16 type
-#define PblFastestInt16_T_Size sizeof(int_fast16_t)
-/// Returns the declaration default for the type `PblFastestInt16_T`
-#define PblFastestInt16_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastestInt16_T)
-/// Returns the definition default for the type `PblFastestInt16_T`
-#define PblFastestInt16_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastestInt16_T, 0)
+/// Returns the size in bytes of the PBL Signed FastInt16 type
+#define PblFastInt16_T_Size sizeof(int_fast16_t)
+/// Returns the declaration default for the type `PblFastInt16_T`
+#define PblFastInt16_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastInt16_T)
+/// Returns the definition default for the type `PblFastInt16_T`
+#define PblFastInt16_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastInt16_T, 0)
 
-/// PBL FastestInt16 implementation
-struct PblFastestInt16 {
+/// PBL FastInt16 implementation
+struct PblFastInt16 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   int_fast16_t actual;
 };
-/// PBL Signed FastestInt16 implementation
-typedef struct PblFastestInt16 PblFastestInt16_T;
+/// PBL Signed FastInt16 implementation
+typedef struct PblFastInt16 PblFastInt16_T;
 
-// ---- UFastestInt16 -------------------------------------------------------------------------------------------------
+// ---- UFastInt16 -------------------------------------------------------------------------------------------------
 
 /// Returns the size in bytes of the PBL Signed Long type
-#define PblUFastestInt16_T_Size sizeof(uint_fast16_t)
-/// Returns the declaration default for the type `PblUFastestInt16_T`
-#define PblUFastestInt16_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastestInt16_T)
-/// Returns the definition default for the type `PblUFastestInt16_T`
-#define PblUFastestInt16_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastestInt16_T, 0)
+#define PblUFastInt16_T_Size sizeof(uint_fast16_t)
+/// Returns the declaration default for the type `PblUFastInt16_T`
+#define PblUFastInt16_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastInt16_T)
+/// Returns the definition default for the type `PblUFastInt16_T`
+#define PblUFastInt16_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastInt16_T, 0)
 
-/// PBL UFastestInt16 implementation
-struct PblUFastestInt16 {
+/// PBL UFastInt16 implementation
+struct PblUFastInt16 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   uint_fast16_t actual;
 };
-/// PBL Signed Long implementation
-typedef struct PblUFastestInt16 PblUFastestInt16_T;
+/// PBL UFastInt16 implementation
+typedef struct PblUFastInt16 PblUFastInt16_T;
 
-// ---- FastestInt32 --------------------------------------------------------------------------------------------------
+// ---- FastInt32 --------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed FastestInt32 type
-#define PblFastestInt32_T_Size sizeof(int_fast32_t)
-/// Returns the declaration default for the type `PblFastestInt32_T`
-#define PblFastestInt32_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastestInt32_T)
-/// Returns the definition default for the type `PblFastestInt32_T`
-#define PblFastestInt32_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastestInt32_T, 0)
+/// Returns the size in bytes of the PBL Signed FastInt32 type
+#define PblFastInt32_T_Size sizeof(int_fast32_t)
+/// Returns the declaration default for the type `PblFastInt32_T`
+#define PblFastInt32_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastInt32_T)
+/// Returns the definition default for the type `PblFastInt32_T`
+#define PblFastInt32_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastInt32_T, 0)
 
-/// PBL FastestInt32 implementation
-struct PblFastestInt32 {
+/// PBL FastInt32 implementation
+struct PblFastInt32 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   int_fast32_t actual;
 };
-/// PBL Signed FastestInt32 implementation
-typedef struct PblFastestInt32 PblFastestInt32_T;
+/// PBL Signed FastInt32 implementation
+typedef struct PblFastInt32 PblFastInt32_T;
 
-// ---- UFastestInt32 -------------------------------------------------------------------------------------------------
+// ---- UFastInt32 -------------------------------------------------------------------------------------------------
 
 /// Returns the size in bytes of the PBL Signed Long type
-#define PblUFastestInt32_T_Size sizeof(uint_fast32_t)
-/// Returns the declaration default for the type `PblUFastestInt32_T`
-#define PblUFastestInt32_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastestInt32_T)
-/// Returns the definition default for the type `PblUFastestInt32_T`
-#define PblUFastestInt32_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastestInt32_T, 1)
+#define PblUFastInt32_T_Size sizeof(uint_fast32_t)
+/// Returns the declaration default for the type `PblUFastInt32_T`
+#define PblUFastInt32_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastInt32_T)
+/// Returns the definition default for the type `PblUFastInt32_T`
+#define PblUFastInt32_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastInt32_T, 0)
 
-/// PBL UFastestInt32 implementation
-struct PblUFastestInt32 {
+/// PBL UFastInt32 implementation
+struct PblUFastInt32 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   uint_fast32_t actual;
 };
-/// PBL Signed Long implementation
-typedef struct PblUFastestInt32 PblUFastestInt32_T;
+/// PBL UFastInt32 implementation
+typedef struct PblUFastInt32 PblUFastInt32_T;
 
-// ---- FastestInt64 --------------------------------------------------------------------------------------------------
+// ---- FastInt64 --------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed FastestInt64 type
-#define PblFastestInt64_T_Size sizeof(int_fast64_t)
-/// Returns the declaration default for the type `PblFastestInt64_T`
-#define PblFastestInt64_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastestInt64_T)
-/// Returns the definition default for the type `PblFastestInt64_T`
-#define PblFastestInt64_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastestInt64_T, 1)
+/// Returns the size in bytes of the PBL Signed FastInt64 type
+#define PblFastInt64_T_Size sizeof(int_fast64_t)
+/// Returns the declaration default for the type `PblFastInt64_T`
+#define PblFastInt64_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblFastInt64_T)
+/// Returns the definition default for the type `PblFastInt64_T`
+#define PblFastInt64_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFastInt64_T, 0)
 
-/// PBL FastestInt64 implementation
-struct PblFastestInt64 {
+/// PBL FastInt64 implementation
+struct PblFastInt64 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   int_fast64_t actual;
 };
-/// PBL Signed FastestInt64 implementation
-typedef struct PblFastestInt64 PblFastestInt64_T;
+/// PBL Signed FastInt64 implementation
+typedef struct PblFastInt64 PblFastInt64_T;
 
-// ---- UFastestInt64 -------------------------------------------------------------------------------------------------
+// ---- UFastInt64 -------------------------------------------------------------------------------------------------
 
 /// Returns the size in bytes of the PBL Signed Long type
-#define PblUFastestInt64_T_Size sizeof(uint_fast64_t)
-/// Returns the declaration default for the type `PblUFastestInt64_T`
-#define PblUFastestInt64_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastestInt64_T)
-/// Returns the definition default for the type `PblUFastestInt64_T`
-#define PblUFastestInt64_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastestInt64_T, 1)
+#define PblUFastInt64_T_Size sizeof(uint_fast64_t)
+/// Returns the declaration default for the type `PblUFastInt64_T`
+#define PblUFastInt64_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblUFastInt64_T)
+/// Returns the definition default for the type `PblUFastInt64_T`
+#define PblUFastInt64_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUFastInt64_T, 0)
 
-/// PBL UFastestInt64 implementation
-struct PblUFastestInt64 {
+/// PBL UFastInt64 implementation
+struct PblUFastInt64 {
   /// PBL meta type - keeps track of initialisation
   PblVarMeta_T meta;
   /// actual value - C type
   uint_fast64_t actual;
 };
-/// PBL Signed Long implementation
-typedef struct PblUFastestInt64 PblUFastestInt64_T;
+/// PBL UFastInt64 implementation
+typedef struct PblUFastInt64 PblUFastInt64_T;
 
 // ---- Helper Functions ----------------------------------------------------------------------------------------------
 
@@ -602,67 +607,71 @@ PblLeastInt64_T PblGetLeastInt64T(int_least64_t val);
 PblULeastInt64_T PblGetULeastInt64T(uint_least64_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL FastestInt8 type
+* @brief Converts the low level C-Type to a PBL FastInt8 type
 * @param val The C-type to be converted
-* @return The newly created PBL FastestInt8 type
+* @return The newly created PBL FastInt8 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblFastestInt8_T PblGetFastestInt8T(int_fast8_t val);
+PblFastInt8_T PblGetFastInt8T(int_fast8_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL UFastestInt8 type
+* @brief Converts the low level C-Type to a PBL UFastInt8 type
 * @param val The C-type to be converted
-* @return The newly created PBL UFastestInt8 type
+* @return The newly created PBL UFastInt8 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblUFastestInt8_T PblGetUFastestInt8T(uint_fast8_t val);
+PblUFastInt8_T PblGetUFastInt8T(uint_fast8_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL FastestInt16 type
+* @brief Converts the low level C-Type to a PBL FastInt16 type
 * @param val The C-type to be converted
-* @return The newly created PBL FastestInt16 type
+* @return The newly created PBL FastInt16 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblFastestInt16_T PblGetFastestInt16T(int_fast16_t val);
+PblFastInt16_T PblGetFastInt16T(int_fast16_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL UFastestInt16 type
+* @brief Converts the low level C-Type to a PBL UFastInt16 type
 * @param val The C-type to be converted
-* @return The newly created PBL UFastestInt16 type
+* @return The newly created PBL UFastInt16 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblUFastestInt16_T PblGetUFastestInt16T(uint_fast16_t val);
+PblUFastInt16_T PblGetUFastInt16T(uint_fast16_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL FastestInt32 type
+* @brief Converts the low level C-Type to a PBL FastInt32 type
 * @param val The C-type to be converted
-* @return The newly created PBL FastestInt32 type
+* @return The newly created PBL FastInt32 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblFastestInt32_T PblGetFastestInt32T(int_fast32_t val);
+PblFastInt32_T PblGetFastInt32T(int_fast32_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL UFastestInt32 type
+* @brief Converts the low level C-Type to a PBL UFastInt32 type
 * @param val The C-type to be converted
-* @return The newly created PBL UFastestInt32 type
+* @return The newly created PBL UFastInt32 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblUFastestInt32_T PblGetUFastestInt32T(uint_fast32_t val);
+PblUFastInt32_T PblGetUFastInt32T(uint_fast32_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL FastestInt64 type
+* @brief Converts the low level C-Type to a PBL FastInt64 type
 * @param val The C-type to be converted
-* @return The newly created PBL FastestInt64 type
+* @return The newly created PBL FastInt64 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblFastestInt64_T PblGetFastestInt64T(int_fast64_t val);
+PblFastInt64_T PblGetFastInt64T(int_fast64_t val);
 
 /**
-* @brief Converts the low level C-Type to a PBL UFastestInt64 type
+* @brief Converts the low level C-Type to a PBL UFastInt64 type
 * @param val The C-type to be converted
-* @return The newly created PBL UFastestInt64 type
+* @return The newly created PBL UFastInt64 type
 * @note This is a C to Para-C type conversion function - args are in C therefore
 */
-PblUFastestInt64_T PblGetUFastestInt64T(uint_fast64_t val);
+PblUFastInt64_T PblGetUFastInt64T(uint_fast64_t val);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif//PARAC_MODULES_INT_H

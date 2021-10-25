@@ -47,7 +47,7 @@ typedef struct PblVarMeta PblVarMeta_T;
 
 /// Declaration constructor which initialised the meta data for the passed type
 #define PBL_DECLARATION_CONSTRUCTOR(type) (type) {                                                                     \
-    .meta = {.defined = true, .byte_size = type##_Size}                                                                \
+    .meta = {.defined = false, .byte_size = type##_Size}                                                               \
   }
 /// Definition constructor which initialises the meta data for the passed type and passes to `.actual` the args as struct
 #define PBL_DEFINITION_STRUCT_CONSTRUCTOR(type, ...) (type) {                                                          \

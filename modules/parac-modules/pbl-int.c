@@ -70,34 +70,34 @@ PblULeastInt64_T PblGetULeastInt64T(uint_least64_t val) {
   PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblULeastInt64_T, uint_least64_t)
 }
 
-PblFastestInt8_T PblGetFastestInt8T(int_fast8_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastestInt8_T, int_fast8_t)
+PblFastInt8_T PblGetFastInt8T(int_fast8_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastInt8_T, int_fast8_t)
 }
 
-PblUFastestInt8_T PblGetUFastestInt8T(uint_fast8_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastestInt8_T, uint_fast8_t)
+PblUFastInt8_T PblGetUFastInt8T(uint_fast8_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastInt8_T, uint_fast8_t)
 }
 
-PblFastestInt16_T PblGetFastestInt16T(int_fast16_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastestInt16_T, int_fast16_t)
+PblFastInt16_T PblGetFastInt16T(int_fast16_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastInt16_T, int_fast16_t)
 }
 
-PblUFastestInt16_T PblGetUFastestInt16T(uint_fast16_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastestInt16_T, uint_fast16_t)
+PblUFastInt16_T PblGetUFastInt16T(uint_fast16_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastInt16_T, uint_fast16_t)
 }
 
-PblFastestInt32_T PblGetFastestInt32T(int_fast32_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastestInt32_T, int_fast32_t)
+PblFastInt32_T PblGetFastInt32T(int_fast32_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastInt32_T, int_fast32_t)
 }
 
-PblUFastestInt32_T PblGetUFastestInt32T(uint_fast32_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastestInt32_T, uint_fast32_t)
+PblUFastInt32_T PblGetUFastInt32T(uint_fast32_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastInt32_T, uint_fast32_t)
 }
 
-PblFastestInt64_T PblGetFastestInt64T(int_fast64_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastestInt64_T, int_fast64_t)
+PblFastInt64_T PblGetFastInt64T(int_fast64_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblFastInt64_T, int_fast64_t)
 }
 
-PblUFastestInt64_T PblGetUFastestInt64T(uint_fast64_t val) {
-  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastestInt64_T, uint_fast64_t)
+PblUFastInt64_T PblGetUFastInt64T(uint_fast64_t val) {
+  PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblUFastInt64_T, uint_fast64_t)
 }
