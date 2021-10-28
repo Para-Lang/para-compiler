@@ -40,6 +40,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Default declaration and definition macros for all types in `parac-modules`
 - `PblStream_T` and `PblFile_T` implementation for stream handling
 - Specified Int Types in `pbl-int.h` that wrap the int types in `stdint.h`
+- Meta handling in `pbl-function.h` for managing a function call context
+- Exception handling using `pbl-exception.h`
+- fallback implementation for `__VA_EXT__`, which has been implemented since C++20 or C23, using `./modules/parac-modules/included/va-opt.h`
 
 ### Changed
 - Style of the init banner in the CLI and added docs link.
