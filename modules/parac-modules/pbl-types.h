@@ -9,6 +9,7 @@
 
 #include <stdbool.h>
 #include <stddef.h>
+#include <malloc.h>
 
 #ifndef PARAC_MODULES_TYPES_H
 #define PARAC_MODULES_TYPES_H
@@ -26,8 +27,8 @@ extern "C" {
 
 // ---- All Base types implemented in the Para-C style ----------------------------------------------------------------
 
-/// Base Type contained in ALL variables - has no _DEFAULT
-struct PblVarMeta {
+/// Base Meta Type contained in ALL variables - has no DeclDefault or DefDefault
+struct PblMetaVarCtx {
   /// Returns whether the variable is defined. This defaults to false (unless a declaration is use, where accessing the
   /// variable is undefined behaviour. This means it should IN NO CASE BE accessed when it's only declared)
   /// This variable is used to also validate whether a variable can be accessed without raising an error!
@@ -38,29 +39,56 @@ struct PblVarMeta {
   /// the size
   size_t byte_size;
 };
-/// Base Type contained in ALL variables
-typedef struct PblVarMeta PblVarMeta_T;
 
-// ---- Numeric Values ------------------------------------------------------------------------------------------------
-// All types that are not unsigned are signed by default to ensure consistency
-// Note that in those definitions the size is calculated using the C-type (as only one "real" property is there)
+/// Base Meta Type contained in ALL variables
+typedef struct PblMetaVarCtx PblMetaVarCtx_T;
+
+// ---- Constructor Macros --------------------------------------------------------------------------------------------
 
 /// Declaration constructor which initialised the meta data for the passed type
 #define PBL_DECLARATION_CONSTRUCTOR(type) (type) {                                                                     \
     .meta = {.defined = false, .byte_size = type##_Size}                                                               \
   }
+
 /// Definition constructor which initialises the meta data for the passed type and passes to `.actual` the args as struct
 #define PBL_DEFINITION_STRUCT_CONSTRUCTOR(type, ...) (type) {                                                          \
     .meta = {.defined = true, .byte_size = type##_Size}, .actual = { __VA_ARGS__ }                                     \
   }
+
 /// Definition constructor which initialised the meta data for the passed type and passes to `.actual` the single arg
 #define PBL_DEFINITION_SINGLE_CONSTRUCTOR(type, var_actual) (type) {                                                   \
     .meta = {.defined = true, .byte_size = type##_Size}, .actual = var_actual                                          \
   }
 
+/// Creates the body for a Para-C type definition wrapper - the base_type is the actual value/struct
+#define PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(base_type) { \
+    PblMetaVarCtx_T meta; \
+    base_type actual; \
+   };
+
+// ---- Void Type -----------------------------------------------------------------------------------------------------
+
+/// (Never use this for malloc - this only indicates the usable memory space)
+/// Returns the size in bytes of the PBL PblVoid_T type
+#define PblVoid_T_Size sizeof(void)
+/// Returns the declaration default for the type `PblVoid_T`
+#define PblVoid_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblVoid_T)
+
+/// PBL Void implementation
+struct PblVoid {
+  PblMetaVarCtx_T meta;
+};
+/// PBL Void implementation
+typedef struct PblVoid PblVoid_T;
+
+// ---- Numeric Values ------------------------------------------------------------------------------------------------
+// All types that are not unsigned are signed by default to ensure consistency
+// Note that in those definitions the size is calculated using the C-type (as only one "real" property is there)
+
 // ---- Bool ----------------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed Char type
+/// (Never use this for malloc - this only indicates the usable memory space)
+/// Returns the size in bytes of the PBL Bool type
 #define PblBool_T_Size sizeof(bool)
 /// Returns the declaration default for the type `PblBool_T`
 #define PblBool_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblBool_T)
@@ -68,18 +96,14 @@ typedef struct PblVarMeta PblVarMeta_T;
 #define PblBool_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblBool_T, false)
 
 /// PBL Bool implementation
-struct PblBool {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  bool actual;
-};
+struct PblBool PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(bool)
 /// PBL Bool implementation
 typedef struct PblBool PblBool_T;
 
 // ---- Byte Size -----------------------------------------------------------------------------------------------------
 
-/// Returns the size in bytes of the PBL Signed Char type
+/// (Never use this for malloc - this only indicates the usable memory space)
+/// Returns the size in bytes of the PBL Size type
 #define PblSize_T_Size sizeof(size_t)
 /// Returns the declaration default for the type `PblSize_T`
 #define PblSize_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblSize_T)
@@ -87,17 +111,13 @@ typedef struct PblBool PblBool_T;
 #define PblSize_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblSize_T, 0)
 
 /// PBL Byte Size implementation
-struct PblSize {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  size_t actual;
-};
+struct PblSize PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(size_t)
 /// PBL Byte Size implementation
 typedef struct PblSize PblSize_T;
 
 // ---- Char ----------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Signed Char type
 #define PblChar_T_Size sizeof(signed char)
 /// Returns the declaration default for the type `PblChar_T`
@@ -106,17 +126,13 @@ typedef struct PblSize PblSize_T;
 #define PblChar_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblChar_T, 0)
 
 /// PBL Signed Char implementation
-struct PblChar {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  signed char actual;
-};
+struct PblChar PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(signed char)
 /// PBL Signed Char implementation
 typedef struct PblChar PblChar_T;
 
 // ---- UChar ---------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Unsigned Char type
 #define PblUChar_T_Size sizeof(unsigned char)
 /// Returns the declaration default for the type `PblUChar_T_Size`
@@ -125,17 +141,13 @@ typedef struct PblChar PblChar_T;
 #define PblUChar_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUChar_T, 0)
 
 /// PBL Unsigned Char implementation
-struct PblUChar {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  unsigned char actual;
-};
+struct PblUChar PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(unsigned char)
 /// PBL Unsigned Char implementation
 typedef struct PblUChar PblUChar_T;
 
 // ---- Short ---------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Signed Short type
 #define PblShort_T_Size sizeof(signed short)
 /// Returns the declaration default for the type `PblShort_T`
@@ -144,17 +156,13 @@ typedef struct PblUChar PblUChar_T;
 #define PblShort_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblShort_T, 0)
 
 /// PBL Signed Short implementation
-struct PblShort {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  signed short actual;
-};
+struct PblShort PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(signed short)
 /// PBL Signed Short implementation
 typedef struct PblShort PblShort_T;
 
 // ---- UShort --------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Unsigned Short type
 #define PblUShort_T_Size sizeof(unsigned short)
 /// Returns the declaration default for the type `PblUShort_T_Size`
@@ -163,17 +171,13 @@ typedef struct PblShort PblShort_T;
 #define PblUShort_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUShort_T, 0)
 
 /// PBL Unsigned Short implementation
-struct PblUShort {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  unsigned short actual;
-};
+struct PblUShort PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(unsigned short)
 /// PBL Unsigned Short implementation
 typedef struct PblUShort PblUShort_T;
 
 // ---- Int -----------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Signed Int type
 #define PblInt_T_Size sizeof(signed int)
 /// Returns the declaration default for the type `PblInt_T`
@@ -182,17 +186,13 @@ typedef struct PblUShort PblUShort_T;
 #define PblInt_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblInt_T, 0)
 
 /// PBL Signed Int implementation
-struct PblInt {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  signed int actual;
-};
+struct PblInt PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(signed int)
 /// PBL Signed Int implementation
 typedef struct PblInt PblInt_T;
 
 // ---- UInt ----------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Unsigned Int type
 #define PblUInt_T_Size sizeof(unsigned int)
 /// Returns the declaration default for the type `PblUInt_T`
@@ -201,17 +201,13 @@ typedef struct PblInt PblInt_T;
 #define PblUInt_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblUInt_T, 0)
 
 /// PBL Unsigned Int implementation
-struct PblUInt {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  unsigned int actual;
-};
+struct PblUInt PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(unsigned int)
 /// PBL Unsigned Int implementation
 typedef struct PblUInt PblUInt_T;
 
 // ---- Long ----------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Signed Long type
 #define PblLong_T_Size sizeof(signed long)
 /// Returns the declaration default for the type `PblLong_T`
@@ -220,17 +216,13 @@ typedef struct PblUInt PblUInt_T;
 #define PblLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLong_T, 0)
 
 /// PBL Signed Long implementation
-struct PblLong {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  signed long actual;
-};
+struct PblLong PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(signed long)
 /// PBL Signed Long implementation
 typedef struct PblLong PblLong_T;
 
 // ---- ULong ---------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Unsigned Long type
 #define PblULong_T_Size sizeof(unsigned long)
 /// Returns the declaration default for the type `PblULong_T`
@@ -239,17 +231,13 @@ typedef struct PblLong PblLong_T;
 #define PblULong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblULong_T, 0)
 
 /// PBL Unsigned Long implementation
-struct PblULong {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  unsigned long actual;
-};
+struct PblULong PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(unsigned long)
 /// PBL Unsigned Long implementation
 typedef struct PblULong PblULong_T;
 
 // ---- Long Long -----------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Signed Long Long type
 #define PblLongLong_T_Size sizeof(signed long long)
 /// Returns the declaration default for the type `PblLongLong_T`
@@ -258,17 +246,13 @@ typedef struct PblULong PblULong_T;
 #define PblLongLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLongLong_T, 0)
 
 /// PBL Signed Long Long implementation
-struct PblLongLong {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  signed long long actual;
-};
+struct PblLongLong PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(signed long long)
 /// PBL Signed Long Long implementation
 typedef struct PblLongLong PblLongLong_T;
 
 // ---- ULong Long ----------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Unsigned Long Long type
 #define PblULongLong_T_Size sizeof(unsigned long long)
 /// Returns the declaration default for the type `PblULongLong_T`
@@ -277,17 +261,13 @@ typedef struct PblLongLong PblLongLong_T;
 #define PblULongLong_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblULongLong_T, 0)
 
 /// PBL Unsigned Long Long implementation
-struct PblULongLong {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  unsigned long long actual;
-};
+struct PblULongLong PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(unsigned long long)
 /// PBL Unsigned Long Long implementation
 typedef struct PblULongLong PblULongLong_T;
 
 // ---- Float ---------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Float type
 #define PblFloat_T_Size sizeof(float)
 /// Returns the declaration default for the type `PblFloat_T`
@@ -296,17 +276,13 @@ typedef struct PblULongLong PblULongLong_T;
 #define PblFloat_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFloat_T, 0)
 
 /// PBL Float implementation
-struct PblFloat {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  float actual;
-};
+struct PblFloat PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(float)
 /// PBL Float implementation
 typedef struct PblFloat PblFloat_T;
 
 // ---- Double --------------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Double type
 #define PblDouble_T_Size sizeof(double)
 /// Returns the declaration default for the type `PblDouble_T`
@@ -315,17 +291,13 @@ typedef struct PblFloat PblFloat_T;
 #define PblDouble_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblDouble_T, 0)
 
 /// PBL Double implementation
-struct PblDouble {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  double actual;
-};
+struct PblDouble PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(double)
 /// PBL Double implementation
 typedef struct PblDouble PblDouble_T;
 
 // ---- Long Double ---------------------------------------------------------------------------------------------------
 
+/// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL Long Double type
 #define PblLongDouble_T_Size sizeof(long double)
 /// Returns the declaration default for the type `PblLongDouble_T`
@@ -334,12 +306,7 @@ typedef struct PblDouble PblDouble_T;
 #define PblLongDouble_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblLongDouble_T, 0)
 
 /// PBL Long Double implementation
-struct PblLongDouble {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// actual value - C type
-  long double actual;
-};
+struct PblLongDouble PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(long double)
 /// PBL Long Double implementation
 typedef struct PblLongDouble PblLongDouble_T;
 
@@ -359,6 +326,7 @@ typedef struct PblLongDouble PblLongDouble_T;
  * @param val The C-type to be converted
  * @return The newly created PBL Bool type
  * @note This is a C to Para-C type conversion function - args are in C therefore
+ * @
  */
 PblBool_T PblGetBoolT(bool val);
 

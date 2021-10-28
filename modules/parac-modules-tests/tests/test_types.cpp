@@ -2,7 +2,7 @@
 ///
 /// @author Luna-Klatzer
 
-#include "pbl-types.h"
+#include <pbl.h>
 #include "gtest/gtest.h"
 
 // TODO! Add tests for the type defaults and size

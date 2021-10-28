@@ -3,9 +3,7 @@
 ///
 /// @author Luna-Klatzer
 
-#include "pbl-int.h"
-#include "pbl-io.h"
-#include "pbl-types.h"
+#include <pbl.h>
 #include "gtest/gtest.h"
 
 TEST(BaseTypesTest, PblInt8) {

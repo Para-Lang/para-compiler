@@ -35,12 +35,7 @@ struct PblStringBase {
 };
 
 /// PBL String implementation - uses dynamic memory allocation -> located in heap
-struct PblString {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// Actual value
-  struct PblStringBase actual;
-};
+struct PblString PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(struct PblStringBase)
 typedef struct PblString PblString_T;
 
 // ---- Handler functions ---------------------------------------------------------------------------------------------
@@ -55,7 +50,7 @@ PblUInt_T PblGetLengthOfCString(const char *content);
 /**
  * @brief This directly converts a char* to a Para-C string type
  * @param content The char array (pointer)
- * @return The new Para-C string type, which was created using `PblAllocateStringT`
+ * @return The new Para-C string type, which was created using `PblAllocateStringContentT`
  * @note This is a C to Para-C type conversion function - args are in C therefore
  */
 PblString_T PblGetStringT(const char *content);
@@ -76,7 +71,7 @@ PblSize_T PblGetAllocSizeStringT(PblUInt_T len);
  * @param str The string that should be reallocated
  * @param len The length of the string content that is used to calculate the required size
  */
-void PblResizeStringT(PblString_T *str, PblUInt_T len);
+PblVoid_T PblResizeStringT(PblString_T *str, PblUInt_T len);
 
 /**
  * @brief Writes onto the allocated memory the passed string content
@@ -84,7 +79,7 @@ void PblResizeStringT(PblString_T *str, PblUInt_T len);
  * @param content The content of the string that should be written to the allocated memory - C type as this should be
  * used in the back of the program
  */
-void PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_write);
+PblVoid_T PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_write);
 
 /**
  * @brief Allocates new memory for a new string
@@ -101,14 +96,14 @@ PblString_T PblCreateStringT(const char *content, PblUInt_T len);
  * @param byte_size The byte_size that should be allocated
  * @returns The char* pointer to the memory
  */
-char *PblAllocateStringT(PblSize_T byte_size);
+char *PblAllocateStringContentT(PblSize_T byte_size);
 
 /**
  * @brief Deallocates the entire memory for the string and resets it's struct properties
  * @note Writes to the string with '\0' before freeing the memory
  * @param lvalue The value that should be de-allocated
  */
-void PblDeallocateStringT(PblString_T *lvalue);
+PblVoid_T PblDeallocateStringT(PblString_T *lvalue);
 
 #ifdef __cplusplus
 }

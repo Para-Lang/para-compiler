@@ -8,6 +8,8 @@
 /// - pbl-types.h
 /// - pbl-string.h
 /// - pbl-int.h
+/// - plb-exception.h
+/// - pbl-function.h
 ///
 /// @date 08-10-2021
 /// @author Luna-Klatzer
@@ -37,12 +39,7 @@
 /// struct ITEMBase { ... };
 ///
 /// // File Descriptor used to perform I/O actions on a file
-/// struct ITEM {
-///   /// PBL meta type - keeps track of initialisation
-///   PblVarMeta_T meta;
-///   /// Actual value
-///   struct ITEMBase actual;
-/// };
+/// struct ITEM PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(struct ITEMBase)
 /// typedef struct ITEM ITEM_T;
 
 // lib-headers includes
@@ -50,6 +47,8 @@
 #include "./pbl-io.h"
 #include "./pbl-string.h"
 #include "./pbl-types.h"
+#include "./pbl-exception.h"
+#include "./pbl-function.h"
 
 #ifndef PARAC_MODULES_LIBRARY_H
 #define PARAC_MODULES_LIBRARY_H
@@ -61,13 +60,11 @@ extern "C" {
 // ---- Macros --------------------------------------------------------------------------------------------------------
 
 /// The current release identifier
-#define PARAC_LIB_VERSION "0.1.dev5"
+#define __parac "0.1.dev5"
 /// Indicates the current library version being a development version
-#define PARAC_DEVELOPMENT_RELEASE true
+#define __parac_dev true
 /// Indicates the current library version being a stable version
-#define PARAC_STABLE_RELEASE false
-/// Indicates the usage of Para-C -> Always true
-#define PARAC_LANG true
+#define __parac_stable false
 
 #ifdef __cplusplus
 }

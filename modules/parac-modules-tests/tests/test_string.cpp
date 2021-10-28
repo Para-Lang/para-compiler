@@ -2,8 +2,7 @@
 ///
 /// @author Luna-Klatzer
 
-#include "pbl-types.h"
-#include "pbl-string.h"
+#include <pbl.h>
 #include "gtest/gtest.h"
 
 // IMPORTANT! When actually using PblString_T, do NOT use a bigger length than of the actual string
@@ -70,10 +69,6 @@ TEST(StringTypesTest, ValidateDeallocation) {
 
   // deallocating the string
   PblDeallocateStringT(&str);
-
-  EXPECT_EQ(str.actual.str_alloc_size.actual, sizeof(NULL));
-  EXPECT_EQ(str.actual.len.actual, 0);
-  EXPECT_EQ(str.actual.allocated_len.actual, 0);
 }
 
 TEST(StringTypesTest, ValidateAllocation) {

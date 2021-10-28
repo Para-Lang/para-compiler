@@ -4,10 +4,11 @@
 /// @date 08-10-2021
 /// @author Luna-Klatzer
 
-#include "./pbl-string.h"
-#include "./pbl-types.h"
 #include <stdbool.h>
 #include <stdio.h>
+
+#include "./pbl-string.h"
+#include "./pbl-types.h"
 
 #ifndef PARAC_MODULES_IO_H
 #define PARAC_MODULES_IO_H
@@ -28,12 +29,7 @@ extern "C" {
 #define PblFile_T_DefDefault PBL_DEFINITION_SINGLE_CONSTRUCTOR(PblFile_T, NULL)
 
 /// File Descriptor used to perform I/O actions on a file
-struct PblFile {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// Actual value
-  FILE *actual;
-};
+struct PblFile PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(FILE*)
 /// Stream type, which is a unique alias for PBLFileDescriptor_T
 typedef struct PblFile PblFile_T;
 
@@ -61,12 +57,7 @@ struct PblStreamBase {
 };
 
 /// File Descriptor used to perform I/O actions on a file
-struct PblStream {
-  /// PBL meta type - keeps track of initialisation
-  PblVarMeta_T meta;
-  /// Actual value
-  struct PblStreamBase actual;
-};
+struct PblStream PBL_TYPE_DEFINITION_WRAPPER_CONSTRUCTOR(struct PblStreamBase)
 /// Stream type, which is a unique alias for PBLFileDescriptor_T
 typedef struct PblStream PblStream_T;
 
@@ -120,13 +111,13 @@ struct PblPrintArgs {
  * @param end The end character that should be printed after `out`
  * @note This is the base function that is wrapped using `PblPrintOverhead`
  */
-void PblPrintBase(PblString_T *out, const PblStream_T stream, const PblChar_T end);
+PblVoid_T PblPrintBase(PblString_T *out, const PblStream_T stream, const PblChar_T end);
 
 /**
  * @brief Printing overhead for `PblPrintBase` - this it the function called by the macro `PblPrint`
  * @param in The parameter struct
  */
-void PblPrintOverhead(struct PblPrintArgs in);
+PblVoid_T PblPrintOverhead(struct PblPrintArgs in);
 
 /**
  * @brief Prints the content of the passed string

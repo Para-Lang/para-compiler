@@ -3,8 +3,7 @@
 ///
 /// @author Luna-Klatzer
 
-#include "pbl-io.h"
-#include "pbl-types.h"
+#include <pbl.h>
 #include "gtest/gtest.h"
 
 TEST(IOFileTest, ConversionCheck) {

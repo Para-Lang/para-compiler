@@ -11,3 +11,7 @@ include_directories(parac-modules)
 add_subdirectory(parac-modules)
 add_subdirectory(parac-modules-tests)
 target_link_libraries(parac-modules)
+
+if (CMAKE_BUILD_TYPE MATCHES Debug)
+    add_definitions(-DDEBUG)
+endif()
