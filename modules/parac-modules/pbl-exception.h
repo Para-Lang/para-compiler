@@ -103,7 +103,7 @@ extern "C" {
     (meta_ctx)->actual.is_failure = PblGetBoolT(false);                                                                \
     (meta_ctx)->actual.exception = NULL;                                                                               \
     (meta_ctx)->actual.failure_origin_ctx = NULL;                                                                      \
-    PblDeallocateMetaFunctionCallCtxT((meta_ctx)->actual.failure_origin_ctx);                                          \
+    PblDeallocateMetaFunctionCallCtxT((PblMetaFunctionCallCtx_T*)((meta_ctx)->actual.failure_origin_ctx));             \
   }
 
 
