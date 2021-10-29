@@ -70,7 +70,7 @@ typedef struct PblMetaVarCtx PblMetaVarCtx_T;
 
 /// (Never use this for malloc - this only indicates the usable memory space)
 /// Returns the size in bytes of the PBL PblVoid_T type
-#define PblVoid_T_Size sizeof(void)
+#define PblVoid_T_Size 0
 /// Returns the declaration default for the type `PblVoid_T`
 #define PblVoid_T_DeclDefault PBL_DECLARATION_CONSTRUCTOR(PblVoid_T)
 
