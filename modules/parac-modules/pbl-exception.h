@@ -100,12 +100,7 @@ extern "C" {
     if (block_identifier##_invoke_except.actual && !block_identifier##_except_handled.actual) {                        \
       return call_return_type##_DeclDefault;                                                                           \
     }                                                                                                                  \
-    (meta_ctx)->actual.is_failure = PblGetBoolT(false);                                                                \
-    (meta_ctx)->actual.exception = NULL;                                                                               \
-    (meta_ctx)->actual.failure_origin_ctx = NULL;                                                                      \
-    PblDeallocateMetaFunctionCallCtxT((PblMetaFunctionCallCtx_T*)((meta_ctx)->actual.failure_origin_ctx));             \
   }
-
 
 /// @brief This is a "one-liner" constructor for functions that accept arguments and have a return, which will call the
 /// passed function with the args (__VA_ARGS__) and if an exception is raised jump to the except blocks.
@@ -119,9 +114,7 @@ extern "C" {
   CALL_FUNC_WITH_META_CTX(                                                                                             \
     func, var_to_pass, unique_id, this_call_meta->actual.is_threaded, this_call_meta, IFN(args)(args))                 \
   if (unique_id##_callctx_##func->actual.is_failure.actual) {                                                          \
-    this_call_meta->actual.is_failure = PblGetBoolT(true);                                                             \
-    this_call_meta->actual.exception = unique_id##_callctx_##func->actual.exception;                                   \
-    this_call_meta->actual.failure_origin_ctx = unique_id##_callctx_##func;                                            \
+    block_identifier##_local_catched_exc = *((PblException_T*) unique_id##_callctx_##func->actual.exception);          \
     block_identifier##_invoke_except = PblGetBoolT(true);                                                              \
     goto block_identifier##_except_block;                                                                              \
   }
@@ -134,7 +127,6 @@ extern "C" {
     block_identifier##_except_handled = PblGetBoolT(true);                                                             \
     goto block_identifier##_finish_up;                                                                                 \
   }
-
 
 // ---- Exception Implementation --------------------------------------------------------------------------------------
 

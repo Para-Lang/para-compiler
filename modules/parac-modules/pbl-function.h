@@ -74,7 +74,7 @@ PblMetaFunctionCallCtx_T *PblGetMetaFunctionCallCtxT(PblString_T function_identi
                                                      PblUInt_T arg_amount, PblBool_T is_threaded,
                                                      PblMetaFunctionCallCtx_T *failure_origin_ctx,
                                                      PblMetaFunctionCallCtx_T *call_origin_ctx,
-                                                     PblVoid_T *exception);
+                                                     void *exception);
 
 /**
  * @brief Deallocates the passed function call ctx and safely resets all values

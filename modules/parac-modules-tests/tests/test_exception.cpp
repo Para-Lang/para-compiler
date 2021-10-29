@@ -71,14 +71,13 @@ TEST(BaseFunctionTest, TryExceptCall) {
   PblInt_T r_1 = PblInt_T_DeclDefault;
   PblMetaFunctionCallCtx_T this_call_meta = PblMetaFunctionCallCtx_T_DefDefault;
   C_BASE_EXCEPTION_CATCH_CONSTRUCTOR(TestFunction2, r_1, H3, PblGetBoolT(false), &this_call_meta,);
-  EXPECT_TRUE(this_call_meta.actual.is_failure.actual);
-  EXPECT_TRUE(this_call_meta.actual.failure_origin_ctx != NULL);
-  EXPECT_TRUE(this_call_meta.actual.exception != NULL);
+
+  // Try-except should never if there is a except statement that was executed, log it's exception and throw the results
+  // away right after finishing up
+  EXPECT_FALSE(this_call_meta.actual.is_failure.actual);
+  EXPECT_TRUE(this_call_meta.actual.failure_origin_ctx == NULL);
+  EXPECT_TRUE(this_call_meta.actual.exception == NULL);
   EXPECT_TRUE(this_call_meta.actual.call_origin_ctx == NULL);
-  EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.msg.actual.str, "test");
-  EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.name.actual.str, "TestException");
-  EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.filename.actual.str, __FILE__);
-  EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.line_content.actual.str, "raise exception");
   EXPECT_EQ(r_1.meta.defined, true);
   EXPECT_EQ(r_1.actual, 1);
 }
