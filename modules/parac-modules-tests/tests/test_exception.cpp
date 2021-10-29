@@ -6,6 +6,53 @@
 
 #include "gtest/gtest.h"
 
+TEST(FunctionMetaTest, PblMetaFunctionCallCtxDefaults) {
+  PblMetaFunctionCallCtx_T v_1 = PblMetaFunctionCallCtx_T_DeclDefault;
+
+  EXPECT_EQ(v_1.meta.byte_size, PblMetaFunctionCallCtx_T_Size);
+  EXPECT_EQ(
+    v_1.meta.byte_size,
+    sizeof(bool) + sizeof(unsigned int) + sizeof(bool) + 2 * sizeof(PblMetaFunctionCallCtx_T*) + sizeof(NULL)
+    );
+  EXPECT_EQ(v_1.meta.defined, false);
+
+  PblMetaFunctionCallCtx_T v_2 = PblMetaFunctionCallCtx_T_DefDefault;
+
+  EXPECT_TRUE(v_2.actual.call_origin_ctx == NULL);
+  EXPECT_TRUE(v_2.actual.exception == NULL);
+  EXPECT_TRUE(v_2.actual.failure_origin_ctx == NULL);
+  EXPECT_FALSE(v_2.actual.is_failure.actual);
+  EXPECT_EQ(v_2.actual.arg_amount.actual, 0);
+  EXPECT_STREQ(v_2.actual.function_identifier.actual.str, "");
+  EXPECT_EQ(v_2.meta.byte_size, PblMetaFunctionCallCtx_T_Size);
+  EXPECT_EQ(
+    v_2.meta.byte_size,
+    sizeof(bool) + sizeof(unsigned int) + sizeof(bool) + 2 * sizeof(PblMetaFunctionCallCtx_T*) + sizeof(NULL)
+    );
+  EXPECT_EQ(v_2.meta.defined, true);
+}
+
+TEST(ExceptionTest, PblExceptionDefaults) {
+  PblException_T v_1 = PblException_T_DeclDefault;
+
+  EXPECT_EQ(v_1.meta.byte_size, PblException_T_Size);
+  EXPECT_EQ(v_1.meta.byte_size, 4 * PblString_T_Size + sizeof(unsigned int) + 2 * sizeof(void*));
+  EXPECT_EQ(v_1.meta.defined, false);
+
+  PblException_T v_2 = PblException_T_DefDefault;
+
+  EXPECT_TRUE(v_2.actual.child_exc == NULL);
+  EXPECT_TRUE(v_2.actual.parent_exc == NULL);
+  EXPECT_STREQ(v_2.actual.name.actual.str, "");
+  EXPECT_STREQ(v_2.actual.msg.actual.str, "");
+  EXPECT_STREQ(v_2.actual.filename.actual.str, "");
+  EXPECT_STREQ(v_2.actual.line_content.actual.str, "");
+  EXPECT_EQ(v_2.actual.line.actual, 0);
+  EXPECT_EQ(v_2.meta.byte_size, PblException_T_Size);
+  EXPECT_EQ(v_2.meta.byte_size, 4 * PblString_T_Size + PblUInt_T_Size + 2 * sizeof(void*));
+  EXPECT_EQ(v_2.meta.defined, true);
+}
+
 PblInt_T NestedTestFunction(PblMetaFunctionCallCtx_T *this_call_meta, PblUInt_T i)
 {
   PblUInt_T line = PblGetUIntT(__LINE__);
@@ -28,7 +75,7 @@ PblInt_T TestFunction(PblMetaFunctionCallCtx_T *this_call_meta)
   return r_1;
 }
 
-TEST(BaseFunctionTest, OneNestCall) {
+TEST(ExceptionTest, OneNestCall) {
   PblInt_T r_1 = PblInt_T_DeclDefault;
   PblMetaFunctionCallCtx_T this_call_meta = PblMetaFunctionCallCtx_T_DefDefault;
   C_BASE_EXCEPTION_CATCH_CONSTRUCTOR(TestFunction, r_1, H3, PblGetBoolT(false),&this_call_meta,);
@@ -41,6 +88,7 @@ TEST(BaseFunctionTest, OneNestCall) {
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.name.actual.str, "TestException");
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.filename.actual.str, __FILE__);
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.line_content.actual.str, "raise exception");
+  PblCleanupExceptionContext(&this_call_meta);
 }
 
 PblInt_T TestFunction2(PblMetaFunctionCallCtx_T *this_call_meta) {
@@ -67,7 +115,7 @@ PblInt_T TestFunction2(PblMetaFunctionCallCtx_T *this_call_meta) {
   return PblGetIntT(0);
 }
 
-TEST(BaseFunctionTest, TryExceptCall) {
+TEST(ExceptionTest, TryExceptCall) {
   PblInt_T r_1 = PblInt_T_DeclDefault;
   PblMetaFunctionCallCtx_T this_call_meta = PblMetaFunctionCallCtx_T_DefDefault;
   C_BASE_EXCEPTION_CATCH_CONSTRUCTOR(TestFunction2, r_1, H3, PblGetBoolT(false), &this_call_meta,);
@@ -80,6 +128,7 @@ TEST(BaseFunctionTest, TryExceptCall) {
   EXPECT_TRUE(this_call_meta.actual.call_origin_ctx == NULL);
   EXPECT_EQ(r_1.meta.defined, true);
   EXPECT_EQ(r_1.actual, 1);
+  PblCleanupExceptionContext(&this_call_meta);
 }
 
 PblInt_T TestFunction3(PblMetaFunctionCallCtx_T *this_call_meta) {
@@ -106,7 +155,7 @@ PblInt_T TestFunction3(PblMetaFunctionCallCtx_T *this_call_meta) {
   return PblGetIntT(0);
 }
 
-TEST(BaseFunctionTest, TryExceptCallWithContinuation) {
+TEST(ExceptionTest, TryExceptCallWithContinuation) {
   PblInt_T r_1 = PblInt_T_DeclDefault;
   PblMetaFunctionCallCtx_T this_call_meta = PblMetaFunctionCallCtx_T_DefDefault;
   C_BASE_EXCEPTION_CATCH_CONSTRUCTOR(TestFunction3, r_1, H3, PblGetBoolT(false), &this_call_meta,);
@@ -116,4 +165,5 @@ TEST(BaseFunctionTest, TryExceptCallWithContinuation) {
   EXPECT_TRUE(this_call_meta.actual.call_origin_ctx == NULL);
   EXPECT_EQ(r_1.meta.defined, true);
   EXPECT_EQ(r_1.actual, 1);
+  PblCleanupExceptionContext(&this_call_meta);
 }

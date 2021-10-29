@@ -8,7 +8,6 @@
 /// - pbl-types.h
 /// - pbl-string.h
 /// - pbl-int.h
-/// - plb-exception.h
 /// - pbl-function.h
 ///
 /// @date 08-10-2021
@@ -47,7 +46,6 @@
 #include "./pbl-io.h"
 #include "./pbl-string.h"
 #include "./pbl-types.h"
-#include "./pbl-exception.h"
 #include "./pbl-function.h"
 
 #ifndef PARAC_MODULES_LIBRARY_H
