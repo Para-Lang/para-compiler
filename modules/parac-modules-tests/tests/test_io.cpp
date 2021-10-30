@@ -43,7 +43,7 @@ TEST(IOPrintTest, SimplePrint) {
   PblPrint(&str);
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(IOPrintTest, SimplePrintWithSetStream) {
@@ -55,6 +55,6 @@ TEST(IOPrintTest, SimplePrintWithSetStream) {
   PblPrint(.out = &str, .stream=PBL_STREAM_STDOUT);
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 

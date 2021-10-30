@@ -1,21 +1,26 @@
 ///
 /// String Implementation based on dynamic memory allocation
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 
-#include <malloc.h>
 #include <stdbool.h>
 #include <string.h>
 
 #include "./pbl-string.h"
 #include "./pbl-types.h"
+#include "./pbl-mem.h"
 
 PblUInt_T PblGetLengthOfCString(const char *content) {
+  // Validate the pointer for safety measures
+  content = PblValPtr((void*) content);
+
   return PblGetUIntT(strlen(content));
 }
 
 PblString_T PblGetStringT(const char *content) {
+  // Validate the pointer for safety measures
+  content = PblValPtr((void*) content);
+
   return PblCreateStringT(content, PblGetLengthOfCString(content));
 }
 
@@ -32,10 +37,13 @@ PblSize_T PblGetAllocSizeStringT(PblUInt_T len) {
 }
 
 PblVoid_T PblResizeStringT(PblString_T *str, PblUInt_T len) {
+  // Validate the pointer for safety measures
+  str = PblValPtr((void*) str);
+
   PblSize_T byte_size = PblGetAllocSizeStringT(len);
 
   // reallocating the memory with the new length - includes space for '\0' byte
-  str->actual.str = realloc(str->actual.str, byte_size.actual);
+  str->actual.str = PblRealloc(str->actual.str, byte_size.actual);
   str->actual.allocated_len = PblGetUIntT(byte_size.actual / sizeof(char));
   str->actual.str_alloc_size = byte_size;
   str->actual.len = len;
@@ -43,6 +51,10 @@ PblVoid_T PblResizeStringT(PblString_T *str, PblUInt_T len) {
 }
 
 PblVoid_T PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len_to_write) {
+  // Validate the pointer for safety measures
+  str = PblValPtr((void*) str);
+  content = PblValPtr((void*) content);
+
   // bigger or equal means that the required space is bigger than the actual space available,
   // equal is also included since even if it's equal the null-byte needs to be added as well (+1 byte)
   if (PblGetAllocSizeStringT(len_to_write).actual >= str->actual.str_alloc_size.actual) {
@@ -60,6 +72,9 @@ PblVoid_T PblWriteToStringT(PblString_T *str, const char *content, PblUInt_T len
 }
 
 PblString_T PblCreateStringT(const char *content, PblUInt_T len) {
+  // Validate the pointer for safety measures
+  content = PblValPtr((void*) content);
+
   // allocated memory - length = len * size char + 1 (null character (\0))
   PblSize_T byte_size = PblGetAllocSizeStringT(len);
   char *alloc_begin = PblAllocateStringContentT(byte_size);
@@ -76,16 +91,24 @@ PblString_T PblCreateStringT(const char *content, PblUInt_T len) {
 }
 
 char *PblAllocateStringContentT(PblSize_T byte_size) {
-  return malloc(byte_size.actual);
+  return PblMalloc(byte_size.actual);
 }
 
-PblVoid_T PblDeallocateStringT(PblString_T *lvalue) {
-  // writing \0 onto the entire space of memory
-  char nullify[lvalue->actual.len.actual];
-  for (int i = 0; i < lvalue->actual.len.actual; i++) nullify[i] = '\0';
-  PblWriteToStringT(lvalue, nullify, lvalue->actual.len);
+PblVoid_T PblSafeDeallocateStringT(PblString_T *lvalue) {
+  // Validate the pointer for safety measures
+  lvalue = PblValPtr((void*) lvalue);
 
-  free(lvalue->actual.str);
-  *lvalue = PblString_T_DeclDefault;
+  if (lvalue->meta.defined) {
+    // writing \0 onto the entire space of memory
+    char nullify[lvalue->actual.len.actual];
+    for (int i = 0; i < lvalue->actual.len.actual; i++) nullify[i] = '\0';
+    PblWriteToStringT(lvalue, nullify, lvalue->actual.len);
+
+    PblFree(lvalue->actual.str);
+    *lvalue = PblString_T_DeclDefault;
+  }
+
   return PblVoid_T_DeclDefault;
 }
+
+// TODO! Add copy string function

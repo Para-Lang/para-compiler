@@ -1,10 +1,9 @@
 ///
 /// String Implementation based on dynamic memory allocation
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 
-#include "pbl-types.h"
+#include "./pbl-types.h"
 
 #ifndef PARAC_MODULES_STRING_H
 #define PARAC_MODULES_STRING_H
@@ -103,7 +102,7 @@ char *PblAllocateStringContentT(PblSize_T byte_size);
  * @note Writes to the string with '\0' before freeing the memory
  * @param lvalue The value that should be de-allocated
  */
-PblVoid_T PblDeallocateStringT(PblString_T *lvalue);
+PblVoid_T PblSafeDeallocateStringT(PblString_T *lvalue);
 
 #ifdef __cplusplus
 }

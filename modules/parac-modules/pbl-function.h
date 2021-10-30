@@ -1,12 +1,12 @@
 ///
 /// Function-related types
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 
-#include "included/va-opt.h"
-#include "pbl-string.h"
-#include "pbl-types.h"
+#include "./included/va-opt.h"
+#include "./pbl-string.h"
+#include "./pbl-types.h"
+#include "./pbl-mem.h"
 
 #ifndef PARAC_MODULES_FUNCTION_H
 #define PARAC_MODULES_FUNCTION_H
@@ -225,13 +225,13 @@ PblMetaFunctionCallCtx_T *PblGetMetaFunctionCallCtxT(PblString_T function_identi
                                                      PblUInt_T arg_amount, PblBool_T is_threaded,
                                                      PblMetaFunctionCallCtx_T *failure_origin_ctx,
                                                      PblMetaFunctionCallCtx_T *call_origin_ctx,
-                                                     void *exception);
+                                                     PblException_T *exception);
 
 /**
  * @brief Deallocates the passed function call ctx and safely resets all values
- * @param exc The function call ctx to deallocate
+ * @param ctx The function call ctx to deallocate
  */
-PblVoid_T PblDeallocateMetaFunctionCallCtxT(PblMetaFunctionCallCtx_T *exc);
+PblVoid_T PblSafeDeallocateMetaFunctionCallCtxT(PblMetaFunctionCallCtx_T *ctx);
 
 /**
  * @brief Allocates a new Exception type ctx, which is located in the heap
@@ -256,13 +256,13 @@ PblVoid_T PblRaiseNewException(PblMetaFunctionCallCtx_T* this_call_meta, PblExce
 /**
  * @brief Deallocates the passed exception type and safely resets all values
  * @param exc The exception to deallocate
+ * @notes This function will de-allocate the children and parents exceptions as well
  */
-PblVoid_T PblDeallocateExceptionT(PblException_T *exc);
+PblVoid_T PblSafeDeallocateExceptionT(PblException_T *exc);
 
 /**
- * @brief Cleanups the current exception Context
- * @param cleanup_ctx
- * @return
+ * @brief Cleanups the current exception Context and deallocates the memory that isn't used anymore
+ * @param cleanup_ctx The function call ctx that should be cleaned up (including all of it's children)
  */
 PblVoid_T PblCleanupExceptionContext(PblMetaFunctionCallCtx_T* cleanup_ctx);
 

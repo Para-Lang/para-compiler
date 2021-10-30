@@ -10,7 +10,6 @@
 /// - pbl-int.h
 /// - pbl-function.h
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 /// @note The styling guide for the PBL is as following:
 /// - Structs/Enums: PascalCase with leading `Pbl`

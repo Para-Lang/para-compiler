@@ -6,7 +6,7 @@ set(HEADER_FILES
         pbl-types.h
         pbl-string.h
         pbl-int.h
-        pbl-function.h)
+        pbl-function.h pbl-main.c pbl-main.h)
 
 set(SOURCE_FILES
         pbl-io.c
@@ -14,9 +14,9 @@ set(SOURCE_FILES
         pbl-string.c
         pbl-int.c
         pbl.c
-        pbl-function.c)
+        pbl-function.c pbl-main.c pbl-main.h)
 
 set(INCLUDED_EXTENSIONS
-        included/va-opt.h)
+        included/va-opt.h pbl-mem.c pbl-mem.h)
 
 add_library(parac-modules STATIC ${SOURCE_FILES} ${HEADER_FILES} ${INCLUDED_EXTENSIONS})

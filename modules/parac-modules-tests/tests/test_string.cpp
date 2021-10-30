@@ -35,8 +35,8 @@ TEST(StringTypesTest, GetStringConversion) {
   EXPECT_EQ(string_2.actual.str_alloc_size.actual, (size_t) 51);
 
   // deallocating the strings
-  PblDeallocateStringT(&string_1);
-  PblDeallocateStringT(&string_2);
+  PblSafeDeallocateStringT(&string_1);
+  PblSafeDeallocateStringT(&string_2);
 }
 
 TEST(StringTypesTest, SimpleAllocation1) {
@@ -50,7 +50,7 @@ TEST(StringTypesTest, SimpleAllocation1) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, SimpleAllocation2) {
@@ -64,7 +64,7 @@ TEST(StringTypesTest, SimpleAllocation2) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, SimpleAllocation3) {
@@ -78,7 +78,7 @@ TEST(StringTypesTest, SimpleAllocation3) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, ValidateDeallocation) {
@@ -92,7 +92,7 @@ TEST(StringTypesTest, ValidateDeallocation) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, ValidateAllocation) {
@@ -108,7 +108,7 @@ TEST(StringTypesTest, ValidateAllocation) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, ValidateOverwrite) {
@@ -132,7 +132,7 @@ TEST(StringTypesTest, ValidateOverwrite) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }
 
 TEST(StringTypesTest, ValidateReallocOverwrite) {
@@ -156,5 +156,5 @@ TEST(StringTypesTest, ValidateReallocOverwrite) {
   );
 
   // deallocating the string
-  PblDeallocateStringT(&str);
+  PblSafeDeallocateStringT(&str);
 }

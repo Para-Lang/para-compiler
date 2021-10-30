@@ -1,15 +1,13 @@
 ///
 /// Base Para-C Types Implementation, which implement default declaration and default definition types. This also
-/// includes meta-data tracking based on the `PblVarMeta` type.
+/// includes meta-data tracking based on the `PblMetaVarCtx_T` type.
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 /// @note The TYPE_T_Size macros define the actual size of the C-elements, without the meta struct - This is only used
 /// to know the actual size that can be used from the user.
 
 #include <stdbool.h>
 #include <stddef.h>
-#include <malloc.h>
 
 #ifndef PARAC_MODULES_TYPES_H
 #define PARAC_MODULES_TYPES_H
@@ -22,6 +20,7 @@ extern "C" {
 
 /// Returns the effective size of a Para-C type that can be actually used. Must be a Para-C type
 #define PBL_SIZEOF(type) (type##_Size)
+
 /// Returns the effective C size of a type. This also includes meta data
 #define PBL_C_SIZEOF(type) (sizeof(type))
 
@@ -33,7 +32,7 @@ struct PblMetaVarCtx {
   /// variable is undefined behaviour. This means it should IN NO CASE BE accessed when it's only declared)
   /// This variable is used to also validate whether a variable can be accessed without raising an error!
   bool defined;
-  /// Size of the allocated memory in bytes - this should not include the property PblVarMeta
+  /// Size of the allocated memory in bytes - this should not include the property PblMetaVarCtx_T
   /// @note To properly implement this, for a struct implementation there should be both the base (without `meta`)
   /// struct and the actual usage struct (with `meta`). `sizeof` can then be applied onto the base to correctly get
   /// the size

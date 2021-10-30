@@ -1,7 +1,6 @@
 ///
 /// IO Implementation based on stdio.h
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 
 #include <stdbool.h>
@@ -98,7 +97,7 @@ PblFile_T PblGetFileT(FILE *val);
 PblStream_T PblGetStreamT(int fd, const char *mode);
 
 /// Arguments struct for PblPrint (PblPrintOverhead)
-struct PblPrintArgs {
+struct PblPrint_Args {
   PblString_T *out;
   PblStream_T stream;
   PblChar_T end;
@@ -111,21 +110,21 @@ struct PblPrintArgs {
  * @param end The end character that should be printed after `out`
  * @note This is the base function that is wrapped using `PblPrintOverhead`
  */
-PblVoid_T PblPrintBase(PblString_T *out, const PblStream_T stream, const PblChar_T end);
+PblVoid_T PblPrint_Base(PblString_T *out, const PblStream_T stream, const PblChar_T end);
 
 /**
  * @brief Printing overhead for `PblPrintBase` - this it the function called by the macro `PblPrint`
  * @param in The parameter struct
  */
-PblVoid_T PblPrintOverhead(struct PblPrintArgs in);
+PblVoid_T PblPrint_Overhead(struct PblPrint_Args in);
 
 /**
  * @brief Prints the content of the passed string
- * @param out The string that should be printed out
+ * @param out The string that should be printed out (Pointer)
  * @param stream The stream it should be printed onto
  * @param end The end character that should be printed after `out`
  */
-#define PblPrint(...) PblPrintOverhead((struct PblPrintArgs){__VA_ARGS__});
+#define PblPrint(...) PblPrint_Overhead((struct PblPrint_Args){__VA_ARGS__});
 
 #ifdef __cplusplus
 }

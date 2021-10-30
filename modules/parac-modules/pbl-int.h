@@ -1,12 +1,11 @@
 ///
 /// Int Implementation based on stdint.h
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 
 #include <stdint.h>
 
-#include "pbl-types.h"
+#include "./pbl-types.h"
 
 #ifndef PARAC_MODULES_INT_H
 #define PARAC_MODULES_INT_H

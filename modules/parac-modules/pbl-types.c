@@ -1,13 +1,12 @@
 ///
 /// Base Para-C Types Implementation, which implement default declaration and default definition types. This also
-/// includes meta-data tracking based on the `PblVarMeta` type.
+/// includes meta-data tracking based on the `PblMetaVarCtx_T` type.
 ///
-/// @date 08-10-2021
 /// @author Luna-Klatzer
 /// @note The TYPE_T_Size macros define the actual size of the C-elements, without the meta struct - This is only used
 /// to know the actual size that can be used from the user.
 
-#include "pbl-types.h"
+#include "./pbl-types.h"
 
 PblBool_T PblGetBoolT(bool val) {
   PBL_CONVERSION_FUNCTION_DEF_CONSTRUCTOR(PblBool_T, bool)
