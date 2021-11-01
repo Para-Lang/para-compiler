@@ -11,7 +11,6 @@
 
 [![Build](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codeql-analysis.yml)
 [![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codecov.yml)
-[![Dr.Memory and GTest](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/drmemory.yml)
 [![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml)
 [![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml)
 [![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml)
