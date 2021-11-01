@@ -3,6 +3,7 @@
 Try-Except Statement
 ********************
 
+In work...
 
 Syntax
 ------

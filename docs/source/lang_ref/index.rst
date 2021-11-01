@@ -6,6 +6,8 @@ Welcome to the Language Reference
 .. toctree::
     :hidden:
 
+    Compiler <compiler_structure>
+    Pre-Processor <preprocessor>
     Declaration and Types <declaration_and_types/index>
     Statement <statements/index>
     Functions <functions/index>
@@ -22,6 +24,8 @@ on github.
 Overview
 ========
 
+- `Compiler <./compiler_structure.html>`_ - Reference for the Para-C structure and logic
+- `Pre-Processor <./preprocessor.html>`_ - Reference for the Para-C Pre-Processor and directives
 - `Declaration and Types <./declaration_and_types/index.html>`_ - Declaring, defining and specifying types of variables
 - `Statements <./statements/index.html>`_ - Statements in the Para-C Language
 - `Functions <./functions/index.html>`_ - Functions and Lambdas
