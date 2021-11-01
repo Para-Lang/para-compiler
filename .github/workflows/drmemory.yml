@@ -35,7 +35,7 @@ jobs:
           cmake --build . --target runParacModulesTests -- -j 9
       - name: Run Tests
         run: |
-          ./modules/parac-modules-tests/tests/runParacModulesTests
+          ./modules/tests/tests/runParacModulesTests
       - name: Run DrMemory for Tests
         run: |
           ./DrMemory-Linux-2.4.0-2/bin/drmemory -- ./modules/parac-modules-tests/tests/runParacModulesTests
