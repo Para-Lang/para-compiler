@@ -7,9 +7,13 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage -O0")
 
 include_directories(parac-modules)
+include_directories(parac-modules/included)
+include_directories(parac-modules-tests)
 
 add_subdirectory(parac-modules)
+add_subdirectory(parac-modules/included)
 add_subdirectory(parac-modules-tests)
+
 target_link_libraries(parac-modules)
 
 if (CMAKE_BUILD_TYPE MATCHES Debug)
