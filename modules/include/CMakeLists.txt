@@ -1,5 +1,12 @@
 project(parac-modules)
 
+include(FetchContent)
+FetchContent_Declare(
+        gc-8.0.6
+        URL https://github.com/ivmai/bdwgc/releases/download/v8.0.6/gc-8.0.6.tar.gz
+)
+FetchContent_MakeAvailable(gc-8.0.6)
+
 set(HEADER_FILES
         pbl-io.h
         pbl.h
@@ -8,6 +15,7 @@ set(HEADER_FILES
         pbl-int.h
         pbl-function.h
         pbl-main.h
+        pbl-mem.h
         )
 
 set(SOURCE_FILES
@@ -18,9 +26,10 @@ set(SOURCE_FILES
         pbl.c
         pbl-function.c
         pbl-main.c
+        pbl-mem.c
         )
 
 set(INCLUDED_EXTENSIONS
-        included/va-opt.h)
+        additional/va-opt.h)
 
 add_library(parac-modules STATIC ${SOURCE_FILES} ${HEADER_FILES} ${INCLUDED_EXTENSIONS})

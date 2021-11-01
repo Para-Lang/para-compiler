@@ -89,8 +89,6 @@ TEST(ExceptionTest, OneNestCall) {
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.name.actual.str, "TestException");
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.filename.actual.str, __FILE__);
   EXPECT_STREQ(((PblException_T*)this_call_meta.actual.exception)->actual.line_content.actual.str, "raise exception");
-
-  PblCleanupExceptionContext(&this_call_meta);
 }
 
 PblInt_T TestFunction2(PblMetaFunctionCallCtx_T *this_call_meta) {
@@ -130,8 +128,6 @@ TEST(ExceptionTest, TryExceptCall) {
   EXPECT_TRUE(this_call_meta.actual.call_origin_ctx == NULL);
   EXPECT_EQ(r_1.meta.defined, true);
   EXPECT_EQ(r_1.actual, 1);
-
-  PblCleanupExceptionContext(&this_call_meta);
 }
 
 PblInt_T TestFunction3(PblMetaFunctionCallCtx_T *this_call_meta) {
@@ -169,6 +165,4 @@ TEST(ExceptionTest, TryExceptCallWithContinuation) {
   EXPECT_TRUE(this_call_meta.actual.call_origin_ctx == NULL);
   EXPECT_EQ(r_1.meta.defined, true);
   EXPECT_EQ(r_1.actual, 1);
-
-  PblCleanupExceptionContext(&this_call_meta);
 }
