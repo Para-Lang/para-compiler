@@ -26,11 +26,9 @@ other and the compiler will use the components to put all pieces together,
 which in the end make up the finished program.
 
 **The different modules are:**
-- :ref:`The Pre-Processor, which will alter the code based on the pre-processor
-  directives<>`
-- :ref:`The Lexer and Parser, which generate the tokens and the logic trees of the
-  program. (Includes the Conversion to Logical Tokens, which simplifies the
-  tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
+
+- `The Pre-Processor, which will alter the code based on the pre-processor directives <./preprocessor.html>`_
+- :ref:`The Lexer and Parser, which generate the tokens and the logic trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
 - :ref:`The Single-File Semantic Analyser<Semantic Analyser>`
 - :ref:`The File Linker<File Linker>`
 - :ref:`The Code Optimiser<Code Optimiser>`
@@ -89,15 +87,9 @@ valid or not.
 This step will mainly work on converting the code into the specific internal
 tokens that then can be used to properly process and link all files together. 
 This task as a whole is then split into these two separate items:
-- Processing the core file, where all inclusions were placed and so all
-  declarations must be available for the logical checking step aka. 
-  type-checking and logical cohesion.
-- Processing all files that were mentioned by the header aka. all source files
-  where the definitions should be placed. Those files will be all independently
-  processed and their inclusions will also be placed inside the files. Here 
-  it's important to note though, that due to this logic, there may never be 
-  definitions in headers, as such they would cause errors later in the linker, 
-  as it can not predict which value is to be used.
+
+- Processing the core file, where all inclusions were placed and so all declarations must be available for the logical checking step aka. type-checking and logical cohesion.
+- Processing all files that were mentioned by the header aka. all source files where the definitions should be placed. Those files will be all independently processed and their inclusions will also be placed inside the files. Here it's important to note though, that due to this logic, there may never be definitions in headers, as such they would cause errors later in the linker, as it can not predict which value is to be used.
 
 Algorithmic structure
 ---------------------
