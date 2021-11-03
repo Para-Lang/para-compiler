@@ -120,8 +120,8 @@ To that, syntax warnings for non-fatal formatting and inconsistency issues can b
 
 Compiler Exceptions
 ===================
+Exceptions inside Para-C are categorised into two categories:
 
-**Exceptions inside Para-C are categorised into two categories:**
 - Non-Fatal Exceptions, which do not interfere with continuing to check the file and
 - Fatal Exceptions, which can not be ignored and cause the compiler to interrupt the process and exit.
 
