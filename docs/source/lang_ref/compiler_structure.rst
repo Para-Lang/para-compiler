@@ -40,15 +40,17 @@ Lexer and Parser
 Overview
 --------
 
-The Para-C Core Language uses for easier parsing Antlr4, which automatically
-generates python source files containing the parser, listeners and lexer based
-on the `ParaC.g4` file defining the grammar of the language. The generated code
-will be wrapped inside a module, which will call and use the generated code.
-Using that, it will convert on runtime the inserted file into a list of logic
-trees, which contain all needed information for statements. These logic trees
+The Para-C Core Language uses for parsing Antlr4, which automatically
+generates python files for the parser, listeners and lexer based
+on the `ParaC.g4` file. This file defines the grammar of the language.
+
+The generated code will be wrapped inside a new python module, which will implement 
+the code and make it usable in the compiler source code. Using that new Parser module,
+the compiler will convert on runtime the inserted file/s into an abstract logic
+tree, which contains all items and meta-data of the user-inserted file. These logic trees
 are then returned and used to compile the program.
 
-The Lexer and Parser will start by first parsing the main file and then
+The Parser will start by first parsing the main file and then
 afterwards all included files (Data of the included files will be passed by
 the Pre-Processor). These will then be wrapped and passed to the Semantic
 Analyser.
@@ -68,8 +70,8 @@ Pre-Processor Grammar
 
 Since the Pre-Processor is syntax-wise
 different than the standard language, mainly noticeable due to the line endings
-(pre-processor statements with hard-line endings (\n or \r\n, while the normal
-lines use declared line breaks in form of a Semicolons(;)), it uses its own
+(pre-processor statements with hard-line endings (``\n`` or ``\r\n``, while the normal
+lines use declared line breaks in form of a Semicolons(``;``)), it uses its own
 independent grammar file, and as such lexer and parser. Those will parse
 everything and pass onto the Pre-Processor itself to generate the altered
 files.
