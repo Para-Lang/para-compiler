@@ -38,19 +38,14 @@ grammar ParaC;
 
 primaryExpression
     :   Identifier
-    |   'spawn' Identifier
     |   Constant
     |   StringLiteral+
     |   '(' expression ')'
-    |   genericSelection
     |   lambdaFunction
-    |   '__extension__'? '(' compoundStatement ')' // Blocks (GCC extension)
-    |   '__builtin_va_arg' '(' unaryExpression ',' typeName ')'
-    |   '__builtin_offsetof' '(' typeName ',' unaryExpression ')'
     ;
 
 lambdaFunction
-    :   '(' parameterList? ')' lambdaBody
+    :   '(' WS* parameterList? WS* ')' WS* lambdaBody
     ;
 
 lambdaBody
@@ -59,48 +54,34 @@ lambdaBody
     ;
 
 expressionLambda
-    :   '=>' expression
+    :   '=>' WS* expression
     ;
 
 statementLambda
-    :   '=>' compoundStatement
-    ;
-
-genericSelection
-    :   '_Generic' '(' assignmentExpression ',' genericAssocList ')'
-    ;
-
-genericAssocList
-    :   genericAssociation (',' genericAssociation)*
-    ;
-
-genericAssociation
-    :   (typeName | 'default') ':' assignmentExpression
+    :   '=>' WS* compoundStatement
     ;
 
 postfixExpression
-    :
-    (   primaryExpression
-    |   '__extension__'? '(' typeName ')' '{' initializerList ','? '}'
-    )
-    ('[' expression ']'
-    | '(' argumentExpressionList? ')'
-    | ('.' | '->') Identifier
+    :   (
+        'spawn'? WS* primaryExpression
+        // type identifier = (type) { .name = value };
+        |   '(' WS* typeName WS* ')' WS* '{' WS* initializerList WS* ','? WS* '}'
+    ) WS* ('[' WS* expression WS* ']'
+    | '(' WS* argumentExpressionList? WS* ')'
+    | ('.' | '->') WS* Identifier
     | ('++' | '--')
     )*
     ;
 
 argumentExpressionList
-    :   assignmentExpression (',' assignmentExpression)*
+    :   assignmentExpression WS* (',' WS* assignmentExpression WS*)*
     ;
 
 unaryExpression
-    :
-    ('++' |  '--' |  'sizeof')*
+    :   ('++' |  '--' |  'sizeof')* WS*
     (postfixExpression
-    |   unaryOperator castOrConvertExpression
-    |   ('sizeof' | '_Alignof') '(' typeName ')'
-    |   '&&' Identifier // GCC extension address of label
+    |   unaryOperator WS* castOrConvertExpression
+    |   ('sizeof' | 'alignof') WS* '(' WS* typeName WS* ')'
     )
     ;
 
@@ -109,59 +90,59 @@ unaryOperator
     ;
 
 castOrConvertExpression
-    :   '__extension__'? '(' typeName ')' castOrConvertExpression
-    |   castOrConvertExpression 'as' typeName
+    :   '(' WS* typeName WS* ')' WS* castOrConvertExpression
+    |   castOrConvertExpression WS* 'as' WS* typeName
     |   unaryExpression
     |   DigitSequence // for
     ;
 
 multiplicativeExpression
-    :   castOrConvertExpression (('*'|'/'|'%') castOrConvertExpression)*
+    :   castOrConvertExpression WS* (('*'|'/'|'%') WS* castOrConvertExpression WS*)*
     ;
 
 additiveExpression
-    :   multiplicativeExpression (('+'|'-') multiplicativeExpression)*
+    :   multiplicativeExpression WS* (('+'|'-') WS* multiplicativeExpression WS*)*
     ;
 
 shiftExpression
-    :   additiveExpression (('<<'|'>>') additiveExpression)*
+    :   additiveExpression WS* (('<<'|'>>') WS* additiveExpression WS*)*
     ;
 
 relationalExpression
-    :   shiftExpression (('<'|'>'|'<='|'>=') shiftExpression)*
+    :   shiftExpression WS* (('<'|'>'|'<='|'>=') WS* shiftExpression WS*)*
     ;
 
 equalityExpression
-    :   relationalExpression (('=='| '!=') relationalExpression)*
+    :   relationalExpression WS* (('=='| '!=') WS* relationalExpression WS*)*
     ;
 
 andExpression
-    :   equalityExpression ( '&' equalityExpression)*
+    :   equalityExpression WS* ( '&' WS* equalityExpression WS*)*
     ;
 
 exclusiveOrExpression
-    :   andExpression ('^' andExpression)*
+    :   andExpression WS* ('^' WS* andExpression WS*)*
     ;
 
 inclusiveOrExpression
-    :   exclusiveOrExpression ('|' exclusiveOrExpression)*
+    :   exclusiveOrExpression WS* ('|' WS* exclusiveOrExpression WS*)*
     ;
 
 logicalAndExpression
-    :   inclusiveOrExpression ('&&' inclusiveOrExpression)*
+    :   inclusiveOrExpression WS* ('&&' WS* inclusiveOrExpression WS*)*
     ;
 
 logicalOrExpression
-    :   logicalAndExpression ( '||' logicalAndExpression)*
+    :   logicalAndExpression WS* ( '||' WS* logicalAndExpression WS*)*
     ;
 
 conditionalExpression
-    :   logicalOrExpression ('?' expression ':' conditionalExpression)?
+    :   logicalOrExpression WS* ('?' WS* expression WS* ':' WS* conditionalExpression WS*)?
     ;
 
 assignmentExpression
     :   conditionalExpression
-    |   unaryExpression assignmentOperator assignmentExpression
+    |   unaryExpression WS* assignmentOperator WS* assignmentExpression
     |   DigitSequence // for
     ;
 
@@ -170,7 +151,7 @@ assignmentOperator
     ;
 
 expression
-    :   assignmentExpression (',' assignmentExpression)*
+    :   assignmentExpression WS* (',' WS* assignmentExpression WS*)*
     ;
 
 constantExpression
@@ -178,17 +159,16 @@ constantExpression
     ;
 
 declaration
-    :   declarationSpecifiers initDeclaratorList? ';'
+    :   declarationSpecifiers WS* initDeclaratorList? endOfItem
     |   staticAssertDeclaration
     ;
 
 declarationSpecifiers
-    :   declarationSpecifier+
+    :   (declarationSpecifier WS*)+
     ;
 
 declarationSpecifier
     :   storageClassSpecifier
-    |   entryPointSpecifier
     |   typeSpecifier
     |   typeQualifier
     |   functionSpecifier
@@ -196,28 +176,32 @@ declarationSpecifier
     ;
 
 initDeclaratorList
-    :   initDeclarator (',' initDeclarator)*
+    :   initDeclarator WS* (',' WS* initDeclarator WS*)*
     ;
 
 initDeclarator
-    :   declarator ('=' initializer)?
-    ;
-
-entryPointSpecifier
-    :   'entry' // Hinting the entry function for the program
+    :   declarator WS* ('=' WS* initializer WS*)?
     ;
 
 storageClassSpecifier
     :   'typedef'
     |   'extern'
     |   'static'
-    |   '_Thread_local'
+    |   'thread_local'
     |   'auto'
     |   'register'
     ;
 
+arraySpecifier
+    :   '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
+    |   '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
+    |   '[' WS* typeQualifierList WS* 'static' assignmentExpression WS* ']'
+    |   '[' WS* typeQualifierList? WS* '*' WS* ']'
+    ;
+
 typeSpecifier
-    :   ('void'
+    :
+    (   'void'
     |   'char'
     |   'short'
     |   'int'
@@ -226,25 +210,22 @@ typeSpecifier
     |   'float'
     |   'double'
     |   'signed'
-    |   'lambda' '<' parameterTypeList '>'
+    |   'lambda' WS* '<' WS* parameterTypeList WS* '>'
     |   'unsigned'
-    |   '_Bool'
-    |   '_Complex'
-    |   '__m128'
-    |   '__m128d'
-    |   '__m128i')
-    |   '__extension__' '(' ('__m128' | '__m128d' | '__m128i') ')'
+    |   'bool'
+    |   'complex'
+    )   arraySpecifier*
     |   atomicTypeSpecifier
     |   structOrUnionSpecifier
     |   enumSpecifier
     |   typedefName
-    |   ('__typeof__' | 'typeof') '(' constantExpression ')' // GCC extension
-    |   typeSpecifier pointer
+    |   'typeof' WS* '(' WS* constantExpression WS* ')'
+    |   typeSpecifier WS* pointer
     ;
 
 structOrUnionSpecifier
-    :   structOrUnion Identifier? '{' structDeclarationList* '}'
-    |   structOrUnion Identifier
+    :   structOrUnion WS* (Identifier WS*)? '{' WS* structDeclarationList* WS* '}'
+    |   structOrUnion WS* Identifier
     ;
 
 structOrUnion
@@ -253,38 +234,38 @@ structOrUnion
     ;
 
 structDeclarationList
-    :   structDeclaration+
+    :   (WS* structDeclaration WS*)+
     ;
 
 structDeclaration
-    :   specifierQualifierList structDeclaratorList? ';'
+    :   specifierQualifierList WS* structDeclaratorList? endOfItem
     |   staticAssertDeclaration
     ;
 
 specifierQualifierList
-    :   (typeSpecifier | typeQualifier) specifierQualifierList?
+    :   (typeSpecifier | typeQualifier) WS* specifierQualifierList?
     ;
 
 structDeclaratorList
-    :   structDeclarator (',' structDeclarator)*
+    :   structDeclarator WS* (',' WS* structDeclarator)*
     ;
 
 structDeclarator
     :   declarator
-    |   declarator? ':' constantExpression
+    |   declarator? WS* ':' WS* constantExpression
     ;
 
 enumSpecifier
-    :   'enum' Identifier? '{' enumeratorList ','? '}'
-    |   'enum' Identifier
+    :   'enum' WS* Identifier? WS* '{' WS* enumeratorList WS* ','? WS* '}'
+    |   'enum' WS* Identifier
     ;
 
 enumeratorList
-    :   enumerator (',' enumerator)*
+    :   enumerator WS* (',' WS* enumerator WS*)*
     ;
 
 enumerator
-    :   enumerationConstant ('=' constantExpression)?
+    :   enumerationConstant WS* ('=' WS* constantExpression WS*)?
     ;
 
 enumerationConstant
@@ -292,73 +273,47 @@ enumerationConstant
     ;
 
 atomicTypeSpecifier
-    :   '_Atomic' '(' typeName ')'
+    :   'atomic' WS* '(' WS* typeName WS* ')' WS*
     ;
 
 typeQualifier
     :   'const'
     |   'restrict'
     |   'volatile'
-    |   '_Atomic'
+    |   'atomic'
     ;
 
 functionSpecifier
-    :   ('inline'
-    |   '_Noreturn'
-    |   '__inline__' // GCC extension
-    |   '__stdcall')
-    |   gccAttributeSpecifier
-    |   '__declspec' '(' Identifier ')'
-    |   entryPointSpecifier
+    :   'noreturn'
+    |   'entry'
     ;
 
 alignmentSpecifier
-    :   '_Alignas' '(' (typeName | constantExpression) ')'
+    :   'alignas' WS* '(' WS* (typeName | constantExpression) WS* ')'
     ;
 
 declarator
-    :   pointer? directDeclarator gccDeclaratorExtension*
+    :   pointer? WS* directDeclarator
     ;
 
 directDeclarator
     :   Identifier
-    |   '(' declarator ')'
-    |   directDeclarator '[' typeQualifierList? assignmentExpression? ']'
-    |   directDeclarator '[' 'static' typeQualifierList? assignmentExpression ']'
-    |   directDeclarator '[' typeQualifierList 'static' assignmentExpression ']'
-    |   directDeclarator '[' typeQualifierList? '*' ']'
-    |   directDeclarator '(' parameterTypeList ')'
-    |   directDeclarator '(' identifierList? ')'
-    |   Identifier ':' DigitSequence  // bit field
-    |   '(' typeSpecifier? pointer directDeclarator ')' // function pointer like: (__cdecl *f)
+    |   '(' WS* declarator WS* ')'
+    |   directDeclarator WS* '(' WS* parameterTypeList WS* ')'
+    |   directDeclarator WS* '(' WS* identifierList? WS* ')'
+    |   Identifier WS* ':' WS* DigitSequence  // bit field
+    |   '(' WS* typeSpecifier? WS* pointer WS* directDeclarator WS* ')' // function pointer like: (__cdecl *f)
     ;
 
-gccDeclaratorExtension
-    :   '__asm' '(' StringLiteral+ ')'
-    |   gccAttributeSpecifier
-    ;
-
-gccAttributeSpecifier
-    :   '__attribute__' '(' '(' gccAttributeList ')' ')'
-    ;
-
-gccAttributeList
-    :   gccAttribute? (',' gccAttribute?)*
-    ;
-
-gccAttribute
-    :   ~(',' | '(' | ')') // relaxed def for "identifier or reserved word"
-        ('(' argumentExpressionList? ')')?
-    ;
 
 nestedParenthesesBlock
     :   (   ~('(' | ')')
-        |   '(' nestedParenthesesBlock ')'
+        |   '(' WS* nestedParenthesesBlock WS* ')'
         )*
     ;
 
 pointer
-    :  (('*'|'^') typeQualifierList?)+ // ^ - Blocks language extension
+    :  (('*'|'^') WS* typeQualifierList? WS* )+ // ^ - Blocks language extension
     ;
 
 typeQualifierList
@@ -366,43 +321,43 @@ typeQualifierList
     ;
 
 parameterTypeList
-    :   parameterList (',' '...')?
+    :   parameterList WS* (',' WS* '...' WS*)?
     ;
 
 parameterList
-    :   parameterDeclaration (',' parameterDeclaration)*
+    :   parameterDeclaration WS* (',' WS* parameterDeclaration WS*)*
     ;
 
 parameterDeclaration
-    :   declarationSpecifiers declarator #regularParameterDeclaration
-    |   declarationSpecifiers abstractDeclarator? #abstractParameterDeclaration
+    :   declarationSpecifiers WS* declarator #regularParameterDeclaration
+    |   declarationSpecifiers WS* abstractDeclarator? #abstractParameterDeclaration
     ;
 
 identifierList
-    :   Identifier (',' Identifier)*
+    :   Identifier WS* (',' WS* Identifier WS*)*
     ;
 
 typeName
-    :   specifierQualifierList abstractDeclarator?
+    :   specifierQualifierList WS* abstractDeclarator?
     ;
 
 abstractDeclarator
     :   pointer
-    |   pointer? directAbstractDeclarator gccDeclaratorExtension*
+    |   pointer? WS* directAbstractDeclarator
     ;
 
 directAbstractDeclarator
-    :   '(' abstractDeclarator ')' gccDeclaratorExtension*
-    |   '[' typeQualifierList? assignmentExpression? ']'
-    |   '[' 'static' typeQualifierList? assignmentExpression ']'
-    |   '[' typeQualifierList 'static' assignmentExpression ']'
-    |   '[' '*' ']'
-    |   '(' parameterTypeList? ')' gccDeclaratorExtension*
-    |   directAbstractDeclarator '[' typeQualifierList? assignmentExpression? ']'
-    |   directAbstractDeclarator '[' 'static' typeQualifierList? assignmentExpression ']'
-    |   directAbstractDeclarator '[' typeQualifierList 'static' assignmentExpression ']'
-    |   directAbstractDeclarator '[' '*' ']'
-    |   directAbstractDeclarator '(' parameterTypeList? ')' gccDeclaratorExtension*
+    :   '(' WS* abstractDeclarator WS* ')'
+    |   '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
+    |   '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
+    |   '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
+    |   '[' WS* '*' WS* ']' // https://stackoverflow.com/questions/38775392/what-does-star-modifier-mean-in-c
+    |   '(' WS* parameterTypeList? WS* ')'
+    |   directAbstractDeclarator WS* '[' WS* typeQualifierList? WS* assignmentExpression? WS* ']'
+    |   directAbstractDeclarator WS* '[' WS* 'static' WS* typeQualifierList? WS* assignmentExpression WS* ']'
+    |   directAbstractDeclarator WS* '[' WS* typeQualifierList WS* 'static' WS* assignmentExpression WS* ']'
+    |   directAbstractDeclarator WS* '[' WS* '*' WS* ']' // https://stackoverflow.com/questions/38775392/what-does-star-modifier-mean-in-c
+    |   directAbstractDeclarator WS* '(' WS* parameterTypeList? WS* ')'
     ;
 
 typedefName
@@ -411,15 +366,15 @@ typedefName
 
 initializer
     :   assignmentExpression
-    |   '{' initializerList? ','? '}' // array
+    |   '{' WS* initializerList? WS* ','? WS* '}' // array
     ;
 
 initializerList
-    :   designation? initializer (',' designation? initializer)*
+    :   designation? WS* initializer WS* (',' WS* designation? WS* initializer WS*)*
     ;
 
 designation
-    :   designatorList '='
+    :   designatorList WS* '='
     ;
 
 designatorList
@@ -427,12 +382,12 @@ designatorList
     ;
 
 designator
-    :   '[' constantExpression ']'
-    |   '.' Identifier
+    :   '[' WS* constantExpression WS* ']'
+    |   '.' WS* Identifier
     ;
 
 staticAssertDeclaration
-    :   '_Static_assert' '(' constantExpression ',' StringLiteral+ ')' ';'
+    :   'static_assert' WS* '(' WS* constantExpression WS* ',' WS* StringLiteral+ WS* ')' endOfItem
     ;
 
 statement
@@ -443,17 +398,20 @@ statement
     |   selectionStatement
     |   iterationStatement
     |   jumpStatement
-    |   ('__asm' | '__asm__') ('volatile' | '__volatile__') '(' (logicalOrExpression (',' logicalOrExpression)*)? (':' (logicalOrExpression (',' logicalOrExpression)*)?)* ')' ';'
+    |   (
+            '(' WS* (logicalOrExpression WS* (',' WS* logicalOrExpression WS*)*)? WS*
+            (':' WS* (logicalOrExpression WS* (',' WS* logicalOrExpression)*)?)* WS*
+            ')' endOfItem
+        )
     ;
 
 labeledStatement
-    :   Identifier ':' statement
-    |   'case' constantExpression ':' statement
-    |   'default' ':' statement
+    :   'case' WS* constantExpression WS* ':' WS* statement
+    |   'default' WS* ':' WS* statement
     ;
 
 compoundStatement
-    :   '{' blockItemList? '}'
+    :   '{' WS* blockItemList? WS*'}'
     ;
 
 blockItemList
@@ -461,63 +419,60 @@ blockItemList
     ;
 
 blockItem
-    :   statement
-    |   declaration
+    :   WS* (statement | declaration) WS*
     ;
 
 expressionStatement
-    :   expression? ';'
+    :   expression? endOfItem
     ;
 
 tryExceptStatement
-    :   'try' compoundStatement exceptBlock+ (finallyBlock elseBlock? | elseBlock finallyBlock?)?
+    :   'try' WS* compoundStatement WS* exceptBlock+ WS* (finallyBlock WS* elseBlock? WS* | elseBlock WS* finallyBlock? WS* )?
     ;
 
 exceptBlock
-    :   'except' '(' (Identifier |  identifierList ) ')' ('as' Identifier)?  compoundStatement
+    :   'except' WS* '(' WS* (Identifier |  identifierList) WS* ')' WS* ('as' WS* Identifier)? WS* compoundStatement
     ;
 
 finallyBlock
-    :   'finally' compoundStatement
+    :   'finally' WS* compoundStatement
     ;
 
 elseBlock
-    :   'else' compoundStatement
+    :   'else' WS* compoundStatement
     ;
 
 selectionStatement
-    :   'if' '(' expression ')' statement ('else' statement)?
-    |   'switch' '(' expression ')' statement
+    :   'if' WS* '(' WS* expression WS* ')' WS* statement WS* ('else' WS* statement)?
+    |   'switch' WS* '(' WS* expression WS* ')' WS* statement
     ;
 
 iterationStatement
-    :   While '(' expression ')' statement
-    |   Do statement While '(' expression ')' ';'
-    |   For '(' forCondition ')' statement
+    :   While WS* '(' WS* expression WS* ')' WS* statement
+    |   Do WS* statement WS* While WS* '(' WS* expression WS* ')' endOfItem
+    |   For WS* '(' WS* forCondition WS* ')' WS* statement
     ;
 
 //    |   'for' '(' expression? ';' expression?  ';' forUpdate? ')' statement
 //    |   For '(' declaration  expression? ';' expression? ')' statement
 
 forCondition
-	:   (forDeclaration | expression?) ';' forExpression? ';' forExpression?
+	:   (forDeclaration | expression?) endOfItem forExpression? endOfItem forExpression?
 	;
 
 forDeclaration
-    :   declarationSpecifiers initDeclaratorList?
+    :   declarationSpecifiers WS* initDeclaratorList?
     ;
 
 forExpression
-    :   assignmentExpression (',' assignmentExpression)*
+    :   assignmentExpression WS* (',' WS* assignmentExpression WS* )*
     ;
 
 jumpStatement
-    :   ('goto' Identifier
-    |   ('continue'| 'break')
-    |   'return' expression?
-    |   'goto' unaryExpression // GCC extension
+    :   (('continue' | 'break')
+    |   'return' WS* expression?
     )
-    ';'
+    endOfItem
     ;
 
 // Entry Point for an entire file
@@ -526,7 +481,7 @@ compilationUnit
     ;
 
 translationUnit
-    :   (externalItem | ';')+
+    :   (externalItem | endOfItem | WS+)+
     ;
 
 externalItem
@@ -536,12 +491,12 @@ externalItem
     ;
 
 functionDefinition
-    :   functionDeclarationSpecifiers declarator declarationList? compoundStatement  # standardFunctionDefinition
-    |   functionDeclarationSpecifiers declarator declarationList? expressionLambda ';' # simpleFunctionDefinition
+    :   functionDeclarationSpecifiers WS* declarator WS* declarationList? WS* compoundStatement  # standardFunctionDefinition
+    |   functionDeclarationSpecifiers WS* declarator WS* declarationList? WS* expressionLambda endOfItem # simpleFunctionDefinition
     ;
 
 functionDeclarationSpecifiers
-    :   decoratorSpecifier* declarationSpecifiers?
+    :   decoratorSpecifier* WS* declarationSpecifiers?
     ;
 
 decoratorSpecifier
@@ -550,80 +505,121 @@ decoratorSpecifier
 
 // extension
 extensionTaskDefinition
-    :   'exttask' Identifier directDeclarator declarationList? extensionTaskParameterList extensionTaskLambda?
+    :   'exttask' WS* Identifier WS* directDeclarator WS* declarationList? WS* extensionTaskParameterList
     ;
 
 extensionTaskParameterList
-    :   '{' (extensionTaskParameter (',' extensionTaskParameter)*)? '}'
+    :   '{' WS* (extensionTaskParameter WS* (',' WS* extensionTaskParameter WS*)*)? '}'
     ;
 
 extensionTaskParameter
-    :   Identifier ':' primaryExpression
-    ;
-
-extensionTaskLambda
-    :   '=>' ExtensionTaskLambda
+    :   Identifier WS* ':' WS* primaryExpression
     ;
 
 declarationList
-    :   declaration+
+    :   (declaration WS*)+
+    ;
+
+endOfItem
+    :   Whitespace* ';' Whitespace*
     ;
 
 // Lexer Rules (tokens / token rules)
 
-As : 'as';
-Auto : 'auto';
-Break : 'break';
-Case : 'case';
+// Built-In Types
+Bool : 'bool';
 Char : 'char';
-Const : 'const';
-Continue : 'continue';
-Default : 'default';
-Do : 'do';
+Complex : 'complex'; // complex number
 Double : 'double';
-Else : 'else';
-ExtensionTask : 'exttask';
 Entry : 'entry';
-Enum : 'enum';
-Extern : 'extern';
 Float : 'float';
-For : 'for';
-Goto : 'goto';
-If : 'if';
-Inline : 'inline';
+Imaginary : 'imaginary'; // imaginary number
 Int : 'int';
 Lambda : 'lambda';
 Long : 'long';
-Register : 'register';
-Restrict : 'restrict';
-Return : 'return';
-Short : 'short';
 Signed : 'signed';
-Sizeof : 'sizeof';
-Spawn : 'spawn';
-Static : 'static';
+Short : 'short';
 Status : 'status';
-Struct : 'struct';
-Switch : 'switch';
-Typeof : 'typeof';
-Typedef : 'typedef';
-Union : 'union';
 Unsigned : 'unsigned';
 Void : 'void';
+
+// Declaration specifier
+Const : 'const';
 Volatile : 'volatile';
+Atomic : 'atomic';
+
+// General Built-In Keywords
+
+// As keyword for built-in conversion
+As : 'as';
+
+// Storage Class Specifier
+Auto : 'auto';
+Register : 'register'; // DEPRECATED - SHADOWED MACRO
+Static : 'static';
+Extern : 'extern';
+
+// switch
+Switch : 'switch';
+Case : 'case';
+Default : 'default';
+
+// switch / loop : 'break'
+Break : 'break';
+
+// loop: 'continue'
+Continue : 'continue';
+
+// do-while / while loop
+Do : 'do';
 While : 'while';
 
-Alignas : '_Alignas';
-Alignof : '_Alignof';
-Atomic : '_Atomic';
-Bool : '_Bool';
-Complex : '_Complex';
-Generic : '_Generic';
-Imaginary : '_Imaginary';
-Noreturn : '_Noreturn';
-StaticAssert : '_Static_assert';
-ThreadLocal : '_Thread_local';
+// selection statement - if
+If : 'if';
+Else : 'else';
 
+// for - loop
+For : 'for';
+
+// Enum Variable
+Enum : 'enum';
+
+// Pointer specifier 'restrict'
+Restrict : 'restrict';
+
+// Function return
+Return : 'return';
+
+// Ext-Task declaration keyword
+ExtensionTask : 'exttask';
+
+// Ext-Task spawn keyword
+Spawn : 'spawn';
+
+// Struct keyword
+Struct : 'struct';
+
+// Sizeof - Compile-replacement expression
+Sizeof : 'sizeof';
+
+// Typeof - Compile-replacement expression
+Typeof : 'typeof';
+
+// Typedef - Custom Type definition
+Typedef : 'typedef';
+
+// Type Union
+Union : 'union';
+
+// Special keywords
+Alignas : 'alignas';
+Alignof : 'alignof';
+Inline : 'inline';
+Noreturn : 'noreturn';
+StaticAssert : 'static_assert';
+ThreadLocal : 'thread_local';
+
+// Punctuators
 LeftParen : '(';
 RightParen : ')';
 LeftBracket : '[';
@@ -631,13 +627,11 @@ RightBracket : ']';
 LeftBrace : '{';
 RightBrace : '}';
 
-Less : '<';
-LessEqual : '<=';
-Greater : '>';
-GreaterEqual : '>=';
+// Byte shift Operators
 LeftShift : '<<';
 RightShift : '>>';
 
+// Arithmic Operators
 Plus : '+';
 PlusPlus : '++';
 Minus : '-';
@@ -646,22 +640,37 @@ Star : '*';
 Div : '/';
 Mod : '%';
 
-And : '&';
-Or : '|';
-AndAnd : '&&';
-OrOr : '||';
-Caret : '^';
-Not : '!';
-Tilde : '~';
+// Boolish Logical Operations
+And : '&'; // byte and
+Or : '|'; // byte or
+AndAnd : '&&'; // logical and
+OrOr : '||'; // logical or
+Caret : '^'; // byte xor
+Not : '!'; // logical not
+Tilde : '~'; // byte not
 
+// Decorator Apply Sign
 DecoratorSign : '@';
+
+// Lambda start
 LambdaStartBlock : '=>';
+
+// conditional expression
 Question : '?';
+
+// General colon
 Colon : ':';
+
+// semi-column -> statement end
 Semi : ';';
+
+// General comma
 Comma : ',';
 
+// assign
 Assign : '=';
+
+// arithmetic / byte assign
 // '*=' | '/=' | '%=' | '+=' | '-=' | '<<=' | '>>=' | '&=' | '^=' | '|='
 StarAssign : '*=';
 DivAssign : '/=';
@@ -674,11 +683,21 @@ AndAssign : '&=';
 XorAssign : '^=';
 OrAssign : '|=';
 
+// Value Comparison
 Equal : '==';
 NotEqual : '!=';
+Less : '<';
+LessEqual : '<=';
+Greater : '>';
+GreaterEqual : '>=';
 
+// pointer ->
 Arrow : '->';
+
+// struct property accessing
 Dot : '.';
+
+// Variadic macro
 Ellipsis : '...';
 
 Identifier
@@ -686,12 +705,6 @@ Identifier
         (   IdentifierNondigit
         |   Digit
         )*
-    ;
-
-ExtensionTaskLambda
-    :   '@' Whitespace* Identifier
-        Whitespace* ExtensionTaskBlock Whitespace*
-        '@' Whitespace* 'end' Newline
     ;
 
 fragment
@@ -947,9 +960,12 @@ Directive
         -> skip
     ;
 
+WS
+    :   Whitespace
+    ;
+
 Whitespace
     :   [ \t]+
-        -> skip
     ;
 
 Newline

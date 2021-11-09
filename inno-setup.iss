@@ -1,5 +1,5 @@
 #define ExeName "Para-C"
-#define ExeVersion "0.1.dev4"
+#define ExeVersion "0.1.dev5"
 #define ExePublisher "Luna-Klatzer"
 #define ExeURL "https://github.com/Para-C/Para-C.git"
 #define ExeExeName "parac.exe"

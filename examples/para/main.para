@@ -1,9 +1,7 @@
-#pragma PARAC lang C
-#include <stdio.h>
-#pragma PARAC lang PARAC
+#include <c-stdio.h>
 
 // Entry-Point of the Program
-entry status Main()
+entry status main()
 {
     printf("Para-C version: %s", __parac_version__);
     return 0;

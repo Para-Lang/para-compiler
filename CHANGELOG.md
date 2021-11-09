@@ -12,22 +12,97 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Updated
+
+### Removed
+
+## [v0.1.dev5]
+
+### Added
 - `initialise_default_paths` in `parac.const` to initialise the set the const
    variables DEFAULT_LOG_PATH, DEFAULT_BUILD_PATH and DEFAULT_DIST_PATH. This
    allows for more customisation for the defaults paths in Para-C and avoids
    the default paths being wrong after changing the working directory while running.
+- Property `errors` in `BaseErrorListener` for storing received errors during
+  the parsing process (Both for the Pre-Processor and Compiler).
+- New Exception `ParaCSyntaxError` with proper implementation of error logs.
+- New Exception `ParaCSyntaxErrorCollection` for storing multiple SyntaxErrors
+  and report them at once when initialised.
+- New Util functions: `get_input_stream_from_ctx`, `get_original_text` and
+  `get_original_text_from_token`.
+- Implemented SyntaxError handling using the Antlr4 Error Handler - New Error Strategy is to collect all syntax errors and then at the end collect all warnings and 
+  errors and display them.
+- Support for Whitespaces in the Antlr4 Grammar file to allow for better error messages and separation.  
+- Function in `util/pathtools.py` `ensure_pathlib_path`, which will convert
+  the passed value to a pathlib.Path, if it's not already one. It will also 
+  resolve all sys-links.
+- Property `logic_stream` to `Listener` and updated methods to allow for proper
+  future implementation of the logic stream.
+- New method `append_antlr_ctx` to the ABC Class `LogicStream` and its 
+  implementation.
+- Addition of `program_ctx` to all `FileRunContext` implementation
+  classes.
   
 ### Changed
+- Style of the init banner in the CLI and added docs link.
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
   which can utilise list functionality, but also practically stay normal arrays at the same time if not resized. For 
   more info see the lang document.
-- Fixed workdir issue in pytest causing usage outside `./src/pytest` to raise errors
-- Fixed work-directory issue in `build-exe.py` and rewrote structure to allow runtime in the root directory
-
+- Fixed workdir issue in pytest causing usage outside `./src/pytest` to raise errors.
+- Fixed work-directory issue in `build-exe.py` and rewrote structure to allow runtime in the root directory.
+- The modules will now commonly use `pathlib.Path` and convert to it if is
+  a different type (str, bytes).
+- Renamed `validate_file_ending` to `has_valid_file_ending` and fixed a minor bug replacing the
+  `all` call (all file endings must be true) to `any`, meaning now only one needs to be true, which
+  is the correct and intended way of handling this.
+- Renamed `compiler-version` tag in `parac-config.json` to `parac-version`
+- Renamed the following keywords in ParaC.g4:
+  - `_Alignas` to `alignas`
+  - `_Alignof` to `alignof`
+  - `_Atomic` to `atomic`
+  - `_Bool` to `bool`
+  - `_Complex` to `complex`
+  - `_Imaginary` to `imaginary`
+  - `_Noreturn` to `noreturn`
+  - `_Static_assert` to `static_assert`
+  - `__Thread_local` to `thread_local`
+- Deprecated `const.SEPARATOR` and updated `get_relative_file_name` to properly
+  apply to the change
+- Updated Error message of `RuntimeError`(Mismatching file_names) in 
+  `get_relative_file_name`
+- Changed behaviour of `ParacCompiler.validate_syntax()` and removed the 
+  additional usage of a listener to walk through the files, even though
+  a simple parse was enough for validating the syntax.
+- Updated logging messages and added more of them, where they are needed.  
+- Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
+- Moved Para-C Base Library data to new repo [here](https://github.com/Para-C/Para-C-Base-Library)
+- Deleted the file `entry_cli.py` here, and moved the function to `parac-ext-cli`
+  [here](https://github.com/Para-C/Para-C-CLI). This function can now be called
+  using `cli_run()`; This means that the main repo and module can only be run
+  as module, and the CLI is a fully separate entity.
+  
 ### Removed
-- `list<t>` type from the Grammar file
+- `list<t>` type from the Grammar file.
 - `WORK_DIR` in `parac.const` and implemented dynamic fetching to allow for 
    workdir changes while running.
+- Full Support for extensionTaskLambda (deprecated).
+- Deprecated `cleanup_path_str()` and `check_valid_path_name()` from `util/pathtools.py`.
+- Independent rule `entryPointSpecifier` in ParaC.g4
+- Unsupported C keywords and statements from the grammar file (ParaC.g4):
+  - `__extension__`
+  - `__builtin_va_arg`
+  - `__builtin_offsetof`
+  - `_Generic` (Might be added later again with new syntax)
+  - `__inline__`
+  - `__stdcall`
+  - `__declspec`
+  - `__attribute__`
+  - `__asm`
+- Removed `__typeof__` version of `typeof` from the grammar file (ParaC.g4)
+- Removed `goto` as it is not supported in the Para-C logic (ParaC.g4)
+- Return-value `bool` from `ParacCompiler.validate_syntax()` as it is 
+  unnecessary with the raised exception when encountering a SyntaxError
 
 ## [v0.1.dev4] - 2021-07-23
 
@@ -54,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   throughout the module
 - pypi Module Structure with new parent `parac`. Releases from now on will be uploaded to pypi.org as module
 - Distinction between distribution and module version and const Values 
-  (`const.py`) `DIST_VERSION` and `MODULE_VERSION` for separating Distribution
+  (`const.py`) `DIST_COMPILED_VERSION` and `MODULE_VERSION` for separating Distribution
   and Module/Source-Code Version.
 - Pre-Processor module, including its own grammar and handling for files
 - Integration of the compiled Antlr4 lexer and parser in both Pre-Processor and Compiler
@@ -133,7 +208,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...antlr4-dev
+[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...dev
+[v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
 [v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
 [v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
 [v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2

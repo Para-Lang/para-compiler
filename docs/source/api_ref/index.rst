@@ -3,6 +3,14 @@
 Welcome to the Python API Reference
 ***********************************
 
+.. toctree::
+    :hidden:
+
+    Exceptions <exceptions>
+    ABC Classes <abc>
+    Para-C Compiler <compiler/index>
+    Pre-Processor <preprocessor/index>
+
 This serves as a throughout reference for the Python module `parac` and API,
 which can be used for customised usage of the Para-C Compiler, Pre-Processor
 and utilities.
@@ -46,10 +54,8 @@ To install simply do the following:
 .. Hint::
 
     If the command ``pip`` is not found, try to either install it using your
-    package-manager (on linux) or run the script ``get-pip.py``. Go
-    `here for info about that <https://stackoverflow.com/questions/9780717/>`_
-
-
+    package-manager (for linux) or run the script ``get-pip.py`` (for Windows: `here <https://www.geeksforgeeks.org/how-to-install-pip-on-windows/>`_, for MacOS `here <https://www.geeksforgeeks.org/how-to-install-pip-in-macos/>`_).
+    
 Requirements
 ############
 
@@ -76,3 +82,10 @@ Requirements
     Module Requirements (except Python) will be automatically installed with
     `pip install`
 
+Overview
+########
+
+- `Exceptions <./exceptions.html>`_ - Exceptions in the Para-C Compiler and Python API
+- `Pre-Processor <./preprocessor.html>`_ - Pre-Processor for handling directives
+- `Para-C Compiler <./compiler.html>`_ - Core Para-C Compiler for handling Para-C code and generating the C counterpart
+- `ABC Classes <./abc.html>`_ - ABC Classes, which are implemented in the Compiler and Pre-Processor

@@ -115,7 +115,7 @@ endIfDirective
 // End of Selection Directives
 
 pragmaDirective
-    :   Pragma (Whitespace+ (GCCParacPrefix | PragmaParacPrefix | Identifier))+ preProcessorEnd
+    :   Pragma (Whitespace+ (Identifier))+ preProcessorEnd
     ;
 
 errorDirective
@@ -177,8 +177,6 @@ EndIf : PreProcessorBegin 'endif';
 Error : PreProcessorBegin 'error';
 Pragma : PreProcessorBegin 'pragma';
 Line : PreProcessorBegin 'line';
-GCCParacPrefix : 'GCC';
-PragmaParacPrefix : 'PARAC';
 
 Identifier
     :   IdentifierNondigit

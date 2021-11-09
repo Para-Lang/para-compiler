@@ -1,7 +1,0 @@
-[run]
-source = ../
-omit =
-   *\pkg_resources\*
-   *\out\*
-[html]
-title = "Para-C Coverage Report"

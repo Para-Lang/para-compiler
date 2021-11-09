@@ -5,10 +5,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
     env:
       OS: ${{ matrix.os }}
-      PYTHON: '3.7'
+      PYTHON: '3.8'
     steps:
     - uses: actions/checkout@master
     - name: Setup Python
@@ -19,17 +19,15 @@ jobs:
       run: |
         pip install pytest
         pip install pytest-cov
-        cd ./src/
         python -m pip install --upgrade -e .
-        pytest --cov=./ --cov-report=xml
-        cd ..
-    - name: Upload coverage to Codecov
+        pytest --cov=./parac --cov-report=xml
+    - name: Upload Python coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        directory: ./src/
+        directory: .
         env_vars: OS,PYTHON
         fail_ci_if_error: true
-        files: ./src/coverage.xml
+        files: ./coverage.xml
         flags: unittests
         verbose: true

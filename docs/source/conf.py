@@ -11,7 +11,16 @@ https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../src/parac'))
+
+sys.path.insert(0, os.path.abspath('../../'))
+
+# -- Testing path ------------------------------------------------------------
+
+import parac
+import parac_ext_cli
+
+assert parac.__version__
+assert parac_ext_cli.__version__
 
 # -- Project information -----------------------------------------------------
 
@@ -20,7 +29,7 @@ copyright = '2021, Luna Klatzer'
 author = 'Luna Klatzer'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.dev4'
+release = 'v0.1.dev5'
 
 
 # -- General configuration ---------------------------------------------------
@@ -34,7 +43,8 @@ extensions = [
     "sphinx_copybutton",
     "sphinxext.opengraph",
     "sphinx.ext.todo",
-    "sphinx.ext.viewcode"
+    "sphinx.ext.viewcode",
+    "sphinx.ext.autosectionlabel"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -82,3 +92,6 @@ def setup(app):
 
 
 autodoc_member_order = 'groupwise'
+
+# Suppressing the warning 'duplicate label'
+suppress_warnings = ['autosectionlabel.*']
