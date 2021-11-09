@@ -127,7 +127,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   throughout the module
 - pypi Module Structure with new parent `parac`. Releases from now on will be uploaded to pypi.org as module
 - Distinction between distribution and module version and const Values 
-  (`const.py`) `DIST_VERSION` and `MODULE_VERSION` for separating Distribution
+  (`const.py`) `DIST_COMPILED_VERSION` and `MODULE_VERSION` for separating Distribution
   and Module/Source-Code Version.
 - Pre-Processor module, including its own grammar and handling for files
 - Integration of the compiled Antlr4 lexer and parser in both Pre-Processor and Compiler
