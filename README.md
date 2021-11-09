@@ -85,12 +85,30 @@ python3 -m pip install -U parac==version
 
 ### Build the Compiler
 
+To build the compiler, the following requirements must be met (for the current release): 
+- GNU `make` is installed to run the `Makefile`
+- Python `>=3.8` is installed, including `pyinstaller` and `pip`
+- 
+
+GNU `make` command is used. On Linux it should be
+often installed per default, if not please get from your respective package 
+manager the latest version.
+
+**List of all the available targets for various Operating Systems:**
+- Ubuntu (`apt-get`) - `apt-get install make` - [reference](https://howtoinstall.co/en/make)
+- Arch Linux (`pacman`) - `pacman -S make` - [reference](https://archlinux.org/packages/core/x86_64/make/)  
+- CentOS (`yum`) - `yum install make`
+- Manjaro (`pacman`) - `pacman -S make`  
+- Linux with Snapcraft (`snap`) - `snap install ubuntu-make --classic` - This might be unstable  
+- Debian (`apt-get`) - `apt-get install build-essential` 
+- Windows (`choco`) - [here](https://community.chocolatey.org/packages/make)
+- MacOS (`brew`) - [here](https://formulae.brew.sh/formula/make)
+- For other Operating systems please go to your package manager for info.
+
 Building the compiler will generate a `build` and `dist` folder, where the
 `dist` folder will contain the actual compiler directory. In this case, the 
-`build` folder can be ignored and deleted after building.
-
-For the info about building the compiler see 
-[Build the executable and binaries](#build-the-executable-and-binaries)
+`build` folder can be ignored and deleted after building, unless additional
+logs are important to you.
 
 ### Setting up the Compiler
 
@@ -101,7 +119,7 @@ will automatically do the installation based on your input and create the
 correct entries to the system, so that you can utilise the compiler right after
 installation.
 
-#### For unix-based systems (Including MacOS)
+#### For Unix-based systems (Including macOS)
 
 On UNIX-based systems the installation is open to the user, including the folder
 where the compiler will be placed (It is recommended though to use `/opt`, 

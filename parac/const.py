@@ -77,7 +77,7 @@ BASE_DIR = Path(
 
 # If in the BIN_DIR the 'parac.exe' file exists, then it's compiled mode, else
 # it is the
-if os.path.exists(BASE_DIR / "lib"):
+if not os.path.exists(BASE_DIR / "bin" / "parac.exe"):
     DIST_COMPILED_VERSION = False
     MODULE_VERSION = True
     C_LIB_PATH = BASE_DIR / "lib"
