@@ -12,6 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+
+### Updated
+
+### Removed
+
+## [v0.1.dev5]
+
+### Added
 - `initialise_default_paths` in `parac.const` to initialise the set the const
    variables DEFAULT_LOG_PATH, DEFAULT_BUILD_PATH and DEFAULT_DIST_PATH. This
    allows for more customisation for the defaults paths in Para-C and avoids
@@ -35,15 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   implementation.
 - Addition of `program_ctx` to all `FileRunContext` implementation
   classes.
-- Base types in `pbl-types.h` that wrap the low-level C types
-- Proper meta-tracking for all Para-C types using `PblVarMeta_T`
-- Default declaration and definition macros for all types in `parac-modules`
-- `PblStream_T` and `PblFile_T` implementation for stream handling
-- Specified Int Types in `pbl-int.h` that wrap the int types in `stdint.h`
-- Meta handling in `pbl-function.h` for managing a function call context
-- Exception handling using `pbl-exception.h`
-- fallback implementation for `__VA_EXT__`, which has been implemented since C++20 or C23, using `./modules/parac-modules/included/va-opt.h`
-
+  
 ### Changed
 - Style of the init banner in the CLI and added docs link.
 - Merged dynamic lists and arrays into the standard iterable type associated with `type identifier[]`,
@@ -76,10 +76,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a simple parse was enough for validating the syntax.
 - Updated logging messages and added more of them, where they are needed.  
 - Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
-- `modules/parac-modules` as the base folder for the library items
-- `modules/parac-modules/types.h` for the types for Para-C and added basic string implementation
-- `modules/parac-modules/io.h` for IO management in Para-C - added basic `print` function
-
+- Moved Para-C Base Library data to new repo [here](https://github.com/Para-C/Para-C-Base-Library)
+- Deleted the file `entry_cli.py` here, and moved the function to `parac-ext-cli`
+  [here](https://github.com/Para-C/Para-C-CLI). This function can now be called
+  using `cli_run()`; This means that the main repo and module can only be run
+  as module, and the CLI is a fully separate entity.
+  
 ### Removed
 - `list<t>` type from the Grammar file.
 - `WORK_DIR` in `parac.const` and implemented dynamic fetching to allow for 
@@ -127,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   throughout the module
 - pypi Module Structure with new parent `parac`. Releases from now on will be uploaded to pypi.org as module
 - Distinction between distribution and module version and const Values 
-  (`const.py`) `DIST_VERSION` and `MODULE_VERSION` for separating Distribution
+  (`const.py`) `DIST_COMPILED_VERSION` and `MODULE_VERSION` for separating Distribution
   and Module/Source-Code Version.
 - Pre-Processor module, including its own grammar and handling for files
 - Integration of the compiled Antlr4 lexer and parser in both Pre-Processor and Compiler
@@ -206,7 +208,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...dev
+[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...dev
+[v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
 [v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
 [v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
 [v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2
