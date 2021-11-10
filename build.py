@@ -228,9 +228,6 @@ def create_parac_modules(output_type: str) -> None:
 
 
 if __name__ == "__main__":
-    from . import parac
-    importlib.import_module("")
-
     parse_input()
     cleanup_and_create_tmp_folder()
     fetch_pbl_build()
