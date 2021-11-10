@@ -223,7 +223,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Created testing files for the parser and lexer
 
 [unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev6...dev
-[v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...v0.1.dev6
+[v0.1.dev6]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...v0.1.dev6
 [v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
 [v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
 [v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
