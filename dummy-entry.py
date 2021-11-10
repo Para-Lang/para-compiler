@@ -8,6 +8,6 @@ import importlib
 if __name__ == '__main__':
     # importing local modules
     parac = importlib.import_module("parac", __name__)
-    parac_ext_cli = importlib.import_module("parac_ext_cli", __name__)
+    parac_ext_cli = importlib.import_module("parac_ext_cli")
 
     getattr(parac_ext_cli, 'cli_run')()
