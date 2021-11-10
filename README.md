@@ -64,8 +64,7 @@ For more info see [Module README](src/PYPI_README.md).
  
 To install Para-C, you can either use the pre-built installer for the windows,
 by going through the [releases](https://github.com/Para-C/Para-C/releases)
-or [build](#build-the-executable-and-binaries) and install the compiler yourself. 
-(The last is simpler than it might seem)
+or [build](#build-the-compiler) and install the compiler yourself.
 
 ### Install the Python module
 
@@ -85,30 +84,30 @@ python3 -m pip install -U parac==version
 
 ### Build the Compiler
 
-To build the compiler, the following requirements must be met (for the current release): 
-- GNU `make` is installed to run the `Makefile`
-- Python `>=3.8` is installed, including `pyinstaller` and `pip`
-- 
+*Note that building the compiler is specific for your OS and as such builds
+may only be used for your own operating system, and will not work on other
+systems*
 
-GNU `make` command is used. On Linux it should be
-often installed per default, if not please get from your respective package 
-manager the latest version.
+To build the compiler, and it's required c-libraries, the following 
+requirements must be met (for the current release):
+- Python `>=3.8`, including `pyinstaller` and `pip`:
+  - For Linux go to your respective package manager, which will provide the build.
+  - For macOS and Windows: [download](https://www.python.org/downloads/)
 
-**List of all the available targets for various Operating Systems:**
-- Ubuntu (`apt-get`) - `apt-get install make` - [reference](https://howtoinstall.co/en/make)
-- Arch Linux (`pacman`) - `pacman -S make` - [reference](https://archlinux.org/packages/core/x86_64/make/)  
-- CentOS (`yum`) - `yum install make`
-- Manjaro (`pacman`) - `pacman -S make`  
-- Linux with Snapcraft (`snap`) - `snap install ubuntu-make --classic` - This might be unstable  
-- Debian (`apt-get`) - `apt-get install build-essential` 
-- Windows (`choco`) - [here](https://community.chocolatey.org/packages/make)
-- MacOS (`brew`) - [here](https://formulae.brew.sh/formula/make)
-- For other Operating systems please go to your package manager for info.
+After having installed everything, the python script `build.py` may be run to
+properly install and generate the binary folder for the Para-C executable.
+For the compilation, you may specify one of the following args:
 
-Building the compiler will generate a `build` and `dist` folder, where the
-`dist` folder will contain the actual compiler directory. In this case, the 
-`build` folder can be ignored and deleted after building, unless additional
-logs are important to you.
+| Argument     | Required | Description                                                                                                                                                                                                                                                                                                                                                       |
+|--------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --action=""  | Yes      | Specify the action for the build process. Valid inputs are: `normal` (Builds the fully functioning compiler, which may link files as well and compile them to executables using GCC), `compiler-standalone` (This can only generate code, but not link or run it). Defaults to `normal` |
+| --libpbl=""  | No       | Specify an alternative `libpbl.a` file path (may be relative). Use at your own risk, as this will replace the checked version which is downloaded per default                                                                                                                           |
+
+For example an invocation may look like this:
+
+```bash
+python ./build.exe --action="normal"
+```
 
 ### Setting up the Compiler
 

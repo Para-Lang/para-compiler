@@ -1,6 +1,6 @@
 # coding=utf-8
 """ Constant values used in the module """
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Optional
 from pathlib import Path
 import click
 import os
@@ -13,34 +13,28 @@ __all__ = [
     "DIST_COMPILED_VERSION",
     "MODULE_VERSION",
     "C_COM_EXISTENCE_OVERWRITE",
-    "DEFAULT_CONFIG",
     "DEFAULT_BUILD_PATH",
     "DEFAULT_DIST_PATH",
     "DEFAULT_LOG_PATH",
     "VALID_FILE_ENDINGS",
-    "CONFIG_PATH",
+    "BIN_CONFIG_PATH",
     "SEPARATOR",
-    "INVALID_UNIX_FILE_NAME_CHARS",
-    "INVALID_WIN_FILE_NAME_CHARS",
     "WIN",
     "initialise_default_paths",
 ]
 
 # -- Signatures ---------------------------------------------------------------
 BASE_DIR: Path
-C_LIB_PATH: Path
+C_LIB_PATH: Optional[Path]
 DIST_COMPILED_VERSION: bool
 MODULE_VERSION: bool
 C_COM_EXISTENCE_OVERWRITE: bool
-DEFAULT_CONFIG: Dict[str, str]
 DEFAULT_BUILD_PATH: Path
 DEFAULT_DIST_PATH: Path
 DEFAULT_LOG_PATH: Path
 VALID_FILE_ENDINGS: List[str]
-CONFIG_PATH: Path
+BIN_CONFIG_PATH: Path
 SEPARATOR: str
-INVALID_UNIX_FILE_NAME_CHARS: List[str]
-INVALID_WIN_FILE_NAME_CHARS: List[str]
 WIN: bool
 
 # -- Initialisation Functions -------------------------------------------------
@@ -75,27 +69,15 @@ BASE_DIR = Path(
     os.path.dirname(os.path.realpath(__file__))
 ).parent.resolve()
 
-# If in the BIN_DIR the 'parac.exe' file exists, then it's compiled mode, else
-# it is the
-if not os.path.exists(BASE_DIR / "bin" / "parac.exe"):
+# If 'empty-bin-config.json' exists -> compiled binary mode
+if os.path.exists(BASE_DIR / "bin" / "empty-bin-config.json"):
+    DIST_COMPILED_VERSION = True
+    MODULE_VERSION = False
+    C_LIB_PATH = BASE_DIR / "bin" / "libpbl.a"
+else:
     DIST_COMPILED_VERSION = False
     MODULE_VERSION = True
-    C_LIB_PATH = BASE_DIR / "lib"
-else:
-    # Assume compiled version -> current file: ./bin/parac/const.pyc
-    BASE_DIR = BASE_DIR.parent  # ./bin -> ./
-    if os.path.exists(BASE_DIR / "bin" / "parac.exe"):
-        DIST_COMPILED_VERSION = True
-        MODULE_VERSION = False
-        C_LIB_PATH = BASE_DIR / "lib"
-
-        if not os.path.exists(BASE_DIR / "compiler-config.json"):
-            raise RuntimeError(
-                f"compiler-config.json not found! "
-                f"Expected {BASE_DIR / 'compiler-config.json'}"
-            )
-    else:
-        raise RuntimeError("Cannot locate BASE_DIR - Invalid run directory")
+    C_LIB_PATH = None
 
 # If true OS is Windows
 WIN = click.utils.WIN
@@ -104,8 +86,8 @@ WIN = click.utils.WIN
 # handling path separators
 SEPARATOR = "\\" if WIN else "/"
 
-# Config path for compiler-config.json
-CONFIG_PATH = (BASE_DIR / "compiler-config.json").resolve()
+# Config path for empty-bin-config.json
+BIN_CONFIG_PATH = (BASE_DIR / "empty-bin-config.json").resolve()
 
 # Valid file endings for Para-C
 VALID_FILE_ENDINGS = [".para", ".parah", ".c", ".h", ".ph"]
@@ -113,19 +95,3 @@ VALID_FILE_ENDINGS = [".para", ".parah", ".c", ".h", ".ph"]
 # If the init overwrite is true =>
 # Existence check for the c-compiler will always return True
 C_COM_EXISTENCE_OVERWRITE = False
-
-# Default Config for compiler-config.json
-DEFAULT_CONFIG = {
-    "c-compiler-path": "",
-    "lib-path": "./lib/"
-}
-
-# Invalid chars for a path (unix)
-INVALID_UNIX_FILE_NAME_CHARS = [
-    '/', '<', '>', '\0', '|', ':', '&'
-]
-
-# Invalid chars for a path (win)
-INVALID_WIN_FILE_NAME_CHARS = [
-    '<', '>', ':', '"', '/', '\\', '|', '?', '*'
-]
