@@ -17,7 +17,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-## [v0.1.dev5]
+## [v0.1.dev6]
+
+### Added
+- Updated build-system and added `build.py`, which allows proper building with the PBL
+- `dummy-entry.py`
+
+### Changed
+- Changed behaviour to detect binary mode, by providing the new file `bin-config.json`
+- Replaced based on the recent implementation changed, `compiler-config.json`
+  with `bin-config.json`, which specifically is configured for the Para-C
+  Compiler, and the OS it was built on.
+
+### Removed
+- Removed unneeded constants: `INVALID_WIN_FILE_NAME_CHARS`, `INVALID_UNIX_FILE_NAME_CHARS` and `DEFAULT_CONFIG`
+
+## [v0.1.dev5] - 2021-11-09
 
 ### Added
 - `initialise_default_paths` in `parac.const` to initialise the set the const
@@ -196,7 +211,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comment Parsing Support. Comments are now handled over the function 
   `parac.compiler.core.compiler.ParacCompiler.remove_comments_from_str`
 
-
 ## [v0.1.dev1] - 2021-07-04
 
 ### Added
@@ -208,7 +222,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...dev
+[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev6...dev
+[v0.1.dev6]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...v0.1.dev6
 [v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
 [v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
 [v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3

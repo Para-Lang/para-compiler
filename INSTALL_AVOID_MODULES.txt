@@ -1,4 +1,0 @@
-jedi
-IPython
-numpy
-matplotlib

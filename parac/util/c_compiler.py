@@ -26,8 +26,8 @@ def is_c_compiler_ready() -> bool:
     if const.C_COM_EXISTENCE_OVERWRITE:
         return True
 
-    if os.access(const.CONFIG_PATH, os.R_OK):
-        with open(const.CONFIG_PATH, "r") as file:
+    if os.access(const.BIN_CONFIG_PATH, os.R_OK):
+        with open(const.BIN_CONFIG_PATH, "r") as file:
             config: dict = json.loads(file.read())
             if config.get('c-compiler-path'):
                 # if executable
@@ -65,9 +65,9 @@ def cli_initialise_c_compiler() -> None:
     config = const.DEFAULT_CONFIG
     config['c-compiler-path'] = str(path)
 
-    with open(const.CONFIG_PATH, "w+") as file:
+    with open(const.BIN_CONFIG_PATH, "w+") as file:
         file.write(json.dumps(config, indent=4))
 
     logger.info(
-        "Validated path and successfully created compiler-config.json"
+        "Validated path and successfully created empty-bin-config.json"
     )

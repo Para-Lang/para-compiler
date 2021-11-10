@@ -30,7 +30,7 @@
     Report a bug or issue <https://github.com/Para-C/Para-C/issues/new/choose>
 
 ******************************
-Para-C v0.1.dev5 Documentation
+Para-C v0.1.dev6 Documentation
 ******************************
 
 .. image:: ./../../img/parac-banner.png
