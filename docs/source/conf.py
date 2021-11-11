@@ -31,7 +31,6 @@ author = 'Luna Klatzer'
 # The full version, including alpha/beta/rc tags
 release = 'v0.1.dev6'
 
-
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
