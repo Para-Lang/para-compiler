@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-## [v0.1.dev6]
+## [v0.1.dev6] - 2021-11-10
 
 ### Added
 - Updated build-system and added `build.py`, which allows proper building with the PBL
