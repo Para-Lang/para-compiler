@@ -82,7 +82,7 @@ This script will automatically run the generation of source files and copying of
 
 To run the script simply use (Python3):
 ```bash
-python ./src/build.py
+python ./src/parac-build.py
 ```
 
 The script will create a `./build/` and `./dist/` folder.

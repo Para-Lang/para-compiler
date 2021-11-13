@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Updated
+- Renamed `build.py` to `parac-build.py` to not interfere with the `build` module
 
 ### Removed
 
