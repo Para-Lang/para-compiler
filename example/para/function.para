@@ -1,0 +1,24 @@
+#include <assert.ph>
+
+// Gets the position of the passed char
+int GetPosOfChar(char c, string str)
+{
+    for (int i = 0; i < str.length; i++)
+    {
+        if (str[i] == c) return i;
+    }
+    return -1;
+}
+
+// Entry-Point of the Program
+entry status Main()
+{
+    const int position = 3;
+    string str = "This is a string";
+    char c = 's';
+
+    // Assert(bool) requires that both are equal -> raises exception if not
+    Assert(GetPosOfChar(c, str) == position);
+
+    return (status) { .status_code = 0 };
+}

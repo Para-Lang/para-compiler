@@ -1,0 +1,6 @@
+// Entry-Point of the Program
+entry status Main()
+{
+    Print("Hello world!");
+    return (status) { .status_code = 0 };
+}

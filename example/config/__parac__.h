@@ -1,16 +1,28 @@
 /// ==========================================================
-/// Compiler-Generated Header file for Base Content Management
+///  Example __parac__.h file that won't be used, but will serve as an example for a finished build
 /// ==========================================================
-#include "__parac__.h"
+#pragma once
+
+/// Imports
+#include <stdbool.h>
+
+#ifndef __PARAC___H_
+#define __PARAC___H_
+
+// If the code is included in an CPP environment which Para-C supports,
+// it will be treated as regular C-code
+#if __cplusplus
+extern "C" {
+#endif
 
 // =========================================
 // User Project Configuration
 // =========================================
-const char* ph_name = "decorator_example";
-const char* ph_description = "Example for showing the functionality of decorators";
-const char* ph_author = "Luna Klatzer";
-const char* ph_version = "0.1";
-const char* ph_license = "GPL-3.0";
+const char* ph_name;
+const char* ph_description;
+const char* ph_author;
+const char* ph_version;
+const char* ph_license;
 
 // =========================================
 // Compiler Configuration
@@ -19,10 +31,14 @@ const char* ph_license = "GPL-3.0";
 // be automatically finished
 // =========================================
 
+#define __PARAC_VERSION__ "Compiler-Inserted"
+
 const char* ph_para_compiler_path;
 const char* ph_c_compiler_path;
 const char* ph_pcl_path;
 
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// Additional Function declarations
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#if __cplusplus
+}
+#endif
+
+#endif

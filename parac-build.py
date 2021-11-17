@@ -24,7 +24,7 @@ BASE_PATH: Path = Path(os.getcwd())
 DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
 ENTRY_PATH: Path = BASE_PATH / "dummy-entry.py"
-EXAMPLE_PATH: Path = BASE_PATH / "examples"
+EXAMPLE_PATH: Path = BASE_PATH / "example"
 ICON_PATH: Path = BASE_PATH / "img" / "parac.ico"
 C_COMPILER = "gcc"
 C_LIB_IDENTIFIER = "libpbl.a"
@@ -218,7 +218,7 @@ def create_parac_modules(output_type: str) -> None:
 
     copy_tree(
         str(EXAMPLE_PATH.resolve()),
-        str((destination / "examples").resolve())
+        str((destination / "example").resolve())
     )
 
     create_bin_config(bin_path)

@@ -1,8 +1,0 @@
-#include <c-stdio.h>
-
-// Entry-Point of the Program
-entry status main()
-{
-    printf("Para-C version: %s", __parac_version__);
-    return 0;
-}
