@@ -6,6 +6,7 @@ Welcome to the Language Reference
 .. toctree::
     :hidden:
 
+    Best Practises <best_practises/index>
     Compiler <compiler_structure>
     Pre-Processor <preprocessor>
     Declaration and Types <declaration_and_types/index>
@@ -24,6 +25,7 @@ on github.
 Overview
 ========
 
+- `Best Practises <./best_practises/index.html>`_ - Best Practises when using the language
 - `Compiler <./compiler_structure.html>`_ - Reference for the Para-C structure and logic
 - `Pre-Processor <./preprocessor.html>`_ - Reference for the Para-C Pre-Processor and directives
 - `Declaration and Types <./declaration_and_types/index.html>`_ - Declaring, defining and specifying types of variables
