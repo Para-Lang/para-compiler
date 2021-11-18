@@ -4,9 +4,7 @@ import os
 import pathlib
 from typing import Union, Type, List
 
-_in_FileNotFoundError = FileNotFoundError
-from ..exceptions import FilePermissionError, FileNotFoundError
-
+from ..exceptions import FilePermissionError, InFileNotFoundError
 
 __all__ = [
     "has_valid_file_ending",
@@ -40,7 +38,7 @@ def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
     empty_path = str(path_like).strip() == ''
 
     if empty_path or not os.access(path_like, os.F_OK):  # Exists
-        raise FileNotFoundError(
+        raise InFileNotFoundError(
             f"Failed to read entry-point '{path_like}'."
             f" File does not exist!"
         )

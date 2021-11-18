@@ -31,15 +31,21 @@ __code_name__ = ""
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
-from .const import *
-from . import const
-from .exceptions import *
-from . import exceptions
+# module imports
+import logging as lib_logging
+
+import colorama as lib_colorama
+
 from . import abc
-from . import logging
-from . import util
 from . import compiler
+from . import const
+from . import exceptions
+from . import logging
 from . import preprocessor
+from . import util
+# local imports
+from .const import *
+from .exceptions import *
 
 MODULES = [
     "const",
@@ -67,10 +73,7 @@ __all__ = [
     *MODULES
 ]
 
-import logging as lib_logging
-import colorama
-
-colorama.init(autoreset=True)
+lib_colorama.init(autoreset=True)
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
 
 # An instance of the compiler, which should be generally used in the module

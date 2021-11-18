@@ -7,19 +7,20 @@ import pathlib
 from os import PathLike
 from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal
+
 import antlr4
 
-from .process import BasicProcess
 from .error_handler import ParacErrorListener
-from .logic_stream import ParacLogicStream, CLogicStream
+from .logic_stream import ParacQualifiedLogicStream, CLogicStream
 from .parser.python import ParaCLexer
 from .parser.python import ParaCParser
-from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-                       print_log_banner)
-from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
+from .process import BasicProcess
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParacCompilerError, FailedToProcessError,
                           ParaCSyntaxErrorCollection)
+from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
+                       print_log_banner)
+from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -246,7 +247,7 @@ class ParacCompiler:
     @classmethod
     async def compile_logic_stream(
             cls,
-            logic_stream: ParacLogicStream
+            logic_stream: ParacQualifiedLogicStream
     ) -> CLogicStream:
         """ Compiles the passed ParacLogicStream into the C counterpart """
         ...

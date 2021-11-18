@@ -12,9 +12,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- `Linker` and `LinkerMetaData` classes for the linking step and dependency
+  analysis that is between the logical analysis and code 
+  generation/optimisation.
 
 ### Updated
 - Renamed `build.py` to `parac-build.py` to not interfere with the `build` module
+- Removed the `optimiser` module and replaced it with `optimiser.py`
+- Renamed class `ParacLogicStream` to 
 
 ### Removed
 

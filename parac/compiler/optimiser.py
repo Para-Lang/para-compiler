@@ -8,8 +8,8 @@ __all__ = [
     'Optimiser'
 ]
 
-from ..ctx import FileCompilationContext
-from ..process import ProgramCompilationContext
+from .compile_ctx import FileCompilationContext
+from .process import ProgramCompilationContext
 
 
 class Optimiser:

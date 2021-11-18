@@ -3,11 +3,11 @@
 from abc import abstractmethod, ABC
 from os import PathLike
 from typing import Optional, Any, List, TypeVar, Union
+
 import antlr4
 from antlr4 import ParserRuleContext
 
 from .base_ctx import FileRunContext
-
 
 __all__ = [
     'NULL_CHILDREN',

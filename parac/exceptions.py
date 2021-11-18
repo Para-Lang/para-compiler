@@ -18,7 +18,7 @@ __all__ = [
     'FailedToProcessError',
 
     'UserInputError', 'FileAccessError', 'FilePermissionError',
-    'FileNotFoundError', 'IsDirectoryError', 'InvalidArgumentsError',
+    'InFileNotFoundError', 'IsDirectoryError', 'InvalidArgumentsError',
     'ConfigNotFoundError', 'CCompilerNotFoundError',
 
     'LexerError',
@@ -249,10 +249,7 @@ class FilePermissionError(UserInputError):
     _default_code = ErrorCodes.FILE_PERM_ERROR
 
 
-_in_FileNotFoundError = FileNotFoundError
-
-
-class FileNotFoundError(UserInputError, _in_FileNotFoundError):
+class InFileNotFoundError(UserInputError, FileNotFoundError):
     """ File does not exist """
     error_msg = "Specified Entry File does not exist"
     _default_code = ErrorCodes.FILE_NOT_FOUND

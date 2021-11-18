@@ -101,8 +101,17 @@ The Semantic Analysis will go through each externalDeclaration (Can be either a 
 File Linker
 ===========
 
-File linking in Para-C is similar to C, with the key-difference being though, that the result of the generation is a single C file, not byte code. This means that the linker has the main task to fetch all definitions and link them together creating in the end the resulting C-file (This will be though managed by the code generator).
-All definitions will be placed in the C-file, as well as the declarations in the C-Header. This to preserve the declaration logic, and avoid reference errors in the C code.
+File linking in Para-C is similar to C, with the key-difference being
+though, that the result of the generation is a C project (files and headers
+for all items), not byte code.
+
+This means that the linker has the main task to fetch all definitions and link
+them together creating in the end the resulting C project and files (This will
+be though managed by the code generator).
+
+All definitions will be placed in the C-file, as well as the declarations in
+the C-Header. This to preserve the declaration logic, and avoid reference
+errors in the C code.
 
 Code Optimiser
 ==============

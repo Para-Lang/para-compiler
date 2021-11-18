@@ -9,17 +9,16 @@ from __future__ import annotations
 
 import logging
 import os
-from pathlib import Path
 from os import PathLike
+from pathlib import Path
 from typing import Union, Tuple, List, Optional, AsyncGenerator
 
+from .compile_ctx import ProgramCompilationContext
+from ..exceptions import FileAccessError
 from ..preprocessor import PreProcessorProcessResult
 from ..preprocessor.ctx import ProgramPreProcessorContext
-
-from .ctx import ProgramCompilationContext
 from ..util import (has_valid_file_ending, validate_path_like,
                     ensure_pathlib_path)
-from ..exceptions import FileAccessError
 
 __all__ = [
     'BasicProcess',
@@ -94,7 +93,7 @@ class BasicProcess:
         """ Gets the working directory for the program """
         return self.entry_file_path.parent
 
-    async def validate_syntax(self, log_errors_and_warnings: bool) -> bool:
+    async def validate_syntax(self, log_errors_and_warnings: bool) -> None:
         """
         Validates the syntax of the file of this entry-file and logs or raises
         errors while running

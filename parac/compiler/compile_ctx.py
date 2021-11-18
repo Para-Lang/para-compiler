@@ -10,11 +10,12 @@ import logging
 import pathlib
 from os import PathLike
 from typing import Dict, Union, TYPE_CHECKING
+
 import antlr4
 
-from ..util import get_input_stream
+from .logic_stream import ParacQualifiedLogicStream
 from ..abc import FileRunContext, ProgramRunContext
-from .logic_stream import ParacLogicStream
+from ..util import get_input_stream
 
 if TYPE_CHECKING:
     from .process import ProgramCompilationProcess
@@ -24,7 +25,7 @@ __all__ = [
     'ProgramCompilationContext'
 ]
 
-logger = logging.getLogger(__name__ )
+logger = logging.getLogger(__name__)
 
 
 class FileCompilationContext(FileRunContext):
@@ -32,8 +33,9 @@ class FileCompilationContext(FileRunContext):
     Class used inside the listener for managing the context of a single file,
     which will keep track of variables, the stack, logic and
     general compiling information which is only related to the specified file.
-    -> Unknown identifiers will not count as an error, since they might be
-    from another file that is included.
+
+    Note that unknown identifiers will not count as an error, since they
+    might be from another file that is included.
 
     Dependencies will be managed using the CompilationContext, which will keep
     track of all files and in the end process the resulting dependencies and
@@ -46,7 +48,8 @@ class FileCompilationContext(FileRunContext):
             program_ctx: ProgramCompilationContext
     ):
         self._program_ctx: ProgramCompilationContext = program_ctx
-        self._logic_stream: ParacLogicStream = ParacLogicStream()
+        self._logic_stream: ParacQualifiedLogicStream = \
+            ParacQualifiedLogicStream()
         self._relative_file_name = relative_file_name
 
     @property
@@ -65,7 +68,7 @@ class FileCompilationContext(FileRunContext):
         return self._program_ctx
 
     @property
-    def logic_stream(self) -> ParacLogicStream:
+    def logic_stream(self) -> ParacQualifiedLogicStream:
         """
         Returns the content of the file represented as a stream containing
         LogicTokens

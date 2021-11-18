@@ -1,14 +1,15 @@
 # coding=utf-8
 """ Logic Tree Listener for the Para-C Pre-Processor """
+import logging
 from typing import Optional
 
 import antlr4
-import logging
 
-from .logic_stream import PreProcessorStream
-from .python import ParaCPreProcessorListener, ParaCPreProcessorParser as _p
 from .ctx import FilePreProcessorContext, ProgramPreProcessorContext
+from .logic_stream import PreProcessorStream
 from .logic_tokens import *
+from .python import (ParaCPreProcessorListener,
+                     ParaCPreProcessorParser as Parser)
 
 __all__ = [
     'Listener'
@@ -26,7 +27,7 @@ class Listener(ParaCPreProcessorListener):
 
     def __init__(
             self,
-            antlr4_file_ctx: _p.CompilationUnitContext,
+            antlr4_file_ctx: Parser.CompilationUnitContext,
             file_stream: antlr4.InputStream,
             relative_file_name: str,
             program_ctx: ProgramPreProcessorContext
@@ -34,7 +35,7 @@ class Listener(ParaCPreProcessorListener):
         self._file_ctx = FilePreProcessorContext(
             relative_file_name, program_ctx
         )
-        self.antlr4_file_ctx: _p.CompilationUnitContext = antlr4_file_ctx
+        self.antlr4_file_ctx: Parser.CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
         self._log_errors_and_warnings = False
 
@@ -73,7 +74,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterCompilationUnit(
             self,
-            ctx: _p.CompilationUnitContext
+            ctx: Parser.CompilationUnitContext
     ):
         """
         Enter a parse tree produced by parser#compilationUnit.
@@ -82,7 +83,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitCompilationUnit(
             self,
-            ctx: _p.CompilationUnitContext
+            ctx: Parser.CompilationUnitContext
     ):
         """
         Exit a parse tree produced by parser#compilationUnit.
@@ -94,7 +95,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterTranslationUnit(
             self,
-            ctx: _p.TranslationUnitContext
+            ctx: Parser.TranslationUnitContext
     ):
         """
         Enter a parse tree produced by parser#translationUnit.
@@ -103,7 +104,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitTranslationUnit(
             self,
-            ctx: _p.TranslationUnitContext
+            ctx: Parser.TranslationUnitContext
     ):
         """
         Exit a parse tree produced by parser#translationUnit.
@@ -112,7 +113,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterExternalItem(
             self,
-            ctx: _p.ExternalItemContext
+            ctx: Parser.ExternalItemContext
     ):
         """
         Enter a parse tree produced by parser#externalItem.
@@ -123,7 +124,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitExternalItem(
             self,
-            ctx: _p.ExternalItemContext
+            ctx: Parser.ExternalItemContext
     ):
         """
         Exit a parse tree produced by parser#externalItem.
@@ -133,7 +134,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterPreProcessorDirective(
             self,
-            ctx: _p.PreProcessorDirectiveContext
+            ctx: Parser.PreProcessorDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#preProcessorDirective.
@@ -142,7 +143,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitPreProcessorDirective(
             self,
-            ctx: _p.PreProcessorDirectiveContext
+            ctx: Parser.PreProcessorDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#preProcessorDirective.
@@ -151,7 +152,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterSelectionPreProcessorDirective(
             self,
-            ctx: _p.SelectionPreProcessorDirectiveContext
+            ctx: Parser.SelectionPreProcessorDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#selectionPreProcessorDirective.
@@ -160,7 +161,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitSelectionPreProcessorDirective(
             self,
-            ctx: _p.SelectionPreProcessorDirectiveContext
+            ctx: Parser.SelectionPreProcessorDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#selectionPreProcessorDirective.
@@ -169,7 +170,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterStartOfSelectionBlock(
             self,
-            ctx: _p.StartOfSelectionBlockContext
+            ctx: Parser.StartOfSelectionBlockContext
     ):
         """
         Enter a parse tree produced by parser#startSelectionBlock.
@@ -178,7 +179,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitStartOfSelectionBlock(
             self,
-            ctx: _p.StartOfSelectionBlockContext
+            ctx: Parser.StartOfSelectionBlockContext
     ):
         """
         Exit a parse tree produced by parser#startSelectionBlock.
@@ -187,7 +188,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterSelectionDirectiveAlternatives(
             self,
-            ctx: _p.SelectionDirectiveAlternativesContext
+            ctx: Parser.SelectionDirectiveAlternativesContext
     ):
         """
         Enter a parse tree produced by parser#logicalDirectiveAlternatives.
@@ -196,7 +197,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitSelectionDirectiveAlternatives(
             self,
-            ctx: _p.SelectionDirectiveAlternativesContext
+            ctx: Parser.SelectionDirectiveAlternativesContext
     ):
         """
         Exit a parse tree produced by parser#logicalDirectiveAlternatives.
@@ -205,7 +206,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterSelectionElseDirective(
             self,
-            ctx: _p.SelectionElseDirectiveContext
+            ctx: Parser.SelectionElseDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#logicalElseDirective.
@@ -214,7 +215,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitSelectionElseDirective(
             self,
-            ctx: _p.SelectionElseDirectiveContext
+            ctx: Parser.SelectionElseDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#logicalElseDirective.
@@ -223,7 +224,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterErrorDirective(
             self,
-            ctx: _p.ErrorDirectiveContext):
+            ctx: Parser.ErrorDirectiveContext):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#errorDirective.
         """
@@ -231,7 +232,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitErrorDirective(
             self,
-            ctx: _p.ErrorDirectiveContext):
+            ctx: Parser.ErrorDirectiveContext):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#errorDirective.
         """
@@ -239,7 +240,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterLineDirective(
             self,
-            ctx: _p.LineDirectiveContext):
+            ctx: Parser.LineDirectiveContext):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#lineDirective.
         """
@@ -247,7 +248,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitLineDirective(
             self,
-            ctx: _p.LineDirectiveContext):
+            ctx: Parser.LineDirectiveContext):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#lineDirective.
         """
@@ -255,7 +256,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterIncludeDirective(
             self,
-            ctx: _p.IncludeDirectiveContext
+            ctx: Parser.IncludeDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#includeDirective.
@@ -264,7 +265,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitIncludeDirective(
             self,
-            ctx: _p.IncludeDirectiveContext
+            ctx: Parser.IncludeDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#includeDirective.
@@ -273,7 +274,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterFileIncludeDirective(
             self,
-            ctx: _p.FileIncludeDirectiveContext
+            ctx: Parser.FileIncludeDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#fileIncludeDirective.
@@ -282,7 +283,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitFileIncludeDirective(
             self,
-            ctx: _p.FileIncludeDirectiveContext
+            ctx: Parser.FileIncludeDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#fileIncludeDirective.
@@ -291,7 +292,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterComputedIncludeDirective(
             self,
-            ctx: _p.ComputedIncludeDirectiveContext
+            ctx: Parser.ComputedIncludeDirectiveContext
     ):
         """
         Enter a parse tree produced by parser#computedIncludeDirective.
@@ -300,7 +301,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitComputedIncludeDirective(
             self,
-            ctx: _p.ComputedIncludeDirectiveContext
+            ctx: Parser.ComputedIncludeDirectiveContext
     ):
         """
         Exit a parse tree produced by parser#computedIncludeDirective.
@@ -309,7 +310,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterComplexDefineDirective(
             self,
-            ctx: _p.ComplexDefineDirectiveContext
+            ctx: Parser.ComplexDefineDirectiveContext
     ):
         """
         Enter a parse tree produced by _p#complexDefineDirective.
@@ -318,7 +319,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitComplexDefineDirective(
             self,
-            ctx: _p.ComplexDefineDirectiveContext
+            ctx: Parser.ComplexDefineDirectiveContext
     ):
         """
         Exit a parse tree produced by _p#complexDefineDirective.
@@ -327,7 +328,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterPragmaDirective(
             self,
-            ctx: _p.PragmaDirectiveContext
+            ctx: Parser.PragmaDirectiveContext
     ):
         """
         Enter a parse tree produced by _p#pragmaDirective.
@@ -336,7 +337,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitPragmaDirective(
             self,
-            ctx: _p.PragmaDirectiveContext
+            ctx: Parser.PragmaDirectiveContext
     ):
         """
         Exit a parse tree produced by _p#pragmaDirective.
@@ -345,7 +346,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterUndefDirective(
             self,
-            ctx: _p.UndefDirectiveContext
+            ctx: Parser.UndefDirectiveContext
     ):
         """
         Enter a parse tree produced by _p#undefDirective.
@@ -354,7 +355,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitUndefDirective(
             self,
-            ctx: _p.UndefDirectiveContext
+            ctx: Parser.UndefDirectiveContext
     ):
         """
         Exit a parse tree produced by _p#undefDirective.
@@ -363,7 +364,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterIfNotDefinedDirective(
             self,
-            ctx: _p.IfNotDefinedDirectiveContext
+            ctx: Parser.IfNotDefinedDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -373,7 +374,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitIfNotDefinedDirective(
             self,
-            ctx: _p.IfNotDefinedDirectiveContext
+            ctx: Parser.IfNotDefinedDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -384,7 +385,7 @@ class Listener(ParaCPreProcessorListener):
     #
     def enterIfDefinedDirective(
             self,
-            ctx: _p.IfDefinedDirectiveContext
+            ctx: Parser.IfDefinedDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -394,7 +395,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitIfDefinedDirective(
             self,
-            ctx: _p.IfDefinedDirectiveContext
+            ctx: Parser.IfDefinedDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -404,7 +405,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterElIfNotDefinedDirective(
             self,
-            ctx: _p.ElIfNotDefinedDirectiveContext
+            ctx: Parser.ElIfNotDefinedDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -414,7 +415,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitElIfNotDefinedDirective(
             self,
-            ctx: _p.ElIfNotDefinedDirectiveContext
+            ctx: Parser.ElIfNotDefinedDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -424,7 +425,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterElIfDefinedDirective(
             self,
-            ctx: _p.ElIfDefinedDirectiveContext
+            ctx: Parser.ElIfDefinedDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -434,7 +435,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitElIfDefinedDirective(
             self,
-            ctx: _p.ElIfDefinedDirectiveContext
+            ctx: Parser.ElIfDefinedDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -444,7 +445,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterIfDirective(
             self,
-            ctx: _p.IfDirectiveContext
+            ctx: Parser.IfDirectiveContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#ifDirective.
@@ -453,7 +454,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitIfDirective(
             self,
-            ctx: _p.IfDirectiveContext
+            ctx: Parser.IfDirectiveContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#ifDirective.
@@ -462,7 +463,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterElIfDirective(
             self,
-            ctx: _p.ElIfDirectiveContext
+            ctx: Parser.ElIfDirectiveContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#elIfDirective.
@@ -471,7 +472,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitElIfDirective(
             self,
-            ctx: _p.ElIfDirectiveContext
+            ctx: Parser.ElIfDirectiveContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#elIfDirective.
@@ -480,7 +481,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterElseDirective(
             self,
-            ctx: _p.ElseDirectiveContext
+            ctx: Parser.ElseDirectiveContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#elseDirective.
@@ -489,7 +490,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitElseDirective(
             self,
-            ctx: _p.ElseDirectiveContext
+            ctx: Parser.ElseDirectiveContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#elseDirective.
@@ -498,7 +499,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterEndIfDirective(
             self,
-            ctx: _p.EndIfDirectiveContext
+            ctx: Parser.EndIfDirectiveContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#endIfDirective.
@@ -507,7 +508,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitEndIfDirective(
             self,
-            ctx: _p.EndIfDirectiveContext
+            ctx: Parser.EndIfDirectiveContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#endIfDirective.
@@ -516,7 +517,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterLibIncludeDirective(
             self,
-            ctx: _p.LibIncludeDirectiveContext
+            ctx: Parser.LibIncludeDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -526,7 +527,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitLibIncludeDirective(
             self,
-            ctx: _p.LibIncludeDirectiveContext
+            ctx: Parser.LibIncludeDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -536,7 +537,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterStringIncludeDirective(
             self,
-            ctx: _p.StringIncludeDirectiveContext
+            ctx: Parser.StringIncludeDirectiveContext
     ):
         """
         Enter a parse tree produced by
@@ -546,7 +547,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitStringIncludeDirective(
             self,
-            ctx: _p.StringIncludeDirectiveContext
+            ctx: Parser.StringIncludeDirectiveContext
     ):
         """
         Exit a parse tree produced by
@@ -556,7 +557,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterNonPreProcessorItem(
             self,
-            ctx: _p.NonPreProcessorItemContext
+            ctx: Parser.NonPreProcessorItemContext
     ):
         """
         Enter a parse tree produced by
@@ -566,7 +567,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitNonPreProcessorItem(
             self,
-            ctx: _p.NonPreProcessorItemContext
+            ctx: Parser.NonPreProcessorItemContext
     ):
         """
         Exit a parse tree produced by
@@ -576,7 +577,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterAnySequence(
             self,
-            ctx: _p.AnySequenceContext
+            ctx: Parser.AnySequenceContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#anySequence.
@@ -585,7 +586,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitAnySequence(
             self,
-            ctx: _p.AnySequenceContext
+            ctx: Parser.AnySequenceContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#anySequence.
@@ -594,7 +595,7 @@ class Listener(ParaCPreProcessorListener):
 
     def enterPreProcessorEnd(
             self,
-            ctx: _p.PreProcessorEndContext
+            ctx: Parser.PreProcessorEndContext
     ):
         """
         Enter a parse tree produced by ParaCPreProcessorParser#preProcessorEnd.
@@ -603,7 +604,7 @@ class Listener(ParaCPreProcessorListener):
 
     def exitPreProcessorEnd(
             self,
-            ctx: _p.PreProcessorEndContext
+            ctx: Parser.PreProcessorEndContext
     ):
         """
         Exit a parse tree produced by ParaCPreProcessorParser#preProcessorEnd.

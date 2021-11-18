@@ -3,14 +3,13 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from os import PathLike
 from typing import Optional, Any, List, Union, TYPE_CHECKING
-from antlr4 import ParserRuleContext
+
 from cached_property import cached_property
 
-from .python.ParaCPreProcessorParser import ParaCPreProcessorParser as _p
-from ..abc import NULL_CHILDREN
 from .abc import PreProcessorLogicToken
+from .python.ParaCPreProcessorParser import ParaCPreProcessorParser as Parser
+from ..abc import NULL_CHILDREN
 
 if TYPE_CHECKING:
     from .ctx import FilePreProcessorContext
@@ -45,7 +44,7 @@ class ExternalPreProcessorItem(PreProcessorLogicToken):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.ExternalItemContext,
+            antlr4_ctx: Parser.ExternalItemContext,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
@@ -58,7 +57,7 @@ class ExternalPreProcessorItem(PreProcessorLogicToken):
         return super().as_str
 
     @cached_property
-    def antlr4_ctx(self) -> _p.ExternalItemContext:
+    def antlr4_ctx(self) -> Parser.ExternalItemContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -131,7 +130,7 @@ class NonPreProcessorItem(PreProcessorLogicToken):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.NonPreProcessorItemSequenceContext,
+            antlr4_ctx: Parser.NonPreProcessorItemSequenceContext,
             children: Optional[List[Any]] = NULL_CHILDREN,
     ):
         super().__init__(
@@ -218,7 +217,7 @@ class PreProcessorDirective(PreProcessorLogicToken, ABC):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.preProcessorDirective,
+            antlr4_ctx: Parser.preProcessorDirective,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -231,7 +230,7 @@ class PreProcessorDirective(PreProcessorLogicToken, ABC):
 
     @cached_property
     @abstractmethod
-    def antlr4_ctx(self) -> _p.preProcessorDirective:
+    def antlr4_ctx(self) -> Parser.preProcessorDirective:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -338,9 +337,9 @@ class IncludeDirective(PreProcessorDirective):
             self,
             parent_file: FilePreProcessorContext,
             antlr4_ctx: Union[
-                _p.IncludeDirectiveContext,
-                _p.ComputedIncludeDirectiveContext,
-                _p.FileIncludeDirectiveContext
+                Parser.IncludeDirectiveContext,
+                Parser.ComputedIncludeDirectiveContext,
+                Parser.FileIncludeDirectiveContext
             ],
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
@@ -352,7 +351,7 @@ class IncludeDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.IncludeDirectiveContext:
+    def antlr4_ctx(self) -> Parser.IncludeDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -374,7 +373,7 @@ class FileIncludeDirective(IncludeDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.FileIncludeDirectiveContext,
+            antlr4_ctx: Parser.FileIncludeDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -385,7 +384,7 @@ class FileIncludeDirective(IncludeDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.FileIncludeDirectiveContext:
+    def antlr4_ctx(self) -> Parser.FileIncludeDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -406,7 +405,7 @@ class ComputedIncludeDirective(IncludeDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.ComputedIncludeDirectiveContext,
+            antlr4_ctx: Parser.ComputedIncludeDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -417,7 +416,7 @@ class ComputedIncludeDirective(IncludeDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.ComputedIncludeDirectiveContext:
+    def antlr4_ctx(self) -> Parser.ComputedIncludeDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -439,7 +438,7 @@ class DefineDirective(PreProcessorDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.ComplexDefineDirectiveContext,
+            antlr4_ctx: Parser.ComplexDefineDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -450,7 +449,7 @@ class DefineDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.ComplexDefineDirectiveContext:
+    def antlr4_ctx(self) -> Parser.ComplexDefineDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -478,11 +477,11 @@ class SelectionDirective(PreProcessorDirective):
             self,
             parent_file: FilePreProcessorContext,
             antlr4_ctx: Union[
-                _p.SelectionPreProcessorDirectiveContext,
-                _p.StartOfSelectionBlockContext,
-                _p.SelectionDirectiveAlternativesContext,
-                _p.SelectionElseDirectiveContext,
-                _p.EndIfDirectiveContext
+                Parser.SelectionPreProcessorDirectiveContext,
+                Parser.StartOfSelectionBlockContext,
+                Parser.SelectionDirectiveAlternativesContext,
+                Parser.SelectionElseDirectiveContext,
+                Parser.EndIfDirectiveContext
             ],
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
@@ -494,7 +493,7 @@ class SelectionDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.SelectionPreProcessorDirectiveContext:
+    def antlr4_ctx(self) -> Parser.SelectionPreProcessorDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -518,7 +517,7 @@ class StartSelectionDirective(SelectionDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.StartOfSelectionBlockContext,
+            antlr4_ctx: Parser.StartOfSelectionBlockContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -529,7 +528,7 @@ class StartSelectionDirective(SelectionDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.StartOfSelectionBlockContext:
+    def antlr4_ctx(self) -> Parser.StartOfSelectionBlockContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -554,7 +553,7 @@ class AlternativeSelectionDirective(SelectionDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.SelectionDirectiveAlternativesContext,
+            antlr4_ctx: Parser.SelectionDirectiveAlternativesContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -565,7 +564,7 @@ class AlternativeSelectionDirective(SelectionDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.SelectionDirectiveAlternativesContext:
+    def antlr4_ctx(self) -> Parser.SelectionDirectiveAlternativesContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -588,7 +587,7 @@ class ElseSelectionDirective(SelectionDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.SelectionElseDirectiveContext,
+            antlr4_ctx: Parser.SelectionElseDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -599,7 +598,7 @@ class ElseSelectionDirective(SelectionDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.SelectionElseDirectiveContext:
+    def antlr4_ctx(self) -> Parser.SelectionElseDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -628,7 +627,7 @@ class EndIfDirective(SelectionDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.EndIfDirectiveContext,
+            antlr4_ctx: Parser.EndIfDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -639,7 +638,7 @@ class EndIfDirective(SelectionDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.EndIfDirectiveContext:
+    def antlr4_ctx(self) -> Parser.EndIfDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -660,7 +659,7 @@ class ErrorDirective(PreProcessorDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.ErrorDirectiveContext,
+            antlr4_ctx: Parser.ErrorDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -671,7 +670,7 @@ class ErrorDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.ErrorDirectiveContext:
+    def antlr4_ctx(self) -> Parser.ErrorDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -693,7 +692,7 @@ class LineDirective(PreProcessorDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.LineDirectiveContext,
+            antlr4_ctx: Parser.LineDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -704,7 +703,7 @@ class LineDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.LineDirectiveContext:
+    def antlr4_ctx(self) -> Parser.LineDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """
@@ -726,7 +725,7 @@ class PragmaDirective(PreProcessorDirective):
     def __init__(
             self,
             parent_file: FilePreProcessorContext,
-            antlr4_ctx: _p.PragmaDirectiveContext,
+            antlr4_ctx: Parser.PragmaDirectiveContext,
             has_code_block_scope: bool,
             children_code_block: Optional[NonPreProcessorItem] = NULL_CHILDREN,
             children: Optional[List[Any]] = NULL_CHILDREN,
@@ -737,7 +736,7 @@ class PragmaDirective(PreProcessorDirective):
         )
 
     @cached_property
-    def antlr4_ctx(self) -> _p.PragmaDirectiveContext:
+    def antlr4_ctx(self) -> Parser.PragmaDirectiveContext:
         """
         Returns the Antlr4 ctx instance associated with this logic token
         """

@@ -7,7 +7,7 @@ CLogicStream and processed into native C.
 import logging
 
 __all__ = [
-    'ParacLogicStream',
+    'ParacQualifiedLogicStream',
     'CLogicStream'
 ]
 
@@ -18,7 +18,7 @@ from ..abc import ParacLogicToken, CLogicToken, LogicStream
 logger = logging.getLogger(__name__)
 
 
-class ParacLogicStream(LogicStream):
+class ParacQualifiedLogicStream(LogicStream):
     """
     Logic Stream, which represents a stream of logic tokens, which can be used
     to convert the Para-C components into C-components, which can be converted
@@ -53,15 +53,20 @@ class ParacLogicStream(LogicStream):
 class CLogicStream(LogicStream):
     """
     Logic Stream, which represents a stream of logic tokens that are in native
-    C.
+    C - can be converted into native C code using the Para-C Base Library
     """
 
-    def __init__(self, generator_parent: ParacLogicStream, *args, **kwargs):
+    def __init__(
+        self,
+        generator_parent: ParacQualifiedLogicStream,
+        *args,
+        **kwargs
+    ):
         self._generator_parent = generator_parent
         super().__init__(*args, **kwargs)
 
     @property
-    def generator_parent(self) -> ParacLogicStream:
+    def generator_parent(self) -> ParacQualifiedLogicStream:
         """
         Parent of this Stream aka. the original Para-C token stream, which
         was used to create this stream

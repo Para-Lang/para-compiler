@@ -1,6 +1,7 @@
 # coding=utf-8
 """ Listener Class """
 from __future__ import annotations
+
 import logging
 from os import PathLike
 from typing import TYPE_CHECKING, Union
@@ -9,8 +10,8 @@ import antlr4
 
 from .python import ParaCListener
 from .python import ParaCParser
-from ..ctx import FileCompilationContext, ProgramCompilationContext
-from ..logic_stream import ParacLogicStream
+from ..compile_ctx import FileCompilationContext, ProgramCompilationContext
+from ..logic_stream import ParacQualifiedLogicStream
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +52,7 @@ class Listener(ParaCListener):
         self._log_errors_and_warnings: bool = False
 
     @property
-    def logic_stream(self) -> ParacLogicStream:
+    def logic_stream(self) -> ParacQualifiedLogicStream:
         """ Stream which stores the logical tokens for the passed file. """
         return self._file_ctx.logic_stream
 
