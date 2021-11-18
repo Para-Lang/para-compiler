@@ -1,16 +1,23 @@
 # coding=utf-8
 """ Logic Stream for Pre-Processor Items """
 from typing import List, Any
+
 from cached_property import cached_property
 
-from ..abc import LogicStream
-from .logic_tokens import NonPreProcessorItem
 from .abc import PreProcessorLogicToken
+from .logic_tokens import NonPreProcessorItem
+from ..abc import LogicStream
 
 
 class PreProcessorStream(LogicStream):
     """
     Pre-Processor Stream, which represents a list of PreProcessorLogicToken
+    which may contain NonPreProcessorItem as their children, e.g.:
+
+    #if defined(M)
+    // Associated NonPreProcessorItem Block for the above Selection Directive
+    #endif
+
     """
 
     def __init__(self, *args, **kwargs):
@@ -41,7 +48,8 @@ class PreProcessorStream(LogicStream):
 class ProcessedFileStream(LogicStream):
     """
     Processed File Stream representing a file that was already processed and
-    does not contain directives anymore, but only processed code.
+    does not contain directives anymore, but only processed code
+    (NonPreProcessorItem).
     """
 
     def __init__(self, *args, **kwargs):
