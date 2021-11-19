@@ -19,7 +19,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Updated
 - Renamed `build.py` to `parac-build.py` to not interfere with the `build` module
 - Removed the `optimiser` module and replaced it with `optimiser.py`
-- Renamed class `ParacLogicStream` to 
+- Renamed class `ParacLogicStream` to ParacQualifiedLogicStream
+- Renamed function `ProgramCompilationProcess._compile()` to `ci_compile`
+- Renamed function  `ProgramCompilationProcess._gen_preprocessor_temp_files()`
+  to `gen_preprocessor_temp_files()`
+- Renamed function `ProgramCompilationProcess._run_preprocessor()` to 
+- `preprocess_files()`
 
 ### Removed
 
