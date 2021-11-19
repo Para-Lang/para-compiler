@@ -54,7 +54,7 @@ the variable ``result``.
     entry status Main()
     {
         // assignment expression with assigned result of function call expression
-        int result = GetDouble(2);
+        long result = GetDouble(2);
 
         print(f"Result of function call expression is {result}");
 
