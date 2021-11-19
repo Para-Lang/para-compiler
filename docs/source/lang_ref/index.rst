@@ -8,7 +8,7 @@ Welcome to the Language Reference
 
     Best Practises <best_practises/index>
     Compiler <compiler_structure>
-    Pre-Processor <preprocessor>
+    Pre-Processor <preprocessor/index>
     Declaration and Types <declaration_and_types/index>
     Statement <statements/index>
     Functions <functions/index>
