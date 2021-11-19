@@ -75,4 +75,5 @@ Additional Notes
 1. Arithmetic, Logical, Conditional and Relational Expressions are forbidden as
    expression statements, unless they store their value in an assignment
    expression. This is to prevent useless statements, where evaluation does not
-   influence the program and the intentions are unclear.
+   influence the program and the intentions are unclear. For example, the
+   following is invalid: ``3 + 4;``
