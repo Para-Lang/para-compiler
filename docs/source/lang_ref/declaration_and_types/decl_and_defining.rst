@@ -36,8 +36,8 @@ Scopes can be easily split into the following types:
 - Local File Scope (Local Global Scope) - Local File scope, which defines the
   local variables, which may be accessed by all function scopes and compound
   scopes in this file
-- `Function Scope / Function Definition Scope<../functions/index.html>`_
-- `Compound Statement ({ })<../statements/compound_statement.html>`_
+- `Function Scope / Function Definition Scope <../functions/index.html>`_
+- `Compound Statement ({ }) <../statements/compound_statement.html>`_
 
 Declaring Variables
 ===================
