@@ -249,5 +249,7 @@ class ParacCompiler:
             cls,
             logic_stream: ParacQualifiedLogicStream
     ) -> CLogicStream:
-        """ Compiles the passed ParacLogicStream into the C counterpart """
+        """
+        Compiles the passed ParacQualifiedLogicStream into the C counterpart
+        """
         ...

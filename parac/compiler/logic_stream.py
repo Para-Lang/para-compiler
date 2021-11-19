@@ -1,7 +1,7 @@
 # coding=utf-8
 """
-File containing the ParacLogicStream and CLogicStream, which represents a
-stream of logic components. A ParacLogicStream can be converted into a
+File containing the ParacQualifiedLogicStream and CLogicStream, which represents a
+stream of logic components. A ParacQualifiedLogicStream can be converted into a
 CLogicStream and processed into native C.
 """
 import logging

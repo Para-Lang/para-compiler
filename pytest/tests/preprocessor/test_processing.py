@@ -1,15 +1,14 @@
 # coding=utf-8
 """ Tests for the Pre-Processor Lexer and Parser """
+import asyncio
 import logging
 import os
 from pathlib import Path
 from typing import List
-import asyncio
 
-from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
 from parac import RUNTIME_COMPILER, initialise_default_paths
+from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
 from parac.logging import set_avoid_print_banner_overwrite
-
 from .. import add_folder, remove_folder, reset_input, BASE_TEST_PATH
 
 compiler = ParacCompiler()
@@ -53,7 +52,7 @@ class TestProcessing:
             
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True))
+            ).preprocess_files(True))
             
             remove_folder("build")
             remove_folder("dist")
@@ -72,7 +71,7 @@ class TestProcessing:
 
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True))
+            ).preprocess_files(True))
 
             remove_folder("build")
             remove_folder("dist")
@@ -91,7 +90,7 @@ class TestProcessing:
 
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
-            )._run_preprocessor(True))
+            ).preprocess_files(True))
 
             remove_folder("build")
             remove_folder("dist")

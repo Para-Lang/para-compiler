@@ -227,24 +227,27 @@ class ProgramCompilationProcess(BasicProcess):
 
         int - Progress count from 0 to 1000 (0 = 0%, 1000 = 100%)
         Optional[str] - Name of the next step in form of a string. Is None
-         when the  process finished
+        when the  process finished
         int - Log level for the returned string message
         Optional[FinishedProcess] - None until the process finally finished
 
         For info about compilation see compile()
         """
-        return self._compile(True)
+        return self.ci_compile(True)
 
     async def compile(self) -> FinishedProcess:
         """
         Default function which compiles the passed input data and returns
-        a new finished process instance
+        a new finished process instance. This function should be used as the
+        default entry point for a compilation (when using the module version,
+        which will raise errors when using), without having to specify too
+        much for the input.
         """
-        async for result in self._compile(False):
+        async for result in self.ci_compile(False):
             if type(result[3]) is FinishedProcess:
                 return result[3]  # Optional[FinishedProcess]
 
-    async def _run_preprocessor(
+    async def preprocess_files(
             self, log_errors_and_warnings: bool
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
@@ -256,7 +259,7 @@ class ProgramCompilationProcess(BasicProcess):
             log_errors_and_warnings
         )
 
-    async def _gen_preprocessor_temp_files(
+    async def gen_preprocessor_temp_files(
             self, preprocessor_result: PreProcessorProcessResult
     ) -> None:
         """
@@ -276,7 +279,7 @@ class ProgramCompilationProcess(BasicProcess):
         self._temp_entry_file_path, self._temp_files = tmp
         logger.debug("Wrote processed files to temp storage")
 
-    async def _compile(self, track_progress: bool) -> AsyncGenerator[
+    async def ci_compile(self, track_progress: bool) -> AsyncGenerator[
         Tuple[
             int,
             Optional[str],
@@ -291,12 +294,12 @@ class ProgramCompilationProcess(BasicProcess):
         if track_progress:
             yield 5, "Running Pre-Processor", logging.INFO, None
 
-        preprocessor_result = await self._run_preprocessor(True)
+        preprocessor_result = await self.preprocess_files(True)
 
         if track_progress:
             yield 15, "Generating modified temp files", logging.INFO, None
 
-        await self._gen_preprocessor_temp_files(preprocessor_result)
+        await self.gen_preprocessor_temp_files(preprocessor_result)
 
         if track_progress:
             yield 20, "Parsing files and generating logic streams",\
