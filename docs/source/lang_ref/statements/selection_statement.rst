@@ -46,7 +46,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
         int y = 3;
@@ -82,7 +82,7 @@ evaluated.
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
         int y = 3;
@@ -111,7 +111,7 @@ a regular statement (call of a function).
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
 
@@ -210,7 +210,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 5;
 
@@ -251,7 +251,7 @@ Since characters are simply numeric values representing characters the type
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         char character = 'c';
 
@@ -282,7 +282,7 @@ Since characters are simply numeric values representing characters the type
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
 

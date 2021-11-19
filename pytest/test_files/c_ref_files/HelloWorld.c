@@ -1,6 +1,6 @@
 /* Hello World program */
 
-main()
+Main()
 {
     printf("Hello World");
 }

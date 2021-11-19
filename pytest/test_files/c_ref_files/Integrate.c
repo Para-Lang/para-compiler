@@ -3,7 +3,7 @@ float f(float x)
     return(1/(1+pow(x,2)));
 }
 
-void main()
+void Main()
 {
     int i,n;
     float x0,xn,h,so,se,ans;

@@ -15,7 +15,8 @@ to the compiler that a specific function should be the entry for the program.
 .. note::
 
     The return type of the function **must** be `status` as it is specifically
-    set as the function which will start and exit the program.
+    the function which exit the program, and as such requires a return code
+    aka. exit-status to report if the program was successful or not.
 
     If `exit()` is called, the `status` value will be simply passed as the
     argument.
@@ -36,7 +37,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         return (status) { .status_code = 0 };
     }

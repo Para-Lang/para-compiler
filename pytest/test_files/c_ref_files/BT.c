@@ -22,7 +22,7 @@ void printout(node * tree) {
    if(tree->right) printout(tree->right);
 }
 
-void main() {
+void Main() {
    node * curr, * root;
    int i;
 

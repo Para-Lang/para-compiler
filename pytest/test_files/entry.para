@@ -13,7 +13,7 @@ status additional_function(int x)
     return r;
 }
 
-entry status main()
+entry status Main()
 {
     int some_number = 4;
 

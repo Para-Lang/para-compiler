@@ -1,4 +1,4 @@
-main()
+Main()
 {
     /* Define default values: */
 

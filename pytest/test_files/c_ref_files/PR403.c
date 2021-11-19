@@ -1,6 +1,6 @@
 /* Hello World program */
 
-main()
+Main()
 {
       // This will raise an error as _ is an unknown identifier
       printf (_("\

@@ -5,7 +5,7 @@ struct list_el {
 
 typedef struct list_el item;
 
-void main() {
+void Main() {
    item * curr, * head;
    int i;
 

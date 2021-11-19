@@ -1,3 +1,4 @@
+
 *************
 Styling Guide
 *************
@@ -9,13 +10,14 @@ This is intended as a reference, and does not necessarily have to be followed,
 but it nonetheless recommend to be respected to ensure a consistent styling
 across projects.
 
-File Formatting
-===============
-
-In work...
-
 Naming Conventions
 ==================
+
+The naming conventions refer to the naming scheme that should be used, when
+`declaring and defining variables <../declaration_and_types/index.html>`_ and
+naming special items (``typedef`` and files). This should ensure a consistent
+naming and styling, and the ability to differentiate between the items more
+easily.
 
 +--------------------------------------------+---------------------------------------+-----------------+
 | Type                                       | Public                                | Internal*       |

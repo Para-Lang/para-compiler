@@ -16,4 +16,4 @@ certain actions.
 Overview
 ========
 
-- `Declaring and Defining <./decl_and_defining.html>`_ - Difference between the two and proper usage
+- `Declaring and Defining <./decl_and_defining.html>`_ - Declarations and Definitions of Variables, with info on proper usage.
