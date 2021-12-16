@@ -17,14 +17,17 @@ Welcome to the Language Reference
 
 This serves as a base reference for the Para-C Language. It will provide
 information about the planned implementations and ideas for Para-C syntax and
-usage.
+usage, while also showcasing the current implementation and features.
 
-For a quick start and introduction to the language go to our
-`introduction page <./introduction.html>`_.
+- For a quick start and introduction to the language go to our
+  `introduction page <./introduction.html>`_.
+- For more theoretical info on Para-C and implementation logic go to the
+  `language paper <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx>`_
+  on github.
 
-For more theoretical info on Para-C and implementation logic go to the
-`language paper <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx>`_
-on github.
+.. important::
+
+    Syntax and Functionality will change, as the whole project is in *buildup*!
 
 Overview
 ========

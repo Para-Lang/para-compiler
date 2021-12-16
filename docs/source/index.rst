@@ -1,6 +1,6 @@
-******************************
-Para-C v0.1.dev6 Documentation
-******************************
+************************************
+Welcome to the Para-C v0.1.dev6 Docs
+************************************
 
 .. toctree::
     :caption: Docs
@@ -13,13 +13,9 @@ Para-C v0.1.dev6 Documentation
     PBL Docs <libpbl_ref/index>
     Py-API Docs <pyapi_ref/index>
 
-.. image:: ./../../img/parac-banner.png
-
-Welcome to the Para-C Documentation,
-
-this is the official documentation for the Para-C language, Python API, CLI
-and extensions. This serves as the main source for information beside the `project
-document <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx>`_.
+This is the official documentation for the Para-C language, Python API, CLI
+and extensions, and serves as the main source for project and implementation
+reference, besides the `project paper <https://github.com/Para-C/Para-C/blob/main/doc/ParaC-Luna-Klatzer.docx>`_.
 
 .. Important::
 
@@ -33,9 +29,9 @@ Overview
 
 - `Installation <./installation.html>`_ - Installation and setup
 - `Tutorial <./tutorial/index.html>`_ - Tutorial on the Para-C Language
-- `Language Reference <./lang_ref/index.html>`_ - Throughout detailed reference for the Para-C language
-- `Library Reference <./libpbl_ref/index.html>`_ - Throughout detailed reference for the Para-C Base Library
-- `Python API <./pyapi_ref/index.html>`_ - Python API for running the source code yourself using the `parac` module
+- `Language Docs <./lang_ref/index.html>`_ - Throughout detailed reference for the Para-C language
+- `PBL Docs <./libpbl_ref/index.html>`_ - Throughout detailed reference for the Para-C Base Library
+- `Py-API Docs <./pyapi_ref/index.html>`_ - Python API for running the source code yourself using the `parac` module
 
 Documentation Releases
 ======================
