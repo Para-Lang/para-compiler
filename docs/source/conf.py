@@ -59,7 +59,7 @@ exclude_patterns = []
 
 html_title = f'Para-C {release}'
 html_theme = 'pydata_sphinx_theme'
-html_logo = '../../img/parac.ico'
+html_logo = '../../img/parac-banner.png'
 html_favicon = '../../img/parac.ico'
 html_theme_options = {
     "icon_links": [
@@ -87,7 +87,14 @@ html_theme_options = {
             "name": "PyPi Page ",
             "url": "https://pypi.org/project/parac/"
         }
-    ]
+    ],
+    "use_edit_page_button": True
+}
+html_context = {
+    "github_user": "Para-C",
+    "github_repo": "Para-C",
+    "github_version": "main",
+    "doc_path": "/docs/source/",
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -117,3 +124,7 @@ autodoc_member_order = 'groupwise'
 
 # Sets the Type Checking flag to import even more types
 set_type_checking_flag = True
+
+# Setting the global language
+language = "en"
+
