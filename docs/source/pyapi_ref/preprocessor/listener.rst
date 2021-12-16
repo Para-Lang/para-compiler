@@ -7,3 +7,4 @@ Pre-Processor Listener
 
 .. automodule:: parac.preprocessor.listener
     :members:
+    :special-members:

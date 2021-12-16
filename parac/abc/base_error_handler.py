@@ -12,13 +12,12 @@ from antlr4.error.Errors import (InputMismatchException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
-from ..exceptions import ParaCSyntaxError
 
+from ..exceptions import ParaCSyntaxError
 
 if TYPE_CHECKING:
     from ..compiler.parser.python.ParaCParser import ParaCParser
     from ..preprocessor import ParaCPreProcessorParser
-
 
 __all__ = [
     'BaseErrorListener',

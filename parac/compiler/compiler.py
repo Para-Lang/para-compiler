@@ -203,11 +203,11 @@ class ParacCompiler:
 
     @staticmethod
     def remove_comments_from_str(
-        string: str, line_ending: str = '\n'
+            string: str, line_ending: str = '\n'
     ) -> str:
         """
         Removes comments from the passed string and returns the modified
-        string. Only comments in the (// ... ) and (/* ... */) format will
+        string. Only comments in the (// ... ) and (/*...*/) format will
         be removed, but else the string will be ignored.
 
         For proper handling line-endings are all set to win-style, if this is
@@ -236,8 +236,8 @@ class ParacCompiler:
                     result += c
             else:
                 if any((
-                    in_type == "one_c" and c in ONE_LINE_COMMENT_END,
-                    in_type == "mult_c" and _ == MULTI_LINE_COMMENT_END
+                        in_type == "one_c" and c in ONE_LINE_COMMENT_END,
+                        in_type == "mult_c" and _ == MULTI_LINE_COMMENT_END
                 )):
                     in_type = 'std'
                     result += '\n'

@@ -1,7 +1,6 @@
 # coding=utf-8
 """ Logic Stream for Pre-Processor Items """
 from typing import List, Any
-
 from cached_property import cached_property
 
 from .abc import PreProcessorLogicToken

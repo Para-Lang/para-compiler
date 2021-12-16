@@ -1,11 +1,10 @@
 # coding=utf-8
 """ Constant values used in the module """
-from typing import List, Dict, Union, Optional
-from pathlib import Path
-import click
 import os
+from pathlib import Path
+from typing import List, Union, Optional
 
-from .logging import logger
+import click
 
 __all__ = [
     "BASE_DIR",
@@ -36,6 +35,7 @@ VALID_FILE_ENDINGS: List[str]
 BIN_CONFIG_PATH: Path
 SEPARATOR: str
 WIN: bool
+
 
 # -- Initialisation Functions -------------------------------------------------
 

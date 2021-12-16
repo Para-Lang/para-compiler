@@ -1,12 +1,13 @@
 # Generated from ./grammar/ParaC.g4 by ANTLR 4.9.2
-from antlr4 import *
-from io import StringIO
 import sys
+from io import StringIO
+
+from antlr4 import *
+
 if sys.version_info[1] > 5:
     from typing import TextIO
 else:
     from typing.io import TextIO
-
 
 
 def serializedATN():
@@ -530,10 +531,9 @@ def serializedATN():
 
 
 class ParaCLexer(Lexer):
-
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     T__0 = 1
     T__1 = 2
@@ -645,87 +645,121 @@ class ParaCLexer(Lexer):
     Whitespace = 108
     Newline = 109
 
-    channelNames = [ u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN" ]
+    channelNames = [u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN"]
 
-    modeNames = [ "DEFAULT_MODE" ]
+    modeNames = ["DEFAULT_MODE"]
 
-    literalNames = [ "<INVALID>",
-            "'try'", "'except'", "'finally'", "'bool'", "'char'", "'complex'", 
-            "'double'", "'entry'", "'float'", "'imaginary'", "'int'", "'lambda'", 
-            "'long'", "'signed'", "'short'", "'status'", "'unsigned'", "'void'", 
-            "'const'", "'volatile'", "'atomic'", "'as'", "'auto'", "'register'", 
-            "'static'", "'extern'", "'switch'", "'case'", "'default'", "'break'", 
-            "'continue'", "'do'", "'while'", "'if'", "'else'", "'for'", 
-            "'enum'", "'restrict'", "'return'", "'exttask'", "'spawn'", 
-            "'struct'", "'sizeof'", "'typeof'", "'typedef'", "'union'", 
-            "'alignas'", "'alignof'", "'inline'", "'noreturn'", "'static_assert'", 
-            "'thread_local'", "'('", "')'", "'['", "']'", "'{'", "'}'", 
-            "'<<'", "'>>'", "'+'", "'++'", "'-'", "'--'", "'*'", "'/'", 
-            "'%'", "'&'", "'|'", "'&&'", "'||'", "'^'", "'!'", "'~'", "'@'", 
-            "'=>'", "'?'", "':'", "';'", "','", "'='", "'*='", "'/='", "'%='", 
-            "'+='", "'-='", "'<<='", "'>>='", "'&='", "'^='", "'|='", "'=='", 
-            "'!='", "'<'", "'<='", "'>'", "'>='", "'->'", "'.'", "'...'" ]
+    literalNames = ["<INVALID>",
+                    "'try'", "'except'", "'finally'", "'bool'", "'char'",
+                    "'complex'",
+                    "'double'", "'entry'", "'float'", "'imaginary'", "'int'",
+                    "'lambda'",
+                    "'long'", "'signed'", "'short'", "'status'", "'unsigned'",
+                    "'void'",
+                    "'const'", "'volatile'", "'atomic'", "'as'", "'auto'",
+                    "'register'",
+                    "'static'", "'extern'", "'switch'", "'case'", "'default'",
+                    "'break'",
+                    "'continue'", "'do'", "'while'", "'if'", "'else'", "'for'",
+                    "'enum'", "'restrict'", "'return'", "'exttask'", "'spawn'",
+                    "'struct'", "'sizeof'", "'typeof'", "'typedef'", "'union'",
+                    "'alignas'", "'alignof'", "'inline'", "'noreturn'",
+                    "'static_assert'",
+                    "'thread_local'", "'('", "')'", "'['", "']'", "'{'", "'}'",
+                    "'<<'", "'>>'", "'+'", "'++'", "'-'", "'--'", "'*'", "'/'",
+                    "'%'", "'&'", "'|'", "'&&'", "'||'", "'^'", "'!'", "'~'",
+                    "'@'",
+                    "'=>'", "'?'", "':'", "';'", "','", "'='", "'*='", "'/='",
+                    "'%='",
+                    "'+='", "'-='", "'<<='", "'>>='", "'&='", "'^='", "'|='",
+                    "'=='",
+                    "'!='", "'<'", "'<='", "'>'", "'>='", "'->'", "'.'",
+                    "'...'"]
 
-    symbolicNames = [ "<INVALID>",
-            "Bool", "Char", "Complex", "Double", "Entry", "Float", "Imaginary", 
-            "Int", "Lambda", "Long", "Signed", "Short", "Status", "Unsigned", 
-            "Void", "Const", "Volatile", "Atomic", "As", "Auto", "Register", 
-            "Static", "Extern", "Switch", "Case", "Default", "Break", "Continue", 
-            "Do", "While", "If", "Else", "For", "Enum", "Restrict", "Return", 
-            "ExtensionTask", "Spawn", "Struct", "Sizeof", "Typeof", "Typedef", 
-            "Union", "Alignas", "Alignof", "Inline", "Noreturn", "StaticAssert", 
-            "ThreadLocal", "LeftParen", "RightParen", "LeftBracket", "RightBracket", 
-            "LeftBrace", "RightBrace", "LeftShift", "RightShift", "Plus", 
-            "PlusPlus", "Minus", "MinusMinus", "Star", "Div", "Mod", "And", 
-            "Or", "AndAnd", "OrOr", "Caret", "Not", "Tilde", "DecoratorSign", 
-            "LambdaStartBlock", "Question", "Colon", "Semi", "Comma", "Assign", 
-            "StarAssign", "DivAssign", "ModAssign", "PlusAssign", "MinusAssign", 
-            "LeftShiftAssign", "RightShiftAssign", "AndAssign", "XorAssign", 
-            "OrAssign", "Equal", "NotEqual", "Less", "LessEqual", "Greater", 
-            "GreaterEqual", "Arrow", "Dot", "Ellipsis", "Identifier", "Constant", 
-            "DigitSequence", "StringLiteral", "AsmBlock", "Directive", "WS", 
-            "Whitespace", "Newline" ]
+    symbolicNames = ["<INVALID>",
+                     "Bool", "Char", "Complex", "Double", "Entry", "Float",
+                     "Imaginary",
+                     "Int", "Lambda", "Long", "Signed", "Short", "Status",
+                     "Unsigned",
+                     "Void", "Const", "Volatile", "Atomic", "As", "Auto",
+                     "Register",
+                     "Static", "Extern", "Switch", "Case", "Default", "Break",
+                     "Continue",
+                     "Do", "While", "If", "Else", "For", "Enum", "Restrict",
+                     "Return",
+                     "ExtensionTask", "Spawn", "Struct", "Sizeof", "Typeof",
+                     "Typedef",
+                     "Union", "Alignas", "Alignof", "Inline", "Noreturn",
+                     "StaticAssert",
+                     "ThreadLocal", "LeftParen", "RightParen", "LeftBracket",
+                     "RightBracket",
+                     "LeftBrace", "RightBrace", "LeftShift", "RightShift",
+                     "Plus",
+                     "PlusPlus", "Minus", "MinusMinus", "Star", "Div", "Mod",
+                     "And",
+                     "Or", "AndAnd", "OrOr", "Caret", "Not", "Tilde",
+                     "DecoratorSign",
+                     "LambdaStartBlock", "Question", "Colon", "Semi", "Comma",
+                     "Assign",
+                     "StarAssign", "DivAssign", "ModAssign", "PlusAssign",
+                     "MinusAssign",
+                     "LeftShiftAssign", "RightShiftAssign", "AndAssign",
+                     "XorAssign",
+                     "OrAssign", "Equal", "NotEqual", "Less", "LessEqual",
+                     "Greater",
+                     "GreaterEqual", "Arrow", "Dot", "Ellipsis", "Identifier",
+                     "Constant",
+                     "DigitSequence", "StringLiteral", "AsmBlock", "Directive",
+                     "WS",
+                     "Whitespace", "Newline"]
 
-    ruleNames = [ "T__0", "T__1", "T__2", "Bool", "Char", "Complex", "Double", 
-                  "Entry", "Float", "Imaginary", "Int", "Lambda", "Long", 
-                  "Signed", "Short", "Status", "Unsigned", "Void", "Const", 
-                  "Volatile", "Atomic", "As", "Auto", "Register", "Static", 
-                  "Extern", "Switch", "Case", "Default", "Break", "Continue", 
-                  "Do", "While", "If", "Else", "For", "Enum", "Restrict", 
-                  "Return", "ExtensionTask", "Spawn", "Struct", "Sizeof", 
-                  "Typeof", "Typedef", "Union", "Alignas", "Alignof", "Inline", 
-                  "Noreturn", "StaticAssert", "ThreadLocal", "LeftParen", 
-                  "RightParen", "LeftBracket", "RightBracket", "LeftBrace", 
-                  "RightBrace", "LeftShift", "RightShift", "Plus", "PlusPlus", 
-                  "Minus", "MinusMinus", "Star", "Div", "Mod", "And", "Or", 
-                  "AndAnd", "OrOr", "Caret", "Not", "Tilde", "DecoratorSign", 
-                  "LambdaStartBlock", "Question", "Colon", "Semi", "Comma", 
-                  "Assign", "StarAssign", "DivAssign", "ModAssign", "PlusAssign", 
-                  "MinusAssign", "LeftShiftAssign", "RightShiftAssign", 
-                  "AndAssign", "XorAssign", "OrAssign", "Equal", "NotEqual", 
-                  "Less", "LessEqual", "Greater", "GreaterEqual", "Arrow", 
-                  "Dot", "Ellipsis", "Identifier", "ExtensionTaskBlock", 
-                  "IdentifierNondigit", "Nondigit", "Digit", "UniversalCharacterName", 
-                  "HexQuad", "Constant", "IntegerConstant", "BinaryConstant", 
-                  "DecimalConstant", "OctalConstant", "HexadecimalConstant", 
-                  "HexadecimalPrefix", "NonzeroDigit", "OctalDigit", "HexadecimalDigit", 
-                  "IntegerSuffix", "UnsignedSuffix", "LongSuffix", "LongLongSuffix", 
-                  "FloatingConstant", "DecimalFloatingConstant", "HexadecimalFloatingConstant", 
-                  "FractionalConstant", "ExponentPart", "Sign", "DigitSequence", 
-                  "HexadecimalFractionalConstant", "BinaryExponentPart", 
-                  "HexadecimalDigitSequence", "FloatingSuffix", "CharacterConstant", 
-                  "CCharSequence", "CChar", "EscapeSequence", "SimpleEscapeSequence", 
-                  "OctalEscapeSequence", "HexadecimalEscapeSequence", "StringLiteral", 
-                  "EncodingPrefix", "SCharSequence", "SChar", "AsmBlock", 
-                  "Directive", "WS", "Whitespace", "Newline" ]
+    ruleNames = ["T__0", "T__1", "T__2", "Bool", "Char", "Complex", "Double",
+                 "Entry", "Float", "Imaginary", "Int", "Lambda", "Long",
+                 "Signed", "Short", "Status", "Unsigned", "Void", "Const",
+                 "Volatile", "Atomic", "As", "Auto", "Register", "Static",
+                 "Extern", "Switch", "Case", "Default", "Break", "Continue",
+                 "Do", "While", "If", "Else", "For", "Enum", "Restrict",
+                 "Return", "ExtensionTask", "Spawn", "Struct", "Sizeof",
+                 "Typeof", "Typedef", "Union", "Alignas", "Alignof", "Inline",
+                 "Noreturn", "StaticAssert", "ThreadLocal", "LeftParen",
+                 "RightParen", "LeftBracket", "RightBracket", "LeftBrace",
+                 "RightBrace", "LeftShift", "RightShift", "Plus", "PlusPlus",
+                 "Minus", "MinusMinus", "Star", "Div", "Mod", "And", "Or",
+                 "AndAnd", "OrOr", "Caret", "Not", "Tilde", "DecoratorSign",
+                 "LambdaStartBlock", "Question", "Colon", "Semi", "Comma",
+                 "Assign", "StarAssign", "DivAssign", "ModAssign",
+                 "PlusAssign",
+                 "MinusAssign", "LeftShiftAssign", "RightShiftAssign",
+                 "AndAssign", "XorAssign", "OrAssign", "Equal", "NotEqual",
+                 "Less", "LessEqual", "Greater", "GreaterEqual", "Arrow",
+                 "Dot", "Ellipsis", "Identifier", "ExtensionTaskBlock",
+                 "IdentifierNondigit", "Nondigit", "Digit",
+                 "UniversalCharacterName",
+                 "HexQuad", "Constant", "IntegerConstant", "BinaryConstant",
+                 "DecimalConstant", "OctalConstant", "HexadecimalConstant",
+                 "HexadecimalPrefix", "NonzeroDigit", "OctalDigit",
+                 "HexadecimalDigit",
+                 "IntegerSuffix", "UnsignedSuffix", "LongSuffix",
+                 "LongLongSuffix",
+                 "FloatingConstant", "DecimalFloatingConstant",
+                 "HexadecimalFloatingConstant",
+                 "FractionalConstant", "ExponentPart", "Sign", "DigitSequence",
+                 "HexadecimalFractionalConstant", "BinaryExponentPart",
+                 "HexadecimalDigitSequence", "FloatingSuffix",
+                 "CharacterConstant",
+                 "CCharSequence", "CChar", "EscapeSequence",
+                 "SimpleEscapeSequence",
+                 "OctalEscapeSequence", "HexadecimalEscapeSequence",
+                 "StringLiteral",
+                 "EncodingPrefix", "SCharSequence", "SChar", "AsmBlock",
+                 "Directive", "WS", "Whitespace", "Newline"]
 
     grammarFileName = "ParaC.g4"
 
-    def __init__(self, input=None, output:TextIO = sys.stdout):
+    def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.9.2")
-        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
+        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA,
+                                         PredictionContextCache())
         self._actions = None
         self._predicates = None
-
-

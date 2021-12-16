@@ -1,16 +1,17 @@
 # coding=utf-8
 """ Script for building the compiler as an executable """
 import json
+import os
 import platform
 import re
+import shutil
 import sys
 import time
+from distutils.dir_util import copy_tree
 from pathlib import Path
 from typing import List, Dict, Optional, Union, NoReturn, Tuple
+
 import PyInstaller.__main__
-from distutils.dir_util import copy_tree
-import shutil
-import os
 import requests
 
 # File constant
@@ -31,7 +32,7 @@ C_LIB_IDENTIFIER = "libpbl.a"
 LIBPBL = f"https://github.com/Para-C/Para-C-Base-Library/releases/download/{COMPATIBLE_VERSION}/{C_LIB_IDENTIFIER}"
 C_LIB_TEMP_DESTINATION = BASE_PATH / "tmp" / C_LIB_IDENTIFIER
 TARGET: str = platform.system()
-IS_64_BIT: bool = sys.maxsize > 2**32
+IS_64_BIT: bool = sys.maxsize > 2 ** 32
 
 # Configuration Defaults
 ACTION: str = "normal"

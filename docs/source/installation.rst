@@ -1,4 +1,3 @@
-
 ************
 Installation
 ************
@@ -8,8 +7,11 @@ CLI compiled standalone binaries.
 
 .. Caution::
     The installation of the Para-C Compiler binaries will only include the
-    compiled binaries and NOT the source code or module of the compiler.
-    For info how to install that please go to `Python API Reference <../api_ref/index.html>`_
+    compiled binaries and NOT the source code or module of the compiler. This
+    means this section of the docs will focus on the CLI of Para-C!
+
+    For info how to install the Python API please go to the
+    `Python API Reference <./pyapi_ref/index.html>`_
 
 Installer for Windows
 =====================
@@ -23,12 +25,19 @@ For the installer go to the `release page on github <https://github.com/Para-C/P
 and download the version you want. The installer will be named after the date of
 its creation in this format: ``parac-installer-<year>-<month>-<day>.exe``.
 
-Building it yourself (Unix+Win)
-===============================
+Building it yourself (Unix+Windows)
+===================================
 
 For all other OS-systems, there are no installers yet for Para-C or entries
-in package managers, meaning the compiler needs to be either built yourself
-using python or used with a python runtime using the `distributed pypi module <../api_ref/index.html>`_.
+in package managers, meaning the compiler needs to be either built by yourself
+using the `parac-build.py` script or used with a python runtime using the
+`distributed pypi module <../pyapi_ref/index.html> (Python API)`_.
+
+.. note::
+
+    Using the source Python API will provide a lot of flexibility, but also
+    means that the C-compiler has to be installed, setup and checked yourself
+    if you intend to run your compiled code as well.
 
 Downloading
 -----------
@@ -37,13 +46,19 @@ Before building go to the `release page on github <https://github.com/Para-C/Par
 and download either the ``.zip`` (win) or ``.tar.gz`` (unix) file depending on
 your OS.
 
-* For ``.tar.gz`` extract afterwards using:
+* For ``.tar.gz`` (Commonly Unix):
 
   .. code:: bash
 
      tar -xf <insert-name>.tar.gz
 
-* For ``.zip`` click on the file on windows and select extract.
+* For ``.zip`` (Commonly Windows):
+
+  1. Right Click on the item in ``File Explorer``
+  2. Select ``Extract All`` in the opened menubar
+  3. Select the destination path, where the contents are going to be un-zipped
+     to.
+
 
 Building the Binaries
 ---------------------
@@ -56,7 +71,7 @@ Run inside the root folder of the extracted module:
 
 .. code:: bash
 
-    python ./src/build-exe.py
+    python ./src/parac-build.py
 
 The compilation can take a while since it will wrap the entire program
 with the python instance into a standalone compiled binary, which can then
@@ -72,7 +87,8 @@ folder can be deleted after the module was moved to its destination.
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
-    It is recommended though to use `/opt`, `/usr`, `/usr/local` or similar on unix-like systems.
+    It is recommended though to use `/opt`, `/usr`, `/usr/local` or similar on
+    unix-like systems.
 
 Make parac executable on Linux
 ------------------------------
@@ -88,48 +104,46 @@ Make parac executable on MacOS
 
     chmod 755 <your-dir>/bin/parac
 
-Add Para-C as alias
--------------------
+Add Para-C to your OS path
+--------------------------
 
-Linux
-^^^^^
+The compiled binaries folder should contain a ``/bin`` folder. That folder is
+the wanted item to be added to the path, as it contains the executable ``parac``
 
-1. Open your ``~/.bash_aliases`` file using ``nano ~/.bash_aliases``
-2. Add ``alias parac="<your-dir>/bin/parac"`` to the last line of the file, where your-dir is the directory you moved parac into.
-3. Save the ``.bash_aliases`` file.
-4. Activate for the terminal session using ``source ~/.bash_aliases``.
-5. Permanently add the alias by adding this line to the end of your ``~/.bashrc`` file:
+Unix (Linux+MacOS)
+^^^^^^^^^^^^^^^^^^
+
+On UNIX and similar, modifying the ``$PATH`` requires editing the ``.bashrc``
+file, which is run every time a standard bash terminal is opened.
+
+Here, you can simply put the following at the end of the file to extend the
+path by our Para-C ``/bin`` path:
 
 .. code:: bash
 
-    if [ -f ~/.bash_aliases ]; then
-        . ~/.bash_aliases
-    fi
+    export PATH="$PATH:ENTER_THE_PARAC_BIN_PATH_HERE"
 
-MacOS
-^^^^^
+To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
+simply use a graphical editor, like Visual Studio Code (``code``) or in case
+you use a text-based user interface, use preferably ``nano`` (Though if you are
+already using a TUI, then I am sure you knew all of this already)
 
-The previous instructions for linux also work on MacOS due to it being unix as well.
+.. note::
 
-.. seealso::
-
-    `Additional Info on MacOS Dock Aliases the official website. <https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>`_
+    Every time you change the location of the Para-C installation folder, the
+    previous command will likely break, so make sure to put it into a safe
+    place and leave it there from that point on!
 
 Windows
 ^^^^^^^
 
-For Windows an alias in not required, since the item can easily be added to
-the *PATH*.
-
-If added, when using cmd or powershell, all items in the path will be
-searched through, including the added one, meaning if the executable is named
-``parac`` the usage of ``parac --help`` should display the CLI help interface
-of Para-C.
-
-.. seealso::
-
-    `Info on adding an item to the PATH <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
+Adding an item to the path is relatively easy on windows, and can be done over
+the general settings user interface. For a walk-through with screenshots go
+here: `Add to the path on Windows 10 <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
 
 C-Compiler Setup
 ================
 
+Note that at the moment, it will be very likely that the Para-C CLI build will
+be shipped per default with `gcc` or `mingw-w64`, as such this will become
+deprecated in the next few releases.

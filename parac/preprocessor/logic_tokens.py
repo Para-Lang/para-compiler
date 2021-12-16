@@ -8,7 +8,7 @@ from typing import Optional, Any, List, Union, TYPE_CHECKING
 from cached_property import cached_property
 
 from .abc import PreProcessorLogicToken
-from .python.ParaCPreProcessorParser import ParaCPreProcessorParser as Parser
+from .parser.ParaCPreProcessorParser import ParaCPreProcessorParser as Parser
 from ..abc import NULL_CHILDREN
 
 if TYPE_CHECKING:

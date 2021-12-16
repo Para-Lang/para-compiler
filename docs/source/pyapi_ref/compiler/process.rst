@@ -1,6 +1,6 @@
-***************************
-Compilation Process Classes
-***************************
+****************
+Compiler Process
+****************
 
 `parac.compiler.process`
 ========================
@@ -8,4 +8,3 @@ Compilation Process Classes
 .. automodule:: parac.compiler.process
     :members:
     :special-members:
-

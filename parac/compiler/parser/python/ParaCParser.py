@@ -1,12 +1,14 @@
 # Generated from ./grammar/ParaC.g4 by ANTLR 4.9.2
 # encoding: utf-8
-from antlr4 import *
-from io import StringIO
 import sys
+from io import StringIO
+
+from antlr4 import *
+
 if sys.version_info[1] > 5:
-	from typing import TextIO
+    from typing import TextIO
 else:
-	from typing.io import TextIO
+    from typing.io import TextIO
 
 
 def serializedATN():
@@ -1559,58 +1561,60 @@ def serializedATN():
         return buf.getvalue()
 
 
-class ParaCParser ( Parser ):
-
+class ParaCParser(Parser):
     grammarFileName = "ParaC.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "'try'", "'except'", "'finally'", "'bool'", 
-                     "'char'", "'complex'", "'double'", "'entry'", "'float'", 
-                     "'imaginary'", "'int'", "'lambda'", "'long'", "'signed'", 
-                     "'short'", "'status'", "'unsigned'", "'void'", "'const'", 
-                     "'volatile'", "'atomic'", "'as'", "'auto'", "'register'", 
-                     "'static'", "'extern'", "'switch'", "'case'", "'default'", 
-                     "'break'", "'continue'", "'do'", "'while'", "'if'", 
-                     "'else'", "'for'", "'enum'", "'restrict'", "'return'", 
-                     "'exttask'", "'spawn'", "'struct'", "'sizeof'", "'typeof'", 
-                     "'typedef'", "'union'", "'alignas'", "'alignof'", "'inline'", 
-                     "'noreturn'", "'static_assert'", "'thread_local'", 
-                     "'('", "')'", "'['", "']'", "'{'", "'}'", "'<<'", "'>>'", 
-                     "'+'", "'++'", "'-'", "'--'", "'*'", "'/'", "'%'", 
-                     "'&'", "'|'", "'&&'", "'||'", "'^'", "'!'", "'~'", 
-                     "'@'", "'=>'", "'?'", "':'", "';'", "','", "'='", "'*='", 
-                     "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'&='", 
-                     "'^='", "'|='", "'=='", "'!='", "'<'", "'<='", "'>'", 
-                     "'>='", "'->'", "'.'", "'...'" ]
+    literalNames = ["<INVALID>", "'try'", "'except'", "'finally'", "'bool'",
+                    "'char'", "'complex'", "'double'", "'entry'", "'float'",
+                    "'imaginary'", "'int'", "'lambda'", "'long'", "'signed'",
+                    "'short'", "'status'", "'unsigned'", "'void'", "'const'",
+                    "'volatile'", "'atomic'", "'as'", "'auto'", "'register'",
+                    "'static'", "'extern'", "'switch'", "'case'", "'default'",
+                    "'break'", "'continue'", "'do'", "'while'", "'if'",
+                    "'else'", "'for'", "'enum'", "'restrict'", "'return'",
+                    "'exttask'", "'spawn'", "'struct'", "'sizeof'", "'typeof'",
+                    "'typedef'", "'union'", "'alignas'", "'alignof'",
+                    "'inline'",
+                    "'noreturn'", "'static_assert'", "'thread_local'",
+                    "'('", "')'", "'['", "']'", "'{'", "'}'", "'<<'", "'>>'",
+                    "'+'", "'++'", "'-'", "'--'", "'*'", "'/'", "'%'",
+                    "'&'", "'|'", "'&&'", "'||'", "'^'", "'!'", "'~'",
+                    "'@'", "'=>'", "'?'", "':'", "';'", "','", "'='", "'*='",
+                    "'/='", "'%='", "'+='", "'-='", "'<<='", "'>>='", "'&='",
+                    "'^='", "'|='", "'=='", "'!='", "'<'", "'<='", "'>'",
+                    "'>='", "'->'", "'.'", "'...'"]
 
-    symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                      "Bool", "Char", "Complex", "Double", "Entry", "Float", 
-                      "Imaginary", "Int", "Lambda", "Long", "Signed", "Short", 
-                      "Status", "Unsigned", "Void", "Const", "Volatile", 
-                      "Atomic", "As", "Auto", "Register", "Static", "Extern", 
-                      "Switch", "Case", "Default", "Break", "Continue", 
-                      "Do", "While", "If", "Else", "For", "Enum", "Restrict", 
-                      "Return", "ExtensionTask", "Spawn", "Struct", "Sizeof", 
-                      "Typeof", "Typedef", "Union", "Alignas", "Alignof", 
-                      "Inline", "Noreturn", "StaticAssert", "ThreadLocal", 
-                      "LeftParen", "RightParen", "LeftBracket", "RightBracket", 
-                      "LeftBrace", "RightBrace", "LeftShift", "RightShift", 
-                      "Plus", "PlusPlus", "Minus", "MinusMinus", "Star", 
-                      "Div", "Mod", "And", "Or", "AndAnd", "OrOr", "Caret", 
-                      "Not", "Tilde", "DecoratorSign", "LambdaStartBlock", 
-                      "Question", "Colon", "Semi", "Comma", "Assign", "StarAssign", 
-                      "DivAssign", "ModAssign", "PlusAssign", "MinusAssign", 
-                      "LeftShiftAssign", "RightShiftAssign", "AndAssign", 
-                      "XorAssign", "OrAssign", "Equal", "NotEqual", "Less", 
-                      "LessEqual", "Greater", "GreaterEqual", "Arrow", "Dot", 
-                      "Ellipsis", "Identifier", "Constant", "DigitSequence", 
-                      "StringLiteral", "AsmBlock", "Directive", "WS", "Whitespace", 
-                      "Newline" ]
+    symbolicNames = ["<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                     "Bool", "Char", "Complex", "Double", "Entry", "Float",
+                     "Imaginary", "Int", "Lambda", "Long", "Signed", "Short",
+                     "Status", "Unsigned", "Void", "Const", "Volatile",
+                     "Atomic", "As", "Auto", "Register", "Static", "Extern",
+                     "Switch", "Case", "Default", "Break", "Continue",
+                     "Do", "While", "If", "Else", "For", "Enum", "Restrict",
+                     "Return", "ExtensionTask", "Spawn", "Struct", "Sizeof",
+                     "Typeof", "Typedef", "Union", "Alignas", "Alignof",
+                     "Inline", "Noreturn", "StaticAssert", "ThreadLocal",
+                     "LeftParen", "RightParen", "LeftBracket", "RightBracket",
+                     "LeftBrace", "RightBrace", "LeftShift", "RightShift",
+                     "Plus", "PlusPlus", "Minus", "MinusMinus", "Star",
+                     "Div", "Mod", "And", "Or", "AndAnd", "OrOr", "Caret",
+                     "Not", "Tilde", "DecoratorSign", "LambdaStartBlock",
+                     "Question", "Colon", "Semi", "Comma", "Assign",
+                     "StarAssign",
+                     "DivAssign", "ModAssign", "PlusAssign", "MinusAssign",
+                     "LeftShiftAssign", "RightShiftAssign", "AndAssign",
+                     "XorAssign", "OrAssign", "Equal", "NotEqual", "Less",
+                     "LessEqual", "Greater", "GreaterEqual", "Arrow", "Dot",
+                     "Ellipsis", "Identifier", "Constant", "DigitSequence",
+                     "StringLiteral", "AsmBlock", "Directive", "WS",
+                     "Whitespace",
+                     "Newline"]
 
     RULE_primaryExpression = 0
     RULE_lambdaFunction = 1
@@ -1707,162 +1711,172 @@ class ParaCParser ( Parser ):
     RULE_declarationList = 92
     RULE_endOfItem = 93
 
-    ruleNames =  [ "primaryExpression", "lambdaFunction", "lambdaBody", 
-                   "expressionLambda", "statementLambda", "postfixExpression", 
-                   "argumentExpressionList", "unaryExpression", "unaryOperator", 
-                   "castOrConvertExpression", "multiplicativeExpression", 
-                   "additiveExpression", "shiftExpression", "relationalExpression", 
-                   "equalityExpression", "andExpression", "exclusiveOrExpression", 
-                   "inclusiveOrExpression", "logicalAndExpression", "logicalOrExpression", 
-                   "conditionalExpression", "assignmentExpression", "assignmentOperator", 
-                   "expression", "constantExpression", "declaration", "declarationSpecifiers", 
-                   "declarationSpecifier", "initDeclaratorList", "initDeclarator", 
-                   "storageClassSpecifier", "arraySpecifier", "typeSpecifier", 
-                   "structOrUnionSpecifier", "structOrUnion", "structDeclarationList", 
-                   "structDeclaration", "specifierQualifierList", "structDeclaratorList", 
-                   "structDeclarator", "enumSpecifier", "enumeratorList", 
-                   "enumerator", "enumerationConstant", "atomicTypeSpecifier", 
-                   "typeQualifier", "functionSpecifier", "alignmentSpecifier", 
-                   "declarator", "directDeclarator", "nestedParenthesesBlock", 
-                   "pointer", "typeQualifierList", "parameterTypeList", 
-                   "parameterList", "parameterDeclaration", "identifierList", 
-                   "typeName", "abstractDeclarator", "directAbstractDeclarator", 
-                   "typedefName", "initializer", "initializerList", "designation", 
-                   "designatorList", "designator", "staticAssertDeclaration", 
-                   "statement", "labeledStatement", "compoundStatement", 
-                   "blockItemList", "blockItem", "expressionStatement", 
-                   "tryExceptStatement", "exceptBlock", "finallyBlock", 
-                   "elseBlock", "selectionStatement", "iterationStatement", 
-                   "forCondition", "forDeclaration", "forExpression", "jumpStatement", 
-                   "compilationUnit", "translationUnit", "externalItem", 
-                   "functionDefinition", "functionDeclarationSpecifiers", 
-                   "decoratorSpecifier", "extensionTaskDefinition", "extensionTaskParameterList", 
-                   "extensionTaskParameter", "declarationList", "endOfItem" ]
+    ruleNames = ["primaryExpression", "lambdaFunction", "lambdaBody",
+                 "expressionLambda", "statementLambda", "postfixExpression",
+                 "argumentExpressionList", "unaryExpression", "unaryOperator",
+                 "castOrConvertExpression", "multiplicativeExpression",
+                 "additiveExpression", "shiftExpression",
+                 "relationalExpression",
+                 "equalityExpression", "andExpression",
+                 "exclusiveOrExpression",
+                 "inclusiveOrExpression", "logicalAndExpression",
+                 "logicalOrExpression",
+                 "conditionalExpression", "assignmentExpression",
+                 "assignmentOperator",
+                 "expression", "constantExpression", "declaration",
+                 "declarationSpecifiers",
+                 "declarationSpecifier", "initDeclaratorList",
+                 "initDeclarator",
+                 "storageClassSpecifier", "arraySpecifier", "typeSpecifier",
+                 "structOrUnionSpecifier", "structOrUnion",
+                 "structDeclarationList",
+                 "structDeclaration", "specifierQualifierList",
+                 "structDeclaratorList",
+                 "structDeclarator", "enumSpecifier", "enumeratorList",
+                 "enumerator", "enumerationConstant", "atomicTypeSpecifier",
+                 "typeQualifier", "functionSpecifier", "alignmentSpecifier",
+                 "declarator", "directDeclarator", "nestedParenthesesBlock",
+                 "pointer", "typeQualifierList", "parameterTypeList",
+                 "parameterList", "parameterDeclaration", "identifierList",
+                 "typeName", "abstractDeclarator", "directAbstractDeclarator",
+                 "typedefName", "initializer", "initializerList",
+                 "designation",
+                 "designatorList", "designator", "staticAssertDeclaration",
+                 "statement", "labeledStatement", "compoundStatement",
+                 "blockItemList", "blockItem", "expressionStatement",
+                 "tryExceptStatement", "exceptBlock", "finallyBlock",
+                 "elseBlock", "selectionStatement", "iterationStatement",
+                 "forCondition", "forDeclaration", "forExpression",
+                 "jumpStatement",
+                 "compilationUnit", "translationUnit", "externalItem",
+                 "functionDefinition", "functionDeclarationSpecifiers",
+                 "decoratorSpecifier", "extensionTaskDefinition",
+                 "extensionTaskParameterList",
+                 "extensionTaskParameter", "declarationList", "endOfItem"]
 
     EOF = Token.EOF
-    T__0=1
-    T__1=2
-    T__2=3
-    Bool=4
-    Char=5
-    Complex=6
-    Double=7
-    Entry=8
-    Float=9
-    Imaginary=10
-    Int=11
-    Lambda=12
-    Long=13
-    Signed=14
-    Short=15
-    Status=16
-    Unsigned=17
-    Void=18
-    Const=19
-    Volatile=20
-    Atomic=21
-    As=22
-    Auto=23
-    Register=24
-    Static=25
-    Extern=26
-    Switch=27
-    Case=28
-    Default=29
-    Break=30
-    Continue=31
-    Do=32
-    While=33
-    If=34
-    Else=35
-    For=36
-    Enum=37
-    Restrict=38
-    Return=39
-    ExtensionTask=40
-    Spawn=41
-    Struct=42
-    Sizeof=43
-    Typeof=44
-    Typedef=45
-    Union=46
-    Alignas=47
-    Alignof=48
-    Inline=49
-    Noreturn=50
-    StaticAssert=51
-    ThreadLocal=52
-    LeftParen=53
-    RightParen=54
-    LeftBracket=55
-    RightBracket=56
-    LeftBrace=57
-    RightBrace=58
-    LeftShift=59
-    RightShift=60
-    Plus=61
-    PlusPlus=62
-    Minus=63
-    MinusMinus=64
-    Star=65
-    Div=66
-    Mod=67
-    And=68
-    Or=69
-    AndAnd=70
-    OrOr=71
-    Caret=72
-    Not=73
-    Tilde=74
-    DecoratorSign=75
-    LambdaStartBlock=76
-    Question=77
-    Colon=78
-    Semi=79
-    Comma=80
-    Assign=81
-    StarAssign=82
-    DivAssign=83
-    ModAssign=84
-    PlusAssign=85
-    MinusAssign=86
-    LeftShiftAssign=87
-    RightShiftAssign=88
-    AndAssign=89
-    XorAssign=90
-    OrAssign=91
-    Equal=92
-    NotEqual=93
-    Less=94
-    LessEqual=95
-    Greater=96
-    GreaterEqual=97
-    Arrow=98
-    Dot=99
-    Ellipsis=100
-    Identifier=101
-    Constant=102
-    DigitSequence=103
-    StringLiteral=104
-    AsmBlock=105
-    Directive=106
-    WS=107
-    Whitespace=108
-    Newline=109
+    T__0 = 1
+    T__1 = 2
+    T__2 = 3
+    Bool = 4
+    Char = 5
+    Complex = 6
+    Double = 7
+    Entry = 8
+    Float = 9
+    Imaginary = 10
+    Int = 11
+    Lambda = 12
+    Long = 13
+    Signed = 14
+    Short = 15
+    Status = 16
+    Unsigned = 17
+    Void = 18
+    Const = 19
+    Volatile = 20
+    Atomic = 21
+    As = 22
+    Auto = 23
+    Register = 24
+    Static = 25
+    Extern = 26
+    Switch = 27
+    Case = 28
+    Default = 29
+    Break = 30
+    Continue = 31
+    Do = 32
+    While = 33
+    If = 34
+    Else = 35
+    For = 36
+    Enum = 37
+    Restrict = 38
+    Return = 39
+    ExtensionTask = 40
+    Spawn = 41
+    Struct = 42
+    Sizeof = 43
+    Typeof = 44
+    Typedef = 45
+    Union = 46
+    Alignas = 47
+    Alignof = 48
+    Inline = 49
+    Noreturn = 50
+    StaticAssert = 51
+    ThreadLocal = 52
+    LeftParen = 53
+    RightParen = 54
+    LeftBracket = 55
+    RightBracket = 56
+    LeftBrace = 57
+    RightBrace = 58
+    LeftShift = 59
+    RightShift = 60
+    Plus = 61
+    PlusPlus = 62
+    Minus = 63
+    MinusMinus = 64
+    Star = 65
+    Div = 66
+    Mod = 67
+    And = 68
+    Or = 69
+    AndAnd = 70
+    OrOr = 71
+    Caret = 72
+    Not = 73
+    Tilde = 74
+    DecoratorSign = 75
+    LambdaStartBlock = 76
+    Question = 77
+    Colon = 78
+    Semi = 79
+    Comma = 80
+    Assign = 81
+    StarAssign = 82
+    DivAssign = 83
+    ModAssign = 84
+    PlusAssign = 85
+    MinusAssign = 86
+    LeftShiftAssign = 87
+    RightShiftAssign = 88
+    AndAssign = 89
+    XorAssign = 90
+    OrAssign = 91
+    Equal = 92
+    NotEqual = 93
+    Less = 94
+    LessEqual = 95
+    Greater = 96
+    GreaterEqual = 97
+    Arrow = 98
+    Dot = 99
+    Ellipsis = 100
+    Identifier = 101
+    Constant = 102
+    DigitSequence = 103
+    StringLiteral = 104
+    AsmBlock = 105
+    Directive = 106
+    WS = 107
+    Whitespace = 108
+    Newline = 109
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.9.2")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA,
+                                          self.sharedContextCache)
         self._predicates = None
-
-
-
 
     class PrimaryExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1872,7 +1886,7 @@ class ParaCParser ( Parser ):
         def Constant(self):
             return self.getToken(ParaCParser.Constant, 0)
 
-        def StringLiteral(self, i:int=None):
+        def StringLiteral(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.StringLiteral)
             else:
@@ -1882,38 +1896,35 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def lambdaFunction(self):
-            return self.getTypedRuleContext(ParaCParser.LambdaFunctionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.LambdaFunctionContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_primaryExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPrimaryExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPrimaryExpression"):
                 listener.enterPrimaryExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPrimaryExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPrimaryExpression"):
                 listener.exitPrimaryExpression(self)
-
-
-
 
     def primaryExpression(self):
 
-        localctx = ParaCParser.PrimaryExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.PrimaryExpressionContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 0, self.RULE_primaryExpression)
         try:
             self.state = 200
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,1,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 1, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 188
@@ -1928,19 +1939,20 @@ class ParaCParser ( Parser ):
 
             elif la_ == 3:
                 self.enterOuterAlt(localctx, 3)
-                self.state = 191 
+                self.state = 191
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 190
                         self.match(ParaCParser.StringLiteral)
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 193 
+                    self.state = 193
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,0,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 0,
+                                                        self._ctx)
 
                 pass
 
@@ -1969,11 +1981,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LambdaFunctionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1984,65 +1996,89 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def lambdaBody(self):
-            return self.getTypedRuleContext(ParaCParser.LambdaBodyContext,0)
+            return self.getTypedRuleContext(ParaCParser.LambdaBodyContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def parameterList(self):
-            return self.getTypedRuleContext(ParaCParser.ParameterListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ParameterListContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_lambdaFunction
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLambdaFunction" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLambdaFunction"):
                 listener.enterLambdaFunction(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLambdaFunction" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLambdaFunction"):
                 listener.exitLambdaFunction(self)
-
-
-
 
     def lambdaFunction(self):
 
-        localctx = ParaCParser.LambdaFunctionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.LambdaFunctionContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 2, self.RULE_lambdaFunction)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 202
             self.match(ParaCParser.LeftParen)
             self.state = 206
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 2, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 203
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 208
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,2,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 2, self._ctx)
 
             self.state = 210
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                    1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (
+                            1 << ParaCParser.Entry) | (
+                            1 << ParaCParser.Float) | (
+                            1 << ParaCParser.Int) | (
+                            1 << ParaCParser.Lambda) | (
+                            1 << ParaCParser.Long) | (
+                            1 << ParaCParser.Signed) | (
+                            1 << ParaCParser.Short) | (
+                            1 << ParaCParser.Status) | (
+                            1 << ParaCParser.Unsigned) | (
+                            1 << ParaCParser.Void) | (
+                            1 << ParaCParser.Const) | (
+                            1 << ParaCParser.Volatile) | (
+                            1 << ParaCParser.Atomic) | (
+                            1 << ParaCParser.Auto) | (
+                            1 << ParaCParser.Register) | (
+                            1 << ParaCParser.Static) | (
+                            1 << ParaCParser.Extern) | (
+                            1 << ParaCParser.Enum) | (
+                            1 << ParaCParser.Restrict) | (
+                            1 << ParaCParser.Struct) | (
+                            1 << ParaCParser.Typeof) | (
+                            1 << ParaCParser.Typedef) | (
+                            1 << ParaCParser.Union) | (
+                            1 << ParaCParser.Alignas) | (
+                            1 << ParaCParser.Noreturn) | (
+                            1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                 self.state = 209
                 self.parameterList()
-
 
             self.state = 215
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 212
                 self.match(ParaCParser.WS)
                 self.state = 217
@@ -2054,7 +2090,7 @@ class ParaCParser ( Parser ):
             self.state = 222
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 219
                 self.match(ParaCParser.WS)
                 self.state = 224
@@ -2071,35 +2107,32 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LambdaBodyContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def expressionLambda(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionLambdaContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ExpressionLambdaContext, 0)
 
         def statementLambda(self):
-            return self.getTypedRuleContext(ParaCParser.StatementLambdaContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.StatementLambdaContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_lambdaBody
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLambdaBody" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLambdaBody"):
                 listener.enterLambdaBody(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLambdaBody" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLambdaBody"):
                 listener.exitLambdaBody(self)
-
-
-
 
     def lambdaBody(self):
 
@@ -2108,7 +2141,7 @@ class ParaCParser ( Parser ):
         try:
             self.state = 229
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,6,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 6, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 227
@@ -2130,11 +2163,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExpressionLambdaContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2142,10 +2175,9 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LambdaStartBlock, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -2154,20 +2186,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_expressionLambda
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpressionLambda" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExpressionLambda"):
                 listener.enterExpressionLambda(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpressionLambda" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExpressionLambda"):
                 listener.exitExpressionLambda(self)
-
-
-
 
     def expressionLambda(self):
 
-        localctx = ParaCParser.ExpressionLambdaContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExpressionLambdaContext(self, self._ctx,
+                                                       self.state)
         self.enterRule(localctx, 6, self.RULE_expressionLambda)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -2175,14 +2205,14 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.LambdaStartBlock)
             self.state = 235
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 7, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 232
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 237
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 7, self._ctx)
 
             self.state = 238
             self.expression()
@@ -2194,11 +2224,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StatementLambdaContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2206,10 +2236,10 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LambdaStartBlock, 0)
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -2218,22 +2248,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_statementLambda
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStatementLambda" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStatementLambda"):
                 listener.enterStatementLambda(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStatementLambda" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStatementLambda"):
                 listener.exitStatementLambda(self)
-
-
-
 
     def statementLambda(self):
 
-        localctx = ParaCParser.StatementLambdaContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StatementLambdaContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 8, self.RULE_statementLambda)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 240
@@ -2241,7 +2269,7 @@ class ParaCParser ( Parser ):
             self.state = 244
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 241
                 self.match(ParaCParser.WS)
                 self.state = 246
@@ -2258,29 +2286,28 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PostfixExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def primaryExpression(self):
-            return self.getTypedRuleContext(ParaCParser.PrimaryExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.PrimaryExpressionContext, 0)
 
-
-        def LeftParen(self, i:int=None):
+        def LeftParen(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.LeftParen)
             else:
                 return self.getToken(ParaCParser.LeftParen, i)
 
         def typeName(self):
-            return self.getTypedRuleContext(ParaCParser.TypeNameContext,0)
+            return self.getTypedRuleContext(ParaCParser.TypeNameContext, 0)
 
-
-        def RightParen(self, i:int=None):
+        def RightParen(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.RightParen)
             else:
@@ -2290,62 +2317,62 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftBrace, 0)
 
         def initializerList(self):
-            return self.getTypedRuleContext(ParaCParser.InitializerListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.InitializerListContext,
+                                            0)
 
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def LeftBracket(self, i:int=None):
+        def LeftBracket(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.LeftBracket)
             else:
                 return self.getToken(ParaCParser.LeftBracket, i)
 
-        def expression(self, i:int=None):
+        def expression(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.ExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ExpressionContext,i)
+                return self.getTypedRuleContext(ParaCParser.ExpressionContext,
+                                                i)
 
-
-        def RightBracket(self, i:int=None):
+        def RightBracket(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.RightBracket)
             else:
                 return self.getToken(ParaCParser.RightBracket, i)
 
-        def Identifier(self, i:int=None):
+        def Identifier(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Identifier)
             else:
                 return self.getToken(ParaCParser.Identifier, i)
 
-        def Dot(self, i:int=None):
+        def Dot(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Dot)
             else:
                 return self.getToken(ParaCParser.Dot, i)
 
-        def Arrow(self, i:int=None):
+        def Arrow(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Arrow)
             else:
                 return self.getToken(ParaCParser.Arrow, i)
 
-        def PlusPlus(self, i:int=None):
+        def PlusPlus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.PlusPlus)
             else:
                 return self.getToken(ParaCParser.PlusPlus, i)
 
-        def MinusMinus(self, i:int=None):
+        def MinusMinus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.MinusMinus)
             else:
@@ -2357,50 +2384,48 @@ class ParaCParser ( Parser ):
         def Comma(self):
             return self.getToken(ParaCParser.Comma, 0)
 
-        def argumentExpressionList(self, i:int=None):
+        def argumentExpressionList(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ArgumentExpressionListContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ArgumentExpressionListContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ArgumentExpressionListContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCParser.ArgumentExpressionListContext, i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_postfixExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPostfixExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPostfixExpression"):
                 listener.enterPostfixExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPostfixExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPostfixExpression"):
                 listener.exitPostfixExpression(self)
-
-
-
 
     def postfixExpression(self):
 
-        localctx = ParaCParser.PostfixExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.PostfixExpressionContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 10, self.RULE_postfixExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 305
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,18,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 18, self._ctx)
             if la_ == 1:
                 self.state = 250
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Spawn:
+                if _la == ParaCParser.Spawn:
                     self.state = 249
                     self.match(ParaCParser.Spawn)
-
 
                 self.state = 255
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 252
                     self.match(ParaCParser.WS)
                     self.state = 257
@@ -2417,7 +2442,7 @@ class ParaCParser ( Parser ):
                 self.state = 263
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 260
                     self.match(ParaCParser.WS)
                     self.state = 265
@@ -2429,7 +2454,7 @@ class ParaCParser ( Parser ):
                 self.state = 270
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 267
                     self.match(ParaCParser.WS)
                     self.state = 272
@@ -2441,7 +2466,7 @@ class ParaCParser ( Parser ):
                 self.state = 277
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 274
                     self.match(ParaCParser.WS)
                     self.state = 279
@@ -2452,40 +2477,41 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftBrace)
                 self.state = 284
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 14, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 281
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 286
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,14,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 14,
+                                                        self._ctx)
 
                 self.state = 287
                 self.initializerList()
                 self.state = 291
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 15, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 288
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 293
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 15,
+                                                        self._ctx)
 
                 self.state = 295
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Comma:
+                if _la == ParaCParser.Comma:
                     self.state = 294
                     self.match(ParaCParser.Comma)
-
 
                 self.state = 300
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 297
                     self.match(ParaCParser.WS)
                     self.state = 302
@@ -2496,23 +2522,22 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightBrace)
                 pass
 
-
             self.state = 310
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 19, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 307
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 312
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,19,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 19, self._ctx)
 
             self.state = 357
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,27,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 27, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 355
                     self._errHandler.sync(self)
                     token = self._input.LA(1)
@@ -2521,21 +2546,23 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftBracket)
                         self.state = 317
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 20,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 314
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 319
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                20, self._ctx)
 
                         self.state = 320
                         self.expression()
                         self.state = 324
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 321
                             self.match(ParaCParser.WS)
                             self.state = 326
@@ -2550,27 +2577,29 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftParen)
                         self.state = 333
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 22,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 330
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 335
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,22,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                22, self._ctx)
 
                         self.state = 337
                         self._errHandler.sync(self)
-                        la_ = self._interp.adaptivePredict(self._input,23,self._ctx)
+                        la_ = self._interp.adaptivePredict(self._input, 23,
+                                                           self._ctx)
                         if la_ == 1:
                             self.state = 336
                             self.argumentExpressionList()
 
-
                         self.state = 342
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 339
                             self.match(ParaCParser.WS)
                             self.state = 344
@@ -2583,7 +2612,8 @@ class ParaCParser ( Parser ):
                     elif token in [ParaCParser.Arrow, ParaCParser.Dot]:
                         self.state = 346
                         _la = self._input.LA(1)
-                        if not(_la==ParaCParser.Arrow or _la==ParaCParser.Dot):
+                        if not (
+                                _la == ParaCParser.Arrow or _la == ParaCParser.Dot):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -2591,7 +2621,7 @@ class ParaCParser ( Parser ):
                         self.state = 350
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 347
                             self.match(ParaCParser.WS)
                             self.state = 352
@@ -2601,10 +2631,12 @@ class ParaCParser ( Parser ):
                         self.state = 353
                         self.match(ParaCParser.Identifier)
                         pass
-                    elif token in [ParaCParser.PlusPlus, ParaCParser.MinusMinus]:
+                    elif token in [ParaCParser.PlusPlus,
+                                   ParaCParser.MinusMinus]:
                         self.state = 354
                         _la = self._input.LA(1)
-                        if not(_la==ParaCParser.PlusPlus or _la==ParaCParser.MinusMinus):
+                        if not (
+                                _la == ParaCParser.PlusPlus or _la == ParaCParser.MinusMinus):
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -2612,10 +2644,10 @@ class ParaCParser ( Parser ):
                         pass
                     else:
                         raise NoViableAltException(self)
-             
+
                 self.state = 359
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,27,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 27, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2625,28 +2657,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ArgumentExpressionListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def assignmentExpression(self, i:int=None):
+        def assignmentExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.AssignmentExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.AssignmentExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.AssignmentExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -2655,66 +2688,66 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_argumentExpressionList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArgumentExpressionList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterArgumentExpressionList"):
                 listener.enterArgumentExpressionList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArgumentExpressionList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitArgumentExpressionList"):
                 listener.exitArgumentExpressionList(self)
-
-
-
 
     def argumentExpressionList(self):
 
-        localctx = ParaCParser.ArgumentExpressionListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ArgumentExpressionListContext(self, self._ctx,
+                                                             self.state)
         self.enterRule(localctx, 12, self.RULE_argumentExpressionList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 360
             self.assignmentExpression()
             self.state = 364
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 28, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 361
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 366
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 28, self._ctx)
 
             self.state = 383
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Comma:
+            while _la == ParaCParser.Comma:
                 self.state = 367
                 self.match(ParaCParser.Comma)
                 self.state = 371
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 29, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 368
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 373
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 29,
+                                                        self._ctx)
 
                 self.state = 374
                 self.assignmentExpression()
                 self.state = 378
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,30,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 30, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 375
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 380
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,30,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 30,
+                                                        self._ctx)
 
                 self.state = 385
                 self._errHandler.sync(self)
@@ -2728,43 +2761,42 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class UnaryExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def postfixExpression(self):
-            return self.getTypedRuleContext(ParaCParser.PostfixExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.PostfixExpressionContext, 0)
 
         def unaryOperator(self):
-            return self.getTypedRuleContext(ParaCParser.UnaryOperatorContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.UnaryOperatorContext,
+                                            0)
 
         def castOrConvertExpression(self):
-            return self.getTypedRuleContext(ParaCParser.CastOrConvertExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.CastOrConvertExpressionContext, 0)
 
         def LeftParen(self):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def typeName(self):
-            return self.getTypedRuleContext(ParaCParser.TypeNameContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeNameContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Sizeof(self, i:int=None):
+        def Sizeof(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Sizeof)
             else:
@@ -2773,13 +2805,13 @@ class ParaCParser ( Parser ):
         def Alignof(self):
             return self.getToken(ParaCParser.Alignof, 0)
 
-        def PlusPlus(self, i:int=None):
+        def PlusPlus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.PlusPlus)
             else:
                 return self.getToken(ParaCParser.PlusPlus, i)
 
-        def MinusMinus(self, i:int=None):
+        def MinusMinus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.MinusMinus)
             else:
@@ -2788,71 +2820,78 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_unaryExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterUnaryExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterUnaryExpression"):
                 listener.enterUnaryExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitUnaryExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitUnaryExpression"):
                 listener.exitUnaryExpression(self)
-
-
-
 
     def unaryExpression(self):
 
-        localctx = ParaCParser.UnaryExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.UnaryExpressionContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 14, self.RULE_unaryExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 389
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,32,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 32, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 386
                     _la = self._input.LA(1)
-                    if not(((((_la - 43)) & ~0x3f) == 0 and ((1 << (_la - 43)) & ((1 << (ParaCParser.Sizeof - 43)) | (1 << (ParaCParser.PlusPlus - 43)) | (1 << (ParaCParser.MinusMinus - 43)))) != 0)):
+                    if not (((((_la - 43)) & ~0x3f) == 0 and (
+                            (1 << (_la - 43)) & (
+                            (1 << (ParaCParser.Sizeof - 43)) | (
+                            1 << (ParaCParser.PlusPlus - 43)) | (1 << (
+                            ParaCParser.MinusMinus - 43)))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
-                        self.consume() 
+                        self.consume()
                 self.state = 391
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,32,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 32, self._ctx)
 
             self.state = 395
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,33,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 33, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 392
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 397
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,33,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 33, self._ctx)
 
             self.state = 431
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCParser.Spawn, ParaCParser.LeftParen, ParaCParser.Identifier, ParaCParser.Constant, ParaCParser.StringLiteral, ParaCParser.WS]:
+            if token in [ParaCParser.Spawn, ParaCParser.LeftParen,
+                         ParaCParser.Identifier, ParaCParser.Constant,
+                         ParaCParser.StringLiteral, ParaCParser.WS]:
                 self.state = 398
                 self.postfixExpression()
                 pass
-            elif token in [ParaCParser.Plus, ParaCParser.Minus, ParaCParser.Star, ParaCParser.And, ParaCParser.Not, ParaCParser.Tilde]:
+            elif token in [ParaCParser.Plus, ParaCParser.Minus,
+                           ParaCParser.Star, ParaCParser.And, ParaCParser.Not,
+                           ParaCParser.Tilde]:
                 self.state = 399
                 self.unaryOperator()
                 self.state = 403
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 34, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 400
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 405
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,34,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 34,
+                                                        self._ctx)
 
                 self.state = 406
                 self.castOrConvertExpression(0)
@@ -2860,7 +2899,8 @@ class ParaCParser ( Parser ):
             elif token in [ParaCParser.Sizeof, ParaCParser.Alignof]:
                 self.state = 408
                 _la = self._input.LA(1)
-                if not(_la==ParaCParser.Sizeof or _la==ParaCParser.Alignof):
+                if not (
+                        _la == ParaCParser.Sizeof or _la == ParaCParser.Alignof):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -2868,7 +2908,7 @@ class ParaCParser ( Parser ):
                 self.state = 412
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 409
                     self.match(ParaCParser.WS)
                     self.state = 414
@@ -2880,7 +2920,7 @@ class ParaCParser ( Parser ):
                 self.state = 419
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 416
                     self.match(ParaCParser.WS)
                     self.state = 421
@@ -2892,7 +2932,7 @@ class ParaCParser ( Parser ):
                 self.state = 426
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 423
                     self.match(ParaCParser.WS)
                     self.state = 428
@@ -2913,11 +2953,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class UnaryOperatorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2942,27 +2982,31 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_unaryOperator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterUnaryOperator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterUnaryOperator"):
                 listener.enterUnaryOperator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitUnaryOperator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitUnaryOperator"):
                 listener.exitUnaryOperator(self)
-
-
-
 
     def unaryOperator(self):
 
-        localctx = ParaCParser.UnaryOperatorContext(self, self._ctx, self.state)
+        localctx = ParaCParser.UnaryOperatorContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 16, self.RULE_unaryOperator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 433
             _la = self._input.LA(1)
-            if not(((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & ((1 << (ParaCParser.Plus - 61)) | (1 << (ParaCParser.Minus - 61)) | (1 << (ParaCParser.Star - 61)) | (1 << (ParaCParser.And - 61)) | (1 << (ParaCParser.Not - 61)) | (1 << (ParaCParser.Tilde - 61)))) != 0)):
+            if not (((((_la - 61)) & ~0x3f) == 0 and ((1 << (_la - 61)) & (
+                    (1 << (ParaCParser.Plus - 61)) | (
+                    1 << (ParaCParser.Minus - 61)) | (
+                            1 << (ParaCParser.Star - 61)) | (
+                            1 << (ParaCParser.And - 61)) | (
+                            1 << (ParaCParser.Not - 61)) | (
+                            1 << (ParaCParser.Tilde - 61)))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2975,11 +3019,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CastOrConvertExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2987,25 +3031,24 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def typeName(self):
-            return self.getTypedRuleContext(ParaCParser.TypeNameContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeNameContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def castOrConvertExpression(self):
-            return self.getTypedRuleContext(ParaCParser.CastOrConvertExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CastOrConvertExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def unaryExpression(self):
-            return self.getTypedRuleContext(ParaCParser.UnaryExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.UnaryExpressionContext,
+                                            0)
 
         def DigitSequence(self):
             return self.getToken(ParaCParser.DigitSequence, 0)
@@ -3016,36 +3059,36 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_castOrConvertExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCastOrConvertExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCastOrConvertExpression"):
                 listener.enterCastOrConvertExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCastOrConvertExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCastOrConvertExpression"):
                 listener.exitCastOrConvertExpression(self)
 
-
-
-    def castOrConvertExpression(self, _p:int=0):
+    def castOrConvertExpression(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = ParaCParser.CastOrConvertExpressionContext(self, self._ctx, _parentState)
+        localctx = ParaCParser.CastOrConvertExpressionContext(self, self._ctx,
+                                                              _parentState)
         _prevctx = localctx
         _startState = 18
-        self.enterRecursionRule(localctx, 18, self.RULE_castOrConvertExpression, _p)
-        self._la = 0 # Token type
+        self.enterRecursionRule(localctx, 18,
+                                self.RULE_castOrConvertExpression, _p)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 461
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,42,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 42, self._ctx)
             if la_ == 1:
                 self.state = 436
                 self.match(ParaCParser.LeftParen)
                 self.state = 440
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 437
                     self.match(ParaCParser.WS)
                     self.state = 442
@@ -3057,7 +3100,7 @@ class ParaCParser ( Parser ):
                 self.state = 447
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 444
                     self.match(ParaCParser.WS)
                     self.state = 449
@@ -3068,14 +3111,15 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 self.state = 454
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,41,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 41, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 451
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 456
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,41,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 41,
+                                                        self._ctx)
 
                 self.state = 457
                 self.castOrConvertExpression(4)
@@ -3091,26 +3135,30 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.DigitSequence)
                 pass
 
-
             self._ctx.stop = self._input.LT(-1)
             self.state = 480
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,45,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 45, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = ParaCParser.CastOrConvertExpressionContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_castOrConvertExpression)
+                    localctx = ParaCParser.CastOrConvertExpressionContext(self,
+                                                                          _parentctx,
+                                                                          _parentState)
+                    self.pushNewRecursionContext(localctx, _startState,
+                                                 self.RULE_castOrConvertExpression)
                     self.state = 463
                     if not self.precpred(self._ctx, 3):
-                        from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                        from antlr4.error.Errors import \
+                            FailedPredicateException
+                        raise FailedPredicateException(self,
+                                                       "self.precpred(self._ctx, 3)")
                     self.state = 467
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 464
                         self.match(ParaCParser.WS)
                         self.state = 469
@@ -3122,7 +3170,7 @@ class ParaCParser ( Parser ):
                     self.state = 474
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 471
                         self.match(ParaCParser.WS)
                         self.state = 476
@@ -3130,10 +3178,10 @@ class ParaCParser ( Parser ):
                         _la = self._input.LA(1)
 
                     self.state = 477
-                    self.typeName() 
+                    self.typeName()
                 self.state = 482
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,45,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 45, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3143,40 +3191,41 @@ class ParaCParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class MultiplicativeExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def castOrConvertExpression(self, i:int=None):
+        def castOrConvertExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.CastOrConvertExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.CastOrConvertExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.CastOrConvertExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.CastOrConvertExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Star(self, i:int=None):
+        def Star(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Star)
             else:
                 return self.getToken(ParaCParser.Star, i)
 
-        def Div(self, i:int=None):
+        def Div(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Div)
             else:
                 return self.getToken(ParaCParser.Div, i)
 
-        def Mod(self, i:int=None):
+        def Mod(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Mod)
             else:
@@ -3185,76 +3234,82 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_multiplicativeExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterMultiplicativeExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterMultiplicativeExpression"):
                 listener.enterMultiplicativeExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitMultiplicativeExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitMultiplicativeExpression"):
                 listener.exitMultiplicativeExpression(self)
-
-
-
 
     def multiplicativeExpression(self):
 
-        localctx = ParaCParser.MultiplicativeExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.MultiplicativeExpressionContext(self, self._ctx,
+                                                               self.state)
         self.enterRule(localctx, 20, self.RULE_multiplicativeExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 483
             self.castOrConvertExpression(0)
             self.state = 487
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,46,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 46, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 484
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 489
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,46,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 46, self._ctx)
 
             self.state = 506
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,49,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 49, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 490
                     _la = self._input.LA(1)
-                    if not(((((_la - 65)) & ~0x3f) == 0 and ((1 << (_la - 65)) & ((1 << (ParaCParser.Star - 65)) | (1 << (ParaCParser.Div - 65)) | (1 << (ParaCParser.Mod - 65)))) != 0)):
+                    if not (((((_la - 65)) & ~0x3f) == 0 and (
+                            (1 << (_la - 65)) & (
+                            (1 << (ParaCParser.Star - 65)) | (
+                            1 << (ParaCParser.Div - 65)) | (
+                                    1 << (ParaCParser.Mod - 65)))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 494
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,47,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 47,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 491
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 496
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,47,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 47,
+                                                            self._ctx)
 
                     self.state = 497
                     self.castOrConvertExpression(0)
                     self.state = 501
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,48,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 48,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 498
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 503
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,48,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 48,
+                                                            self._ctx)
+
                 self.state = 508
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,49,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 49, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3264,34 +3319,35 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AdditiveExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def multiplicativeExpression(self, i:int=None):
+        def multiplicativeExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.MultiplicativeExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.MultiplicativeExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.MultiplicativeExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.MultiplicativeExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Plus(self, i:int=None):
+        def Plus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Plus)
             else:
                 return self.getToken(ParaCParser.Plus, i)
 
-        def Minus(self, i:int=None):
+        def Minus(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Minus)
             else:
@@ -3300,76 +3356,79 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_additiveExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAdditiveExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAdditiveExpression"):
                 listener.enterAdditiveExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAdditiveExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAdditiveExpression"):
                 listener.exitAdditiveExpression(self)
-
-
-
 
     def additiveExpression(self):
 
-        localctx = ParaCParser.AdditiveExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AdditiveExpressionContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 22, self.RULE_additiveExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 509
             self.multiplicativeExpression()
             self.state = 513
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,50,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 50, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 510
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 515
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,50,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 50, self._ctx)
 
             self.state = 532
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,53,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 53, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 516
                     _la = self._input.LA(1)
-                    if not(_la==ParaCParser.Plus or _la==ParaCParser.Minus):
+                    if not (
+                            _la == ParaCParser.Plus or _la == ParaCParser.Minus):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 520
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,51,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 51,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 517
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 522
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,51,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 51,
+                                                            self._ctx)
 
                     self.state = 523
                     self.multiplicativeExpression()
                     self.state = 527
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,52,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 52,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 524
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 529
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,52,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 52,
+                                                            self._ctx)
+
                 self.state = 534
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,53,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 53, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3379,34 +3438,35 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ShiftExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def additiveExpression(self, i:int=None):
+        def additiveExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.AdditiveExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.AdditiveExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.AdditiveExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.AdditiveExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def LeftShift(self, i:int=None):
+        def LeftShift(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.LeftShift)
             else:
                 return self.getToken(ParaCParser.LeftShift, i)
 
-        def RightShift(self, i:int=None):
+        def RightShift(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.RightShift)
             else:
@@ -3415,76 +3475,79 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_shiftExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterShiftExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterShiftExpression"):
                 listener.enterShiftExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitShiftExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitShiftExpression"):
                 listener.exitShiftExpression(self)
-
-
-
 
     def shiftExpression(self):
 
-        localctx = ParaCParser.ShiftExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ShiftExpressionContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 24, self.RULE_shiftExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 535
             self.additiveExpression()
             self.state = 539
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,54,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 54, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 536
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 541
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,54,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 54, self._ctx)
 
             self.state = 558
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,57,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 57, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 542
                     _la = self._input.LA(1)
-                    if not(_la==ParaCParser.LeftShift or _la==ParaCParser.RightShift):
+                    if not (
+                            _la == ParaCParser.LeftShift or _la == ParaCParser.RightShift):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 546
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,55,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 55,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 543
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 548
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,55,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 55,
+                                                            self._ctx)
 
                     self.state = 549
                     self.additiveExpression()
                     self.state = 553
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,56,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 56,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 550
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 555
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,56,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 56,
+                                                            self._ctx)
+
                 self.state = 560
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,57,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 57, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3494,46 +3557,47 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class RelationalExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def shiftExpression(self, i:int=None):
+        def shiftExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ShiftExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ShiftExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ShiftExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ShiftExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Less(self, i:int=None):
+        def Less(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Less)
             else:
                 return self.getToken(ParaCParser.Less, i)
 
-        def Greater(self, i:int=None):
+        def Greater(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Greater)
             else:
                 return self.getToken(ParaCParser.Greater, i)
 
-        def LessEqual(self, i:int=None):
+        def LessEqual(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.LessEqual)
             else:
                 return self.getToken(ParaCParser.LessEqual, i)
 
-        def GreaterEqual(self, i:int=None):
+        def GreaterEqual(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.GreaterEqual)
             else:
@@ -3542,76 +3606,83 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_relationalExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterRelationalExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterRelationalExpression"):
                 listener.enterRelationalExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitRelationalExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitRelationalExpression"):
                 listener.exitRelationalExpression(self)
-
-
-
 
     def relationalExpression(self):
 
-        localctx = ParaCParser.RelationalExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.RelationalExpressionContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 26, self.RULE_relationalExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 561
             self.shiftExpression()
             self.state = 565
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,58,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 58, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 562
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 567
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,58,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 58, self._ctx)
 
             self.state = 584
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,61,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 61, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 568
                     _la = self._input.LA(1)
-                    if not(((((_la - 94)) & ~0x3f) == 0 and ((1 << (_la - 94)) & ((1 << (ParaCParser.Less - 94)) | (1 << (ParaCParser.LessEqual - 94)) | (1 << (ParaCParser.Greater - 94)) | (1 << (ParaCParser.GreaterEqual - 94)))) != 0)):
+                    if not (((((_la - 94)) & ~0x3f) == 0 and (
+                            (1 << (_la - 94)) & (
+                            (1 << (ParaCParser.Less - 94)) | (
+                            1 << (ParaCParser.LessEqual - 94)) | (
+                                    1 << (ParaCParser.Greater - 94)) | (1 << (
+                            ParaCParser.GreaterEqual - 94)))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 572
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,59,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 59,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 569
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 574
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,59,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 59,
+                                                            self._ctx)
 
                     self.state = 575
                     self.shiftExpression()
                     self.state = 579
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,60,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 60,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 576
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 581
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,60,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 60,
+                                                            self._ctx)
+
                 self.state = 586
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,61,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 61, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3621,34 +3692,35 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EqualityExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def relationalExpression(self, i:int=None):
+        def relationalExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.RelationalExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.RelationalExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.RelationalExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.RelationalExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Equal(self, i:int=None):
+        def Equal(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Equal)
             else:
                 return self.getToken(ParaCParser.Equal, i)
 
-        def NotEqual(self, i:int=None):
+        def NotEqual(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.NotEqual)
             else:
@@ -3657,76 +3729,79 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_equalityExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEqualityExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEqualityExpression"):
                 listener.enterEqualityExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEqualityExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEqualityExpression"):
                 listener.exitEqualityExpression(self)
-
-
-
 
     def equalityExpression(self):
 
-        localctx = ParaCParser.EqualityExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.EqualityExpressionContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 28, self.RULE_equalityExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 587
             self.relationalExpression()
             self.state = 591
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,62,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 62, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 588
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 593
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,62,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 62, self._ctx)
 
             self.state = 610
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,65,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 65, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 594
                     _la = self._input.LA(1)
-                    if not(_la==ParaCParser.Equal or _la==ParaCParser.NotEqual):
+                    if not (
+                            _la == ParaCParser.Equal or _la == ParaCParser.NotEqual):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 598
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,63,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 63,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 595
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 600
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,63,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 63,
+                                                            self._ctx)
 
                     self.state = 601
                     self.relationalExpression()
                     self.state = 605
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,64,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 64,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 602
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 607
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,64,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 64,
+                                                            self._ctx)
+
                 self.state = 612
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,65,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 65, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3736,28 +3811,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AndExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def equalityExpression(self, i:int=None):
+        def equalityExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.EqualityExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.EqualityExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.EqualityExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.EqualityExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def And(self, i:int=None):
+        def And(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.And)
             else:
@@ -3766,20 +3842,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_andExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAndExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAndExpression"):
                 listener.enterAndExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAndExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAndExpression"):
                 listener.exitAndExpression(self)
-
-
-
 
     def andExpression(self):
 
-        localctx = ParaCParser.AndExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AndExpressionContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 30, self.RULE_andExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3787,49 +3861,53 @@ class ParaCParser ( Parser ):
             self.equalityExpression()
             self.state = 617
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,66,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 66, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 614
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 619
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,66,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 66, self._ctx)
 
             self.state = 636
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,69,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 69, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 620
                     self.match(ParaCParser.And)
                     self.state = 624
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,67,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 67,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 621
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 626
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,67,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 67,
+                                                            self._ctx)
 
                     self.state = 627
                     self.equalityExpression()
                     self.state = 631
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,68,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 68,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 628
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 633
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,68,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 68,
+                                                            self._ctx)
+
                 self.state = 638
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,69,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 69, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3839,28 +3917,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExclusiveOrExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def andExpression(self, i:int=None):
+        def andExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.AndExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.AndExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.AndExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.AndExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Caret(self, i:int=None):
+        def Caret(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Caret)
             else:
@@ -3869,20 +3948,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_exclusiveOrExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExclusiveOrExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExclusiveOrExpression"):
                 listener.enterExclusiveOrExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExclusiveOrExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExclusiveOrExpression"):
                 listener.exitExclusiveOrExpression(self)
-
-
-
 
     def exclusiveOrExpression(self):
 
-        localctx = ParaCParser.ExclusiveOrExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExclusiveOrExpressionContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 32, self.RULE_exclusiveOrExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3890,49 +3967,53 @@ class ParaCParser ( Parser ):
             self.andExpression()
             self.state = 643
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,70,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 70, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 640
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 645
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,70,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 70, self._ctx)
 
             self.state = 662
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,73,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 73, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 646
                     self.match(ParaCParser.Caret)
                     self.state = 650
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,71,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 71,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 647
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 652
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,71,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 71,
+                                                            self._ctx)
 
                     self.state = 653
                     self.andExpression()
                     self.state = 657
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,72,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 72,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 654
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 659
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,72,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 72,
+                                                            self._ctx)
+
                 self.state = 664
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,73,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 73, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -3942,28 +4023,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InclusiveOrExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def exclusiveOrExpression(self, i:int=None):
+        def exclusiveOrExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ExclusiveOrExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ExclusiveOrExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ExclusiveOrExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ExclusiveOrExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Or(self, i:int=None):
+        def Or(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Or)
             else:
@@ -3972,20 +4054,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_inclusiveOrExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInclusiveOrExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInclusiveOrExpression"):
                 listener.enterInclusiveOrExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInclusiveOrExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInclusiveOrExpression"):
                 listener.exitInclusiveOrExpression(self)
-
-
-
 
     def inclusiveOrExpression(self):
 
-        localctx = ParaCParser.InclusiveOrExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.InclusiveOrExpressionContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 34, self.RULE_inclusiveOrExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -3993,49 +4073,53 @@ class ParaCParser ( Parser ):
             self.exclusiveOrExpression()
             self.state = 669
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,74,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 74, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 666
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 671
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,74,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 74, self._ctx)
 
             self.state = 688
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,77,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 77, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 672
                     self.match(ParaCParser.Or)
                     self.state = 676
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,75,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 75,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 673
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 678
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,75,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 75,
+                                                            self._ctx)
 
                     self.state = 679
                     self.exclusiveOrExpression()
                     self.state = 683
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,76,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 76,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 680
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 685
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,76,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 76,
+                                                            self._ctx)
+
                 self.state = 690
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,77,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 77, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -4045,28 +4129,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LogicalAndExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def inclusiveOrExpression(self, i:int=None):
+        def inclusiveOrExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.InclusiveOrExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.InclusiveOrExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.InclusiveOrExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.InclusiveOrExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def AndAnd(self, i:int=None):
+        def AndAnd(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.AndAnd)
             else:
@@ -4075,20 +4160,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_logicalAndExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLogicalAndExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLogicalAndExpression"):
                 listener.enterLogicalAndExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLogicalAndExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLogicalAndExpression"):
                 listener.exitLogicalAndExpression(self)
-
-
-
 
     def logicalAndExpression(self):
 
-        localctx = ParaCParser.LogicalAndExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.LogicalAndExpressionContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 36, self.RULE_logicalAndExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4096,49 +4179,53 @@ class ParaCParser ( Parser ):
             self.inclusiveOrExpression()
             self.state = 695
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,78,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 78, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 692
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 697
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,78,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 78, self._ctx)
 
             self.state = 714
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,81,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 81, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 698
                     self.match(ParaCParser.AndAnd)
                     self.state = 702
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,79,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 79,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 699
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 704
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,79,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 79,
+                                                            self._ctx)
 
                     self.state = 705
                     self.inclusiveOrExpression()
                     self.state = 709
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,80,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 80,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 706
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 711
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,80,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 80,
+                                                            self._ctx)
+
                 self.state = 716
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,81,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 81, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -4148,28 +4235,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LogicalOrExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def logicalAndExpression(self, i:int=None):
+        def logicalAndExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.LogicalAndExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.LogicalAndExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.LogicalAndExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.LogicalAndExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def OrOr(self, i:int=None):
+        def OrOr(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.OrOr)
             else:
@@ -4178,20 +4266,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_logicalOrExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLogicalOrExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLogicalOrExpression"):
                 listener.enterLogicalOrExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLogicalOrExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLogicalOrExpression"):
                 listener.exitLogicalOrExpression(self)
-
-
-
 
     def logicalOrExpression(self):
 
-        localctx = ParaCParser.LogicalOrExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.LogicalOrExpressionContext(self, self._ctx,
+                                                          self.state)
         self.enterRule(localctx, 38, self.RULE_logicalOrExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4199,49 +4285,53 @@ class ParaCParser ( Parser ):
             self.logicalAndExpression()
             self.state = 721
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,82,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 82, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 718
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 723
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,82,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 82, self._ctx)
 
             self.state = 740
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,85,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 85, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 724
                     self.match(ParaCParser.OrOr)
                     self.state = 728
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,83,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 83,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 725
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 730
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,83,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 83,
+                                                            self._ctx)
 
                     self.state = 731
                     self.logicalAndExpression()
                     self.state = 735
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,84,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 84,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 732
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 737
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,84,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 84,
+                                                            self._ctx)
+
                 self.state = 742
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,85,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 85, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -4251,19 +4341,19 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ConditionalExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def logicalOrExpression(self):
-            return self.getTypedRuleContext(ParaCParser.LogicalOrExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.LogicalOrExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -4273,73 +4363,71 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Question, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def Colon(self):
             return self.getToken(ParaCParser.Colon, 0)
 
         def conditionalExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConditionalExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConditionalExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_conditionalExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConditionalExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterConditionalExpression"):
                 listener.enterConditionalExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConditionalExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitConditionalExpression"):
                 listener.exitConditionalExpression(self)
-
-
-
 
     def conditionalExpression(self):
 
-        localctx = ParaCParser.ConditionalExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ConditionalExpressionContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 40, self.RULE_conditionalExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 743
             self.logicalOrExpression()
             self.state = 747
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,86,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 86, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 744
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 749
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,86,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 86, self._ctx)
 
             self.state = 778
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,91,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 91, self._ctx)
             if la_ == 1:
                 self.state = 750
                 self.match(ParaCParser.Question)
                 self.state = 754
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,87,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 87, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 751
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 756
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,87,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 87,
+                                                        self._ctx)
 
                 self.state = 757
                 self.expression()
                 self.state = 761
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 758
                     self.match(ParaCParser.WS)
                     self.state = 763
@@ -4350,27 +4438,29 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Colon)
                 self.state = 768
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,89,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 89, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 765
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 770
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,89,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 89,
+                                                        self._ctx)
 
                 self.state = 771
                 self.conditionalExpression()
                 self.state = 775
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,90,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 90, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 772
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 777
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,90,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 90,
+                                                        self._ctx)
 
 
 
@@ -4382,31 +4472,31 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AssignmentExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def conditionalExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConditionalExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConditionalExpressionContext, 0)
 
         def unaryExpression(self):
-            return self.getTypedRuleContext(ParaCParser.UnaryExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.UnaryExpressionContext,
+                                            0)
 
         def assignmentOperator(self):
-            return self.getTypedRuleContext(ParaCParser.AssignmentOperatorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AssignmentOperatorContext, 0)
 
         def assignmentExpression(self):
-            return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.AssignmentExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -4418,26 +4508,24 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_assignmentExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignmentExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAssignmentExpression"):
                 listener.enterAssignmentExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignmentExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAssignmentExpression"):
                 listener.exitAssignmentExpression(self)
-
-
-
 
     def assignmentExpression(self):
 
-        localctx = ParaCParser.AssignmentExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AssignmentExpressionContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 42, self.RULE_assignmentExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 798
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,94,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 94, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 780
@@ -4451,7 +4539,7 @@ class ParaCParser ( Parser ):
                 self.state = 785
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 782
                     self.match(ParaCParser.WS)
                     self.state = 787
@@ -4462,14 +4550,15 @@ class ParaCParser ( Parser ):
                 self.assignmentOperator()
                 self.state = 792
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,93,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 93, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 789
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 794
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,93,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 93,
+                                                        self._ctx)
 
                 self.state = 795
                 self.assignmentExpression()
@@ -4490,11 +4579,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AssignmentOperatorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -4534,27 +4623,36 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_assignmentOperator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAssignmentOperator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAssignmentOperator"):
                 listener.enterAssignmentOperator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAssignmentOperator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAssignmentOperator"):
                 listener.exitAssignmentOperator(self)
-
-
-
 
     def assignmentOperator(self):
 
-        localctx = ParaCParser.AssignmentOperatorContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AssignmentOperatorContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 44, self.RULE_assignmentOperator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 800
             _la = self._input.LA(1)
-            if not(((((_la - 81)) & ~0x3f) == 0 and ((1 << (_la - 81)) & ((1 << (ParaCParser.Assign - 81)) | (1 << (ParaCParser.StarAssign - 81)) | (1 << (ParaCParser.DivAssign - 81)) | (1 << (ParaCParser.ModAssign - 81)) | (1 << (ParaCParser.PlusAssign - 81)) | (1 << (ParaCParser.MinusAssign - 81)) | (1 << (ParaCParser.LeftShiftAssign - 81)) | (1 << (ParaCParser.RightShiftAssign - 81)) | (1 << (ParaCParser.AndAssign - 81)) | (1 << (ParaCParser.XorAssign - 81)) | (1 << (ParaCParser.OrAssign - 81)))) != 0)):
+            if not (((((_la - 81)) & ~0x3f) == 0 and ((1 << (_la - 81)) & (
+                    (1 << (ParaCParser.Assign - 81)) | (
+                    1 << (ParaCParser.StarAssign - 81)) | (
+                            1 << (ParaCParser.DivAssign - 81)) | (
+                            1 << (ParaCParser.ModAssign - 81)) | (
+                            1 << (ParaCParser.PlusAssign - 81)) | (
+                            1 << (ParaCParser.MinusAssign - 81)) | (
+                            1 << (ParaCParser.LeftShiftAssign - 81)) | (
+                            1 << (ParaCParser.RightShiftAssign - 81)) | (
+                            1 << (ParaCParser.AndAssign - 81)) | (
+                            1 << (ParaCParser.XorAssign - 81)) | (
+                            1 << (ParaCParser.OrAssign - 81)))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -4567,28 +4665,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def assignmentExpression(self, i:int=None):
+        def assignmentExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.AssignmentExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.AssignmentExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.AssignmentExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -4597,16 +4696,13 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_expression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExpression"):
                 listener.enterExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExpression"):
                 listener.exitExpression(self)
-
-
-
 
     def expression(self):
 
@@ -4618,49 +4714,53 @@ class ParaCParser ( Parser ):
             self.assignmentExpression()
             self.state = 806
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,95,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 95, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 803
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 808
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,95,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 95, self._ctx)
 
             self.state = 825
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,98,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 98, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 809
                     self.match(ParaCParser.Comma)
                     self.state = 813
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,96,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 96,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 810
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 815
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,96,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 96,
+                                                            self._ctx)
 
                     self.state = 816
                     self.assignmentExpression()
                     self.state = 820
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,97,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 97,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 817
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 822
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,97,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 97,
+                                                            self._ctx)
+
                 self.state = 827
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,98,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 98, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -4670,35 +4770,33 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ConstantExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def conditionalExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConditionalExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConditionalExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_constantExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterConstantExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterConstantExpression"):
                 listener.enterConstantExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitConstantExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitConstantExpression"):
                 listener.exitConstantExpression(self)
-
-
-
 
     def constantExpression(self):
 
-        localctx = ParaCParser.ConstantExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ConstantExpressionContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 48, self.RULE_constantExpression)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -4712,81 +4810,96 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def declarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationSpecifiersContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DeclarationSpecifiersContext, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def initDeclaratorList(self):
-            return self.getTypedRuleContext(ParaCParser.InitDeclaratorListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.InitDeclaratorListContext, 0)
 
         def staticAssertDeclaration(self):
-            return self.getTypedRuleContext(ParaCParser.StaticAssertDeclarationContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.StaticAssertDeclarationContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_declaration
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDeclaration"):
                 listener.enterDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDeclaration"):
                 listener.exitDeclaration(self)
-
-
-
 
     def declaration(self):
 
         localctx = ParaCParser.DeclarationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 50, self.RULE_declaration)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 843
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCParser.Bool, ParaCParser.Char, ParaCParser.Complex, ParaCParser.Double, ParaCParser.Entry, ParaCParser.Float, ParaCParser.Int, ParaCParser.Lambda, ParaCParser.Long, ParaCParser.Signed, ParaCParser.Short, ParaCParser.Status, ParaCParser.Unsigned, ParaCParser.Void, ParaCParser.Const, ParaCParser.Volatile, ParaCParser.Atomic, ParaCParser.Auto, ParaCParser.Register, ParaCParser.Static, ParaCParser.Extern, ParaCParser.Enum, ParaCParser.Restrict, ParaCParser.Struct, ParaCParser.Typeof, ParaCParser.Typedef, ParaCParser.Union, ParaCParser.Alignas, ParaCParser.Noreturn, ParaCParser.ThreadLocal, ParaCParser.Identifier]:
+            if token in [ParaCParser.Bool, ParaCParser.Char,
+                         ParaCParser.Complex, ParaCParser.Double,
+                         ParaCParser.Entry, ParaCParser.Float, ParaCParser.Int,
+                         ParaCParser.Lambda, ParaCParser.Long,
+                         ParaCParser.Signed, ParaCParser.Short,
+                         ParaCParser.Status, ParaCParser.Unsigned,
+                         ParaCParser.Void, ParaCParser.Const,
+                         ParaCParser.Volatile, ParaCParser.Atomic,
+                         ParaCParser.Auto, ParaCParser.Register,
+                         ParaCParser.Static, ParaCParser.Extern,
+                         ParaCParser.Enum, ParaCParser.Restrict,
+                         ParaCParser.Struct, ParaCParser.Typeof,
+                         ParaCParser.Typedef, ParaCParser.Union,
+                         ParaCParser.Alignas, ParaCParser.Noreturn,
+                         ParaCParser.ThreadLocal, ParaCParser.Identifier]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 830
                 self.declarationSpecifiers()
                 self.state = 834
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,99,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 99, self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 831
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 836
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,99,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 99,
+                                                        self._ctx)
 
                 self.state = 838
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & ((1 << (ParaCParser.LeftParen - 53)) | (1 << (ParaCParser.Star - 53)) | (1 << (ParaCParser.Caret - 53)) | (1 << (ParaCParser.Identifier - 53)) | (1 << (ParaCParser.WS - 53)))) != 0):
+                if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & (
+                        (1 << (ParaCParser.LeftParen - 53)) | (
+                        1 << (ParaCParser.Star - 53)) | (
+                                1 << (ParaCParser.Caret - 53)) | (
+                                1 << (ParaCParser.Identifier - 53)) | (
+                                1 << (ParaCParser.WS - 53)))) != 0):
                     self.state = 837
                     self.initDeclaratorList()
-
 
                 self.state = 840
                 self.endOfItem()
@@ -4807,22 +4920,23 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DeclarationSpecifiersContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def declarationSpecifier(self, i:int=None):
+        def declarationSpecifier(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.DeclarationSpecifierContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.DeclarationSpecifierContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.DeclarationSpecifierContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.DeclarationSpecifierContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -4831,47 +4945,48 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_declarationSpecifiers
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDeclarationSpecifiers" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDeclarationSpecifiers"):
                 listener.enterDeclarationSpecifiers(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDeclarationSpecifiers" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDeclarationSpecifiers"):
                 listener.exitDeclarationSpecifiers(self)
-
-
-
 
     def declarationSpecifiers(self):
 
-        localctx = ParaCParser.DeclarationSpecifiersContext(self, self._ctx, self.state)
+        localctx = ParaCParser.DeclarationSpecifiersContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 52, self.RULE_declarationSpecifiers)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 852 
+            self.state = 852
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 845
                     self.declarationSpecifier()
                     self.state = 849
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,102,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 102,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 846
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 851
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,102,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 102,
+                                                            self._ctx)
 
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 854 
+                self.state = 854
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,103,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 103,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -4881,56 +4996,54 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DeclarationSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def storageClassSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.StorageClassSpecifierContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.StorageClassSpecifierContext, 0)
 
         def typeSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,
+                                            0)
 
         def typeQualifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeQualifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeQualifierContext,
+                                            0)
 
         def functionSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.FunctionSpecifierContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.FunctionSpecifierContext, 0)
 
         def alignmentSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.AlignmentSpecifierContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AlignmentSpecifierContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_declarationSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDeclarationSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDeclarationSpecifier"):
                 listener.enterDeclarationSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDeclarationSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDeclarationSpecifier"):
                 listener.exitDeclarationSpecifier(self)
-
-
-
 
     def declarationSpecifier(self):
 
-        localctx = ParaCParser.DeclarationSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.DeclarationSpecifierContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 54, self.RULE_declarationSpecifier)
         try:
             self.state = 861
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,104,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 104, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 856
@@ -4970,28 +5083,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InitDeclaratorListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def initDeclarator(self, i:int=None):
+        def initDeclarator(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.InitDeclaratorContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.InitDeclaratorContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.InitDeclaratorContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.InitDeclaratorContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -5000,22 +5114,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_initDeclaratorList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInitDeclaratorList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInitDeclaratorList"):
                 listener.enterInitDeclaratorList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInitDeclaratorList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInitDeclaratorList"):
                 listener.exitInitDeclaratorList(self)
-
-
-
 
     def initDeclaratorList(self):
 
-        localctx = ParaCParser.InitDeclaratorListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.InitDeclaratorListContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 56, self.RULE_initDeclaratorList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 863
@@ -5023,7 +5135,7 @@ class ParaCParser ( Parser ):
             self.state = 867
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 864
                 self.match(ParaCParser.WS)
                 self.state = 869
@@ -5033,26 +5145,28 @@ class ParaCParser ( Parser ):
             self.state = 886
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Comma:
+            while _la == ParaCParser.Comma:
                 self.state = 870
                 self.match(ParaCParser.Comma)
                 self.state = 874
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,106,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 106,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 871
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 876
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,106,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 106,
+                                                        self._ctx)
 
                 self.state = 877
                 self.initDeclarator()
                 self.state = 881
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 878
                     self.match(ParaCParser.WS)
                     self.state = 883
@@ -5071,19 +5185,18 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InitDeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -5093,72 +5206,74 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Assign, 0)
 
         def initializer(self):
-            return self.getTypedRuleContext(ParaCParser.InitializerContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.InitializerContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_initDeclarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInitDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInitDeclarator"):
                 listener.enterInitDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInitDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInitDeclarator"):
                 listener.exitInitDeclarator(self)
-
-
-
 
     def initDeclarator(self):
 
-        localctx = ParaCParser.InitDeclaratorContext(self, self._ctx, self.state)
+        localctx = ParaCParser.InitDeclaratorContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 58, self.RULE_initDeclarator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 889
             self.declarator()
             self.state = 893
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,109,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 109, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 890
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 895
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,109,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 109,
+                                                    self._ctx)
 
             self.state = 910
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.Assign:
+            if _la == ParaCParser.Assign:
                 self.state = 896
                 self.match(ParaCParser.Assign)
                 self.state = 900
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,110,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 110,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 897
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 902
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,110,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 110,
+                                                        self._ctx)
 
                 self.state = 903
                 self.initializer()
                 self.state = 907
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,111,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 111,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 904
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 909
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,111,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 111,
+                                                        self._ctx)
 
 
 
@@ -5170,11 +5285,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StorageClassSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -5199,27 +5314,29 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_storageClassSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStorageClassSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStorageClassSpecifier"):
                 listener.enterStorageClassSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStorageClassSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStorageClassSpecifier"):
                 listener.exitStorageClassSpecifier(self)
-
-
-
 
     def storageClassSpecifier(self):
 
-        localctx = ParaCParser.StorageClassSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StorageClassSpecifierContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 60, self.RULE_storageClassSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 912
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.ThreadLocal))) != 0)):
+            if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (
+                    1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (
+                            1 << ParaCParser.Typedef) | (
+                            1 << ParaCParser.ThreadLocal))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -5232,11 +5349,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ArraySpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -5246,19 +5363,19 @@ class ParaCParser ( Parser ):
         def RightBracket(self):
             return self.getToken(ParaCParser.RightBracket, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def typeQualifierList(self):
-            return self.getTypedRuleContext(ParaCParser.TypeQualifierListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.TypeQualifierListContext, 0)
 
         def assignmentExpression(self):
-            return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AssignmentExpressionContext, 0)
 
         def Static(self):
             return self.getToken(ParaCParser.Static, 0)
@@ -5269,72 +5386,76 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_arraySpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterArraySpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterArraySpecifier"):
                 listener.enterArraySpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitArraySpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitArraySpecifier"):
                 listener.exitArraySpecifier(self)
-
-
-
 
     def arraySpecifier(self):
 
-        localctx = ParaCParser.ArraySpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ArraySpecifierContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 62, self.RULE_arraySpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1020
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,130,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 130, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 914
                 self.match(ParaCParser.LeftBracket)
                 self.state = 918
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,113,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 113,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 915
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 920
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,113,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 113,
+                                                        self._ctx)
 
                 self.state = 922
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Const) | (
+                        1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Restrict))) != 0):
                     self.state = 921
                     self.typeQualifierList()
 
-
                 self.state = 927
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,115,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 115,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 924
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 929
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,115,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 115,
+                                                        self._ctx)
 
                 self.state = 931
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,116,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 116, self._ctx)
                 if la_ == 1:
                     self.state = 930
                     self.assignmentExpression()
 
-
                 self.state = 936
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 933
                     self.match(ParaCParser.WS)
                     self.state = 938
@@ -5352,7 +5473,7 @@ class ParaCParser ( Parser ):
                 self.state = 944
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 941
                     self.match(ParaCParser.WS)
                     self.state = 946
@@ -5363,40 +5484,47 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Static)
                 self.state = 951
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,119,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 119,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 948
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 953
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,119,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 119,
+                                                        self._ctx)
 
                 self.state = 955
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Const) | (
+                        1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Restrict))) != 0):
                     self.state = 954
                     self.typeQualifierList()
 
-
                 self.state = 960
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,121,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 121,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 957
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 962
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,121,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 121,
+                                                        self._ctx)
 
                 self.state = 963
                 self.assignmentExpression()
                 self.state = 967
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 964
                     self.match(ParaCParser.WS)
                     self.state = 969
@@ -5414,7 +5542,7 @@ class ParaCParser ( Parser ):
                 self.state = 976
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 973
                     self.match(ParaCParser.WS)
                     self.state = 978
@@ -5426,7 +5554,7 @@ class ParaCParser ( Parser ):
                 self.state = 983
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 980
                     self.match(ParaCParser.WS)
                     self.state = 985
@@ -5440,7 +5568,7 @@ class ParaCParser ( Parser ):
                 self.state = 991
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 988
                     self.match(ParaCParser.WS)
                     self.state = 993
@@ -5457,27 +5585,32 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftBracket)
                 self.state = 1000
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,126,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 126,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 997
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1002
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,126,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 126,
+                                                        self._ctx)
 
                 self.state = 1004
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Const) | (
+                        1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Restrict))) != 0):
                     self.state = 1003
                     self.typeQualifierList()
-
 
                 self.state = 1009
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1006
                     self.match(ParaCParser.WS)
                     self.state = 1011
@@ -5489,7 +5622,7 @@ class ParaCParser ( Parser ):
                 self.state = 1016
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1013
                     self.match(ParaCParser.WS)
                     self.state = 1018
@@ -5509,11 +5642,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypeSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -5551,8 +5684,8 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Less, 0)
 
         def parameterTypeList(self):
-            return self.getTypedRuleContext(ParaCParser.ParameterTypeListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ParameterTypeListContext, 0)
 
         def Greater(self):
             return self.getToken(ParaCParser.Greater, 0)
@@ -5566,34 +5699,34 @@ class ParaCParser ( Parser ):
         def Complex(self):
             return self.getToken(ParaCParser.Complex, 0)
 
-        def arraySpecifier(self, i:int=None):
+        def arraySpecifier(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ArraySpecifierContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ArraySpecifierContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ArraySpecifierContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ArraySpecifierContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def atomicTypeSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.AtomicTypeSpecifierContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AtomicTypeSpecifierContext, 0)
 
         def structOrUnionSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.StructOrUnionSpecifierContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.StructOrUnionSpecifierContext, 0)
 
         def enumSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.EnumSpecifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.EnumSpecifierContext,
+                                            0)
 
         def typedefName(self):
-            return self.getTypedRuleContext(ParaCParser.TypedefNameContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypedefNameContext, 0)
 
         def Typeof(self):
             return self.getToken(ParaCParser.Typeof, 0)
@@ -5602,47 +5735,51 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def typeSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,
+                                            0)
 
         def pointer(self):
-            return self.getTypedRuleContext(ParaCParser.PointerContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.PointerContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_typeSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypeSpecifier"):
                 listener.enterTypeSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypeSpecifier"):
                 listener.exitTypeSpecifier(self)
 
-
-
-    def typeSpecifier(self, _p:int=0):
+    def typeSpecifier(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = ParaCParser.TypeSpecifierContext(self, self._ctx, _parentState)
+        localctx = ParaCParser.TypeSpecifierContext(self, self._ctx,
+                                                    _parentState)
         _prevctx = localctx
         _startState = 64
         self.enterRecursionRule(localctx, 64, self.RULE_typeSpecifier, _p)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1093
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCParser.Bool, ParaCParser.Char, ParaCParser.Complex, ParaCParser.Double, ParaCParser.Float, ParaCParser.Int, ParaCParser.Lambda, ParaCParser.Long, ParaCParser.Signed, ParaCParser.Short, ParaCParser.Status, ParaCParser.Unsigned, ParaCParser.Void]:
+            if token in [ParaCParser.Bool, ParaCParser.Char,
+                         ParaCParser.Complex, ParaCParser.Double,
+                         ParaCParser.Float, ParaCParser.Int,
+                         ParaCParser.Lambda, ParaCParser.Long,
+                         ParaCParser.Signed, ParaCParser.Short,
+                         ParaCParser.Status, ParaCParser.Unsigned,
+                         ParaCParser.Void]:
                 self.state = 1058
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
@@ -5688,7 +5825,7 @@ class ParaCParser ( Parser ):
                     self.state = 1036
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1033
                         self.match(ParaCParser.WS)
                         self.state = 1038
@@ -5700,7 +5837,7 @@ class ParaCParser ( Parser ):
                     self.state = 1043
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1040
                         self.match(ParaCParser.WS)
                         self.state = 1045
@@ -5712,7 +5849,7 @@ class ParaCParser ( Parser ):
                     self.state = 1050
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1047
                         self.match(ParaCParser.WS)
                         self.state = 1052
@@ -5739,14 +5876,16 @@ class ParaCParser ( Parser ):
 
                 self.state = 1063
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,135,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 135,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1060
-                        self.arraySpecifier() 
+                        self.arraySpecifier()
                     self.state = 1065
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,135,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 135,
+                                                        self._ctx)
 
                 pass
             elif token in [ParaCParser.Atomic]:
@@ -5771,7 +5910,7 @@ class ParaCParser ( Parser ):
                 self.state = 1074
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1071
                     self.match(ParaCParser.WS)
                     self.state = 1076
@@ -5782,21 +5921,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 1081
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,137,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 137,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1078
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1083
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,137,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 137,
+                                                        self._ctx)
 
                 self.state = 1084
                 self.constantExpression()
                 self.state = 1088
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1085
                     self.match(ParaCParser.WS)
                     self.state = 1090
@@ -5812,22 +5953,27 @@ class ParaCParser ( Parser ):
             self._ctx.stop = self._input.LT(-1)
             self.state = 1105
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,141,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 141, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
-                    localctx = ParaCParser.TypeSpecifierContext(self, _parentctx, _parentState)
-                    self.pushNewRecursionContext(localctx, _startState, self.RULE_typeSpecifier)
+                    localctx = ParaCParser.TypeSpecifierContext(self,
+                                                                _parentctx,
+                                                                _parentState)
+                    self.pushNewRecursionContext(localctx, _startState,
+                                                 self.RULE_typeSpecifier)
                     self.state = 1095
                     if not self.precpred(self._ctx, 1):
-                        from antlr4.error.Errors import FailedPredicateException
-                        raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                        from antlr4.error.Errors import \
+                            FailedPredicateException
+                        raise FailedPredicateException(self,
+                                                       "self.precpred(self._ctx, 1)")
                     self.state = 1099
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1096
                         self.match(ParaCParser.WS)
                         self.state = 1101
@@ -5835,10 +5981,11 @@ class ParaCParser ( Parser ):
                         _la = self._input.LA(1)
 
                     self.state = 1102
-                    self.pointer() 
+                    self.pointer()
                 self.state = 1107
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,141,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 141,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -5848,17 +5995,17 @@ class ParaCParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class StructOrUnionSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def structOrUnion(self):
-            return self.getTypedRuleContext(ParaCParser.StructOrUnionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.StructOrUnionContext,
+                                            0)
 
         def LeftBrace(self):
             return self.getToken(ParaCParser.LeftBrace, 0)
@@ -5866,7 +6013,7 @@ class ParaCParser ( Parser ):
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -5875,36 +6022,35 @@ class ParaCParser ( Parser ):
         def Identifier(self):
             return self.getToken(ParaCParser.Identifier, 0)
 
-        def structDeclarationList(self, i:int=None):
+        def structDeclarationList(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.StructDeclarationListContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.StructDeclarationListContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.StructDeclarationListContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCParser.StructDeclarationListContext, i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_structOrUnionSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructOrUnionSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructOrUnionSpecifier"):
                 listener.enterStructOrUnionSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructOrUnionSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructOrUnionSpecifier"):
                 listener.exitStructOrUnionSpecifier(self)
-
-
-
 
     def structOrUnionSpecifier(self):
 
-        localctx = ParaCParser.StructOrUnionSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructOrUnionSpecifierContext(self, self._ctx,
+                                                             self.state)
         self.enterRule(localctx, 66, self.RULE_structOrUnionSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1154
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,149,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 149, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1108
@@ -5912,7 +6058,7 @@ class ParaCParser ( Parser ):
                 self.state = 1112
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1109
                     self.match(ParaCParser.WS)
                     self.state = 1114
@@ -5922,49 +6068,51 @@ class ParaCParser ( Parser ):
                 self.state = 1122
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Identifier:
+                if _la == ParaCParser.Identifier:
                     self.state = 1115
                     self.match(ParaCParser.Identifier)
                     self.state = 1119
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1116
                         self.match(ParaCParser.WS)
                         self.state = 1121
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
 
-
-
                 self.state = 1124
                 self.match(ParaCParser.LeftBrace)
                 self.state = 1128
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,145,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 145,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1125
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1130
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,145,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 145,
+                                                        self._ctx)
 
                 self.state = 1134
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,146,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 146,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1131
-                        self.structDeclarationList() 
+                        self.structDeclarationList()
                     self.state = 1136
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,146,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 146,
+                                                        self._ctx)
 
                 self.state = 1140
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1137
                     self.match(ParaCParser.WS)
                     self.state = 1142
@@ -5982,7 +6130,7 @@ class ParaCParser ( Parser ):
                 self.state = 1149
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1146
                     self.match(ParaCParser.WS)
                     self.state = 1151
@@ -6002,11 +6150,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StructOrUnionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -6019,27 +6167,25 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_structOrUnion
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructOrUnion" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructOrUnion"):
                 listener.enterStructOrUnion(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructOrUnion" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructOrUnion"):
                 listener.exitStructOrUnion(self)
-
-
-
 
     def structOrUnion(self):
 
-        localctx = ParaCParser.StructOrUnionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructOrUnionContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 68, self.RULE_structOrUnion)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1156
             _la = self._input.LA(1)
-            if not(_la==ParaCParser.Struct or _la==ParaCParser.Union):
+            if not (_la == ParaCParser.Struct or _la == ParaCParser.Union):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -6052,22 +6198,23 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StructDeclarationListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def structDeclaration(self, i:int=None):
+        def structDeclaration(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.StructDeclarationContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.StructDeclarationContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.StructDeclarationContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.StructDeclarationContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -6076,33 +6223,31 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_structDeclarationList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructDeclarationList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructDeclarationList"):
                 listener.enterStructDeclarationList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructDeclarationList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructDeclarationList"):
                 listener.exitStructDeclarationList(self)
-
-
-
 
     def structDeclarationList(self):
 
-        localctx = ParaCParser.StructDeclarationListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructDeclarationListContext(self, self._ctx,
+                                                            self.state)
         self.enterRule(localctx, 70, self.RULE_structDeclarationList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 1171 
+            self.state = 1171
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 1161
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1158
                         self.match(ParaCParser.WS)
                         self.state = 1163
@@ -6113,21 +6258,24 @@ class ParaCParser ( Parser ):
                     self.structDeclaration()
                     self.state = 1168
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,151,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 151,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 1165
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 1170
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,151,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 151,
+                                                            self._ctx)
 
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 1173 
+                self.state = 1173
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,152,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 152,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -6137,81 +6285,95 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StructDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def specifierQualifierList(self):
-            return self.getTypedRuleContext(ParaCParser.SpecifierQualifierListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.SpecifierQualifierListContext, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def structDeclaratorList(self):
-            return self.getTypedRuleContext(ParaCParser.StructDeclaratorListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.StructDeclaratorListContext, 0)
 
         def staticAssertDeclaration(self):
-            return self.getTypedRuleContext(ParaCParser.StaticAssertDeclarationContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.StaticAssertDeclarationContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_structDeclaration
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructDeclaration"):
                 listener.enterStructDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructDeclaration"):
                 listener.exitStructDeclaration(self)
-
-
-
 
     def structDeclaration(self):
 
-        localctx = ParaCParser.StructDeclarationContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructDeclarationContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 72, self.RULE_structDeclaration)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1188
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCParser.Bool, ParaCParser.Char, ParaCParser.Complex, ParaCParser.Double, ParaCParser.Float, ParaCParser.Int, ParaCParser.Lambda, ParaCParser.Long, ParaCParser.Signed, ParaCParser.Short, ParaCParser.Status, ParaCParser.Unsigned, ParaCParser.Void, ParaCParser.Const, ParaCParser.Volatile, ParaCParser.Atomic, ParaCParser.Enum, ParaCParser.Restrict, ParaCParser.Struct, ParaCParser.Typeof, ParaCParser.Union, ParaCParser.Identifier]:
+            if token in [ParaCParser.Bool, ParaCParser.Char,
+                         ParaCParser.Complex, ParaCParser.Double,
+                         ParaCParser.Float, ParaCParser.Int,
+                         ParaCParser.Lambda, ParaCParser.Long,
+                         ParaCParser.Signed, ParaCParser.Short,
+                         ParaCParser.Status, ParaCParser.Unsigned,
+                         ParaCParser.Void, ParaCParser.Const,
+                         ParaCParser.Volatile, ParaCParser.Atomic,
+                         ParaCParser.Enum, ParaCParser.Restrict,
+                         ParaCParser.Struct, ParaCParser.Typeof,
+                         ParaCParser.Union, ParaCParser.Identifier]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1175
                 self.specifierQualifierList()
                 self.state = 1179
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,153,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 153,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1176
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1181
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,153,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 153,
+                                                        self._ctx)
 
                 self.state = 1183
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & ((1 << (ParaCParser.LeftParen - 53)) | (1 << (ParaCParser.Star - 53)) | (1 << (ParaCParser.Caret - 53)) | (1 << (ParaCParser.Colon - 53)) | (1 << (ParaCParser.Identifier - 53)) | (1 << (ParaCParser.WS - 53)))) != 0):
+                if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & (
+                        (1 << (ParaCParser.LeftParen - 53)) | (
+                        1 << (ParaCParser.Star - 53)) | (
+                                1 << (ParaCParser.Caret - 53)) | (
+                                1 << (ParaCParser.Colon - 53)) | (
+                                1 << (ParaCParser.Identifier - 53)) | (
+                                1 << (ParaCParser.WS - 53)))) != 0):
                     self.state = 1182
                     self.structDeclaratorList()
-
 
                 self.state = 1185
                 self.endOfItem()
@@ -6232,55 +6394,53 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SpecifierQualifierListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def typeSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,
+                                            0)
 
         def typeQualifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeQualifierContext,0)
+            return self.getTypedRuleContext(ParaCParser.TypeQualifierContext,
+                                            0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def specifierQualifierList(self):
-            return self.getTypedRuleContext(ParaCParser.SpecifierQualifierListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.SpecifierQualifierListContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_specifierQualifierList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSpecifierQualifierList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSpecifierQualifierList"):
                 listener.enterSpecifierQualifierList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSpecifierQualifierList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSpecifierQualifierList"):
                 listener.exitSpecifierQualifierList(self)
-
-
-
 
     def specifierQualifierList(self):
 
-        localctx = ParaCParser.SpecifierQualifierListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.SpecifierQualifierListContext(self, self._ctx,
+                                                             self.state)
         self.enterRule(localctx, 74, self.RULE_specifierQualifierList)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1192
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,156,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 156, self._ctx)
             if la_ == 1:
                 self.state = 1190
                 self.typeSpecifier(0)
@@ -6291,21 +6451,21 @@ class ParaCParser ( Parser ):
                 self.typeQualifier()
                 pass
 
-
             self.state = 1197
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,157,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 157, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1194
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1199
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,157,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 157,
+                                                    self._ctx)
 
             self.state = 1201
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,158,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 158, self._ctx)
             if la_ == 1:
                 self.state = 1200
                 self.specifierQualifierList()
@@ -6319,28 +6479,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StructDeclaratorListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def structDeclarator(self, i:int=None):
+        def structDeclarator(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.StructDeclaratorContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.StructDeclaratorContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.StructDeclaratorContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.StructDeclaratorContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -6349,22 +6510,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_structDeclaratorList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructDeclaratorList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructDeclaratorList"):
                 listener.enterStructDeclaratorList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructDeclaratorList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructDeclaratorList"):
                 listener.exitStructDeclaratorList(self)
-
-
-
 
     def structDeclaratorList(self):
 
-        localctx = ParaCParser.StructDeclaratorListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructDeclaratorListContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 76, self.RULE_structDeclaratorList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1203
@@ -6372,7 +6531,7 @@ class ParaCParser ( Parser ):
             self.state = 1207
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1204
                 self.match(ParaCParser.WS)
                 self.state = 1209
@@ -6382,19 +6541,21 @@ class ParaCParser ( Parser ):
             self.state = 1220
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Comma:
+            while _la == ParaCParser.Comma:
                 self.state = 1210
                 self.match(ParaCParser.Comma)
                 self.state = 1214
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,160,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 160,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1211
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1216
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,160,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 160,
+                                                        self._ctx)
 
                 self.state = 1217
                 self.structDeclarator()
@@ -6410,26 +6571,25 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StructDeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
         def Colon(self):
             return self.getToken(ParaCParser.Colon, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -6438,26 +6598,24 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_structDeclarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStructDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStructDeclarator"):
                 listener.enterStructDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStructDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStructDeclarator"):
                 listener.exitStructDeclarator(self)
-
-
-
 
     def structDeclarator(self):
 
-        localctx = ParaCParser.StructDeclaratorContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StructDeclaratorContext(self, self._ctx,
+                                                       self.state)
         self.enterRule(localctx, 78, self.RULE_structDeclarator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1241
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,165,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 165, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1223
@@ -6468,16 +6626,15 @@ class ParaCParser ( Parser ):
                 self.enterOuterAlt(localctx, 2)
                 self.state = 1225
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,162,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 162, self._ctx)
                 if la_ == 1:
                     self.state = 1224
                     self.declarator()
 
-
                 self.state = 1230
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1227
                     self.match(ParaCParser.WS)
                     self.state = 1232
@@ -6488,14 +6645,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Colon)
                 self.state = 1237
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,164,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 164,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1234
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1239
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,164,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 164,
+                                                        self._ctx)
 
                 self.state = 1240
                 self.constantExpression()
@@ -6510,11 +6669,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EnumSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -6525,13 +6684,13 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftBrace, 0)
 
         def enumeratorList(self):
-            return self.getTypedRuleContext(ParaCParser.EnumeratorListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.EnumeratorListContext,
+                                            0)
 
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -6546,53 +6705,52 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_enumSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEnumSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEnumSpecifier"):
                 listener.enterEnumSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEnumSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEnumSpecifier"):
                 listener.exitEnumSpecifier(self)
-
-
-
 
     def enumSpecifier(self):
 
-        localctx = ParaCParser.EnumSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.EnumSpecifierContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 80, self.RULE_enumSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1292
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,174,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 174, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1243
                 self.match(ParaCParser.Enum)
                 self.state = 1247
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,166,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 166,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1244
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1249
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,166,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 166,
+                                                        self._ctx)
 
                 self.state = 1251
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Identifier:
+                if _la == ParaCParser.Identifier:
                     self.state = 1250
                     self.match(ParaCParser.Identifier)
-
 
                 self.state = 1256
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1253
                     self.match(ParaCParser.WS)
                     self.state = 1258
@@ -6604,7 +6762,7 @@ class ParaCParser ( Parser ):
                 self.state = 1263
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1260
                     self.match(ParaCParser.WS)
                     self.state = 1265
@@ -6615,27 +6773,28 @@ class ParaCParser ( Parser ):
                 self.enumeratorList()
                 self.state = 1270
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,170,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 170,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1267
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1272
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,170,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 170,
+                                                        self._ctx)
 
                 self.state = 1274
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Comma:
+                if _la == ParaCParser.Comma:
                     self.state = 1273
                     self.match(ParaCParser.Comma)
-
 
                 self.state = 1279
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1276
                     self.match(ParaCParser.WS)
                     self.state = 1281
@@ -6653,7 +6812,7 @@ class ParaCParser ( Parser ):
                 self.state = 1288
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1285
                     self.match(ParaCParser.WS)
                     self.state = 1290
@@ -6673,28 +6832,28 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EnumeratorListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def enumerator(self, i:int=None):
+        def enumerator(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.EnumeratorContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.EnumeratorContext,i)
+                return self.getTypedRuleContext(ParaCParser.EnumeratorContext,
+                                                i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -6703,48 +6862,47 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_enumeratorList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEnumeratorList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEnumeratorList"):
                 listener.enterEnumeratorList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEnumeratorList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEnumeratorList"):
                 listener.exitEnumeratorList(self)
-
-
-
 
     def enumeratorList(self):
 
-        localctx = ParaCParser.EnumeratorListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.EnumeratorListContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 82, self.RULE_enumeratorList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1294
             self.enumerator()
             self.state = 1298
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,175,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 175, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1295
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1300
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,175,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 175,
+                                                    self._ctx)
 
             self.state = 1317
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,178,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 178, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1301
                     self.match(ParaCParser.Comma)
                     self.state = 1305
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1302
                         self.match(ParaCParser.WS)
                         self.state = 1307
@@ -6755,18 +6913,21 @@ class ParaCParser ( Parser ):
                     self.enumerator()
                     self.state = 1312
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,177,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 177,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 1309
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 1314
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,177,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 177,
+                                                            self._ctx)
+
                 self.state = 1319
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,178,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 178,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -6776,19 +6937,19 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EnumeratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def enumerationConstant(self):
-            return self.getTypedRuleContext(ParaCParser.EnumerationConstantContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.EnumerationConstantContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -6798,72 +6959,74 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Assign, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_enumerator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEnumerator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEnumerator"):
                 listener.enterEnumerator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEnumerator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEnumerator"):
                 listener.exitEnumerator(self)
-
-
-
 
     def enumerator(self):
 
         localctx = ParaCParser.EnumeratorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 84, self.RULE_enumerator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1320
             self.enumerationConstant()
             self.state = 1324
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,179,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 179, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1321
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1326
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,179,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 179,
+                                                    self._ctx)
 
             self.state = 1341
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.Assign:
+            if _la == ParaCParser.Assign:
                 self.state = 1327
                 self.match(ParaCParser.Assign)
                 self.state = 1331
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,180,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 180,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1328
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1333
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,180,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 180,
+                                                        self._ctx)
 
                 self.state = 1334
                 self.constantExpression()
                 self.state = 1338
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,181,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 181,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1335
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1340
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,181,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 181,
+                                                        self._ctx)
 
 
 
@@ -6875,11 +7038,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EnumerationConstantContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -6889,20 +7052,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_enumerationConstant
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEnumerationConstant" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEnumerationConstant"):
                 listener.enterEnumerationConstant(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEnumerationConstant" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEnumerationConstant"):
                 listener.exitEnumerationConstant(self)
-
-
-
 
     def enumerationConstant(self):
 
-        localctx = ParaCParser.EnumerationConstantContext(self, self._ctx, self.state)
+        localctx = ParaCParser.EnumerationConstantContext(self, self._ctx,
+                                                          self.state)
         self.enterRule(localctx, 86, self.RULE_enumerationConstant)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -6916,11 +7077,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AtomicTypeSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -6931,13 +7092,12 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def typeName(self):
-            return self.getTypedRuleContext(ParaCParser.TypeNameContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeNameContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -6946,22 +7106,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_atomicTypeSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAtomicTypeSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAtomicTypeSpecifier"):
                 listener.enterAtomicTypeSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAtomicTypeSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAtomicTypeSpecifier"):
                 listener.exitAtomicTypeSpecifier(self)
-
-
-
 
     def atomicTypeSpecifier(self):
 
-        localctx = ParaCParser.AtomicTypeSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AtomicTypeSpecifierContext(self, self._ctx,
+                                                          self.state)
         self.enterRule(localctx, 88, self.RULE_atomicTypeSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1345
@@ -6969,7 +7127,7 @@ class ParaCParser ( Parser ):
             self.state = 1349
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1346
                 self.match(ParaCParser.WS)
                 self.state = 1351
@@ -6981,7 +7139,7 @@ class ParaCParser ( Parser ):
             self.state = 1356
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1353
                 self.match(ParaCParser.WS)
                 self.state = 1358
@@ -6993,7 +7151,7 @@ class ParaCParser ( Parser ):
             self.state = 1363
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1360
                 self.match(ParaCParser.WS)
                 self.state = 1365
@@ -7004,14 +7162,15 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.RightParen)
             self.state = 1370
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,186,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 186, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1367
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1372
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,186,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 186,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -7021,11 +7180,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypeQualifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -7044,27 +7203,28 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_typeQualifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeQualifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypeQualifier"):
                 listener.enterTypeQualifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeQualifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypeQualifier"):
                 listener.exitTypeQualifier(self)
-
-
-
 
     def typeQualifier(self):
 
-        localctx = ParaCParser.TypeQualifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.TypeQualifierContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 90, self.RULE_typeQualifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1373
             _la = self._input.LA(1)
-            if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0)):
+            if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (
+                    1 << ParaCParser.Atomic) | (
+                            1 << ParaCParser.Restrict))) != 0)):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -7077,11 +7237,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FunctionSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -7094,27 +7254,25 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_functionSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunctionSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFunctionSpecifier"):
                 listener.enterFunctionSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunctionSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFunctionSpecifier"):
                 listener.exitFunctionSpecifier(self)
-
-
-
 
     def functionSpecifier(self):
 
-        localctx = ParaCParser.FunctionSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.FunctionSpecifierContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 92, self.RULE_functionSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1375
             _la = self._input.LA(1)
-            if not(_la==ParaCParser.Entry or _la==ParaCParser.Noreturn):
+            if not (_la == ParaCParser.Entry or _la == ParaCParser.Noreturn):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -7127,11 +7285,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AlignmentSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -7145,14 +7303,13 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def typeName(self):
-            return self.getTypedRuleContext(ParaCParser.TypeNameContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeNameContext, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -7161,22 +7318,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_alignmentSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAlignmentSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAlignmentSpecifier"):
                 listener.enterAlignmentSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAlignmentSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAlignmentSpecifier"):
                 listener.exitAlignmentSpecifier(self)
-
-
-
 
     def alignmentSpecifier(self):
 
-        localctx = ParaCParser.AlignmentSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AlignmentSpecifierContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 94, self.RULE_alignmentSpecifier)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1377
@@ -7184,7 +7339,7 @@ class ParaCParser ( Parser ):
             self.state = 1381
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1378
                 self.match(ParaCParser.WS)
                 self.state = 1383
@@ -7195,18 +7350,19 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.LeftParen)
             self.state = 1388
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,188,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 188, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1385
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1390
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,188,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 188,
+                                                    self._ctx)
 
             self.state = 1393
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,189,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 189, self._ctx)
             if la_ == 1:
                 self.state = 1391
                 self.typeName()
@@ -7217,11 +7373,10 @@ class ParaCParser ( Parser ):
                 self.constantExpression()
                 pass
 
-
             self.state = 1398
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1395
                 self.match(ParaCParser.WS)
                 self.state = 1400
@@ -7238,23 +7393,22 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def directDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.DirectDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DirectDeclaratorContext, 0)
 
         def pointer(self):
-            return self.getTypedRuleContext(ParaCParser.PointerContext,0)
+            return self.getTypedRuleContext(ParaCParser.PointerContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -7263,36 +7417,32 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_declarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDeclarator"):
                 listener.enterDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDeclarator"):
                 listener.exitDeclarator(self)
-
-
-
 
     def declarator(self):
 
         localctx = ParaCParser.DeclaratorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 96, self.RULE_declarator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1404
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.Star or _la==ParaCParser.Caret:
+            if _la == ParaCParser.Star or _la == ParaCParser.Caret:
                 self.state = 1403
                 self.pointer()
-
 
             self.state = 1409
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 1406
                 self.match(ParaCParser.WS)
                 self.state = 1411
@@ -7309,11 +7459,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DirectDeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -7324,13 +7474,12 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -7343,51 +7492,49 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.DigitSequence, 0)
 
         def pointer(self):
-            return self.getTypedRuleContext(ParaCParser.PointerContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.PointerContext, 0)
 
         def directDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.DirectDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DirectDeclaratorContext, 0)
 
         def typeSpecifier(self):
-            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TypeSpecifierContext,
+                                            0)
 
         def parameterTypeList(self):
-            return self.getTypedRuleContext(ParaCParser.ParameterTypeListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ParameterTypeListContext, 0)
 
         def identifierList(self):
-            return self.getTypedRuleContext(ParaCParser.IdentifierListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.IdentifierListContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_directDeclarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDirectDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDirectDeclarator"):
                 listener.enterDirectDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDirectDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDirectDeclarator"):
                 listener.exitDirectDeclarator(self)
 
-
-
-    def directDeclarator(self, _p:int=0):
+    def directDeclarator(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = ParaCParser.DirectDeclaratorContext(self, self._ctx, _parentState)
+        localctx = ParaCParser.DirectDeclaratorContext(self, self._ctx,
+                                                       _parentState)
         _prevctx = localctx
         _startState = 98
         self.enterRecursionRule(localctx, 98, self.RULE_directDeclarator, _p)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1479
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,202,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 202, self._ctx)
             if la_ == 1:
                 self.state = 1415
                 self.match(ParaCParser.Identifier)
@@ -7398,21 +7545,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 1420
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,193,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 193,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1417
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1422
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,193,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 193,
+                                                        self._ctx)
 
                 self.state = 1423
                 self.declarator()
                 self.state = 1427
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1424
                     self.match(ParaCParser.WS)
                     self.state = 1429
@@ -7429,7 +7578,7 @@ class ParaCParser ( Parser ):
                 self.state = 1436
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1433
                     self.match(ParaCParser.WS)
                     self.state = 1438
@@ -7441,7 +7590,7 @@ class ParaCParser ( Parser ):
                 self.state = 1443
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1440
                     self.match(ParaCParser.WS)
                     self.state = 1445
@@ -7457,27 +7606,45 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 1451
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,197,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 197,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1448
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1453
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,197,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 197,
+                                                        self._ctx)
 
                 self.state = 1455
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Union))) != 0) or _la==ParaCParser.Identifier:
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Union))) != 0) or _la == ParaCParser.Identifier:
                     self.state = 1454
                     self.typeSpecifier(0)
-
 
                 self.state = 1460
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1457
                     self.match(ParaCParser.WS)
                     self.state = 1462
@@ -7489,7 +7656,7 @@ class ParaCParser ( Parser ):
                 self.state = 1467
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1464
                     self.match(ParaCParser.WS)
                     self.state = 1469
@@ -7501,7 +7668,7 @@ class ParaCParser ( Parser ):
                 self.state = 1474
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1471
                     self.match(ParaCParser.WS)
                     self.state = 1476
@@ -7512,30 +7679,35 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 pass
 
-
             self._ctx.stop = self._input.LT(-1)
             self.state = 1530
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,211,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 211, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     self.state = 1528
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,210,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 210,
+                                                       self._ctx)
                     if la_ == 1:
-                        localctx = ParaCParser.DirectDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directDeclarator)
+                        localctx = ParaCParser.DirectDeclaratorContext(self,
+                                                                       _parentctx,
+                                                                       _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directDeclarator)
                         self.state = 1481
                         if not self.precpred(self._ctx, 4):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 4)")
                         self.state = 1485
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1482
                             self.match(ParaCParser.WS)
                             self.state = 1487
@@ -7547,7 +7719,7 @@ class ParaCParser ( Parser ):
                         self.state = 1492
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1489
                             self.match(ParaCParser.WS)
                             self.state = 1494
@@ -7559,7 +7731,7 @@ class ParaCParser ( Parser ):
                         self.state = 1499
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1496
                             self.match(ParaCParser.WS)
                             self.state = 1501
@@ -7571,16 +7743,21 @@ class ParaCParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = ParaCParser.DirectDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directDeclarator)
+                        localctx = ParaCParser.DirectDeclaratorContext(self,
+                                                                       _parentctx,
+                                                                       _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directDeclarator)
                         self.state = 1504
                         if not self.precpred(self._ctx, 3):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 3)")
                         self.state = 1508
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1505
                             self.match(ParaCParser.WS)
                             self.state = 1510
@@ -7591,27 +7768,28 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftParen)
                         self.state = 1515
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,207,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 207,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1512
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1517
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,207,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                207, self._ctx)
 
                         self.state = 1519
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if _la==ParaCParser.Identifier:
+                        if _la == ParaCParser.Identifier:
                             self.state = 1518
                             self.identifierList()
-
 
                         self.state = 1524
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1521
                             self.match(ParaCParser.WS)
                             self.state = 1526
@@ -7622,10 +7800,10 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.RightParen)
                         pass
 
-             
                 self.state = 1532
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,211,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 211,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -7635,34 +7813,35 @@ class ParaCParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class NestedParenthesesBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def LeftParen(self, i:int=None):
+        def LeftParen(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.LeftParen)
             else:
                 return self.getToken(ParaCParser.LeftParen, i)
 
-        def nestedParenthesesBlock(self, i:int=None):
+        def nestedParenthesesBlock(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.NestedParenthesesBlockContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.NestedParenthesesBlockContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.NestedParenthesesBlockContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.NestedParenthesesBlockContext, i)
 
-
-        def RightParen(self, i:int=None):
+        def RightParen(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.RightParen)
             else:
                 return self.getToken(ParaCParser.RightParen, i)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -7671,36 +7850,93 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_nestedParenthesesBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNestedParenthesesBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterNestedParenthesesBlock"):
                 listener.enterNestedParenthesesBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNestedParenthesesBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitNestedParenthesesBlock"):
                 listener.exitNestedParenthesesBlock(self)
-
-
-
 
     def nestedParenthesesBlock(self):
 
-        localctx = ParaCParser.NestedParenthesesBlockContext(self, self._ctx, self.state)
+        localctx = ParaCParser.NestedParenthesesBlockContext(self, self._ctx,
+                                                             self.state)
         self.enterRule(localctx, 100, self.RULE_nestedParenthesesBlock)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1552
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,215,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 215, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1550
                     self._errHandler.sync(self)
                     token = self._input.LA(1)
-                    if token in [ParaCParser.T__0, ParaCParser.T__1, ParaCParser.T__2, ParaCParser.Bool, ParaCParser.Char, ParaCParser.Complex, ParaCParser.Double, ParaCParser.Entry, ParaCParser.Float, ParaCParser.Imaginary, ParaCParser.Int, ParaCParser.Lambda, ParaCParser.Long, ParaCParser.Signed, ParaCParser.Short, ParaCParser.Status, ParaCParser.Unsigned, ParaCParser.Void, ParaCParser.Const, ParaCParser.Volatile, ParaCParser.Atomic, ParaCParser.As, ParaCParser.Auto, ParaCParser.Register, ParaCParser.Static, ParaCParser.Extern, ParaCParser.Switch, ParaCParser.Case, ParaCParser.Default, ParaCParser.Break, ParaCParser.Continue, ParaCParser.Do, ParaCParser.While, ParaCParser.If, ParaCParser.Else, ParaCParser.For, ParaCParser.Enum, ParaCParser.Restrict, ParaCParser.Return, ParaCParser.ExtensionTask, ParaCParser.Spawn, ParaCParser.Struct, ParaCParser.Sizeof, ParaCParser.Typeof, ParaCParser.Typedef, ParaCParser.Union, ParaCParser.Alignas, ParaCParser.Alignof, ParaCParser.Inline, ParaCParser.Noreturn, ParaCParser.StaticAssert, ParaCParser.ThreadLocal, ParaCParser.LeftBracket, ParaCParser.RightBracket, ParaCParser.LeftBrace, ParaCParser.RightBrace, ParaCParser.LeftShift, ParaCParser.RightShift, ParaCParser.Plus, ParaCParser.PlusPlus, ParaCParser.Minus, ParaCParser.MinusMinus, ParaCParser.Star, ParaCParser.Div, ParaCParser.Mod, ParaCParser.And, ParaCParser.Or, ParaCParser.AndAnd, ParaCParser.OrOr, ParaCParser.Caret, ParaCParser.Not, ParaCParser.Tilde, ParaCParser.DecoratorSign, ParaCParser.LambdaStartBlock, ParaCParser.Question, ParaCParser.Colon, ParaCParser.Semi, ParaCParser.Comma, ParaCParser.Assign, ParaCParser.StarAssign, ParaCParser.DivAssign, ParaCParser.ModAssign, ParaCParser.PlusAssign, ParaCParser.MinusAssign, ParaCParser.LeftShiftAssign, ParaCParser.RightShiftAssign, ParaCParser.AndAssign, ParaCParser.XorAssign, ParaCParser.OrAssign, ParaCParser.Equal, ParaCParser.NotEqual, ParaCParser.Less, ParaCParser.LessEqual, ParaCParser.Greater, ParaCParser.GreaterEqual, ParaCParser.Arrow, ParaCParser.Dot, ParaCParser.Ellipsis, ParaCParser.Identifier, ParaCParser.Constant, ParaCParser.DigitSequence, ParaCParser.StringLiteral, ParaCParser.AsmBlock, ParaCParser.Directive, ParaCParser.WS, ParaCParser.Whitespace, ParaCParser.Newline]:
+                    if token in [ParaCParser.T__0, ParaCParser.T__1,
+                                 ParaCParser.T__2, ParaCParser.Bool,
+                                 ParaCParser.Char, ParaCParser.Complex,
+                                 ParaCParser.Double, ParaCParser.Entry,
+                                 ParaCParser.Float, ParaCParser.Imaginary,
+                                 ParaCParser.Int, ParaCParser.Lambda,
+                                 ParaCParser.Long, ParaCParser.Signed,
+                                 ParaCParser.Short, ParaCParser.Status,
+                                 ParaCParser.Unsigned, ParaCParser.Void,
+                                 ParaCParser.Const, ParaCParser.Volatile,
+                                 ParaCParser.Atomic, ParaCParser.As,
+                                 ParaCParser.Auto, ParaCParser.Register,
+                                 ParaCParser.Static, ParaCParser.Extern,
+                                 ParaCParser.Switch, ParaCParser.Case,
+                                 ParaCParser.Default, ParaCParser.Break,
+                                 ParaCParser.Continue, ParaCParser.Do,
+                                 ParaCParser.While, ParaCParser.If,
+                                 ParaCParser.Else, ParaCParser.For,
+                                 ParaCParser.Enum, ParaCParser.Restrict,
+                                 ParaCParser.Return, ParaCParser.ExtensionTask,
+                                 ParaCParser.Spawn, ParaCParser.Struct,
+                                 ParaCParser.Sizeof, ParaCParser.Typeof,
+                                 ParaCParser.Typedef, ParaCParser.Union,
+                                 ParaCParser.Alignas, ParaCParser.Alignof,
+                                 ParaCParser.Inline, ParaCParser.Noreturn,
+                                 ParaCParser.StaticAssert,
+                                 ParaCParser.ThreadLocal,
+                                 ParaCParser.LeftBracket,
+                                 ParaCParser.RightBracket,
+                                 ParaCParser.LeftBrace, ParaCParser.RightBrace,
+                                 ParaCParser.LeftShift, ParaCParser.RightShift,
+                                 ParaCParser.Plus, ParaCParser.PlusPlus,
+                                 ParaCParser.Minus, ParaCParser.MinusMinus,
+                                 ParaCParser.Star, ParaCParser.Div,
+                                 ParaCParser.Mod, ParaCParser.And,
+                                 ParaCParser.Or, ParaCParser.AndAnd,
+                                 ParaCParser.OrOr, ParaCParser.Caret,
+                                 ParaCParser.Not, ParaCParser.Tilde,
+                                 ParaCParser.DecoratorSign,
+                                 ParaCParser.LambdaStartBlock,
+                                 ParaCParser.Question, ParaCParser.Colon,
+                                 ParaCParser.Semi, ParaCParser.Comma,
+                                 ParaCParser.Assign, ParaCParser.StarAssign,
+                                 ParaCParser.DivAssign, ParaCParser.ModAssign,
+                                 ParaCParser.PlusAssign,
+                                 ParaCParser.MinusAssign,
+                                 ParaCParser.LeftShiftAssign,
+                                 ParaCParser.RightShiftAssign,
+                                 ParaCParser.AndAssign, ParaCParser.XorAssign,
+                                 ParaCParser.OrAssign, ParaCParser.Equal,
+                                 ParaCParser.NotEqual, ParaCParser.Less,
+                                 ParaCParser.LessEqual, ParaCParser.Greater,
+                                 ParaCParser.GreaterEqual, ParaCParser.Arrow,
+                                 ParaCParser.Dot, ParaCParser.Ellipsis,
+                                 ParaCParser.Identifier, ParaCParser.Constant,
+                                 ParaCParser.DigitSequence,
+                                 ParaCParser.StringLiteral,
+                                 ParaCParser.AsmBlock, ParaCParser.Directive,
+                                 ParaCParser.WS, ParaCParser.Whitespace,
+                                 ParaCParser.Newline]:
                         self.state = 1533
                         _la = self._input.LA(1)
-                        if _la <= 0 or _la==ParaCParser.LeftParen or _la==ParaCParser.RightParen:
+                        if _la <= 0 or _la == ParaCParser.LeftParen or _la == ParaCParser.RightParen:
                             self._errHandler.recoverInline(self)
                         else:
                             self._errHandler.reportMatch(self)
@@ -7711,21 +7947,23 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftParen)
                         self.state = 1538
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,212,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 212,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1535
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1540
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,212,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                212, self._ctx)
 
                         self.state = 1541
                         self.nestedParenthesesBlock()
                         self.state = 1545
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1542
                             self.match(ParaCParser.WS)
                             self.state = 1547
@@ -7737,10 +7975,11 @@ class ParaCParser ( Parser ):
                         pass
                     else:
                         raise NoViableAltException(self)
-             
+
                 self.state = 1554
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,215,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 215,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -7750,108 +7989,112 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PointerContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Star(self, i:int=None):
+        def Star(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Star)
             else:
                 return self.getToken(ParaCParser.Star, i)
 
-        def Caret(self, i:int=None):
+        def Caret(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Caret)
             else:
                 return self.getToken(ParaCParser.Caret, i)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def typeQualifierList(self, i:int=None):
+        def typeQualifierList(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.TypeQualifierListContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.TypeQualifierListContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.TypeQualifierListContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCParser.TypeQualifierListContext, i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_pointer
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPointer" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPointer"):
                 listener.enterPointer(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPointer" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPointer"):
                 listener.exitPointer(self)
-
-
-
 
     def pointer(self):
 
         localctx = ParaCParser.PointerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 102, self.RULE_pointer)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 1571 
+            self.state = 1571
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 1555
                     _la = self._input.LA(1)
-                    if not(_la==ParaCParser.Star or _la==ParaCParser.Caret):
+                    if not (
+                            _la == ParaCParser.Star or _la == ParaCParser.Caret):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
                         self.consume()
                     self.state = 1559
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,216,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 216,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 1556
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 1561
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,216,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 216,
+                                                            self._ctx)
 
                     self.state = 1563
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,217,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 217,
+                                                       self._ctx)
                     if la_ == 1:
                         self.state = 1562
                         self.typeQualifierList()
 
-
                     self.state = 1568
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,218,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 218,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 1565
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 1570
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,218,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 218,
+                                                            self._ctx)
 
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 1573 
+                self.state = 1573
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,219,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 219,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -7861,54 +8104,54 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypeQualifierListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def typeQualifier(self, i:int=None):
+        def typeQualifier(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.TypeQualifierContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.TypeQualifierContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.TypeQualifierContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCParser.TypeQualifierContext, i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_typeQualifierList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeQualifierList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypeQualifierList"):
                 listener.enterTypeQualifierList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeQualifierList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypeQualifierList"):
                 listener.exitTypeQualifierList(self)
-
-
-
 
     def typeQualifierList(self):
 
-        localctx = ParaCParser.TypeQualifierListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.TypeQualifierListContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 104, self.RULE_typeQualifierList)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 1576 
+            self.state = 1576
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 1575
                     self.typeQualifier()
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 1578 
+                self.state = 1578
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,220,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 220,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -7918,19 +8161,19 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ParameterTypeListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def parameterList(self):
-            return self.getTypedRuleContext(ParaCParser.ParameterListContext,0)
+            return self.getTypedRuleContext(ParaCParser.ParameterListContext,
+                                            0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -7945,47 +8188,46 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_parameterTypeList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParameterTypeList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterParameterTypeList"):
                 listener.enterParameterTypeList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParameterTypeList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitParameterTypeList"):
                 listener.exitParameterTypeList(self)
-
-
-
 
     def parameterTypeList(self):
 
-        localctx = ParaCParser.ParameterTypeListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ParameterTypeListContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 106, self.RULE_parameterTypeList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1580
             self.parameterList()
             self.state = 1584
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,221,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 221, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1581
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1586
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,221,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 221,
+                                                    self._ctx)
 
             self.state = 1601
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.Comma:
+            if _la == ParaCParser.Comma:
                 self.state = 1587
                 self.match(ParaCParser.Comma)
                 self.state = 1591
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1588
                     self.match(ParaCParser.WS)
                     self.state = 1593
@@ -7996,14 +8238,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Ellipsis)
                 self.state = 1598
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,223,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 223,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1595
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1600
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,223,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 223,
+                                                        self._ctx)
 
 
 
@@ -8015,28 +8259,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ParameterListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def parameterDeclaration(self, i:int=None):
+        def parameterDeclaration(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ParameterDeclarationContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ParameterDeclarationContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ParameterDeclarationContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ParameterDeclarationContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -8045,48 +8290,47 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_parameterList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterParameterList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterParameterList"):
                 listener.enterParameterList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitParameterList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitParameterList"):
                 listener.exitParameterList(self)
-
-
-
 
     def parameterList(self):
 
-        localctx = ParaCParser.ParameterListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ParameterListContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 108, self.RULE_parameterList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1603
             self.parameterDeclaration()
             self.state = 1607
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,225,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 225, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1604
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1609
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,225,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 225,
+                                                    self._ctx)
 
             self.state = 1626
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,228,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 228, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1610
                     self.match(ParaCParser.Comma)
                     self.state = 1614
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 1611
                         self.match(ParaCParser.WS)
                         self.state = 1616
@@ -8097,18 +8341,21 @@ class ParaCParser ( Parser ):
                     self.parameterDeclaration()
                     self.state = 1621
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,227,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 227,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 1618
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 1623
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,227,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 227,
+                                                            self._ctx)
+
                 self.state = 1628
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,228,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 228,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -8118,130 +8365,134 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ParameterDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return ParaCParser.RULE_parameterDeclaration
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class AbstractParameterDeclarationContext(ParameterDeclarationContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.ParameterDeclarationContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.ParameterDeclarationContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def declarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationSpecifiersContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.DeclarationSpecifiersContext, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
+
         def abstractDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.AbstractDeclaratorContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.AbstractDeclaratorContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAbstractParameterDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAbstractParameterDeclaration"):
                 listener.enterAbstractParameterDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAbstractParameterDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAbstractParameterDeclaration"):
                 listener.exitAbstractParameterDeclaration(self)
-
 
     class RegularParameterDeclarationContext(ParameterDeclarationContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.ParameterDeclarationContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.ParameterDeclarationContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def declarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationSpecifiersContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.DeclarationSpecifiersContext, 0)
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterRegularParameterDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterRegularParameterDeclaration"):
                 listener.enterRegularParameterDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitRegularParameterDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitRegularParameterDeclaration"):
                 listener.exitRegularParameterDeclaration(self)
-
-
 
     def parameterDeclaration(self):
 
-        localctx = ParaCParser.ParameterDeclarationContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ParameterDeclarationContext(self, self._ctx,
+                                                           self.state)
         self.enterRule(localctx, 110, self.RULE_parameterDeclaration)
         try:
             self.state = 1648
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,232,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 232, self._ctx)
             if la_ == 1:
-                localctx = ParaCParser.RegularParameterDeclarationContext(self, localctx)
+                localctx = ParaCParser.RegularParameterDeclarationContext(self,
+                                                                          localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1629
                 self.declarationSpecifiers()
                 self.state = 1633
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,229,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 229,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1630
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1635
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,229,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 229,
+                                                        self._ctx)
 
                 self.state = 1636
                 self.declarator()
                 pass
 
             elif la_ == 2:
-                localctx = ParaCParser.AbstractParameterDeclarationContext(self, localctx)
+                localctx = ParaCParser.AbstractParameterDeclarationContext(
+                    self, localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 1638
                 self.declarationSpecifiers()
                 self.state = 1642
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,230,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 230,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1639
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1644
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,230,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 230,
+                                                        self._ctx)
 
                 self.state = 1646
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,231,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 231, self._ctx)
                 if la_ == 1:
                     self.state = 1645
                     self.abstractDeclarator()
-
 
                 pass
 
@@ -8254,27 +8505,27 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IdentifierListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Identifier(self, i:int=None):
+        def Identifier(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Identifier)
             else:
                 return self.getToken(ParaCParser.Identifier, i)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -8283,47 +8534,46 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_identifierList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIdentifierList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIdentifierList"):
                 listener.enterIdentifierList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIdentifierList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIdentifierList"):
                 listener.exitIdentifierList(self)
-
-
-
 
     def identifierList(self):
 
-        localctx = ParaCParser.IdentifierListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.IdentifierListContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 112, self.RULE_identifierList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1650
             self.match(ParaCParser.Identifier)
             self.state = 1654
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,233,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 233, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1651
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1656
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,233,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 233,
+                                                    self._ctx)
 
             self.state = 1673
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Comma:
+            while _la == ParaCParser.Comma:
                 self.state = 1657
                 self.match(ParaCParser.Comma)
                 self.state = 1661
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1658
                     self.match(ParaCParser.WS)
                     self.state = 1663
@@ -8334,14 +8584,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Identifier)
                 self.state = 1668
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,235,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 235,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1665
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1670
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,235,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 235,
+                                                        self._ctx)
 
                 self.state = 1675
                 self._errHandler.sync(self)
@@ -8355,41 +8607,38 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TypeNameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def specifierQualifierList(self):
-            return self.getTypedRuleContext(ParaCParser.SpecifierQualifierListContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.SpecifierQualifierListContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def abstractDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.AbstractDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AbstractDeclaratorContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_typeName
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypeName" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypeName"):
                 listener.enterTypeName(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypeName" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypeName"):
                 listener.exitTypeName(self)
-
-
-
 
     def typeName(self):
 
@@ -8401,18 +8650,19 @@ class ParaCParser ( Parser ):
             self.specifierQualifierList()
             self.state = 1680
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,237,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 237, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 1677
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 1682
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,237,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 237,
+                                                    self._ctx)
 
             self.state = 1684
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,238,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 238, self._ctx)
             if la_ == 1:
                 self.state = 1683
                 self.abstractDeclarator()
@@ -8426,23 +8676,22 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AbstractDeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def pointer(self):
-            return self.getTypedRuleContext(ParaCParser.PointerContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.PointerContext, 0)
 
         def directAbstractDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.DirectAbstractDeclaratorContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.DirectAbstractDeclaratorContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -8451,26 +8700,24 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_abstractDeclarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAbstractDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAbstractDeclarator"):
                 listener.enterAbstractDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAbstractDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAbstractDeclarator"):
                 listener.exitAbstractDeclarator(self)
-
-
-
 
     def abstractDeclarator(self):
 
-        localctx = ParaCParser.AbstractDeclaratorContext(self, self._ctx, self.state)
+        localctx = ParaCParser.AbstractDeclaratorContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 116, self.RULE_abstractDeclarator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 1697
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,241,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 241, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 1686
@@ -8482,15 +8729,14 @@ class ParaCParser ( Parser ):
                 self.state = 1688
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Star or _la==ParaCParser.Caret:
+                if _la == ParaCParser.Star or _la == ParaCParser.Caret:
                     self.state = 1687
                     self.pointer()
-
 
                 self.state = 1693
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1690
                     self.match(ParaCParser.WS)
                     self.state = 1695
@@ -8510,11 +8756,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DirectAbstractDeclaratorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -8522,13 +8768,13 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def abstractDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.AbstractDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AbstractDeclaratorContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -8541,12 +8787,12 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightBracket, 0)
 
         def typeQualifierList(self):
-            return self.getTypedRuleContext(ParaCParser.TypeQualifierListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.TypeQualifierListContext, 0)
 
         def assignmentExpression(self):
-            return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AssignmentExpressionContext, 0)
 
         def Static(self):
             return self.getToken(ParaCParser.Static, 0)
@@ -8555,59 +8801,61 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Star, 0)
 
         def parameterTypeList(self):
-            return self.getTypedRuleContext(ParaCParser.ParameterTypeListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ParameterTypeListContext, 0)
 
         def directAbstractDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.DirectAbstractDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DirectAbstractDeclaratorContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_directAbstractDeclarator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDirectAbstractDeclarator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDirectAbstractDeclarator"):
                 listener.enterDirectAbstractDeclarator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDirectAbstractDeclarator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDirectAbstractDeclarator"):
                 listener.exitDirectAbstractDeclarator(self)
 
-
-
-    def directAbstractDeclarator(self, _p:int=0):
+    def directAbstractDeclarator(self, _p: int = 0):
         _parentctx = self._ctx
         _parentState = self.state
-        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, self._ctx, _parentState)
+        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, self._ctx,
+                                                               _parentState)
         _prevctx = localctx
         _startState = 118
-        self.enterRecursionRule(localctx, 118, self.RULE_directAbstractDeclarator, _p)
-        self._la = 0 # Token type
+        self.enterRecursionRule(localctx, 118,
+                                self.RULE_directAbstractDeclarator, _p)
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 1836
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,263,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 263, self._ctx)
             if la_ == 1:
                 self.state = 1700
                 self.match(ParaCParser.LeftParen)
                 self.state = 1704
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,242,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 242,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1701
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1706
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,242,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 242,
+                                                        self._ctx)
 
                 self.state = 1707
                 self.abstractDeclarator()
                 self.state = 1711
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1708
                     self.match(ParaCParser.WS)
                     self.state = 1713
@@ -8623,46 +8871,52 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftBracket)
                 self.state = 1720
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,244,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 244,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1717
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1722
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,244,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 244,
+                                                        self._ctx)
 
                 self.state = 1724
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Const) | (
+                        1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Restrict))) != 0):
                     self.state = 1723
                     self.typeQualifierList()
 
-
                 self.state = 1729
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,246,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 246,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1726
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1731
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,246,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 246,
+                                                        self._ctx)
 
                 self.state = 1733
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,247,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 247, self._ctx)
                 if la_ == 1:
                     self.state = 1732
                     self.assignmentExpression()
 
-
                 self.state = 1738
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1735
                     self.match(ParaCParser.WS)
                     self.state = 1740
@@ -8679,7 +8933,7 @@ class ParaCParser ( Parser ):
                 self.state = 1746
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1743
                     self.match(ParaCParser.WS)
                     self.state = 1748
@@ -8690,40 +8944,47 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Static)
                 self.state = 1753
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,250,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 250,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1750
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1755
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,250,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 250,
+                                                        self._ctx)
 
                 self.state = 1757
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Const) | (
+                        1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Restrict))) != 0):
                     self.state = 1756
                     self.typeQualifierList()
 
-
                 self.state = 1762
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,252,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 252,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1759
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1764
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,252,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 252,
+                                                        self._ctx)
 
                 self.state = 1765
                 self.assignmentExpression()
                 self.state = 1769
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1766
                     self.match(ParaCParser.WS)
                     self.state = 1771
@@ -8740,7 +9001,7 @@ class ParaCParser ( Parser ):
                 self.state = 1778
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1775
                     self.match(ParaCParser.WS)
                     self.state = 1780
@@ -8752,7 +9013,7 @@ class ParaCParser ( Parser ):
                 self.state = 1785
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1782
                     self.match(ParaCParser.WS)
                     self.state = 1787
@@ -8763,21 +9024,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Static)
                 self.state = 1792
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,256,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 256,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1789
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1794
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,256,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 256,
+                                                        self._ctx)
 
                 self.state = 1795
                 self.assignmentExpression()
                 self.state = 1799
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1796
                     self.match(ParaCParser.WS)
                     self.state = 1801
@@ -8794,7 +9057,7 @@ class ParaCParser ( Parser ):
                 self.state = 1808
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1805
                     self.match(ParaCParser.WS)
                     self.state = 1810
@@ -8806,7 +9069,7 @@ class ParaCParser ( Parser ):
                 self.state = 1815
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1812
                     self.match(ParaCParser.WS)
                     self.state = 1817
@@ -8822,27 +9085,57 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 1823
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,260,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 260,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 1820
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 1825
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,260,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 260,
+                                                        self._ctx)
 
                 self.state = 1827
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Entry) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Auto) | (
+                                1 << ParaCParser.Register) | (
+                                1 << ParaCParser.Static) | (
+                                1 << ParaCParser.Extern) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Restrict) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Typedef) | (
+                                1 << ParaCParser.Union) | (
+                                1 << ParaCParser.Alignas) | (
+                                1 << ParaCParser.Noreturn) | (
+                                1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                     self.state = 1826
                     self.parameterTypeList()
-
 
                 self.state = 1832
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 1829
                     self.match(ParaCParser.WS)
                     self.state = 1834
@@ -8853,30 +9146,34 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 pass
 
-
             self._ctx.stop = self._input.LT(-1)
             self.state = 1995
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,289,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 289, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     if self._parseListeners is not None:
                         self.triggerExitRuleEvent()
                     _prevctx = localctx
                     self.state = 1993
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,288,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 288,
+                                                       self._ctx)
                     if la_ == 1:
-                        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directAbstractDeclarator)
+                        localctx = ParaCParser.DirectAbstractDeclaratorContext(
+                            self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directAbstractDeclarator)
                         self.state = 1838
                         if not self.precpred(self._ctx, 5):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 5)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 5)")
                         self.state = 1842
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1839
                             self.match(ParaCParser.WS)
                             self.state = 1844
@@ -8887,46 +9184,53 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftBracket)
                         self.state = 1849
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,265,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 265,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1846
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1851
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,265,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                265, self._ctx)
 
                         self.state = 1853
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                                (1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                        1 << ParaCParser.Atomic) | (
+                                        1 << ParaCParser.Restrict))) != 0):
                             self.state = 1852
                             self.typeQualifierList()
 
-
                         self.state = 1858
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,267,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 267,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1855
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1860
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,267,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                267, self._ctx)
 
                         self.state = 1862
                         self._errHandler.sync(self)
-                        la_ = self._interp.adaptivePredict(self._input,268,self._ctx)
+                        la_ = self._interp.adaptivePredict(self._input, 268,
+                                                           self._ctx)
                         if la_ == 1:
                             self.state = 1861
                             self.assignmentExpression()
 
-
                         self.state = 1867
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1864
                             self.match(ParaCParser.WS)
                             self.state = 1869
@@ -8938,16 +9242,20 @@ class ParaCParser ( Parser ):
                         pass
 
                     elif la_ == 2:
-                        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directAbstractDeclarator)
+                        localctx = ParaCParser.DirectAbstractDeclaratorContext(
+                            self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directAbstractDeclarator)
                         self.state = 1871
                         if not self.precpred(self._ctx, 4):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 4)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 4)")
                         self.state = 1875
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1872
                             self.match(ParaCParser.WS)
                             self.state = 1877
@@ -8959,7 +9267,7 @@ class ParaCParser ( Parser ):
                         self.state = 1882
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1879
                             self.match(ParaCParser.WS)
                             self.state = 1884
@@ -8970,40 +9278,47 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.Static)
                         self.state = 1889
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,272,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 272,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1886
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1891
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,272,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                272, self._ctx)
 
                         self.state = 1893
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Restrict))) != 0):
+                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                                (1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                        1 << ParaCParser.Atomic) | (
+                                        1 << ParaCParser.Restrict))) != 0):
                             self.state = 1892
                             self.typeQualifierList()
 
-
                         self.state = 1898
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,274,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 274,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1895
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1900
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,274,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                274, self._ctx)
 
                         self.state = 1901
                         self.assignmentExpression()
                         self.state = 1905
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1902
                             self.match(ParaCParser.WS)
                             self.state = 1907
@@ -9015,16 +9330,20 @@ class ParaCParser ( Parser ):
                         pass
 
                     elif la_ == 3:
-                        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directAbstractDeclarator)
+                        localctx = ParaCParser.DirectAbstractDeclaratorContext(
+                            self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directAbstractDeclarator)
                         self.state = 1910
                         if not self.precpred(self._ctx, 3):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 3)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 3)")
                         self.state = 1914
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1911
                             self.match(ParaCParser.WS)
                             self.state = 1916
@@ -9036,7 +9355,7 @@ class ParaCParser ( Parser ):
                         self.state = 1921
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1918
                             self.match(ParaCParser.WS)
                             self.state = 1923
@@ -9048,7 +9367,7 @@ class ParaCParser ( Parser ):
                         self.state = 1928
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1925
                             self.match(ParaCParser.WS)
                             self.state = 1930
@@ -9059,21 +9378,23 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.Static)
                         self.state = 1935
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,279,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 279,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1932
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1937
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,279,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                279, self._ctx)
 
                         self.state = 1938
                         self.assignmentExpression()
                         self.state = 1942
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1939
                             self.match(ParaCParser.WS)
                             self.state = 1944
@@ -9085,16 +9406,20 @@ class ParaCParser ( Parser ):
                         pass
 
                     elif la_ == 4:
-                        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directAbstractDeclarator)
+                        localctx = ParaCParser.DirectAbstractDeclaratorContext(
+                            self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directAbstractDeclarator)
                         self.state = 1947
                         if not self.precpred(self._ctx, 2):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 2)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 2)")
                         self.state = 1951
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1948
                             self.match(ParaCParser.WS)
                             self.state = 1953
@@ -9106,7 +9431,7 @@ class ParaCParser ( Parser ):
                         self.state = 1958
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1955
                             self.match(ParaCParser.WS)
                             self.state = 1960
@@ -9118,7 +9443,7 @@ class ParaCParser ( Parser ):
                         self.state = 1965
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1962
                             self.match(ParaCParser.WS)
                             self.state = 1967
@@ -9130,16 +9455,20 @@ class ParaCParser ( Parser ):
                         pass
 
                     elif la_ == 5:
-                        localctx = ParaCParser.DirectAbstractDeclaratorContext(self, _parentctx, _parentState)
-                        self.pushNewRecursionContext(localctx, _startState, self.RULE_directAbstractDeclarator)
+                        localctx = ParaCParser.DirectAbstractDeclaratorContext(
+                            self, _parentctx, _parentState)
+                        self.pushNewRecursionContext(localctx, _startState,
+                                                     self.RULE_directAbstractDeclarator)
                         self.state = 1969
                         if not self.precpred(self._ctx, 1):
-                            from antlr4.error.Errors import FailedPredicateException
-                            raise FailedPredicateException(self, "self.precpred(self._ctx, 1)")
+                            from antlr4.error.Errors import \
+                                FailedPredicateException
+                            raise FailedPredicateException(self,
+                                                           "self.precpred(self._ctx, 1)")
                         self.state = 1973
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1970
                             self.match(ParaCParser.WS)
                             self.state = 1975
@@ -9150,27 +9479,58 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.LeftParen)
                         self.state = 1980
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,285,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 285,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 1977
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 1982
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,285,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                285, self._ctx)
 
                         self.state = 1984
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+                        if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                                (1 << ParaCParser.Bool) | (
+                                1 << ParaCParser.Char) | (
+                                        1 << ParaCParser.Complex) | (
+                                        1 << ParaCParser.Double) | (
+                                        1 << ParaCParser.Entry) | (
+                                        1 << ParaCParser.Float) | (
+                                        1 << ParaCParser.Int) | (
+                                        1 << ParaCParser.Lambda) | (
+                                        1 << ParaCParser.Long) | (
+                                        1 << ParaCParser.Signed) | (
+                                        1 << ParaCParser.Short) | (
+                                        1 << ParaCParser.Status) | (
+                                        1 << ParaCParser.Unsigned) | (
+                                        1 << ParaCParser.Void) | (
+                                        1 << ParaCParser.Const) | (
+                                        1 << ParaCParser.Volatile) | (
+                                        1 << ParaCParser.Atomic) | (
+                                        1 << ParaCParser.Auto) | (
+                                        1 << ParaCParser.Register) | (
+                                        1 << ParaCParser.Static) | (
+                                        1 << ParaCParser.Extern) | (
+                                        1 << ParaCParser.Enum) | (
+                                        1 << ParaCParser.Restrict) | (
+                                        1 << ParaCParser.Struct) | (
+                                        1 << ParaCParser.Typeof) | (
+                                        1 << ParaCParser.Typedef) | (
+                                        1 << ParaCParser.Union) | (
+                                        1 << ParaCParser.Alignas) | (
+                                        1 << ParaCParser.Noreturn) | (
+                                        1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                             self.state = 1983
                             self.parameterTypeList()
-
 
                         self.state = 1989
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.WS:
+                        while _la == ParaCParser.WS:
                             self.state = 1986
                             self.match(ParaCParser.WS)
                             self.state = 1991
@@ -9181,10 +9541,10 @@ class ParaCParser ( Parser ):
                         self.match(ParaCParser.RightParen)
                         pass
 
-             
                 self.state = 1997
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,289,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 289,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -9194,11 +9554,11 @@ class ParaCParser ( Parser ):
             self.unrollRecursionContexts(_parentctx)
         return localctx
 
-
     class TypedefNameContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -9208,16 +9568,13 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_typedefName
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTypedefName" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTypedefName"):
                 listener.enterTypedefName(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTypedefName" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTypedefName"):
                 listener.exitTypedefName(self)
-
-
-
 
     def typedefName(self):
 
@@ -9235,17 +9592,17 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InitializerContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def assignmentExpression(self):
-            return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.AssignmentExpressionContext, 0)
 
         def LeftBrace(self):
             return self.getToken(ParaCParser.LeftBrace, 0)
@@ -9253,15 +9610,15 @@ class ParaCParser ( Parser ):
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def initializerList(self):
-            return self.getTypedRuleContext(ParaCParser.InitializerListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.InitializerListContext,
+                                            0)
 
         def Comma(self):
             return self.getToken(ParaCParser.Comma, 0)
@@ -9269,27 +9626,31 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_initializer
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInitializer" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInitializer"):
                 listener.enterInitializer(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInitializer" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInitializer"):
                 listener.exitInitializer(self)
-
-
-
 
     def initializer(self):
 
         localctx = ParaCParser.InitializerContext(self, self._ctx, self.state)
         self.enterRule(localctx, 122, self.RULE_initializer)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2027
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCParser.Spawn, ParaCParser.Sizeof, ParaCParser.Alignof, ParaCParser.LeftParen, ParaCParser.Plus, ParaCParser.PlusPlus, ParaCParser.Minus, ParaCParser.MinusMinus, ParaCParser.Star, ParaCParser.And, ParaCParser.Not, ParaCParser.Tilde, ParaCParser.Identifier, ParaCParser.Constant, ParaCParser.DigitSequence, ParaCParser.StringLiteral, ParaCParser.WS]:
+            if token in [ParaCParser.Spawn, ParaCParser.Sizeof,
+                         ParaCParser.Alignof, ParaCParser.LeftParen,
+                         ParaCParser.Plus, ParaCParser.PlusPlus,
+                         ParaCParser.Minus, ParaCParser.MinusMinus,
+                         ParaCParser.Star, ParaCParser.And, ParaCParser.Not,
+                         ParaCParser.Tilde, ParaCParser.Identifier,
+                         ParaCParser.Constant, ParaCParser.DigitSequence,
+                         ParaCParser.StringLiteral, ParaCParser.WS]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 2000
                 self.assignmentExpression()
@@ -9300,46 +9661,48 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftBrace)
                 self.state = 2005
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,290,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 290,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2002
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2007
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,290,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 290,
+                                                        self._ctx)
 
                 self.state = 2009
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,291,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 291, self._ctx)
                 if la_ == 1:
                     self.state = 2008
                     self.initializerList()
 
-
                 self.state = 2014
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,292,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 292,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2011
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2016
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,292,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 292,
+                                                        self._ctx)
 
                 self.state = 2018
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.Comma:
+                if _la == ParaCParser.Comma:
                     self.state = 2017
                     self.match(ParaCParser.Comma)
-
 
                 self.state = 2023
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2020
                     self.match(ParaCParser.WS)
                     self.state = 2025
@@ -9360,35 +9723,37 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class InitializerListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def initializer(self, i:int=None):
+        def initializer(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.InitializerContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.InitializerContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.InitializerContext,i)
+                return self.getTypedRuleContext(ParaCParser.InitializerContext,
+                                                i)
 
-
-        def designation(self, i:int=None):
+        def designation(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.DesignationContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.DesignationContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.DesignationContext,i)
+                return self.getTypedRuleContext(ParaCParser.DesignationContext,
+                                                i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -9397,109 +9762,114 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_initializerList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterInitializerList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterInitializerList"):
                 listener.enterInitializerList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitInitializerList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitInitializerList"):
                 listener.exitInitializerList(self)
-
-
-
 
     def initializerList(self):
 
-        localctx = ParaCParser.InitializerListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.InitializerListContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 124, self.RULE_initializerList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2030
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.LeftBracket or _la==ParaCParser.Dot:
+            if _la == ParaCParser.LeftBracket or _la == ParaCParser.Dot:
                 self.state = 2029
                 self.designation()
 
-
             self.state = 2035
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,297,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 297, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2032
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2037
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,297,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 297,
+                                                    self._ctx)
 
             self.state = 2038
             self.initializer()
             self.state = 2042
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,298,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 298, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2039
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2044
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,298,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 298,
+                                                    self._ctx)
 
             self.state = 2070
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,303,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 303, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2045
                     self.match(ParaCParser.Comma)
                     self.state = 2049
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,299,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 299,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2046
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2051
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,299,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 299,
+                                                            self._ctx)
 
                     self.state = 2053
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    if _la==ParaCParser.LeftBracket or _la==ParaCParser.Dot:
+                    if _la == ParaCParser.LeftBracket or _la == ParaCParser.Dot:
                         self.state = 2052
                         self.designation()
 
-
                     self.state = 2058
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,301,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 301,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2055
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2060
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,301,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 301,
+                                                            self._ctx)
 
                     self.state = 2061
                     self.initializer()
                     self.state = 2065
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,302,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 302,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2062
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2067
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,302,self._ctx)
-             
+                        _alt = self._interp.adaptivePredict(self._input, 302,
+                                                            self._ctx)
+
                 self.state = 2072
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,303,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 303,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -9509,22 +9879,22 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DesignationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def designatorList(self):
-            return self.getTypedRuleContext(ParaCParser.DesignatorListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.DesignatorListContext,
+                                            0)
 
         def Assign(self):
             return self.getToken(ParaCParser.Assign, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -9533,22 +9903,19 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_designation
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDesignation" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDesignation"):
                 listener.enterDesignation(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDesignation" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDesignation"):
                 listener.exitDesignation(self)
-
-
-
 
     def designation(self):
 
         localctx = ParaCParser.DesignationContext(self, self._ctx, self.state)
         self.enterRule(localctx, 126, self.RULE_designation)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2073
@@ -9556,7 +9923,7 @@ class ParaCParser ( Parser ):
             self.state = 2077
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2074
                 self.match(ParaCParser.WS)
                 self.state = 2079
@@ -9573,52 +9940,51 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DesignatorListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def designator(self, i:int=None):
+        def designator(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.DesignatorContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.DesignatorContext,i)
-
+                return self.getTypedRuleContext(ParaCParser.DesignatorContext,
+                                                i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_designatorList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDesignatorList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDesignatorList"):
                 listener.enterDesignatorList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDesignatorList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDesignatorList"):
                 listener.exitDesignatorList(self)
-
-
-
 
     def designatorList(self):
 
-        localctx = ParaCParser.DesignatorListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.DesignatorListContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 128, self.RULE_designatorList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 2083 
+            self.state = 2083
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 2082
                 self.designator()
-                self.state = 2085 
+                self.state = 2085
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCParser.LeftBracket or _la==ParaCParser.Dot):
+                if not (
+                        _la == ParaCParser.LeftBracket or _la == ParaCParser.Dot):
                     break
 
         except RecognitionException as re:
@@ -9629,11 +9995,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DesignatorContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -9641,13 +10007,13 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftBracket, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
         def RightBracket(self):
             return self.getToken(ParaCParser.RightBracket, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -9662,22 +10028,19 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_designator
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDesignator" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDesignator"):
                 listener.enterDesignator(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDesignator" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDesignator"):
                 listener.exitDesignator(self)
-
-
-
 
     def designator(self):
 
         localctx = ParaCParser.DesignatorContext(self, self._ctx, self.state)
         self.enterRule(localctx, 130, self.RULE_designator)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2111
             self._errHandler.sync(self)
@@ -9688,21 +10051,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftBracket)
                 self.state = 2091
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,306,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 306,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2088
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2093
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,306,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 306,
+                                                        self._ctx)
 
                 self.state = 2094
                 self.constantExpression()
                 self.state = 2098
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2095
                     self.match(ParaCParser.WS)
                     self.state = 2100
@@ -9719,7 +10084,7 @@ class ParaCParser ( Parser ):
                 self.state = 2107
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2104
                     self.match(ParaCParser.WS)
                     self.state = 2109
@@ -9740,11 +10105,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StaticAssertDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -9755,8 +10120,8 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
         def Comma(self):
             return self.getToken(ParaCParser.Comma, 0)
@@ -9765,16 +10130,15 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def StringLiteral(self, i:int=None):
+        def StringLiteral(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.StringLiteral)
             else:
@@ -9783,22 +10147,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_staticAssertDeclaration
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStaticAssertDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStaticAssertDeclaration"):
                 listener.enterStaticAssertDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStaticAssertDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStaticAssertDeclaration"):
                 listener.exitStaticAssertDeclaration(self)
-
-
-
 
     def staticAssertDeclaration(self):
 
-        localctx = ParaCParser.StaticAssertDeclarationContext(self, self._ctx, self.state)
+        localctx = ParaCParser.StaticAssertDeclarationContext(self, self._ctx,
+                                                              self.state)
         self.enterRule(localctx, 132, self.RULE_staticAssertDeclaration)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2113
@@ -9806,7 +10168,7 @@ class ParaCParser ( Parser ):
             self.state = 2117
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2114
                 self.match(ParaCParser.WS)
                 self.state = 2119
@@ -9817,21 +10179,22 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.LeftParen)
             self.state = 2124
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,311,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 311, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2121
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2126
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,311,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 311,
+                                                    self._ctx)
 
             self.state = 2127
             self.constantExpression()
             self.state = 2131
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2128
                 self.match(ParaCParser.WS)
                 self.state = 2133
@@ -9843,29 +10206,29 @@ class ParaCParser ( Parser ):
             self.state = 2138
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2135
                 self.match(ParaCParser.WS)
                 self.state = 2140
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 2142 
+            self.state = 2142
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 2141
                 self.match(ParaCParser.StringLiteral)
-                self.state = 2144 
+                self.state = 2144
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCParser.StringLiteral):
+                if not (_la == ParaCParser.StringLiteral):
                     break
 
             self.state = 2149
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2146
                 self.match(ParaCParser.WS)
                 self.state = 2151
@@ -9884,41 +10247,41 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def labeledStatement(self):
-            return self.getTypedRuleContext(ParaCParser.LabeledStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.LabeledStatementContext, 0)
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
         def expressionStatement(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ExpressionStatementContext, 0)
 
         def tryExceptStatement(self):
-            return self.getTypedRuleContext(ParaCParser.TryExceptStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.TryExceptStatementContext, 0)
 
         def selectionStatement(self):
-            return self.getTypedRuleContext(ParaCParser.SelectionStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.SelectionStatementContext, 0)
 
         def iterationStatement(self):
-            return self.getTypedRuleContext(ParaCParser.IterationStatementContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.IterationStatementContext, 0)
 
         def jumpStatement(self):
-            return self.getTypedRuleContext(ParaCParser.JumpStatementContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.JumpStatementContext,
+                                            0)
 
         def LeftParen(self):
             return self.getToken(ParaCParser.LeftParen, 0)
@@ -9927,29 +10290,29 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def logicalOrExpression(self, i:int=None):
+        def logicalOrExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.LogicalOrExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.LogicalOrExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.LogicalOrExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.LogicalOrExpressionContext, i)
 
-
-        def Colon(self, i:int=None):
+        def Colon(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Colon)
             else:
                 return self.getToken(ParaCParser.Colon, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -9958,26 +10321,23 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_statement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStatement"):
                 listener.enterStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStatement"):
                 listener.exitStatement(self)
-
-
-
 
     def statement(self):
 
         localctx = ParaCParser.StatementContext(self, self._ctx, self.state)
         self.enterRule(localctx, 134, self.RULE_statement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2245
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,330,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 330, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 2155
@@ -10026,137 +10386,150 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2166
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,316,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 316,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2163
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2168
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,316,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 316,
+                                                        self._ctx)
 
                 self.state = 2195
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,321,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 321, self._ctx)
                 if la_ == 1:
                     self.state = 2169
                     self.logicalOrExpression()
                     self.state = 2173
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,317,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 317,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2170
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2175
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,317,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 317,
+                                                            self._ctx)
 
                     self.state = 2192
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.Comma:
+                    while _la == ParaCParser.Comma:
                         self.state = 2176
                         self.match(ParaCParser.Comma)
                         self.state = 2180
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,318,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 318,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 2177
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 2182
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,318,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                318, self._ctx)
 
                         self.state = 2183
                         self.logicalOrExpression()
                         self.state = 2187
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,319,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 319,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 2184
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 2189
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,319,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                319, self._ctx)
 
                         self.state = 2194
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
 
-
-
                 self.state = 2200
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,322,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 322,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2197
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2202
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,322,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 322,
+                                                        self._ctx)
 
                 self.state = 2234
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.Colon:
+                while _la == ParaCParser.Colon:
                     self.state = 2203
                     self.match(ParaCParser.Colon)
                     self.state = 2207
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,323,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 323,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2204
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2209
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,323,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 323,
+                                                            self._ctx)
 
                     self.state = 2230
                     self._errHandler.sync(self)
-                    la_ = self._interp.adaptivePredict(self._input,327,self._ctx)
+                    la_ = self._interp.adaptivePredict(self._input, 327,
+                                                       self._ctx)
                     if la_ == 1:
                         self.state = 2210
                         self.logicalOrExpression()
                         self.state = 2214
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,324,self._ctx)
-                        while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                            if _alt==1:
+                        _alt = self._interp.adaptivePredict(self._input, 324,
+                                                            self._ctx)
+                        while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                            if _alt == 1:
                                 self.state = 2211
-                                self.match(ParaCParser.WS) 
+                                self.match(ParaCParser.WS)
                             self.state = 2216
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,324,self._ctx)
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                324, self._ctx)
 
                         self.state = 2227
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        while _la==ParaCParser.Comma:
+                        while _la == ParaCParser.Comma:
                             self.state = 2217
                             self.match(ParaCParser.Comma)
                             self.state = 2221
                             self._errHandler.sync(self)
-                            _alt = self._interp.adaptivePredict(self._input,325,self._ctx)
-                            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                                if _alt==1:
+                            _alt = self._interp.adaptivePredict(self._input,
+                                                                325, self._ctx)
+                            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                                if _alt == 1:
                                     self.state = 2218
-                                    self.match(ParaCParser.WS) 
+                                    self.match(ParaCParser.WS)
                                 self.state = 2223
                                 self._errHandler.sync(self)
-                                _alt = self._interp.adaptivePredict(self._input,325,self._ctx)
+                                _alt = self._interp.adaptivePredict(
+                                    self._input, 325, self._ctx)
 
                             self.state = 2224
                             self.logicalOrExpression()
                             self.state = 2229
                             self._errHandler.sync(self)
                             _la = self._input.LA(1)
-
-
 
                     self.state = 2236
                     self._errHandler.sync(self)
@@ -10165,7 +10538,7 @@ class ParaCParser ( Parser ):
                 self.state = 2240
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2237
                     self.match(ParaCParser.WS)
                     self.state = 2242
@@ -10187,11 +10560,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LabeledStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -10199,17 +10572,16 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Case, 0)
 
         def constantExpression(self):
-            return self.getTypedRuleContext(ParaCParser.ConstantExpressionContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.ConstantExpressionContext, 0)
 
         def Colon(self):
             return self.getToken(ParaCParser.Colon, 0)
 
         def statement(self):
-            return self.getTypedRuleContext(ParaCParser.StatementContext,0)
+            return self.getTypedRuleContext(ParaCParser.StatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -10221,22 +10593,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_labeledStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLabeledStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLabeledStatement"):
                 listener.enterLabeledStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLabeledStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLabeledStatement"):
                 listener.exitLabeledStatement(self)
-
-
-
 
     def labeledStatement(self):
 
-        localctx = ParaCParser.LabeledStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.LabeledStatementContext(self, self._ctx,
+                                                       self.state)
         self.enterRule(localctx, 136, self.RULE_labeledStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2285
             self._errHandler.sync(self)
@@ -10247,21 +10617,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Case)
                 self.state = 2251
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,331,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 331,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2248
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2253
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,331,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 331,
+                                                        self._ctx)
 
                 self.state = 2254
                 self.constantExpression()
                 self.state = 2258
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2255
                     self.match(ParaCParser.WS)
                     self.state = 2260
@@ -10272,14 +10644,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Colon)
                 self.state = 2265
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,333,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 333,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2262
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2267
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,333,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 333,
+                                                        self._ctx)
 
                 self.state = 2268
                 self.statement()
@@ -10291,7 +10665,7 @@ class ParaCParser ( Parser ):
                 self.state = 2274
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2271
                     self.match(ParaCParser.WS)
                     self.state = 2276
@@ -10302,14 +10676,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Colon)
                 self.state = 2281
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,335,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 335,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2278
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2283
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,335,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 335,
+                                                        self._ctx)
 
                 self.state = 2284
                 self.statement()
@@ -10325,11 +10701,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CompoundStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -10339,62 +10715,60 @@ class ParaCParser ( Parser ):
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def blockItemList(self):
-            return self.getTypedRuleContext(ParaCParser.BlockItemListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.BlockItemListContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_compoundStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCompoundStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCompoundStatement"):
                 listener.enterCompoundStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCompoundStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCompoundStatement"):
                 listener.exitCompoundStatement(self)
-
-
-
 
     def compoundStatement(self):
 
-        localctx = ParaCParser.CompoundStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.CompoundStatementContext(self, self._ctx,
+                                                        self.state)
         self.enterRule(localctx, 138, self.RULE_compoundStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2287
             self.match(ParaCParser.LeftBrace)
             self.state = 2291
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,337,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 337, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2288
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2293
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,337,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 337,
+                                                    self._ctx)
 
             self.state = 2295
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,338,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 338, self._ctx)
             if la_ == 1:
                 self.state = 2294
                 self.blockItemList()
 
-
             self.state = 2300
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2297
                 self.match(ParaCParser.WS)
                 self.state = 2302
@@ -10411,54 +10785,53 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class BlockItemListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def blockItem(self, i:int=None):
+        def blockItem(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.BlockItemContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.BlockItemContext,i)
-
+                return self.getTypedRuleContext(ParaCParser.BlockItemContext,
+                                                i)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_blockItemList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlockItemList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterBlockItemList"):
                 listener.enterBlockItemList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlockItemList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitBlockItemList"):
                 listener.exitBlockItemList(self)
-
-
-
 
     def blockItemList(self):
 
-        localctx = ParaCParser.BlockItemListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.BlockItemListContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 140, self.RULE_blockItemList)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 2306 
+            self.state = 2306
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 2305
                     self.blockItem()
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 2308 
+                self.state = 2308
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,340,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 340,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -10468,23 +10841,21 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class BlockItemContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def statement(self):
-            return self.getTypedRuleContext(ParaCParser.StatementContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.StatementContext, 0)
 
         def declaration(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclarationContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -10493,16 +10864,13 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_blockItem
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterBlockItem" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterBlockItem"):
                 listener.enterBlockItem(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitBlockItem" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitBlockItem"):
                 listener.exitBlockItem(self)
-
-
-
 
     def blockItem(self):
 
@@ -10512,18 +10880,19 @@ class ParaCParser ( Parser ):
             self.enterOuterAlt(localctx, 1)
             self.state = 2313
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,341,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 341, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2310
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2315
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,341,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 341,
+                                                    self._ctx)
 
             self.state = 2318
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,342,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 342, self._ctx)
             if la_ == 1:
                 self.state = 2316
                 self.statement()
@@ -10534,17 +10903,17 @@ class ParaCParser ( Parser ):
                 self.declaration()
                 pass
 
-
             self.state = 2323
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,343,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 343, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2320
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2325
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,343,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 343,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -10554,50 +10923,62 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExpressionStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_expressionStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExpressionStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExpressionStatement"):
                 listener.enterExpressionStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExpressionStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExpressionStatement"):
                 listener.exitExpressionStatement(self)
-
-
-
 
     def expressionStatement(self):
 
-        localctx = ParaCParser.ExpressionStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExpressionStatementContext(self, self._ctx,
+                                                          self.state)
         self.enterRule(localctx, 144, self.RULE_expressionStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2327
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (1 << ParaCParser.Alignof) | (1 << ParaCParser.LeftParen) | (1 << ParaCParser.Plus) | (1 << ParaCParser.PlusPlus) | (1 << ParaCParser.Minus))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (ParaCParser.MinusMinus - 64)) | (1 << (ParaCParser.Star - 64)) | (1 << (ParaCParser.And - 64)) | (1 << (ParaCParser.Not - 64)) | (1 << (ParaCParser.Tilde - 64)) | (1 << (ParaCParser.Identifier - 64)) | (1 << (ParaCParser.Constant - 64)) | (1 << (ParaCParser.DigitSequence - 64)) | (1 << (ParaCParser.StringLiteral - 64)) | (1 << (ParaCParser.WS - 64)))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (
+                    1 << ParaCParser.Alignof) | (
+                            1 << ParaCParser.LeftParen) | (
+                            1 << ParaCParser.Plus) | (
+                            1 << ParaCParser.PlusPlus) | (
+                            1 << ParaCParser.Minus))) != 0) or (
+                    (((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & (
+                    (1 << (ParaCParser.MinusMinus - 64)) | (
+                    1 << (ParaCParser.Star - 64)) | (
+                            1 << (ParaCParser.And - 64)) | (
+                            1 << (ParaCParser.Not - 64)) | (
+                            1 << (ParaCParser.Tilde - 64)) | (
+                            1 << (ParaCParser.Identifier - 64)) | (
+                            1 << (ParaCParser.Constant - 64)) | (
+                            1 << (ParaCParser.DigitSequence - 64)) | (
+                            1 << (ParaCParser.StringLiteral - 64)) | (
+                            1 << (ParaCParser.WS - 64)))) != 0):
                 self.state = 2326
                 self.expression()
-
 
             self.state = 2329
             self.endOfItem()
@@ -10609,58 +10990,55 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TryExceptStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def exceptBlock(self, i:int=None):
+        def exceptBlock(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ExceptBlockContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ExceptBlockContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ExceptBlockContext,i)
-
+                return self.getTypedRuleContext(ParaCParser.ExceptBlockContext,
+                                                i)
 
         def finallyBlock(self):
-            return self.getTypedRuleContext(ParaCParser.FinallyBlockContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.FinallyBlockContext, 0)
 
         def elseBlock(self):
-            return self.getTypedRuleContext(ParaCParser.ElseBlockContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ElseBlockContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_tryExceptStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTryExceptStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTryExceptStatement"):
                 listener.enterTryExceptStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTryExceptStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTryExceptStatement"):
                 listener.exitTryExceptStatement(self)
-
-
-
 
     def tryExceptStatement(self):
 
-        localctx = ParaCParser.TryExceptStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.TryExceptStatementContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 146, self.RULE_tryExceptStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2331
@@ -10668,7 +11046,7 @@ class ParaCParser ( Parser ):
             self.state = 2335
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2332
                 self.match(ParaCParser.WS)
                 self.state = 2337
@@ -10680,71 +11058,75 @@ class ParaCParser ( Parser ):
             self.state = 2342
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2339
                 self.match(ParaCParser.WS)
                 self.state = 2344
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
 
-            self.state = 2346 
+            self.state = 2346
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 2345
                 self.exceptBlock()
-                self.state = 2348 
+                self.state = 2348
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCParser.T__1):
+                if not (_la == ParaCParser.T__1):
                     break
 
             self.state = 2353
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,348,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 348, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2350
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2355
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,348,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 348,
+                                                    self._ctx)
 
             self.state = 2388
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,355,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 355, self._ctx)
             if la_ == 1:
                 self.state = 2356
                 self.finallyBlock()
                 self.state = 2360
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,349,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 349,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2357
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2362
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,349,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 349,
+                                                        self._ctx)
 
                 self.state = 2364
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,350,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 350, self._ctx)
                 if la_ == 1:
                     self.state = 2363
                     self.elseBlock()
 
-
                 self.state = 2369
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,351,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 351,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2366
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2371
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,351,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 351,
+                                                        self._ctx)
 
 
             elif la_ == 2:
@@ -10752,33 +11134,36 @@ class ParaCParser ( Parser ):
                 self.elseBlock()
                 self.state = 2376
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,352,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 352,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2373
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2378
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,352,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 352,
+                                                        self._ctx)
 
                 self.state = 2380
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if _la==ParaCParser.T__2:
+                if _la == ParaCParser.T__2:
                     self.state = 2379
                     self.finallyBlock()
 
-
                 self.state = 2385
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,354,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 354,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2382
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2387
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,354,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 354,
+                                                        self._ctx)
 
 
 
@@ -10790,11 +11175,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExceptBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -10805,20 +11190,20 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-
-        def Identifier(self, i:int=None):
+        def Identifier(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Identifier)
             else:
                 return self.getToken(ParaCParser.Identifier, i)
 
         def identifierList(self):
-            return self.getTypedRuleContext(ParaCParser.IdentifierListContext,0)
+            return self.getTypedRuleContext(ParaCParser.IdentifierListContext,
+                                            0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -10830,22 +11215,19 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_exceptBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExceptBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExceptBlock"):
                 listener.enterExceptBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExceptBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExceptBlock"):
                 listener.exitExceptBlock(self)
-
-
-
 
     def exceptBlock(self):
 
         localctx = ParaCParser.ExceptBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 148, self.RULE_exceptBlock)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2390
@@ -10853,7 +11235,7 @@ class ParaCParser ( Parser ):
             self.state = 2394
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2391
                 self.match(ParaCParser.WS)
                 self.state = 2396
@@ -10865,7 +11247,7 @@ class ParaCParser ( Parser ):
             self.state = 2401
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2398
                 self.match(ParaCParser.WS)
                 self.state = 2403
@@ -10874,7 +11256,7 @@ class ParaCParser ( Parser ):
 
             self.state = 2406
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,358,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 358, self._ctx)
             if la_ == 1:
                 self.state = 2404
                 self.match(ParaCParser.Identifier)
@@ -10885,11 +11267,10 @@ class ParaCParser ( Parser ):
                 self.identifierList()
                 pass
 
-
             self.state = 2411
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2408
                 self.match(ParaCParser.WS)
                 self.state = 2413
@@ -10900,25 +11281,26 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.RightParen)
             self.state = 2418
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,360,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 360, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2415
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2420
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,360,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 360,
+                                                    self._ctx)
 
             self.state = 2429
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.As:
+            if _la == ParaCParser.As:
                 self.state = 2421
                 self.match(ParaCParser.As)
                 self.state = 2425
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2422
                     self.match(ParaCParser.WS)
                     self.state = 2427
@@ -10928,11 +11310,10 @@ class ParaCParser ( Parser ):
                 self.state = 2428
                 self.match(ParaCParser.Identifier)
 
-
             self.state = 2434
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2431
                 self.match(ParaCParser.WS)
                 self.state = 2436
@@ -10949,19 +11330,19 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FinallyBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -10970,22 +11351,19 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_finallyBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFinallyBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFinallyBlock"):
                 listener.enterFinallyBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFinallyBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFinallyBlock"):
                 listener.exitFinallyBlock(self)
-
-
-
 
     def finallyBlock(self):
 
         localctx = ParaCParser.FinallyBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 150, self.RULE_finallyBlock)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2439
@@ -10993,7 +11371,7 @@ class ParaCParser ( Parser ):
             self.state = 2443
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2440
                 self.match(ParaCParser.WS)
                 self.state = 2445
@@ -11010,11 +11388,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ElseBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -11022,10 +11400,10 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Else, 0)
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -11034,22 +11412,19 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_elseBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElseBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterElseBlock"):
                 listener.enterElseBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElseBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitElseBlock"):
                 listener.exitElseBlock(self)
-
-
-
 
     def elseBlock(self):
 
         localctx = ParaCParser.ElseBlockContext(self, self._ctx, self.state)
         self.enterRule(localctx, 152, self.RULE_elseBlock)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2448
@@ -11057,7 +11432,7 @@ class ParaCParser ( Parser ):
             self.state = 2452
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2449
                 self.match(ParaCParser.WS)
                 self.state = 2454
@@ -11074,11 +11449,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SelectionStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -11089,20 +11464,19 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
-        def statement(self, i:int=None):
+        def statement(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.StatementContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.StatementContext,i)
+                return self.getTypedRuleContext(ParaCParser.StatementContext,
+                                                i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -11117,22 +11491,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_selectionStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSelectionStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSelectionStatement"):
                 listener.enterSelectionStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSelectionStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSelectionStatement"):
                 listener.exitSelectionStatement(self)
-
-
-
 
     def selectionStatement(self):
 
-        localctx = ParaCParser.SelectionStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.SelectionStatementContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 154, self.RULE_selectionStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2532
             self._errHandler.sync(self)
@@ -11144,7 +11516,7 @@ class ParaCParser ( Parser ):
                 self.state = 2461
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2458
                     self.match(ParaCParser.WS)
                     self.state = 2463
@@ -11155,21 +11527,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2468
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,367,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 367,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2465
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2470
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,367,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 367,
+                                                        self._ctx)
 
                 self.state = 2471
                 self.expression()
                 self.state = 2475
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2472
                     self.match(ParaCParser.WS)
                     self.state = 2477
@@ -11180,48 +11554,53 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 self.state = 2482
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,369,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 369,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2479
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2484
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,369,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 369,
+                                                        self._ctx)
 
                 self.state = 2485
                 self.statement()
                 self.state = 2489
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,370,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 370,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2486
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2491
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,370,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 370,
+                                                        self._ctx)
 
                 self.state = 2500
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,372,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 372, self._ctx)
                 if la_ == 1:
                     self.state = 2492
                     self.match(ParaCParser.Else)
                     self.state = 2496
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,371,self._ctx)
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                        if _alt==1:
+                    _alt = self._interp.adaptivePredict(self._input, 371,
+                                                        self._ctx)
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                        if _alt == 1:
                             self.state = 2493
-                            self.match(ParaCParser.WS) 
+                            self.match(ParaCParser.WS)
                         self.state = 2498
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,371,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 371,
+                                                            self._ctx)
 
                     self.state = 2499
                     self.statement()
-
 
                 pass
             elif token in [ParaCParser.Switch]:
@@ -11231,7 +11610,7 @@ class ParaCParser ( Parser ):
                 self.state = 2506
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2503
                     self.match(ParaCParser.WS)
                     self.state = 2508
@@ -11242,21 +11621,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2513
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,374,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 374,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2510
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2515
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,374,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 374,
+                                                        self._ctx)
 
                 self.state = 2516
                 self.expression()
                 self.state = 2520
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2517
                     self.match(ParaCParser.WS)
                     self.state = 2522
@@ -11267,14 +11648,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 self.state = 2527
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,376,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 376,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2524
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2529
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,376,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 376,
+                                                        self._ctx)
 
                 self.state = 2530
                 self.statement()
@@ -11290,11 +11673,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IterationStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -11305,17 +11688,15 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.LeftParen, 0)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def RightParen(self):
             return self.getToken(ParaCParser.RightParen, 0)
 
         def statement(self):
-            return self.getTypedRuleContext(ParaCParser.StatementContext,0)
+            return self.getTypedRuleContext(ParaCParser.StatementContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -11325,35 +11706,31 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Do, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
         def For(self):
             return self.getToken(ParaCParser.For, 0)
 
         def forCondition(self):
-            return self.getTypedRuleContext(ParaCParser.ForConditionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ForConditionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_iterationStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIterationStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIterationStatement"):
                 listener.enterIterationStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIterationStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIterationStatement"):
                 listener.exitIterationStatement(self)
-
-
-
 
     def iterationStatement(self):
 
-        localctx = ParaCParser.IterationStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.IterationStatementContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 156, self.RULE_iterationStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2632
             self._errHandler.sync(self)
@@ -11365,7 +11742,7 @@ class ParaCParser ( Parser ):
                 self.state = 2538
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2535
                     self.match(ParaCParser.WS)
                     self.state = 2540
@@ -11376,21 +11753,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2545
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,379,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 379,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2542
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2547
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,379,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 379,
+                                                        self._ctx)
 
                 self.state = 2548
                 self.expression()
                 self.state = 2552
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2549
                     self.match(ParaCParser.WS)
                     self.state = 2554
@@ -11401,14 +11780,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 self.state = 2559
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,381,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 381,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2556
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2561
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,381,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 381,
+                                                        self._ctx)
 
                 self.state = 2562
                 self.statement()
@@ -11419,21 +11800,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Do)
                 self.state = 2568
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,382,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 382,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2565
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2570
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,382,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 382,
+                                                        self._ctx)
 
                 self.state = 2571
                 self.statement()
                 self.state = 2575
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2572
                     self.match(ParaCParser.WS)
                     self.state = 2577
@@ -11445,7 +11828,7 @@ class ParaCParser ( Parser ):
                 self.state = 2582
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2579
                     self.match(ParaCParser.WS)
                     self.state = 2584
@@ -11456,21 +11839,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2589
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,385,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 385,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2586
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2591
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,385,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 385,
+                                                        self._ctx)
 
                 self.state = 2592
                 self.expression()
                 self.state = 2596
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2593
                     self.match(ParaCParser.WS)
                     self.state = 2598
@@ -11489,7 +11874,7 @@ class ParaCParser ( Parser ):
                 self.state = 2606
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2603
                     self.match(ParaCParser.WS)
                     self.state = 2608
@@ -11500,21 +11885,23 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.LeftParen)
                 self.state = 2613
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,388,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 388,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2610
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2615
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,388,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 388,
+                                                        self._ctx)
 
                 self.state = 2616
                 self.forCondition()
                 self.state = 2620
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2617
                     self.match(ParaCParser.WS)
                     self.state = 2622
@@ -11525,14 +11912,16 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.RightParen)
                 self.state = 2627
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,390,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 390,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2624
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2629
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,390,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 390,
+                                                        self._ctx)
 
                 self.state = 2630
                 self.statement()
@@ -11548,60 +11937,57 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ForConditionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def endOfItem(self, i:int=None):
+        def endOfItem(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.EndOfItemContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.EndOfItemContext,i)
-
+                return self.getTypedRuleContext(ParaCParser.EndOfItemContext,
+                                                i)
 
         def forDeclaration(self):
-            return self.getTypedRuleContext(ParaCParser.ForDeclarationContext,0)
+            return self.getTypedRuleContext(ParaCParser.ForDeclarationContext,
+                                            0)
 
-
-        def forExpression(self, i:int=None):
+        def forExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ForExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ForExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ForExpressionContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCParser.ForExpressionContext, i)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_forCondition
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterForCondition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterForCondition"):
                 listener.enterForCondition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitForCondition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitForCondition"):
                 listener.exitForCondition(self)
-
-
-
 
     def forCondition(self):
 
         localctx = ParaCParser.ForConditionContext(self, self._ctx, self.state)
         self.enterRule(localctx, 158, self.RULE_forCondition)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2638
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,393,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 393, self._ctx)
             if la_ == 1:
                 self.state = 2634
                 self.forDeclaration()
@@ -11611,29 +11997,61 @@ class ParaCParser ( Parser ):
                 self.state = 2636
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (1 << ParaCParser.Alignof) | (1 << ParaCParser.LeftParen) | (1 << ParaCParser.Plus) | (1 << ParaCParser.PlusPlus) | (1 << ParaCParser.Minus))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (ParaCParser.MinusMinus - 64)) | (1 << (ParaCParser.Star - 64)) | (1 << (ParaCParser.And - 64)) | (1 << (ParaCParser.Not - 64)) | (1 << (ParaCParser.Tilde - 64)) | (1 << (ParaCParser.Identifier - 64)) | (1 << (ParaCParser.Constant - 64)) | (1 << (ParaCParser.DigitSequence - 64)) | (1 << (ParaCParser.StringLiteral - 64)) | (1 << (ParaCParser.WS - 64)))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Spawn) | (
+                        1 << ParaCParser.Sizeof) | (
+                                1 << ParaCParser.Alignof) | (
+                                1 << ParaCParser.LeftParen) | (
+                                1 << ParaCParser.Plus) | (
+                                1 << ParaCParser.PlusPlus) | (
+                                1 << ParaCParser.Minus))) != 0) or (
+                        (((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & (
+                        (1 << (ParaCParser.MinusMinus - 64)) | (
+                        1 << (ParaCParser.Star - 64)) | (
+                                1 << (ParaCParser.And - 64)) | (
+                                1 << (ParaCParser.Not - 64)) | (
+                                1 << (ParaCParser.Tilde - 64)) | (
+                                1 << (ParaCParser.Identifier - 64)) | (
+                                1 << (ParaCParser.Constant - 64)) | (
+                                1 << (ParaCParser.DigitSequence - 64)) | (
+                                1 << (ParaCParser.StringLiteral - 64)) | (
+                                1 << (ParaCParser.WS - 64)))) != 0):
                     self.state = 2635
                     self.expression()
 
-
                 pass
-
 
             self.state = 2640
             self.endOfItem()
             self.state = 2642
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (1 << ParaCParser.Alignof) | (1 << ParaCParser.LeftParen) | (1 << ParaCParser.Plus) | (1 << ParaCParser.PlusPlus) | (1 << ParaCParser.Minus))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (ParaCParser.MinusMinus - 64)) | (1 << (ParaCParser.Star - 64)) | (1 << (ParaCParser.And - 64)) | (1 << (ParaCParser.Not - 64)) | (1 << (ParaCParser.Tilde - 64)) | (1 << (ParaCParser.Identifier - 64)) | (1 << (ParaCParser.Constant - 64)) | (1 << (ParaCParser.DigitSequence - 64)) | (1 << (ParaCParser.StringLiteral - 64)) | (1 << (ParaCParser.WS - 64)))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (
+                    1 << ParaCParser.Alignof) | (
+                            1 << ParaCParser.LeftParen) | (
+                            1 << ParaCParser.Plus) | (
+                            1 << ParaCParser.PlusPlus) | (
+                            1 << ParaCParser.Minus))) != 0) or (
+                    (((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & (
+                    (1 << (ParaCParser.MinusMinus - 64)) | (
+                    1 << (ParaCParser.Star - 64)) | (
+                            1 << (ParaCParser.And - 64)) | (
+                            1 << (ParaCParser.Not - 64)) | (
+                            1 << (ParaCParser.Tilde - 64)) | (
+                            1 << (ParaCParser.Identifier - 64)) | (
+                            1 << (ParaCParser.Constant - 64)) | (
+                            1 << (ParaCParser.DigitSequence - 64)) | (
+                            1 << (ParaCParser.StringLiteral - 64)) | (
+                            1 << (ParaCParser.WS - 64)))) != 0):
                 self.state = 2641
                 self.forExpression()
-
 
             self.state = 2644
             self.endOfItem()
             self.state = 2646
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,395,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 395, self._ctx)
             if la_ == 1:
                 self.state = 2645
                 self.forExpression()
@@ -11647,66 +12065,70 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ForDeclarationContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def declarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationSpecifiersContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.DeclarationSpecifiersContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def initDeclaratorList(self):
-            return self.getTypedRuleContext(ParaCParser.InitDeclaratorListContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.InitDeclaratorListContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_forDeclaration
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterForDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterForDeclaration"):
                 listener.enterForDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitForDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitForDeclaration"):
                 listener.exitForDeclaration(self)
-
-
-
 
     def forDeclaration(self):
 
-        localctx = ParaCParser.ForDeclarationContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ForDeclarationContext(self, self._ctx,
+                                                     self.state)
         self.enterRule(localctx, 160, self.RULE_forDeclaration)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2648
             self.declarationSpecifiers()
             self.state = 2652
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,396,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 396, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2649
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2654
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,396,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 396,
+                                                    self._ctx)
 
             self.state = 2656
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & ((1 << (ParaCParser.LeftParen - 53)) | (1 << (ParaCParser.Star - 53)) | (1 << (ParaCParser.Caret - 53)) | (1 << (ParaCParser.Identifier - 53)) | (1 << (ParaCParser.WS - 53)))) != 0):
+            if ((((_la - 53)) & ~0x3f) == 0 and ((1 << (_la - 53)) & (
+                    (1 << (ParaCParser.LeftParen - 53)) | (
+                    1 << (ParaCParser.Star - 53)) | (
+                            1 << (ParaCParser.Caret - 53)) | (
+                            1 << (ParaCParser.Identifier - 53)) | (
+                            1 << (ParaCParser.WS - 53)))) != 0):
                 self.state = 2655
                 self.initDeclaratorList()
 
@@ -11719,28 +12141,29 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ForExpressionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def assignmentExpression(self, i:int=None):
+        def assignmentExpression(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.AssignmentExpressionContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.AssignmentExpressionContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.AssignmentExpressionContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.AssignmentExpressionContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -11749,66 +12172,69 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_forExpression
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterForExpression" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterForExpression"):
                 listener.enterForExpression(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitForExpression" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitForExpression"):
                 listener.exitForExpression(self)
-
-
-
 
     def forExpression(self):
 
-        localctx = ParaCParser.ForExpressionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ForExpressionContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 162, self.RULE_forExpression)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2658
             self.assignmentExpression()
             self.state = 2662
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,398,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 398, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2659
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2664
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,398,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 398,
+                                                    self._ctx)
 
             self.state = 2681
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Comma:
+            while _la == ParaCParser.Comma:
                 self.state = 2665
                 self.match(ParaCParser.Comma)
                 self.state = 2669
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,399,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 399,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2666
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2671
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,399,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 399,
+                                                        self._ctx)
 
                 self.state = 2672
                 self.assignmentExpression()
                 self.state = 2676
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,400,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 400,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2673
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2678
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,400,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 400,
+                                                        self._ctx)
 
                 self.state = 2683
                 self._errHandler.sync(self)
@@ -11822,17 +12248,16 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class JumpStatementContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
         def Return(self):
             return self.getToken(ParaCParser.Return, 0)
@@ -11843,35 +12268,32 @@ class ParaCParser ( Parser ):
         def Break(self):
             return self.getToken(ParaCParser.Break, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def expression(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.ExpressionContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_jumpStatement
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterJumpStatement" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterJumpStatement"):
                 listener.enterJumpStatement(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitJumpStatement" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitJumpStatement"):
                 listener.exitJumpStatement(self)
-
-
-
 
     def jumpStatement(self):
 
-        localctx = ParaCParser.JumpStatementContext(self, self._ctx, self.state)
+        localctx = ParaCParser.JumpStatementContext(self, self._ctx,
+                                                    self.state)
         self.enterRule(localctx, 164, self.RULE_jumpStatement)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2695
@@ -11880,7 +12302,8 @@ class ParaCParser ( Parser ):
             if token in [ParaCParser.Break, ParaCParser.Continue]:
                 self.state = 2684
                 _la = self._input.LA(1)
-                if not(_la==ParaCParser.Break or _la==ParaCParser.Continue):
+                if not (
+                        _la == ParaCParser.Break or _la == ParaCParser.Continue):
                     self._errHandler.recoverInline(self)
                 else:
                     self._errHandler.reportMatch(self)
@@ -11891,22 +12314,41 @@ class ParaCParser ( Parser ):
                 self.match(ParaCParser.Return)
                 self.state = 2689
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,402,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 402,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2686
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2691
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,402,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 402,
+                                                        self._ctx)
 
                 self.state = 2693
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Spawn) | (1 << ParaCParser.Sizeof) | (1 << ParaCParser.Alignof) | (1 << ParaCParser.LeftParen) | (1 << ParaCParser.Plus) | (1 << ParaCParser.PlusPlus) | (1 << ParaCParser.Minus))) != 0) or ((((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & ((1 << (ParaCParser.MinusMinus - 64)) | (1 << (ParaCParser.Star - 64)) | (1 << (ParaCParser.And - 64)) | (1 << (ParaCParser.Not - 64)) | (1 << (ParaCParser.Tilde - 64)) | (1 << (ParaCParser.Identifier - 64)) | (1 << (ParaCParser.Constant - 64)) | (1 << (ParaCParser.DigitSequence - 64)) | (1 << (ParaCParser.StringLiteral - 64)) | (1 << (ParaCParser.WS - 64)))) != 0):
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Spawn) | (
+                        1 << ParaCParser.Sizeof) | (
+                                1 << ParaCParser.Alignof) | (
+                                1 << ParaCParser.LeftParen) | (
+                                1 << ParaCParser.Plus) | (
+                                1 << ParaCParser.PlusPlus) | (
+                                1 << ParaCParser.Minus))) != 0) or (
+                        (((_la - 64)) & ~0x3f) == 0 and ((1 << (_la - 64)) & (
+                        (1 << (ParaCParser.MinusMinus - 64)) | (
+                        1 << (ParaCParser.Star - 64)) | (
+                                1 << (ParaCParser.And - 64)) | (
+                                1 << (ParaCParser.Not - 64)) | (
+                                1 << (ParaCParser.Tilde - 64)) | (
+                                1 << (ParaCParser.Identifier - 64)) | (
+                                1 << (ParaCParser.Constant - 64)) | (
+                                1 << (ParaCParser.DigitSequence - 64)) | (
+                                1 << (ParaCParser.StringLiteral - 64)) | (
+                                1 << (ParaCParser.WS - 64)))) != 0):
                     self.state = 2692
                     self.expression()
-
 
                 pass
             else:
@@ -11922,11 +12364,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class CompilationUnitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -11934,37 +12376,73 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.EOF, 0)
 
         def translationUnit(self):
-            return self.getTypedRuleContext(ParaCParser.TranslationUnitContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.TranslationUnitContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_compilationUnit
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCompilationUnit" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCompilationUnit"):
                 listener.enterCompilationUnit(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCompilationUnit" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCompilationUnit"):
                 listener.exitCompilationUnit(self)
-
-
-
 
     def compilationUnit(self):
 
-        localctx = ParaCParser.CompilationUnitContext(self, self._ctx, self.state)
+        localctx = ParaCParser.CompilationUnitContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 166, self.RULE_compilationUnit)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2700
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.ExtensionTask) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal) | (1 << ParaCParser.LeftParen))) != 0) or ((((_la - 65)) & ~0x3f) == 0 and ((1 << (_la - 65)) & ((1 << (ParaCParser.Star - 65)) | (1 << (ParaCParser.Caret - 65)) | (1 << (ParaCParser.DecoratorSign - 65)) | (1 << (ParaCParser.Semi - 65)) | (1 << (ParaCParser.Identifier - 65)) | (1 << (ParaCParser.WS - 65)) | (1 << (ParaCParser.Whitespace - 65)))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                    1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (
+                            1 << ParaCParser.Entry) | (
+                            1 << ParaCParser.Float) | (
+                            1 << ParaCParser.Int) | (
+                            1 << ParaCParser.Lambda) | (
+                            1 << ParaCParser.Long) | (
+                            1 << ParaCParser.Signed) | (
+                            1 << ParaCParser.Short) | (
+                            1 << ParaCParser.Status) | (
+                            1 << ParaCParser.Unsigned) | (
+                            1 << ParaCParser.Void) | (
+                            1 << ParaCParser.Const) | (
+                            1 << ParaCParser.Volatile) | (
+                            1 << ParaCParser.Atomic) | (
+                            1 << ParaCParser.Auto) | (
+                            1 << ParaCParser.Register) | (
+                            1 << ParaCParser.Static) | (
+                            1 << ParaCParser.Extern) | (
+                            1 << ParaCParser.Enum) | (
+                            1 << ParaCParser.Restrict) | (
+                            1 << ParaCParser.ExtensionTask) | (
+                            1 << ParaCParser.Struct) | (
+                            1 << ParaCParser.Typeof) | (
+                            1 << ParaCParser.Typedef) | (
+                            1 << ParaCParser.Union) | (
+                            1 << ParaCParser.Alignas) | (
+                            1 << ParaCParser.Noreturn) | (
+                            1 << ParaCParser.StaticAssert) | (
+                            1 << ParaCParser.ThreadLocal) | (
+                            1 << ParaCParser.LeftParen))) != 0) or (
+                    (((_la - 65)) & ~0x3f) == 0 and ((1 << (_la - 65)) & (
+                    (1 << (ParaCParser.Star - 65)) | (
+                    1 << (ParaCParser.Caret - 65)) | (
+                            1 << (ParaCParser.DecoratorSign - 65)) | (
+                            1 << (ParaCParser.Semi - 65)) | (
+                            1 << (ParaCParser.Identifier - 65)) | (
+                            1 << (ParaCParser.WS - 65)) | (
+                            1 << (ParaCParser.Whitespace - 65)))) != 0):
                 self.state = 2699
                 self.translationUnit()
-
 
             self.state = 2702
             self.match(ParaCParser.EOF)
@@ -11976,29 +12454,30 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TranslationUnitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def externalItem(self, i:int=None):
+        def externalItem(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ExternalItemContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ExternalItemContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ExternalItemContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ExternalItemContext, i)
 
-
-        def endOfItem(self, i:int=None):
+        def endOfItem(self, i: int = None):
             if i is None:
                 return self.getTypedRuleContexts(ParaCParser.EndOfItemContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.EndOfItemContext,i)
+                return self.getTypedRuleContext(ParaCParser.EndOfItemContext,
+                                                i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -12007,31 +12486,29 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_translationUnit
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTranslationUnit" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTranslationUnit"):
                 listener.enterTranslationUnit(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTranslationUnit" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTranslationUnit"):
                 listener.exitTranslationUnit(self)
-
-
-
 
     def translationUnit(self):
 
-        localctx = ParaCParser.TranslationUnitContext(self, self._ctx, self.state)
+        localctx = ParaCParser.TranslationUnitContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 168, self.RULE_translationUnit)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 2711 
+            self.state = 2711
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 2711
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,407,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input, 407, self._ctx)
                 if la_ == 1:
                     self.state = 2704
                     self.externalItem()
@@ -12043,27 +12520,68 @@ class ParaCParser ( Parser ):
                     pass
 
                 elif la_ == 3:
-                    self.state = 2707 
+                    self.state = 2707
                     self._errHandler.sync(self)
                     _alt = 1
-                    while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                    while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                         if _alt == 1:
                             self.state = 2706
                             self.match(ParaCParser.WS)
 
                         else:
                             raise NoViableAltException(self)
-                        self.state = 2709 
+                        self.state = 2709
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,406,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input, 406,
+                                                            self._ctx)
 
                     pass
 
-
-                self.state = 2713 
+                self.state = 2713
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.ExtensionTask) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal) | (1 << ParaCParser.LeftParen))) != 0) or ((((_la - 65)) & ~0x3f) == 0 and ((1 << (_la - 65)) & ((1 << (ParaCParser.Star - 65)) | (1 << (ParaCParser.Caret - 65)) | (1 << (ParaCParser.DecoratorSign - 65)) | (1 << (ParaCParser.Semi - 65)) | (1 << (ParaCParser.Identifier - 65)) | (1 << (ParaCParser.WS - 65)) | (1 << (ParaCParser.Whitespace - 65)))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Entry) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Auto) | (
+                                1 << ParaCParser.Register) | (
+                                1 << ParaCParser.Static) | (
+                                1 << ParaCParser.Extern) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Restrict) | (
+                                1 << ParaCParser.ExtensionTask) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Typedef) | (
+                                1 << ParaCParser.Union) | (
+                                1 << ParaCParser.Alignas) | (
+                                1 << ParaCParser.Noreturn) | (
+                                1 << ParaCParser.StaticAssert) | (
+                                1 << ParaCParser.ThreadLocal) | (
+                                1 << ParaCParser.LeftParen))) != 0) or (
+                                (((_la - 65)) & ~0x3f) == 0 and (
+                                (1 << (_la - 65)) & (
+                                (1 << (ParaCParser.Star - 65)) | (
+                                1 << (ParaCParser.Caret - 65)) | (1 << (
+                                ParaCParser.DecoratorSign - 65)) | (
+                                        1 << (ParaCParser.Semi - 65)) | (
+                                        1 << (ParaCParser.Identifier - 65)) | (
+                                        1 << (ParaCParser.WS - 65)) | (1 << (
+                                ParaCParser.Whitespace - 65)))) != 0)):
                     break
 
         except RecognitionException as re:
@@ -12074,81 +12592,75 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExternalItemContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return ParaCParser.RULE_externalItem
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class ExternalFunctionDefinitionContext(ExternalItemContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.ExternalItemContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.ExternalItemContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def functionDefinition(self):
-            return self.getTypedRuleContext(ParaCParser.FunctionDefinitionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.FunctionDefinitionContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExternalFunctionDefinition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExternalFunctionDefinition"):
                 listener.enterExternalFunctionDefinition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExternalFunctionDefinition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExternalFunctionDefinition"):
                 listener.exitExternalFunctionDefinition(self)
-
 
     class ExternalDeclarationContext(ExternalItemContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.ExternalItemContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.ExternalItemContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def declaration(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclarationContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExternalDeclaration" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExternalDeclaration"):
                 listener.enterExternalDeclaration(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExternalDeclaration" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExternalDeclaration"):
                 listener.exitExternalDeclaration(self)
-
 
     class ExternalExtTaskDefinitionContext(ExternalItemContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.ExternalItemContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.ExternalItemContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def extensionTaskDefinition(self):
-            return self.getTypedRuleContext(ParaCParser.ExtensionTaskDefinitionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.ExtensionTaskDefinitionContext, 0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExternalExtTaskDefinition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExternalExtTaskDefinition"):
                 listener.enterExternalExtTaskDefinition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExternalExtTaskDefinition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExternalExtTaskDefinition"):
                 listener.exitExternalExtTaskDefinition(self)
-
-
 
     def externalItem(self):
 
@@ -12157,23 +12669,26 @@ class ParaCParser ( Parser ):
         try:
             self.state = 2718
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,409,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 409, self._ctx)
             if la_ == 1:
-                localctx = ParaCParser.ExternalFunctionDefinitionContext(self, localctx)
+                localctx = ParaCParser.ExternalFunctionDefinitionContext(self,
+                                                                         localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 2715
                 self.functionDefinition()
                 pass
 
             elif la_ == 2:
-                localctx = ParaCParser.ExternalDeclarationContext(self, localctx)
+                localctx = ParaCParser.ExternalDeclarationContext(self,
+                                                                  localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 2716
                 self.declaration()
                 pass
 
             elif la_ == 3:
-                localctx = ParaCParser.ExternalExtTaskDefinitionContext(self, localctx)
+                localctx = ParaCParser.ExternalExtTaskDefinitionContext(self,
+                                                                        localctx)
                 self.enterOuterAlt(localctx, 3)
                 self.state = 2717
                 self.extensionTaskDefinition()
@@ -12188,144 +12703,180 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FunctionDefinitionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
-
 
         def getRuleIndex(self):
             return ParaCParser.RULE_functionDefinition
 
-     
-        def copyFrom(self, ctx:ParserRuleContext):
+        def copyFrom(self, ctx: ParserRuleContext):
             super().copyFrom(ctx)
-
-
 
     class StandardFunctionDefinitionContext(FunctionDefinitionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.FunctionDefinitionContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.FunctionDefinitionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def functionDeclarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.FunctionDeclarationSpecifiersContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.FunctionDeclarationSpecifiersContext, 0)
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
         def compoundStatement(self):
-            return self.getTypedRuleContext(ParaCParser.CompoundStatementContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.CompoundStatementContext, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
+
         def declarationList(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,
+                                            0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStandardFunctionDefinition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStandardFunctionDefinition"):
                 listener.enterStandardFunctionDefinition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStandardFunctionDefinition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStandardFunctionDefinition"):
                 listener.exitStandardFunctionDefinition(self)
-
 
     class SimpleFunctionDefinitionContext(FunctionDefinitionContext):
 
-        def __init__(self, parser, ctx:ParserRuleContext): # actually a ParaCParser.FunctionDefinitionContext
+        def __init__(self, parser,
+                     ctx: ParserRuleContext):  # actually a ParaCParser.FunctionDefinitionContext
             super().__init__(parser)
             self.copyFrom(ctx)
 
         def functionDeclarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.FunctionDeclarationSpecifiersContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.FunctionDeclarationSpecifiersContext, 0)
 
         def declarator(self):
-            return self.getTypedRuleContext(ParaCParser.DeclaratorContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclaratorContext, 0)
 
         def expressionLambda(self):
-            return self.getTypedRuleContext(ParaCParser.ExpressionLambdaContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.ExpressionLambdaContext, 0)
 
         def endOfItem(self):
-            return self.getTypedRuleContext(ParaCParser.EndOfItemContext,0)
+            return self.getTypedRuleContext(ParaCParser.EndOfItemContext, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
+
         def declarationList(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,0)
+            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,
+                                            0)
 
-
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSimpleFunctionDefinition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSimpleFunctionDefinition"):
                 listener.enterSimpleFunctionDefinition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSimpleFunctionDefinition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSimpleFunctionDefinition"):
                 listener.exitSimpleFunctionDefinition(self)
-
-
 
     def functionDefinition(self):
 
-        localctx = ParaCParser.FunctionDefinitionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.FunctionDefinitionContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 172, self.RULE_functionDefinition)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.state = 2771
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,418,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 418, self._ctx)
             if la_ == 1:
-                localctx = ParaCParser.StandardFunctionDefinitionContext(self, localctx)
+                localctx = ParaCParser.StandardFunctionDefinitionContext(self,
+                                                                         localctx)
                 self.enterOuterAlt(localctx, 1)
                 self.state = 2720
                 self.functionDeclarationSpecifiers()
                 self.state = 2724
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,410,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 410,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2721
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2726
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,410,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 410,
+                                                        self._ctx)
 
                 self.state = 2727
                 self.declarator()
                 self.state = 2731
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,411,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 411,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2728
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2733
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,411,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 411,
+                                                        self._ctx)
 
                 self.state = 2735
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Entry) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Auto) | (
+                                1 << ParaCParser.Register) | (
+                                1 << ParaCParser.Static) | (
+                                1 << ParaCParser.Extern) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Restrict) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Typedef) | (
+                                1 << ParaCParser.Union) | (
+                                1 << ParaCParser.Alignas) | (
+                                1 << ParaCParser.Noreturn) | (
+                                1 << ParaCParser.StaticAssert) | (
+                                1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                     self.state = 2734
                     self.declarationList()
-
 
                 self.state = 2740
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2737
                     self.match(ParaCParser.WS)
                     self.state = 2742
@@ -12337,46 +12888,80 @@ class ParaCParser ( Parser ):
                 pass
 
             elif la_ == 2:
-                localctx = ParaCParser.SimpleFunctionDefinitionContext(self, localctx)
+                localctx = ParaCParser.SimpleFunctionDefinitionContext(self,
+                                                                       localctx)
                 self.enterOuterAlt(localctx, 2)
                 self.state = 2745
                 self.functionDeclarationSpecifiers()
                 self.state = 2749
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,414,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 414,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2746
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2751
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,414,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 414,
+                                                        self._ctx)
 
                 self.state = 2752
                 self.declarator()
                 self.state = 2756
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,415,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 415,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2753
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2758
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,415,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 415,
+                                                        self._ctx)
 
                 self.state = 2760
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+                if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Entry) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Auto) | (
+                                1 << ParaCParser.Register) | (
+                                1 << ParaCParser.Static) | (
+                                1 << ParaCParser.Extern) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Restrict) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Typedef) | (
+                                1 << ParaCParser.Union) | (
+                                1 << ParaCParser.Alignas) | (
+                                1 << ParaCParser.Noreturn) | (
+                                1 << ParaCParser.StaticAssert) | (
+                                1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                     self.state = 2759
                     self.declarationList()
-
 
                 self.state = 2765
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2762
                     self.match(ParaCParser.WS)
                     self.state = 2767
@@ -12398,56 +12983,56 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FunctionDeclarationSpecifiersContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def decoratorSpecifier(self, i:int=None):
+        def decoratorSpecifier(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.DecoratorSpecifierContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.DecoratorSpecifierContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.DecoratorSpecifierContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.DecoratorSpecifierContext, i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def declarationSpecifiers(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationSpecifiersContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DeclarationSpecifiersContext, 0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_functionDeclarationSpecifiers
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFunctionDeclarationSpecifiers" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFunctionDeclarationSpecifiers"):
                 listener.enterFunctionDeclarationSpecifiers(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFunctionDeclarationSpecifiers" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFunctionDeclarationSpecifiers"):
                 listener.exitFunctionDeclarationSpecifiers(self)
-
-
-
 
     def functionDeclarationSpecifiers(self):
 
-        localctx = ParaCParser.FunctionDeclarationSpecifiersContext(self, self._ctx, self.state)
+        localctx = ParaCParser.FunctionDeclarationSpecifiersContext(self,
+                                                                    self._ctx,
+                                                                    self.state)
         self.enterRule(localctx, 174, self.RULE_functionDeclarationSpecifiers)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2776
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.DecoratorSign:
+            while _la == ParaCParser.DecoratorSign:
                 self.state = 2773
                 self.decoratorSpecifier()
                 self.state = 2778
@@ -12456,18 +13041,19 @@ class ParaCParser ( Parser ):
 
             self.state = 2782
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,420,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 420, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2779
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2784
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,420,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 420,
+                                                    self._ctx)
 
             self.state = 2786
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,421,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 421, self._ctx)
             if la_ == 1:
                 self.state = 2785
                 self.declarationSpecifiers()
@@ -12481,11 +13067,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DecoratorSpecifierContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -12498,20 +13084,18 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_decoratorSpecifier
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDecoratorSpecifier" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDecoratorSpecifier"):
                 listener.enterDecoratorSpecifier(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDecoratorSpecifier" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDecoratorSpecifier"):
                 listener.exitDecoratorSpecifier(self)
-
-
-
 
     def decoratorSpecifier(self):
 
-        localctx = ParaCParser.DecoratorSpecifierContext(self, self._ctx, self.state)
+        localctx = ParaCParser.DecoratorSpecifierContext(self, self._ctx,
+                                                         self.state)
         self.enterRule(localctx, 176, self.RULE_decoratorSpecifier)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -12527,11 +13111,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExtensionTaskDefinitionContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -12542,42 +13126,40 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Identifier, 0)
 
         def directDeclarator(self):
-            return self.getTypedRuleContext(ParaCParser.DirectDeclaratorContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCParser.DirectDeclaratorContext, 0)
 
         def extensionTaskParameterList(self):
-            return self.getTypedRuleContext(ParaCParser.ExtensionTaskParameterListContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.ExtensionTaskParameterListContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
         def declarationList(self):
-            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,0)
-
+            return self.getTypedRuleContext(ParaCParser.DeclarationListContext,
+                                            0)
 
         def getRuleIndex(self):
             return ParaCParser.RULE_extensionTaskDefinition
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExtensionTaskDefinition" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExtensionTaskDefinition"):
                 listener.enterExtensionTaskDefinition(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExtensionTaskDefinition" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExtensionTaskDefinition"):
                 listener.exitExtensionTaskDefinition(self)
-
-
-
 
     def extensionTaskDefinition(self):
 
-        localctx = ParaCParser.ExtensionTaskDefinitionContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExtensionTaskDefinitionContext(self, self._ctx,
+                                                              self.state)
         self.enterRule(localctx, 178, self.RULE_extensionTaskDefinition)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2791
@@ -12585,7 +13167,7 @@ class ParaCParser ( Parser ):
             self.state = 2795
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2792
                 self.match(ParaCParser.WS)
                 self.state = 2797
@@ -12597,7 +13179,7 @@ class ParaCParser ( Parser ):
             self.state = 2802
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2799
                 self.match(ParaCParser.WS)
                 self.state = 2804
@@ -12608,27 +13190,56 @@ class ParaCParser ( Parser ):
             self.directDeclarator(0)
             self.state = 2809
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,424,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 424, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2806
-                    self.match(ParaCParser.WS) 
+                    self.match(ParaCParser.WS)
                 self.state = 2811
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,424,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 424,
+                                                    self._ctx)
 
             self.state = 2813
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier:
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                    1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (
+                            1 << ParaCParser.Entry) | (
+                            1 << ParaCParser.Float) | (
+                            1 << ParaCParser.Int) | (
+                            1 << ParaCParser.Lambda) | (
+                            1 << ParaCParser.Long) | (
+                            1 << ParaCParser.Signed) | (
+                            1 << ParaCParser.Short) | (
+                            1 << ParaCParser.Status) | (
+                            1 << ParaCParser.Unsigned) | (
+                            1 << ParaCParser.Void) | (
+                            1 << ParaCParser.Const) | (
+                            1 << ParaCParser.Volatile) | (
+                            1 << ParaCParser.Atomic) | (
+                            1 << ParaCParser.Auto) | (
+                            1 << ParaCParser.Register) | (
+                            1 << ParaCParser.Static) | (
+                            1 << ParaCParser.Extern) | (
+                            1 << ParaCParser.Enum) | (
+                            1 << ParaCParser.Restrict) | (
+                            1 << ParaCParser.Struct) | (
+                            1 << ParaCParser.Typeof) | (
+                            1 << ParaCParser.Typedef) | (
+                            1 << ParaCParser.Union) | (
+                            1 << ParaCParser.Alignas) | (
+                            1 << ParaCParser.Noreturn) | (
+                            1 << ParaCParser.StaticAssert) | (
+                            1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier:
                 self.state = 2812
                 self.declarationList()
-
 
             self.state = 2818
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2815
                 self.match(ParaCParser.WS)
                 self.state = 2820
@@ -12645,11 +13256,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExtensionTaskParameterListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -12659,20 +13270,21 @@ class ParaCParser ( Parser ):
         def RightBrace(self):
             return self.getToken(ParaCParser.RightBrace, 0)
 
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
                 return self.getToken(ParaCParser.WS, i)
 
-        def extensionTaskParameter(self, i:int=None):
+        def extensionTaskParameter(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.ExtensionTaskParameterContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.ExtensionTaskParameterContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.ExtensionTaskParameterContext,i)
+                return self.getTypedRuleContext(
+                    ParaCParser.ExtensionTaskParameterContext, i)
 
-
-        def Comma(self, i:int=None):
+        def Comma(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Comma)
             else:
@@ -12681,22 +13293,21 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_extensionTaskParameterList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExtensionTaskParameterList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExtensionTaskParameterList"):
                 listener.enterExtensionTaskParameterList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExtensionTaskParameterList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExtensionTaskParameterList"):
                 listener.exitExtensionTaskParameterList(self)
-
-
-
 
     def extensionTaskParameterList(self):
 
-        localctx = ParaCParser.ExtensionTaskParameterListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExtensionTaskParameterListContext(self,
+                                                                 self._ctx,
+                                                                 self.state)
         self.enterRule(localctx, 180, self.RULE_extensionTaskParameterList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2823
@@ -12704,7 +13315,7 @@ class ParaCParser ( Parser ):
             self.state = 2827
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2824
                 self.match(ParaCParser.WS)
                 self.state = 2829
@@ -12714,13 +13325,13 @@ class ParaCParser ( Parser ):
             self.state = 2856
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCParser.Identifier:
+            if _la == ParaCParser.Identifier:
                 self.state = 2830
                 self.extensionTaskParameter()
                 self.state = 2834
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.WS:
+                while _la == ParaCParser.WS:
                     self.state = 2831
                     self.match(ParaCParser.WS)
                     self.state = 2836
@@ -12730,13 +13341,13 @@ class ParaCParser ( Parser ):
                 self.state = 2853
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                while _la==ParaCParser.Comma:
+                while _la == ParaCParser.Comma:
                     self.state = 2837
                     self.match(ParaCParser.Comma)
                     self.state = 2841
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 2838
                         self.match(ParaCParser.WS)
                         self.state = 2843
@@ -12748,7 +13359,7 @@ class ParaCParser ( Parser ):
                     self.state = 2848
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-                    while _la==ParaCParser.WS:
+                    while _la == ParaCParser.WS:
                         self.state = 2845
                         self.match(ParaCParser.WS)
                         self.state = 2850
@@ -12758,8 +13369,6 @@ class ParaCParser ( Parser ):
                     self.state = 2855
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
-
-
 
             self.state = 2858
             self.match(ParaCParser.RightBrace)
@@ -12771,11 +13380,11 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExtensionTaskParameterContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -12786,10 +13395,10 @@ class ParaCParser ( Parser ):
             return self.getToken(ParaCParser.Colon, 0)
 
         def primaryExpression(self):
-            return self.getTypedRuleContext(ParaCParser.PrimaryExpressionContext,0)
+            return self.getTypedRuleContext(
+                ParaCParser.PrimaryExpressionContext, 0)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -12798,22 +13407,20 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_extensionTaskParameter
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExtensionTaskParameter" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExtensionTaskParameter"):
                 listener.enterExtensionTaskParameter(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExtensionTaskParameter" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExtensionTaskParameter"):
                 listener.exitExtensionTaskParameter(self)
-
-
-
 
     def extensionTaskParameter(self):
 
-        localctx = ParaCParser.ExtensionTaskParameterContext(self, self._ctx, self.state)
+        localctx = ParaCParser.ExtensionTaskParameterContext(self, self._ctx,
+                                                             self.state)
         self.enterRule(localctx, 182, self.RULE_extensionTaskParameter)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2860
@@ -12821,7 +13428,7 @@ class ParaCParser ( Parser ):
             self.state = 2864
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2861
                 self.match(ParaCParser.WS)
                 self.state = 2866
@@ -12833,7 +13440,7 @@ class ParaCParser ( Parser ):
             self.state = 2871
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.WS:
+            while _la == ParaCParser.WS:
                 self.state = 2868
                 self.match(ParaCParser.WS)
                 self.state = 2873
@@ -12850,22 +13457,23 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class DeclarationListContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def declaration(self, i:int=None):
+        def declaration(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCParser.DeclarationContext)
+                return self.getTypedRuleContexts(
+                    ParaCParser.DeclarationContext)
             else:
-                return self.getTypedRuleContext(ParaCParser.DeclarationContext,i)
+                return self.getTypedRuleContext(ParaCParser.DeclarationContext,
+                                                i)
 
-
-        def WS(self, i:int=None):
+        def WS(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.WS)
             else:
@@ -12874,25 +13482,23 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_declarationList
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterDeclarationList" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterDeclarationList"):
                 listener.enterDeclarationList(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitDeclarationList" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitDeclarationList"):
                 listener.exitDeclarationList(self)
-
-
-
 
     def declarationList(self):
 
-        localctx = ParaCParser.DeclarationListContext(self, self._ctx, self.state)
+        localctx = ParaCParser.DeclarationListContext(self, self._ctx,
+                                                      self.state)
         self.enterRule(localctx, 184, self.RULE_declarationList)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 2883 
+            self.state = 2883
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
@@ -12900,19 +13506,51 @@ class ParaCParser ( Parser ):
                 self.declaration()
                 self.state = 2880
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,435,self._ctx)
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                    if _alt==1:
+                _alt = self._interp.adaptivePredict(self._input, 435,
+                                                    self._ctx)
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                    if _alt == 1:
                         self.state = 2877
-                        self.match(ParaCParser.WS) 
+                        self.match(ParaCParser.WS)
                     self.state = 2882
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,435,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 435,
+                                                        self._ctx)
 
-                self.state = 2885 
+                self.state = 2885
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (1 << ParaCParser.Complex) | (1 << ParaCParser.Double) | (1 << ParaCParser.Entry) | (1 << ParaCParser.Float) | (1 << ParaCParser.Int) | (1 << ParaCParser.Lambda) | (1 << ParaCParser.Long) | (1 << ParaCParser.Signed) | (1 << ParaCParser.Short) | (1 << ParaCParser.Status) | (1 << ParaCParser.Unsigned) | (1 << ParaCParser.Void) | (1 << ParaCParser.Const) | (1 << ParaCParser.Volatile) | (1 << ParaCParser.Atomic) | (1 << ParaCParser.Auto) | (1 << ParaCParser.Register) | (1 << ParaCParser.Static) | (1 << ParaCParser.Extern) | (1 << ParaCParser.Enum) | (1 << ParaCParser.Restrict) | (1 << ParaCParser.Struct) | (1 << ParaCParser.Typeof) | (1 << ParaCParser.Typedef) | (1 << ParaCParser.Union) | (1 << ParaCParser.Alignas) | (1 << ParaCParser.Noreturn) | (1 << ParaCParser.StaticAssert) | (1 << ParaCParser.ThreadLocal))) != 0) or _la==ParaCParser.Identifier):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCParser.Bool) | (1 << ParaCParser.Char) | (
+                        1 << ParaCParser.Complex) | (
+                                1 << ParaCParser.Double) | (
+                                1 << ParaCParser.Entry) | (
+                                1 << ParaCParser.Float) | (
+                                1 << ParaCParser.Int) | (
+                                1 << ParaCParser.Lambda) | (
+                                1 << ParaCParser.Long) | (
+                                1 << ParaCParser.Signed) | (
+                                1 << ParaCParser.Short) | (
+                                1 << ParaCParser.Status) | (
+                                1 << ParaCParser.Unsigned) | (
+                                1 << ParaCParser.Void) | (
+                                1 << ParaCParser.Const) | (
+                                1 << ParaCParser.Volatile) | (
+                                1 << ParaCParser.Atomic) | (
+                                1 << ParaCParser.Auto) | (
+                                1 << ParaCParser.Register) | (
+                                1 << ParaCParser.Static) | (
+                                1 << ParaCParser.Extern) | (
+                                1 << ParaCParser.Enum) | (
+                                1 << ParaCParser.Restrict) | (
+                                1 << ParaCParser.Struct) | (
+                                1 << ParaCParser.Typeof) | (
+                                1 << ParaCParser.Typedef) | (
+                                1 << ParaCParser.Union) | (
+                                1 << ParaCParser.Alignas) | (
+                                1 << ParaCParser.Noreturn) | (
+                                1 << ParaCParser.StaticAssert) | (
+                                1 << ParaCParser.ThreadLocal))) != 0) or _la == ParaCParser.Identifier):
                     break
 
         except RecognitionException as re:
@@ -12923,18 +13561,18 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EndOfItemContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def Semi(self):
             return self.getToken(ParaCParser.Semi, 0)
 
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCParser.Whitespace)
             else:
@@ -12943,28 +13581,25 @@ class ParaCParser ( Parser ):
         def getRuleIndex(self):
             return ParaCParser.RULE_endOfItem
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEndOfItem" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEndOfItem"):
                 listener.enterEndOfItem(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEndOfItem" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEndOfItem"):
                 listener.exitEndOfItem(self)
-
-
-
 
     def endOfItem(self):
 
         localctx = ParaCParser.EndOfItemContext(self, self._ctx, self.state)
         self.enterRule(localctx, 186, self.RULE_endOfItem)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 2890
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCParser.Whitespace:
+            while _la == ParaCParser.Whitespace:
                 self.state = 2887
                 self.match(ParaCParser.Whitespace)
                 self.state = 2892
@@ -12975,14 +13610,15 @@ class ParaCParser ( Parser ):
             self.match(ParaCParser.Semi)
             self.state = 2897
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,438,self._ctx)
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
-                if _alt==1:
+            _alt = self._interp.adaptivePredict(self._input, 438, self._ctx)
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
+                if _alt == 1:
                     self.state = 2894
-                    self.match(ParaCParser.Whitespace) 
+                    self.match(ParaCParser.Whitespace)
                 self.state = 2899
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,438,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 438,
+                                                    self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -12992,9 +13628,7 @@ class ParaCParser ( Parser ):
             self.exitRule()
         return localctx
 
-
-
-    def sempred(self, localctx:RuleContext, ruleIndex:int, predIndex:int):
+    def sempred(self, localctx: RuleContext, ruleIndex: int, predIndex: int):
         if self._predicates == None:
             self._predicates = dict()
         self._predicates[9] = self.castOrConvertExpression_sempred
@@ -13007,46 +13641,39 @@ class ParaCParser ( Parser ):
         else:
             return pred(localctx, predIndex)
 
-    def castOrConvertExpression_sempred(self, localctx:CastOrConvertExpressionContext, predIndex:int):
-            if predIndex == 0:
-                return self.precpred(self._ctx, 3)
-         
+    def castOrConvertExpression_sempred(self,
+                                        localctx: CastOrConvertExpressionContext,
+                                        predIndex: int):
+        if predIndex == 0:
+            return self.precpred(self._ctx, 3)
 
-    def typeSpecifier_sempred(self, localctx:TypeSpecifierContext, predIndex:int):
-            if predIndex == 1:
-                return self.precpred(self._ctx, 1)
-         
+    def typeSpecifier_sempred(self, localctx: TypeSpecifierContext,
+                              predIndex: int):
+        if predIndex == 1:
+            return self.precpred(self._ctx, 1)
 
-    def directDeclarator_sempred(self, localctx:DirectDeclaratorContext, predIndex:int):
-            if predIndex == 2:
-                return self.precpred(self._ctx, 4)
-         
+    def directDeclarator_sempred(self, localctx: DirectDeclaratorContext,
+                                 predIndex: int):
+        if predIndex == 2:
+            return self.precpred(self._ctx, 4)
 
-            if predIndex == 3:
-                return self.precpred(self._ctx, 3)
-         
+        if predIndex == 3:
+            return self.precpred(self._ctx, 3)
 
-    def directAbstractDeclarator_sempred(self, localctx:DirectAbstractDeclaratorContext, predIndex:int):
-            if predIndex == 4:
-                return self.precpred(self._ctx, 5)
-         
+    def directAbstractDeclarator_sempred(self,
+                                         localctx: DirectAbstractDeclaratorContext,
+                                         predIndex: int):
+        if predIndex == 4:
+            return self.precpred(self._ctx, 5)
 
-            if predIndex == 5:
-                return self.precpred(self._ctx, 4)
-         
+        if predIndex == 5:
+            return self.precpred(self._ctx, 4)
 
-            if predIndex == 6:
-                return self.precpred(self._ctx, 3)
-         
+        if predIndex == 6:
+            return self.precpred(self._ctx, 3)
 
-            if predIndex == 7:
-                return self.precpred(self._ctx, 2)
-         
+        if predIndex == 7:
+            return self.precpred(self._ctx, 2)
 
-            if predIndex == 8:
-                return self.precpred(self._ctx, 1)
-         
-
-
-
-
+        if predIndex == 8:
+            return self.precpred(self._ctx, 1)

@@ -6,7 +6,6 @@ from typing import List, Any
 
 from .base_tokens import LogicToken
 
-
 __all__ = [
     'LogicStream'
 ]

@@ -7,3 +7,4 @@ Antlr4 Parser
 
 .. automodule:: parac.compiler.parser
     :members:
+    :special-members:

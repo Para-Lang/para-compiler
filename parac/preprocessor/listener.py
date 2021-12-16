@@ -8,7 +8,7 @@ import antlr4
 from .ctx import FilePreProcessorContext, ProgramPreProcessorContext
 from .logic_stream import PreProcessorStream
 from .logic_tokens import *
-from .python import (ParaCPreProcessorListener,
+from .parser import (ParaCPreProcessorListener,
                      ParaCPreProcessorParser as Parser)
 
 __all__ = [
@@ -91,7 +91,7 @@ class Listener(ParaCPreProcessorListener):
         logger.debug(
             "Finished walk through logic tree and finished generation"
             " of logic stream"
-         )
+        )
 
     def enterTranslationUnit(
             self,

@@ -1,12 +1,13 @@
 # Generated from ./grammar/ParaCPreProcessor.g4 by ANTLR 4.9.2
-from antlr4 import *
-from io import StringIO
 import sys
+from io import StringIO
+
+from antlr4 import *
+
 if sys.version_info[1] > 5:
     from typing import TextIO
 else:
     from typing.io import TextIO
-
 
 
 def serializedATN():
@@ -156,10 +157,9 @@ def serializedATN():
 
 
 class ParaCPreProcessorLexer(Lexer):
-
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     Include = 1
     Define = 2
@@ -186,38 +186,45 @@ class ParaCPreProcessorLexer(Lexer):
     Newline = 23
     NonPreProcessorItemSequence = 24
 
-    channelNames = [ u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN" ]
+    channelNames = [u"DEFAULT_TOKEN_CHANNEL", u"HIDDEN"]
 
-    modeNames = [ "DEFAULT_MODE" ]
+    modeNames = ["DEFAULT_MODE"]
 
-    literalNames = [ "<INVALID>",
-            "'GCC'", "'PARAC'" ]
+    literalNames = ["<INVALID>",
+                    "'GCC'", "'PARAC'"]
 
-    symbolicNames = [ "<INVALID>",
-            "Include", "Define", "Undefine", "If", "Else", "IfDefined", 
-            "IfNotDefined", "ElIfNotDefined", "ElIfDefined", "ElseIf", "EndIf", 
-            "Error", "Pragma", "Line", "GCCParacPrefix", "PragmaParacPrefix", 
-            "Identifier", "LibStringLiteral", "StringLiteral", "DigitSequence", 
-            "AsmBlock", "Whitespace", "Newline", "NonPreProcessorItemSequence" ]
+    symbolicNames = ["<INVALID>",
+                     "Include", "Define", "Undefine", "If", "Else",
+                     "IfDefined",
+                     "IfNotDefined", "ElIfNotDefined", "ElIfDefined", "ElseIf",
+                     "EndIf",
+                     "Error", "Pragma", "Line", "GCCParacPrefix",
+                     "PragmaParacPrefix",
+                     "Identifier", "LibStringLiteral", "StringLiteral",
+                     "DigitSequence",
+                     "AsmBlock", "Whitespace", "Newline",
+                     "NonPreProcessorItemSequence"]
 
-    ruleNames = [ "PreProcessorBegin", "Include", "Define", "Undefine", 
-                  "If", "Else", "IfDefined", "IfNotDefined", "ElIfNotDefined", 
-                  "ElIfDefined", "ElseIf", "EndIf", "Error", "Pragma", "Line", 
-                  "GCCParacPrefix", "PragmaParacPrefix", "Identifier", "IdentifierNondigit", 
-                  "LibStringLiteral", "StringLiteral", "DigitSequence", 
-                  "SCharSequence", "SChar", "EscapeSequence", "SimpleEscapeSequence", 
-                  "OctalEscapeSequence", "HexadecimalEscapeSequence", "Nondigit", 
-                  "Digit", "UniversalCharacterName", "HexQuad", "OctalDigit", 
-                  "HexadecimalDigit", "AsmBlock", "Whitespace", "Newline", 
-                  "NonPreProcessorItemSequence" ]
+    ruleNames = ["PreProcessorBegin", "Include", "Define", "Undefine",
+                 "If", "Else", "IfDefined", "IfNotDefined", "ElIfNotDefined",
+                 "ElIfDefined", "ElseIf", "EndIf", "Error", "Pragma", "Line",
+                 "GCCParacPrefix", "PragmaParacPrefix", "Identifier",
+                 "IdentifierNondigit",
+                 "LibStringLiteral", "StringLiteral", "DigitSequence",
+                 "SCharSequence", "SChar", "EscapeSequence",
+                 "SimpleEscapeSequence",
+                 "OctalEscapeSequence", "HexadecimalEscapeSequence",
+                 "Nondigit",
+                 "Digit", "UniversalCharacterName", "HexQuad", "OctalDigit",
+                 "HexadecimalDigit", "AsmBlock", "Whitespace", "Newline",
+                 "NonPreProcessorItemSequence"]
 
     grammarFileName = "ParaCPreProcessor.g4"
 
-    def __init__(self, input=None, output:TextIO = sys.stdout):
+    def __init__(self, input=None, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.9.2")
-        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA, PredictionContextCache())
+        self._interp = LexerATNSimulator(self, self.atn, self.decisionsToDFA,
+                                         PredictionContextCache())
         self._actions = None
         self._predicates = None
-
-

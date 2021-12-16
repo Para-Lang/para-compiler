@@ -6,6 +6,7 @@ import logging
 from abc import ABC, abstractmethod
 from os import PathLike
 from typing import Union, Dict, Any
+
 import antlr4
 
 __all__ = [

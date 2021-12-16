@@ -1,4 +1,3 @@
-
 *******************
 Selection Statement
 *******************
@@ -235,10 +234,9 @@ Usage & Examples
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's a 5
-
 
 In this case, the variable ``x`` is compared to all cases and if one case hits,
 excluding ``default``, a line is printed saying ``"It's a <insert-number>"``.
@@ -273,7 +271,7 @@ Since characters are simply numeric values representing characters the type
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's: c
 
@@ -303,7 +301,7 @@ Since characters are simply numeric values representing characters the type
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's a 4
     Ending

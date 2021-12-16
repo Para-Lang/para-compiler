@@ -1,11 +1,11 @@
 # coding=utf-8
 """ C-compiler functions for managing the c compiler """
 import json
-import os
 import logging
+import os
 from pathlib import Path
 
-from .pathtools import decode_if_bytes, ensure_pathlib_path
+from .pathtools import ensure_pathlib_path
 from ..exceptions import FilePermissionError, CCompilerNotFoundError
 from ..logging import get_rich_console as console
 

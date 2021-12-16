@@ -112,11 +112,11 @@ requirements must be met (for the current release):
       build.
     - For macOS and Windows: [download](https://www.python.org/downloads/)
 
-After having installed everything, the python script `build.py` may be run to
-properly install and generate the binary folder for the Para-C executable. For
-the compilation, you may specify one of the following args:
+After having prepared everything, the python script `parac-build.py` may be run
+to properly install and generate the binary folder for the Para-C executable.
+For the compilation, you may specify one of the following args:
 
-| Argument     | Required | Description                                                                                                                                                                                                                                                                                                                                                       |
+| Argument     | Required | Description                                                                                                                                                                                                                                                                             |
 |--------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | --action=""  | Yes      | Specify the action for the build process. Valid inputs are: `normal` (Builds the fully functioning compiler, which may link files as well and compile them to executables using GCC), `compiler-standalone` (This can only generate code, but not link or run it). Defaults to `normal` |
 | --libpbl=""  | No       | Specify an alternative `libpbl.a` file path (may be relative). Use at your own risk, as this will replace the checked version which is downloaded per default                                                                                                                           |
@@ -124,7 +124,7 @@ the compilation, you may specify one of the following args:
 For example an invocation may look like this:
 
 ```bash
-python ./build.exe --action="normal"
+parser ./build.exe --action="normal"
 ```
 
 ### Setting up the Compiler
@@ -181,14 +181,14 @@ without it the compiler will simply generate C source files.
 
 ## Development
 
-To develop on the Para-C Project, you may contribute to this repo or one of the 
+To develop on the Para-C Project, you may contribute to this repo or one of the
 following side-repos of Para-C Language:
 
-- [Para-C Base Library](https://github.com/Para-C/Para-C-Base-Library) - C 
+- [Para-C Base Library](https://github.com/Para-C/Para-C-Base-Library) - C
   Static Library for providing the types, functions and macros used to actually
   run the compiled C-code.
-- [Para-C CLI](https://github.com/Para-C/Para-C-CLI) - The CLI implementation 
-  for the standalone Python API, which is per default only usable as a python 
+- [Para-C CLI](https://github.com/Para-C/Para-C-CLI) - The CLI implementation
+  for the standalone Python API, which is per default only usable as a python
   module and as such with a python interpreter.
 
 For more info on development for the core Python API and compiler, you may go

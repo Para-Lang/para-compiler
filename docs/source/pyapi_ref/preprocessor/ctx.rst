@@ -1,6 +1,6 @@
-*****************************
-Pre-Processor Context Classes
-*****************************
+*********************
+Pre-Processor Context
+*********************
 
 `parac.preprocessor.ctx`
 ========================

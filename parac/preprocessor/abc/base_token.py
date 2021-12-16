@@ -2,10 +2,10 @@
 """ Base Pre-Processor token used in other classes to represent directives """
 from __future__ import annotations
 
-from os import PathLike
-from antlr4 import ParserRuleContext
 from abc import ABC, abstractmethod
-from typing import Union, Optional, Any, List, TYPE_CHECKING
+from typing import Optional, Any, List, TYPE_CHECKING
+
+from antlr4 import ParserRuleContext
 
 from ...abc import ParacLogicToken, NULL_CHILDREN
 

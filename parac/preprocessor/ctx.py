@@ -9,14 +9,14 @@ from __future__ import annotations
 import logging
 from os import PathLike
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
+
 import antlr4
 
-
+from .__main__ import PreProcessor, PreProcessorProcessResult
+from .logic_stream import PreProcessorStream
+from ..abc import ProgramRunContext, FileRunContext
 from ..exceptions import (FailedToProcessError, ParserError, LexerError,
                           ParaCSyntaxErrorCollection, ParacCompilerError)
-from ..abc import ProgramRunContext, FileRunContext
-from .logic_stream import PreProcessorStream
-from .__main__ import PreProcessor, PreProcessorProcessResult
 
 if TYPE_CHECKING:
     from ..compiler import ProgramCompilationProcess
@@ -164,16 +164,18 @@ class ProgramPreProcessorContext(ProgramRunContext):
     ) -> Tuple[str, List[str]]:
         """
         Creates the temporary files based on the passed output of
-        process_program()
+        process_program().
 
         :returns: A tuple containing at 0 the path to the entry-file and at 1
-        a list of all paths of all other files.
+         a list of all paths of all other files.
         """
         for name, context in process.generated_files():
             name: str
             context: Dict[str, FilePreProcessorContext]
 
             # TODO! Add logic to properly generate these files
+
+        raise NotImplementedError()
 
     async def process_program(
             self, log_errors_and_warnings: bool

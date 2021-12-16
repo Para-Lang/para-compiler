@@ -5,17 +5,18 @@ Test for the utility functions in Para-C (test_util.py and decorators.py)
 from pathlib import Path
 
 import pytest
+
 from parac import util
 
 
 class TestValidateFileEnding:
     @pytest.mark.parametrize(
         "file", (
-            "x.para",
-            "y.parah",
-            "z.c",
-            "x.h",
-            "y.ph"
+                "x.para",
+                "y.parah",
+                "z.c",
+                "x.h",
+                "y.ph"
         )
     )
     def test_valid(self, file):
@@ -23,10 +24,10 @@ class TestValidateFileEnding:
 
     @pytest.mark.parametrize(
         "file", (
-            "",
-            "yparah",
-            "z.x",
-            "x.hex"
+                "",
+                "yparah",
+                "z.x",
+                "x.hex"
         )
     )
     def test_invalid(self, file):
@@ -135,10 +136,10 @@ class TestGetRelativeFileName:
 class TestEnsurePathlibPath:
     @pytest.mark.parametrize(
         "file,expect", (
-            ("path", Path("path").resolve()),
-            ("path/path/path", Path("path/path/path").resolve()),
-            ("./x/path/path", Path("./x/path/path").resolve()),
-            ("../x/path/path", Path("../x/path/path").resolve())
+                ("path", Path("path").resolve()),
+                ("path/path/path", Path("path/path/path").resolve()),
+                ("./x/path/path", Path("./x/path/path").resolve()),
+                ("../x/path/path", Path("../x/path/path").resolve())
         )
     )
     def test_str(self, file, expect):
@@ -146,10 +147,10 @@ class TestEnsurePathlibPath:
 
     @pytest.mark.parametrize(
         "file,expect", (
-            ("path".encode(), Path("path").resolve()),
-            ("path/path/path".encode(), Path("path/path/path").resolve()),
-            ("./x/path/path".encode(), Path("./x/path/path").resolve()),
-            ("../x/path/path".encode(), Path("../x/path/path").resolve())
+                ("path".encode(), Path("path").resolve()),
+                ("path/path/path".encode(), Path("path/path/path").resolve()),
+                ("./x/path/path".encode(), Path("./x/path/path").resolve()),
+                ("../x/path/path".encode(), Path("../x/path/path").resolve())
         )
     )
     def test_bytes(self, file, expect):
@@ -157,10 +158,12 @@ class TestEnsurePathlibPath:
 
     @pytest.mark.parametrize(
         "file,expect", (
-            (Path("path"), Path("path").resolve()),
-            (Path("path/path/path"), Path("path/path/path").resolve()),
-            (Path("./x/path/path").resolve(), Path("./x/path/path").resolve()),
-            (Path("../x/path/path").resolve(), Path("../x/path/path").resolve())
+                (Path("path"), Path("path").resolve()),
+                (Path("path/path/path"), Path("path/path/path").resolve()),
+                (Path("./x/path/path").resolve(),
+                 Path("./x/path/path").resolve()),
+                (Path("../x/path/path").resolve(),
+                 Path("../x/path/path").resolve())
         )
     )
     def test_path(self, file, expect):

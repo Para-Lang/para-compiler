@@ -1,12 +1,14 @@
 # Generated from ./grammar/ParaCPreProcessor.g4 by ANTLR 4.9.2
 # encoding: utf-8
-from antlr4 import *
-from io import StringIO
 import sys
+from io import StringIO
+
+from antlr4 import *
+
 if sys.version_info[1] > 5:
-	from typing import TextIO
+    from typing import TextIO
 else:
-	from typing.io import TextIO
+    from typing.io import TextIO
 
 
 def serializedATN():
@@ -143,27 +145,28 @@ def serializedATN():
         return buf.getvalue()
 
 
-class ParaCPreProcessorParser ( Parser ):
-
+class ParaCPreProcessorParser(Parser):
     grammarFileName = "ParaCPreProcessor.g4"
 
     atn = ATNDeserializer().deserialize(serializedATN())
 
-    decisionsToDFA = [ DFA(ds, i) for i, ds in enumerate(atn.decisionToState) ]
+    decisionsToDFA = [DFA(ds, i) for i, ds in enumerate(atn.decisionToState)]
 
     sharedContextCache = PredictionContextCache()
 
-    literalNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
-                     "<INVALID>", "<INVALID>", "<INVALID>", "'GCC'", "'PARAC'" ]
+    literalNames = ["<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                    "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                    "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>",
+                    "<INVALID>", "<INVALID>", "<INVALID>", "'GCC'", "'PARAC'"]
 
-    symbolicNames = [ "<INVALID>", "Include", "Define", "Undefine", "If", 
-                      "Else", "IfDefined", "IfNotDefined", "ElIfNotDefined", 
-                      "ElIfDefined", "ElseIf", "EndIf", "Error", "Pragma", 
-                      "Line", "GCCParacPrefix", "PragmaParacPrefix", "Identifier", 
-                      "LibStringLiteral", "StringLiteral", "DigitSequence", 
-                      "AsmBlock", "Whitespace", "Newline", "NonPreProcessorItemSequence" ]
+    symbolicNames = ["<INVALID>", "Include", "Define", "Undefine", "If",
+                     "Else", "IfDefined", "IfNotDefined", "ElIfNotDefined",
+                     "ElIfDefined", "ElseIf", "EndIf", "Error", "Pragma",
+                     "Line", "GCCParacPrefix", "PragmaParacPrefix",
+                     "Identifier",
+                     "LibStringLiteral", "StringLiteral", "DigitSequence",
+                     "AsmBlock", "Whitespace", "Newline",
+                     "NonPreProcessorItemSequence"]
 
     RULE_compilationUnit = 0
     RULE_translationUnit = 1
@@ -197,58 +200,60 @@ class ParaCPreProcessorParser ( Parser ):
     RULE_anySequence = 29
     RULE_preProcessorEnd = 30
 
-    ruleNames =  [ "compilationUnit", "translationUnit", "externalItem", 
-                   "nonPreProcessorItemSequence", "preProcessorDirective", 
-                   "selectionPreProcessorDirective", "startOfSelectionBlock", 
-                   "selectionDirectiveAlternatives", "selectionElseDirective", 
-                   "selectionBlock", "includeDirective", "fileIncludeDirective", 
-                   "computedIncludeDirective", "ifNotDefinedDirective", 
-                   "ifDefinedDirective", "elIfNotDefinedDirective", "elIfDefinedDirective", 
-                   "ifDirective", "elIfDirective", "elseDirective", "endIfDirective", 
-                   "pragmaDirective", "errorDirective", "undefDirective", 
-                   "complexDefineDirective", "libIncludeDirective", "stringIncludeDirective", 
-                   "lineDirective", "nonPreProcessorItem", "anySequence", 
-                   "preProcessorEnd" ]
+    ruleNames = ["compilationUnit", "translationUnit", "externalItem",
+                 "nonPreProcessorItemSequence", "preProcessorDirective",
+                 "selectionPreProcessorDirective", "startOfSelectionBlock",
+                 "selectionDirectiveAlternatives", "selectionElseDirective",
+                 "selectionBlock", "includeDirective", "fileIncludeDirective",
+                 "computedIncludeDirective", "ifNotDefinedDirective",
+                 "ifDefinedDirective", "elIfNotDefinedDirective",
+                 "elIfDefinedDirective",
+                 "ifDirective", "elIfDirective", "elseDirective",
+                 "endIfDirective",
+                 "pragmaDirective", "errorDirective", "undefDirective",
+                 "complexDefineDirective", "libIncludeDirective",
+                 "stringIncludeDirective",
+                 "lineDirective", "nonPreProcessorItem", "anySequence",
+                 "preProcessorEnd"]
 
     EOF = Token.EOF
-    Include=1
-    Define=2
-    Undefine=3
-    If=4
-    Else=5
-    IfDefined=6
-    IfNotDefined=7
-    ElIfNotDefined=8
-    ElIfDefined=9
-    ElseIf=10
-    EndIf=11
-    Error=12
-    Pragma=13
-    Line=14
-    GCCParacPrefix=15
-    PragmaParacPrefix=16
-    Identifier=17
-    LibStringLiteral=18
-    StringLiteral=19
-    DigitSequence=20
-    AsmBlock=21
-    Whitespace=22
-    Newline=23
-    NonPreProcessorItemSequence=24
+    Include = 1
+    Define = 2
+    Undefine = 3
+    If = 4
+    Else = 5
+    IfDefined = 6
+    IfNotDefined = 7
+    ElIfNotDefined = 8
+    ElIfDefined = 9
+    ElseIf = 10
+    EndIf = 11
+    Error = 12
+    Pragma = 13
+    Line = 14
+    GCCParacPrefix = 15
+    PragmaParacPrefix = 16
+    Identifier = 17
+    LibStringLiteral = 18
+    StringLiteral = 19
+    DigitSequence = 20
+    AsmBlock = 21
+    Whitespace = 22
+    Newline = 23
+    NonPreProcessorItemSequence = 24
 
-    def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
+    def __init__(self, input: TokenStream, output: TextIO = sys.stdout):
         super().__init__(input, output)
         self.checkVersion("4.9.2")
-        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA, self.sharedContextCache)
+        self._interp = ParserATNSimulator(self, self.atn, self.decisionsToDFA,
+                                          self.sharedContextCache)
         self._predicates = None
-
-
-
 
     class CompilationUnitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -256,37 +261,50 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.EOF, 0)
 
         def translationUnit(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.TranslationUnitContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.TranslationUnitContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_compilationUnit
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterCompilationUnit" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterCompilationUnit"):
                 listener.enterCompilationUnit(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitCompilationUnit" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitCompilationUnit"):
                 listener.exitCompilationUnit(self)
-
-
-
 
     def compilationUnit(self):
 
-        localctx = ParaCPreProcessorParser.CompilationUnitContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.CompilationUnitContext(self,
+                                                                  self._ctx,
+                                                                  self.state)
         self.enterRule(localctx, 0, self.RULE_compilationUnit)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 63
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.Include) | (1 << ParaCPreProcessorParser.Define) | (1 << ParaCPreProcessorParser.Undefine) | (1 << ParaCPreProcessorParser.If) | (1 << ParaCPreProcessorParser.IfDefined) | (1 << ParaCPreProcessorParser.IfNotDefined) | (1 << ParaCPreProcessorParser.Error) | (1 << ParaCPreProcessorParser.Pragma) | (1 << ParaCPreProcessorParser.Line) | (1 << ParaCPreProcessorParser.Identifier) | (1 << ParaCPreProcessorParser.StringLiteral) | (1 << ParaCPreProcessorParser.DigitSequence) | (1 << ParaCPreProcessorParser.Whitespace) | (1 << ParaCPreProcessorParser.Newline) | (1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0):
+            if (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCPreProcessorParser.Include) | (
+                    1 << ParaCPreProcessorParser.Define) | (
+                            1 << ParaCPreProcessorParser.Undefine) | (
+                            1 << ParaCPreProcessorParser.If) | (
+                            1 << ParaCPreProcessorParser.IfDefined) | (
+                            1 << ParaCPreProcessorParser.IfNotDefined) | (
+                            1 << ParaCPreProcessorParser.Error) | (
+                            1 << ParaCPreProcessorParser.Pragma) | (
+                            1 << ParaCPreProcessorParser.Line) | (
+                            1 << ParaCPreProcessorParser.Identifier) | (
+                            1 << ParaCPreProcessorParser.StringLiteral) | (
+                            1 << ParaCPreProcessorParser.DigitSequence) | (
+                            1 << ParaCPreProcessorParser.Whitespace) | (
+                            1 << ParaCPreProcessorParser.Newline) | (
+                            1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0):
                 self.state = 62
                 self.translationUnit()
-
 
             self.state = 65
             self.match(ParaCPreProcessorParser.EOF)
@@ -298,52 +316,67 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class TranslationUnitContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def externalItem(self, i:int=None):
+        def externalItem(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCPreProcessorParser.ExternalItemContext)
+                return self.getTypedRuleContexts(
+                    ParaCPreProcessorParser.ExternalItemContext)
             else:
-                return self.getTypedRuleContext(ParaCPreProcessorParser.ExternalItemContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCPreProcessorParser.ExternalItemContext, i)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_translationUnit
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterTranslationUnit" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterTranslationUnit"):
                 listener.enterTranslationUnit(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitTranslationUnit" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitTranslationUnit"):
                 listener.exitTranslationUnit(self)
-
-
-
 
     def translationUnit(self):
 
-        localctx = ParaCPreProcessorParser.TranslationUnitContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.TranslationUnitContext(self,
+                                                                  self._ctx,
+                                                                  self.state)
         self.enterRule(localctx, 2, self.RULE_translationUnit)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 68 
+            self.state = 68
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 67
                 self.externalItem()
-                self.state = 70 
+                self.state = 70
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.Include) | (1 << ParaCPreProcessorParser.Define) | (1 << ParaCPreProcessorParser.Undefine) | (1 << ParaCPreProcessorParser.If) | (1 << ParaCPreProcessorParser.IfDefined) | (1 << ParaCPreProcessorParser.IfNotDefined) | (1 << ParaCPreProcessorParser.Error) | (1 << ParaCPreProcessorParser.Pragma) | (1 << ParaCPreProcessorParser.Line) | (1 << ParaCPreProcessorParser.Identifier) | (1 << ParaCPreProcessorParser.StringLiteral) | (1 << ParaCPreProcessorParser.DigitSequence) | (1 << ParaCPreProcessorParser.Whitespace) | (1 << ParaCPreProcessorParser.Newline) | (1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0)):
+                if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                        (1 << ParaCPreProcessorParser.Include) | (
+                        1 << ParaCPreProcessorParser.Define) | (
+                                1 << ParaCPreProcessorParser.Undefine) | (
+                                1 << ParaCPreProcessorParser.If) | (
+                                1 << ParaCPreProcessorParser.IfDefined) | (
+                                1 << ParaCPreProcessorParser.IfNotDefined) | (
+                                1 << ParaCPreProcessorParser.Error) | (
+                                1 << ParaCPreProcessorParser.Pragma) | (
+                                1 << ParaCPreProcessorParser.Line) | (
+                                1 << ParaCPreProcessorParser.Identifier) | (
+                                1 << ParaCPreProcessorParser.StringLiteral) | (
+                                1 << ParaCPreProcessorParser.DigitSequence) | (
+                                1 << ParaCPreProcessorParser.Whitespace) | (
+                                1 << ParaCPreProcessorParser.Newline) | (
+                                1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0)):
                     break
 
         except RecognitionException as re:
@@ -354,21 +387,21 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ExternalItemContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def preProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorDirectiveContext, 0)
 
         def nonPreProcessorItemSequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.NonPreProcessorItemSequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.NonPreProcessorItemSequenceContext, 0)
 
         def Newline(self):
             return self.getToken(ParaCPreProcessorParser.Newline, 0)
@@ -376,31 +409,41 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_externalItem
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterExternalItem" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterExternalItem"):
                 listener.enterExternalItem(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitExternalItem" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitExternalItem"):
                 listener.exitExternalItem(self)
-
-
-
 
     def externalItem(self):
 
-        localctx = ParaCPreProcessorParser.ExternalItemContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ExternalItemContext(self, self._ctx,
+                                                               self.state)
         self.enterRule(localctx, 4, self.RULE_externalItem)
         try:
             self.state = 75
             self._errHandler.sync(self)
             token = self._input.LA(1)
-            if token in [ParaCPreProcessorParser.Include, ParaCPreProcessorParser.Define, ParaCPreProcessorParser.Undefine, ParaCPreProcessorParser.If, ParaCPreProcessorParser.IfDefined, ParaCPreProcessorParser.IfNotDefined, ParaCPreProcessorParser.Error, ParaCPreProcessorParser.Pragma, ParaCPreProcessorParser.Line]:
+            if token in [ParaCPreProcessorParser.Include,
+                         ParaCPreProcessorParser.Define,
+                         ParaCPreProcessorParser.Undefine,
+                         ParaCPreProcessorParser.If,
+                         ParaCPreProcessorParser.IfDefined,
+                         ParaCPreProcessorParser.IfNotDefined,
+                         ParaCPreProcessorParser.Error,
+                         ParaCPreProcessorParser.Pragma,
+                         ParaCPreProcessorParser.Line]:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 72
                 self.preProcessorDirective()
                 pass
-            elif token in [ParaCPreProcessorParser.Identifier, ParaCPreProcessorParser.StringLiteral, ParaCPreProcessorParser.DigitSequence, ParaCPreProcessorParser.Whitespace, ParaCPreProcessorParser.NonPreProcessorItemSequence]:
+            elif token in [ParaCPreProcessorParser.Identifier,
+                           ParaCPreProcessorParser.StringLiteral,
+                           ParaCPreProcessorParser.DigitSequence,
+                           ParaCPreProcessorParser.Whitespace,
+                           ParaCPreProcessorParser.NonPreProcessorItemSequence]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 73
                 self.nonPreProcessorItemSequence()
@@ -421,54 +464,53 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class NonPreProcessorItemSequenceContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def nonPreProcessorItem(self, i:int=None):
+        def nonPreProcessorItem(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCPreProcessorParser.NonPreProcessorItemContext)
+                return self.getTypedRuleContexts(
+                    ParaCPreProcessorParser.NonPreProcessorItemContext)
             else:
-                return self.getTypedRuleContext(ParaCPreProcessorParser.NonPreProcessorItemContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCPreProcessorParser.NonPreProcessorItemContext, i)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_nonPreProcessorItemSequence
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNonPreProcessorItemSequence" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterNonPreProcessorItemSequence"):
                 listener.enterNonPreProcessorItemSequence(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNonPreProcessorItemSequence" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitNonPreProcessorItemSequence"):
                 listener.exitNonPreProcessorItemSequence(self)
-
-
-
 
     def nonPreProcessorItemSequence(self):
 
-        localctx = ParaCPreProcessorParser.NonPreProcessorItemSequenceContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.NonPreProcessorItemSequenceContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 6, self.RULE_nonPreProcessorItemSequence)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 78 
+            self.state = 78
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 77
                     self.nonPreProcessorItem()
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 80 
+                self.state = 80
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,3,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 3, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -478,59 +520,59 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PreProcessorDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def includeDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.IncludeDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.IncludeDirectiveContext, 0)
 
         def selectionPreProcessorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,
+                0)
 
         def complexDefineDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ComplexDefineDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ComplexDefineDirectiveContext, 0)
 
         def errorDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ErrorDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ErrorDirectiveContext, 0)
 
         def pragmaDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PragmaDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PragmaDirectiveContext, 0)
 
         def lineDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LineDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.LineDirectiveContext, 0)
 
         def undefDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.UndefDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.UndefDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_preProcessorDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPreProcessorDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPreProcessorDirective"):
                 listener.enterPreProcessorDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPreProcessorDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPreProcessorDirective"):
                 listener.exitPreProcessorDirective(self)
-
-
-
 
     def preProcessorDirective(self):
 
-        localctx = ParaCPreProcessorParser.PreProcessorDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.PreProcessorDirectiveContext(self,
+                                                                        self._ctx,
+                                                                        self.state)
         self.enterRule(localctx, 8, self.RULE_preProcessorDirective)
         try:
             self.state = 89
@@ -541,7 +583,9 @@ class ParaCPreProcessorParser ( Parser ):
                 self.state = 82
                 self.includeDirective()
                 pass
-            elif token in [ParaCPreProcessorParser.If, ParaCPreProcessorParser.IfDefined, ParaCPreProcessorParser.IfNotDefined]:
+            elif token in [ParaCPreProcessorParser.If,
+                           ParaCPreProcessorParser.IfDefined,
+                           ParaCPreProcessorParser.IfNotDefined]:
                 self.enterOuterAlt(localctx, 2)
                 self.state = 83
                 self.selectionPreProcessorDirective()
@@ -582,52 +626,52 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SelectionPreProcessorDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def startOfSelectionBlock(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.StartOfSelectionBlockContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.StartOfSelectionBlockContext, 0)
 
         def endIfDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.EndIfDirectiveContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.EndIfDirectiveContext, 0)
 
-
-        def selectionDirectiveAlternatives(self, i:int=None):
+        def selectionDirectiveAlternatives(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCPreProcessorParser.SelectionDirectiveAlternativesContext)
+                return self.getTypedRuleContexts(
+                    ParaCPreProcessorParser.SelectionDirectiveAlternativesContext)
             else:
-                return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionDirectiveAlternativesContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCPreProcessorParser.SelectionDirectiveAlternativesContext,
+                    i)
 
         def selectionElseDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionElseDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.SelectionElseDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_selectionPreProcessorDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSelectionPreProcessorDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSelectionPreProcessorDirective"):
                 listener.enterSelectionPreProcessorDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSelectionPreProcessorDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSelectionPreProcessorDirective"):
                 listener.exitSelectionPreProcessorDirective(self)
-
-
-
 
     def selectionPreProcessorDirective(self):
 
-        localctx = ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 10, self.RULE_selectionPreProcessorDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 91
@@ -635,7 +679,10 @@ class ParaCPreProcessorParser ( Parser ):
             self.state = 95
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.ElIfNotDefined) | (1 << ParaCPreProcessorParser.ElIfDefined) | (1 << ParaCPreProcessorParser.ElseIf))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCPreProcessorParser.ElIfNotDefined) | (
+                    1 << ParaCPreProcessorParser.ElIfDefined) | (
+                            1 << ParaCPreProcessorParser.ElseIf))) != 0):
                 self.state = 92
                 self.selectionDirectiveAlternatives()
                 self.state = 97
@@ -645,10 +692,9 @@ class ParaCPreProcessorParser ( Parser ):
             self.state = 99
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCPreProcessorParser.Else:
+            if _la == ParaCPreProcessorParser.Else:
                 self.state = 98
                 self.selectionElseDirective()
-
 
             self.state = 101
             self.endIfDirective()
@@ -660,47 +706,46 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StartOfSelectionBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def selectionBlock(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionBlockContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.SelectionBlockContext, 0)
 
         def ifDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.IfDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.IfDirectiveContext, 0)
 
         def ifDefinedDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.IfDefinedDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.IfDefinedDirectiveContext, 0)
 
         def ifNotDefinedDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.IfNotDefinedDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.IfNotDefinedDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_startOfSelectionBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStartOfSelectionBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStartOfSelectionBlock"):
                 listener.enterStartOfSelectionBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStartOfSelectionBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStartOfSelectionBlock"):
                 listener.exitStartOfSelectionBlock(self)
-
-
-
 
     def startOfSelectionBlock(self):
 
-        localctx = ParaCPreProcessorParser.StartOfSelectionBlockContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.StartOfSelectionBlockContext(self,
+                                                                        self._ctx,
+                                                                        self.state)
         self.enterRule(localctx, 12, self.RULE_startOfSelectionBlock)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -732,47 +777,45 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SelectionDirectiveAlternativesContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def selectionBlock(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionBlockContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.SelectionBlockContext, 0)
 
         def elIfDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ElIfDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ElIfDirectiveContext, 0)
 
         def elIfDefinedDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ElIfDefinedDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ElIfDefinedDirectiveContext, 0)
 
         def elIfNotDefinedDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ElIfNotDefinedDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ElIfNotDefinedDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_selectionDirectiveAlternatives
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSelectionDirectiveAlternatives" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSelectionDirectiveAlternatives"):
                 listener.enterSelectionDirectiveAlternatives(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSelectionDirectiveAlternatives" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSelectionDirectiveAlternatives"):
                 listener.exitSelectionDirectiveAlternatives(self)
-
-
-
 
     def selectionDirectiveAlternatives(self):
 
-        localctx = ParaCPreProcessorParser.SelectionDirectiveAlternativesContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.SelectionDirectiveAlternativesContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 14, self.RULE_selectionDirectiveAlternatives)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -804,39 +847,38 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SelectionElseDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def elseDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ElseDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ElseDirectiveContext, 0)
 
         def selectionBlock(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionBlockContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.SelectionBlockContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_selectionElseDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSelectionElseDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSelectionElseDirective"):
                 listener.enterSelectionElseDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSelectionElseDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSelectionElseDirective"):
                 listener.exitSelectionElseDirective(self)
-
-
-
 
     def selectionElseDirective(self):
 
-        localctx = ParaCPreProcessorParser.SelectionElseDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.SelectionElseDirectiveContext(self,
+                                                                         self._ctx,
+                                                                         self.state)
         self.enterRule(localctx, 16, self.RULE_selectionElseDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -852,63 +894,76 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class SelectionBlockContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def nonPreProcessorItemSequence(self, i:int=None):
+        def nonPreProcessorItemSequence(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCPreProcessorParser.NonPreProcessorItemSequenceContext)
+                return self.getTypedRuleContexts(
+                    ParaCPreProcessorParser.NonPreProcessorItemSequenceContext)
             else:
-                return self.getTypedRuleContext(ParaCPreProcessorParser.NonPreProcessorItemSequenceContext,i)
+                return self.getTypedRuleContext(
+                    ParaCPreProcessorParser.NonPreProcessorItemSequenceContext,
+                    i)
 
-
-        def Newline(self, i:int=None):
+        def Newline(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Newline)
             else:
                 return self.getToken(ParaCPreProcessorParser.Newline, i)
 
-        def selectionPreProcessorDirective(self, i:int=None):
+        def selectionPreProcessorDirective(self, i: int = None):
             if i is None:
-                return self.getTypedRuleContexts(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext)
+                return self.getTypedRuleContexts(
+                    ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext)
             else:
-                return self.getTypedRuleContext(ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,i)
-
+                return self.getTypedRuleContext(
+                    ParaCPreProcessorParser.SelectionPreProcessorDirectiveContext,
+                    i)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_selectionBlock
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterSelectionBlock" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterSelectionBlock"):
                 listener.enterSelectionBlock(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitSelectionBlock" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitSelectionBlock"):
                 listener.exitSelectionBlock(self)
-
-
-
 
     def selectionBlock(self):
 
-        localctx = ParaCPreProcessorParser.SelectionBlockContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.SelectionBlockContext(self,
+                                                                 self._ctx,
+                                                                 self.state)
         self.enterRule(localctx, 18, self.RULE_selectionBlock)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 124
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.Identifier) | (1 << ParaCPreProcessorParser.StringLiteral) | (1 << ParaCPreProcessorParser.DigitSequence) | (1 << ParaCPreProcessorParser.Whitespace) | (1 << ParaCPreProcessorParser.Newline) | (1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCPreProcessorParser.Identifier) | (
+                    1 << ParaCPreProcessorParser.StringLiteral) | (
+                            1 << ParaCPreProcessorParser.DigitSequence) | (
+                            1 << ParaCPreProcessorParser.Whitespace) | (
+                            1 << ParaCPreProcessorParser.Newline) | (
+                            1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0):
                 self.state = 122
                 self._errHandler.sync(self)
                 token = self._input.LA(1)
-                if token in [ParaCPreProcessorParser.Identifier, ParaCPreProcessorParser.StringLiteral, ParaCPreProcessorParser.DigitSequence, ParaCPreProcessorParser.Whitespace, ParaCPreProcessorParser.NonPreProcessorItemSequence]:
+                if token in [ParaCPreProcessorParser.Identifier,
+                             ParaCPreProcessorParser.StringLiteral,
+                             ParaCPreProcessorParser.DigitSequence,
+                             ParaCPreProcessorParser.Whitespace,
+                             ParaCPreProcessorParser.NonPreProcessorItemSequence]:
                     self.state = 120
                     self.nonPreProcessorItemSequence()
                     pass
@@ -926,7 +981,10 @@ class ParaCPreProcessorParser ( Parser ):
             self.state = 130
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while (((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.If) | (1 << ParaCPreProcessorParser.IfDefined) | (1 << ParaCPreProcessorParser.IfNotDefined))) != 0):
+            while (((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                    (1 << ParaCPreProcessorParser.If) | (
+                    1 << ParaCPreProcessorParser.IfDefined) | (
+                            1 << ParaCPreProcessorParser.IfNotDefined))) != 0):
                 self.state = 127
                 self.selectionPreProcessorDirective()
                 self.state = 132
@@ -941,44 +999,43 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IncludeDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def fileIncludeDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.FileIncludeDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.FileIncludeDirectiveContext, 0)
 
         def computedIncludeDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.ComputedIncludeDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.ComputedIncludeDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_includeDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIncludeDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIncludeDirective"):
                 listener.enterIncludeDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIncludeDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIncludeDirective"):
                 listener.exitIncludeDirective(self)
-
-
-
 
     def includeDirective(self):
 
-        localctx = ParaCPreProcessorParser.IncludeDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.IncludeDirectiveContext(self,
+                                                                   self._ctx,
+                                                                   self.state)
         self.enterRule(localctx, 20, self.RULE_includeDirective)
         try:
             self.state = 135
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 12, self._ctx)
             if la_ == 1:
                 self.enterOuterAlt(localctx, 1)
                 self.state = 133
@@ -1000,45 +1057,44 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class FileIncludeDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def libIncludeDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.LibIncludeDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.LibIncludeDirectiveContext, 0)
 
         def stringIncludeDirective(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.StringIncludeDirectiveContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.StringIncludeDirectiveContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_fileIncludeDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterFileIncludeDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterFileIncludeDirective"):
                 listener.enterFileIncludeDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitFileIncludeDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitFileIncludeDirective"):
                 listener.exitFileIncludeDirective(self)
-
-
-
 
     def fileIncludeDirective(self):
 
-        localctx = ParaCPreProcessorParser.FileIncludeDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.FileIncludeDirectiveContext(self,
+                                                                       self._ctx,
+                                                                       self.state)
         self.enterRule(localctx, 22, self.RULE_fileIncludeDirective)
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 139
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,13,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 13, self._ctx)
             if la_ == 1:
                 self.state = 137
                 self.libIncludeDirective()
@@ -1058,11 +1114,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ComputedIncludeDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1073,10 +1129,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1085,36 +1141,34 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_computedIncludeDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterComputedIncludeDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterComputedIncludeDirective"):
                 listener.enterComputedIncludeDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitComputedIncludeDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitComputedIncludeDirective"):
                 listener.exitComputedIncludeDirective(self)
-
-
-
 
     def computedIncludeDirective(self):
 
-        localctx = ParaCPreProcessorParser.ComputedIncludeDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ComputedIncludeDirectiveContext(
+            self, self._ctx, self.state)
         self.enterRule(localctx, 24, self.RULE_computedIncludeDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 141
             self.match(ParaCPreProcessorParser.Include)
-            self.state = 143 
+            self.state = 143
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 142
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 145 
+                self.state = 145
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 147
@@ -1129,11 +1183,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IfNotDefinedDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1144,10 +1198,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1156,36 +1210,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_ifNotDefinedDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfNotDefinedDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIfNotDefinedDirective"):
                 listener.enterIfNotDefinedDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfNotDefinedDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIfNotDefinedDirective"):
                 listener.exitIfNotDefinedDirective(self)
-
-
-
 
     def ifNotDefinedDirective(self):
 
-        localctx = ParaCPreProcessorParser.IfNotDefinedDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.IfNotDefinedDirectiveContext(self,
+                                                                        self._ctx,
+                                                                        self.state)
         self.enterRule(localctx, 26, self.RULE_ifNotDefinedDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 150
             self.match(ParaCPreProcessorParser.IfNotDefined)
-            self.state = 152 
+            self.state = 152
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 151
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 154 
+                self.state = 154
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 156
@@ -1200,11 +1253,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IfDefinedDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1215,10 +1268,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1227,36 +1280,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_ifDefinedDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfDefinedDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIfDefinedDirective"):
                 listener.enterIfDefinedDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfDefinedDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIfDefinedDirective"):
                 listener.exitIfDefinedDirective(self)
-
-
-
 
     def ifDefinedDirective(self):
 
-        localctx = ParaCPreProcessorParser.IfDefinedDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.IfDefinedDirectiveContext(self,
+                                                                     self._ctx,
+                                                                     self.state)
         self.enterRule(localctx, 28, self.RULE_ifDefinedDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 159
             self.match(ParaCPreProcessorParser.IfDefined)
-            self.state = 161 
+            self.state = 161
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 160
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 163 
+                self.state = 163
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 165
@@ -1271,11 +1323,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ElIfNotDefinedDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1286,10 +1338,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1298,36 +1350,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_elIfNotDefinedDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElIfNotDefinedDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterElIfNotDefinedDirective"):
                 listener.enterElIfNotDefinedDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElIfNotDefinedDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitElIfNotDefinedDirective"):
                 listener.exitElIfNotDefinedDirective(self)
-
-
-
 
     def elIfNotDefinedDirective(self):
 
-        localctx = ParaCPreProcessorParser.ElIfNotDefinedDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ElIfNotDefinedDirectiveContext(self,
+                                                                          self._ctx,
+                                                                          self.state)
         self.enterRule(localctx, 30, self.RULE_elIfNotDefinedDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 168
             self.match(ParaCPreProcessorParser.ElIfNotDefined)
-            self.state = 170 
+            self.state = 170
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 169
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 172 
+                self.state = 172
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 174
@@ -1342,11 +1393,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ElIfDefinedDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1357,10 +1408,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1369,36 +1420,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_elIfDefinedDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElIfDefinedDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterElIfDefinedDirective"):
                 listener.enterElIfDefinedDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElIfDefinedDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitElIfDefinedDirective"):
                 listener.exitElIfDefinedDirective(self)
-
-
-
 
     def elIfDefinedDirective(self):
 
-        localctx = ParaCPreProcessorParser.ElIfDefinedDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ElIfDefinedDirectiveContext(self,
+                                                                       self._ctx,
+                                                                       self.state)
         self.enterRule(localctx, 32, self.RULE_elIfDefinedDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 177
             self.match(ParaCPreProcessorParser.ElIfDefined)
-            self.state = 179 
+            self.state = 179
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 178
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 181 
+                self.state = 181
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 183
@@ -1413,11 +1463,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class IfDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1425,30 +1475,28 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.If, 0)
 
         def anySequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.AnySequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.AnySequenceContext, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_ifDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterIfDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterIfDirective"):
                 listener.enterIfDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitIfDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitIfDirective"):
                 listener.exitIfDirective(self)
-
-
-
 
     def ifDirective(self):
 
-        localctx = ParaCPreProcessorParser.IfDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.IfDirectiveContext(self, self._ctx,
+                                                              self.state)
         self.enterRule(localctx, 34, self.RULE_ifDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1466,11 +1514,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ElIfDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1478,30 +1526,29 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.ElseIf, 0)
 
         def anySequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.AnySequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.AnySequenceContext, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_elIfDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElIfDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterElIfDirective"):
                 listener.enterElIfDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElIfDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitElIfDirective"):
                 listener.exitElIfDirective(self)
-
-
-
 
     def elIfDirective(self):
 
-        localctx = ParaCPreProcessorParser.ElIfDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ElIfDirectiveContext(self,
+                                                                self._ctx,
+                                                                self.state)
         self.enterRule(localctx, 36, self.RULE_elIfDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1519,11 +1566,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ElseDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1531,26 +1578,25 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Else, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_elseDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterElseDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterElseDirective"):
                 listener.enterElseDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitElseDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitElseDirective"):
                 listener.exitElseDirective(self)
-
-
-
 
     def elseDirective(self):
 
-        localctx = ParaCPreProcessorParser.ElseDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ElseDirectiveContext(self,
+                                                                self._ctx,
+                                                                self.state)
         self.enterRule(localctx, 38, self.RULE_elseDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1566,11 +1612,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class EndIfDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1578,26 +1624,25 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.EndIf, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_endIfDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterEndIfDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterEndIfDirective"):
                 listener.enterEndIfDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitEndIfDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitEndIfDirective"):
                 listener.exitEndIfDirective(self)
-
-
-
 
     def endIfDirective(self):
 
-        localctx = ParaCPreProcessorParser.EndIfDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.EndIfDirectiveContext(self,
+                                                                 self._ctx,
+                                                                 self.state)
         self.enterRule(localctx, 40, self.RULE_endIfDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1613,11 +1658,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PragmaDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1625,28 +1670,30 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Pragma, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def GCCParacPrefix(self, i:int=None):
+        def GCCParacPrefix(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.GCCParacPrefix)
             else:
                 return self.getToken(ParaCPreProcessorParser.GCCParacPrefix, i)
 
-        def PragmaParacPrefix(self, i:int=None):
+        def PragmaParacPrefix(self, i: int = None):
             if i is None:
-                return self.getTokens(ParaCPreProcessorParser.PragmaParacPrefix)
+                return self.getTokens(
+                    ParaCPreProcessorParser.PragmaParacPrefix)
             else:
-                return self.getToken(ParaCPreProcessorParser.PragmaParacPrefix, i)
+                return self.getToken(ParaCPreProcessorParser.PragmaParacPrefix,
+                                     i)
 
-        def Identifier(self, i:int=None):
+        def Identifier(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Identifier)
             else:
                 return self.getToken(ParaCPreProcessorParser.Identifier, i)
 
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1655,46 +1702,48 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_pragmaDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPragmaDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPragmaDirective"):
                 listener.enterPragmaDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPragmaDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPragmaDirective"):
                 listener.exitPragmaDirective(self)
-
-
-
 
     def pragmaDirective(self):
 
-        localctx = ParaCPreProcessorParser.PragmaDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.PragmaDirectiveContext(self,
+                                                                  self._ctx,
+                                                                  self.state)
         self.enterRule(localctx, 42, self.RULE_pragmaDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 200
             self.match(ParaCPreProcessorParser.Pragma)
-            self.state = 207 
+            self.state = 207
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
-                    self.state = 202 
+                    self.state = 202
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     while True:
                         self.state = 201
                         self.match(ParaCPreProcessorParser.Whitespace)
-                        self.state = 204 
+                        self.state = 204
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
-                        if not (_la==ParaCPreProcessorParser.Whitespace):
+                        if not (_la == ParaCPreProcessorParser.Whitespace):
                             break
 
                     self.state = 206
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.GCCParacPrefix) | (1 << ParaCPreProcessorParser.PragmaParacPrefix) | (1 << ParaCPreProcessorParser.Identifier))) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                            (1 << ParaCPreProcessorParser.GCCParacPrefix) | (
+                            1 << ParaCPreProcessorParser.PragmaParacPrefix) | (
+                                    1 << ParaCPreProcessorParser.Identifier))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -1702,9 +1751,9 @@ class ParaCPreProcessorParser ( Parser ):
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 209 
+                self.state = 209
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 20, self._ctx)
 
             self.state = 211
             self.preProcessorEnd()
@@ -1716,11 +1765,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ErrorDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1728,30 +1777,29 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Error, 0)
 
         def anySequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.AnySequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.AnySequenceContext, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_errorDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterErrorDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterErrorDirective"):
                 listener.enterErrorDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitErrorDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitErrorDirective"):
                 listener.exitErrorDirective(self)
-
-
-
 
     def errorDirective(self):
 
-        localctx = ParaCPreProcessorParser.ErrorDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ErrorDirectiveContext(self,
+                                                                 self._ctx,
+                                                                 self.state)
         self.enterRule(localctx, 44, self.RULE_errorDirective)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -1769,11 +1817,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class UndefDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1784,10 +1832,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1796,36 +1844,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_undefDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterUndefDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterUndefDirective"):
                 listener.enterUndefDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitUndefDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitUndefDirective"):
                 listener.exitUndefDirective(self)
-
-
-
 
     def undefDirective(self):
 
-        localctx = ParaCPreProcessorParser.UndefDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.UndefDirectiveContext(self,
+                                                                 self._ctx,
+                                                                 self.state)
         self.enterRule(localctx, 46, self.RULE_undefDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 217
             self.match(ParaCPreProcessorParser.Undefine)
-            self.state = 219 
+            self.state = 219
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 218
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 221 
+                self.state = 221
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 223
@@ -1840,11 +1887,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class ComplexDefineDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1855,77 +1902,76 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.Identifier, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
                 return self.getToken(ParaCPreProcessorParser.Whitespace, i)
 
         def anySequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.AnySequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.AnySequenceContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_complexDefineDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterComplexDefineDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterComplexDefineDirective"):
                 listener.enterComplexDefineDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitComplexDefineDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitComplexDefineDirective"):
                 listener.exitComplexDefineDirective(self)
-
-
-
 
     def complexDefineDirective(self):
 
-        localctx = ParaCPreProcessorParser.ComplexDefineDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.ComplexDefineDirectiveContext(self,
+                                                                         self._ctx,
+                                                                         self.state)
         self.enterRule(localctx, 48, self.RULE_complexDefineDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 226
             self.match(ParaCPreProcessorParser.Define)
-            self.state = 228 
+            self.state = 228
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 227
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 230 
+                self.state = 230
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 232
             self.match(ParaCPreProcessorParser.Identifier)
             self.state = 239
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,24,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input, 24, self._ctx)
             if la_ == 1:
-                self.state = 234 
+                self.state = 234
                 self._errHandler.sync(self)
                 _alt = 1
-                while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+                while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
                         self.state = 233
                         self.match(ParaCPreProcessorParser.Whitespace)
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 236 
+                    self.state = 236
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,23,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input, 23,
+                                                        self._ctx)
 
                 self.state = 238
                 self.anySequence()
-
 
             self.state = 241
             self.preProcessorEnd()
@@ -1937,11 +1983,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LibIncludeDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -1952,10 +1998,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.LibStringLiteral, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -1964,36 +2010,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_libIncludeDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLibIncludeDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLibIncludeDirective"):
                 listener.enterLibIncludeDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLibIncludeDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLibIncludeDirective"):
                 listener.exitLibIncludeDirective(self)
-
-
-
 
     def libIncludeDirective(self):
 
-        localctx = ParaCPreProcessorParser.LibIncludeDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.LibIncludeDirectiveContext(self,
+                                                                      self._ctx,
+                                                                      self.state)
         self.enterRule(localctx, 50, self.RULE_libIncludeDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 243
             self.match(ParaCPreProcessorParser.Include)
-            self.state = 245 
+            self.state = 245
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 244
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 247 
+                self.state = 247
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 249
@@ -2008,11 +2053,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class StringIncludeDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2023,10 +2068,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.StringLiteral, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -2035,36 +2080,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_stringIncludeDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterStringIncludeDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterStringIncludeDirective"):
                 listener.enterStringIncludeDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitStringIncludeDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitStringIncludeDirective"):
                 listener.exitStringIncludeDirective(self)
-
-
-
 
     def stringIncludeDirective(self):
 
-        localctx = ParaCPreProcessorParser.StringIncludeDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.StringIncludeDirectiveContext(self,
+                                                                         self._ctx,
+                                                                         self.state)
         self.enterRule(localctx, 52, self.RULE_stringIncludeDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 252
             self.match(ParaCPreProcessorParser.Include)
-            self.state = 254 
+            self.state = 254
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 253
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 256 
+                self.state = 256
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 258
@@ -2079,11 +2123,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class LineDirectiveContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2094,10 +2138,10 @@ class ParaCPreProcessorParser ( Parser ):
             return self.getToken(ParaCPreProcessorParser.DigitSequence, 0)
 
         def preProcessorEnd(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.PreProcessorEndContext,0)
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.PreProcessorEndContext, 0)
 
-
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -2109,61 +2153,59 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_lineDirective
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterLineDirective" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterLineDirective"):
                 listener.enterLineDirective(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitLineDirective" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitLineDirective"):
                 listener.exitLineDirective(self)
-
-
-
 
     def lineDirective(self):
 
-        localctx = ParaCPreProcessorParser.LineDirectiveContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.LineDirectiveContext(self,
+                                                                self._ctx,
+                                                                self.state)
         self.enterRule(localctx, 54, self.RULE_lineDirective)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 261
             self.match(ParaCPreProcessorParser.Line)
-            self.state = 263 
+            self.state = 263
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
                 self.state = 262
                 self.match(ParaCPreProcessorParser.Whitespace)
-                self.state = 265 
+                self.state = 265
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
-                if not (_la==ParaCPreProcessorParser.Whitespace):
+                if not (_la == ParaCPreProcessorParser.Whitespace):
                     break
 
             self.state = 267
             self.match(ParaCPreProcessorParser.DigitSequence)
-            self.state = 269 
+            self.state = 269
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 268
                     self.match(ParaCPreProcessorParser.Whitespace)
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 271 
+                self.state = 271
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 28, self._ctx)
 
             self.state = 274
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==ParaCPreProcessorParser.StringLiteral:
+            if _la == ParaCPreProcessorParser.StringLiteral:
                 self.state = 273
                 self.match(ParaCPreProcessorParser.StringLiteral)
-
 
             self.state = 276
             self.preProcessorEnd()
@@ -2175,35 +2217,34 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class NonPreProcessorItemContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
         def anySequence(self):
-            return self.getTypedRuleContext(ParaCPreProcessorParser.AnySequenceContext,0)
-
+            return self.getTypedRuleContext(
+                ParaCPreProcessorParser.AnySequenceContext, 0)
 
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_nonPreProcessorItem
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterNonPreProcessorItem" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterNonPreProcessorItem"):
                 listener.enterNonPreProcessorItem(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitNonPreProcessorItem" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitNonPreProcessorItem"):
                 listener.exitNonPreProcessorItem(self)
-
-
-
 
     def nonPreProcessorItem(self):
 
-        localctx = ParaCPreProcessorParser.NonPreProcessorItemContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.NonPreProcessorItemContext(self,
+                                                                      self._ctx,
+                                                                      self.state)
         self.enterRule(localctx, 56, self.RULE_nonPreProcessorItem)
         try:
             self.enterOuterAlt(localctx, 1)
@@ -2217,39 +2258,41 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class AnySequenceContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def Identifier(self, i:int=None):
+        def Identifier(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Identifier)
             else:
                 return self.getToken(ParaCPreProcessorParser.Identifier, i)
 
-        def DigitSequence(self, i:int=None):
+        def DigitSequence(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.DigitSequence)
             else:
                 return self.getToken(ParaCPreProcessorParser.DigitSequence, i)
 
-        def StringLiteral(self, i:int=None):
+        def StringLiteral(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.StringLiteral)
             else:
                 return self.getToken(ParaCPreProcessorParser.StringLiteral, i)
 
-        def NonPreProcessorItemSequence(self, i:int=None):
+        def NonPreProcessorItemSequence(self, i: int = None):
             if i is None:
-                return self.getTokens(ParaCPreProcessorParser.NonPreProcessorItemSequence)
+                return self.getTokens(
+                    ParaCPreProcessorParser.NonPreProcessorItemSequence)
             else:
-                return self.getToken(ParaCPreProcessorParser.NonPreProcessorItemSequence, i)
+                return self.getToken(
+                    ParaCPreProcessorParser.NonPreProcessorItemSequence, i)
 
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -2258,32 +2301,35 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_anySequence
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterAnySequence" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterAnySequence"):
                 listener.enterAnySequence(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitAnySequence" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitAnySequence"):
                 listener.exitAnySequence(self)
-
-
-
 
     def anySequence(self):
 
-        localctx = ParaCPreProcessorParser.AnySequenceContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.AnySequenceContext(self, self._ctx,
+                                                              self.state)
         self.enterRule(localctx, 58, self.RULE_anySequence)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 281 
+            self.state = 281
             self._errHandler.sync(self)
             _alt = 1
-            while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
+            while _alt != 2 and _alt != ATN.INVALID_ALT_NUMBER:
                 if _alt == 1:
                     self.state = 280
                     _la = self._input.LA(1)
-                    if not((((_la) & ~0x3f) == 0 and ((1 << _la) & ((1 << ParaCPreProcessorParser.Identifier) | (1 << ParaCPreProcessorParser.StringLiteral) | (1 << ParaCPreProcessorParser.DigitSequence) | (1 << ParaCPreProcessorParser.Whitespace) | (1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0)):
+                    if not ((((_la) & ~0x3f) == 0 and ((1 << _la) & (
+                            (1 << ParaCPreProcessorParser.Identifier) | (
+                            1 << ParaCPreProcessorParser.StringLiteral) | (
+                                    1 << ParaCPreProcessorParser.DigitSequence) | (
+                                    1 << ParaCPreProcessorParser.Whitespace) | (
+                                    1 << ParaCPreProcessorParser.NonPreProcessorItemSequence))) != 0)):
                         self._errHandler.recoverInline(self)
                     else:
                         self._errHandler.reportMatch(self)
@@ -2291,9 +2337,9 @@ class ParaCPreProcessorParser ( Parser ):
 
                 else:
                     raise NoViableAltException(self)
-                self.state = 283 
+                self.state = 283
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,30,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input, 30, self._ctx)
 
         except RecognitionException as re:
             localctx.exception = re
@@ -2303,11 +2349,11 @@ class ParaCPreProcessorParser ( Parser ):
             self.exitRule()
         return localctx
 
-
     class PreProcessorEndContext(ParserRuleContext):
         __slots__ = 'parser'
 
-        def __init__(self, parser, parent:ParserRuleContext=None, invokingState:int=-1):
+        def __init__(self, parser, parent: ParserRuleContext = None,
+                     invokingState: int = -1):
             super().__init__(parent, invokingState)
             self.parser = parser
 
@@ -2317,7 +2363,7 @@ class ParaCPreProcessorParser ( Parser ):
         def EOF(self):
             return self.getToken(ParaCPreProcessorParser.EOF, 0)
 
-        def Whitespace(self, i:int=None):
+        def Whitespace(self, i: int = None):
             if i is None:
                 return self.getTokens(ParaCPreProcessorParser.Whitespace)
             else:
@@ -2326,28 +2372,27 @@ class ParaCPreProcessorParser ( Parser ):
         def getRuleIndex(self):
             return ParaCPreProcessorParser.RULE_preProcessorEnd
 
-        def enterRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "enterPreProcessorEnd" ):
+        def enterRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "enterPreProcessorEnd"):
                 listener.enterPreProcessorEnd(self)
 
-        def exitRule(self, listener:ParseTreeListener):
-            if hasattr( listener, "exitPreProcessorEnd" ):
+        def exitRule(self, listener: ParseTreeListener):
+            if hasattr(listener, "exitPreProcessorEnd"):
                 listener.exitPreProcessorEnd(self)
-
-
-
 
     def preProcessorEnd(self):
 
-        localctx = ParaCPreProcessorParser.PreProcessorEndContext(self, self._ctx, self.state)
+        localctx = ParaCPreProcessorParser.PreProcessorEndContext(self,
+                                                                  self._ctx,
+                                                                  self.state)
         self.enterRule(localctx, 60, self.RULE_preProcessorEnd)
-        self._la = 0 # Token type
+        self._la = 0  # Token type
         try:
             self.enterOuterAlt(localctx, 1)
             self.state = 288
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            while _la==ParaCPreProcessorParser.Whitespace:
+            while _la == ParaCPreProcessorParser.Whitespace:
                 self.state = 285
                 self.match(ParaCPreProcessorParser.Whitespace)
                 self.state = 290
@@ -2356,7 +2401,8 @@ class ParaCPreProcessorParser ( Parser ):
 
             self.state = 291
             _la = self._input.LA(1)
-            if not(_la==ParaCPreProcessorParser.EOF or _la==ParaCPreProcessorParser.Newline):
+            if not (
+                    _la == ParaCPreProcessorParser.EOF or _la == ParaCPreProcessorParser.Newline):
                 self._errHandler.recoverInline(self)
             else:
                 self._errHandler.reportMatch(self)
@@ -2368,8 +2414,3 @@ class ParaCPreProcessorParser ( Parser ):
         finally:
             self.exitRule()
         return localctx
-
-
-
-
-

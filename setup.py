@@ -1,8 +1,9 @@
 # coding=utf-8
 """ Setup file for the entire project """
 import os
-import setuptools
 from pathlib import Path
+
+import setuptools
 
 SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
 

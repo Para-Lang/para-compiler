@@ -49,11 +49,11 @@ class TestProcessing:
         for file in files:
             b_path: Path = add_folder("build")
             d_path: Path = add_folder("dist")
-            
+
             asyncio.run(ProgramCompilationProcess(
                 file.path, 'utf-8', build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
-            
+
             remove_folder("build")
             remove_folder("dist")
 

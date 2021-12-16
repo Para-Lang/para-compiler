@@ -2,16 +2,16 @@
 """ Logger management file for formatting and specific exception and  """
 import logging
 import os
+import re
 import shutil
 import sys
 import traceback
-import re
 from logging import StreamHandler
 from pathlib import Path
+from types import FunctionType, TracebackType
+from typing import Optional, Callable, Tuple, Type, Union, Literal
 
 from rich.console import Console
-from typing import Optional, Callable, Tuple, Type, Union, Literal
-from types import FunctionType, TracebackType
 from rich.theme import Theme
 
 __all__ = [
@@ -477,4 +477,3 @@ def cli_create_prompt(string: str) -> str:
     (Uses ansi instead of rich because of compatibility issues)
     """
     return f'{ansi_col.make_bold(ansi_col.bright_cyan)} > {string}'
-

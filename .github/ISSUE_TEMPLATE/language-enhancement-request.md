@@ -1,9 +1,7 @@
 ---
-name: Language Enhancement Proposal
-about: Suggest an idea for this project
+name: Language Enhancement Proposal about: Suggest an idea for this project
 title: "[Lang Enhancement Proposal] ..."
-labels: enhancement proposal
-assignees: Luna-Klatzer
+labels: enhancement proposal assignees: Luna-Klatzer
 
 ---
 
@@ -14,6 +12,7 @@ Asking for info takes time that is unnecessarily wasted if it's not correctly po
 -->
 
 **Affected area by change:**
+
 - Language Syntax: [yes/no]
 - Language Library (Parac Base Library): [yes/no]
 - Compiler: [yes/no]
@@ -27,7 +26,8 @@ Please keep it short and only add important info. Afterwards, add in the other i
 
 **Is your request related to a problem? Please describe.**
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+A clear and concise description of what the problem is. Ex. I'm always
+frustrated when [...]
 
 **Describe the solution you'd like**
 
@@ -35,7 +35,8 @@ A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 
-A clear and concise description of any alternative solutions or features you've considered.
+A clear and concise description of any alternative solutions or features you've
+considered.
 
 **Additional context**
 

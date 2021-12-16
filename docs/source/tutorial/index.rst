@@ -1,7 +1,9 @@
-
 *****************************************
 Welcome to the Para-C Quickstart Tutorial
 *****************************************
+
+This document explains how to get started with Para-C, how to set it up and how
+to generally use it and understand how to make the most out of it.
 
 Using the Command Line Interface
 ================================
@@ -22,3 +24,15 @@ Using the Command Line Interface
 +------------------------+--------------------------------------------------------------------------------------------------+
 | ``parac analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
 +------------------------+--------------------------------------------------------------------------------------------------+
+
+---
+
+In work...
+
+Language Intro
+==============
+
+For general info on the language, and how you can use it, go to our
+`introduction of Para-C <../lang_ref/introduction.html>`_. That will like this
+document provide even more info on Para-C, and what you can do with it, just
+this time in the language itself.

@@ -42,8 +42,8 @@ Usage & Examples
         return (status) { .status_code = 0 };
     }
 
-Additional Notes
-----------------
+Footnotes
+-----------
 
 1. At least one `entry` specifier is needed inside the entry-file for the Para-C
    project to properly run. If none is provided the compiler will raise an error.

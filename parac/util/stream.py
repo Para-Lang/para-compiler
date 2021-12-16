@@ -3,6 +3,7 @@
 import pathlib
 from os import PathLike
 from typing import Union
+
 import antlr4
 
 from .pathtools import ensure_pathlib_path

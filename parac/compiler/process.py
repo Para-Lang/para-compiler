@@ -102,7 +102,6 @@ class BasicProcess:
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
-        :returns: True if the syntax check was successful else False
         """
         from .compiler import ParacCompiler
         return await ParacCompiler.validate_syntax(
@@ -302,7 +301,7 @@ class ProgramCompilationProcess(BasicProcess):
         await self.gen_preprocessor_temp_files(preprocessor_result)
 
         if track_progress:
-            yield 20, "Parsing files and generating logic streams",\
+            yield 20, "Parsing files and generating logic streams", \
                   logging.INFO, None
 
         await self.compilation_ctx.process_program(True)

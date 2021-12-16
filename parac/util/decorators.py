@@ -4,16 +4,14 @@ import functools
 import logging
 import sys
 import warnings
-from sys import exit
 from functools import wraps
+from sys import exit
 
+from .strtools import escape_ansi
 from ..exceptions import (InterruptError, ParacCompilerError,
                           InternalError)
-
 from ..logging import (get_rich_console as console, log_traceback,
                        print_abort_banner, init_rich_console)
-from .strtools import escape_ansi
-
 
 __all__ = [
     'deprecated',

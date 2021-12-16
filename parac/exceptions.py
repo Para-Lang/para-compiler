@@ -114,7 +114,7 @@ class ParacCompilerError(Exception):
 
 class InternalErrorInfo:
     """ Class storing info about an exception causing an InternalError """
-    
+
     def __init__(
             self,
             exc_type: Type[Exception],
@@ -124,7 +124,7 @@ class InternalErrorInfo:
         self._exc_type = exc_type
         self._exc_value = exc_value
         self._exc_tb = exc_tb
-    
+
     @property
     def exc_type(self) -> Type[Exception]:
         """ Exception Type """

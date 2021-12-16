@@ -40,6 +40,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx_inline_tabs",
     "sphinx_copybutton",
+    "sphinx_autodoc_typehints",
     "sphinxext.opengraph",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
@@ -57,18 +58,36 @@ exclude_patterns = []
 # -- Options for HTML output -------------------------------------------------
 
 html_title = f'Para-C {release}'
-html_theme = 'furo'
+html_theme = 'pydata_sphinx_theme'
 html_logo = '../../img/parac.ico'
 html_favicon = '../../img/parac.ico'
 html_theme_options = {
-    "light_css_variables": {
-        "color-brand-primary": "#9b3fd4",
-        "color-brand-content": "#9b3fd4",
-    },
-    "dark_css_variables": {
-        "color-brand-primary": "#9b3fd4",
-        "color-brand-content": "#9b3fd4",
-    },
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/Para-C/Para-C",
+            "icon": "fab fa-github-square",
+        }
+    ],
+    "icon_links_label": "Quick Links",
+    "external_links": [
+        {
+            "name": "License ",
+            "url": "https://github.com/Para-C/Para-C/blob/main/LICENSE"
+        },
+        {
+            "name": "Report an issue ",
+            "url": "https://github.com/Para-C/Para-C/issues/new/"
+        },
+        {
+            "name": "Discussion Page ",
+            "url": "https://github.com/Para-C/Para-C/discussions/"
+        },
+        {
+            "name": "PyPi Page ",
+            "url": "https://pypi.org/project/parac/"
+        }
+    ]
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -90,7 +109,11 @@ def setup(app):
     app.connect("autodoc-skip-member", skip)
 
 
-autodoc_member_order = 'groupwise'
-
 # Suppressing the warning 'duplicate label'
 suppress_warnings = ['autosectionlabel.*']
+
+# See: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order
+autodoc_member_order = 'groupwise'
+
+# Sets the Type Checking flag to import even more types
+set_type_checking_flag = True

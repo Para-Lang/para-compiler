@@ -57,10 +57,10 @@ class CLogicStream(LogicStream):
     """
 
     def __init__(
-        self,
-        generator_parent: ParacQualifiedLogicStream,
-        *args,
-        **kwargs
+            self,
+            generator_parent: ParacQualifiedLogicStream,
+            *args,
+            **kwargs
     ):
         self._generator_parent = generator_parent
         super().__init__(*args, **kwargs)

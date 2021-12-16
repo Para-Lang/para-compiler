@@ -1,4 +1,3 @@
-
 ******************
 Compound Statement
 ******************
@@ -106,8 +105,8 @@ block is executed either way without any change in execution.
 
 Simple Example of the usage inside a `while loop <./iteration_statement.html>`_
 
-Additional Notes
-----------------
+Footnotes
+-----------
 
 1. Compound statements can be only used in combination of a function definition
    or as a child of another compound statement (See :ref:`Nested Block Example<2. Nested Block Example>`)

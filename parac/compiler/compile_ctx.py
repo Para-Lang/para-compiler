@@ -162,14 +162,9 @@ class ProgramCompilationContext(ProgramRunContext):
         """
         Generates the source C-code from the tokens stored inside the class.
 
-        :returns:
-          (
-            str - Name of the file (Relative name),
-            (
-              str - The code-string,
-              FileCompilationContext - The context of the file
-            )
-          )
+        :returns: If the dict is returned, the items will be as followed: Name
+         of the file (Relative name), The code-string, The compilation context
+         of the file.
         """
         ...
 

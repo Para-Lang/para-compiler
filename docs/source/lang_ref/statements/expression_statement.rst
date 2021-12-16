@@ -1,11 +1,10 @@
-
 ********************
 Expression Statement
 ********************
 
 Expression Statements are the most important statement in a Para-C program, as
 they practically do all of the work and perform the tasks inside a program.
-They are simple expressions which are following by a semi-colon (``;``).
+They are simple expressions which are followed by a semi-colon ``;``.
 
 Syntax
 ------
@@ -35,8 +34,7 @@ Usage & Examples
         return (status) { .status_code = 0 };
     }
 
-
-In this example there are three assignment expressions, which define
+In this example, there are three assignment statement, which define
 `variables <../declaration_and_types/index.html>`_, and another assignment
 expression storing the result of the arithmetic expression (``x * y * z``) in
 the variable ``result``.
@@ -61,19 +59,24 @@ the variable ``result``.
         return (status) { .status_code = 0 };
     }
 
-Here we have a simple function definition, which is then invoked in the
-``Main()`` function of the program. Here the function is called in the function
-call expression, where afterwards the evaluated value of the expression is
-stored in the variable ``result``.
+Here we have a simple function definition of ``GetDouble``, which is then
+invoked in the ``Main()`` function of the program. The function is called
+inside the expression statement: ``long result = GetDouble(2);``, where
+afterwards the evaluated value of the expression is stored in the variable
+``result``.
 
 The ``result`` is simply printed afterwards in another function call
 expression with ``print()``, which though simply represents a function call
 without any expression utilising the return of it afterwards.
 
-Additional Notes
-----------------
-1. Arithmetic, Logical, Conditional and Relational Expressions are forbidden as
-   expression statements, unless they store their value in an assignment
-   expression. This is to prevent useless statements, where evaluation does not
-   influence the program and the intentions are unclear. For example, the
-   following is invalid: ``3 + 4;``
+Footnotes
+-----------
+1. `Arithmetic <../expressions/arithmetic_expression.html>`_,
+   `Logical <../expressions/logical_expression.html>`_,
+   `Conditional <../expressions/conditional_expression.html>`_ and
+   `Relational Expressions <../expressions/relational_expression.html>`_
+   are forbidden as expression statements, unless they
+   store their value in an assignment expression. This is to prevent useless
+   statements, where evaluation does not influence the program. For example,
+   the following is invalid: ``3 + 4;``, as the evaluated value ``7`` is just
+   left mid program.

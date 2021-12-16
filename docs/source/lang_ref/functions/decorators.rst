@@ -12,5 +12,5 @@ Syntax
 Usage & Examples
 ----------------
 
-Additional Notes
-----------------
+Footnotes
+-----------

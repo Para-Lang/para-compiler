@@ -21,4 +21,3 @@ class Optimiser:
             cu: FileCompilationContext
     ):
         """ Optimises the CompileUnit code """
-

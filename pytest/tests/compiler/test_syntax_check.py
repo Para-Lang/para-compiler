@@ -1,15 +1,14 @@
 # coding=utf-8
 """ Tests for the Lexer and Parser """
+import asyncio
 import logging
 import os
 from pathlib import Path
 from typing import List
-import asyncio
 
 from parac import RUNTIME_COMPILER, initialise_default_paths
-from parac.logging import set_avoid_print_banner_overwrite
 from parac.compiler import ParacCompiler, BasicProcess
-
+from parac.logging import set_avoid_print_banner_overwrite
 from .. import reset_input, BASE_TEST_PATH
 
 logger = logging.getLogger('compiler')

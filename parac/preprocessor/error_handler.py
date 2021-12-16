@@ -9,8 +9,8 @@ from antlr4.error.Errors import (InputMismatchException,
                                  RecognitionException,
                                  LexerNoViableAltException,
                                  NoViableAltException)
-from .python.ParaCPreProcessorParser import ParaCPreProcessorParser
 
+from .parser.ParaCPreProcessorParser import ParaCPreProcessorParser
 from ..abc import BaseErrorListener
 
 __all__ = [
