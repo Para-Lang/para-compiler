@@ -91,13 +91,13 @@ folder will contain the distribution-ready binaries and data.
 
 ## Generating the docs
 
-To generate one time use:
+To generate the docs for a one-time usage, use the following:
 
 ```bash
 ./docs/make.bat html
 ```
 
-or for active http server, which will reload changes:
+or for an active http server, which will automatically reload changes:
 
 ```bash
 sphinx-autobuild ./docs/source ./docs/build/html
