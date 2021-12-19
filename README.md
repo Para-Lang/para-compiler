@@ -66,7 +66,7 @@ pyinstaller, you may also directly utilise the `parac` source module, which
 provides an API that can be run in your own python scripts.
 
 For reference on the pypi module please go to the documentation page
-[here](https://para-c.readthedocs.io/en/dev/pyapi_ref/index.html)
+[here](https://para-c.readthedocs.io/en/latest/pyapi_ref/index.html)
 
 ## Installation
 

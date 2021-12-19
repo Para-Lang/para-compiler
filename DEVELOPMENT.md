@@ -1,25 +1,27 @@
 # Development
 
-## Parsing and Processing Procedure
+## Installing Dependencies
 
-Due to the two components, which are the Pre-Processor, and the core Compiler
-the entire module is split into two modules: `preprocessor` and `paraccompiler`
-, which both implement their handling for the source-code. This means that when
-compiling a file, the file will be sent through the Pre-Processor first,
-modified and then sent to the Para-C Compiler.
+To install the dev-dependencies, simply use `./requirements/dev.txt` with pip,
+like the following:
 
-This also means errors reported will be from the modified file, so that the
-modified code is visible to the user, instead of the file without correct
-Pre-Processor processing.
+```bash
+pip install -r requirements/dev.txt
+```
 
-## Build inno-setup installer for Windows
+Or for a virtual environment:
+
+```bash
+pipenv install -r requirements/dev.txt
+```
+## Building
+
+### Build inno-setup installer for Windows
 
 Download inno-setup [here](https://jrsoftware.org/download.php/is.exe)
 
 Build inside this folder and use the inno-setup.iss file. The generated
 installer will be placed inside `./Output`
-
-## Building
 
 ### Generating the Parser and Lexer
 
@@ -84,22 +86,6 @@ rm -rf ./path/to/generated/output
   work*
 - *Comments are only partly ignored in ParaC.g4, due the intended removal in
   the Pre-Processor. Errors can occur!*
-
-### Build the executable and binaries
-
-For generating the binaries, PyInstaller with a wrapper script will be used.
-This script will automatically run the generation of source files and copying
-of data.
-
-To run the script simply use (Python3):
-
-```bash
-parser ./src/parac-build.py
-```
-
-The script will create a `./build/` and `./dist/` folder. The `./build/` folder
-will contain the raw data and logs, while the `./dist/`
-folder will contain the distribution-ready binaries and data.
 
 ## Generating the docs
 

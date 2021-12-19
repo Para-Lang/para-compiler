@@ -17,6 +17,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `Linker` and `LinkerMetaData` classes for the linking step and dependency
   analysis that is between the logical analysis and code
   generation/optimisation.
+- CLI for `parac-build.py` to simplify the building process by allowing for 
+  more configuration. This also includes web-download and automatic global
+  installation. 
+- `requirements` folder with requirements for each use-case like `dev`, `prod`
+  or `common` (base requirements for both `dev` and `prod`)
 
 ### Updated
 
@@ -31,6 +36,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `preprocess_files()`
 
 ### Removed
+- `mode` for `bin-config.json`
 
 ## [v0.1.dev6] - 2021-11-10
 

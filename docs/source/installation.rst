@@ -55,15 +55,24 @@ your OS.
 Building the Binaries
 ---------------------
 
-To build the binaries a pre-made script is used, which will generate a dist and
-build folder containing the data of the build. The build folder can be in this
-case ignored, except logs and data of pyinstaller is wanted.
-
-Inside the root folder of the source code, run the following command:
+Inside the root folder of the source code, run the following command to execute
+the pre-made script, which will automatically manage everything:
 
 .. code:: bash
 
     python ./parac-build.py
+
+.. note::
+
+    If you need additional info on the script, use:
+
+    .. code:: bash
+
+        python ./parac-build.py --help
+
+    This will display additional help on the command, such as how to specify
+    an url and download it on runtime, or how to specifically install it
+    globally.
 
 The compilation may take a while since it will wrap the entire program
 with the python instance into a standalone compiled binary, which can then
@@ -73,19 +82,42 @@ After the successful installation of Para-C, the root folder for Para-C
 will be called ``parac`` and will be located in the ``./dist/`` folder. This
 folder can be deleted after the module was moved to its destination.
 
-.. Note::
+.. note::
 
     It does not matter where Para-C is located as long as the structure inside
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
     It is recommended to use on unix-like systems the following directories:
-    - `/usr/bin`
-    - `/usr/local/bin`
-    - `/home/$USER/.local/bin`
+
+    - ``/usr/bin``
+    - ``/usr/local/bin``
+    - ``/home/$USER/.local/bin``
+
+    To make the script move to those destinations per default call the script
+    using:
+
+    .. code:: bash
+
+        python ./parac-build.py --install-global
+
+    This will default to the following paths:
+
+    - POSIX (Unix, Linux, MacOS): ``/usr/local/bin/Para-C``
+    - NT (Windows): ``C:\\Program Files (x86)\\Para-C\\``
+
+    To specify a different path simply pass it as arg to ``--g-dest $PATH``,
+    for example:
+
+    .. code:: bash
+
+        python ./parac-build.py --install-global --g-dest /usr/bin/Para-C
 
 Make parac executable
 ---------------------
+
+Per default parac should be executable on all platforms. In the case though
+it's not, then you may specify its execution permissions like here:
 
 - On Linux
 
@@ -99,29 +131,33 @@ Make parac executable
 
     chmod 755 <your-dir>/bin/parac
 
-Add Para-C to your OS path
---------------------------
+.. note::
 
-The compiled binaries folder should contain a ``/bin`` folder. That folder is
-the wanted item to be added to the path, as it contains the executable ``parac``.
+    On Windows this is obsolete, as the file-ending ``.exe`` defines per
+    default that the file is executable and as such there should not be an
+    issue when accessing it on Windows.
+
+Make ``parac`` available in the Command Line
+--------------------------------------------
+
+This step is entirely optional, though good if you want to have ``parac`` in a
+proper location, then you should do this.
 
 Unix (Linux+MacOS)
 ^^^^^^^^^^^^^^^^^^
 
-On UNIX and similar, modifying the ``$PATH`` requires editing the ``.bashrc``
-file, which is run every time a standard bash terminal is opened.
+On UNIX, we can simply create an alias for the parac executable
+
+To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
+simply use a graphical editor, like Visual Studio Code (``code``) or in case
+you use a text-based user interface, use preferably ``nano``.
 
 Here, you can simply put the following at the end of the file to extend the
 path by our Para-C ``/bin`` path:
 
 .. code:: bash
 
-    export alias="$PATH:ENTER_THE_PARAC_BIN_PATH_HERE"
-
-To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
-simply use a graphical editor, like Visual Studio Code (``code``) or in case
-you use a text-based user interface, use preferably ``nano`` (Though if you are
-already using a TUI, then I am sure you knew all of this already).
+    alias parac="$DEST_PATH/bin/parac"
 
 .. note::
 
