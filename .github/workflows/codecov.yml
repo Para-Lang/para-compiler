@@ -17,9 +17,9 @@ jobs:
           python-version: 3.8
       - name: Generate coverage report
         run: |
-          pip install pytest
-          pip install pytest-cov
-          python -m pip install --upgrade -e .
+          python3 -m pip install pytest
+          python3 -m pip install pytest-cov
+          python3 -m pip install --upgrade -e .
           pytest --cov=./parac --cov-report=xml
       - name: Upload Python coverage to Codecov
         uses: codecov/codecov-action@v2

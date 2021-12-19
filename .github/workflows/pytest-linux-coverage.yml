@@ -18,15 +18,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.parser-version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.parser-version }}
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install flake8 pytest
-          pip install -r requirements/dev.txt
+          python3 -m pip install --upgrade pip
+          python3 -m pip install flake8 pytest
+          python3 -m pip install -r requirements/dev.txt
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
@@ -35,7 +35,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest
         run: |
-          python -m pip install --upgrade -e .
+          python3 -m pip install --upgrade -e .
           cd ./pytest
           python -m pytest -q
 
@@ -50,17 +50,17 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.parser-version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.parser-version }}
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade coverage
-          python -m pip install --upgrade coverage-badge
-          python -m pip install --upgrade pip
-          python -m pip install flake8 pytest
-          pip install -r requirements/dev.txt
+          python3 -m pip install --upgrade coverage
+          python3 -m pip install --upgrade coverage-badge
+          python3 -m pip install --upgrade pip
+          python3 -m pip install flake8 pytest
+          python3 -m pip install -r requirements/dev.txt
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
@@ -69,7 +69,7 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: pytest with coverage
         run: |
-          python -m pip install --upgrade -e .
+          python3 -m pip install --upgrade -e .
           cd ./pytest/
           coverage run -m pytest -q ;
           if [ -f ../coverage.svg ]; then rm ../coverage.svg; fi
@@ -129,16 +129,16 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ env.BRANCH_NAME }}-coverage-report
-      - name: Set up Python ${{ matrix.parser-version }}
+      - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.parser-version }}
+          python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade coverage
           python3 -m pip install --upgrade pip
           python3 -m pip install flake8 pytest
-          pip install -r requirements/dev.txt
+          python3 -m pip install -r requirements/dev.txt
       - name: Lint with flake8
         run: |
           # stop the build if there are Python syntax errors or undefined names
