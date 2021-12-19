@@ -18,20 +18,14 @@ Through the structure of Para-C, the compiler module can be used independently
 from the binaries and CLI, and modified as wanted to also allow for specific
 customisation or runtime usage.
 
-This also means it enables for example; Running the Pre-Processor alone, using
+This also means it enables for example: Running the Pre-Processor alone, using
 syntax-checks on specific files or running project-structure tools inside a
 Python script made by you.
-
-.. Note::
-
-    The Python API requires an active Python installation (``>=3.8``), since
-    using the API means running the Compiler source code itself. If you want
-    compiled standalone binaries go to the page `Installation <../installation>`_
 
 Installation
 ############
 
-For the distribution of the package, python`s pip and pypi.org are used to
+For the distribution of the package, python`s  pip and pypi.org are used to
 store the built wheel and source files of the module.
 
 To install simply do the following:

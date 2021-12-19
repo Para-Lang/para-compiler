@@ -3,15 +3,7 @@ Installation
 ************
 
 This section serves as the reference for how to install the Para-C compiler and
-CLI compiled standalone binaries.
-
-.. Caution::
-    The installation of the Para-C Compiler binaries will only include the
-    compiled binaries and NOT the source code or module of the compiler. This
-    means this section of the docs will focus on the CLI of Para-C!
-
-    For info how to install the Python API please go to the
-    `Python API Reference <./pyapi_ref/index.html>`_
+make it available for usage in your command line.
 
 Installer for Windows
 =====================
@@ -73,7 +65,7 @@ Inside the root folder of the source code, run the following command:
 
     python ./parac-build.py
 
-The compilation can take a while since it will wrap the entire program
+The compilation may take a while since it will wrap the entire program
 with the python instance into a standalone compiled binary, which can then
 be used.
 
@@ -87,20 +79,23 @@ folder can be deleted after the module was moved to its destination.
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
-    It is recommended to use `/usr/bin`, `/usr/local/bin`,
-    `/home/$USER/.local/bin` on unix-like systems.
+    It is recommended to use on unix-like systems the following directories:
+    - `/usr/bin`
+    - `/usr/local/bin`
+    - `/home/$USER/.local/bin`
 
-Make parac executable on Linux
-------------------------------
+Make parac executable
+---------------------
 
-.. code:: bash
+- On Linux
+
+  .. code:: bash
 
     chmod a+x <your-dir>/bin/parac
 
-Make parac executable on MacOS
-------------------------------
+- On MacOS
 
-.. code:: bash
+  .. code:: bash
 
     chmod 755 <your-dir>/bin/parac
 
@@ -121,7 +116,7 @@ path by our Para-C ``/bin`` path:
 
 .. code:: bash
 
-    export PATH="$PATH:ENTER_THE_PARAC_BIN_PATH_HERE"
+    export alias="$PATH:ENTER_THE_PARAC_BIN_PATH_HERE"
 
 To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
 simply use a graphical editor, like Visual Studio Code (``code``) or in case
