@@ -146,7 +146,7 @@ proper location, then you should do this.
 Unix (Linux+MacOS)
 ^^^^^^^^^^^^^^^^^^
 
-On UNIX, we can simply create an alias for the parac executable
+On UNIX, we can simply create an alias for the parac executable.
 
 To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
 simply use a graphical editor, like Visual Studio Code (``code``) or in case
