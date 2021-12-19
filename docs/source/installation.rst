@@ -67,11 +67,11 @@ To build the binaries a pre-made script is used, which will generate a dist and
 build folder containing the data of the build. The build folder can be in this
 case ignored, except logs and data of pyinstaller is wanted.
 
-Run inside the root folder of the extracted module:
+Inside the root folder of the source code, run the following command:
 
 .. code:: bash
 
-    python ./src/parac-build.py
+    python ./parac-build.py
 
 The compilation can take a while since it will wrap the entire program
 with the python instance into a standalone compiled binary, which can then
@@ -87,8 +87,8 @@ folder can be deleted after the module was moved to its destination.
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
-    It is recommended though to use `/opt`, `/usr`, `/usr/local` or similar on
-    unix-like systems.
+    It is recommended to use `/usr/bin`, `/usr/local/bin`,
+    `/home/$USER/.local/bin` on unix-like systems.
 
 Make parac executable on Linux
 ------------------------------
@@ -108,7 +108,7 @@ Add Para-C to your OS path
 --------------------------
 
 The compiled binaries folder should contain a ``/bin`` folder. That folder is
-the wanted item to be added to the path, as it contains the executable ``parac``
+the wanted item to be added to the path, as it contains the executable ``parac``.
 
 Unix (Linux+MacOS)
 ^^^^^^^^^^^^^^^^^^
@@ -126,7 +126,7 @@ path by our Para-C ``/bin`` path:
 To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
 simply use a graphical editor, like Visual Studio Code (``code``) or in case
 you use a text-based user interface, use preferably ``nano`` (Though if you are
-already using a TUI, then I am sure you knew all of this already)
+already using a TUI, then I am sure you knew all of this already).
 
 .. note::
 

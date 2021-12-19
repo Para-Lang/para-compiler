@@ -21,9 +21,10 @@
 
 - Ability to streamline calling processes and handling arguments and return
   data.
-- Multi-Threaded processing with embedded languages in multiple threads.
-- Ability to manage exceptions and issues with programs (Including Fallback
-  Options).
+- Multi-Threaded processing, which allows extensions / other programs to be run
+  inside each thread.
+- Ability to manage exceptions and also define fallbacks. This is also
+  supported for extensions that fail.
 - Extended Base-Library (Para-C Base Library) with additional types and
   functions.
 - Decorator and Overload Functions.
@@ -40,12 +41,6 @@ as a base for writing overhead and "connector" programs, which can manage
 instances, listen for events, stop and start processes and manage in- and
 out-data.
 
-## CLI
-
-The Para-C CLI is the standard CLI for interacting with the standard compiler
-implementation. When [installing](#installation) with a generated installer
-or `build-exe.py`, this will be the interface used when running the compiler.
-
 ### Commands
 
 *Commands displayed are mostly only partly implemented*
@@ -60,124 +55,23 @@ or `build-exe.py`, this will be the interface used when running the compiler.
 
 ## Docs
 
-For proper documentation and API reference on the language go to the following
-page on
-readthedocs: [Para-C Documentation](https://para-c.readthedocs.io/en/latest/)
+Our documentation can be found [here](https://para-c.readthedocs.io/en/latest/).
 
 ## Python Module
 
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
 
-The `parac` module serves the purpose of combining the entire compiler with lib
-into a simple module, which can be imported and used in ways that are not
-implemented in the standard CLI. This means both the `preprocessor` and
-`compiler` are available for customisable usage.
+Besides, the option to compile the python code into a binary executable using
+pyinstaller, you may also directly utilise the `parac` source module, which
+provides an API that can be run in your own python scripts.
 
-For more info see [Module README](src/PYPI_README.md).
+For reference on the pypi module please go to the documentation page
+[here](https://para-c.readthedocs.io/en/dev/pyapi_ref/index.html)
 
 ## Installation
 
-To install Para-C, you can either use the pre-built installer for the windows,
-by going through the [releases](https://github.com/Para-C/Para-C/releases)
-or [build](#build-the-compiler) and install the compiler yourself.
-
-### Install the Python module
-
-When wanting to use the compiler as a python module it is recommended to
-install the distributed version on [pypi.org](https://pypi.org/project/parac/),
-which will always have the latest releases uploaded.
-
-To install simply use:
-
-```bash
-python3 -m pip install -U parac
-```
-
-Or for a specific version:
-
-```bash
-python3 -m pip install -U parac==version
-```
-
-### Build the Compiler
-
-*Note that building the compiler is specific for your OS and as such builds may
-only be used for your own operating system, and will not work on other systems*
-
-To build the compiler, and it's required c-libraries, the following
-requirements must be met (for the current release):
-
-- Python `>=3.8`, including `pyinstaller` and `pip`:
-    - For Linux go to your respective package manager, which will provide the
-      build.
-    - For macOS and Windows: [download](https://www.python.org/downloads/)
-
-After having prepared everything, the python script `parac-build.py` may be run
-to properly install and generate the binary folder for the Para-C executable.
-For the compilation, you may specify one of the following args:
-
-| Argument     | Required | Description                                                                                                                                                                                                                                                                             |
-|--------------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| --action=""  | Yes      | Specify the action for the build process. Valid inputs are: `normal` (Builds the fully functioning compiler, which may link files as well and compile them to executables using GCC), `compiler-standalone` (This can only generate code, but not link or run it). Defaults to `normal` |
-| --libpbl=""  | No       | Specify an alternative `libpbl.a` file path (may be relative). Use at your own risk, as this will replace the checked version which is downloaded per default                                                                                                                           |
-
-For example an invocation may look like this:
-
-```bash
-python ./build.exe --action="normal"
-```
-
-### Setting up the Compiler
-
-#### For Windows
-
-For Windows, the configured inno-setup installer should be used. The installer
-will automatically do the installation based on your input and create the
-correct entries to the system, so that you can utilise the compiler right after
-installation.
-
-#### For Unix-based systems (Including macOS)
-
-On UNIX-based systems the installation is open to the user, including the
-folder where the compiler will be placed (It is recommended though to
-use `/opt`,
-`/usr`, `/usr/local` or similar)
-
-##### Adding the compiler alias on Linux
-
-1. Open your `~/.bash_aliases` file using `nano ~/.bash_aliases`
-2. Add `alias parac="<your-dir>/bin/parac"` to the last line of the file, where
-   your-dir is the directory you moved parac into.
-3. Save the `.bash_aliases` file.
-4. Activate for the terminal session using `source ~/.bash_aliases`
-5. Permanently add the alias by adding this line to the end of your `~/.bashrc`
-   file:
-
-  ```bash
-  if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-  fi
-  ```
-
-##### Adding the compiler alias on MacOS
-
-The previous instructions for linux also work on MacOS due to it being unix as
-well
-
-[Additional Info on MacOS Dock Aliases the official website](
-https://support.apple.com/en-al/guide/mac-help/mchlp1046/mac>)
-
-#### Initialising the C Compiler
-
-To start the initialisation setup for the C-Compiler use:
-
-```bash
-parac c-init
-```
-
-This will add the C-Compiler path to the Para-C compiler and make commands
-related to running a Para-C program available. It is not required though and
-without it the compiler will simply generate C source files.
+For reference on the installation please go the documentation page 
+[here](https://para-c.readthedocs.io/en/latest/installation.html).
 
 ## Development
 
@@ -187,9 +81,9 @@ following side-repos of Para-C Language:
 - [Para-C Base Library](https://github.com/Para-C/Para-C-Base-Library) - C
   Static Library for providing the types, functions and macros used to actually
   run the compiled C-code.
-- [Para-C CLI](https://github.com/Para-C/Para-C-CLI) - The CLI implementation
-  for the standalone Python API, which is per default only usable as a python
-  module and as such with a python interpreter.
+- [Para-C Extension Library](https://github.com/Para-C/Para-C-Extension-Library) - 
+  Library for utilising other languages/extensions in a Para-C program. This
+  repository is at the moment inactive
 
 For more info on development for the core Python API and compiler, you may go
 [here](https://github.com/Para-C/Para-C/blob/main/DEVELOPMENT.md).
@@ -201,16 +95,14 @@ as of now. It is for now solely a free-time/college project.
 
 This also means that issues or bugs while running can likely occur, and it's
 not a stable or production-ready language as of the point of writing.
-(*2021-07-23*).
+(*2021-12-19*).
 
 ## Copyright and License
 
 ![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_shield)
 
-Copyright (C)
-2021 [Nicolas Klatzer*](#legal-name-which-does-not-match-the-preferred-and-commonly-used-name-luna-klatzer)
-.
+Copyright (C) 2021 Luna Klatzer
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
@@ -225,8 +117,6 @@ You should have received a copy of the GNU General Public License along with
 this program. If not, see <https://www.gnu.org/licenses/>.
 
 See the [LICENSE](./LICENSE) for information on terms & conditions for usage.
-
-###### *Legal name, which does not match the preferred and commonly used name Luna Klatzer
 
 ### FOSSA License Report
 
