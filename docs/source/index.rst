@@ -11,7 +11,7 @@ Welcome to the Para-C v0.1.dev6 Docs
     Tutorial <tutorial/index>
     Language Docs <lang_ref/index>
     PBL Docs <libpbl_ref/index>
-    Py-API Docs <pyapi_ref/index>
+    Python API Docs <pyapi_ref/index>
 
 This is the official documentation for the Para-C language, Python API, CLI
 and extensions, and serves as the main source for project and implementation

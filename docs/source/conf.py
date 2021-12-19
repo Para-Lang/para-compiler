@@ -84,7 +84,7 @@ html_theme_options = {
             "url": "https://github.com/Para-C/Para-C/discussions/"
         },
         {
-            "name": "PyPi Page ",
+            "name": "PyPi ",
             "url": "https://pypi.org/project/parac/"
         }
     ],
