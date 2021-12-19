@@ -124,7 +124,7 @@ For the compilation, you may specify one of the following args:
 For example an invocation may look like this:
 
 ```bash
-parser ./build.exe --action="normal"
+python ./build.exe --action="normal"
 ```
 
 ### Setting up the Compiler
