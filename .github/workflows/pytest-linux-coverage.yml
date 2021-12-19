@@ -19,7 +19,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.parser-version }}
-        uses: actions/setup-parser@v2
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.parser-version }}
       - name: Install dependencies
@@ -51,7 +51,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.parser-version }}
-        uses: actions/setup-parser@v2
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.parser-version }}
       - name: Install dependencies
@@ -130,7 +130,7 @@ jobs:
         with:
           ref: ${{ env.BRANCH_NAME }}-coverage-report
       - name: Set up Python ${{ matrix.parser-version }}
-        uses: actions/setup-parser@v2
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.parser-version }}
       - name: Install dependencies
