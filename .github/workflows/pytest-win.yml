@@ -24,10 +24,10 @@ jobs:
           python-version: ${{ matrix.parser-version }}
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           pip install -r requirements/dev.txt
       - name: pytest
         run: |
-          python -m pip install --upgrade -e .
+          python3 -m pip install --upgrade -e .
           cd ./pytest
           python -m pytest -q
