@@ -1,6 +1,0 @@
-# Specifies the requirements for development
-
-# Mirros also the common requirements
--r common.txt
-
-# Specific Production requirements

@@ -1,2 +1,2 @@
 # Mirrors requirements/prod
--r requirements/prod.txt
+-r requirements/common.txt
