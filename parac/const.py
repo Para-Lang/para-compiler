@@ -4,8 +4,6 @@ import os
 from pathlib import Path
 from typing import List, Union, Optional
 
-import click
-
 __all__ = [
     "BASE_DIR",
     "C_LIB_PATH",
@@ -78,9 +76,6 @@ else:
     DIST_COMPILED_VERSION = False
     MODULE_VERSION = True
     C_LIB_PATH = None
-
-# If true OS is Windows
-WIN = click.utils.WIN
 
 # Path Separator - DEPRECATED! Should never be used, since it's a bad way of
 # handling path separators

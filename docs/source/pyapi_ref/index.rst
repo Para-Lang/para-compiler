@@ -23,7 +23,7 @@ syntax-checks on specific files or running project-structure tools inside a
 Python script made by you.
 
 Installation
-############
+============
 
 For the distribution of the package, python`s  pip and pypi.org are used to
 store the built wheel and source files of the module.
@@ -48,35 +48,83 @@ To install simply do the following:
 
     If the command ``pip`` is not found, try to either install it using your
     package-manager (for linux) or run the script ``get-pip.py`` (for Windows: `here <https://www.geeksforgeeks.org/how-to-install-pip-on-windows/>`_, for MacOS `here <https://www.geeksforgeeks.org/how-to-install-pip-in-macos/>`_).
-    
+
+
+Installing the CLI (Optional)
+=============================
+
+Additionally to the base module ``parac``, the optional module ``parac_ext_cli``
+may be installed, which implements the CLI for the parac module.
+
+To install simply do the following:
+
+.. tab:: Regular
+
+    .. code::
+
+        python3 -m pip install -U parac_ext_cli
+
+
+.. tab:: With specific version
+
+    .. code::
+
+        python3 -m pip install -U parac_ext_cli==version
+
+With the installation the CLI will automatically register the ``parac``
+identifier in the console and add the installation path to the global ``$PATH``.
+
+This means you can after having installed the CLI, you can directly access it
+using:
+
+.. code::
+
+    parac --help
+
 Requirements
-############
+============
 
 +---------------------------------+-------------+
 | Requirement                     | Version     |
 +=================================+=============+
 | Python                          | >=3.8       |
 +---------------------------------+-------------+
-| colorama                        | >=0.4.4     |
-+---------------------------------+-------------+
-| click                           | >=8.0.0     |
-+---------------------------------+-------------+
 | setuptools                      | >=51.1.2    |
-+---------------------------------+-------------+
-| rich                            | >=10.0.0    |
 +---------------------------------+-------------+
 | antlr4-python3-runtime          | >=4.9       |
 +---------------------------------+-------------+
 | cached-property                 | >=1.5.1     |
 +---------------------------------+-------------+
 
-.. Note::
+.. note::
 
-    Module Requirements (except Python) will be automatically installed with
-    `pip install`
+    Module Requirements (except Python) will be automatically installed with:
+
+    .. code::
+
+        pip install parac
+
+
+Requirements (For the CLI - `parac_ext_cli`)
+============================================
+
++---------------------------------+-------------+
+| Requirement                     | Version     |
++=================================+=============+
+| colorama                        | >=0.4.4     |
++---------------------------------+-------------+
+| click                           | >=8.0.0     |
++---------------------------------+-------------+
+| rich                            | >=10.0.0    |
++---------------------------------+-------------+
+
+.. note::
+
+    These requirements are extended the base requirements from the
+    :ref:`previous ones. <Requirements>`
 
 Overview
-########
+========
 
 - `Exceptions <./exceptions.html>`_ - Exceptions in the Para-C Compiler and Python API
 - `Pre-Processor <./preprocessor.html>`_ - Pre-Processor for handling directives

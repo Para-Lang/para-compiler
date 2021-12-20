@@ -1,0 +1,6 @@
+[requires]
+mingw_installer/0.1@lasote/testing
+cmake_installer/0.1@lasote/testing
+
+[generators]
+virtualenv

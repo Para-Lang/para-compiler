@@ -34,8 +34,6 @@ __copyright__ = "Luna Klatzer"
 # module imports
 import logging as lib_logging
 
-import colorama as lib_colorama
-
 from . import abc
 from . import compiler
 from . import const
@@ -73,7 +71,7 @@ __all__ = [
     *MODULES
 ]
 
-lib_colorama.init(autoreset=True)
+
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
 
 # An instance of the compiler, which should be generally used in the module
