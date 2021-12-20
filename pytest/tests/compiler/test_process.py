@@ -2,12 +2,12 @@
 """ Test for the compiler process setup """
 from pathlib import Path
 
-from parac import SEPARATOR as SEP, initialise_default_paths
+from parac import initialise_default_paths
 from parac.compiler import ProgramCompilationProcess
 from parac.logging import set_avoid_print_banner_overwrite
 from .. import add_folder, reset_input, BASE_TEST_PATH
 
-main_file_path = f"{BASE_TEST_PATH}{SEP}test_files{SEP}entry.para"
+main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "entry.para"
 
 # Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)
@@ -36,7 +36,7 @@ class TestProcess:
         assert p.dist_path == d_path
 
     def test_bytes_init(self):
-        path = main_file_path.encode()
+        path = str(main_file_path).encode()
 
         b_path: bytes = str(add_folder("build")).encode()
         d_path: bytes = str(add_folder("dist")).encode()

@@ -2,6 +2,7 @@
 """ Logger management file for formatting and specific exception and  """
 import logging
 import os
+import platform
 import re
 import shutil
 import sys
@@ -88,8 +89,7 @@ def get_terminal_size() -> Optional[int]:
 
 
 def _get_color_system() -> Union[Literal["windows", "auto"], str]:
-    from . import const
-    return "windows" if const.WIN else "auto"
+    return "windows" if platform.system() == "Windows" else "auto"
 
 
 def init_rich_console() -> None:
