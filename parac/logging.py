@@ -71,7 +71,7 @@ def get_terminal_size() -> Optional[int]:
     width: Optional[int] = None
     if "PYCHARM_HOSTED" in os.environ:
         width = 150
-    elif const.WIN:  # pragma: no cover
+    elif platform.system() == "windows":  # pragma: no cover
         width, _ = shutil.get_terminal_size()
     else:
         try:
