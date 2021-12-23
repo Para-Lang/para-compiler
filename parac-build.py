@@ -10,7 +10,7 @@ import platform
 import shutil
 import time
 from pathlib import Path
-from typing import List, Literal
+from typing import List, Literal, Optional
 
 import PyInstaller.__main__
 import requests
@@ -35,12 +35,31 @@ C_LIB_IDENTIFIER = "libpbl.a"
 LIB_PBL = f"https://github.com/Para-C/Para-C-Base-Library/releases/download/{COMPATIBLE_VERSION}/{C_LIB_IDENTIFIER}"
 C_LIB_TEMP_DESTINATION = BASE_PATH / "tmp" / C_LIB_IDENTIFIER
 
-# Global destination paths
-POSIX_GLOBAL_DEST: Path = Path("/usr/local/bin/Para-C")
-NT_GLOBAL_DEST: Path = Path("C:\\Program Files (x86)\\Para-C\\")
-
 # Target system
 TARGET: str = platform.system()
+IS_WIN: bool = os.name == "nt"
+IS_POSIX: bool = os.name == 'posix'
+
+# Raise error if the operating system is invalid
+if not any((IS_WIN, IS_POSIX)):
+    raise RuntimeError(
+        f"Unsupported operating system (os.name): {os.name}"
+    )
+
+# Global destination paths
+# The global destination for Posix / Linux / MacOS systems - None if invalid OS
+POSIX_GLOBAL_DEST: Optional[Path] = \
+    Path("~/.local/bin/Para-C").resolve() \
+    if TARGET == "" \
+    else None
+# The global destination for NT / Windows systems - None if invalid OS
+NT_GLOBAL_DEST: Optional[Path] = \
+    Path("C:\\Program Files (x86)\\Para-C\\").resolve() \
+    if TARGET == "windows" \
+    else None
+# Global destination, which is depending on the current operating system
+GLOBAL_DEST: Optional[Path] = \
+    POSIX_GLOBAL_DEST if IS_POSIX else NT_GLOBAL_DEST
 
 # Required additional data files that have to be added
 COPY_FILES: List[Path] = [
@@ -223,8 +242,8 @@ def install_global(optional_path: str):
     program files.
 
     This will automatically fetch the proper destination based on the OS:
-    - Linux: /usr/local/bin
-    - MacOS: /usr/local/bin
+    - Linux: ~/.local/bin
+    - MacOS: ~/.local/bin
     - Windows: C:\Program Files (x86)\
 
     :param optional_path: The optional path that may be specified where the
@@ -240,24 +259,11 @@ def install_global(optional_path: str):
                 dst=str(path)
             )
         else:
-            # Linux, MacOS, ...
-            if os.name == 'posix':
-                path: Path = Path(POSIX_GLOBAL_DEST).resolve()
-                shutil.copytree(
-                    src=origin,
-                    dst=str(path)
-                )
-            # Windows
-            elif os.name == 'nt':
-                path: Path = Path(NT_GLOBAL_DEST).resolve()
-                shutil.copytree(
-                    src=origin,
-                    dst=str(path)
-                )
-            else:
-                raise RuntimeError(
-                    f"Unsupported operating system (os.name): {os.name}"
-                )
+            path: Path = Path(GLOBAL_DEST).resolve()
+            shutil.copytree(
+                src=origin,
+                dst=str(path)
+            )
         print(
             f"\nInstalled Para-C {COMPATIBLE_VERSION} globally in: {path}\n\n"
             "For info on how to add the item to your path/create a bash alias,"
@@ -268,6 +274,21 @@ def install_global(optional_path: str):
         raise RuntimeError(
             "Failed to install parac globally. Likely missing permissions"
         ) from e
+
+
+def setup_conan():
+    """
+    Setups the local conan environment and makes it ready for
+    installation of MingW-w64 and CMake
+    """
+    ...
+
+
+def install_c_env():
+    """
+    Installs the C-compile environment with CMake and MingW-w64
+    """
+    ...
 
 
 if __name__ == "__main__":
@@ -290,7 +311,7 @@ if __name__ == "__main__":
         required=False,
         help="If this is specified, the script will attempt to directly "
              "install parac into your binary folder, so you can access it "
-             "directly after this script finished. (Create Alias/Add to PATH "
+             "directly after this script finished. (Adds to the path "
              "yourself)."
     )
     parser.add_argument(
@@ -347,6 +368,11 @@ if __name__ == "__main__":
     # If this is specified try to download the specified
     if args.install_global:
         install_global(args.g_dest)
+
+    if IS_WIN:
+        # Install CMake and MingW-w64
+        setup_conan()
+        install_c_env()
 
     # Cleanups the tmp files generated while running
     cleanup_and_remove_tmp_folder()

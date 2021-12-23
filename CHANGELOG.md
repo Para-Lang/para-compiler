@@ -22,6 +22,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   installation. 
 - `requirements` folder with requirements for each use-case like `dev`, `prod`
   or `common` (base requirements for both `dev` and `prod`)
+- Conan Setup for Mingw-w64 and CMake for Windows to simplify compilation.
 
 ### Updated
 
