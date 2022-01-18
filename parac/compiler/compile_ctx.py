@@ -7,9 +7,9 @@ information.
 from __future__ import annotations
 
 import logging
-import pathlib
+from pathlib import Path
 from os import PathLike
-from typing import Dict, Union, TYPE_CHECKING
+from typing import Dict, Union, TYPE_CHECKING, List
 
 import antlr4
 
@@ -92,7 +92,6 @@ class ProgramCompilationContext(ProgramRunContext):
     """
 
     def __init__(self, process: ProgramCompilationProcess):
-        self._entry_ctx: Union[FileCompilationContext, None] = None
         self._context_dict: Dict[
             Union[str, PathLike], FileCompilationContext
         ] = {}
@@ -104,28 +103,21 @@ class ProgramCompilationContext(ProgramRunContext):
         return self._process
 
     @property
-    def work_dir(self) -> Union[str, PathLike]:
+    def files(self) -> List[Path]:
+        """ Returns the source files for the process """
+        return self.process.files
+
+    @property
+    def project_root(self) -> Union[str, PathLike]:
         """
-        Returns the working directory / base-path for the program. If the entry
-        file path was relative, then the working directory where the compiler
-        is run is used as the working directory.
+        Returns the working directory / base-path for the program.
         """
-        return self.process.work_dir
+        return self.process.project_root
 
     @property
     def encoding(self) -> str:
         """ Returns the encoding of the project """
         return super().encoding
-
-    @property
-    def entry_file_path(self) -> str:
-        """ Returns the entry_file_path of the context """
-        return super().entry_file_path
-
-    @property
-    def entry_ctx(self) -> FileCompilationContext:
-        """ Returns the entry context """
-        return self._entry_ctx
 
     @property
     def context_dict(self) -> Dict[
@@ -136,15 +128,6 @@ class ProgramCompilationContext(ProgramRunContext):
         name to the FileContext
         """
         return self._context_dict
-
-    def set_entry_ctx(
-            self,
-            ctx: FileCompilationContext
-    ) -> None:
-        """ Sets the entry-file FileCompilationContext """
-        ctx.set_program_ctx(self)
-        self._entry_ctx = ctx
-        self._context_dict[ctx.relative_file_name] = ctx
 
     def add_file_ctx(
             self,
@@ -168,31 +151,29 @@ class ProgramCompilationContext(ProgramRunContext):
         """
         ...
 
-    async def process_program(self, log_errors_and_warnings: bool) -> None:
+    async def process_program(self, prefer_logging: bool) -> None:
         """
         Processes this instance and generates the logic streams required
         for generating the finished code.
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
-        await self.parse_entry_file(log_errors_and_warnings)
-
         ...  # TODO! Run listener for every file
 
-    async def get_stream_and_parse(
+    async def parse_file(
             self,
-            file_path: Union[str, PathLike, pathlib.Path],
-            log_errors_and_warnings: bool
+            file_path: Union[str, PathLike, Path],
+            prefer_logging: bool
     ) -> FileCompilationContext:
         """
         Gets a FileStream, converts it to a string stream and parses it
         returning the resulting FilePreProcessorContext
 
         :param file_path: Path to the file
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -201,8 +182,8 @@ class ProgramCompilationContext(ProgramRunContext):
         from .compiler import ParacCompiler
         from ..util import (get_file_stream, get_relative_file_name)
 
-        if type(file_path) is not pathlib.Path:
-            file_path: pathlib.Path = pathlib.Path(str(file_path)).resolve()
+        if type(file_path) is not Path:
+            file_path: Path = Path(str(file_path)).resolve()
 
         file_stream: antlr4.FileStream = get_file_stream(
             file_path, self.encoding
@@ -210,30 +191,31 @@ class ProgramCompilationContext(ProgramRunContext):
         relative_file_name: str = get_relative_file_name(
             file_name=file_stream.name,
             file_path=file_stream.fileName,
-            base_path=self.work_dir
+            base_path=self.project_root
         )
         stream: antlr4.InputStream = get_input_stream(
             # rm comments
             ParacCompiler.remove_comments_from_str(file_stream.strdata),
             name=file_stream.name
         )
-        return await self.parse_single_file(
-            stream, relative_file_name, log_errors_and_warnings
+        return await self._parse_stream(
+            stream, relative_file_name, prefer_logging
         )
 
-    async def parse_single_file(
+    async def _parse_stream(
             self,
             stream: antlr4.InputStream,
             relative_file_name: str,
-            log_errors_and_warnings: bool,
+            prefer_logging: bool,
     ) -> FileCompilationContext:
         """
-        Parses a single file and generates the FilePreProcessorContext
+        Parses a single file based on the passed stream and
+        generates the FilePreProcessorContext
 
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able using
          get_relative_file_name)
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -244,35 +226,28 @@ class ProgramCompilationContext(ProgramRunContext):
 
         logger.debug(f"Parsing file ({relative_file_name})")
         antlr4_file_ctx = await ParacCompiler.parse(
-            stream, log_errors_and_warnings
+            stream, prefer_logging
         )
 
         listener = Listener(
             antlr4_file_ctx, stream, relative_file_name, program_ctx=self
         )
-        await listener.walk_and_generate_logic_stream(log_errors_and_warnings)
+        await listener.walk_and_generate_logic_stream(prefer_logging)
         return listener.file_ctx
 
-    async def parse_entry_file(
-            self,
-            log_errors_and_warnings: bool
-    ) -> FileCompilationContext:
+    async def parse_all_files(
+            self, prefer_logging: bool
+    ) -> List[FileCompilationContext]:
         """
-        Parses an entry file and sets the entry-ctx of this instance
-        to the generated context for the file.
+        Parses all files, and generates the logic streams for them
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
-        :returns: The FilePreProcessorContext for the file
         """
-        entry_path = self._process.entry_file_path
-        logger.debug(f"Parsing entry-file ({entry_path})")
-
-        entry_ctx: FileCompilationContext = await self.get_stream_and_parse(
-            entry_path, log_errors_and_warnings
+        return list(
+            await self.parse_file(
+                str(file.absolute()), prefer_logging
+            ) for file in self.files
         )
-
-        self.set_entry_ctx(entry_ctx)
-        return entry_ctx

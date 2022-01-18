@@ -34,87 +34,65 @@ class BasicProcess:
 
     def __init__(
             self,
-            entry_file_path: Union[str, bytes, PathLike, Path],
+            files: List[Union[str, bytes, PathLike]],
+            project_root: Union[str, bytes, PathLike],
             encoding: str
     ):
         """
         Initialises the instance and validates the passed entry file for
         further usage.
 
-        Important notice for the entry_file_path. This path should be in the
-        best case set absolute by the user and passed as such. Since passing
-        it as relative will mean the working directory of this program that
-        was fetched using os.getcwd() will be used to determine the parent
-        directory. Therefore watch out for correct usage!
-
-        :param entry_file_path: The entry-file of the program. All possible
-         sys-links will be resolved and made absolute by ensure_pathlib_path()
+        :param files: A list of files that should be used in the program. All
+         possible sys-links will be resolved and made absolute by
+         ensure_pathlib_path()
+        :param project_root: The working directory / source directory to use as
+         root
+        :param encoding: The encoding for the files
         """
-        entry_file_path: Path = ensure_pathlib_path(entry_file_path)
+        files: List[Path] = list(ensure_pathlib_path(i) for i in files)
 
         # Validating correct file endings
-        if has_valid_file_ending(entry_file_path.name) is False:
-            logger.warning(
-                "The given file ending does not follow "
-                "the Para-C conventions (.para, .ph, .c, .h, .parah)!"
-            )
+        for file in files:
+            if has_valid_file_ending(file.name) is False:
+                logger.warning(
+                    "The given file ending does not follow "
+                    "the Para-C conventions (.para, .ph, .c, .h, .parah)!"
+                )
 
-        try:
-            validate_path_like(entry_file_path)
-        except FileAccessError as e:
-            # If the validation failed the path might be an invalid path or
-            # permissions for proper accessing/reading are missing
-            raise e
-        self._entry_file_path = entry_file_path
+            try:
+                validate_path_like(file)
+            except FileAccessError as e:
+                # If the validation failed the path might be an invalid path or
+                # permissions for proper accessing/reading are missing
+                raise e
+
+        self._files = files
         self._encoding = encoding
-        self._work_dir = self._get_work_dir()
+        self._project_root = ensure_pathlib_path(project_root)
 
     @property
-    def work_dir(self) -> Union[Path]:
+    def project_root(self) -> Union[Path]:
         """
         Returns the working directory / base-path for the program.
-
-        If the entry file path was relative, then the working directory where
-        the compiler is run is used as the working directory.
         """
-        return self._work_dir
+        return self._project_root
 
     @property
-    def entry_file_path(self) -> Union[Path]:
-        """ Returns the entry-file of the process """
-        return self._entry_file_path
+    def files(self) -> List[Path]:
+        """ Returns the source files for the process """
+        return self._files
 
     @property
     def encoding(self) -> str:
         """ Returns the encoding of the process """
         return self._encoding
 
-    def _get_work_dir(self) -> Path:
-        """ Gets the working directory for the program """
-        return self.entry_file_path.parent
 
-    async def validate_syntax(self, log_errors_and_warnings: bool) -> None:
-        """
-        Validates the syntax of the file of this entry-file and logs or raises
-        errors while running
-
-        :param log_errors_and_warnings: If set to True errors, warnings and
-         info will be logged onto the console using the local logger instance.
-         If an exception is raised or error is encountered, it will be reraised
-         with the FailedToProcessError.
-        """
-        from .compiler import ParacCompiler
-        return await ParacCompiler.validate_syntax(
-            self, log_errors_and_warnings
-        )
-
-
-class FinishedProcess(BasicProcess):
+class FinishedProcess:
     """ Class used to represent a done compilation process """
 
-    def __init__(self, process: ProgramCompilationProcess):
+    def __init__(self, files, process: ProgramCompilationProcess):
         self.done_process = process
-        super().__init__(process.entry_file_path, process.encoding)
 
 
 class ProgramCompilationProcess(BasicProcess):
@@ -128,7 +106,8 @@ class ProgramCompilationProcess(BasicProcess):
 
     def __init__(
             self,
-            entry_file_path: Union[str, bytes, PathLike],
+            files: List[Union[str, bytes, PathLike]],
+            project_root: Union[str, bytes, PathLike],
             encoding: str,
             build_path: Union[str, bytes, PathLike],
             dist_path: Union[str, bytes, PathLike]
@@ -138,22 +117,29 @@ class ProgramCompilationProcess(BasicProcess):
         process. In case of an error an exception will be raised and the
         process cancelled.
 
-        :param entry_file_path: The entry-file of the program. The compiler
-         will use the working directory as base dir
-         if the path is relative
+        :param files: A list of files that should be used in the program. All
+         possible sys-links will be resolved and made absolute by
+         ensure_pathlib_path()
+        :param project_root: The working directory / source directory to use as
+         root
+        :param encoding: The encoding for the files
         :param build_path: The path to the output folder
         :param dist_path: The path to the dist folder
         :returns: The file name, the output build path, the output dist path
          and the arguments passed for the compilation
         """
-        super().__init__(entry_file_path, encoding)
+        super().__init__(files, project_root, encoding)
 
         self._build_path = ensure_pathlib_path(build_path)
         self._dist_path = ensure_pathlib_path(dist_path)
         self._temp_files: List[str] = []
-        self._temp_entry_file_path: Union[str, None] = None
         self._preprocessor_ctx = ProgramPreProcessorContext(self)
         self._compilation_ctx = ProgramCompilationContext(self)
+
+    @property
+    def files(self) -> List[Path]:
+        """ Returns the source files for the process """
+        return self._files
 
     @property
     def preprocessor_ctx(self) -> ProgramPreProcessorContext:
@@ -181,18 +167,6 @@ class ProgramCompilationProcess(BasicProcess):
         Returns the temporary files that were created by the Pre-Processor
         """
         return self._temp_files
-
-    @property
-    def temp_entry_file_path(self) -> str:
-        """
-        Returns the temporary entry-file that was created by the Pre-Processor
-        """
-        return self._temp_entry_file_path
-
-    @property
-    def entry_file_path(self) -> Path:
-        """ Entry file of the program """
-        return self._entry_file_path
 
     @property
     def build_path(self) -> Path:
@@ -247,7 +221,7 @@ class ProgramCompilationProcess(BasicProcess):
                 return result[3]  # Optional[FinishedProcess]
 
     async def preprocess_files(
-            self, log_errors_and_warnings: bool
+            self, prefer_logging: bool
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.info(
@@ -255,7 +229,7 @@ class ProgramCompilationProcess(BasicProcess):
         )
         self._make_temp_folder()
         return await self.preprocessor_ctx.process_program(
-            log_errors_and_warnings
+            prefer_logging
         )
 
     async def gen_preprocessor_temp_files(
@@ -272,10 +246,9 @@ class ProgramCompilationProcess(BasicProcess):
 
         # Generating the temp files which are then used for the further
         # compilation
-        tmp = await self.preprocessor_ctx.make_temp_files(
+        self._temp_files = await self.preprocessor_ctx.make_temp_files(
             preprocessor_result
         )
-        self._temp_entry_file_path, self._temp_files = tmp
         logger.debug("Wrote processed files to temp storage")
 
     async def ci_compile(self, track_progress: bool) -> AsyncGenerator[

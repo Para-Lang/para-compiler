@@ -110,7 +110,7 @@ class ParacCompiler:
     @staticmethod
     async def parse(
             input_stream: antlr4.InputStream,
-            log_errors_and_warnings: bool = True
+            prefer_logging: bool = True
     ) -> CompilationUnitContext:
         """
         Parses the passed input_stream using antlr4 and returns the
@@ -118,7 +118,7 @@ class ParacCompiler:
         and process the file
 
         :param input_stream: The token stream of the file
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -153,7 +153,7 @@ class ParacCompiler:
         if len(error_listener.errors) > 0:
             raise ParaCSyntaxErrorCollection(
                 error_listener.errors,
-                log_errors_and_warnings
+                prefer_logging
             )  # Raising the syntax error/s
 
         return cu
@@ -161,37 +161,37 @@ class ParacCompiler:
     @classmethod
     async def validate_syntax(
             cls,
-            process: BasicProcess,
-            log_errors_and_warnings: bool = True
+            file: Union[str, PathLike, pathlib.Path],
+            encoding: str,
+            prefer_logging: bool = True
     ) -> None:
         """
         Validates the syntax of a file and logs or raises errors while running.
 
-        :param process: The BasicProcess containing the path to the entry-file
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param file: The file to run the syntax checks on
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance,
          instead of directly returned. They will be 'raised from' with the
          FailedToProcessError exception.
-        :raises FailedToProcessError: If log_errors_and_warnings is True and
+        :param encoding: The encoding of the file
+        :raises FailedToProcessError: If prefer_logging is True and
          an exception is encountered. The logs of the exception will be printed
          onto the console.
         :raises ParacCompilerError: If any exception is encountered and
-         log_errors_and_warnings is False
+         prefer_logging is False
         """
-        file_stream: antlr4.FileStream = get_file_stream(
-            process.entry_file_path, process.encoding
-        )
+        file_stream: antlr4.FileStream = get_file_stream(file, encoding)
         stream: antlr4.InputStream = get_input_stream(
             cls.remove_comments_from_str(file_stream.strdata),  # rm comments
             name=file_stream.name
         )
         try:
             cls.logger.info(f"Parsing file ({file_stream.fileName})")
-            await cls.parse(stream, log_errors_and_warnings)
+            await cls.parse(stream, prefer_logging)
 
         except (LexerError, ParaCSyntaxErrorCollection, LinkerError,
                 ParacCompilerError) as e:
-            if log_errors_and_warnings:
+            if prefer_logging:
                 raise FailedToProcessError(exc=e) from e
             else:
                 raise e

@@ -51,7 +51,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(str(file.path)).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")
@@ -70,7 +71,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(file.path).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")
@@ -89,7 +91,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(file.path).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")

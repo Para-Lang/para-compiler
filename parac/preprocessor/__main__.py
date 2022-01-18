@@ -74,7 +74,7 @@ class PreProcessor:
     @staticmethod
     async def parse(
             input_stream: antlr4.InputStream,
-            log_errors_and_warnings: bool = True
+            prefer_logging: bool = True
     ) -> ParaCPreProcessorParser.CompilationUnitContext:
         """
         Parses the passed input_stream using antlr4 and returns the
@@ -82,7 +82,7 @@ class PreProcessor:
         process the file and generate a logic stream
 
         :param input_stream: The token stream of the file
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -121,7 +121,7 @@ class PreProcessor:
         if len(error_listener.errors) > 0:
             raise ParaCSyntaxErrorCollection(
                 error_listener.errors,
-                log_errors_and_warnings
+                prefer_logging
             )  # Raising the syntax error/s
 
         return cu
@@ -129,7 +129,7 @@ class PreProcessor:
     @staticmethod
     async def process_directives(
             ctx: ProgramPreProcessorContext,
-            log_errors_and_warnings: bool = True
+            prefer_logging: bool = True
     ) -> PreProcessorProcessResult:
         """
         Processing the directives in the passed ctx and generate an altered
@@ -138,7 +138,7 @@ class PreProcessor:
 
         :param ctx: The context instance containing the context instances for
          the directives.
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.

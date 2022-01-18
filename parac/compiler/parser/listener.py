@@ -49,7 +49,7 @@ class Listener(ParaCListener):
         self.file_stream: antlr4.InputStream = file_stream
 
         self._compiling: bool = False
-        self._log_errors_and_warnings: bool = False
+        self._prefer_logging: bool = False
 
     @property
     def logic_stream(self) -> ParacQualifiedLogicStream:
@@ -61,7 +61,7 @@ class Listener(ParaCListener):
         """ Fetches the file context for this class """
         return self._file_ctx
 
-    async def walk(self, log_errors_and_warnings: bool) -> None:
+    async def walk(self, prefer_logging: bool) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
         events / goes through the tokens.
@@ -70,7 +70,7 @@ class Listener(ParaCListener):
         is only used stand-alone for syntax-checking. This method does not
         exist on the Pre-Processor counterpart, as it is not necessary.
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -78,13 +78,13 @@ class Listener(ParaCListener):
         logger.debug(
             "Walking through logic tree and generating the logic stream"
         )
-        self._log_errors_and_warnings = log_errors_and_warnings
+        self._prefer_logging = prefer_logging
 
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)
 
     async def walk_and_generate_logic_stream(
-            self, log_errors_and_warnings: bool
+            self, prefer_logging: bool
     ) -> None:
         """
         Walks through the parsed CompilationUnitContext and listens to the
@@ -95,7 +95,7 @@ class Listener(ParaCListener):
         CompilationContext to be linked with other files and to finish
         the compilation for the program
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -104,7 +104,7 @@ class Listener(ParaCListener):
         # Variable set to signalise that the items should be added to the
         # logic stream
         self._compiling = True
-        await self.walk(log_errors_and_warnings)
+        await self.walk(prefer_logging)
 
     # =========================================
     # Beginning of the file

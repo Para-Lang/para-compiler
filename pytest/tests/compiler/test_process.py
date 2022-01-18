@@ -29,7 +29,7 @@ class TestProcess:
         b_path: Path = add_folder("build")
         d_path: Path = add_folder("dist")
         p = ProgramCompilationProcess(
-            main_file_path, 'utf-8', b_path, d_path
+            [main_file_path], main_file_path.parent, 'utf-8', b_path, d_path
         )
 
         assert p.build_path == b_path
@@ -41,7 +41,7 @@ class TestProcess:
         b_path: bytes = str(add_folder("build")).encode()
         d_path: bytes = str(add_folder("dist")).encode()
         p: ProgramCompilationProcess = ProgramCompilationProcess(
-            path, 'utf-8', b_path, d_path
+            [main_file_path], main_file_path.parent, 'utf-8', b_path, d_path
         )
 
         assert p.build_path == Path(b_path.decode())

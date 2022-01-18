@@ -40,9 +40,10 @@ class TestSyntaxCheck:
         """
         reset_input()
 
-    def test_entry_file_path(self):
-        p = BasicProcess(main_file_path, 'utf-8')
-        asyncio.run(p.validate_syntax(True))
+    def test_single_file(self):
+        asyncio.run(
+            RUNTIME_COMPILER.validate_syntax(main_file_path, 'utf-8', False)
+        )
 
     def test_para_files(self):
         files: List[os.DirEntry] = []
@@ -53,8 +54,11 @@ class TestSyntaxCheck:
                 files.append(entry)
 
         for file in files:
-            p = BasicProcess(file.path, 'utf-8')
-            asyncio.run(p.validate_syntax(True))
+            asyncio.run(
+                RUNTIME_COMPILER.validate_syntax(
+                    str(file.path), 'utf-8', False
+                )
+            )
 
     def test_c_files(self):
         files: List[os.DirEntry] = []
@@ -65,5 +69,8 @@ class TestSyntaxCheck:
                 files.append(entry)
 
         for file in files:
-            p = BasicProcess(file.path, 'utf-8')
-            asyncio.run(p.validate_syntax(True))
+            asyncio.run(
+                RUNTIME_COMPILER.validate_syntax(
+                    str(file.path), 'utf-8', False
+                )
+            )

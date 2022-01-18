@@ -37,7 +37,7 @@ class Listener(ParaCPreProcessorListener):
         )
         self.antlr4_file_ctx: Parser.CompilationUnitContext = antlr4_file_ctx
         self.file_stream: antlr4.InputStream = file_stream
-        self._log_errors_and_warnings = False
+        self._prefer_logging = False
 
         self._current_external_item: Optional[ExternalPreProcessorItem] = None
 
@@ -52,14 +52,14 @@ class Listener(ParaCPreProcessorListener):
         return self._file_ctx
 
     async def walk_and_process_directives(
-            self, log_errors_and_warnings: bool
+            self, prefer_logging: bool
     ) -> None:
         """
         Walks through the passed compilation unit context and processes it.
         The file_ctx will be populated and able to be used for finishing
         the preprocessor processing steps
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -67,7 +67,7 @@ class Listener(ParaCPreProcessorListener):
         logger.debug(
             "Walking through the logic tree and generating logic stream"
         )
-        self._log_errors_and_warnings = log_errors_and_warnings
+        self._prefer_logging = prefer_logging
 
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)

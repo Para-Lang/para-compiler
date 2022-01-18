@@ -61,7 +61,7 @@ class TestGetRelativeFileName:
         else:
             assert False
 
-    def test_simple_entry_file_path(self):
+    def test_current_directory_file(self):
         name = util.get_relative_file_name(
             file_name="name.para",
             file_path="/usr/name/files/name.para",

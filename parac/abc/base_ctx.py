@@ -5,7 +5,8 @@ Base Program ABC classes for the Pre-Processor and Compiler Context Classes
 import logging
 from abc import ABC, abstractmethod
 from os import PathLike
-from typing import Union, Dict, Any
+from pathlib import Path
+from typing import Union, Dict, Any, List
 
 import antlr4
 
@@ -78,7 +79,6 @@ class ProgramRunContext(ABC):
 
     @abstractmethod
     def __init__(self, process):
-        self._entry_ctx: Union[FileRunContext, None] = None
         self._context_dict: Dict[
             Union[str, PathLike], FileRunContext
         ] = {}
@@ -89,6 +89,12 @@ class ProgramRunContext(ABC):
     def process(self) -> Any:
         """ Compilation Process of this instance """
         return self._process
+
+    @property
+    @abstractmethod
+    def files(self) -> List[Path]:
+        """ Returns the source files for the process """
+        return self.process.files
 
     @property
     def work_dir(self) -> Union[str, PathLike]:
@@ -106,18 +112,6 @@ class ProgramRunContext(ABC):
         return self._process.encoding
 
     @property
-    @abstractmethod
-    def entry_file_path(self) -> str:
-        """ Returns the entry_file_path of the context """
-        return self._process.entry_file_path
-
-    @property
-    @abstractmethod
-    def entry_ctx(self) -> FileRunContext:
-        """ Returns the entry context """
-        ...
-
-    @property
     def context_dict(self) -> Dict[
         Union[str, PathLike], FileRunContext
     ]:
@@ -126,15 +120,6 @@ class ProgramRunContext(ABC):
         name to the FileContext
         """
         return self._context_dict
-
-    def set_entry_ctx(
-            self,
-            ctx: FileRunContext
-    ) -> None:
-        """ Sets the entry-file FilePreProcessorContext """
-        ctx.set_program_ctx(self)
-        self._entry_ctx = ctx
-        self._context_dict[ctx.relative_file_name] = ctx
 
     def add_file_ctx(
             self,
@@ -149,17 +134,17 @@ class ProgramRunContext(ABC):
         self._context_dict[relative_file_name] = ctx
 
     @abstractmethod
-    async def get_stream_and_parse(
+    async def parse_file(
             self,
             file_path: Union[str, PathLike],
-            log_errors_and_warnings: bool
+            prefer_logging: bool
     ) -> FileRunContext:
         """
         Gets a FileStream, converts it to a string stream and parses it
         returning the resulting FilePreProcessorContext
 
         :param file_path: Path to the file
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -168,11 +153,11 @@ class ProgramRunContext(ABC):
         ...
 
     @abstractmethod
-    async def parse_single_file(
+    async def _parse_stream(
             self,
             stream: antlr4.InputStream,
             relative_file_name: str,
-            log_errors_and_warnings: bool,
+            prefer_logging: bool,
     ) -> FileRunContext:
         """
         Parses a single file and generates a file context for it
@@ -180,7 +165,7 @@ class ProgramRunContext(ABC):
         :param stream: The Antlr4 InputStream which represents a string stream
         :param relative_file_name: Relative name of the file (fetch-able
          using get_relative_file_name)
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
@@ -189,20 +174,15 @@ class ProgramRunContext(ABC):
         ...
 
     @abstractmethod
-    async def parse_entry_file(
-            self,
-            log_errors_and_warnings: bool
-    ) -> FileRunContext:
+    async def parse_all_files(
+            self, prefer_logging: bool
+    ) -> List[FileRunContext]:
         """
-        Parses an entry file and sets the entry-ctx of this instance
-        to the generated context for the file.
+        Parses all files, and generates the logic streams for them
 
-        :param log_errors_and_warnings: If set to True errors, warnings and
+        :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
-        :returns: The FileRunContext. This should never be the actual ABC
-         class, but rather will be represented as FileCompilationContext and
-         FilePreProcessorContext
         """
         ...

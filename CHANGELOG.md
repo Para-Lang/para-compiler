@@ -22,7 +22,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   installation. 
 - `requirements` folder with requirements for each use-case like `dev`, `prod`
   or `common` (base requirements for both `dev` and `prod`)
-- Conan Setup for Mingw-w64 and CMake for Windows to simplify compilation.
+- New function `ProgramCompilationContext.parse_all_files()`, which will parse
+  all files
+- Parameter `project_root` for `BasicProcess`, `ProgramCompilationContext` and
+  `ProgramCompilationContext`, which defines the root of the project structure.
+  This will also be used for relative naming and paths!
 
 ### Updated
 
@@ -34,7 +38,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Renamed function  `ProgramCompilationProcess._gen_preprocessor_temp_files()`
   to `gen_preprocessor_temp_files()`
 - Renamed function `ProgramCompilationProcess._run_preprocessor()` to
-- `preprocess_files()`
+  `preprocess_files()`
+- Renamed parameter `log_errors_and_warnings` to `prefer_logging`
+- Updated handling of `ParacCompiler.validate_syntax()` to be an entry-point
+  function, which will take as arguments the wanted file path and encoding. 
+  This means no longer a `BasicProcess` or `ProgramCompilationProcess` is 
+  needed!
 
 ### Removed
 - Property `mode` in `bin-config.json`
