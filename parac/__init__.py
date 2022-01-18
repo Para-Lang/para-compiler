@@ -45,6 +45,7 @@ from . import util
 # local imports
 from .const import *
 from .exceptions import *
+from .proj_conf import *
 
 MODULES = [
     "const",

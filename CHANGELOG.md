@@ -44,6 +44,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   function, which will take as arguments the wanted file path and encoding. 
   This means no longer a `BasicProcess` or `ProgramCompilationProcess` is 
   needed!
+- Handling of files to instead of entry files, use an overall files list 
+  defined in `parac-config.json`. This means it will be similar to GCC compiler
+  using a pre-defined list of files, and then link all of them together.
 
 ### Removed
 - Property `mode` in `bin-config.json`

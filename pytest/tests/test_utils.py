@@ -3,7 +3,6 @@
 Test for the utility functions in Para-C (test_util.py and decorators.py)
 """
 from pathlib import Path
-
 import pytest
 
 from parac import util

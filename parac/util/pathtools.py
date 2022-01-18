@@ -39,7 +39,7 @@ def validate_path_like(path_like: Union[os.PathLike, str]) -> None:
 
     if empty_path or not os.access(path_like, os.F_OK):  # Exists
         raise InFileNotFoundError(
-            f"Failed to read entry-point '{path_like}'."
+            f"Failed to read file'{path_like}'."
             f" File does not exist!"
         )
     elif not os.access(path_like, os.R_OK):  # Can be read

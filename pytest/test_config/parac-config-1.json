@@ -5,7 +5,7 @@
   "author": "User",
   "license": "MyLicense",
   "include": [
-    "Put all required files/directories of the program here. These will be included in the output build"
+    "../test_files/basic.para"
   ],
   "parac-version": ">=0.1",
   "compiler-options": [

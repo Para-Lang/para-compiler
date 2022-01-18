@@ -7,7 +7,7 @@ from parac.compiler import ProgramCompilationProcess
 from parac.logging import set_avoid_print_banner_overwrite
 from .. import add_folder, reset_input, BASE_TEST_PATH
 
-main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "entry.para"
+main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "basic.para"
 
 # Avoiding printing the banner (CLI)
 set_avoid_print_banner_overwrite(True)

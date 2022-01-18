@@ -20,7 +20,7 @@ RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 
-main_file_path: Path = BASE_TEST_PATH / "test_files" / "entry.para"
+main_file_path: Path = BASE_TEST_PATH / "test_files" / "basic.para"
 test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
 test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
 
