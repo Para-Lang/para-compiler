@@ -27,6 +27,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Parameter `project_root` for `BasicProcess`, `ProgramCompilationContext` and
   `ProgramCompilationContext`, which defines the root of the project structure.
   This will also be used for relative naming and paths!
+- New Wrapper class `ParacProjectConfig` for handling json-config files
 
 ### Updated
 
@@ -44,9 +45,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   function, which will take as arguments the wanted file path and encoding. 
   This means no longer a `BasicProcess` or `ProgramCompilationProcess` is 
   needed!
-- Handling of files to instead of entry files, use an overall files list 
-  defined in `parac-config.json`. This means it will be similar to GCC compiler
-  using a pre-defined list of files, and then link all of them together.
+- Handling of files to use an overall files list defined in
+  `parac-config.json`, instead of dynamically fetching using entry files. 
+  This means it will be similar to GCC compiler using a pre-defined list of 
+  files, and then link all of them together in the end making them ready for
+  execution.
 
 ### Removed
 - Property `mode` in `bin-config.json`

@@ -5,11 +5,11 @@ a parac-config.json file and extracts its configuration
 import json
 
 __all__ = [
-    "ParacProjectConfiguration"
+    "ParacProjectConfig"
 ]
 
 
-class ParacProjectConfiguration:
+class ParacProjectConfig:
     """
     Represents a read Para-C Project configuration
     """
