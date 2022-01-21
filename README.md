@@ -8,6 +8,8 @@
 ![Coverage](./coverage.svg)
 [![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
 ![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
+[![Required GCC version](https://img.shields.io/badge/GCC-%3E%3D8.0-blue)](https://github.com/Para-C/Para-C/discussions/76)
+![Required CMake version](https://img.shields.io/badge/CMake-%3E%3D3.17-blue)
 
 [![Build](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codeql-analysis.yml)
 [![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codecov.yml)
