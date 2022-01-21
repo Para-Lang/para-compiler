@@ -36,7 +36,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `preprocess_files()`
 
 ### Removed
-- `mode` for `bin-config.json`
+- Property `mode` in `bin-config.json`
+- Deprecated `SEPARATOR` and `WIN` from const.py
 
 ## [v0.1.dev6] - 2021-11-10
 

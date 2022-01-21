@@ -4,8 +4,6 @@ import os
 from pathlib import Path
 from typing import List, Union, Optional
 
-import click
-
 __all__ = [
     "BASE_DIR",
     "C_LIB_PATH",
@@ -17,8 +15,6 @@ __all__ = [
     "DEFAULT_LOG_PATH",
     "VALID_FILE_ENDINGS",
     "BIN_CONFIG_PATH",
-    "SEPARATOR",
-    "WIN",
     "initialise_default_paths",
 ]
 
@@ -33,8 +29,6 @@ DEFAULT_DIST_PATH: Path
 DEFAULT_LOG_PATH: Path
 VALID_FILE_ENDINGS: List[str]
 BIN_CONFIG_PATH: Path
-SEPARATOR: str
-WIN: bool
 
 
 # -- Initialisation Functions -------------------------------------------------
@@ -78,13 +72,6 @@ else:
     DIST_COMPILED_VERSION = False
     MODULE_VERSION = True
     C_LIB_PATH = None
-
-# If true OS is Windows
-WIN = click.utils.WIN
-
-# Path Separator - DEPRECATED! Should never be used, since it's a bad way of
-# handling path separators
-SEPARATOR = "\\" if WIN else "/"
 
 # Config path for empty-bin-config.json
 BIN_CONFIG_PATH = (BASE_DIR / "empty-bin-config.json").resolve()
