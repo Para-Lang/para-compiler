@@ -2,18 +2,19 @@
 
 # The Para-C programming language
 
-![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
+![Latest Release](https://img.shields.io/github/v/release/Para-C/Para-C?include_prereleases)
 [![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
 ![Coverage](./coverage.svg)
 [![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
 ![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
-[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 
 [![Build](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codeql-analysis.yml)
 [![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codecov.yml)
 [![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml)
 [![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml)
 [![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml)
+[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 
 ## Key-Features
 
