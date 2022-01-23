@@ -175,6 +175,110 @@ here: `Add to the path on Windows 10 <https://www.architectryan.com/2018/03/17/a
 C-Compiler Setup
 ================
 
-Note that at the moment, it will be very likely that the Para-C CLI build will
-be shipped per default with `gcc` or `mingw-w64`, as such this will become
-deprecated in the next few releases.
+Currently the compiler setup is not done globally, but locally for each single
+project. This may change in the future, as Para-C continues to be developed
+
+Windows
+-------
+
+On Windows, as there is no native ``gcc`` you will have to use MinGW-w64
+(Minimalist GNU for Windows). For an installation of MinGW-w64 go
+`here <https://www.mingw-w64.org/downloads/#mingw-builds>`_
+
+After the successful installation, go and see whether the proper ``gcc``
+version is installed using:
+
+.. code:: bash
+
+    gcc --version
+
+Afterwards locate the path of the MinGW executable, as you will need this to
+properly configure a Para-C project:
+
+.. code:: bash
+
+    where.exe gcc
+
+MacOS
+-----
+
+On MacOS, you may use either ``clang`` or MinGW as well, though as clang is not
+fully tested yet with Para-C, it is recommended to use MinGW on MacOS. For the
+installation guide go `here <https://www.mingw-w64.org/downloads/#macports>`_.
+
+Afterwards check whether you have the proper gcc version installed:
+
+.. code:: bash
+
+    gcc --version
+
+Later, find the location of the executable, as you will need this to properly
+configure a Para-C project:
+
+.. code:: bash
+
+    type gcc
+
+The output may look like this:
+
+.. code:: bash
+
+    gcc is /usr/bin/gcc
+
+Copy the path ``/usr/bin/gcc`` or whatever path you will get, and put it into
+your configuration file.
+
+Linux
+-----
+
+On Linux, you will have to install the default ``gcc`` compiler using your
+package manager. Though, in many cases, ``gcc`` might be already pre-installed,
+so to check if you have a compatible version, do the following:
+
+.. code:: bash
+
+    gcc --version
+
+If ``gcc`` is not found, search online how you can install ``gcc`` on your
+linux machine.
+
+Later, find the location of the executable, as you will need this to properly
+configure a Para-C project:
+
+.. code:: bash
+
+    type gcc
+
+The output may look like this:
+
+.. code:: bash
+
+    gcc is /usr/bin/gcc
+
+Copy the path ``/usr/bin/gcc`` or whatever path you will get, and put it into
+your configuration file.
+
+Supported GCC Versions
+^^^^^^^^^^^^^^^^^^^^^^
+
+*This also counts for MinGW gcc versions*
+
++---------------------------------+-------------+
+| Version                         | Support     |
++=================================+=============+
+| 6.x                             | ❌          |
++---------------------------------+-------------+
+| 7.x                             | ❌          |
++---------------------------------+-------------+
+| 8.x                             | ❓          |
++---------------------------------+-------------+
+| 9.x                             | ✔️          |
++---------------------------------+-------------+
+| 10.x                            | ✔️          |
++---------------------------------+-------------+
+| 11.x                            | ✔️          |
++---------------------------------+-------------+
+
+*❌ = not supported*
+*❓ = support unknown and issues can occur / not fully tested yet*
+*✔️ = fully supported and validated*
