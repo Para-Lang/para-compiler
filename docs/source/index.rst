@@ -36,4 +36,4 @@ Overview
 Documentation Releases
 ======================
 
-* `Para v0.1 (In development) <https://para-c.readthedocs.io/en/latest/>`_
+* `Para v0.1 (In development) <https://para.readthedocs.io/en/latest/>`_

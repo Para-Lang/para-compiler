@@ -37,14 +37,14 @@ BIN_CONFIG_PATH: Path
 def initialise_default_paths(work_dir: Union[str, os.PathLike, Path]):
     """
     Initialises the default paths based on the passed work dir:
-     - DEFAULT_LOG_PATH: ./para.log
+     - DEFAULT_LOG_PATH: ./paralang.log
      - DEFAULT_BUILD_PATH: ./build
      - DEFAULT_DIST_PATH: ./dist
     """
     work_dir = Path(str(work_dir)).resolve()
 
     global DEFAULT_LOG_PATH
-    DEFAULT_LOG_PATH = (work_dir / "para.log").resolve()
+    DEFAULT_LOG_PATH = (work_dir / "paralang.log").resolve()
     global DEFAULT_BUILD_PATH
     DEFAULT_BUILD_PATH = (work_dir / "build").resolve()
     global DEFAULT_DIST_PATH

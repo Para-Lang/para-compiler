@@ -1,11 +1,11 @@
-# `para` - The Python Module for the Para Compiler
+# `paralang` - The Python Module for the Para Compiler
 
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-Lang/Para)
 ![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
-[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 
-## Introduction to `para` (as Python Module)
+## Introduction to `paralang` (as Python Module)
 
 The `para` module serves the purpose of combining the entire compiler with lib
 into a simple module, which can be imported and used in ways that are not
@@ -15,13 +15,13 @@ implemented in the standard CLI. This means both the `preprocessor` and
 ### Installation
 
 ```bash
-python3 -m pip install -U para
+python3 -m pip install -U paralang
 ```
 
 *With specific version*:
 
 ```bash
-python3 -m pip install -U para==version
+python3 -m pip install -U paralang==version
 ```
 
 ### Structure
@@ -68,7 +68,7 @@ out-data.
 
 ## Documentation
 
-[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 
 Documentations are available on the official readthedocs.org site, though 
 *note that the docs are still unfinished and things will be likely changing the

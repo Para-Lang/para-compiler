@@ -1,5 +1,5 @@
 ************************
-Para-C Built-In Keywords
+Para Built-In Keywords
 ************************
 
 .. toctree::

@@ -14,8 +14,8 @@ with open(SRC_PATH / "requirements" / "common.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(
-    name="para",
-    version="0.1.dev6",
+    name="paralang",
+    version="0.1.dev7",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",
     maintainer="Luna Klatzer",

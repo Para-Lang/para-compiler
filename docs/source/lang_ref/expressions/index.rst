@@ -11,7 +11,7 @@ Expression
     Logical Expression <logical_expression>
     Relational Expression <relational_expression>
 
-Expressions inside the Para-C language, which make up the core functionality
+Expressions inside the Para language, which make up the core functionality
 beside `statements <./statements/index.html>`_, as they allow for evaluation
 of a certain term and modifying it based on
 `certain conditions <./relational_expression.html>`_.

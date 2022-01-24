@@ -1,6 +1,6 @@
 // Entry-Point of the Program
 entry status Main()
 {
-    Print(f"Para-C version: {__para_version__}");
+    Print(f"Para version: {__para_version__}");
     return (status) { .status_code = 0 };
 }

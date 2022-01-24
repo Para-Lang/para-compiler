@@ -2,7 +2,7 @@
 """
 Test for the project configuration class
 """
-from para.proj_conf import ParacProjectConfig
+from paralang.proj_conf import ParacProjectConfig
 from . import BASE_TEST_PATH
 
 

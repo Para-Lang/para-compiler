@@ -13,4 +13,4 @@ which also simply the usage of it.
 Overview
 ========
 
-- `Styling and Naming Guide <./styling_guide.html>`_ - Styling Guidelines on how to format Para-C files, write code and how to appropriately name things.
+- `Styling and Naming Guide <./styling_guide.html>`_ - Styling Guidelines on how to format Para files, write code and how to appropriately name things.

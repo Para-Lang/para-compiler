@@ -2,7 +2,7 @@
 Styling Guide
 *************
 
-Styling Guidelines on how to format Para-C files, write code and how to
+Styling Guidelines on how to format Para files, write code and how to
 appropriately name things.
 
 This is intended as a reference, and does not necessarily have to be followed,

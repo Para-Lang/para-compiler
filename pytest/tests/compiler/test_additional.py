@@ -2,7 +2,7 @@
 """ Test for the cli setup """
 import pytest
 
-from para.compiler import ParaCompiler
+from paralang.compiler import ParaCompiler
 
 
 class TestAdditional:

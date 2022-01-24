@@ -1,6 +1,6 @@
 """
 This is the independent Project Configuration Package, which parses
-a para-config.json file and extracts its configuration
+a paralang-config.json file and extracts its configuration
 """
 import json
 
@@ -11,7 +11,7 @@ __all__ = [
 
 class ParacProjectConfig:
     """
-    Represents a read Para-C Project configuration
+    Represents a read Para Project configuration
     """
 
     def __init__(self, file):

@@ -16,11 +16,11 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Testing path ------------------------------------------------------------
 
-import para
-import para_ext_cli
+import paralang
+import paralang_cli
 
-assert para.__version__
-assert para_ext_cli.__version__
+assert paralang.__version__
+assert paralang_cli.__version__
 
 # -- Project information -----------------------------------------------------
 
@@ -59,8 +59,8 @@ exclude_patterns = []
 
 html_title = f'Para {release}'
 html_theme = 'pydata_sphinx_theme'
-html_logo = '../../img/para-banner.png'
-html_favicon = '../../img/para.ico'
+html_logo = '../../img/paralang-banner.png'
+html_favicon = '../../img/paralang.ico'
 html_theme_options = {
     "icon_links": [
         {

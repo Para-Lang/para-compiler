@@ -1,5 +1,5 @@
 ***************
-Para-C Compiler
+Para Compiler
 ***************
 
 `para.compiler.compiler`

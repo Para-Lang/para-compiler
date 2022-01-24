@@ -1,15 +1,15 @@
-![para-c](img/para-banner.png)
+![para](img/para-banner.png)
 
 # The Para programming language
 
-![Latest Release](https://img.shields.io/github/v/release/Para-C/Para-C?include_prereleases)
+![Latest Release](https://img.shields.io/github/v/release/Para-Lang/Para?include_prereleases)
 ![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
 [![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/para)
-![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
-[![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
+[![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 ![Coverage](./coverage.svg)
-[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
-[![Required GCC version](https://img.shields.io/badge/GCC-%3E%3D8.0-blue)](https://github.com/Para-C/Para-C/discussions/76)
+[![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
+[![Required GCC version](https://img.shields.io/badge/GCC-%3E%3D8.0-blue)](https://github.com/Para-Lang/Para/discussions/76)
 ![Required CMake version](https://img.shields.io/badge/CMake-%3E%3D3.17-blue)
 
 [![Build](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml)
@@ -58,7 +58,7 @@ out-data.
 
 ## Docs
 
-Our documentation can be found [here](https://para-c.readthedocs.io/en/latest/).
+Our documentation can be found [here](https://para.readthedocs.io/en/latest/).
 
 ## Python Module
 
@@ -69,12 +69,12 @@ pyinstaller, you may also directly utilise the `parac` source module, which
 provides an API that can be run in your own python scripts.
 
 For reference on the pypi module please go to the documentation page
-[here](https://para-c.readthedocs.io/en/latest/pyapi_ref/index.html)
+[here](https://para.readthedocs.io/en/latest/pyapi_ref/index.html)
 
 ## Installation
 
 For reference on the installation please go the documentation page 
-[here](https://para-c.readthedocs.io/en/latest/installation.html).
+[here](https://para.readthedocs.io/en/latest/installation.html).
 
 ## Development
 

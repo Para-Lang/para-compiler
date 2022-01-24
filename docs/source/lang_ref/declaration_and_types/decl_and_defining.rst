@@ -5,7 +5,7 @@ Declaring and Defining Variables
 Overview
 ========
 
-Like in C, the Para-C language bases on the declaration and definition system
+Like in C, the Para language bases on the declaration and definition system
 for managing it's variables. That means that the scope of a variable can be
 declared, which can then be either defined declared or in a scope that has
 access to it.
@@ -22,7 +22,7 @@ Scopes
 ======
 
 First of all, to understand how to properly use variables in general, the logic
-of scopes is rather important. Para-C sticks here as with most things to C, aka.
+of scopes is rather important. Para sticks here as with most things to C, aka.
 to not re-invent the wheel and overcomplicate processes that are already simple
 enough.
 

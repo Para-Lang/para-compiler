@@ -1,5 +1,5 @@
-#define ExeName "Para-C"
-#define ExeVersion "0.1.dev6"
+#define ExeName "Para"
+#define ExeVersion "0.1.dev7"
 #define ExePublisher "Luna-Klatzer"
 #define ExeURL "https://github.com/Para-Lang/Para.git"
 #define ExeExeName "para.exe"
@@ -39,7 +39,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked
-Name: "addtopath"; Description: "Add Para-C compiler to the Windows Path"; Flags: unchecked
+Name: "addtopath"; Description: "Add Para compiler to the Windows Path"; Flags: unchecked
 
 [Files]
 Source: "..\dist\para\bin\{#ExeExeName}"; DestDir: "{app}\bin\"; Flags: ignoreversion

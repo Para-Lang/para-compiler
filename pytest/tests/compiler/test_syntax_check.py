@@ -6,11 +6,11 @@ import os
 from pathlib import Path
 from typing import List
 
-from para import initialise_default_paths
-from para.compiler import ParaCompiler, BasicProcess
+from paralang import initialise_default_paths
+from paralang.compiler import ParaCompiler, BasicProcess
 from .. import BASE_TEST_PATH
 
-logger = logging.getLogger('para')
+logger = logging.getLogger('paralang')
 logger.setLevel(logging.DEBUG)
 compiler = ParaCompiler()
 

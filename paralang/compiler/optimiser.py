@@ -1,6 +1,6 @@
 # coding=utf-8
 """
-Core Optimiser for the C code and Para-C code which will optimise the code
+Core Optimiser for the C code and Para code which will optimise the code
 and manage imports and additional content using the __para__.h file
 """
 

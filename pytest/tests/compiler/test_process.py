@@ -3,11 +3,11 @@
 import logging
 from pathlib import Path
 
-from para import initialise_default_paths
-from para.compiler import ProgramCompilationProcess
+from paralang import initialise_default_paths
+from paralang.compiler import ProgramCompilationProcess
 from .. import add_folder, BASE_TEST_PATH
 
-logger = logging.getLogger('para')
+logger = logging.getLogger('paralang')
 logger.setLevel(logging.DEBUG)
 main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "main.para"
 

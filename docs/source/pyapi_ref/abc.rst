@@ -1,5 +1,5 @@
 ***********
-Para-C ABCs
+Para ABCs
 ***********
 
 `para.abc`

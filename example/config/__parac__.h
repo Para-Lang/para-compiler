@@ -9,7 +9,7 @@
 #ifndef __PARAC___H_
 #define __PARAC___H_
 
-// If the code is included in an CPP environment which Para-C supports,
+// If the code is included in an CPP environment which Para supports,
 // it will be treated as regular C-code
 #if __cplusplus
 extern "C" {
