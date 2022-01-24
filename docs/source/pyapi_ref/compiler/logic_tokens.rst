@@ -2,10 +2,10 @@
 Logic Tokens
 ************
 
-`parac.compiler.logic_tokens`
+`para.compiler.logic_tokens`
 =============================
 
-.. automodule:: parac.compiler.logic_tokens
+.. automodule:: para.compiler.logic_tokens
     :members:
     :special-members:
 

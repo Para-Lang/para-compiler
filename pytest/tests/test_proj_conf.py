@@ -2,7 +2,7 @@
 """
 Test for the project configuration class
 """
-from parac.proj_conf import ParacProjectConfig
+from para.proj_conf import ParacProjectConfig
 from . import BASE_TEST_PATH
 
 
@@ -11,5 +11,5 @@ class TestProjectConfiguration:
 
     def test_simple_init(self):
         """ Simple initialisation of the class """
-        p = BASE_TEST_PATH / "test_config" / "parac-config-1.json"
+        p = BASE_TEST_PATH / "test_config" / "para-config-1.json"
         config = ParacProjectConfig(p)

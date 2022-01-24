@@ -2,8 +2,8 @@
 Pre-Processor Error-Handler
 ***************************
 
-`parac.preprocessor.error_handler`
+`para.preprocessor.error_handler`
 ==================================
 
-.. automodule:: parac.preprocessor.error_handler
+.. automodule:: para.preprocessor.error_handler
     :members:

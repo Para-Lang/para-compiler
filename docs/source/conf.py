@@ -16,15 +16,15 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Testing path ------------------------------------------------------------
 
-import parac
-import parac_ext_cli
+import para
+import para_ext_cli
 
-assert parac.__version__
-assert parac_ext_cli.__version__
+assert para.__version__
+assert para_ext_cli.__version__
 
 # -- Project information -----------------------------------------------------
 
-project = 'Para-C'
+project = 'Para'
 copyright = '2021, Luna Klatzer'
 author = 'Luna Klatzer'
 
@@ -57,15 +57,15 @@ exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 
-html_title = f'Para-C {release}'
+html_title = f'Para {release}'
 html_theme = 'pydata_sphinx_theme'
-html_logo = '../../img/parac-banner.png'
-html_favicon = '../../img/parac.ico'
+html_logo = '../../img/para-banner.png'
+html_favicon = '../../img/para.ico'
 html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
-            "url": "https://github.com/Para-C/Para-C",
+            "url": "https://github.com/Para-Lang/Para",
             "icon": "fab fa-github-square",
         }
     ],
@@ -73,26 +73,26 @@ html_theme_options = {
     "external_links": [
         {
             "name": "License ",
-            "url": "https://github.com/Para-C/Para-C/blob/main/LICENSE"
+            "url": "https://github.com/Para-Lang/Para/blob/main/LICENSE"
         },
         {
             "name": "Report an issue ",
-            "url": "https://github.com/Para-C/Para-C/issues/new/"
+            "url": "https://github.com/Para-Lang/Para/issues/new/"
         },
         {
             "name": "Discussion Page ",
-            "url": "https://github.com/Para-C/Para-C/discussions/"
+            "url": "https://github.com/Para-Lang/Para/discussions/"
         },
         {
             "name": "PyPi ",
-            "url": "https://pypi.org/project/parac/"
+            "url": "https://pypi.org/project/para/"
         }
     ],
     "use_edit_page_button": True
 }
 html_context = {
-    "github_user": "Para-C",
-    "github_repo": "Para-C",
+    "github_user": "Para-Lang",
+    "github_repo": "Para",
     "github_version": "main",
     "doc_path": "/docs/source/",
 }

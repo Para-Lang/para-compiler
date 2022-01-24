@@ -2,6 +2,6 @@
 Pre-Processor ABCs
 ******************
 
-.. automodule:: parac.preprocessor.abc
+.. automodule:: para.preprocessor.abc
     :members:
     :special-members:

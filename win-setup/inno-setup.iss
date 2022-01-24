@@ -1,8 +1,8 @@
 #define ExeName "Para-C"
 #define ExeVersion "0.1.dev6"
 #define ExePublisher "Luna-Klatzer"
-#define ExeURL "https://github.com/Para-C/Para-C.git"
-#define ExeExeName "parac.exe"
+#define ExeURL "https://github.com/Para-Lang/Para.git"
+#define ExeExeName "para.exe"
 #define ExeAssocName ExeName + " Source File"
 #define ExeAssocExt1 ".para"
 #define ExeAssocExt2 ".ph"
@@ -27,8 +27,8 @@ DirExistsWarning=yes
 DisableProgramGroupPage=yes
 LicenseFile=LICENSE
 PrivilegesRequired=admin
-OutputBaseFilename=parac
-SetupIconFile=img/parac.ico
+OutputBaseFilename=para
+SetupIconFile=img/para.ico
 Compression=lzma
 UsePreviousAppDir=no
 SolidCompression=yes
@@ -42,8 +42,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; Flags: unchecked
 Name: "addtopath"; Description: "Add Para-C compiler to the Windows Path"; Flags: unchecked
 
 [Files]
-Source: "..\dist\parac\bin\{#ExeExeName}"; DestDir: "{app}\bin\"; Flags: ignoreversion
-Source: "..\dist\parac\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "..\dist\para\bin\{#ExeExeName}"; DestDir: "{app}\bin\"; Flags: ignoreversion
+Source: "..\dist\para\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]

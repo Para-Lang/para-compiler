@@ -2,9 +2,9 @@
 Exceptions
 **********
 
-`parac.exceptions`
+`para.exceptions`
 ==================
 
-.. automodule:: parac.exceptions
+.. automodule:: para.exceptions
     :members:
     :special-members:

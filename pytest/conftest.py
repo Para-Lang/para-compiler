@@ -10,9 +10,9 @@ import pytest
 here = Path(str(os.path.abspath(__file__))).resolve().parent.parent
 sys.path.insert(0, str(here))
 
-import parac
+import para
 
-parac.RUNTIME_COMPILER.init_logging_session(
+para.RUNTIME_COMPILER.init_logging_session(
     level=logging.DEBUG, print_banner=False
 )
 

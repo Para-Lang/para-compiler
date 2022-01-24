@@ -1,9 +1,9 @@
 *******************
-ParacCompiler Class
+ParaCompiler Class
 *******************
 
-`parac.compiler.linker`
+`para.compiler.linker`
 =======================
 
-.. automodule:: parac.compiler.linker
+.. automodule:: para.compiler.linker
     :members:

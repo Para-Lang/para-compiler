@@ -1,11 +1,11 @@
 # coding=utf-8
 """
-Test for the utility functions in Para-C (test_util.py and decorators.py)
+Test for the utility functions in Para (test_util.py and decorators.py)
 """
 from pathlib import Path
 import pytest
 
-from parac import util
+from para import util
 
 
 class TestValidateFileEnding:

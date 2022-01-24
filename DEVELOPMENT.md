@@ -51,21 +51,21 @@ To generate in the command-line use:
 - For the Pre-Processor:
     - Python (Required for the Compiler):
         ```bash
-        antlr4 -o ./parac/preprocessor/parser -Dlanguage=Python3 ./grammar/ParaCPreProcessor.g4
+        antlr4 -o ./para/preprocessor/parser -Dlanguage=Python3 ./ParaPreProcessor.g4
         ```
     - Java:
         ```bash
-        antlr4 -o ./parac/preprocessor/parser -Dlanguage=Java ./grammar/ParaCPreProcessor.g4
+        antlr4 -o ./para/preprocessor/parser -Dlanguage=Java ./ParaPreProcessor.g4
         ```
 
 - For the Core Language:
     - Python (Required for the Compiler):
         ```bash
-        antlr4 -o ./parac/compiler/parser/parser -Dlanguage=Python3 ./grammar/ParaC.g4
+        antlr4 -o ./para/compiler/parser/python -Dlanguage=Python3 ./Para.g4
         ```
     - Java:
         ```bash
-        antlr4 -o ./parac/compiler/parser/parser -Dlanguage=Java ./grammar/ParaC.g4
+        antlr4 -o ./para/compiler/parser/python -Dlanguage=Java ./Para.g4
         ```
 
 Afterwards *if needed* correctly move the folder using:
@@ -84,7 +84,7 @@ rm -rf ./path/to/generated/output
 
 - *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not
   work*
-- *Comments are only partly ignored in ParaC.g4, due the intended removal in
+- *Comments are only partly ignored in Para.g4, due the intended removal in
   the Pre-Processor. Errors can occur!*
 
 ## Generating the docs

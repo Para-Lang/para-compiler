@@ -6,14 +6,14 @@ import os
 from pathlib import Path
 from typing import List
 
-from parac import RUNTIME_COMPILER, initialise_default_paths
-from parac.compiler import ParacCompiler, BasicProcess
-from parac.logging import set_avoid_print_banner_overwrite
+from para import RUNTIME_COMPILER, initialise_default_paths
+from para.compiler import ParaCompiler, BasicProcess
+from para.logging import set_avoid_print_banner_overwrite
 from .. import reset_input, BASE_TEST_PATH
 
 logger = logging.getLogger('compiler')
 
-compiler = ParacCompiler()
+compiler = ParaCompiler()
 
 # Initialises the logging session for the compiler
 RUNTIME_COMPILER.init_logging_session(

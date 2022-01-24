@@ -1,5 +1,5 @@
 /// ==========================================================
-///  Example __parac__.h file that won't be used, but will serve as an example for a finished build
+///  Example __para__.h file that won't be used, but will serve as an example for a finished build
 /// ==========================================================
 #pragma once
 
@@ -27,7 +27,7 @@ const char* ph_license;
 // =========================================
 // Compiler Configuration
 // C-Compiler Paths are included, so that
-// using 'parac finish' the compilation can
+// using 'para finish' the compilation can
 // be automatically finished
 // =========================================
 

@@ -45,7 +45,7 @@ Usage & Examples
 Footnotes
 -----------
 
-1. At least one `entry` specifier is needed inside the entry-file for the Para-C
+1. At least one `entry` specifier is needed inside the entry-file for the Para
    project to properly run. If none is provided the compiler will raise an error.
 
 No-Return Specifier

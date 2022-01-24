@@ -2,9 +2,9 @@
 Para-C ABCs
 ***********
 
-`parac.abc`
+`para.abc`
 ===========
 
-.. automodule:: parac.abc
+.. automodule:: para.abc
     :members:
     :special-members:

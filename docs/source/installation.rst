@@ -2,7 +2,7 @@
 Installation
 ************
 
-This section serves as the reference for how to install the Para-C compiler and
+This section serves as the reference for how to install the Para compiler and
 make it available for usage in your command line.
 
 Installer for Windows
@@ -13,16 +13,16 @@ will automatically do the installation based on your input and create the
 correct entries to the system, so that you can utilise the compiler right after
 installation.
 
-For the installer go to the `release page on github <https://github.com/Para-C/Para-C/releases>`_
+For the installer go to the `release page on github <https://github.com/Para-Lang/Para/releases>`_
 and download the version you want. The installer will be named after the date of
-its creation in this format: ``parac-installer-<year>-<month>-<day>.exe``.
+its creation in this format: ``para-installer-<year>-<month>-<day>.exe``.
 
 Building it yourself (Unix+Windows)
 ===================================
 
-For all other OS-systems, there are no installers yet for Para-C or entries
+For all other OS-systems, there are no installers yet for Para or entries
 in package managers, meaning the compiler needs to be either built by yourself
-using the `parac-build.py` script or used with a python runtime using the
+using the `para-build.py` script or used with a python runtime using the
 `distributed pypi module <../pyapi_ref/index.html> (Python API)`_.
 
 .. note::
@@ -34,7 +34,7 @@ using the `parac-build.py` script or used with a python runtime using the
 Downloading
 -----------
 
-Before building go to the `release page on github <https://github.com/Para-C/Para-C/releases>`_
+Before building go to the `release page on github <https://github.com/Para-Lang/Para/releases>`_
 and download either the ``.zip`` (win) or ``.tar.gz`` (unix) file depending on
 your OS.
 
@@ -60,7 +60,7 @@ the pre-made script, which will automatically manage everything:
 
 .. code:: bash
 
-    python ./parac-build.py
+    python ./para-build.py
 
 .. note::
 
@@ -68,7 +68,7 @@ the pre-made script, which will automatically manage everything:
 
     .. code:: bash
 
-        python ./parac-build.py --help
+        python ./para-build.py --help
 
     This will display additional help on the command, such as how to specify
     an url and download it on runtime, or how to specifically install it
@@ -78,13 +78,13 @@ The compilation may take a while since it will wrap the entire program
 with the python instance into a standalone compiled binary, which can then
 be used.
 
-After the successful installation of Para-C, the root folder for Para-C
-will be called ``parac`` and will be located in the ``./dist/`` folder. This
+After the successful installation of Para, the root folder for Para
+will be called ``para`` and will be located in the ``./dist/`` folder. This
 folder can be deleted after the module was moved to its destination.
 
 .. note::
 
-    It does not matter where Para-C is located as long as the structure inside
+    It does not matter where Para is located as long as the structure inside
     the root directory stays in tact. For that reason you can decide where it
     should be located when using it.
 
@@ -99,37 +99,37 @@ folder can be deleted after the module was moved to its destination.
 
     .. code:: bash
 
-        python ./parac-build.py --install-global
+        python ./para-build.py --install-global
 
     This will default to the following paths:
 
-    - POSIX (Unix, Linux, MacOS): ``/usr/local/bin/Para-C``
-    - NT (Windows): ``C:\\Program Files (x86)\\Para-C\\``
+    - POSIX (Unix, Linux, MacOS): ``/usr/local/bin/Para``
+    - NT (Windows): ``C:\\Program Files (x86)\\Para\\``
 
     To specify a different path simply pass it as arg to ``--g-dest $PATH``,
     for example:
 
     .. code:: bash
 
-        python ./parac-build.py --install-global --g-dest /usr/bin/Para-C
+        python ./para-build.py --install-global --g-dest /usr/bin/Para
 
-Make parac executable
+Make para executable
 ---------------------
 
-Per default parac should be executable on all platforms. In the case though
+Per default para should be executable on all platforms. In the case though
 it's not, then you may specify its execution permissions like here:
 
 - On Linux
 
   .. code:: bash
 
-    chmod a+x <your-dir>/bin/parac
+    chmod a+x <your-dir>/bin/para
 
 - On MacOS
 
   .. code:: bash
 
-    chmod 755 <your-dir>/bin/parac
+    chmod 755 <your-dir>/bin/para
 
 .. note::
 
@@ -137,31 +137,31 @@ it's not, then you may specify its execution permissions like here:
     default that the file is executable and as such there should not be an
     issue when accessing it on Windows.
 
-Make ``parac`` available in the Command Line
+Make ``para`` available in the Command Line
 --------------------------------------------
 
-This step is entirely optional, though good if you want to have ``parac`` in a
+This step is entirely optional, though good if you want to have ``para`` in a
 proper location, then you should do this.
 
 Unix (Linux+MacOS)
 ^^^^^^^^^^^^^^^^^^
 
-On UNIX, we can simply create an alias for the parac executable.
+On UNIX, we can simply create an alias for the para executable.
 
 To edit the ``~/.bashrc`` file (The ``~`` means your home folder of your user)
 simply use a graphical editor, like Visual Studio Code (``code``) or in case
 you use a text-based user interface, use preferably ``nano``.
 
 Here, you can simply put the following at the end of the file to extend the
-path by our Para-C ``/bin`` path:
+path by our Para ``/bin`` path:
 
 .. code:: bash
 
-    alias parac="$DEST_PATH/bin/parac"
+    alias para="$DEST_PATH/bin/para"
 
 .. note::
 
-    Every time you change the location of the Para-C installation folder, the
+    Every time you change the location of the Para installation folder, the
     previous command will likely break, so make sure to put it into a safe
     place and leave it there from that point on!
 
@@ -175,6 +175,6 @@ here: `Add to the path on Windows 10 <https://www.architectryan.com/2018/03/17/a
 C-Compiler Setup
 ================
 
-Note that at the moment, it will be very likely that the Para-C CLI build will
+Note that at the moment, it will be very likely that the Para CLI build will
 be shipped per default with `gcc` or `mingw-w64`, as such this will become
 deprecated in the next few releases.

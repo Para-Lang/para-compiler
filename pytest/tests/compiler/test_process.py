@@ -2,9 +2,9 @@
 """ Test for the compiler process setup """
 from pathlib import Path
 
-from parac import initialise_default_paths
-from parac.compiler import ProgramCompilationProcess
-from parac.logging import set_avoid_print_banner_overwrite
+from para import initialise_default_paths
+from para.compiler import ProgramCompilationProcess
+from para.logging import set_avoid_print_banner_overwrite
 from .. import add_folder, reset_input, BASE_TEST_PATH
 
 main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "basic.para"

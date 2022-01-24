@@ -15,7 +15,7 @@ Asking for info takes time that is unnecessarily wasted if it's not correctly po
 
 - Python module: [yes/no]
 - Python Plugins: [yes/no]
-- Project Structure or Para-C Make: [yes/no]
+- Project Structure or Para Make: [yes/no]
 - CLI: [yes/no]
 - Inno-Installer (Win): [yes/no]
 

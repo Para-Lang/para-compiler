@@ -2,9 +2,9 @@
 Pre-Processor Antlr4 Parser
 ***************************
 
-`parac.preprocessor.parser`
+`para.preprocessor.parser`
 ===========================
 
-.. automodule:: parac.preprocessor.parser
+.. automodule:: para.preprocessor.parser
     :members:
     :special-members:

@@ -1,19 +1,19 @@
-![para-c](img/parac-banner.png)
+![para-c](img/para-banner.png)
 
-# The Para-C programming language
+# The Para programming language
 
-![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
-[![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+![Py Versions](https://img.shields.io/pypi/pyversions/Para.svg)
+[![PyPI version](https://badge.fury.io/py/Para.svg)](https://badge.fury.io/py/Para)
 ![Coverage](./coverage.svg)
-[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
-![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
+[![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
+![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 
-[![Build](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codeql-analysis.yml)
-[![Codecov](https://github.com/Luna-Klatzer/Para-C/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/codecov.yml)
-[![PyTest Linux](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-linux-coverage.yml)
-[![PyTest MacOs](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-macos.yml)
-[![PyTest Win](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-C/Para-C/actions/workflows/pytest-win.yml)
+[![Build](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml)
+[![Codecov](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml)
+[![PyTest Linux](https://github.com/Para-Lang/Para/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-linux-coverage.yml)
+[![PyTest MacOs](https://github.com/Para-Lang/Para/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-macos.yml)
+[![PyTest Win](https://github.com/Para-Lang/Para/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-win.yml)
 
 ## Key-Features
 
@@ -25,7 +25,7 @@
   inside each thread.
 - Ability to manage exceptions and also define fallbacks. This is also
   supported for extensions that fail.
-- Extended Base-Library (Para-C Base Library) with additional types and
+- Extended Base-Library (Para Base Library) with additional types and
   functions.
 - Decorator and Overload Functions.
 - Simplified syntax and handling of C components for easier coding.
@@ -34,7 +34,7 @@
 
 ## Introduction
 
-Para-C (From Greek "para": Beside/Alongside C) is a programming language that
+Para (From Greek "para": Beside/Alongside) is a programming language that
 is designed to integrate other languages and allow for advanced management of
 embedded programs / code-bases inside a program, where the language will serve
 as a base for writing overhead and "connector" programs, which can manage
@@ -45,13 +45,13 @@ out-data.
 
 *Commands displayed are mostly only partly implemented*
 
-| Name                   | Description                                                                                      |
-|------------------------|--------------------------------------------------------------------------------------------------|
-| ``parac compile``      | Compiles a Para-C program to C or an executable.                                                 |
-| ``parac run``          | Compiles a Para-C program and runs it.                                                           |
-| ``parac c-init``       | Starts the CLI for the configuration of the C-compiler, which is required for running a program. |
-| ``parac syntax-check`` | Validates the syntax of a Para-C program and logs errors if needed. (Pre-Processor ignored)      |
-| ``parac analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
+| Name                  | Description                                                                                      |
+|-----------------------|--------------------------------------------------------------------------------------------------|
+| ``para compile``      | Compiles a Para program to C or an executable.                                                   |
+| ``para run``          | Compiles a Para program and runs it.                                                             |
+| ``para c-init``       | Starts the CLI for the configuration of the C-compiler, which is required for running a program. |
+| ``para syntax-check`` | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
+| ``para analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
 
 ## Docs
 
@@ -59,10 +59,10 @@ Our documentation can be found [here](https://para-c.readthedocs.io/en/latest/).
 
 ## Python Module
 
-[![PyPI version](https://badge.fury.io/py/parac.svg)](https://badge.fury.io/py/parac)
+[![PyPI version](https://badge.fury.io/py/Para.svg)](https://badge.fury.io/py/Para)
 
 Besides, the option to compile the python code into a binary executable using
-pyinstaller, you may also directly utilise the `parac` source module, which
+pyinstaller, you may also directly utilise the `para` source module, which
 provides an API that can be run in your own python scripts.
 
 For reference on the pypi module please go to the documentation page
@@ -75,22 +75,22 @@ For reference on the installation please go the documentation page
 
 ## Development
 
-To develop on the Para-C Project, you may contribute to this repo or one of the
-following side-repos of Para-C Language:
+To develop on the Para Project, you may contribute to this repo or one of the
+following side-repos of Para Language:
 
-- [Para-C Base Library](https://github.com/Para-C/Para-C-Base-Library) - C
+- [Para Base Library](https://github.com/Para-Lang/Para-Base-Library) - C
   Static Library for providing the types, functions and macros used to actually
   run the compiled C-code.
-- [Para-C Extension Library](https://github.com/Para-C/Para-C-Extension-Library) - 
-  Library for utilising other languages/extensions in a Para-C program. This
+- [Para Extension Library](https://github.com/Para-Lang/Para-Extension-Library) - 
+  Library for utilising other languages/extensions in a Para program. This
   repository is at the moment inactive
 
 For more info on development for the core Python API and compiler, you may go
-[here](https://github.com/Para-C/Para-C/blob/main/DEVELOPMENT.md).
+[here](https://github.com/Para-Lang/Para/blob/main/DEVELOPMENT.md).
 
 ## Disclaimer
 
-Para-C is not intended as a language for production code or professional usage
+Para is not intended as a language for production code or professional usage
 as of now. It is for now solely a free-time/college project.
 
 This also means that issues or bugs while running can likely occur, and it's
@@ -99,8 +99,8 @@ not a stable or production-ready language as of the point of writing.
 
 ## Copyright and License
 
-![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_shield)
+![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-Lang%2FPara.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-Lang%2FPara?ref=badge_shield)
 
 Copyright (C) 2021 Luna Klatzer
 
@@ -120,4 +120,4 @@ See the [LICENSE](./LICENSE) for information on terms & conditions for usage.
 
 ### FOSSA License Report
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-C%2FPara-C.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-C%2FPara-C?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-Lang%2FPara.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-Lang%2FPara?ref=badge_large)

@@ -2,8 +2,8 @@
 Pre-Processor Context
 *********************
 
-`parac.preprocessor.ctx`
+`para.preprocessor.ctx`
 ========================
 
-.. automodule:: parac.preprocessor.ctx
+.. automodule:: para.preprocessor.ctx
     :members:

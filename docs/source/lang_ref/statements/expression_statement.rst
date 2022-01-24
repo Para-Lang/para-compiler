@@ -2,7 +2,7 @@
 Expression Statement
 ********************
 
-Expression Statements are the most important statement in a Para-C program, as
+Expression Statements are the most important statement in a Para program, as
 they practically do all of the work and perform the tasks inside a program.
 They are simple expressions which are followed by a semi-colon ``;``.
 

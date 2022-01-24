@@ -50,6 +50,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   This means it will be similar to GCC compiler using a pre-defined list of 
   files, and then link all of them together in the end making them ready for
   execution.
+- Renamed `Para-C` to `Para` to suit better to its intended feature-set
+- Renamed `parac-build.py` to `para-build.py`
+- Renamed all Python classes prefixes `Parac` to `Para`
 
 ### Removed
 - Property `mode` in `bin-config.json`
@@ -143,10 +146,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated logging messages and added more of them, where they are needed.
 - Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
 - Moved Para-C Base Library data to new
-  repo [here](https://github.com/Para-C/Para-C-Base-Library)
+  repo [here](https://github.com/Para-Lang/Para-Base-Library)
 - Deleted the file `entry_cli.py` here, and moved the function
   to `parac-ext-cli`
-  [here](https://github.com/Para-C/Para-C-CLI). This function can now be called
+  [here](https://github.com/Para-Lang/Para-CLI). This function can now be called
   using `cli_run()`; This means that the main repo and module can only be run
   as module, and the CLI is a fully separate entity.
 
@@ -302,16 +305,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev6...dev
+[unreleased]: https://github.com/Para-Lang/Para/compare/v0.1.dev6...dev
 
-[v0.1.dev6]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...v0.1.dev6
+[v0.1.dev6]: https://github.com/Para-Lang/Para/compare/v0.1.dev5...v0.1.dev6
 
-[v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
+[v0.1.dev5]: https://github.com/Para-Lang/Para/compare/v0.1.dev4...v0.1.dev5
 
-[v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
+[v0.1.dev4]: https://github.com/Para-Lang/Para/compare/v0.1.dev3...v0.1.dev4
 
-[v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
+[v0.1.dev3]: https://github.com/Para-Lang/Para/compare/v0.1.dev2...v0.1.dev3
 
-[v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2
+[v0.1.dev2]: https://github.com/Para-Lang/Para/compare/v0.1.dev1...v0.1.dev2
 
-[v0.1.dev1]: https://github.com/Para-C/Para-C/releases/tag/v0.1.dev1
+[v0.1.dev1]: https://github.com/Para-Lang/Para/releases/tag/v0.1.dev1

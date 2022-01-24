@@ -5,8 +5,8 @@ Compiler Structure
 Overview
 ========
 
-The Para-C Compiler is the Compiler responsible for the `Para-C Core Language <./index.html>`_
-and the `Para-C Language Extensions <./tasks/index.html>`_. It parses, analyses
+The Para Compiler is the Compiler responsible for the `Para Core Language <./index.html>`_
+and the `Para Language Extensions <./tasks/index.html>`_. It parses, analyses
 and links the files together to generate a C-source code output or using the
 GCC C Compiler (GNU Compiler Collection C Compiler) an executable.
 
@@ -39,9 +39,9 @@ Lexer and Parser
 Overview
 --------
 
-The Para-C Core Language uses for parsing Antlr4, which automatically
+The Para Core Language uses for parsing Antlr4, which automatically
 generates python files for the parser, listeners and lexer based
-on the `ParaC.g4` file. This file defines the grammar of the language.
+on the `Para.g4` file. This file defines the grammar of the language.
 
 The generated code will be wrapped inside a new python module, which will implement 
 the code and make it usable in the compiler source code. Using that new Parser module,
@@ -100,7 +100,7 @@ The Semantic Analysis will go through each externalDeclaration (Can be either a 
 File Linker
 ===========
 
-File linking in Para-C is similar to C, with the key-difference being
+File linking in Para is similar to C, with the key-difference being
 though, that the result of the generation is a C project (files and headers
 for all items), not byte code.
 
@@ -115,7 +115,7 @@ errors in the C code.
 Code Optimiser
 ==============
 
-The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para-C logic tokens, and pass them to the Code generator, which will compile the Para-C logic tokens into C logic tokens.
+The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para logic tokens, and pass them to the Code generator, which will compile the Para logic tokens into C logic tokens.
 
 Code Generator
 ==============
@@ -130,7 +130,7 @@ To that, syntax warnings for non-fatal formatting and inconsistency issues can b
 
 Compiler Exceptions
 ===================
-Exceptions inside Para-C are categorised into two categories:
+Exceptions inside Para are categorised into two categories:
 
 - Non-Fatal Exceptions, which do not interfere with continuing to check the file and
 - Fatal Exceptions, which can not be ignored and cause the compiler to interrupt the process and exit.
@@ -155,7 +155,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 99 Base Error
 ^^^^^^^^^^^^^
 
-- `99` – BaseError/ParacCompilerError: Base Error every other exception inherits of.
+- `99` – BaseError/ParaCompilerError: Base Error every other exception inherits of.
 
 1** Internal Errors
 ^^^^^^^^^^^^^^^^^^^
@@ -184,7 +184,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 4** Parser Errors
 ^^^^^^^^^^^^^^^^^
 
-- `400` – ParserError: An issue occurred in the Parser (Logic Tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para-C tokens
+- `400` – ParserError: An issue occurred in the Parser (Logic Tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para tokens
 - `401` – SyntaxError: A syntax issue occurred while processing that is a direct result of the user failing to input valid code.
 
 5** Logical Errors
