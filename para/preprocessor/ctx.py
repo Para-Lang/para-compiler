@@ -199,7 +199,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
          with the FailedToProcessError.
         :returns: The FilePreProcessorContext instance for the file
         """
-        from ..compiler import Paraompiler
+        from ..compiler import ParaCompiler
         from ..util import (
             get_file_stream, get_relative_file_name, get_input_stream
         )

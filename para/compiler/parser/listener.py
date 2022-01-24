@@ -1075,7 +1075,7 @@ class Listener(ParaListener):
 
     def enterSpecifierQualifierList(
             self,
-            ctx: ParaCParser.SpecifierQualifierListContext
+            ctx: ParaParser.SpecifierQualifierListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#specifierQualifierList.
@@ -1084,7 +1084,7 @@ class Listener(ParaListener):
 
     def exitSpecifierQualifierList(
             self,
-            ctx: ParaCParser.SpecifierQualifierListContext
+            ctx: ParaParser.SpecifierQualifierListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#specifierQualifierList.
@@ -1093,7 +1093,7 @@ class Listener(ParaListener):
 
     def enterStructDeclaratorList(
             self,
-            ctx: ParaCParser.StructDeclaratorListContext
+            ctx: ParaParser.StructDeclaratorListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#structDeclaratorList.
@@ -1102,7 +1102,7 @@ class Listener(ParaListener):
 
     def exitStructDeclaratorList(
             self,
-            ctx: ParaCParser.StructDeclaratorListContext
+            ctx: ParaParser.StructDeclaratorListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#structDeclaratorList.
@@ -1111,7 +1111,7 @@ class Listener(ParaListener):
 
     def enterStructDeclarator(
             self,
-            ctx: ParaCParser.StructDeclaratorContext
+            ctx: ParaParser.StructDeclaratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#structDeclarator.
@@ -1120,7 +1120,7 @@ class Listener(ParaListener):
 
     def exitStructDeclarator(
             self,
-            ctx: ParaCParser.StructDeclaratorContext
+            ctx: ParaParser.StructDeclaratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#structDeclarator.
@@ -1129,7 +1129,7 @@ class Listener(ParaListener):
 
     def enterEnumSpecifier(
             self,
-            ctx: ParaCParser.EnumSpecifierContext
+            ctx: ParaParser.EnumSpecifierContext
     ):
         """
         Enter a parse tree produced by ParaCParser#enumSpecifier.
@@ -1138,7 +1138,7 @@ class Listener(ParaListener):
 
     def exitEnumSpecifier(
             self,
-            ctx: ParaCParser.EnumSpecifierContext
+            ctx: ParaParser.EnumSpecifierContext
     ):
         """
         Exit a parse tree produced by ParaCParser#enumSpecifier.
@@ -1147,7 +1147,7 @@ class Listener(ParaListener):
 
     def enterEnumeratorList(
             self,
-            ctx: ParaCParser.EnumeratorListContext
+            ctx: ParaParser.EnumeratorListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#enumeratorList.
@@ -1156,7 +1156,7 @@ class Listener(ParaListener):
 
     def exitEnumeratorList(
             self,
-            ctx: ParaCParser.EnumeratorListContext
+            ctx: ParaParser.EnumeratorListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#enumeratorList.
@@ -1165,7 +1165,7 @@ class Listener(ParaListener):
 
     def enterEnumerator(
             self,
-            ctx: ParaCParser.EnumeratorContext
+            ctx: ParaParser.EnumeratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#enumerator.
@@ -1174,7 +1174,7 @@ class Listener(ParaListener):
 
     def exitEnumerator(
             self,
-            ctx: ParaCParser.EnumeratorContext
+            ctx: ParaParser.EnumeratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#enumerator.
@@ -1183,7 +1183,7 @@ class Listener(ParaListener):
 
     def enterEnumerationConstant(
             self,
-            ctx: ParaCParser.EnumerationConstantContext
+            ctx: ParaParser.EnumerationConstantContext
     ):
         """
         Enter a parse tree produced by ParaCParser#enumerationConstant.
@@ -1192,7 +1192,7 @@ class Listener(ParaListener):
 
     def exitEnumerationConstant(
             self,
-            ctx: ParaCParser.EnumerationConstantContext
+            ctx: ParaParser.EnumerationConstantContext
     ):
         """
         Exit a parse tree produced by ParaCParser#enumerationConstant.
@@ -1201,7 +1201,7 @@ class Listener(ParaListener):
 
     def enterAtomicTypeSpecifier(
             self,
-            ctx: ParaCParser.AtomicTypeSpecifierContext
+            ctx: ParaParser.AtomicTypeSpecifierContext
     ):
         """
         Enter a parse tree produced by ParaCParser#atomicTypeSpecifier.
@@ -1210,7 +1210,7 @@ class Listener(ParaListener):
 
     def exitAtomicTypeSpecifier(
             self,
-            ctx: ParaCParser.AtomicTypeSpecifierContext
+            ctx: ParaParser.AtomicTypeSpecifierContext
     ):
         """
         Exit a parse tree produced by ParaCParser#atomicTypeSpecifier.
@@ -1219,7 +1219,7 @@ class Listener(ParaListener):
 
     def enterTypeQualifier(
             self,
-            ctx: ParaCParser.TypeQualifierContext
+            ctx: ParaParser.TypeQualifierContext
     ):
         """
         Enter a parse tree produced by ParaCParser#typeQualifier.
@@ -1228,7 +1228,7 @@ class Listener(ParaListener):
 
     def exitTypeQualifier(
             self,
-            ctx: ParaCParser.TypeQualifierContext
+            ctx: ParaParser.TypeQualifierContext
     ):
         """
         Exit a parse tree produced by ParaCParser#typeQualifier.
@@ -1237,7 +1237,7 @@ class Listener(ParaListener):
 
     def enterFunctionSpecifier(
             self,
-            ctx: ParaCParser.FunctionSpecifierContext
+            ctx: ParaParser.FunctionSpecifierContext
     ):
         """
         Enter a parse tree produced by ParaCParser#functionSpecifier.
@@ -1246,7 +1246,7 @@ class Listener(ParaListener):
 
     def exitFunctionSpecifier(
             self,
-            ctx: ParaCParser.FunctionSpecifierContext
+            ctx: ParaParser.FunctionSpecifierContext
     ):
         """
         Exit a parse tree produced by ParaCParser#functionSpecifier.
@@ -1255,7 +1255,7 @@ class Listener(ParaListener):
 
     def enterAlignmentSpecifier(
             self,
-            ctx: ParaCParser.AlignmentSpecifierContext
+            ctx: ParaParser.AlignmentSpecifierContext
     ):
         """
         Enter a parse tree produced by ParaCParser#alignmentSpecifier.
@@ -1264,7 +1264,7 @@ class Listener(ParaListener):
 
     def exitAlignmentSpecifier(
             self,
-            ctx: ParaCParser.AlignmentSpecifierContext
+            ctx: ParaParser.AlignmentSpecifierContext
     ):
         """
         Exit a parse tree produced by ParaCParser#alignmentSpecifier.
@@ -1273,7 +1273,7 @@ class Listener(ParaListener):
 
     def enterDeclarator(
             self,
-            ctx: ParaCParser.DeclaratorContext
+            ctx: ParaParser.DeclaratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#declarator.
@@ -1282,7 +1282,7 @@ class Listener(ParaListener):
 
     def exitDeclarator(
             self,
-            ctx: ParaCParser.DeclaratorContext
+            ctx: ParaParser.DeclaratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#declarator.
@@ -1291,7 +1291,7 @@ class Listener(ParaListener):
 
     def enterDirectDeclarator(
             self,
-            ctx: ParaCParser.DirectDeclaratorContext
+            ctx: ParaParser.DirectDeclaratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#directDeclarator.
@@ -1300,7 +1300,7 @@ class Listener(ParaListener):
 
     def exitDirectDeclarator(
             self,
-            ctx: ParaCParser.DirectDeclaratorContext
+            ctx: ParaParser.DirectDeclaratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#directDeclarator.
@@ -1309,7 +1309,7 @@ class Listener(ParaListener):
 
     def enterNestedParenthesesBlock(
             self,
-            ctx: ParaCParser.NestedParenthesesBlockContext
+            ctx: ParaParser.NestedParenthesesBlockContext
     ):
         """
         Enter a parse tree produced by ParaCParser#nestedParenthesesBlock.
@@ -1318,7 +1318,7 @@ class Listener(ParaListener):
 
     def exitNestedParenthesesBlock(
             self,
-            ctx: ParaCParser.NestedParenthesesBlockContext
+            ctx: ParaParser.NestedParenthesesBlockContext
     ):
         """
         Exit a parse tree produced by ParaCParser#nestedParenthesesBlock.
@@ -1327,7 +1327,7 @@ class Listener(ParaListener):
 
     def enterPointer(
             self,
-            ctx: ParaCParser.PointerContext
+            ctx: ParaParser.PointerContext
     ):
         """
         Enter a parse tree produced by ParaCParser#pointer.
@@ -1336,7 +1336,7 @@ class Listener(ParaListener):
 
     def exitPointer(
             self,
-            ctx: ParaCParser.PointerContext
+            ctx: ParaParser.PointerContext
     ):
         """
         Exit a parse tree produced by ParaCParser#pointer.
@@ -1345,7 +1345,7 @@ class Listener(ParaListener):
 
     def enterTypeQualifierList(
             self,
-            ctx: ParaCParser.TypeQualifierListContext
+            ctx: ParaParser.TypeQualifierListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#typeQualifierList.
@@ -1354,7 +1354,7 @@ class Listener(ParaListener):
 
     def exitTypeQualifierList(
             self,
-            ctx: ParaCParser.TypeQualifierListContext
+            ctx: ParaParser.TypeQualifierListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#typeQualifierList.
@@ -1363,7 +1363,7 @@ class Listener(ParaListener):
 
     def enterParameterTypeList(
             self,
-            ctx: ParaCParser.ParameterTypeListContext
+            ctx: ParaParser.ParameterTypeListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#parameterTypeList.
@@ -1372,7 +1372,7 @@ class Listener(ParaListener):
 
     def exitParameterTypeList(
             self,
-            ctx: ParaCParser.ParameterTypeListContext
+            ctx: ParaParser.ParameterTypeListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#parameterTypeList.
@@ -1381,7 +1381,7 @@ class Listener(ParaListener):
 
     def enterParameterList(
             self,
-            ctx: ParaCParser.ParameterListContext
+            ctx: ParaParser.ParameterListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#parameterList.
@@ -1390,7 +1390,7 @@ class Listener(ParaListener):
 
     def exitParameterList(
             self,
-            ctx: ParaCParser.ParameterListContext
+            ctx: ParaParser.ParameterListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#parameterList.
@@ -1399,7 +1399,7 @@ class Listener(ParaListener):
 
     def enterIdentifierList(
             self,
-            ctx: ParaCParser.IdentifierListContext
+            ctx: ParaParser.IdentifierListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#identifierList.
@@ -1408,7 +1408,7 @@ class Listener(ParaListener):
 
     def exitIdentifierList(
             self,
-            ctx: ParaCParser.IdentifierListContext
+            ctx: ParaParser.IdentifierListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#identifierList.
@@ -1417,7 +1417,7 @@ class Listener(ParaListener):
 
     def enterTypeName(
             self,
-            ctx: ParaCParser.TypeNameContext
+            ctx: ParaParser.TypeNameContext
     ):
         """
         Enter a parse tree produced by ParaCParser#typeName.
@@ -1426,7 +1426,7 @@ class Listener(ParaListener):
 
     def exitTypeName(
             self,
-            ctx: ParaCParser.TypeNameContext
+            ctx: ParaParser.TypeNameContext
     ):
         """
         Exit a parse tree produced by ParaCParser#typeName.
@@ -1435,7 +1435,7 @@ class Listener(ParaListener):
 
     def enterAbstractDeclarator(
             self,
-            ctx: ParaCParser.AbstractDeclaratorContext
+            ctx: ParaParser.AbstractDeclaratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#abstractDeclarator.
@@ -1444,7 +1444,7 @@ class Listener(ParaListener):
 
     def exitAbstractDeclarator(
             self,
-            ctx: ParaCParser.AbstractDeclaratorContext
+            ctx: ParaParser.AbstractDeclaratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#abstractDeclarator.
@@ -1453,7 +1453,7 @@ class Listener(ParaListener):
 
     def enterDirectAbstractDeclarator(
             self,
-            ctx: ParaCParser.DirectAbstractDeclaratorContext
+            ctx: ParaParser.DirectAbstractDeclaratorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#directAbstractDeclarator.
@@ -1462,7 +1462,7 @@ class Listener(ParaListener):
 
     def exitDirectAbstractDeclarator(
             self,
-            ctx: ParaCParser.DirectAbstractDeclaratorContext
+            ctx: ParaParser.DirectAbstractDeclaratorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#directAbstractDeclarator.
@@ -1471,7 +1471,7 @@ class Listener(ParaListener):
 
     def enterTypedefName(
             self,
-            ctx: ParaCParser.TypedefNameContext
+            ctx: ParaParser.TypedefNameContext
     ):
         """
         Enter a parse tree produced by ParaCParser#typedefName.
@@ -1480,7 +1480,7 @@ class Listener(ParaListener):
 
     def exitTypedefName(
             self,
-            ctx: ParaCParser.TypedefNameContext
+            ctx: ParaParser.TypedefNameContext
     ):
         """
         Exit a parse tree produced by ParaCParser#typedefName.
@@ -1489,7 +1489,7 @@ class Listener(ParaListener):
 
     def enterInitializer(
             self,
-            ctx: ParaCParser.InitializerContext
+            ctx: ParaParser.InitializerContext
     ):
         """
         Enter a parse tree produced by ParaCParser#initializer.
@@ -1498,7 +1498,7 @@ class Listener(ParaListener):
 
     def exitInitializer(
             self,
-            ctx: ParaCParser.InitializerContext
+            ctx: ParaParser.InitializerContext
     ):
         """
         Exit a parse tree produced by ParaCParser#initializer.
@@ -1507,7 +1507,7 @@ class Listener(ParaListener):
 
     def enterInitializerList(
             self,
-            ctx: ParaCParser.InitializerListContext
+            ctx: ParaParser.InitializerListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#initializerList.
@@ -1516,7 +1516,7 @@ class Listener(ParaListener):
 
     def exitInitializerList(
             self,
-            ctx: ParaCParser.InitializerListContext
+            ctx: ParaParser.InitializerListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#initializerList.
@@ -1525,7 +1525,7 @@ class Listener(ParaListener):
 
     def enterDesignation(
             self,
-            ctx: ParaCParser.DesignationContext
+            ctx: ParaParser.DesignationContext
     ):
         """
         Enter a parse tree produced by ParaCParser#designation.
@@ -1534,7 +1534,7 @@ class Listener(ParaListener):
 
     def exitDesignation(
             self,
-            ctx: ParaCParser.DesignationContext
+            ctx: ParaParser.DesignationContext
     ):
         """
         Exit a parse tree produced by ParaCParser#designation.
@@ -1543,7 +1543,7 @@ class Listener(ParaListener):
 
     def enterDesignatorList(
             self,
-            ctx: ParaCParser.DesignatorListContext
+            ctx: ParaParser.DesignatorListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#designatorList.
@@ -1552,7 +1552,7 @@ class Listener(ParaListener):
 
     def exitDesignatorList(
             self,
-            ctx: ParaCParser.DesignatorListContext
+            ctx: ParaParser.DesignatorListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#designatorList.
@@ -1561,7 +1561,7 @@ class Listener(ParaListener):
 
     def enterDesignator(
             self,
-            ctx: ParaCParser.DesignatorContext
+            ctx: ParaParser.DesignatorContext
     ):
         """
         Enter a parse tree produced by ParaCParser#designator.
@@ -1570,7 +1570,7 @@ class Listener(ParaListener):
 
     def exitDesignator(
             self,
-            ctx: ParaCParser.DesignatorContext
+            ctx: ParaParser.DesignatorContext
     ):
         """
         Exit a parse tree produced by ParaCParser#designator.
@@ -1579,7 +1579,7 @@ class Listener(ParaListener):
 
     def enterStaticAssertDeclaration(
             self,
-            ctx: ParaCParser.StaticAssertDeclarationContext
+            ctx: ParaParser.StaticAssertDeclarationContext
     ):
         """
         Enter a parse tree produced by ParaCParser#staticAssertDeclaration.
@@ -1588,7 +1588,7 @@ class Listener(ParaListener):
 
     def exitStaticAssertDeclaration(
             self,
-            ctx: ParaCParser.StaticAssertDeclarationContext
+            ctx: ParaParser.StaticAssertDeclarationContext
     ):
         """
         Exit a parse tree produced by ParaCParser#staticAssertDeclaration.
@@ -1597,7 +1597,7 @@ class Listener(ParaListener):
 
     def enterStatement(
             self,
-            ctx: ParaCParser.StatementContext
+            ctx: ParaParser.StatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#statement.
@@ -1606,7 +1606,7 @@ class Listener(ParaListener):
 
     def exitStatement(
             self,
-            ctx: ParaCParser.StatementContext
+            ctx: ParaParser.StatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#statement.
@@ -1615,7 +1615,7 @@ class Listener(ParaListener):
 
     def enterLabeledStatement(
             self,
-            ctx: ParaCParser.LabeledStatementContext
+            ctx: ParaParser.LabeledStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#labeledStatement.
@@ -1624,7 +1624,7 @@ class Listener(ParaListener):
 
     def exitLabeledStatement(
             self,
-            ctx: ParaCParser.LabeledStatementContext
+            ctx: ParaParser.LabeledStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#labeledStatement.
@@ -1633,7 +1633,7 @@ class Listener(ParaListener):
 
     def enterCompoundStatement(
             self,
-            ctx: ParaCParser.CompoundStatementContext
+            ctx: ParaParser.CompoundStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#compoundStatement.
@@ -1642,7 +1642,7 @@ class Listener(ParaListener):
 
     def exitCompoundStatement(
             self,
-            ctx: ParaCParser.CompoundStatementContext
+            ctx: ParaParser.CompoundStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#compoundStatement.
@@ -1651,7 +1651,7 @@ class Listener(ParaListener):
 
     def enterBlockItemList(
             self,
-            ctx: ParaCParser.BlockItemListContext
+            ctx: ParaParser.BlockItemListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#blockItemList.
@@ -1660,7 +1660,7 @@ class Listener(ParaListener):
 
     def exitBlockItemList(
             self,
-            ctx: ParaCParser.BlockItemListContext
+            ctx: ParaParser.BlockItemListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#blockItemList.
@@ -1669,7 +1669,7 @@ class Listener(ParaListener):
 
     def enterBlockItem(
             self,
-            ctx: ParaCParser.BlockItemContext
+            ctx: ParaParser.BlockItemContext
     ):
         """
         Enter a parse tree produced by ParaCParser#blockItem.
@@ -1678,7 +1678,7 @@ class Listener(ParaListener):
 
     def exitBlockItem(
             self,
-            ctx: ParaCParser.BlockItemContext
+            ctx: ParaParser.BlockItemContext
     ):
         """
         Exit a parse tree produced by ParaCParser#blockItem.
@@ -1687,7 +1687,7 @@ class Listener(ParaListener):
 
     def enterExpressionStatement(
             self,
-            ctx: ParaCParser.ExpressionStatementContext
+            ctx: ParaParser.ExpressionStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#expressionStatement.
@@ -1696,7 +1696,7 @@ class Listener(ParaListener):
 
     def exitExpressionStatement(
             self,
-            ctx: ParaCParser.ExpressionStatementContext
+            ctx: ParaParser.ExpressionStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#expressionStatement.
@@ -1705,7 +1705,7 @@ class Listener(ParaListener):
 
     def enterSelectionStatement(
             self,
-            ctx: ParaCParser.SelectionStatementContext
+            ctx: ParaParser.SelectionStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#selectionStatement.
@@ -1714,7 +1714,7 @@ class Listener(ParaListener):
 
     def exitSelectionStatement(
             self,
-            ctx: ParaCParser.SelectionStatementContext
+            ctx: ParaParser.SelectionStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#selectionStatement.
@@ -1723,7 +1723,7 @@ class Listener(ParaListener):
 
     def enterIterationStatement(
             self,
-            ctx: ParaCParser.IterationStatementContext
+            ctx: ParaParser.IterationStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#iterationStatement.
@@ -1732,7 +1732,7 @@ class Listener(ParaListener):
 
     def exitIterationStatement(
             self,
-            ctx: ParaCParser.IterationStatementContext
+            ctx: ParaParser.IterationStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#iterationStatement.
@@ -1741,7 +1741,7 @@ class Listener(ParaListener):
 
     def enterForCondition(
             self,
-            ctx: ParaCParser.ForConditionContext
+            ctx: ParaParser.ForConditionContext
     ):
         """
         Enter a parse tree produced by ParaCParser#forCondition.
@@ -1750,7 +1750,7 @@ class Listener(ParaListener):
 
     def exitForCondition(
             self,
-            ctx: ParaCParser.ForConditionContext
+            ctx: ParaParser.ForConditionContext
     ):
         """
         Exit a parse tree produced by ParaCParser#forCondition.
@@ -1759,7 +1759,7 @@ class Listener(ParaListener):
 
     def enterForDeclaration(
             self,
-            ctx: ParaCParser.ForDeclarationContext
+            ctx: ParaParser.ForDeclarationContext
     ):
         """
         Enter a parse tree produced by ParaCParser#forDeclaration.
@@ -1768,7 +1768,7 @@ class Listener(ParaListener):
 
     def exitForDeclaration(
             self,
-            ctx: ParaCParser.ForDeclarationContext
+            ctx: ParaParser.ForDeclarationContext
     ):
         """
         Exit a parse tree produced by ParaCParser#forDeclaration.
@@ -1777,7 +1777,7 @@ class Listener(ParaListener):
 
     def enterForExpression(
             self,
-            ctx: ParaCParser.ForExpressionContext
+            ctx: ParaParser.ForExpressionContext
     ):
         """
         Enter a parse tree produced by ParaCParser#forExpression.
@@ -1786,7 +1786,7 @@ class Listener(ParaListener):
 
     def exitForExpression(
             self,
-            ctx: ParaCParser.ForExpressionContext
+            ctx: ParaParser.ForExpressionContext
     ):
         """
         Exit a parse tree produced by ParaCParser#forExpression.
@@ -1795,7 +1795,7 @@ class Listener(ParaListener):
 
     def enterJumpStatement(
             self,
-            ctx: ParaCParser.JumpStatementContext
+            ctx: ParaParser.JumpStatementContext
     ):
         """
         Enter a parse tree produced by ParaCParser#jumpStatement.
@@ -1804,7 +1804,7 @@ class Listener(ParaListener):
 
     def exitJumpStatement(
             self,
-            ctx: ParaCParser.JumpStatementContext
+            ctx: ParaParser.JumpStatementContext
     ):
         """
         Exit a parse tree produced by ParaCParser#jumpStatement.
@@ -1813,7 +1813,7 @@ class Listener(ParaListener):
 
     def enterTranslationUnit(
             self,
-            ctx: ParaCParser.TranslationUnitContext
+            ctx: ParaParser.TranslationUnitContext
     ):
         """
         Enter a parse tree produced by ParaCParser#translationUnit.
@@ -1822,7 +1822,7 @@ class Listener(ParaListener):
 
     def exitTranslationUnit(
             self,
-            ctx: ParaCParser.TranslationUnitContext
+            ctx: ParaParser.TranslationUnitContext
     ):
         """
         Exit a parse tree produced by ParaCParser#translationUnit.
@@ -1831,7 +1831,7 @@ class Listener(ParaListener):
 
     def enterDeclarationList(
             self,
-            ctx: ParaCParser.DeclarationListContext
+            ctx: ParaParser.DeclarationListContext
     ):
         """
         Enter a parse tree produced by ParaCParser#declarationList.
@@ -1840,7 +1840,7 @@ class Listener(ParaListener):
 
     def exitDeclarationList(
             self,
-            ctx: ParaCParser.DeclarationListContext
+            ctx: ParaParser.DeclarationListContext
     ):
         """
         Exit a parse tree produced by ParaCParser#declarationList.
