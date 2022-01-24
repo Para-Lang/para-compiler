@@ -72,16 +72,12 @@ html_theme_options = {
     "icon_links_label": "Quick Links",
     "external_links": [
         {
+            "name": "Changelog ",
+            "url": "https://github.com/Para-Lang/Para/blob/main/CHANGELOG.md"
+        },
+        {
             "name": "License ",
             "url": "https://github.com/Para-Lang/Para/blob/main/LICENSE"
-        },
-        {
-            "name": "Report an issue ",
-            "url": "https://github.com/Para-Lang/Para/issues/new/"
-        },
-        {
-            "name": "Discussion Page ",
-            "url": "https://github.com/Para-Lang/Para/discussions/"
         },
         {
             "name": "PyPi ",
