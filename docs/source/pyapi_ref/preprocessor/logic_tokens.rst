@@ -2,10 +2,10 @@
 Pre-Processor Logic Tokens
 **************************
 
-`parac.preprocessor.logic_tokens`
+`para.preprocessor.logic_tokens`
 =================================
 
-.. automodule:: parac.preprocessor.logic_tokens
+.. automodule:: para.preprocessor.logic_tokens
     :members:
     :special-members:
 

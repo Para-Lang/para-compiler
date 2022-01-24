@@ -1,4 +1,4 @@
-# Para-C Compiler Tests
+# Para Compiler Tests
 
 ## Quick Setup for Testing
 

@@ -2,9 +2,9 @@
 Para-C Compiler
 ***************
 
-`parac.compiler.compiler`
+`para.compiler.compiler`
 =========================
 
-.. automodule:: parac.compiler.compiler
+.. automodule:: para.compiler.compiler
     :members:
     :special-members:

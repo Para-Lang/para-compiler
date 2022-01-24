@@ -2,8 +2,8 @@
 Compiler Error-Handler
 **********************
 
-`parac.compiler.error_handler`
+`para.compiler.error_handler`
 ==============================
 
-.. automodule:: parac.compiler.error_handler
+.. automodule:: para.compiler.error_handler
     :members:

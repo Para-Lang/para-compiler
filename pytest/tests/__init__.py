@@ -3,8 +3,7 @@
 import os
 import shutil
 from pathlib import Path
-
-import parac
+import logging
 
 
 def resolve_test_path() -> Path:

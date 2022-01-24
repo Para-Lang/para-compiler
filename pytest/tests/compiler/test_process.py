@@ -1,12 +1,15 @@
 # coding=utf-8
 """ Test for the compiler process setup """
+import logging
 from pathlib import Path
 
-from parac import initialise_default_paths
-from parac.compiler import ProgramCompilationProcess
+from para import initialise_default_paths
+from para.compiler import ProgramCompilationProcess
 from .. import add_folder, BASE_TEST_PATH
 
-main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "entry.para"
+logger = logging.getLogger('para')
+logger.setLevel(logging.DEBUG)
+main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "main.para"
 
 # Initialises the default paths for the compiler using the work directory
 initialise_default_paths(BASE_TEST_PATH)
@@ -17,7 +20,7 @@ class TestProcess:
         b_path: Path = add_folder("build")
         d_path: Path = add_folder("dist")
         p = ProgramCompilationProcess(
-            main_file_path, 'utf-8', b_path, d_path
+            [main_file_path], main_file_path.parent, 'utf-8', b_path, d_path
         )
 
         assert p.build_path == b_path
@@ -29,7 +32,7 @@ class TestProcess:
         b_path: bytes = str(add_folder("build")).encode()
         d_path: bytes = str(add_folder("dist")).encode()
         p: ProgramCompilationProcess = ProgramCompilationProcess(
-            path, 'utf-8', b_path, d_path
+            [main_file_path], main_file_path.parent, 'utf-8', b_path, d_path
         )
 
         assert p.build_path == Path(b_path.decode())

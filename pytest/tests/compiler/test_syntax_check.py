@@ -6,15 +6,15 @@ import os
 from pathlib import Path
 from typing import List
 
-from parac import initialise_default_paths
-from parac.compiler import ParacCompiler, BasicProcess
+from para import initialise_default_paths
+from para.compiler import ParaCompiler, BasicProcess
 from .. import BASE_TEST_PATH
 
-logger = logging.getLogger('compiler')
+logger = logging.getLogger('para')
+logger.setLevel(logging.DEBUG)
+compiler = ParaCompiler()
 
-compiler = ParacCompiler()
-
-main_file_path: Path = BASE_TEST_PATH / "test_files" / "entry.para"
+main_file_path: Path = BASE_TEST_PATH / "test_files" / "main.para"
 test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
 test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
 
@@ -23,11 +23,17 @@ initialise_default_paths(BASE_TEST_PATH)
 
 
 class TestValidateSyntax:
-    def test_entry_file_path(self):
-        p = BasicProcess(main_file_path, 'utf-8')
-        asyncio.run(p.validate_syntax(True))
+    def test_single_file_without_prefer_logging(self):
+        asyncio.run(
+            compiler.validate_syntax(main_file_path, 'utf-8', False)
+        )
 
-    def test_para_files(self):
+    def test_single_file_with_prefer_logging(self):
+        asyncio.run(
+            compiler.validate_syntax(main_file_path, 'utf-8', True)
+        )
+
+    def test_multiple_para_files(self):
         files: List[os.DirEntry] = []
 
         for entry in os.scandir(test_para_files_dir):
@@ -36,10 +42,11 @@ class TestValidateSyntax:
                 files.append(entry)
 
         for file in files:
-            p = BasicProcess(file.path, 'utf-8')
-            asyncio.run(p.validate_syntax(True))
+            asyncio.run(
+                compiler.validate_syntax(str(file.path), 'utf-8', False)
+            )
 
-    def test_c_files(self):
+    def test_multiple_c_files(self):
         files: List[os.DirEntry] = []
 
         for entry in os.scandir(test_c_files_dir):
@@ -48,5 +55,6 @@ class TestValidateSyntax:
                 files.append(entry)
 
         for file in files:
-            p = BasicProcess(file.path, 'utf-8')
-            asyncio.run(p.validate_syntax(True))
+            asyncio.run(
+                compiler.validate_syntax(str(file.path), 'utf-8', False)
+            )

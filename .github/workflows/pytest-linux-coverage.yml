@@ -156,10 +156,10 @@ jobs:
           python3 -m pip install --upgrade -e .
           cd ./pytest/ ; coverage html ; cd ..
           mv ./pytest/htmlcov/ /tmp/htmlcov/
-          mv ./img/parac.ico /tmp/parac.ico
+          mv ./img/para.ico /tmp/para.ico
           rm -rf *
           mv /tmp/htmlcov/* .
-          mv /tmp/parac.ico favicon.ico
+          mv /tmp/para.ico favicon.ico
           git branch --set-upstream-to=origin/${{ env.BRANCH_NAME }}-coverage-report ${{ env.BRANCH_NAME }}-coverage-report
       - name: Sleep for 15 seconds
         uses: kibertoad/wait-action@master

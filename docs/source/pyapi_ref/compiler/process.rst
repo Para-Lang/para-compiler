@@ -2,9 +2,9 @@
 Compiler Process
 ****************
 
-`parac.compiler.process`
+`para.compiler.process`
 ========================
 
-.. automodule:: parac.compiler.process
+.. automodule:: para.compiler.process
     :members:
     :special-members:

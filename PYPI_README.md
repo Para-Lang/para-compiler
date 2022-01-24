@@ -1,13 +1,13 @@
-# `parac` - The Python Module for the Para-C Compiler
+# `para` - The Python Module for the Para Compiler
 
-![License](https://img.shields.io/github/license/Luna-Klatzer/Para-C?color=cyan)
-![Lines of Code](https://img.shields.io/tokei/lines/github/Para-C/Para-C)
-![Py Versions](https://img.shields.io/pypi/pyversions/parac.svg)
+![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
+![Lines of Code](https://img.shields.io/tokei/lines/github/Para-Lang/Para)
+![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 
-## Introduction to `parac` (as Python Module)
+## Introduction to `para` (as Python Module)
 
-The `parac` module serves the purpose of combining the entire compiler with lib
+The `para` module serves the purpose of combining the entire compiler with lib
 into a simple module, which can be imported and used in ways that are not
 implemented in the standard CLI. This means both the `preprocessor` and
 `compiler` are available for customisable usage.
@@ -15,13 +15,13 @@ implemented in the standard CLI. This means both the `preprocessor` and
 ### Installation
 
 ```bash
-python3 -m pip install -U parac
+python3 -m pip install -U para
 ```
 
 *With specific version*:
 
 ```bash
-python3 -m pip install -U parac==version
+python3 -m pip install -U para==version
 ```
 
 ### Structure
@@ -29,7 +29,7 @@ python3 -m pip install -U parac==version
 #### Tree
 
 ```
-parac - Main module that can be imported
+para - Main module that can be imported
 |-- abc/
 |  `-- *
 |-- compiler/
@@ -57,9 +57,9 @@ parac - Main module that can be imported
 - `exceptions.py`: Module exceptions with error-codes ErrorCodes(IntEnum)
 - `logging.py`: Logging Implementation for the Module and CLI
 
-## Introduction to Para-C (as Language)
+## Introduction to Para (as Language)
 
-Para-C (From Greek "para": Beside/Alongside C) is a programming language that
+Para (From Greek "para": Beside/Alongside) is a programming language that
 is designed to integrate other languages and allow for advanced management of
 embedded programs / code-bases inside a program, where the language will serve
 as a base for writing overhead and "connector" programs, which can manage
@@ -70,12 +70,10 @@ out-data.
 
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
 
-Documentations are available on the official readthedocs.org site, which builds
-for each repository on `Para-C/Para-C` the respective sphinx docs.
-
-*Note that the docs are still unfinished and full of things that will be likely
-changing the more development progresses. For finalisation, it might take until
-v0.2 or v0.3, so please be patient*
+Documentations are available on the official readthedocs.org site, though 
+*note that the docs are still unfinished and things will be likely changing the
+more development progresses. For finalisation, it might take until v0.2 or 
+v0.3, so please be patient*
 
 ## Contributing and Development
 
@@ -91,7 +89,7 @@ There are two different usage (run) options where the compiler can be used:
 
 - Python module, which is either the source code execution or usage of the
   imported module
-- Compiled distribution, which is the compiled version of Para-C, which
+- Compiled distribution, which is the compiled version of Para, which
   included the CLI. Due to the difference in implementation, only this version
   can be configured, since the python module is intended for customised
   behaviour, meaning the pre-configured runtime options are not available.
@@ -106,9 +104,9 @@ automatically false):
 
 ## Extensions
 
-### `parac-ext-cli` - CLI
+### `para-ext-cli` - CLI
 
 The CLI is its own unique project, as the main compiler is a native python
 project, which is used using the normal Python interpreter. Therefore, it also
 has its own pypi release site, which can be
-found [here](https://pypi.org/project/parac-ext-cli/).
+found [here](https://pypi.org/project/para-ext-cli/).

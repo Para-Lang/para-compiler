@@ -14,7 +14,7 @@ Asking for info takes time that is unnecessarily wasted if it's not correctly po
 **Affected area by change:**
 
 - Language Syntax: [yes/no]
-- Language Library (Parac Base Library): [yes/no]
+- Language Library (Para Base Library): [yes/no]
 - Compiler: [yes/no]
 - Pre-Processor: [yes/no]
 - Documentation: [yes/no]

@@ -2,9 +2,9 @@
 Code Optimiser
 **************
 
-`parac.compiler.optimiser`
+`para.compiler.optimiser`
 ==========================
 
-.. automodule:: parac.compiler.optimiser
+.. automodule:: para.compiler.optimiser
     :members:
     :special-members:

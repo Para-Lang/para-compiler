@@ -21,6 +21,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   installation. 
 - `requirements` folder with requirements for each use-case like `dev`, `prod`
   or `common` (base requirements for both `dev` and `prod`)
+- New function `ProgramCompilationContext.parse_all_files()`, which will parse
+  all files
+- Parameter `project_root` for `BasicProcess`, `ProgramCompilationContext` and
+  `ProgramCompilationContext`, which defines the root of the project structure.
+  This will also be used for relative naming and paths!
+- New Wrapper class `ParacProjectConfig` for handling json-config files
 - Ability to use `logging` without having to stick to CLI formatted logging
 
 ### Updated
@@ -32,6 +38,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Renamed function  `ProgramCompilationProcess._gen_preprocessor_temp_files()`
   to `gen_preprocessor_temp_files()`
 - Renamed function `ProgramCompilationProcess._run_preprocessor()` to
+  `preprocess_files()`
+- Renamed parameter `log_errors_and_warnings` to `prefer_logging`
+- Updated handling of `ParacCompiler.validate_syntax()` to be an entry-point
+  function, which will take as arguments the wanted file path and encoding. 
+  This means no longer a `BasicProcess` or `ProgramCompilationProcess` is 
+  needed!
+- Handling of files to use an overall files list defined in
+  `parac-config.json`, instead of dynamically fetching using entry files. 
+  This means it will be similar to GCC compiler using a pre-defined list of 
+  files, and then link all of them together in the end making them ready for
+  execution.
+- Renamed `Para-C` to `Para` to suit better to its intended feature-set
+- Renamed `parac-build.py` to `para-build.py`
+- Renamed all Python classes prefixes `Parac` to `Para`
   `preprocess_files()`
 - Moved `logging.py` CLI functions to `para_ext_cli`
 - Made `ParaCompiler.validate_syntax()` an instance method instead of class 
@@ -132,10 +152,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Updated logging messages and added more of them, where they are needed.
 - Renamed `parac_cli` to `parac_ext_cli` and published it to pypi
 - Moved Para-C Base Library data to new
-  repo [here](https://github.com/Para-C/Para-C-Base-Library)
+  repo [here](https://github.com/Para-Lang/Para-Base-Library)
 - Deleted the file `entry_cli.py` here, and moved the function
   to `parac-ext-cli`
-  [here](https://github.com/Para-C/Para-C-CLI). This function can now be called
+  [here](https://github.com/Para-Lang/Para-CLI). This function can now be called
   using `cli_run()`; This means that the main repo and module can only be run
   as module, and the CLI is a fully separate entity.
 
@@ -291,16 +311,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-C/Para-C/compare/v0.1.dev6...dev
+[unreleased]: https://github.com/Para-Lang/Para/compare/v0.1.dev6...dev
 
-[v0.1.dev6]: https://github.com/Para-C/Para-C/compare/v0.1.dev5...v0.1.dev6
+[v0.1.dev6]: https://github.com/Para-Lang/Para/compare/v0.1.dev5...v0.1.dev6
 
-[v0.1.dev5]: https://github.com/Para-C/Para-C/compare/v0.1.dev4...v0.1.dev5
+[v0.1.dev5]: https://github.com/Para-Lang/Para/compare/v0.1.dev4...v0.1.dev5
 
-[v0.1.dev4]: https://github.com/Para-C/Para-C/compare/v0.1.dev3...v0.1.dev4
+[v0.1.dev4]: https://github.com/Para-Lang/Para/compare/v0.1.dev3...v0.1.dev4
 
-[v0.1.dev3]: https://github.com/Para-C/Para-C/compare/v0.1.dev2...v0.1.dev3
+[v0.1.dev3]: https://github.com/Para-Lang/Para/compare/v0.1.dev2...v0.1.dev3
 
-[v0.1.dev2]: https://github.com/Para-C/Para-C/compare/v0.1.dev1...v0.1.dev2
+[v0.1.dev2]: https://github.com/Para-Lang/Para/compare/v0.1.dev1...v0.1.dev2
 
-[v0.1.dev1]: https://github.com/Para-C/Para-C/releases/tag/v0.1.dev1
+[v0.1.dev1]: https://github.com/Para-Lang/Para/releases/tag/v0.1.dev1

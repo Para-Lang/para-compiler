@@ -6,11 +6,13 @@ import os
 from pathlib import Path
 from typing import List
 
-from parac import initialise_default_paths
-from parac.compiler import (ParacCompiler, ProgramCompilationProcess)
+from para import initialise_default_paths
+from para.compiler import (ParaCompiler, ProgramCompilationProcess)
 from .. import add_folder, remove_folder, BASE_TEST_PATH
 
-compiler = ParacCompiler()
+logger = logging.getLogger('para')
+logger.setLevel(logging.DEBUG)
+compiler = ParaCompiler()
 
 test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
 test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
@@ -34,7 +36,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(str(file.path)).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")
@@ -53,7 +56,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(file.path).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")
@@ -72,7 +76,8 @@ class TestProcessing:
             d_path: Path = add_folder("dist")
 
             asyncio.run(ProgramCompilationProcess(
-                file.path, 'utf-8', build_path=b_path, dist_path=d_path
+                [file.path], Path(file.path).parent, 'utf-8',
+                build_path=b_path, dist_path=d_path
             ).preprocess_files(True))
 
             remove_folder("build")

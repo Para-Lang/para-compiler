@@ -10,7 +10,7 @@ Welcome to the Python API Reference
     Para-C Compiler <compiler/index>
     Pre-Processor <preprocessor/index>
 
-This serves as a throughout reference for the Python module `parac` and API,
+This serves as a throughout reference for the Python module `para` and API,
 which can be used for customised usage of the Para-C Compiler, Pre-Processor
 and utilities.
 
@@ -34,14 +34,14 @@ To install simply do the following:
 
     .. code::
 
-        python3 -m pip install -U parac
+        python3 -m pip install -U para
 
 
 .. tab:: With specific version
 
     .. code::
 
-        python3 -m pip install -U parac==version
+        python3 -m pip install -U para==version
 
 
 .. Hint::
@@ -53,8 +53,8 @@ To install simply do the following:
 Installing the CLI (Optional)
 =============================
 
-Additionally to the base module ``parac``, the optional module ``parac_ext_cli``
-may be installed, which implements the CLI for the parac module.
+Additionally to the base module ``para``, the optional module ``para_ext_cli``
+may be installed, which implements the CLI for the para module.
 
 To install simply do the following:
 
@@ -62,16 +62,16 @@ To install simply do the following:
 
     .. code::
 
-        python3 -m pip install -U parac_ext_cli
+        python3 -m pip install -U para_ext_cli
 
 
 .. tab:: With specific version
 
     .. code::
 
-        python3 -m pip install -U parac_ext_cli==version
+        python3 -m pip install -U para_ext_cli==version
 
-With the installation the CLI will automatically register the ``parac``
+With the installation the CLI will automatically register the ``para``
 identifier in the console and add the installation path to the global ``$PATH``.
 
 This means you can after having installed the CLI, you can directly access it
@@ -79,7 +79,7 @@ using:
 
 .. code::
 
-    parac --help
+    para --help
 
 Requirements
 ============
@@ -102,10 +102,10 @@ Requirements
 
     .. code::
 
-        pip install parac
+        pip install para
 
 
-Requirements (For the CLI - `parac_ext_cli`)
+Requirements (For the CLI - `para_ext_cli`)
 ============================================
 
 +---------------------------------+-------------+

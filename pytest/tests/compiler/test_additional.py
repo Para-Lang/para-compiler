@@ -2,7 +2,7 @@
 """ Test for the cli setup """
 import pytest
 
-from parac.compiler import ParacCompiler
+from para.compiler import ParaCompiler
 
 
 class TestAdditional:
@@ -23,6 +23,6 @@ class TestAdditional:
     def test_remove_comments_from_str(
             self, expected: str, input_str: str, line_ending: str
     ):
-        assert expected == ParacCompiler.remove_comments_from_str(
+        assert expected == ParaCompiler.remove_comments_from_str(
             input_str, line_ending
         )
