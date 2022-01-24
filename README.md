@@ -98,14 +98,14 @@ as of now. It is for now solely a free-time/college project.
 
 This also means that issues or bugs while running can likely occur, and it's
 not a stable or production-ready language as of the point of writing.
-(*2021-12-19*).
+(*2022-01-25*).
 
 ## Copyright and License
 
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-Lang%2FPara.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-Lang%2FPara?ref=badge_shield)
 
-Copyright (C) 2021 Luna Klatzer
+Copyright (C) 2021-2022 Luna Klatzer
 
 This program is free software: you can redistribute it and/or modify it under
 the terms of the GNU General Public License as published by the Free Software
