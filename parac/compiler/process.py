@@ -104,7 +104,7 @@ class BasicProcess:
          with the FailedToProcessError.
         """
         from .compiler import ParacCompiler
-        return await ParacCompiler.validate_syntax(
+        return await ParacCompiler().validate_syntax(
             self, log_errors_and_warnings
         )
 

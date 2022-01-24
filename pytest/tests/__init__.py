@@ -6,10 +6,6 @@ from pathlib import Path
 
 import parac
 
-parac.logging.init_rich_console()
-prev_input = parac.logging.get_rich_console().input
-parac.logging.set_avoid_print_banner_overwrite(True)
-
 
 def resolve_test_path() -> Path:
     """
@@ -35,17 +31,6 @@ def resolve_test_path() -> Path:
 
 
 BASE_TEST_PATH = resolve_test_path()
-
-
-def overwrite_builtin_input(overwrite: str) -> None:
-    """ Overwrites the input with a lambda that returns the specified value """
-    getattr(parac.logging, 'output_console').input = \
-        lambda *args, **kwargs: overwrite
-
-
-def reset_input() -> None:
-    """ Resets the output method of the console object """
-    getattr(parac.logging, 'output_console').input = prev_input
 
 
 def add_folder(folder_name: str) -> Path:

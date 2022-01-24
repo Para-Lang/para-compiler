@@ -74,7 +74,3 @@ __all__ = [
 
 
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
-
-# An instance of the compiler, which should be generally used in the module
-# due to the logging logic
-RUNTIME_COMPILER: compiler.ParacCompiler = compiler.ParacCompiler()

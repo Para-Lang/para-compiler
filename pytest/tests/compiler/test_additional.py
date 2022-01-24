@@ -3,18 +3,9 @@
 import pytest
 
 from parac.compiler import ParacCompiler
-from .. import reset_input
 
 
 class TestAdditional:
-    @staticmethod
-    def teardown_method(_):
-        """
-        This method is being called after each test case, and it will revert
-        input back to the original function
-        """
-        reset_input()
-
     @pytest.mark.parametrize(
         "expected,input_str,line_ending", [
             ("x y z", "x y z", "\n"),

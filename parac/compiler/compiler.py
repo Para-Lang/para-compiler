@@ -7,20 +7,27 @@ import pathlib
 from os import PathLike
 from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal
-
 import antlr4
 
 from .error_handler import ParacErrorListener
 from .logic_stream import ParacQualifiedLogicStream, CLogicStream
-from .parser.python import ParaCLexer
-from .parser.python import ParaCParser
+from .parser.python import ParaCLexer, ParaCParser
 from .process import BasicProcess
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParacCompilerError, FailedToProcessError,
                           ParaCSyntaxErrorCollection)
-from ..logging import (ParacFormatter, ParacFileHandler, ParacStreamHandler,
-                       print_log_banner)
 from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
+
+try:
+    import parac_ext_cli
+
+    PARAC_EXT_CLI_AVAILABLE: bool = True
+except ImportError:
+    from typing import NewType
+
+    ParacStreamHandler = NewType('ParacStreamHandler', None)
+    ParacFileHandler = NewType('ParacStreamHandler', None)
+    PARAC_EXT_CLI_AVAILABLE: bool = False
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -39,17 +46,31 @@ MULTI_LINE_COMMENT_END: str = '*/'
 
 class ParacCompiler:
     """ Main Class for the entire Compiler containing processing functions """
-    logger: logging.Logger = None
     stream_handler: ParacStreamHandler = None
     file_handler: ParacFileHandler = None
+
+    def __init__(self):
+        self._logger = None
 
     @property
     def log_initialised(self) -> bool:
         """ Returns whether the logger is initialised and ready to be used """
         return getattr(self, 'logger') is not None
 
+    @property
+    def logger(self) -> logging.Logger:
+        """
+        The logger for this class - If the CLI logger should be used it
+        will have to be specifically initialised using 'init_cli_logging'
+        """
+        if self._logger:
+            return self._logger
+        else:
+            self._logger = logger
+            return logger
+
     @classmethod
-    def init_logging_session(
+    def init_cli_logging(
             cls,
             log_path: Union[str, PathLike, pathlib.Path] = None,
             level: int = logging.INFO,
@@ -59,21 +80,27 @@ class ParacCompiler:
     ):
         """
         Initialising the logging module for the Compiler
-        and adds the formatting defaults
+        and defines the formatting defaults for the CLI
 
         :param log_path: Path where the log file should be placed. If None
          logging to files will be ignored
         :param level: Level the logger should be initialised with.
          Defaults to INFO
-        :param print_banner: If set to True the logging banner will be printed
+        :param print_banner: If set to True the logging banner will be printed.
+         Requires 'para_ext_cli' to function properly!
         :param banner_name: The name used for the logging banner
         :param additional_newline: If set to True an additional newline will be
          added before the logging banner
         """
-        if print_banner:
-            print_log_banner(banner_name, additional_newline)
+        if not PARAC_EXT_CLI_AVAILABLE:
+            raise RuntimeError(
+                "To utilise this function, 'para_ext_cli' is required!"
+            )
 
-        cls.logger: logging.Logger = logging.getLogger("parac")
+        if print_banner:
+            parac_ext_cli.print_log_banner(banner_name, additional_newline)
+
+        cls._logger: logging.Logger = logging.getLogger("parac")
         cls.logger.setLevel(level)
 
         # if the stream handler exists it will always get removed by default
@@ -85,20 +112,26 @@ class ParacCompiler:
         if cls.file_handler and log_path:
             cls.logger.removeHandler(cls.file_handler)
 
-        cls.stream_handler = ParacStreamHandler()
-        cls.stream_handler.setFormatter(ParacFormatter(datefmt="%H:%M:%S"))
+        cls.stream_handler = parac_ext_cli.ParacStreamHandler()
+        cls.stream_handler.setFormatter(
+            parac_ext_cli.ParacFormatter(datefmt="%H:%M:%S")
+        )
         cls.logger.addHandler(cls.stream_handler)
 
         if type(log_path) in (str, pathlib.Path) \
                 and log_path.lower() != 'none':
             try:
                 path: Path = ensure_pathlib_path(log_path)
-                cls.file_handler = ParacFileHandler(filename=path)
+                cls.file_handler = parac_ext_cli.ParacFileHandler(
+                    filename=path
+                )
             except PermissionError:
                 raise FilePermissionError(
                     "Failed to access the specified log file-path"
                 )
-            cls.file_handler.setFormatter(ParacFormatter(file_mng=True))
+            cls.file_handler.setFormatter(
+                parac_ext_cli.ParacFormatter(file_mng=True)
+            )
             cls.logger.addHandler(cls.file_handler)
 
         if type(log_path) is str:
@@ -158,9 +191,8 @@ class ParacCompiler:
 
         return cu
 
-    @classmethod
     async def validate_syntax(
-            cls,
+            self,
             process: BasicProcess,
             log_errors_and_warnings: bool = True
     ) -> None:
@@ -182,12 +214,12 @@ class ParacCompiler:
             process.entry_file_path, process.encoding
         )
         stream: antlr4.InputStream = get_input_stream(
-            cls.remove_comments_from_str(file_stream.strdata),  # rm comments
+            self.remove_comments_from_str(file_stream.strdata),  # rm comments
             name=file_stream.name
         )
         try:
-            cls.logger.info(f"Parsing file ({file_stream.fileName})")
-            await cls.parse(stream, log_errors_and_warnings)
+            self.logger.info(f"Parsing file ({file_stream.fileName})")
+            await self.parse(stream, log_errors_and_warnings)
 
         except (LexerError, ParaCSyntaxErrorCollection, LinkerError,
                 ParacCompilerError) as e:
@@ -196,7 +228,7 @@ class ParacCompiler:
             else:
                 raise e
 
-        cls.logger.info(
+        self.logger.info(
             "Successfully finished syntax-check for file "
             f"{file_stream.fileName}"
         )
