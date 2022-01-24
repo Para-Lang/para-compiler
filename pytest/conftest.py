@@ -10,12 +10,6 @@ import pytest
 here = Path(str(os.path.abspath(__file__))).resolve().parent.parent
 sys.path.insert(0, str(here))
 
-import para
-
-para.RUNTIME_COMPILER.init_logging_session(
-    level=logging.DEBUG, print_banner=False
-)
-
 
 @pytest.fixture(autouse=True)
 def capture_wrap():

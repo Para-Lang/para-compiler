@@ -93,6 +93,7 @@ class FinishedProcess:
 
     def __init__(self, files, process: ProgramCompilationProcess):
         self.done_process = process
+        self.files = files
 
 
 class ProgramCompilationProcess(BasicProcess):

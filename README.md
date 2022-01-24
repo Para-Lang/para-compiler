@@ -2,18 +2,22 @@
 
 # The Para programming language
 
-![Py Versions](https://img.shields.io/pypi/pyversions/Para.svg)
-[![PyPI version](https://badge.fury.io/py/Para.svg)](https://badge.fury.io/py/Para)
-![Coverage](./coverage.svg)
-[![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
-![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
+![Latest Release](https://img.shields.io/github/v/release/Para-C/Para-C?include_prereleases)
+![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
+[![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/para)
+![License](https://img.shields.io/github/license/Para-C/Para-C?color=cyan)
 [![Documentation Status](https://readthedocs.org/projects/para-c/badge/?version=latest)](https://para-c.readthedocs.io/en/latest/?badge=latest)
+![Coverage](./coverage.svg)
+[![codecov](https://codecov.io/gh/Para-C/Para-C/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-C/Para-C)
+[![Required GCC version](https://img.shields.io/badge/GCC-%3E%3D8.0-blue)](https://github.com/Para-C/Para-C/discussions/76)
+![Required CMake version](https://img.shields.io/badge/CMake-%3E%3D3.17-blue)
 
 [![Build](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml)
 [![Codecov](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml)
 [![PyTest Linux](https://github.com/Para-Lang/Para/actions/workflows/pytest-linux-coverage.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-linux-coverage.yml)
 [![PyTest MacOs](https://github.com/Para-Lang/Para/actions/workflows/pytest-macos.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-macos.yml)
 [![PyTest Win](https://github.com/Para-Lang/Para/actions/workflows/pytest-win.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/pytest-win.yml)
+[![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 
 ## Key-Features
 
@@ -49,7 +53,6 @@ out-data.
 |-----------------------|--------------------------------------------------------------------------------------------------|
 | ``para compile``      | Compiles a Para program to C or an executable.                                                   |
 | ``para run``          | Compiles a Para program and runs it.                                                             |
-| ``para c-init``       | Starts the CLI for the configuration of the C-compiler, which is required for running a program. |
 | ``para syntax-check`` | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
 | ``para analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
 
@@ -59,10 +62,10 @@ Our documentation can be found [here](https://para-c.readthedocs.io/en/latest/).
 
 ## Python Module
 
-[![PyPI version](https://badge.fury.io/py/Para.svg)](https://badge.fury.io/py/Para)
+[![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/parac)
 
 Besides, the option to compile the python code into a binary executable using
-pyinstaller, you may also directly utilise the `para` source module, which
+pyinstaller, you may also directly utilise the `parac` source module, which
 provides an API that can be run in your own python scripts.
 
 For reference on the pypi module please go to the documentation page

@@ -7,7 +7,6 @@ import pathlib
 from os import PathLike
 from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal
-
 import antlr4
 
 from .error_handler import ParaErrorListener
@@ -18,9 +17,18 @@ from .process import BasicProcess
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParaCompilerError, FailedToProcessError,
                           ParaSyntaxErrorCollection)
-from ..logging import (ParaFormatter, ParaFileHandler, ParaStreamHandler,
-                       print_log_banner)
 from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
+
+try:
+    import parac_ext_cli
+
+    PARAC_EXT_CLI_AVAILABLE: bool = True
+except ImportError:
+    from typing import NewType
+
+    ParaStreamHandler = NewType('ParaStreamHandler', None)
+    ParaFileHandler = NewType('ParaStreamHandler', None)
+    PARAC_EXT_CLI_AVAILABLE: bool = False
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
@@ -39,17 +47,31 @@ MULTI_LINE_COMMENT_END: str = '*/'
 
 class ParaCompiler:
     """ Main Class for the entire Compiler containing processing functions """
-    logger: logging.Logger = None
     stream_handler: ParaStreamHandler = None
     file_handler: ParaFileHandler = None
+
+    def __init__(self):
+        self._logger = None
 
     @property
     def log_initialised(self) -> bool:
         """ Returns whether the logger is initialised and ready to be used """
         return getattr(self, 'logger') is not None
 
+    @property
+    def logger(self) -> logging.Logger:
+        """
+        The logger for this class - If the CLI logger should be used it
+        will have to be specifically initialised using 'init_cli_logging'
+        """
+        if self._logger:
+            return self._logger
+        else:
+            self._logger = logger
+            return logger
+
     @classmethod
-    def init_logging_session(
+    def init_cli_logging(
             cls,
             log_path: Union[str, PathLike, pathlib.Path] = None,
             level: int = logging.INFO,
@@ -59,21 +81,27 @@ class ParaCompiler:
     ):
         """
         Initialising the logging module for the Compiler
-        and adds the formatting defaults
+        and defines the formatting defaults for the CLI
 
         :param log_path: Path where the log file should be placed. If None
          logging to files will be ignored
         :param level: Level the logger should be initialised with.
          Defaults to INFO
-        :param print_banner: If set to True the logging banner will be printed
+        :param print_banner: If set to True the logging banner will be printed.
+         Requires 'para_ext_cli' to function properly!
         :param banner_name: The name used for the logging banner
         :param additional_newline: If set to True an additional newline will be
          added before the logging banner
         """
-        if print_banner:
-            print_log_banner(banner_name, additional_newline)
+        if not PARAC_EXT_CLI_AVAILABLE:
+            raise RuntimeError(
+                "To utilise this function, 'para_ext_cli' is required!"
+            )
 
-        cls.logger: logging.Logger = logging.getLogger("para")
+        if print_banner:
+            parac_ext_cli.print_log_banner(banner_name, additional_newline)
+
+        cls._logger: logging.Logger = logging.getLogger("parac")
         cls.logger.setLevel(level)
 
         # if the stream handler exists it will always get removed by default
@@ -85,20 +113,26 @@ class ParaCompiler:
         if cls.file_handler and log_path:
             cls.logger.removeHandler(cls.file_handler)
 
-        cls.stream_handler = ParaStreamHandler()
-        cls.stream_handler.setFormatter(ParaFormatter(datefmt="%H:%M:%S"))
+        cls.stream_handler = parac_ext_cli.ParaStreamHandler()
+        cls.stream_handler.setFormatter(
+            parac_ext_cli.ParaFormatter(datefmt="%H:%M:%S")
+        )
         cls.logger.addHandler(cls.stream_handler)
 
         if type(log_path) in (str, pathlib.Path) \
                 and log_path.lower() != 'none':
             try:
                 path: Path = ensure_pathlib_path(log_path)
-                cls.file_handler = ParaFileHandler(filename=path)
+                cls.file_handler = parac_ext_cli.ParaFileHandler(
+                    filename=path
+                )
             except PermissionError:
                 raise FilePermissionError(
                     "Failed to access the specified log file-path"
                 )
-            cls.file_handler.setFormatter(ParaFormatter(file_mng=True))
+            cls.file_handler.setFormatter(
+                parac_ext_cli.ParaFormatter(file_mng=True)
+            )
             cls.logger.addHandler(cls.file_handler)
 
         if type(log_path) is str:
@@ -158,9 +192,8 @@ class ParaCompiler:
 
         return cu
 
-    @classmethod
     async def validate_syntax(
-            cls,
+            self,
             file: Union[str, PathLike, pathlib.Path],
             encoding: str,
             prefer_logging: bool = True
@@ -182,12 +215,12 @@ class ParaCompiler:
         """
         file_stream: antlr4.FileStream = get_file_stream(file, encoding)
         stream: antlr4.InputStream = get_input_stream(
-            cls.remove_comments_from_str(file_stream.strdata),  # rm comments
+            self.remove_comments_from_str(file_stream.strdata),  # rm comments
             name=file_stream.name
         )
         try:
-            cls.logger.info(f"Parsing file ({file_stream.fileName})")
-            await cls.parse(stream, prefer_logging)
+            self.logger.info(f"Parsing file ({file_stream.fileName})")
+            await self.parse(stream, prefer_logging)
 
         except (LexerError, ParaSyntaxErrorCollection, LinkerError,
                 ParaCompilerError) as e:
@@ -196,7 +229,7 @@ class ParaCompiler:
             else:
                 raise e
 
-        cls.logger.info(
+        self.logger.info(
             "Successfully finished syntax-check for file "
             f"{file_stream.fileName}"
         )

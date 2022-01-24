@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-Para (para) Module for the Para Compiler and Pre-Processor. This contains
+Para-C (parac) Module for the Para-C Compiler and Pre-Processor. This contains
 the source code for the full compiler and interface, which is used to create
-and run Para code.
+and run Para-C code.
 
 Copyright (C) 2021 Luna Klatzer
 
@@ -75,7 +75,3 @@ __all__ = [
 
 
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())
-
-# An instance of the compiler, which should be generally used in the module
-# due to the logging logic
-RUNTIME_COMPILER: compiler.ParaCompiler = compiler.ParaCompiler()

@@ -6,38 +6,23 @@ import os
 from pathlib import Path
 from typing import List
 
-from para import RUNTIME_COMPILER, initialise_default_paths
+from para import initialise_default_paths
 from para.compiler import (ParaCompiler, ProgramCompilationProcess)
-from para.logging import set_avoid_print_banner_overwrite
-from .. import add_folder, remove_folder, reset_input, BASE_TEST_PATH
+from .. import add_folder, remove_folder, BASE_TEST_PATH
 
+logger = logging.getLogger('para')
+logger.setLevel(logging.DEBUG)
 compiler = ParaCompiler()
-
-# Initialises the logging session for the compiler
-RUNTIME_COMPILER.init_logging_session(
-    level=logging.DEBUG, print_banner=False
-)
 
 test_c_files_dir: Path = BASE_TEST_PATH / "test_files" / "c_ref_files"
 test_para_files_dir: Path = BASE_TEST_PATH / "test_files"
 test_processor_files_dir: Path = BASE_TEST_PATH / "test_files" / "preprocessor"
-
-# Avoiding printing the banner (CLI)
-set_avoid_print_banner_overwrite(True)
 
 # Initialises the default paths for the compiler using the work directory
 initialise_default_paths(BASE_TEST_PATH)
 
 
 class TestProcessing:
-    @staticmethod
-    def teardown_method(_):
-        """
-        This method is being called after each test case, and it will revert
-        input back to the original function
-         """
-        reset_input()
-
     def test_parse_preprocessor_targets(self):
         files: List[os.DirEntry] = []
 

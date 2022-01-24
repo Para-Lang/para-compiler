@@ -13,7 +13,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
-
 - `Linker` and `LinkerMetaData` classes for the linking step and dependency
   analysis that is between the logical analysis and code
   generation/optimisation.
@@ -28,9 +27,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `ProgramCompilationContext`, which defines the root of the project structure.
   This will also be used for relative naming and paths!
 - New Wrapper class `ParacProjectConfig` for handling json-config files
+- Ability to use `logging` without having to stick to CLI formatted logging
 
 ### Updated
-
 - Renamed `build.py` to `parac-build.py` to not interfere with the `build`
   module
 - Removed the `optimiser` module and replaced it with `optimiser.py`
@@ -53,10 +52,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Renamed `Para-C` to `Para` to suit better to its intended feature-set
 - Renamed `parac-build.py` to `para-build.py`
 - Renamed all Python classes prefixes `Parac` to `Para`
+  `preprocess_files()`
+- Moved `logging.py` CLI functions to `para_ext_cli`
+- Made `ParaCompiler.validate_syntax()` an instance method instead of class 
+  method as it needs the property `logger` of the compiler
 
 ### Removed
 - Property `mode` in `bin-config.json`
 - Deprecated `SEPARATOR` and `WIN` from const.py
+- Constant Compiler instance `RUNTIME_COMPILER`
+- Functions related to `c-init`, as the C Compiler configuration will from now
+  on be done using `para-config.json`
 
 ## [v0.1.dev6] - 2021-11-10
 
