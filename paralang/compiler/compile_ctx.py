@@ -13,12 +13,10 @@ from typing import Dict, Union, TYPE_CHECKING, List
 
 import antlr4
 
-from .logic_stream import ParaQualifiedLogicStream
+from .parse_stream import ParaQualifiedParseStream
+from .parser import ParaParser, Listener
 from ..abc import FileRunContext, ProgramRunContext
 from ..util import get_input_stream
-
-if TYPE_CHECKING:
-    from .process import ProgramCompilationProcess
 
 __all__ = [
     'FileCompilationContext',
@@ -44,43 +42,66 @@ class FileCompilationContext(FileRunContext):
 
     def __init__(
             self,
-            relative_file_name: Union[str, PathLike],
-            program_ctx: ProgramCompilationContext
+            antlr4_file_ctx: ParaParser.CompilationUnitContext,
+            program_ctx: ProgramCompilationContext,
+            relative_file_name: str
     ):
-        self._program_ctx: ProgramCompilationContext = program_ctx
-        self._logic_stream: ParaQualifiedLogicStream = \
-            ParaQualifiedLogicStream()
-        self._relative_file_name = relative_file_name
+        listener = Listener(antlr4_file_ctx)
+        super().__init__(
+            antlr4_file_ctx=antlr4_file_ctx,
+            listener=listener,
+            program_ctx=program_ctx,
+            relative_file_name=relative_file_name
+        )
 
     @property
-    def relative_file_name(self) -> Union[str, PathLike]:
+    def antlr4_file_ctx(self) -> ParaParser.CompilationUnitContext:
+        """
+        The antlr4 file ctx, which represents the entire file in a logic
+        tree made up of tokens
+        """
+        return self._antlr4_file_ctx
+
+    @property
+    def listener(self) -> Listener:
+        """
+        The listener for this class responsible for walking through all code
+        items and properly generating a logic stream, where all items may be
+        compiled
+        """
+        return self._listener
+
+    @property
+    def program_ctx(self) -> ProgramCompilationContext:
+        """
+        The program context that is owner of this file and contains the overall
+        project configuration.
+        """
+        return self._program_ctx
+
+    @property
+    def relative_file_name(self) -> str:
         """
         Returns the relative file name, which goes out from the entry file
         and has a relative path to every file imported and used.
         """
         return self._relative_file_name
 
-    @property
-    def program_ctx(self) -> ProgramCompilationContext:
+    async def get_logic_stream(
+            self, prefer_logging: bool
+    ) -> ParaQualifiedParseStream:
         """
-        Returns the program_ctx if it was already set using set_program_ctx()
-        """
-        return self._program_ctx
+        Runs the listener assigned of this instance and walks through all
+        items in the parse tree to generate a parse stream, which contains the
+        most vital items for the compilation. This stream may then be used
+        to properly compile a program.
 
-    @property
-    def logic_stream(self) -> ParaQualifiedLogicStream:
+        :param prefer_logging: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
         """
-        Returns the content of the file represented as a stream containing
-        LogicTokens
-        """
-        return self._logic_stream
-
-    def set_program_ctx(self, ctx: ProgramCompilationContext) -> None:
-        """
-        Sets the program context, containing the information for the entire
-        compilation and relative structure
-        """
-        self._program_ctx = ctx
+        return await self.listener.walk(prefer_logging)
 
 
 class ProgramCompilationContext(ProgramRunContext):
@@ -91,28 +112,30 @@ class ProgramCompilationContext(ProgramRunContext):
     semantic analysis to validate the program.
     """
 
-    def __init__(self, process: ProgramCompilationProcess):
+    def __init__(
+            self,
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
+            encoding: str
+    ):
+        super().__init__(files, project_root, encoding)
         self._context_dict: Dict[
-            Union[str, PathLike], FileCompilationContext
+            Union[str, bytes, PathLike, Path], FileCompilationContext
         ] = {}
-        super().__init__(process=process)
-
-    @property
-    def process(self) -> ProgramCompilationProcess:
-        """ Compilation Process of this instance """
-        return self._process
 
     @property
     def files(self) -> List[Path]:
         """ Returns the source files for the process """
-        return self.process.files
+        return self._files
 
     @property
-    def project_root(self) -> Union[str, PathLike]:
+    def project_root(self) -> Path:
         """
-        Returns the working directory / base-path for the program.
+        Returns the working directory / base-path for the program. If the entry
+        file path was relative, then the working directory where the compiler
+        is run is used as the working directory.
         """
-        return self.process.project_root
+        return self._project_root
 
     @property
     def encoding(self) -> str:
@@ -121,7 +144,7 @@ class ProgramCompilationContext(ProgramRunContext):
 
     @property
     def context_dict(self) -> Dict[
-        Union[str, PathLike], FileCompilationContext
+        Union[str, bytes, PathLike, Path], FileCompilationContext
     ]:
         """
         Returns a list for all context instances. The key is a relative path
@@ -132,13 +155,12 @@ class ProgramCompilationContext(ProgramRunContext):
     def add_file_ctx(
             self,
             ctx: FileCompilationContext,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: str
     ) -> None:
         """
         Adds a FileCompilationContext to the list of file ctx instances.
         The context instance should only be created using this class
         """
-        ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
     async def gen_source(self) -> Dict[str, Dict[str, FileCompilationContext]]:
@@ -198,11 +220,11 @@ class ProgramCompilationContext(ProgramRunContext):
             ParaCompiler.remove_comments_from_str(file_stream.strdata),
             name=file_stream.name
         )
-        return await self._parse_stream(
+        return await self.parse_stream(
             stream, relative_file_name, prefer_logging
         )
 
-    async def _parse_stream(
+    async def parse_stream(
             self,
             stream: antlr4.InputStream,
             relative_file_name: str,
@@ -229,11 +251,11 @@ class ProgramCompilationContext(ProgramRunContext):
             stream, prefer_logging
         )
 
-        listener = Listener(
-            antlr4_file_ctx, stream, relative_file_name, program_ctx=self
+        file_ctx = FileCompilationContext(
+            antlr4_file_ctx, self, relative_file_name
         )
-        await listener.walk_and_generate_logic_stream(prefer_logging)
-        return listener.file_ctx
+        await file_ctx.listener.generate_logic_stream(prefer_logging)
+        return file_ctx
 
     async def parse_all_files(
             self, prefer_logging: bool

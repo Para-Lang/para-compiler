@@ -21,13 +21,13 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
 __title__ = "paralang"
-__description__ = "Para Module"
+__description__ = "Python-Compiler and API for the Para language"
 __url__ = "https://github.com/Para-Lang/Para/"
 __author__ = "Luna Klatzer"
 __author_email__ = "luna.klatzer@gmail.com"
 __license__ = "GNU GENERAL PUBLIC LICENSE v3.0"
-__version__ = "v0.1.dev6"
-__code_name__ = ""
+__version__ = "v0.1.dev7"
+__code_name__ = "Dev-Release"
 __release__ = f"{__code_name__} {__version__}"
 __copyright__ = "Luna Klatzer"
 
@@ -72,6 +72,5 @@ __all__ = [
     *const.__all__,
     *MODULES
 ]
-
 
 lib_logging.getLogger(__name__).addHandler(lib_logging.NullHandler())

@@ -2,6 +2,7 @@
 """ File containing the ABC classes for tokens """
 from abc import abstractmethod, ABC
 from os import PathLike
+from pathlib import Path
 from typing import Optional, Any, List, TypeVar, Union
 
 import antlr4
@@ -13,9 +14,9 @@ __all__ = [
     'NULL_CHILDREN',
     'Token',
     'SpecialToken',
-    'LogicToken',
-    'CLogicToken',
-    'ParaLogicToken',
+    'ParseToken',
+    'CParseToken',
+    'ParaParseToken',
     'ParaLogicParentContextToken'
 ]
 
@@ -30,7 +31,7 @@ class Token(ABC):
     @abstractmethod
     def __init__(
             self,
-            relative_parent_file_name: Union[str, PathLike],
+            relative_parent_file_name: Union[str, bytes, PathLike, Path],
             parent_file: Any
     ):
         self._relative_parent_file_name = relative_parent_file_name
@@ -81,18 +82,18 @@ class SpecialToken(Token, ABC):
     ...
 
 
-class LogicToken(Token, ABC):
+class ParseToken(Token, ABC):
     """
     Logic token class, which represents entire expressions, statements,
     selection statement and more
     """
 
-    name = "logicToken"
+    name = "ParseToken"
 
     @abstractmethod
     def __init__(
             self,
-            relative_parent_file_name: Union[str, PathLike],
+            relative_parent_file_name: Union[str, bytes, PathLike, Path],
             parent_file: Any,
             parent: Optional[Any] = None,
             children: Union[Optional[List[Any]], NULL_CHILDREN] = NULL_CHILDREN
@@ -109,18 +110,18 @@ class LogicToken(Token, ABC):
             self.children.append(item)
 
 
-class CLogicToken(LogicToken, ABC):
+class CParseToken(ParseToken, ABC):
     """ Native C tokens """
 
-    name = "cLogicToken"
+    name = "cParseToken"
 
     ...
 
 
-class ParaLogicToken(LogicToken, ABC):
+class ParaParseToken(ParseToken, ABC):
     """ Tokens of the Para language """
 
-    name = "paraLogicToken"
+    name = "paraParseToken"
 
     @abstractmethod
     def __init__(
@@ -173,7 +174,7 @@ class ParaLogicToken(LogicToken, ABC):
         return self.antlr4_ctx.start.getCharPositionInLine()
 
 
-class ParaLogicParentContextToken(ParaLogicToken, ABC):
+class ParaLogicParentContextToken(ParaParseToken, ABC):
     """
     This is a parent context token class, designed to serve as the actual base
     class, where the compilation logic for each specific expression, statement

@@ -10,17 +10,18 @@ import logging
 from os import PathLike
 from pathlib import Path
 from typing import Dict, Union, List, TYPE_CHECKING, Tuple
-
 import antlr4
 
 from .__main__ import PreProcessor, PreProcessorProcessResult
-from .logic_stream import PreProcessorStream
+from .listener import PreProcessorListener
+from .parse_stream import PreProcessorParseStream
+from .parser import ParaPreProcessorParser
 from ..abc import ProgramRunContext, FileRunContext
 from ..exceptions import (FailedToProcessError, ParserError, LexerError,
                           ParaSyntaxErrorCollection, ParaCompilerError)
 
 if TYPE_CHECKING:
-    from ..compiler import ProgramCompilationProcess
+    from ..compiler import CompilationProcess
 
 __all__ = [
     'FilePreProcessorContext',
@@ -38,42 +39,74 @@ class FilePreProcessorContext(FileRunContext):
 
     def __init__(
             self,
-            relative_file_name: Union[str, PathLike],
-            program_ctx: ProgramPreProcessorContext
+            antlr4_file_ctx: ParaPreProcessorParser.CompilationUnitContext,
+            program_ctx: ProgramPreProcessorContext,
+            relative_file_name: str
     ):
+        listener = PreProcessorListener(antlr4_file_ctx)
         super().__init__(
+            antlr4_file_ctx=antlr4_file_ctx,
+            listener=listener,
             program_ctx=program_ctx,
-            logic_stream=PreProcessorStream(),
-            processed_stream=None,
             relative_file_name=relative_file_name
         )
 
     @property
-    def program_ctx(self) -> Union[ProgramPreProcessorContext, None]:
+    def antlr4_file_ctx(self) -> ParaPreProcessorParser.CompilationUnitContext:
         """
-        Returns the program_ctx if it was already set using set_program_ctx()
+        The antlr4 file ctx, which represents the entire file in a logic
+        tree made up of tokens
+        """
+        return self._antlr4_file_ctx
+
+    @property
+    def listener(self) -> PreProcessorListener:
+        """
+        The listener for this class responsible for walking through all code
+        items and properly generating a logic stream, where all items may be
+        compiled
+        """
+        return self._listener
+
+    @property
+    def program_ctx(self) -> ProgramPreProcessorContext:
+        """
+        The program context that is owner of this file and contains the overall
+        project configuration.
         """
         return self._program_ctx
 
     @property
-    def logic_stream(self) -> PreProcessorStream:
+    def relative_file_name(self) -> str:
         """
-        Returns the content of the file represented as a stream containing
-        PreProcessorLogicToken
+        Returns the relative file name, which goes out from the entry file
+        and has a relative path to every file imported and used.
         """
-        return self._logic_stream
+        return self._relative_file_name
 
-    def set_program_ctx(self, ctx: ProgramPreProcessorContext) -> None:
+    async def get_logic_stream(
+        self, prefer_logging: bool
+    ) -> PreProcessorParseStream:
         """
-        Sets the program context, containing the information for the entire
-        compilation and relative structure
-        """
-        self._program_ctx = ctx
+        Runs the listener assigned of this instance and walks through all
+        items in the parse tree to generate a parse stream, which contains the
+        most vital items for the compilation. This stream may then be used
+        to properly compile a program.
 
-    async def process_directives(self) -> str:
+        :param prefer_logging: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
+        """
+        return await self.listener.walk(prefer_logging)
+
+    async def process_directives(self, stream: PreProcessorParseStream) -> str:
         """
         Process the directives for this single file and returns a string
         containing the altered file
+
+        :param stream: The stream to process the directives from and generate
+         the altered source file
         """
         ...
 
@@ -92,39 +125,39 @@ class ProgramPreProcessorContext(ProgramRunContext):
     `async process_program()`
     """
 
-    def __init__(self, process: ProgramCompilationProcess):
+    def __init__(
+            self,
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
+            encoding: str
+    ):
+        super().__init__(files, project_root, encoding)
         self._context_dict: Dict[
-            Union[str, PathLike], FilePreProcessorContext
+            Union[str, bytes, PathLike, Path], FilePreProcessorContext
         ] = {}
-        super().__init__(process=process)
-
-    @property
-    def process(self) -> ProgramCompilationProcess:
-        """ Compilation Process of this instance """
-        return self._process
 
     @property
     def files(self) -> List[Path]:
         """ Returns the source files for the process """
-        return self.process.files
+        return self._files
 
     @property
-    def work_dir(self) -> Union[str, PathLike]:
+    def project_root(self) -> Path:
         """
         Returns the working directory / base-path for the program. If the entry
         file path was relative, then the working directory where the compiler
         is run is used as the working directory.
         """
-        return self.process.work_dir
+        return self._project_root
 
     @property
     def encoding(self) -> str:
         """ Returns the encoding of the project """
-        return super().encoding
+        return self.encoding
 
     @property
     def context_dict(self) -> Dict[
-        Union[str, PathLike], FilePreProcessorContext
+        Union[str, bytes, PathLike, Path], FilePreProcessorContext
     ]:
         """
         Returns a list for all context instances. The key is a relative path
@@ -135,7 +168,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
     def add_file_ctx(
             self,
             ctx: FilePreProcessorContext,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: str
     ) -> None:
         """
         Adds a FilePreProcessorContext to the list of file ctx instances.
@@ -144,48 +177,9 @@ class ProgramPreProcessorContext(ProgramRunContext):
         ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
-    @staticmethod
-    async def make_temp_files(
-            process: PreProcessorProcessResult
-    ) -> List[Path]:
-        """
-        Creates the temporary files based on the passed output of
-        process_program().
-
-        :returns: A tuple containing at 0 the path to the entry-file and at 1
-         a list of all paths of all other files.
-        """
-        for name, context in process.generated_files():
-            name: str
-            context: Dict[str, FilePreProcessorContext]
-
-            # TODO! Add logic to properly generate these files
-
-        raise NotImplementedError()
-
-    async def process_program(
-            self, prefer_logging: bool
-    ) -> PreProcessorProcessResult:
-        """
-        Processes this instance and generates the logic streams required
-        for generating the finished code.
-
-        :param prefer_logging: If set to True errors, warnings and
-         info will be logged onto the console using the local logger instance.
-         If an exception is raised or error is encountered, it will be reraised
-         with the FailedToProcessError.
-        :returns: A PreProcessorProcessResult instance
-        """
-        # TODO! Run listener for every single file of those
-
-        # TODO! Finish by processing the directives and altering the files
-
-        # Processing the directives
-        return await PreProcessor.process_directives(self)
-
     async def parse_file(
             self,
-            file_path: Union[str, PathLike],
+            file_path: Union[str, bytes, PathLike, Path],
             prefer_logging: bool
     ) -> FilePreProcessorContext:
         """
@@ -208,18 +202,18 @@ class ProgramPreProcessorContext(ProgramRunContext):
         relative_file_name = get_relative_file_name(
             file_name=file_stream.name,
             file_path=file_stream.fileName,
-            base_path=self.work_dir
+            base_path=self.project_root
         )
         stream = get_input_stream(
             # rm comments
             ParaCompiler.remove_comments_from_str(file_stream.strdata),
             name=file_stream.name
         )
-        return await self._parse_stream(
+        return await self.parse_stream(
             stream, relative_file_name, prefer_logging
         )
 
-    async def _parse_stream(
+    async def parse_stream(
             self,
             stream: antlr4.InputStream,
             relative_file_name: str,
@@ -240,13 +234,16 @@ class ProgramPreProcessorContext(ProgramRunContext):
          an exception is encountered. The logs of the exception will be printed
          onto the console.
         """
-        from .listener import Listener
+        from .listener import PreProcessorListener
 
         try:
             antlr4_file_ctx = await PreProcessor.parse(
                 stream, prefer_logging
             )
-            listener = Listener(
+            file_ctx = FilePreProcessorContext(
+
+            )
+            listener = PreProcessorListener(
                 antlr4_file_ctx, stream, relative_file_name, program_ctx=self
             )
             await listener.walk_and_process_directives(prefer_logging)
@@ -259,7 +256,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
             # logic-stream that only contains include directives and
             # non-preprocessor items
 
-            return listener.file_ctx
+            return file_ctx
         except (LexerError, ParserError, ParaSyntaxErrorCollection,
                 ParaCompilerError) as e:
             if prefer_logging:
@@ -283,3 +280,23 @@ class ProgramPreProcessorContext(ProgramRunContext):
                 str(file.absolute()), prefer_logging
             ) for file in self.files
         )
+
+    async def process_files(
+            self, prefer_logging: bool
+    ) -> PreProcessorProcessResult:
+        """
+        Processes this instance and generates the logic streams required
+        for generating the finished code.
+
+        :param prefer_logging: If set to True errors, warnings and
+         info will be logged onto the console using the local logger instance.
+         If an exception is raised or error is encountered, it will be reraised
+         with the FailedToProcessError.
+        :returns: A PreProcessorProcessResult instance
+        """
+        # TODO! Run listener for every single file of those
+
+        # TODO! Finish by processing the directives and altering the files
+
+        # Processing the directives
+        return await PreProcessor.process_directives(self)

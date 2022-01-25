@@ -26,7 +26,7 @@ class LinkerMetaData:
     of certain variables. This will though not apply any logical analysis,
     except validating that the required types are matching with the types
     that are needed in this specific context (asserted by the previous logical
-    analysis, which are then kept as meta data in the LogicTokens)
+    analysis, which are then kept as meta data in the ParseTokens)
     """
     ...
 

@@ -27,7 +27,7 @@ which in the end make up the finished program.
 **The different modules are:**
 
 - `The Pre-Processor, which will alter the code based on the pre-processor directives <./preprocessor.html>`_
-- :ref:`The Lexer and Parser, which generate the tokens and the logic trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
+- :ref:`The Lexer and Parser, which generate the tokens and the parse trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
 - :ref:`The Single-File Semantic Analyser<Semantic Analyser>`
 - :ref:`The File Linker<File Linker>`
 - :ref:`The Code Optimiser<Code Optimiser>`
@@ -46,7 +46,7 @@ on the `Para.g4` file. This file defines the grammar of the language.
 The generated code will be wrapped inside a new python module, which will implement 
 the code and make it usable in the compiler source code. Using that new Parser module,
 the compiler will convert on runtime the inserted file/s into an abstract logic
-tree, which contains all items and meta-data of the user-inserted file. These logic trees
+tree, which contains all items and meta-data of the user-inserted file. These parse trees
 are then returned and used to compile the program.
 
 The Parser will start by first parsing the main file and then
@@ -184,7 +184,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 4** Parser Errors
 ^^^^^^^^^^^^^^^^^
 
-- `400` – ParserError: An issue occurred in the Parser (Logic Tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para tokens
+- `400` – ParserError: An issue occurred in the Parser (parse tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para tokens
 - `401` – SyntaxError: A syntax issue occurred while processing that is a direct result of the user failing to input valid code.
 
 5** Logical Errors

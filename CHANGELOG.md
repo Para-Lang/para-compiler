@@ -33,7 +33,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Renamed `build.py` to `parac-build.py` to not interfere with the `build`
   module
 - Removed the `optimiser` module and replaced it with `optimiser.py`
-- Renamed class `ParacLogicStream` to ParacQualifiedLogicStream
+- Renamed class `ParacParseStream` to ParacQualifiedParseStream
 - Renamed function `ProgramCompilationProcess._compile()` to `ci_compile`
 - Renamed function  `ProgramCompilationProcess._gen_preprocessor_temp_files()`
   to `gen_preprocessor_temp_files()`
@@ -55,7 +55,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `preprocess_files()`
 - Moved `logging.py` CLI functions to `para_ext_cli`
 - Made `ParaCompiler.validate_syntax()` an instance method instead of class 
-  method as it needs the property `logger` of the compiler
+  method as it needs the `ParaCompiler` runtime property `logger`
+- Renamed the class `process.FinishedProcess` to `process.CompileResult`
+- Renamed the class `process.ProgramCompilationProcess` to 
+  `process.CompilationProcess`
+- Renamed all items named `LogicToken` and `LogicStream` to `ParseToken` and
+  `ParseStream`
+- Restructured listeners, context classes and parse stream functions to have
+  a more straightforward module structure, while generating a parse stream.
 
 ### Removed
 - Property `mode` in `bin-config.json`
@@ -63,6 +70,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Constant Compiler instance `RUNTIME_COMPILER`
 - Functions related to `c-init`, as the C Compiler configuration will from now
   on be done using `para-config.json`
+- `dist_path` and `build_path` folders, as the code-file generation is now
+  handled using `process.CompileResult` and `CompileResult.write_results()`
 
 ## [v0.1.dev6] - 2021-11-10
 
@@ -110,7 +119,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   all sys-links.
 - Property `logic_stream` to `Listener` and updated methods to allow for proper
   future implementation of the logic stream.
-- New method `append_antlr_ctx` to the ABC Class `LogicStream` and its
+- New method `append_antlr_ctx` to the ABC Class `ParseStream` and its
   implementation.
 - Addition of `program_ctx` to all `FileRunContext` implementation classes.
 
@@ -250,7 +259,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `ProgramPreProcessorContext` with respective parent ABC
   classes: `FileRunContext`
   and `ProgramCompilationContext`
-- Implementation of Base ABC Class `LogicStream` (inherits `list` as parent)
+- Implementation of Base ABC Class `ParseStream` (inherits `list` as parent)
 - `remove_comments_from_str` in `ParacCompiler` with support for all line
   endings
 - In `abortable` decorator (`utils.py`);

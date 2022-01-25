@@ -3,14 +3,14 @@
 from typing import List, Any
 from cached_property import cached_property
 
-from .abc import PreProcessorLogicToken
-from .logic_tokens import NonPreProcessorItem
-from ..abc import LogicStream
+from .abc import PreProcessorParseToken
+from .parse_token import NonPreProcessorItem
+from ..abc import ParseStream
 
 
-class PreProcessorStream(LogicStream):
+class PreProcessorParseStream(ParseStream):
     """
-    Pre-Processor Stream, which represents a list of PreProcessorLogicToken
+    Pre-Processor Stream, which represents a list of PreProcessorParseToken
     which may contain NonPreProcessorItem as their children, e.g.:
 
     #if defined(M)
@@ -23,7 +23,7 @@ class PreProcessorStream(LogicStream):
         super().__init__(*args, **kwargs)
 
     @property
-    def content(self) -> List[PreProcessorLogicToken]:
+    def content(self) -> List[PreProcessorParseToken]:
         """
         Returns the content of the list. Type-hinted alias for list(self).
 
@@ -31,11 +31,11 @@ class PreProcessorStream(LogicStream):
         """
         return list(self)
 
-    def get_start(self) -> PreProcessorLogicToken:
+    def get_start(self) -> PreProcessorParseToken:
         """ Gets the first item of the stream """
         return self[0]
 
-    def get_end(self) -> PreProcessorLogicToken:
+    def get_end(self) -> PreProcessorParseToken:
         """ Gets the last item of the stream """
         return self[-1]
 
@@ -44,7 +44,7 @@ class PreProcessorStream(LogicStream):
         super().append_antlr_ctx(_ctx)
 
 
-class ProcessedFileStream(LogicStream):
+class ProcessedFileStream(ParseStream):
     """
     Processed File Stream representing a file that was already processed and
     does not contain directives anymore, but only processed code

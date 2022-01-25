@@ -10,28 +10,33 @@ from typing import Union, TYPE_CHECKING, Tuple, Literal
 import antlr4
 
 from .error_handler import ParaErrorListener
-from .logic_stream import ParaQualifiedLogicStream, CLogicStream
+from .parse_stream import ParaQualifiedParseStream, CParseStream
 from .parser.python import ParaLexer
 from .parser.python import ParaParser
-from .process import BasicProcess
+from .process import Process
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParaCompilerError, FailedToProcessError,
                           ParaSyntaxErrorCollection)
 from ..util import get_file_stream, get_input_stream, ensure_pathlib_path
 
 try:
-    import parac_ext_cli
+    import paralang_cli
 
     PARAC_EXT_CLI_AVAILABLE: bool = True
 except ImportError:
-    from typing import NewType
-
-    ParaStreamHandler = NewType('ParaStreamHandler', None)
-    ParaFileHandler = NewType('ParaStreamHandler', None)
     PARAC_EXT_CLI_AVAILABLE: bool = False
 
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
+
+    if PARAC_EXT_CLI_AVAILABLE:
+        from paralang_cli import (ParaCLIStreamHandler, ParaCLIFileHandler,
+                                  ParaCLIFormatter)
+    else:
+        from typing import NewType
+
+        ParaCLIStreamHandler = NewType('ParaCLIStreamHandler', None)
+        ParaCLIFileHandler = NewType('ParaCLIFileHandler', None)
 
 __all__ = [
     'ParaCompiler',
@@ -47,16 +52,24 @@ MULTI_LINE_COMMENT_END: str = '*/'
 
 class ParaCompiler:
     """ Main Class for the entire Compiler containing processing functions """
-    stream_handler: ParaStreamHandler = None
-    file_handler: ParaFileHandler = None
 
     def __init__(self):
-        self._logger = None
+        self._stream_handler: ParaCLIStreamHandler = None
+        self._file_handler: ParaCLIFileHandler = None
+        self._logger: logging.Logger = None
 
     @property
     def log_initialised(self) -> bool:
         """ Returns whether the logger is initialised and ready to be used """
         return getattr(self, 'logger') is not None
+
+    @property
+    def stream_handler(self) -> ParaCLIStreamHandler:
+        return self._stream_handler
+
+    @property
+    def file_handler(self) -> ParaCLIFileHandler:
+        return self._file_handler
 
     @property
     def logger(self) -> logging.Logger:
@@ -70,9 +83,8 @@ class ParaCompiler:
             self._logger = logger
             return logger
 
-    @classmethod
     def init_cli_logging(
-            cls,
+            self,
             log_path: Union[str, PathLike, pathlib.Path] = None,
             level: int = logging.INFO,
             print_banner: bool = True,
@@ -95,45 +107,48 @@ class ParaCompiler:
         """
         if not PARAC_EXT_CLI_AVAILABLE:
             raise RuntimeError(
-                "To utilise this function, 'para_ext_cli' is required!"
+                "To utilise this function, 'paralang_cli' is required!"
             )
+        else:
+            from paralang_cli import (ParaCLIStreamHandler, ParaCLIFileHandler,
+                                      ParaCLIFormatter)
 
         if print_banner:
-            parac_ext_cli.print_log_banner(banner_name, additional_newline)
+            paralang_cli.cli_print_log_banner(banner_name, additional_newline)
 
-        cls._logger: logging.Logger = logging.getLogger("parac")
-        cls.logger.setLevel(level)
+        self._logger: logging.Logger = logging.getLogger("parac")
+        self.logger.setLevel(level)
 
         # if the stream handler exists it will always get removed by default
-        if cls.stream_handler:
-            cls.logger.removeHandler(cls.stream_handler)
+        if self.stream_handler:
+            self.logger.removeHandler(self.stream_handler)
 
         # if the file handler exists and a new log_path was passed ->
         # remove and generate new file_handler
-        if cls.file_handler and log_path:
-            cls.logger.removeHandler(cls.file_handler)
+        if self.file_handler and log_path:
+            self.logger.removeHandler(self.file_handler)
 
-        cls.stream_handler = parac_ext_cli.ParaStreamHandler()
-        cls.stream_handler.setFormatter(
-            parac_ext_cli.ParaFormatter(datefmt="%H:%M:%S")
+        self._stream_handler = ParaCLIStreamHandler()
+        self._stream_handler.setFormatter(
+            ParaCLIFormatter(datefmt="%H:%M:%S")
         )
-        cls.logger.addHandler(cls.stream_handler)
+        self.logger.addHandler(self.stream_handler)
 
         if type(log_path) in (str, pathlib.Path) \
                 and log_path.lower() != 'none':
             try:
                 path: Path = ensure_pathlib_path(log_path)
-                cls.file_handler = parac_ext_cli.ParaFileHandler(
+                self._file_handler = ParaCLIFileHandler(
                     filename=path
                 )
             except PermissionError:
                 raise FilePermissionError(
                     "Failed to access the specified log file-path"
                 )
-            cls.file_handler.setFormatter(
-                parac_ext_cli.ParaFormatter(file_mng=True)
+            self.file_handler.setFormatter(
+                ParaCLIFormatter(file_mng=True)
             )
-            cls.logger.addHandler(cls.file_handler)
+            self.logger.addHandler(self.file_handler)
 
         if type(log_path) is str:
             if '.' not in log_path:
@@ -175,7 +190,7 @@ class ParaCompiler:
         # Parsing the lexer and generating a token stream
         stream = antlr4.CommonTokenStream(lexer)
 
-        # Parser which generates based on the top entry rule the logic tree
+        # Parser which generates based on the top entry rule the parse tree
         parser = ParaParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
@@ -278,11 +293,25 @@ class ParaCompiler:
         return result.replace('\n', line_ending)
 
     @classmethod
+    async def compile_files(cls) -> CompileResult:
+        """
+        Compiles the passed files and directly creates a CompileResult.
+
+        This function takes away most of the configuration and customisation
+        by using the usable defaults to create the CompilationProcess and run
+        the code-generation.
+
+        This should be specifically used if no specific behaviour is wanted.
+
+        :param :
+        """
+
+    @classmethod
     async def compile_logic_stream(
             cls,
-            logic_stream: ParaQualifiedLogicStream
-    ) -> CLogicStream:
+            logic_stream: ParaQualifiedParseStream
+    ) -> CParseStream:
         """
-        Compiles the passed ParaQualifiedLogicStream into the C counterpart
+        Compiles the passed ParaQualifiedParseStream into the C counterpart
         """
         ...

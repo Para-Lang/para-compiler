@@ -3,15 +3,12 @@
 from __future__ import annotations
 
 import logging
-from os import PathLike
-from typing import TYPE_CHECKING, Union
-
 import antlr4
+from typing import TYPE_CHECKING, Optional
 
 from .python import ParaListener
 from .python import ParaParser
-from ..compile_ctx import FileCompilationContext, ProgramCompilationContext
-from ..logic_stream import ParaQualifiedLogicStream
+from ..parse_stream import ParaQualifiedParseStream
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +19,7 @@ if TYPE_CHECKING:
     FunctionDefinitionContext = ParaParser.FunctionDefinitionContext
     AssignmentExpressionContext = ParaParser.AssignmentExpressionContext
     CompilationUnitContext = ParaParser.CompilationUnitContext
+    ExternalItemContext = ParaParser.ExternalItemContext
 
 __all__ = [
     'Listener'
@@ -37,74 +35,60 @@ class Listener(ParaListener):
 
     def __init__(
             self,
-            antlr4_file_ctx: CompilationUnitContext,
-            file_stream: antlr4.InputStream,
-            relative_file_name: Union[str, PathLike],
-            program_ctx: ProgramCompilationContext
+            antlr4_file_ctx: ParaParser.CompilationUnitContext
     ):
-        self._file_ctx = FileCompilationContext(
-            relative_file_name, program_ctx
-        )
-        self.antlr4_file_ctx: CompilationUnitContext = antlr4_file_ctx
-        self.file_stream: antlr4.InputStream = file_stream
-
-        self._compiling: bool = False
+        self._antlr4_file_ctx: ParaParser.CompilationUnitContext = \
+            antlr4_file_ctx
         self._prefer_logging: bool = False
+        self._current_external_item = None
+        self._parse_stream: Optional[ParaQualifiedParseStream] = None
+        self._running = False
 
     @property
-    def logic_stream(self) -> ParaQualifiedLogicStream:
-        """ Stream which stores the logical tokens for the passed file. """
-        return self._file_ctx.logic_stream
+    def antlr4_file_ctx(self) -> ParaParser.CompilationUnitContext:
+        """
+        The antlr4 file ctx, which represents the entire file in a logic
+        tree made up of tokens
+        """
+        return self._antlr4_file_ctx
 
     @property
-    def file_ctx(self) -> FileCompilationContext:
-        """ Fetches the file context for this class """
-        return self._file_ctx
+    def running(self) -> bool:
+        """ Returns whether at the moment a stream generation is being run """
+        return self._running
 
-    async def walk(self, prefer_logging: bool) -> None:
+    async def walk(
+            self, prefer_logging: bool
+    ) -> ParaQualifiedParseStream:
         """
         Walks through the parsed CompilationUnitContext and listens to the
-        events / goes through the tokens.
+        events / goes through the tokens and generates a logic stream.
 
-        This is a non-compile version of walk_and_generate_logic_stream, which
-        is only used stand-alone for syntax-checking. This method does not
-        exist on the Pre-Processor counterpart, as it is not necessary.
+        The FileCompilationContext can then be used inside the
+        CompilationContext to be linked with other files and to finish
+        the compilation for the program.
 
         :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
+        if self._running:
+            raise RuntimeError("May not run two generations at the same time!")
+
+        self._parse_stream = ParaQualifiedParseStream()
+        self._running = True
+
         logger.debug(
-            "Walking through logic tree and generating the logic stream"
+            "Walking through parse tree and generating the logic stream"
         )
-        self._prefer_logging = prefer_logging
+        self._prefer_logging: bool = prefer_logging
 
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)
 
-    async def walk_and_generate_logic_stream(
-            self, prefer_logging: bool
-    ) -> None:
-        """
-        Walks through the parsed CompilationUnitContext and listens to the
-        events / goes through the tokens and generates the logic stream
-        for the FileCompilationContext (self.file_ctx)
-
-        The FileCompilationContext can then be used inside the
-        CompilationContext to be linked with other files and to finish
-        the compilation for the program
-
-        :param prefer_logging: If set to True errors, warnings and
-         info will be logged onto the console using the local logger instance.
-         If an exception is raised or error is encountered, it will be reraised
-         with the FailedToProcessError.
-        """
-
-        # Variable set to signalise that the items should be added to the
-        # logic stream
-        self._compiling = True
-        await self.walk(prefer_logging)
+        self._running = False
+        return self._parse_stream
 
     # =========================================
     # Beginning of the file

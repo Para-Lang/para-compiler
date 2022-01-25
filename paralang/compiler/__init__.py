@@ -6,7 +6,7 @@ for parsing, compiling and handling files.
 from . import compile_ctx
 from . import compiler
 from . import error_handler
-from . import logic_stream
+from . import parse_stream
 from . import optimiser
 from . import parser
 from . import process
@@ -22,7 +22,7 @@ __all__ = [
     'optimiser',
     'parser',
     'error_handler',
-    'logic_stream',
+    'parse_stream.py',
     'compiler'
 ]
 

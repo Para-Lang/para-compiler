@@ -9,17 +9,17 @@ import logging
 from . import __main__
 from . import ctx
 from . import listener
-from . import logic_tokens
+from . import parse_token
 from . import abc
 from .__main__ import *
-from .logic_tokens import *
+from .parse_token import *
 
 __all__ = [
-    'logic_tokens',
+    'parse_token',
     'listener',
     'ctx',
     'abc',
-    *logic_tokens.__all__,
+    *parse_token.__all__,
     *ctx.__all__,
     *__main__.__all__
 ]

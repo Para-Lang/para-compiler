@@ -1,17 +1,17 @@
 # coding=utf-8
-""" File containing the ABC class for a LogicStream """
+""" File containing the ABC class for a ParseStream """
 
 from abc import abstractmethod, ABC
 from typing import List, Any
 
-from .base_tokens import LogicToken
+from .base_tokens import ParseToken
 
 __all__ = [
-    'LogicStream'
+    'ParseStream'
 ]
 
 
-class LogicStream(list, ABC):
+class ParseStream(list, ABC):
     """
     Logic Stream class which acts like a list, which implements special
     functions for interacting with the stream
@@ -23,7 +23,7 @@ class LogicStream(list, ABC):
 
     @property
     @abstractmethod
-    def content(self) -> List[LogicToken]:
+    def content(self) -> List[ParseToken]:
         """
         Returns the content of the list. Type-hinted alias for list(self).
 
@@ -32,12 +32,12 @@ class LogicStream(list, ABC):
         return list(self)
 
     @abstractmethod
-    def get_start(self) -> LogicToken:
+    def get_start(self) -> ParseToken:
         """ Gets the first item of the stream """
         return self[0]
 
     @abstractmethod
-    def get_end(self) -> LogicToken:
+    def get_end(self) -> ParseToken:
         """ Gets the last item of the stream """
         return self[-1]
 

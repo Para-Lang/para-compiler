@@ -7,17 +7,17 @@ from typing import Optional, Any, List, TYPE_CHECKING
 
 from antlr4 import ParserRuleContext
 
-from ...abc import ParaLogicToken, NULL_CHILDREN
+from ...abc import ParaParseToken, NULL_CHILDREN
 
 if TYPE_CHECKING:
     from ..ctx import FilePreProcessorContext
 
 __all__ = [
-    'PreProcessorLogicToken'
+    'PreProcessorParseToken'
 ]
 
 
-class PreProcessorLogicToken(ParaLogicToken, ABC):
+class PreProcessorParseToken(ParaParseToken, ABC):
     """ Pre-Processor Logic-Token, which is used to represent Directives """
 
     @abstractmethod

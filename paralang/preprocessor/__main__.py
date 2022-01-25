@@ -61,7 +61,7 @@ class PreProcessor:
     The Pre-Processor, which handles directives in a Para file.
 
     The incoming files will be tokenized and parsed using Antlr4. The generated
-    logic tree will be used by the Pre-Processor listener to generate a
+    parse tree will be used by the Pre-Processor listener to generate a
     FilePreProcessorContext instance for the file and then process everything
     appropriately with the ProgramPreProcessorContext. After generation, the
     preprocessor will walk through and modify the file based on the directives
@@ -104,9 +104,9 @@ class PreProcessor:
         stream = antlr4.CommonTokenStream(lexer)
 
         logger.debug(
-            "Parsing the tokens and generating the logic tree"
+            "Parsing the tokens and generating the parse tree"
         )
-        # Parser which generates based on the top entry rule the logic tree
+        # Parser which generates based on the top entry rule the parse tree
         parser = ParaPreProcessorParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)

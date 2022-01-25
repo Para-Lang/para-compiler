@@ -1,24 +1,24 @@
 # coding=utf-8
 """
-File containing the ParaQualifiedLogicStream and CLogicStream, which represents a
-stream of logic components. A ParaQualifiedLogicStream can be converted into a
-CLogicStream and processed into native C.
+File containing the ParaQualifiedParseStream and CParseStream, which represents a
+stream of logic components. A ParaQualifiedParseStream can be converted into a
+CParseStream and processed into native C.
 """
 import logging
 
 __all__ = [
-    'ParaQualifiedLogicStream',
-    'CLogicStream'
+    'ParaQualifiedParseStream',
+    'CParseStream'
 ]
 
 from typing import List, Any
 
-from ..abc import ParaLogicToken, CLogicToken, LogicStream
+from ..abc import ParaParseToken, CParseToken, ParseStream
 
 logger = logging.getLogger(__name__)
 
 
-class ParaQualifiedLogicStream(LogicStream):
+class ParaQualifiedParseStream(ParseStream):
     """
     Logic Stream, which represents a stream of logic tokens, which can be used
     to convert the Para components into C-components, which can be converted
@@ -29,7 +29,7 @@ class ParaQualifiedLogicStream(LogicStream):
         super().__init__(*args, **kwargs)
 
     @property
-    def content(self) -> List[ParaLogicToken]:
+    def content(self) -> List[ParaParseToken]:
         """
         Returns the content of the list. Type-hinted alias for list(self).
 
@@ -37,11 +37,11 @@ class ParaQualifiedLogicStream(LogicStream):
         """
         return list(self)
 
-    def get_start(self) -> ParaLogicToken:
+    def get_start(self) -> ParaParseToken:
         """ Gets the first item of the stream """
         return self[0]
 
-    def get_end(self) -> ParaLogicToken:
+    def get_end(self) -> ParaParseToken:
         """ Gets the last item of the stream """
         return self[-1]
 
@@ -50,7 +50,7 @@ class ParaQualifiedLogicStream(LogicStream):
         super().append_antlr_ctx(_ctx)
 
 
-class CLogicStream(LogicStream):
+class CParseStream(ParseStream):
     """
     Logic Stream, which represents a stream of logic tokens that are in native
     C - can be converted into native C code using the Para Base Library
@@ -58,7 +58,7 @@ class CLogicStream(LogicStream):
 
     def __init__(
             self,
-            generator_parent: ParaQualifiedLogicStream,
+            generator_parent: ParaQualifiedParseStream,
             *args,
             **kwargs
     ):
@@ -66,7 +66,7 @@ class CLogicStream(LogicStream):
         super().__init__(*args, **kwargs)
 
     @property
-    def generator_parent(self) -> ParaQualifiedLogicStream:
+    def generator_parent(self) -> ParaQualifiedParseStream:
         """
         Parent of this Stream aka. the original Para token stream, which
         was used to create this stream
@@ -74,7 +74,7 @@ class CLogicStream(LogicStream):
         return self._generator_parent
 
     @property
-    def content(self) -> List[CLogicToken]:
+    def content(self) -> List[CParseToken]:
         """
         Returns the content of the list. Type-hinted alias for list(self).
 
@@ -82,17 +82,17 @@ class CLogicStream(LogicStream):
         """
         return list(self)
 
-    def get_parent_item(self, index: int) -> ParaLogicToken:
+    def get_parent_item(self, index: int) -> ParaParseToken:
         """
         Fetches an item from the Para stream parent based on the index
         """
         return self._generator_parent[index]
 
-    def get_start(self) -> CLogicToken:
+    def get_start(self) -> CParseToken:
         """ Gets the first item of the stream """
         return self[0]
 
-    def get_end(self) -> CLogicToken:
+    def get_end(self) -> CParseToken:
         """ Gets the last item of the stream """
         return self[-1]
 

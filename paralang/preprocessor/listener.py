@@ -1,24 +1,22 @@
 # coding=utf-8
-""" Logic Tree Listener for the Para Pre-Processor """
+""" parse tree Listener for the Para Pre-Processor """
 import logging
 from typing import Optional
-
 import antlr4
 
-from .ctx import FilePreProcessorContext, ProgramPreProcessorContext
-from .logic_stream import PreProcessorStream
-from .logic_tokens import *
+from .parse_stream import PreProcessorParseStream
+from .parse_token import *
 from .parser import (ParaPreProcessorListener,
                      ParaPreProcessorParser as Parser)
 
 __all__ = [
-    'Listener'
+    'PreProcessorListener'
 ]
 
 logger = logging.getLogger(__name__)
 
 
-class Listener(ParaPreProcessorListener):
+class PreProcessorListener(ParaPreProcessorListener):
     """
     Listener that listens for events inside the parsing. It will inherit all
     generated methods from the ParaPreProcessorListener and then define the
@@ -27,50 +25,59 @@ class Listener(ParaPreProcessorListener):
 
     def __init__(
             self,
-            antlr4_file_ctx: Parser.CompilationUnitContext,
-            file_stream: antlr4.InputStream,
-            relative_file_name: str,
-            program_ctx: ProgramPreProcessorContext
+            antlr4_file_ctx: Parser.CompilationUnitContext
     ):
-        self._file_ctx = FilePreProcessorContext(
-            relative_file_name, program_ctx
-        )
-        self.antlr4_file_ctx: Parser.CompilationUnitContext = antlr4_file_ctx
-        self.file_stream: antlr4.InputStream = file_stream
-        self._prefer_logging = False
-
+        self._antlr4_file_ctx: Parser.CompilationUnitContext = antlr4_file_ctx
+        self._prefer_logging: bool = False
         self._current_external_item: Optional[ExternalPreProcessorItem] = None
+        self._parse_stream: Optional[PreProcessorParseStream] = None
+        self._running = False
 
     @property
-    def logic_stream(self) -> PreProcessorStream:
-        """ Stream which stores the logical tokens for the passed file. """
-        return self._file_ctx.logic_stream
-
-    @property
-    def file_ctx(self) -> FilePreProcessorContext:
-        """ The file context for this class """
-        return self._file_ctx
-
-    async def walk_and_process_directives(
-            self, prefer_logging: bool
-    ) -> None:
+    def antlr4_file_ctx(self) -> Parser.CompilationUnitContext:
         """
-        Walks through the passed compilation unit context and processes it.
-        The file_ctx will be populated and able to be used for finishing
-        the preprocessor processing steps
+        The antlr4 file ctx, which represents the entire file in a logic
+        tree made up of tokens
+        """
+        return self._antlr4_file_ctx
+
+    @property
+    def running(self) -> bool:
+        """ Returns whether at the moment a stream generation is being run """
+        return self._running
+
+    async def walk(
+            self, prefer_logging: bool
+    ) -> PreProcessorParseStream:
+        """
+        Walks through the parsed CompilationUnitContext and listens to the
+        events / goes through the tokens and generates a logic stream.
+
+        The FileCompilationContext can then be used inside the
+        CompilationContext to be linked with other files and to finish
+        the compilation for the program.
 
         :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
+        if self._running:
+            raise RuntimeError("May not run two generations at the same time!")
+
+        self._parse_stream = PreProcessorParseStream()
+        self._running = True
+
         logger.debug(
-            "Walking through the logic tree and generating logic stream"
+            "Walking through parse tree and generating the logic stream"
         )
-        self._prefer_logging = prefer_logging
+        self._prefer_logging: bool = prefer_logging
 
         walker = antlr4.ParseTreeWalker()
         walker.walk(self, self.antlr4_file_ctx)
+
+        self._running = False
+        return self._parse_stream
 
     def enterCompilationUnit(
             self,
@@ -79,7 +86,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#compilationUnit.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitCompilationUnit(
             self,
@@ -89,7 +96,7 @@ class Listener(ParaPreProcessorListener):
         Exit a parse tree produced by parser#compilationUnit.
         """
         logger.debug(
-            "Finished walk through logic tree and finished generation"
+            "Finished walk through parse tree and finished generation"
             " of logic stream"
         )
 
@@ -118,9 +125,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#externalItem.
         """
-        item = ExternalPreProcessorItem(self._file_ctx, ctx)
-        self._current_external_item = item
-        self.logic_stream.append_antlr_ctx(item)
+        ...
 
     def exitExternalItem(
             self,
@@ -129,8 +134,7 @@ class Listener(ParaPreProcessorListener):
         """
         Exit a parse tree produced by parser#externalItem.
         """
-        # Resetting the value
-        self._current_external_item = None
+        ...
 
     def enterPreProcessorDirective(
             self,
@@ -139,7 +143,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#preProcessorDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitPreProcessorDirective(
             self,
@@ -157,7 +161,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#selectionPreProcessorDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitSelectionPreProcessorDirective(
             self,
@@ -175,7 +179,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#startSelectionBlock.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitStartOfSelectionBlock(
             self,
@@ -193,7 +197,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#logicalDirectiveAlternatives.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitSelectionDirectiveAlternatives(
             self,
@@ -211,7 +215,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#logicalElseDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitSelectionElseDirective(
             self,
@@ -228,7 +232,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by ParaPreProcessorParser#errorDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitErrorDirective(
             self,
@@ -244,7 +248,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by ParaPreProcessorParser#lineDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitLineDirective(
             self,
@@ -261,7 +265,7 @@ class Listener(ParaPreProcessorListener):
         """
         Enter a parse tree produced by parser#includeDirective.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitIncludeDirective(
             self,
@@ -563,7 +567,7 @@ class Listener(ParaPreProcessorListener):
         Enter a parse tree produced by
         ParaPreProcessorParser#nonPreProcessorItem.
         """
-        self.logic_stream.append_antlr_ctx(ctx)
+        ...
 
     def exitNonPreProcessorItem(
             self,

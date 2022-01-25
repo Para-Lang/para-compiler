@@ -5,12 +5,10 @@ from pathlib import Path
 
 import setuptools
 
-SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
-
-with open(SRC_PATH / "PYPI_README.md", "r", encoding='utf-8') as file:
+with open("./PYPI_README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 
-with open(SRC_PATH / "requirements" / "common.txt", encoding='utf-8') as file:
+with open("./requirements/common.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(
@@ -20,14 +18,15 @@ setuptools.setup(
     author_email="luna.klatzer@gmail.com",
     maintainer="Luna Klatzer",
     maintainer_email="luna.klatzer@gmail.com",
-    description="Python-Compiler for Para",
+    description="Python-Compiler and API for the Para language",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="GNU GENERAL PUBLIC LICENSE v3.0",
     url="https://github.com/Para-Lang/Para/",
     project_urls={
         "Issue-Page": "https://github.com/Para-Lang/Para/issues/",
-        "Changelog": "https://github.com/Para-Lang/Para/releases"
+        "Changelog": "https://github.com/Para-Lang/Para/releases",
+        "Docs": "https://para.readthedocs.org/"
     },
     packages=setuptools.find_packages(),
     classifiers=[

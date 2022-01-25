@@ -7,7 +7,7 @@ from typing import Optional, Any, List, Union, TYPE_CHECKING
 
 from cached_property import cached_property
 
-from .abc import PreProcessorLogicToken
+from .abc import PreProcessorParseToken
 from .parser.ParaPreProcessorParser import ParaPreProcessorParser as Parser
 from ..abc import NULL_CHILDREN
 
@@ -33,7 +33,7 @@ __all__ = [
 ]
 
 
-class ExternalPreProcessorItem(PreProcessorLogicToken):
+class ExternalPreProcessorItem(PreProcessorParseToken):
     """
     External PreProcessor item - initialised as a general logic token, which
     stores a child token (NonPreProcessorItem, PreProcessorDirective)
@@ -120,7 +120,7 @@ class ExternalPreProcessorItem(PreProcessorLogicToken):
         return False
 
 
-class NonPreProcessorItem(PreProcessorLogicToken):
+class NonPreProcessorItem(PreProcessorParseToken):
     """
     Non Pre-Processor Token, which can be either a Para statement or a
     comment
@@ -206,7 +206,7 @@ class NonPreProcessorItem(PreProcessorLogicToken):
         return False
 
 
-class PreProcessorDirective(PreProcessorLogicToken, ABC):
+class PreProcessorDirective(PreProcessorParseToken, ABC):
     """
     Pre-Processor Directive representing a Para PreProcessor Directive
     used to interact with the Compiler

@@ -27,48 +27,59 @@ class FileRunContext(ABC):
     @abstractmethod
     def __init__(
             self,
+            antlr4_file_ctx,
+            listener,
             program_ctx,
-            logic_stream,
-            processed_stream,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: str
     ):
+        self._antlr4_file_ctx = antlr4_file_ctx
+        self._listener = listener
         self._program_ctx = program_ctx
-        self._logic_stream = logic_stream
-        self._processed_stream = processed_stream
         self._relative_file_name = relative_file_name
 
     @property
-    def relative_file_name(self) -> Union[str, PathLike]:
+    @abstractmethod
+    def antlr4_file_ctx(self) -> Any:
+        """
+        The antlr4 file ctx, which represents the entire file in a logic
+        tree made up of tokens
+        """
+        return self._antlr4_file_ctx
+
+    @property
+    @abstractmethod
+    def listener(self) -> Any:
+        """
+        The listener for this class responsible for walking through all code
+        items and properly generating a logic stream, where all items may be
+        compiled
+        """
+        return self._listener
+
+    @property
+    @abstractmethod
+    def program_ctx(self) -> Any:
+        """
+        The program context that is owner of this file and contains the overall
+        project configuration.
+        """
+        return self._program_ctx
+
+    @property
+    def relative_file_name(self) -> str:
         """
         Returns the relative file name, which goes out from the entry file
         and has a relative path to every file imported and used.
         """
         return self._relative_file_name
 
-    @property
     @abstractmethod
-    def program_ctx(self) -> Any:
-        """
-        Returns the program_ctx if it was already set using set_program_ctx()
-        """
-        return self._program_ctx
-
-    @property
-    @abstractmethod
-    def logic_stream(self) -> Any:
+    async def get_logic_stream(self, prefer_logging: bool) -> Any:
         """
         Returns the content of the file represented as a stream containing
         logic tokens
         """
-        return self._logic_stream
-
-    @abstractmethod
-    def set_program_ctx(self, ctx: Any) -> None:
-        """
-        Sets the program context, containing the information for the entire
-        compilation and relative structure
-        """
-        self._program_ctx = ctx
+        ...
 
 
 class ProgramRunContext(ABC):
@@ -78,42 +89,41 @@ class ProgramRunContext(ABC):
     """
 
     @abstractmethod
-    def __init__(self, process):
+    def __init__(
+            self,
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
+            encoding: str
+    ):
+        self._files = files
+        self._project_root = project_root
+        self._encoding = encoding
         self._context_dict: Dict[
-            Union[str, PathLike], FileRunContext
+            Union[str, bytes, PathLike, Path], FileRunContext
         ] = {}
-        self._process = process
 
     @property
-    @abstractmethod
-    def process(self) -> Any:
-        """ Compilation Process of this instance """
-        return self._process
-
-    @property
-    @abstractmethod
     def files(self) -> List[Path]:
         """ Returns the source files for the process """
-        return self.process.files
+        return self._files
 
     @property
-    def work_dir(self) -> Union[str, PathLike]:
+    def project_root(self) -> Path:
         """
         Returns the working directory / base-path for the program. If the entry
         file path was relative, then the working directory where the compiler
         is run is used as the working directory.
         """
-        return self._process.work_dir
+        return self._project_root
 
     @property
-    @abstractmethod
     def encoding(self) -> str:
         """ Returns the encoding of the project """
-        return self._process.encoding
+        return super().encoding
 
     @property
     def context_dict(self) -> Dict[
-        Union[str, PathLike], FileRunContext
+        Union[str, bytes, PathLike, Path], FileRunContext
     ]:
         """
         Returns a list for all context instances. The key is a relative path
@@ -124,7 +134,7 @@ class ProgramRunContext(ABC):
     def add_file_ctx(
             self,
             ctx: FileRunContext,
-            relative_file_name: Union[str, PathLike]
+            relative_file_name: str
     ) -> None:
         """
         Adds a FilePreProcessorContext to the list of file ctx instances.
@@ -136,7 +146,7 @@ class ProgramRunContext(ABC):
     @abstractmethod
     async def parse_file(
             self,
-            file_path: Union[str, PathLike],
+            file_path: Union[str, bytes, PathLike, Path],
             prefer_logging: bool
     ) -> FileRunContext:
         """
@@ -153,7 +163,7 @@ class ProgramRunContext(ABC):
         ...
 
     @abstractmethod
-    async def _parse_stream(
+    async def parse_stream(
             self,
             stream: antlr4.InputStream,
             relative_file_name: str,

@@ -21,21 +21,21 @@ from ..util import (has_valid_file_ending, validate_path_like,
                     ensure_pathlib_path)
 
 __all__ = [
-    'BasicProcess',
-    'ProgramCompilationProcess',
-    'FinishedProcess'
+    'Process',
+    'CompilationProcess',
+    'CompileResult'
 ]
 
 logger = logging.getLogger(__name__)
 
 
-class BasicProcess:
+class Process:
     """ Basic Process serving as parent class for the process instances """
 
     def __init__(
             self,
-            files: List[Union[str, bytes, PathLike]],
-            project_root: Union[str, bytes, PathLike],
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
             encoding: str
     ):
         """
@@ -88,15 +88,36 @@ class BasicProcess:
         return self._encoding
 
 
-class FinishedProcess:
-    """ Class used to represent a done compilation process """
+class CompileResult(Process):
+    """
+    Class used to represent the result of a compilation. This will be returned
+    by the function 'CompilationProcess.compile()'
+    """
 
-    def __init__(self, files, process: ProgramCompilationProcess):
+    def __init__(
+            self,
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
+            encoding: str,
+            process: CompilationProcess
+    ):
         self.done_process = process
         self.files = files
+        super().__init__(files, project_root, encoding)
+
+    def write_results(
+            self,
+            build_path: Union[str, bytes, PathLike, Path],
+            dist_path: Union[str, bytes, PathLike, Path]
+    ):
+        """
+        This function will write the results of the compilation into
+        the specified build and dist path
+        """
+        raise NotImplementedError()
 
 
-class ProgramCompilationProcess(BasicProcess):
+class CompilationProcess(Process):
     """
     Process instance used for a program compilation process. Interface for
     running a compilation and storing basic values.
@@ -107,11 +128,9 @@ class ProgramCompilationProcess(BasicProcess):
 
     def __init__(
             self,
-            files: List[Union[str, bytes, PathLike]],
-            project_root: Union[str, bytes, PathLike],
-            encoding: str,
-            build_path: Union[str, bytes, PathLike],
-            dist_path: Union[str, bytes, PathLike]
+            files: List[Union[str, bytes, PathLike, Path]],
+            project_root: Union[str, bytes, PathLike, Path],
+            encoding: str
     ):
         """
         Initialises and validates the provided parameter for the compilation
@@ -131,11 +150,11 @@ class ProgramCompilationProcess(BasicProcess):
         """
         super().__init__(files, project_root, encoding)
 
-        self._build_path = ensure_pathlib_path(build_path)
-        self._dist_path = ensure_pathlib_path(dist_path)
         self._temp_files: List[str] = []
-        self._preprocessor_ctx = ProgramPreProcessorContext(self)
-        self._compilation_ctx = ProgramCompilationContext(self)
+        self._preprocessor_ctx = \
+            ProgramPreProcessorContext(files, project_root, encoding)
+        self._compilation_ctx = \
+            ProgramCompilationContext(files, project_root, encoding)
 
     @property
     def files(self) -> List[Path]:
@@ -152,75 +171,6 @@ class ProgramCompilationProcess(BasicProcess):
         """ Context for the compilation """
         return self._compilation_ctx
 
-    @property
-    def temp_build_folder(self) -> Union[str, PathLike]:
-        """ Returns the temp folder in the build folder """
-        return (self.build_path / Path("temp")).resolve()
-
-    @property
-    def temp_dist_folder(self) -> Union[str, PathLike]:
-        """ Returns the temp folder in the dist folder """
-        return (self.dist_path / Path("temp")).resolve()
-
-    @property
-    def temp_files(self) -> List[str]:
-        """
-        Returns the temporary files that were created by the Pre-Processor
-        """
-        return self._temp_files
-
-    @property
-    def build_path(self) -> Path:
-        """ Path to the build folder """
-        return self._build_path
-
-    @property
-    def dist_path(self) -> Path:
-        """ Path to the dist folder """
-        return self._dist_path
-
-    def _make_temp_folder(self):
-        """
-        Creates the folder for the temporary files that will be used by the
-        preprocessor
-        """
-        os.makedirs(self.temp_build_folder, exist_ok=True)
-        os.makedirs(self.temp_dist_folder, exist_ok=True)
-        logger.debug("Created temp folders for the Pre-Processor")
-
-    async def compile_with_progress_iterator(self) -> AsyncGenerator[
-        Tuple[
-            int,
-            Optional[str],
-            int,
-            Optional[FinishedProcess]
-        ], None, None
-    ]:
-        """
-        Runs the compilation but yields the progress in form of tuples:
-
-        int - Progress count from 0 to 1000 (0 = 0%, 1000 = 100%)
-        Optional[str] - Name of the next step in form of a string. Is None
-        when the  process finished
-        int - Log level for the returned string message
-        Optional[FinishedProcess] - None until the process finally finished
-
-        For info about compilation see compile()
-        """
-        return self.ci_compile(True)
-
-    async def compile(self) -> FinishedProcess:
-        """
-        Default function which compiles the passed input data and returns
-        a new finished process instance. This function should be used as the
-        default entry point for a compilation (when using the module version,
-        which will raise errors when using), without having to specify too
-        much for the input.
-        """
-        async for result in self.ci_compile(False):
-            if type(result[3]) is FinishedProcess:
-                return result[3]  # Optional[FinishedProcess]
-
     async def preprocess_files(
             self, prefer_logging: bool
     ) -> PreProcessorProcessResult:
@@ -228,41 +178,37 @@ class ProgramCompilationProcess(BasicProcess):
         logger.info(
             "Processing project files in the Pre-Processor"
         )
-        self._make_temp_folder()
-        return await self.preprocessor_ctx.process_program(
+        return await self.preprocessor_ctx.process_files(
             prefer_logging
         )
 
-    async def gen_preprocessor_temp_files(
-            self, preprocessor_result: PreProcessorProcessResult
-    ) -> None:
+    async def compile(self) -> CompileResult:
         """
-        Generates the temp files based on the output of the preprocessor
+        Default function which compiles the passed input data and returns
+        a new finished process instance. This function should be used as the
+        default entry point for a compilation (when using the module version,
+        which will raise errors when using), without having to specify too
+        much for the input.
         """
-        raise NotImplementedError("This function is not implemented yet")
+        async for result in self.compile_gen(False):
+            if type(result[3]) is CompileResult:
+                return result[3]  # Optional[FinishedProcess]
 
-        # TODO! This needs to be finished later
-
-        logger.debug("Generating the modified temporary files")
-
-        # Generating the temp files which are then used for the further
-        # compilation
-        self._temp_files = await self.preprocessor_ctx.make_temp_files(
-            preprocessor_result
-        )
-        logger.debug("Wrote processed files to temp storage")
-
-    async def ci_compile(self, track_progress: bool) -> AsyncGenerator[
+    async def compile_gen(self, track_progress: bool = True) -> AsyncGenerator[
         Tuple[
             int,
             Optional[str],
             int,
-            Optional[FinishedProcess]
+            Optional[CompileResult]
         ], None, None
     ]:
         """
-        Actual compile that serves as c-implementation for compile() and
-        compile_with_progress_iterator()
+        Runs the compilation as an async generator returning the progress and
+        results of the compilation. This function should help to accurately
+        visualise progress, and show how fast the compilation is going.
+
+        :param track_progress: If set to True, the function will only return
+         the final result and not yield any progress using the generator.
         """
         if track_progress:
             yield 5, "Running Pre-Processor", logging.INFO, None
@@ -282,4 +228,4 @@ class ProgramCompilationProcess(BasicProcess):
 
         ...  # TODO! Add remaining stuff
 
-        yield 100, None, logging.INFO, FinishedProcess(self)
+        yield 100, None, logging.INFO, CompileResult(self)
