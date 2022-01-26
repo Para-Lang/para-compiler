@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Union, List, TYPE_CHECKING, Tuple, Optional
+from typing import Dict, Union, List, Optional
 import antlr4
 
 from .__main__ import PreProcessor, PreProcessorProcessResult
@@ -19,9 +19,6 @@ from .parser import ParaPreProcessorParser
 from ..abc import ProgramRunContext, FileRunContext
 from ..exceptions import (FailedToProcessError, ParserError, LexerError,
                           ParaSyntaxErrorCollection, ParaCompilerError)
-
-if TYPE_CHECKING:
-    from ..compiler import CompilationProcess
 
 __all__ = [
     'FilePreProcessorContext',
@@ -85,19 +82,19 @@ class FilePreProcessorContext(FileRunContext):
         return self._relative_file_name
 
     @property
-    def logic_stream(self) -> Optional[PreProcessorParseStream]:
+    def parse_stream(self) -> Optional[PreProcessorParseStream]:
         """
         Returns the logic stream for this file ctx.
 
         For this getter to work, it has to be generated first using
-        'await get_logic_stream()', which will per default automatically
+        'await get_parse_stream()', which will per default automatically
         set a cache variable for the logic stream.
 
         If it has not been run yet, it will return None.
         """
-        return super().logic_stream
+        return super().parse_stream
 
-    async def get_logic_stream(
+    async def get_parse_stream(
         self, prefer_logging: bool
     ) -> PreProcessorParseStream:
         """
@@ -111,8 +108,8 @@ class FilePreProcessorContext(FileRunContext):
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
-        self._logic_stream = await self.listener.walk(prefer_logging)
-        return self._logic_stream
+        self._parse_stream = await self.listener.walk(prefer_logging)
+        return self._parse_stream
 
     async def process_directives(self, stream: PreProcessorParseStream) -> str:
         """
@@ -132,7 +129,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
     Program Compilation Context, which serves as the base for an entire
     pre-processor compilation.
 
-    This class will be initialised using a ProgramCompilationProcess and
+    This class will be initialised using a CompileProcess and
     use the context info for fetching the files, parsing them and altering
     them appropriately depending on their content. The result will be an
     `PreProcessorProcessResult`, which is returned from the function
@@ -188,7 +185,6 @@ class ProgramPreProcessorContext(ProgramRunContext):
         Adds a FilePreProcessorContext to the list of file ctx instances.
         The context instance should only be created using this class
         """
-        ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
     async def parse_file(
@@ -248,20 +244,15 @@ class ProgramPreProcessorContext(ProgramRunContext):
          an exception is encountered. The logs of the exception will be printed
          onto the console.
         """
-        from .listener import PreProcessorListener
-
         try:
             antlr4_file_ctx = await PreProcessor.parse(
                 stream, prefer_logging
             )
             file_ctx = FilePreProcessorContext(
-
+                antlr4_file_ctx, self, relative_file_name
             )
-            listener = PreProcessorListener(
-                antlr4_file_ctx, stream, relative_file_name, program_ctx=self
-            )
-            await listener.walk_and_process_directives(prefer_logging)
-            logger.info(
+            await file_ctx.get_parse_stream(prefer_logging)
+            logger.debug(
                 f"Finished parsing for file '{relative_file_name}' "
                 "(relative name)"
             )

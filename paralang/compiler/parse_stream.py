@@ -21,7 +21,7 @@ logger = logging.getLogger(__name__)
 class ParaQualifiedParseStream(ParseStream):
     """
     Logic Stream, which represents a stream of logic tokens, which can be used
-    to convert the Para components into C-components, which can be converted
+    to convert the Para components into C components, which can be converted
     into native C.
     """
 

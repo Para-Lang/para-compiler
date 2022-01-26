@@ -103,16 +103,12 @@ class PreProcessor:
         # Parsing the lexer and generating a token stream
         stream = antlr4.CommonTokenStream(lexer)
 
-        logger.debug(
-            "Parsing the tokens and generating the parse tree"
-        )
+        logger.debug("Parsing the tokens and generating the parse tree")
         # Parser which generates based on the top entry rule the parse tree
         parser = ParaPreProcessorParser(stream)
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
-        logger.debug(
-            "Finished generation of compilationUnit for the file"
-        )
+        logger.debug("Finished generation of compilationUnit for the file")
 
         # Parsing from the entry - compilationUnit
         cu = parser.compilationUnit()

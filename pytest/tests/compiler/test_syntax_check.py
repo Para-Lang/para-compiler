@@ -1,17 +1,15 @@
 # coding=utf-8
 """ Tests for the Lexer and Parser """
 import asyncio
-import logging
 import os
 from pathlib import Path
 from typing import List
 
 from paralang import initialise_default_paths
-from paralang.compiler import ParaCompiler, Process
+from paralang.compiler import ParaCompiler
 from .. import BASE_TEST_PATH
 
-logger = logging.getLogger('paralang')
-logger.setLevel(logging.DEBUG)
+
 compiler = ParaCompiler()
 
 main_file_path: Path = BASE_TEST_PATH / "test_files" / "main.para"

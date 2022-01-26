@@ -6,14 +6,14 @@ import logging
 import pathlib
 from os import PathLike
 from pathlib import Path
-from typing import Union, TYPE_CHECKING, Tuple, Literal, Optional
+from typing import Union, TYPE_CHECKING, Tuple, Literal, List, Optional
 import antlr4
 
 from .error_handler import ParaErrorListener
 from .parse_stream import ParaQualifiedParseStream, CParseStream
 from .parser.python import ParaLexer
 from .parser.python import ParaParser
-from .process import Process, CompileResult
+from .process import CompileResult
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParaCompilerError, FailedToProcessError,
                           ParaSyntaxErrorCollection)
@@ -29,6 +29,7 @@ except ImportError:
 if TYPE_CHECKING:
     from .parser.listener import CompilationUnitContext
 
+    paralang_cli = None
     if PARAC_EXT_CLI_AVAILABLE:
         from paralang_cli import (ParaCLIStreamHandler, ParaCLIFileHandler,
                                   ParaCLIFormatter)
@@ -68,10 +69,15 @@ class ParaCompiler:
 
     @property
     def stream_handler(self) -> ParaCLIStreamHandler:
+        """ Stream handler, which handles the logging output """
         return self._stream_handler
 
     @property
     def file_handler(self) -> ParaCLIFileHandler:
+        """
+        File handler, which handles the logging output that will be written
+        onto a file
+        """
         return self._file_handler
 
     @property
@@ -108,16 +114,16 @@ class ParaCompiler:
         :param additional_newline: If set to True an additional newline will be
          added before the logging banner
         """
-        if not PARAC_EXT_CLI_AVAILABLE:
+        if not PARAC_EXT_CLI_AVAILABLE or paralang_cli is None:
             raise RuntimeError(
                 "To utilise this function, 'paralang_cli' is required!"
             )
         else:
             from paralang_cli import (ParaCLIStreamHandler, ParaCLIFileHandler,
-                                      ParaCLIFormatter)
+                                      ParaCLIFormatter, cli_print_log_banner)
 
         if print_banner:
-            paralang_cli.cli_print_log_banner(banner_name, additional_newline)
+            cli_print_log_banner(banner_name, additional_newline)
 
         self._logger: logging.Logger = logging.getLogger("parac")
         self.logger.setLevel(level)
@@ -243,8 +249,11 @@ class ParaCompiler:
             name=file_stream.name
         )
         try:
-            self.logger.info(f"Parsing file ({file_stream.fileName})")
+            logger.info(f"Parsing file ({file_stream.fileName})")
             await self.parse(stream, prefer_logging)
+
+            # TODO! Implement the usage of a FileCompilationContext to also
+            #  generate a parse stream and get Para specific errors
 
         except (LexerError, ParaSyntaxErrorCollection, LinkerError,
                 ParaCompilerError) as e:
@@ -253,7 +262,7 @@ class ParaCompiler:
             else:
                 raise e
 
-        self.logger.info(
+        logger.info(
             "Successfully finished syntax-check for file "
             f"{file_stream.fileName}"
         )
@@ -302,25 +311,30 @@ class ParaCompiler:
         return result.replace('\n', line_ending)
 
     @classmethod
-    async def compile_files(cls) -> CompileResult:
+    async def compile_files(
+            cls,
+            file: List[Union[str, PathLike, pathlib.Path]],
+            encoding: str
+    ) -> CompileResult:
         """
         Compiles the passed files and directly creates a CompileResult.
 
         This function takes away most of the configuration and customisation
-        by using the usable defaults to create the CompilationProcess and run
+        by using the usable defaults to create the CompileProcess and run
         the code-generation.
 
         This should be specifically used if no specific behaviour is wanted.
 
-        :param :
+        TODO! Implement this function by using a CompileProcess
         """
+        raise NotImplementedError()
 
     @classmethod
-    async def compile_logic_stream(
+    async def compile_parse_stream(
             cls,
-            logic_stream: ParaQualifiedParseStream
+            parse_stream: ParaQualifiedParseStream
     ) -> CParseStream:
         """
         Compiles the passed ParaQualifiedParseStream into the C counterpart
         """
-        ...
+        raise NotImplementedError()

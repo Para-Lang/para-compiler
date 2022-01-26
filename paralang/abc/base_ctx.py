@@ -36,7 +36,7 @@ class FileRunContext(ABC):
         self._listener = listener
         self._program_ctx = program_ctx
         self._relative_file_name = relative_file_name
-        self._logic_stream = None
+        self._parse_stream = None
 
     @property
     @abstractmethod
@@ -77,23 +77,23 @@ class FileRunContext(ABC):
 
     @property
     @abstractmethod
-    def logic_stream(self) -> Any:
+    def parse_stream(self) -> Any:
         """
         Returns the logic stream for this file ctx.
 
         For this getter to work, it has to be generated first using
-        'await get_logic_stream()', which will per default automatically
+        'await get_parse_stream()', which will per default automatically
         set a cache variable for the logic stream.
 
         If it has not been run yet, it will return None.
         """
-        if self._logic_stream is not None:
-            return self._logic_stream
+        if self._parse_stream is not None:
+            return self._parse_stream
         else:
             return None
 
     @abstractmethod
-    async def get_logic_stream(self, prefer_logging: bool) -> Any:
+    async def get_parse_stream(self, prefer_logging: bool) -> Any:
         """
         Returns the content of the file represented as a stream containing
         logic tokens
@@ -138,7 +138,7 @@ class ProgramRunContext(ABC):
     @property
     def encoding(self) -> str:
         """ Returns the encoding of the project """
-        return super().encoding
+        return self._encoding
 
     @property
     def context_dict(self) -> Dict[
@@ -159,7 +159,6 @@ class ProgramRunContext(ABC):
         Adds a FilePreProcessorContext to the list of file ctx instances.
         The context instance should only be created using this class
         """
-        ctx.set_program_ctx(self)
         self._context_dict[relative_file_name] = ctx
 
     @abstractmethod

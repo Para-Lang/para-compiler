@@ -2,11 +2,10 @@
 """ Exceptions in the Para Compiler """
 from __future__ import annotations
 
+import logging
 from enum import IntEnum
 from types import TracebackType
 from typing import NewType, Union, Type, TYPE_CHECKING, List
-
-from .logging import log_msg
 
 if TYPE_CHECKING:
     from .compiler.parser.python.ParaParser import ParaParser
@@ -34,6 +33,7 @@ __all__ = [
     'UnassociatedError', 'UnknownError'
 ]
 
+logger = logging.getLogger(__name__)
 ErrorCode = NewType('ErrorCode', int)
 
 
@@ -202,10 +202,9 @@ class InterruptError(InternalError, RuntimeError):
         super().__init__(code=code, *args)
 
         if print_abort_code:
-            log_msg(
-                level='critical',
-                msg=f"Aborting setup with error code "
-                    f"{repr(self.code)}" if hasattr(self, 'code') else ""
+            logger.critical(
+                "Aborting setup with error code "
+                f"{repr(self.code)}" if hasattr(self, 'code') else ""
             )
 
 
@@ -224,7 +223,7 @@ class FailedToProcessError(InternalError):
             exc: Union[Exception, ParaCompilerError],
             code: int = _default_code,
     ):
-        log_msg('error', str(exc))
+        logger.error(str(exc))
         super().__init__(self.error_msg, exc=exc, code=code)
 
 
@@ -374,7 +373,7 @@ class ParaSyntaxErrorCollection(ParserError):
         # Logging for every instance the error
         if log_errors:
             for e in self.err_msgs:
-                log_msg('critical', e)
+                logger.error(e)
 
         super().__init__()
 

@@ -20,58 +20,61 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   more configuration. This also includes web-download and automatic global
   installation. 
 - `requirements` folder with requirements for each use-case like `dev`, `prod`
-  or `common` (base requirements for both `dev` and `prod`)
+  or `common` (base requirements for both `dev` and `prod`).
 - New function `ProgramCompilationContext.parse_all_files()`, which will parse
-  all files
+  all files.
 - Parameter `project_root` for `BasicProcess`, `ProgramCompilationContext` and
   `ProgramCompilationContext`, which defines the root of the project structure.
   This will also be used for relative naming and paths!
-- New Wrapper class `ParacProjectConfig` for handling json-config files
-- Ability to use `logging` without having to stick to CLI formatted logging
+- New Wrapper class `ParacProjectConfig` for handling json-config files. This
+  is still in work and not going to be properly finished until the compiler 
+  core has been done.
+- Ability to use `logging` without having to stick to CLI formatted logging.
 
 ### Updated
 - Renamed `build.py` to `parac-build.py` to not interfere with the `build`
-  module
-- Removed the `optimiser` module and replaced it with `optimiser.py`
-- Renamed class `ParacParseStream` to ParacQualifiedParseStream
-- Renamed function `ProgramCompilationProcess._compile()` to `ci_compile`
-- Renamed function  `ProgramCompilationProcess._gen_preprocessor_temp_files()`
-  to `gen_preprocessor_temp_files()`
-- Renamed function `ProgramCompilationProcess._run_preprocessor()` to
-  `preprocess_files()`
-- Renamed parameter `log_errors_and_warnings` to `prefer_logging`
+  module.
+- Removed the `optimiser` module and replaced it with `optimiser.py`.
+- Renamed class `ParacParseStream` to ParacQualifiedParseStream.
+- Renamed function `CompileProcess._compile()` to `ci_compile`.
+- Renamed function  `CompileProcess._gen_preprocessor_temp_files()`
+  to `gen_preprocessor_temp_files()`.
+- Renamed function `CompileProcess._run_preprocessor()` to
+  `preprocess_files()`.
+- Renamed parameter `log_errors_and_warnings` to `prefer_logging`.
 - Updated handling of `ParacCompiler.validate_syntax()` to be an entry-point
   function, which will take as arguments the wanted file path and encoding. 
-  This means no longer a `BasicProcess` or `ProgramCompilationProcess` is 
+  This means no longer a `BasicProcess` or `CompileProcess` is 
   needed!
 - Handling of files to use an overall files list defined in
   `parac-config.json`, instead of dynamically fetching using entry files. 
   This means it will be similar to GCC compiler using a pre-defined list of 
   files, and then link all of them together in the end making them ready for
   execution.
-- Renamed `Para-C` to `Para` to suit better to its intended feature-set
-- Renamed `parac-build.py` to `para-build.py`
-- Renamed all Python classes prefixes `Parac` to `Para`
-  `preprocess_files()`
-- Moved `logging.py` CLI functions to `para_ext_cli`
-- Made `ParaCompiler.validate_syntax()` an instance method instead of class 
-  method as it needs the `ParaCompiler` runtime property `logger`
-- Renamed the class `process.FinishedProcess` to `process.CompileResult`
+- Renamed `Para-C` to `Para` to suit better to its intended feature-set.
+- Renamed `parac-build.py` to `para-build.py`.
+- Renamed all Python classes prefixes `Parac` to `Para`.
+- Moved `logging.py` CLI functions to `para_ext_cli`.
+- Made `ParaCompiler.validate_syntax()` an instance method instead of class .
+  method as it needs the `ParaCompiler` runtime property `logger`.
+- Renamed the class `process.FinishedProcess` to `process.CompileResult`.
 - Renamed the class `process.ProgramCompilationProcess` to 
-  `process.CompilationProcess`
+  `process.CompileProcess`.
 - Renamed all items named `LogicToken` and `LogicStream` to `ParseToken` and
-  `ParseStream`
+  `ParseStream`.
 - Restructured listeners, context classes and parse stream functions to have
   a more straightforward module structure, while generating a parse stream.
 
 ### Removed
-- Property `mode` in `bin-config.json`
-- Deprecated `SEPARATOR` and `WIN` from const.py
-- Constant Compiler instance `RUNTIME_COMPILER`
+- Property `mode` in `bin-config.json`.
+- Deprecated `SEPARATOR` and `WIN` from const.py.
+- Constant Compiler instance `RUNTIME_COMPILER`.
 - Functions related to `c-init`, as the C Compiler configuration will from now
-  on be done using `para-config.json`
+  on be done using `para-config.json`.
 - `dist_path` and `build_path` folders, as the code-file generation is now
-  handled using `process.CompileResult` and `CompileResult.write_results()`
+  handled using `process.CompileResult` and `CompileResult.write_results()`.
+- Unneeded `paralang.logging` module, which has now been completely replaced
+  by the default `logging` handling, and `paralang_cli.logging`.
 
 ## [v0.1.dev6] - 2021-11-10
 
@@ -117,7 +120,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Function in `util/pathtools.py` `ensure_pathlib_path`, which will convert the
   passed value to a pathlib.Path, if it's not already one. It will also resolve
   all sys-links.
-- Property `logic_stream` to `Listener` and updated methods to allow for proper
+- Property `parse_stream` to `Listener` and updated methods to allow for proper
   future implementation of the logic stream.
 - New method `append_antlr_ctx` to the ABC Class `ParseStream` and its
   implementation.
@@ -250,8 +253,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   modified files and raise errors on the *modified* ones and not the original
   ones.
 - Process Classes that manage an entire Run of the Compiler: `BasicProcess`
-  , `FinishedProcess` and
-  `ProgramCompilationProcess`
+  , `FinishedProcess` and `ProgramCompilationProcess`
 - Context Classes that manage the context for a specific file or program (both
   Pre-Processor and Compiler):
   `FileCompilationContext`, `ProgramCompilationContext`

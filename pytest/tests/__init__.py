@@ -1,9 +1,13 @@
 # coding=utf-8
 """ Init file for the core tests """
+import logging
 import os
 import shutil
 from pathlib import Path
-import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('paralang')
+logger.setLevel(logging.DEBUG)
 
 
 def resolve_test_path() -> Path:

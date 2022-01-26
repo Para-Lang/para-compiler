@@ -1,14 +1,13 @@
 # coding=utf-8
 """ Test for the compiler process setup """
-import logging
 from pathlib import Path
 
 from paralang import initialise_default_paths
-from paralang.compiler import CompilationProcess
-from .. import add_folder, BASE_TEST_PATH
+from paralang.compiler import CompileProcess
 
-logger = logging.getLogger('paralang')
-logger.setLevel(logging.DEBUG)
+from .. import BASE_TEST_PATH
+
+
 main_file_path: Path = Path(BASE_TEST_PATH) / "test_files" / "main.para"
 
 # Initialises the default paths for the compiler using the work directory
@@ -17,7 +16,7 @@ initialise_default_paths(BASE_TEST_PATH)
 
 class TestProcess:
     def test_init(self):
-        p = CompilationProcess(
+        p = CompileProcess(
             [main_file_path], main_file_path.parent, 'utf-8'
         )
         assert p.project_root == main_file_path.parent
@@ -25,7 +24,7 @@ class TestProcess:
         assert p.encoding == 'utf-8'
 
     def test_bytes_init(self):
-        p: CompilationProcess = CompilationProcess(
+        p: CompileProcess = CompileProcess(
             [str(main_file_path).encode()], main_file_path.parent, 'utf-8'
         )
 

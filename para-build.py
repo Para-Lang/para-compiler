@@ -81,7 +81,7 @@ AVOID_MODULES: List[str] = [
 
 # Hidden imports that PyInstaller is unable to detect, meaning we have to
 # specify it directly as an argument
-HIDDEN_IMPORT = ["para_ext_cli", "paralang"]
+HIDDEN_IMPORT = ["paralang_cli", "paralang"]
 
 
 def create_bin_config(dest_dir: Path) -> None:
@@ -99,7 +99,9 @@ def create_bin_config(dest_dir: Path) -> None:
 
 
 def parse_avoid_and_hidden_imports() -> None:
-    """ Correctly parsing and modifying the avoid modules and hidden imports"""
+    """
+    Correctly parsing and modifying the 'avoid modules' and hidden imports
+    """
     _ = []
     global AVOID_MODULES
     for module in AVOID_MODULES:
@@ -316,8 +318,8 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--g-dest", type=str, default=None, required=False,
-        help="Specifies the global destination folder where paralang should be "
-             "moved to. This is only valid when '--install-global' is also "
+        help="Specifies the global destination folder where paralang should be"
+             " moved to. This is only valid when '--install-global' is also "
              "specified otherwise the value is just ignored. "
     )
     args = parser.parse_args()
@@ -333,10 +335,10 @@ if __name__ == "__main__":
     # we need the cli for the binaries, so we will attempt to import it and
     # raise an error if it's not available
     try:
-        import para_ext_cli
+        import paralang_cli
     except Exception as e:
         raise ImportError(
-            "Failed to locate child module 'para_ext_cli'. "
+            "Failed to locate child module 'paralang_cli'. "
             "This module has to be installed to utilise the CLI version of "
             "Para"
         ) from e

@@ -8,7 +8,7 @@ main point where the compilation will happen.
 from __future__ import annotations
 
 import logging
-import os
+from abc import ABC, abstractmethod
 from os import PathLike
 from pathlib import Path
 from typing import Union, Tuple, List, Optional, AsyncGenerator
@@ -22,16 +22,17 @@ from ..util import (has_valid_file_ending, validate_path_like,
 
 __all__ = [
     'Process',
-    'CompilationProcess',
+    'CompileProcess',
     'CompileResult'
 ]
 
 logger = logging.getLogger(__name__)
 
 
-class Process:
+class Process(ABC):
     """ Basic Process serving as parent class for the process instances """
 
+    @abstractmethod
     def __init__(
             self,
             files: List[Union[str, bytes, PathLike, Path]],
@@ -91,7 +92,7 @@ class Process:
 class CompileResult(Process):
     """
     Class used to represent the result of a compilation. This will be returned
-    by the function 'CompilationProcess.compile()'
+    by the function 'CompileProcess.compile()'
     """
 
     def __init__(
@@ -99,7 +100,7 @@ class CompileResult(Process):
             files: List[Union[str, bytes, PathLike, Path]],
             project_root: Union[str, bytes, PathLike, Path],
             encoding: str,
-            process: CompilationProcess
+            process: CompileProcess
     ):
         self.done_process = process
         super().__init__(files, project_root, encoding)
@@ -116,7 +117,7 @@ class CompileResult(Process):
         raise NotImplementedError()
 
 
-class CompilationProcess(Process):
+class CompileProcess(Process):
     """
     Process instance used for a program compilation process. Interface for
     running a compilation and storing basic values.
@@ -173,7 +174,7 @@ class CompilationProcess(Process):
     ) -> PreProcessorProcessResult:
         """ Runs the Pre-Processor and generates the temporary files """
         logger.info(
-            "Processing project files in the Pre-Processor"
+            "Processing files in the Pre-Processor"
         )
         return await self.preprocessor_ctx.process_files(
             prefer_logging
@@ -220,4 +221,6 @@ class CompilationProcess(Process):
 
         ...  # TODO! Add remaining stuff
 
-        yield 100, None, logging.INFO, CompileResult(self)
+        yield 100, None, logging.INFO, CompileResult(
+            self.files, self.project_root, self.encoding, self
+        )

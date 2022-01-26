@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List
 
 from paralang import initialise_default_paths
-from paralang.compiler import (ParaCompiler, CompilationProcess)
+from paralang.compiler import (ParaCompiler, CompileProcess)
 from .. import add_folder, remove_folder, BASE_TEST_PATH
 
 logger = logging.getLogger('paralang')
@@ -35,7 +35,7 @@ class TestProcessing:
             b_path: Path = add_folder("build")
             d_path: Path = add_folder("dist")
 
-            asyncio.run(CompilationProcess(
+            asyncio.run(CompileProcess(
                 [file.path], Path(str(file.path)).parent, 'utf-8'
             ).preprocess_files(True))
 
@@ -51,7 +51,7 @@ class TestProcessing:
                 files.append(entry)
 
         for file in files:
-            asyncio.run(CompilationProcess(
+            asyncio.run(CompileProcess(
                 [file.path], Path(file.path).parent, 'utf-8'
             ).preprocess_files(True))
 
@@ -64,6 +64,6 @@ class TestProcessing:
                 files.append(entry)
 
         for file in files:
-            asyncio.run(CompilationProcess(
+            asyncio.run(CompileProcess(
                 [file.path], Path(file.path).parent, 'utf-8'
             ).preprocess_files(True))
