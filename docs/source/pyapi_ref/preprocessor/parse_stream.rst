@@ -2,9 +2,9 @@
 Pre-Processor Logic Streams
 ***************************
 
-`para.preprocessor.logic_stream`
+`para.preprocessor.parse_stream`
 =================================
 
-.. automodule:: para.preprocessor.logic_stream
+.. automodule:: para.preprocessor.parse_stream
     :members:
     :special-members:
