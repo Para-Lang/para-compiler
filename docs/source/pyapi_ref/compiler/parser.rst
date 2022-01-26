@@ -2,9 +2,9 @@
 Antlr4 Parser
 *************
 
-`para.compiler.parser`
+`paralang.compiler.parser`
 =======================
 
-.. automodule:: para.compiler.parser
+.. automodule:: paralang.compiler.parser
     :members:
     :special-members:

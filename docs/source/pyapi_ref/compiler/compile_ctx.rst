@@ -2,9 +2,9 @@
 Compilation Context
 *******************
 
-`para.compiler.compile_ctx`
+`paralang.compiler.compile_ctx`
 ============================
 
-.. automodule:: para.compiler.compile_ctx
+.. automodule:: paralang.compiler.compile_ctx
     :members:
     :special-members:

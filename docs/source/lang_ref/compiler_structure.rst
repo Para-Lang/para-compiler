@@ -115,12 +115,12 @@ errors in the C code.
 Code Optimiser
 ==============
 
-The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para logic tokens, and pass them to the Code generator, which will compile the Para logic tokens into C logic tokens.
+The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para Parse Tokens, and pass them to the Code generator, which will compile the Para Parse Tokens into C Parse Tokens.
 
 Code Generator
 ==============
 
-As the name states, the code generator will convert the compiled C logic tokens into stable code, by adding all required references and creating the required structure for the functionality to work.
+As the name states, the code generator will convert the compiled C Parse Tokens into stable code, by adding all required references and creating the required structure for the functionality to work.
 
 Compiler Warnings
 =================

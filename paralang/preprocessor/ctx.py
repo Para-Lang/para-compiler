@@ -273,7 +273,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
             self, prefer_logging: bool
     ) -> List[FilePreProcessorContext]:
         """
-        Parses all files, and generates the logic streams for them
+        Parses all files, and generates the Parse Stream for them
 
         :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.
@@ -290,7 +290,7 @@ class ProgramPreProcessorContext(ProgramRunContext):
             self, prefer_logging: bool
     ) -> PreProcessorProcessResult:
         """
-        Processes this instance and generates the logic streams required
+        Processes this instance and generates the Parse Stream required
         for generating the finished code.
 
         :param prefer_logging: If set to True errors, warnings and

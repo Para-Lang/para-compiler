@@ -4,7 +4,7 @@ from typing import List, Any
 from cached_property import cached_property
 
 from .abc import PreProcessorParseToken
-from .parse_token import NonPreProcessorItem
+from .parse_tokens import NonPreProcessorItem
 from ..abc import ParseStream
 
 

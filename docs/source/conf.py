@@ -25,11 +25,12 @@ assert paralang_cli.__version__
 # -- Project information -----------------------------------------------------
 
 project = 'Para'
-copyright = '2021, Luna Klatzer'
+copyright = '2021-2022, Luna Klatzer'
 author = 'Luna Klatzer'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.dev6'
+release = paralang.__version__
+version = release.replace("v", "")
 
 # -- General configuration ---------------------------------------------------
 
@@ -59,16 +60,22 @@ exclude_patterns = []
 
 html_title = f'Para {release}'
 html_theme = 'pydata_sphinx_theme'
-html_logo = '../../img/paralang-banner.png'
-html_favicon = '../../img/paralang.ico'
+html_logo = '../../img/para-banner.png'
+html_favicon = '../../img/para.ico'
 html_theme_options = {
     "icon_links": [
         {
             "name": "GitHub",
             "url": "https://github.com/Para-Lang/Para",
             "icon": "fab fa-github-square",
+        },
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/paralang",
+            "icon": "fas fa-box",
         }
     ],
+    "navbar_end": ["version-switcher", "navbar-icon-links"],
     "icon_links_label": "Quick Links",
     "external_links": [
         {
@@ -78,13 +85,15 @@ html_theme_options = {
         {
             "name": "License ",
             "url": "https://github.com/Para-Lang/Para/blob/main/LICENSE"
-        },
-        {
-            "name": "PyPi ",
-            "url": "https://pypi.org/project/para/"
         }
     ],
-    "use_edit_page_button": True
+    "use_edit_page_button": True,
+    "switcher": {
+        "json_url": "https://para.readthedocs.io/en/latest/_static/"
+                    "switcher.json",
+        "url_template": "https://para.readthedocs.io/en/{version}/",
+        "version_match": version,
+    },
 }
 html_context = {
     "github_user": "Para-Lang",
@@ -124,3 +133,4 @@ set_type_checking_flag = True
 # Setting the global language
 language = "en"
 
+autosummary_generate = True

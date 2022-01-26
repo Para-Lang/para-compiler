@@ -1,11 +1,11 @@
 **************************
-Pre-Processor Logic Tokens
+Pre-Processor Parse Tokens
 **************************
 
-`para.preprocessor.logic_tokens`
+`paralang.preprocessor.parse_tokens`
 =================================
 
-.. automodule:: para.preprocessor.logic_tokens
+.. automodule:: paralang.preprocessor.parse_tokens
     :members:
     :special-members:
 

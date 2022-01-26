@@ -28,7 +28,7 @@ class TestValidateSyntax:
 
     def test_single_file_with_prefer_logging(self):
         asyncio.run(
-            compiler.validate_syntax(main_file_path, 'utf-8', True)
+            compiler.validate_syntax(main_file_path, 'utf-8')
         )
 
     def test_multiple_para_files(self):

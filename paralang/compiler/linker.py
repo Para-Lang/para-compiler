@@ -2,7 +2,9 @@
 """
 This file is dedicated to the linker for the Compiler, which 'link' link
 together FileCompilationContext instances in a parent
-ProgramCompilationContext.
+ProgramCompilationContext
+
+.
 
 The linker will validate the existence of all items, and generate the required
 outgoing code, in separate files. The headers for all items will be also
@@ -18,8 +20,10 @@ __all__ = [
 
 class LinkerMetaData:
     """
-    This is the Linker meta data instance, which will keep track of linker
-    meta data inside a ProgramCompilationContext, that are vital for the final
+    This is the Linker metadata instance, which will keep track of linker
+    metadata inside a ProgramCompilationContext
+
+, that are vital for the final
     generation of the C source code.
 
     This will keep track of dependencies, requirements, type-defs and origins
@@ -34,7 +38,9 @@ class LinkerMetaData:
 class Linker:
     """
     This is the linker for the Compiler, which will 'link' together
-    FileCompilationContext instances in a parent ProgramCompilationContext.
+    FileCompilationContext instances in a parent ProgramCompilationContext
+.
+.
 
     The linker will validate the existence of all items, and generate the
     required outgoing code, in separate files. The headers for all items
@@ -42,7 +48,7 @@ class Linker:
     in this case acts like a linker, while the outgoing code are C headers
     and files.
 
-    This instance though will work itself inside of a ProgramCompilationContext
+    This instance though will work itself inside a ProgramCompilationContext
     and update there the meta-data, while mainly just validating existence of
     items, and asserting what are required in the outgoing C code. This will
     update the LinkerMetaData instance and insert important data for generating

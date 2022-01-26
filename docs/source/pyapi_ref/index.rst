@@ -9,6 +9,7 @@ Welcome to the Python API Reference
     ABC Classes <abc>
     Para Compiler <compiler/index>
     Pre-Processor <preprocessor/index>
+    Extensions <extensions/index>
 
 This serves as a throughout reference for the Python module `para` and API,
 which can be used for customised usage of the Para Compiler, Pre-Processor
@@ -22,8 +23,8 @@ This also means it enables for example: Running the Pre-Processor alone, using
 syntax-checks on specific files or running project-structure tools inside a
 Python script made by you.
 
-Installation
-============
+Compiler Installation - ``paralang``
+====================================
 
 For the distribution of the package, python`s  pip and pypi.org are used to
 store the built wheel and source files of the module.
@@ -47,42 +48,16 @@ To install simply do the following:
 .. Hint::
 
     If the command ``pip`` is not found, try to either install it using your
-    package-manager (for linux) or run the script ``get-pip.py`` (for Windows: `here <https://www.geeksforgeeks.org/how-to-install-pip-on-windows/>`_, for MacOS `here <https://www.geeksforgeeks.org/how-to-install-pip-in-macos/>`_).
+    package-manager (for linux) or run the script ``get-pip.py``
+    (for Windows:
+    `here <https://www.geeksforgeeks.org/how-to-install-pip-on-windows/>`_,
+    for MacOS
+    `here <https://www.geeksforgeeks.org/how-to-install-pip-in-macos/>`_
+    ).
 
 
-Installing the CLI (Optional)
-=============================
-
-Additionally to the base module ``para``, the optional module ``para_ext_cli``
-may be installed, which implements the CLI for the para module.
-
-To install simply do the following:
-
-.. tab:: Regular
-
-    .. code::
-
-        python3 -m pip install -U para_ext_cli
-
-
-.. tab:: With specific version
-
-    .. code::
-
-        python3 -m pip install -U para_ext_cli==version
-
-With the installation the CLI will automatically register the ``para``
-identifier in the console and add the installation path to the global ``$PATH``.
-
-This means you can after having installed the CLI, you can directly access it
-using:
-
-.. code::
-
-    para --help
-
-Requirements
-============
+Compiler Requirements
+---------------------
 
 +---------------------------------+-------------+
 | Requirement                     | Version     |
@@ -104,9 +79,39 @@ Requirements
 
         pip install para
 
+CLI Installation - ``paralang_cli``
+===================================
 
-Requirements (For the CLI - `para_ext_cli`)
-============================================
+Additionally to the base module ``para``, the optional module ``paralang_cli``
+may be installed, which implements the CLI for the para module.
+
+To install simply do the following:
+
+.. tab:: Regular
+
+    .. code::
+
+        python3 -m pip install -U paralang_cli
+
+
+.. tab:: With specific version
+
+    .. code::
+
+        python3 -m pip install -U paralang_cli==version
+
+With the installation the CLI will automatically register the ``para``
+identifier in the console and add the installation path to the global ``$PATH``.
+
+This means you can after having installed the CLI, you can directly access it
+using:
+
+.. code::
+
+    para --help
+
+CLI Requirements
+----------------
 
 +---------------------------------+-------------+
 | Requirement                     | Version     |
@@ -120,8 +125,8 @@ Requirements (For the CLI - `para_ext_cli`)
 
 .. note::
 
-    These requirements are extended the base requirements from the
-    :ref:`previous ones. <Requirements>`
+    These requirements extend the base requirements from the
+    :ref:`previous ones. <Compiler Requirements>`
 
 Overview
 ========
@@ -130,3 +135,4 @@ Overview
 - `Pre-Processor <./preprocessor.html>`_ - Pre-Processor for handling directives
 - `Para Compiler <./compiler.html>`_ - Core Para Compiler for handling Para code and generating the C counterpart
 - `ABC Classes <./abc.html>`_ - ABC Classes, which are implemented in the Compiler and Pre-Processor
+- `Para Extensions <./extensions/index.html>`_ - Para CLI Extensions and Tools

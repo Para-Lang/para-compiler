@@ -96,7 +96,7 @@ class FileRunContext(ABC):
     async def get_parse_stream(self, prefer_logging: bool) -> Any:
         """
         Returns the content of the file represented as a stream containing
-        logic tokens
+        Parse Tokens
         """
         ...
 
@@ -206,7 +206,7 @@ class ProgramRunContext(ABC):
             self, prefer_logging: bool
     ) -> List[FileRunContext]:
         """
-        Parses all files, and generates the logic streams for them
+        Parses all files, and generates the Parse Stream for them
 
         :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.

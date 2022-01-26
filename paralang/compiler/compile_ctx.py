@@ -189,7 +189,7 @@ class ProgramCompilationContext(ProgramRunContext):
 
     async def process_program(self, prefer_logging: bool) -> None:
         """
-        Processes this instance and generates the logic streams required
+        Processes this instance and generates the Parse Stream required
         for generating the finished code.
 
         :param prefer_logging: If set to True errors, warnings and
@@ -275,7 +275,7 @@ class ProgramCompilationContext(ProgramRunContext):
             self, prefer_logging: bool
     ) -> List[FileCompilationContext]:
         """
-        Parses all files, and generates the logic streams for them
+        Parses all files, and generates the Parse Stream for them
 
         :param prefer_logging: If set to True errors, warnings and
          info will be logged onto the console using the local logger instance.

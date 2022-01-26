@@ -1,11 +1,11 @@
 ************
-Logic Tokens
+Parse Tokens
 ************
 
-`para.compiler.logic_tokens`
+`paralang.compiler.parse_tokens`
 =============================
 
-.. automodule:: para.compiler.logic_tokens
+.. automodule:: paralang.compiler.parse_tokens
     :members:
     :special-members:
 

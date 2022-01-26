@@ -2,9 +2,9 @@
 Exceptions
 **********
 
-`para.exceptions`
+`paralang.exceptions`
 ==================
 
-.. automodule:: para.exceptions
+.. automodule:: paralang.exceptions
     :members:
     :special-members:

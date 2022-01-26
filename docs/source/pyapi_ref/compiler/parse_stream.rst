@@ -1,10 +1,10 @@
-*************
-Logic Streams
-*************
+************
+Parse Stream
+************
 
-`para.compiler.parse_stream`
+`paralang.compiler.parse_stream`
 =============================
 
-.. automodule:: para.compiler.parse_stream
+.. automodule:: paralang.compiler.parse_stream
     :members:
     :special-members:

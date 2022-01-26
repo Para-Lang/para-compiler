@@ -49,12 +49,12 @@ if not any((IS_WIN, IS_POSIX)):
 # Global destination paths
 # The global destination for Posix / Linux / MacOS systems - None if invalid OS
 POSIX_GLOBAL_DEST: Optional[Path] = \
-    Path("~/.local/bin/Para").resolve() \
+    Path("~/.local/bin/para/").resolve() \
     if TARGET == "" \
     else None
 # The global destination for NT / Windows systems - None if invalid OS
 NT_GLOBAL_DEST: Optional[Path] = \
-    Path("C:\\Program Files (x86)\\Para\\").resolve() \
+    Path("C:\\Program Files (x86)\\para\\").resolve() \
     if TARGET == "windows" \
     else None
 # Global destination, which is depending on the current operating system
@@ -332,7 +332,7 @@ if __name__ == "__main__":
         if not os.path.exists(str(i.resolve())):
             os.makedirs(str(i.resolve()), exist_ok=True)
 
-    # we need the cli for the binaries, so we will attempt to import it and
+    # we need the extensions for the binaries, so we will attempt to import it and
     # raise an error if it's not available
     try:
         import paralang_cli

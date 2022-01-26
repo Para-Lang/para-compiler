@@ -5,7 +5,7 @@ from typing import Optional
 import antlr4
 
 from .parse_stream import PreProcessorParseStream
-from .parse_token import *
+from .parse_tokens import *
 from .parser import (ParaPreProcessorListener,
                      ParaPreProcessorParser as Parser)
 

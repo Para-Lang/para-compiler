@@ -1,6 +1,6 @@
-*****************************************
+***************************************
 Welcome to the Para Quickstart Tutorial
-*****************************************
+***************************************
 
 This document explains how to get started with Para, how to set it up and how
 to generally use it and understand how to make the most out of it.
@@ -8,21 +8,19 @@ to generally use it and understand how to make the most out of it.
 Using the Command Line Interface
 ================================
 
-**Available commands:**
-*Commands displayed are mostly only partly implemented*
+Available commands
+------------------
 
 +------------------------+--------------------------------------------------------------------------------------------------+
 | Name                   | Description                                                                                      |
 +========================+==================================================================================================+
-| ``para compile``      | Compiles a Para program to C or an executable.                                                  |
+| ``para compile``       | Compiles a Para program to C or an executable.                                                   |
 +------------------------+--------------------------------------------------------------------------------------------------+
-| ``para run``          | Compiles a Para program and runs it.                                                             |
+| ``para run``           | Compiles a Para program and runs it.                                                             |
 +------------------------+--------------------------------------------------------------------------------------------------+
-| ``para c-init``       | Starts the CLI for the configuration of the C-compiler, which is required for running a program. |
+| ``para syntax-check``  | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
 +------------------------+--------------------------------------------------------------------------------------------------+
-| ``para syntax-check`` | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
-+------------------------+--------------------------------------------------------------------------------------------------+
-| ``para analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
+| ``para analyse``       | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
 +------------------------+--------------------------------------------------------------------------------------------------+
 
 ---
@@ -36,3 +34,10 @@ For general info on the language, and how you can use it, go to our
 `introduction of Para <../lang_ref/introduction.html>`_. That will like this
 document provide even more info on Para, and what you can do with it, just
 this time in the language itself.
+
+Overview
+========
+
+---
+
+In work...

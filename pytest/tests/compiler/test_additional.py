@@ -1,5 +1,5 @@
 # coding=utf-8
-""" Test for the cli setup """
+""" Test for the extensions setup """
 import pytest
 
 from paralang.compiler import ParaCompiler

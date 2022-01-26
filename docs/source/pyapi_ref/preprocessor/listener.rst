@@ -2,9 +2,9 @@
 Pre-Processor Listener
 **********************
 
-`para.preprocessor.listener`
+`paralang.preprocessor.listener`
 ==============================
 
-.. automodule:: para.preprocessor.listener
+.. automodule:: paralang.preprocessor.listener
     :members:
     :special-members:

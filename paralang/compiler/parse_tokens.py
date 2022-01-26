@@ -1,2 +1,2 @@
 # coding=utf-8
-""" Logic Tokens in the Para language """
+""" Parse Tokens in the Para language """

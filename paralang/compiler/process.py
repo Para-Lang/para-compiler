@@ -214,7 +214,7 @@ class CompileProcess(Process):
         res: PreProcessorProcessResult = await self.preprocess_files(True)
 
         if track_progress:
-            yield 20, "Parsing files and generating logic streams", \
+            yield 20, "Parsing files and generating Parse Streams", \
                   logging.INFO, None
 
         await self.compilation_ctx.process_program(True)

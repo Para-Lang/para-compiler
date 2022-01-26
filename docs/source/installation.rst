@@ -3,33 +3,76 @@ Installation
 ************
 
 This section serves as the reference for how to install the Para compiler and
-make it available for usage in your command line.
+the Para CLI for usage in the console.
 
-Installer for Windows
-=====================
+As Para is a natively a Python module, you have the option of using a built
+version that provides a stable executable, or running the pypi module with
+your own python instance. The latter is preferred if you desire more
+customisation and easier updates, as a built executable won't be updated and
+you have to install a completely new version.
 
-For Windows, the configured inno-setup installer should be used. The installer
-will automatically do the installation based on your input and create the
-correct entries to the system, so that you can utilise the compiler right after
-installation.
+.. important::
 
-For the installer go to the `release page on github <https://github.com/Para-Lang/Para/releases>`_
-and download the version you want. The installer will be named after the date of
-its creation in this format: ``para-installer-<year>-<month>-<day>.exe``.
+    To run a Para program, you will have to configure a C compiler yourself
+    (for now), which will then actually execute the code that was generated.
 
-Building it yourself (Unix+Windows)
-===================================
+    This will likely be automated in the future, though for now this is the
+    most reasonable approach, as Para is still in early development.
 
-For all other OS-systems, there are no installers yet for Para or entries
-in package managers, meaning the compiler needs to be either built by yourself
-using the `para-build.py` script or used with a python runtime using the
-`distributed pypi module <../pyapi_ref/index.html> (Python API)`_.
+    This is explained more in detail
+    :ref:`here (C Compiler Setup) <C Compiler Setup>`
+
+Installer (Windows)
+===================
+
+For Windows Para provides a pre-built installer for each release, meaning you
+can install it like any other application by running the installer.
+
+For the installer go to the
+`release page on github <https://github.com/Para-Lang/Para/releases>`_ and
+download the version you want.
+
+The installer will be named after the date of its creation in the following
+format:
+
+``para-installer-<year>-<month>-<day>.exe``
+
+Running the Python Source Code (Unix+Windows)
+=============================================
+
+For all operating systems that can run Python ``>= 3.8`` you may run the source
+code itself, as the compiler is written natively in Python and is distributed
+as a python module that can be downloaded from pypi (The Python Package Index).
+
+To install the Python module, go
+`here (Python API Reference) <./pyapi_ref/index.html>`_.
 
 .. note::
 
     Using the source Python API will provide a lot of flexibility, but also
     means that the C-compiler has to be installed, setup and checked yourself
     if you intend to run your compiled code as well.
+
+Building it yourself (Unix+Windows)
+===================================
+
+For UNIX-systems there is no proper installer yet that can be used, and as such
+you will have to build the Para Compiler and Para CLI yourself using a pre-made
+script, which will build for your specific operating system.
+
+The building process will also require Python ``>=3.8`` to be installed and you
+will have to install the Python source code, like if you were intending to
+:ref:`run the source code <Running the Python Source Code (Unix+Windows)>`
+itself. Though the major difference in building the Para compiler is the
+pre-configured structure and additional tools that are bundled
+into a single executable by the build script. This also means you have a
+separate instance from your Python interpreter, which will not break if you
+update your Python version.
+
+This provides a lot of safety and ease, though the building process might take
+some time, which is why it is likely that in the future an installer,
+``.AppImage`` or Snap Package will be made available for quick and simple
+installation of Para.
 
 Downloading
 -----------
@@ -103,8 +146,8 @@ folder can be deleted after the module was moved to its destination.
 
     This will default to the following paths:
 
-    - POSIX (Unix, Linux, MacOS): ``/usr/local/bin/Para``
-    - NT (Windows): ``C:\\Program Files (x86)\\Para\\``
+    - Unix (Linux, MacOS): ``/usr/local/bin/para/``
+    - Windows: ``C:\\Program Files (x86)\\para\\``
 
     To specify a different path simply pass it as arg to ``--g-dest $PATH``,
     for example:
@@ -162,8 +205,8 @@ path by our Para ``/bin`` path:
 .. note::
 
     Every time you change the location of the Para installation folder, the
-    previous command will likely break, so make sure to put it into a safe
-    place and leave it there from that point on!
+    alias will break, so make sure to put it into a safe place and leave it
+    there from that point on!
 
 Windows
 ^^^^^^^
@@ -172,25 +215,121 @@ Adding an item to the path is relatively easy on windows, and can be done over
 the general settings user interface. For a walk-through with screenshots go
 here: `Add to the path on Windows 10 <https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/>`_.
 
-C-Compiler Setup
+C Compiler Setup
 ================
 
 Currently the compiler setup is not done globally, but locally for each single
-project. This may change in the future, as Para continues to be developed
+project. This may change in the future, as Para continues to be developed.
 
-Windows
--------
+Linux
+-----
 
-On Windows, as there is no native ``gcc`` you will have to use MinGW-w64
-(Minimalist GNU for Windows). For an installation of MinGW-w64 go
-`here <https://www.mingw-w64.org/downloads/#mingw-builds>`_
+Installation
+""""""""""""
 
-After the successful installation, go and see whether the proper ``gcc``
-version is installed using:
+On Linux, you may simple use the native default GCC compiler.
+Though, in many cases, GCC might be already pre-installed,
+so to check if you have a compatible version, do the following:
 
 .. code:: bash
 
     gcc --version
+
+If GCC is not found, search online how you can install GCC with your
+package manger.
+
+Validate Installation
+"""""""""""""""""""""
+
+Afterwards, get the location of the executable, as you will need this to
+properly configure a Para project:
+
+.. code:: bash
+
+    type gcc
+
+The output may look like this:
+
+.. code:: bash
+
+    gcc is /usr/bin/gcc
+
+Copy the path ``/usr/bin/gcc`` or whatever path you will get, and put it into
+your configuration file.
+
+Windows
+-------
+
+On Windows, as there is no native GCC you will have to use MinGW-w64
+(Minimalist GNU for Windows) or LLVM clang (recommended as it appears more
+stable).
+
+At the moment, there is also no support for the Visual Studio C Compiler, and
+likely there will never be support for it.
+
+Chocolatey
+^^^^^^^^^^
+
+For an installation of MinGW-w64 or clang it is recommended to use the tool
+called chocolatey, which is an easy package manager and installer that will
+handle the installation of the compiler for you.
+
+For a guide on how to install chocolatey go
+`here (Choco Setup) <https://docs.chocolatey.org/en-us/choco/setup>`_.
+
+Install LLVM Clang
+^^^^^^^^^^^^^^^^^^
+
+Installation
+""""""""""""
+
+To install clang run the following:
+
+.. code:: bash
+
+    choco install llvm
+
+Validate Installation
+"""""""""""""""""""""
+
+After the successful installation, go and see whether the proper clang
+version has been installed using:
+
+.. code:: bash
+
+    clang --version
+
+Afterwards locate the path of the clang executable, as you will need this to
+properly configure a Para project:
+
+.. code:: bash
+
+    where.exe clang
+
+Install MinGW-w64
+^^^^^^^^^^^^^^^^^
+
+Installation
+""""""""""""
+
+To install mingw run the following:
+
+.. code:: bash
+
+    choco install mingw
+
+Validate Installation
+"""""""""""""""""""""
+
+After the successful installation, go and see whether the proper GCC
+version has been installed using:
+
+.. code:: bash
+
+    gcc --version
+
+If there is proper output showing a
+:ref:`supported version of GCC <Supported GCC Versions>`, then you may proceed.
 
 Afterwards locate the path of the MinGW executable, as you will need this to
 properly configure a Para project:
@@ -202,64 +341,85 @@ properly configure a Para project:
 MacOS
 -----
 
-On MacOS, you may use either ``clang`` or MinGW as well, though as clang is not
-fully tested yet with Para, it is recommended to use MinGW on MacOS. For the
-installation guide go `here <https://www.mingw-w64.org/downloads/#macports>`_.
+On MacOS, you may use either GCC or clang, though clang is recommended, due its
+stability on MacOS.
 
-Afterwards check whether you have the proper gcc version installed:
+Homebrew
+^^^^^^^^
+
+For the installation of clang, you will have to install
+`homebrew <https://brew.sh/>`_ to properly install and setup the compiler.
+(There are alternative methods, but `homebrew <https://brew.sh/>`_ is the
+simplest way to install the compilers on MacOS)
+
+To install homebrew copy the following snippet and run it:
 
 .. code:: bash
 
-    gcc --version
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-Later, find the location of the executable, as you will need this to properly
-configure a Para project:
+Install LLVM Clang
+^^^^^^^^^^^^^^^^^^
+
+Installation
+""""""""""""
+
+To install clang, run the following command:
 
 .. code:: bash
 
-    type gcc
+    brew install llvm
+
+Validate Installation
+"""""""""""""""""""""
+
+Afterwards, get the location of the executable, as you will need this to
+properly configure a Para project:
+
+.. code:: bash
+
+    type clang
 
 The output may look like this:
 
 .. code:: bash
 
-    gcc is /usr/bin/gcc
+    clang is /usr/bin/clang
 
-Copy the path ``/usr/bin/gcc`` or whatever path you will get, and put it into
+Copy the path ``/usr/bin/clang`` or whatever path you will get, and put it into
 your configuration file.
 
-Linux
------
+Supported Clang Versions
+========================
 
-On Linux, you will have to install the default ``gcc`` compiler using your
-package manager. Though, in many cases, ``gcc`` might be already pre-installed,
-so to check if you have a compatible version, do the following:
++---------------------------------+-------------+
+| Version                         | Support     |
++=================================+=============+
+| 5.x                             | ❌          |
++---------------------------------+-------------+
+| 6.x                             | ❌          |
++---------------------------------+-------------+
+| 7.x                             | ✔️          |
++---------------------------------+-------------+
+| 8.x                             | ✔️          |
++---------------------------------+-------------+
+| 9.x                             | ✔️          |
++---------------------------------+-------------+
+| 10.x                            | ✔️          |
++---------------------------------+-------------+
+| 11.x                            | ✔️          |
++---------------------------------+-------------+
+| 12.x                            | ✔️          |
++---------------------------------+-------------+
+| 13.x                            | ✔️          |
++---------------------------------+-------------+
 
-.. code:: bash
-
-    gcc --version
-
-If ``gcc`` is not found, search online how you can install ``gcc`` on your
-linux machine.
-
-Later, find the location of the executable, as you will need this to properly
-configure a Para project:
-
-.. code:: bash
-
-    type gcc
-
-The output may look like this:
-
-.. code:: bash
-
-    gcc is /usr/bin/gcc
-
-Copy the path ``/usr/bin/gcc`` or whatever path you will get, and put it into
-your configuration file.
+*❌ = not supported*
+*❓ = support unknown and issues can occur / not fully tested yet*
+*✔️ = fully supported and validated*
 
 Supported GCC Versions
-^^^^^^^^^^^^^^^^^^^^^^
+======================
 
 *This also counts for MinGW gcc versions*
 

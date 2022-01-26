@@ -1,10 +1,10 @@
-***********
+*********
 Para ABCs
-***********
+*********
 
-`para.abc`
+`paralang.abc`
 ===========
 
-.. automodule:: para.abc
+.. automodule:: paralang.abc
     :members:
     :special-members:
