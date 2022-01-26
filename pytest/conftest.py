@@ -1,19 +1,14 @@
 # coding=utf-8
 """ Configuration file for pytest """
+import logging
 import os
 import sys
-import pytest
-import logging
 from pathlib import Path
+
+import pytest
 
 here = Path(str(os.path.abspath(__file__))).resolve().parent.parent
 sys.path.insert(0, str(here))
-
-import parac
-
-parac.RUNTIME_COMPILER.init_logging_session(
-    level=logging.DEBUG, print_banner=False
-)
 
 
 @pytest.fixture(autouse=True)

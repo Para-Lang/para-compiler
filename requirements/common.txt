@@ -1,0 +1,5 @@
+# Contains requirements for all environments
+
+# Base requirements for the entire module
+antlr4-python3-runtime>=4.9
+cached-property>=1.5.1

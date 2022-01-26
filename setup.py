@@ -1,32 +1,32 @@
 # coding=utf-8
 """ Setup file for the entire project """
 import os
-import setuptools
 from pathlib import Path
 
-SRC_PATH = Path(os.path.dirname(os.path.realpath(__file__))).resolve()
+import setuptools
 
-with open(SRC_PATH / "PYPI_README.md", "r", encoding='utf-8') as file:
+with open("./PYPI_README.md", "r", encoding='utf-8') as file:
     long_description = file.read()
 
-with open(SRC_PATH / "requirements.txt", encoding='utf-8') as file:
+with open("./requirements/common.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(
-    name="parac",
-    version="0.1.dev6",
+    name="paralang",
+    version="0.1.dev7",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",
     maintainer="Luna Klatzer",
     maintainer_email="luna.klatzer@gmail.com",
-    description="Python-Compiler for Para-C",
+    description="Python-Compiler and API for the Para language",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="GNU GENERAL PUBLIC LICENSE v3.0",
-    url="https://github.com/Luna-Klatzer/Para-C/",
+    url="https://github.com/Para-Lang/Para/",
     project_urls={
-        "Issue-Page": "https://github.com/Luna-Klatzer/Para-C/issues/",
-        "Changelog": "https://github.com/Luna-Klatzer/Para-C/releases"
+        "Issue-Page": "https://github.com/Para-Lang/Para/issues/",
+        "Changelog": "https://github.com/Para-Lang/Para/releases",
+        "Docs": "https://para.readthedocs.org/"
     },
     packages=setuptools.find_packages(),
     classifiers=[

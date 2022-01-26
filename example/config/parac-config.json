@@ -1,0 +1,17 @@
+{
+  "name": "myproject",
+  "description": "MyProgram Example",
+  "version": "0.1",
+  "author": "User",
+  "license": "MyLicense",
+  "include": [
+    "Put all required files/directories of the program here. These will be included in the output build"
+  ],
+  "para-version": ">=0.1",
+  "compiler-options": [
+    "Enter all wanted options for 'para compile'"
+  ],
+  "c-compiler-options": [
+    "Enter all wanted options for the C compiler"
+  ]
+}

@@ -15,8 +15,8 @@ Syntax
 Usage & Examples
 ----------------
 
-Additional Notes
-----------------
+Footnotes
+-----------
 
 
 Defining a Function
@@ -28,5 +28,5 @@ Syntax
 Usage & Examples
 ----------------
 
-Additional Notes
-----------------
+Footnotes
+-----------

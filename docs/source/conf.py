@@ -16,21 +16,21 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Testing path ------------------------------------------------------------
 
-import parac
-import parac_ext_cli
+import paralang
+import paralang_cli
 
-assert parac.__version__
-assert parac_ext_cli.__version__
+assert paralang.__version__
+assert paralang_cli.__version__
 
 # -- Project information -----------------------------------------------------
 
-project = 'Para-C'
-copyright = '2021, Luna Klatzer'
+project = 'Para'
+copyright = '2021-2022, Luna Klatzer'
 author = 'Luna Klatzer'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1.dev6'
-
+release = paralang.__version__
+version = release.replace("v", "")
 
 # -- General configuration ---------------------------------------------------
 
@@ -41,6 +41,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx_inline_tabs",
     "sphinx_copybutton",
+    "sphinx_autodoc_typehints",
     "sphinxext.opengraph",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
@@ -57,20 +58,53 @@ exclude_patterns = []
 
 # -- Options for HTML output -------------------------------------------------
 
-html_title = f'Para-C {release}'
-html_theme = 'furo'
-html_logo = '../../img/parac.ico'
-html_favicon = '../../img/parac.ico'
+html_title = f'Para {release}'
+html_theme = 'pydata_sphinx_theme'
+html_logo = '../../img/para-banner.png'
+html_favicon = '../../img/para.ico'
 html_theme_options = {
-    "light_css_variables": {
-        "color-brand-primary": "#9b3fd4",
-        "color-brand-content": "#9b3fd4",
-    },
-    "dark_css_variables": {
-        "color-brand-primary": "#9b3fd4",
-        "color-brand-content": "#9b3fd4",
+    "icon_links": [
+        {
+            "name": "GitHub",
+            "url": "https://github.com/Para-Lang/Para",
+            "icon": "fab fa-github-square",
+        },
+        {
+            "name": "PyPI",
+            "url": "https://pypi.org/project/paralang",
+            "icon": "fas fa-box",
+        }
+    ],
+    "navbar_end": ["version-switcher", "navbar-icon-links"],
+    "icon_links_label": "Quick Links",
+    "external_links": [
+        {
+            "name": "Changelog ",
+            "url": "https://github.com/Para-Lang/Para/blob/main/CHANGELOG.md"
+        },
+        {
+            "name": "License ",
+            "url": "https://github.com/Para-Lang/Para/blob/main/LICENSE"
+        }
+    ],
+    "use_edit_page_button": True,
+    "switcher": {
+        "json_url": "https://para.readthedocs.io/en/latest/_static/"
+                    "switcher.json",
+        "url_template": "https://para.readthedocs.io/en/{version}/",
+        "version_match": version,
     },
 }
+html_context = {
+    "github_user": "Para-Lang",
+    "github_repo": "Para",
+    "github_version": "main",
+    "doc_path": "/docs/source/",
+}
+
+rst_epilog = """
+.. |ProjectVersion| replace::{versionnum}
+""".format(versionnum=release)
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -91,7 +125,16 @@ def setup(app):
     app.connect("autodoc-skip-member", skip)
 
 
-autodoc_member_order = 'groupwise'
-
 # Suppressing the warning 'duplicate label'
 suppress_warnings = ['autosectionlabel.*']
+
+# See: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_member_order
+autodoc_member_order = 'groupwise'
+
+# Sets the Type Checking flag to import even more types
+set_type_checking_flag = True
+
+# Setting the global language
+language = "en"
+
+autosummary_generate = True

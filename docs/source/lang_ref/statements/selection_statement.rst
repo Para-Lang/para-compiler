@@ -1,4 +1,3 @@
-
 *******************
 Selection Statement
 *******************
@@ -7,7 +6,7 @@ The selection statement is the standard way of executing a block of code dependi
 on the evaluation of a expression which can either return ``1``/``true`` or
 ``0``/``false``.
 
-These are in Para-C, like in C, implemented with ``if`` statements
+These are in Para, like in C, implemented with ``if`` statements
 and ``switch`` statements.
 
 If Statement
@@ -46,7 +45,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
         int y = 3;
@@ -82,7 +81,7 @@ evaluated.
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
         int y = 3;
@@ -111,7 +110,7 @@ a regular statement (call of a function).
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
 
@@ -158,7 +157,7 @@ expression that evaluates to one of the two.
 
     Int-based variables are variables that are actually represented as integers.
     This does not include floating point integers at the moment, due to the
-    restrictions of the base of the Para-C switch: the C switch. This uses a
+    restrictions of the base of the Para switch: the C switch. This uses a
     so-called lookup table, where integers are strictly enforced, meaning that
     other values will need to be compared using an :ref:`if statement<If Statement>`
 
@@ -175,7 +174,7 @@ If no case is met, the ``default`` branch is executed if it exists.
 
 .. Warning::
 
-    The ``switch`` statement in Para-C copies the behaviour of the regular C
+    The ``switch`` statement in Para copies the behaviour of the regular C
     statement and so this should be taken into consideration when using it:
 
     If the ``default`` keyword is hit, while there are still other valid cases
@@ -210,7 +209,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 5;
 
@@ -235,10 +234,9 @@ Usage & Examples
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's a 5
-
 
 In this case, the variable ``x`` is compared to all cases and if one case hits,
 excluding ``default``, a line is printed saying ``"It's a <insert-number>"``.
@@ -251,7 +249,7 @@ Since characters are simply numeric values representing characters the type
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         char character = 'c';
 
@@ -273,7 +271,7 @@ Since characters are simply numeric values representing characters the type
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's: c
 
@@ -282,7 +280,7 @@ Since characters are simply numeric values representing characters the type
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     {
         int x = 4;
 
@@ -303,7 +301,7 @@ Since characters are simply numeric values representing characters the type
 
 *Output:*
 
-.. code:: bash
+.. code::
 
     It's a 4
     Ending

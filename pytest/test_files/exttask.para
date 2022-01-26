@@ -7,7 +7,7 @@ exttask python test_func() {
 // => logical compiler will raise an error!
 exttask python TestFunc2() {}
 
-entry status main()
+entry status Main()
 {
     ExtTaskReturn r_1 = spawn TestFunc();
 

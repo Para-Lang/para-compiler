@@ -1,9 +1,7 @@
 ---
-name: Interface, Tool or CLI Proposal
-about: Suggest an idea for the interface, Compiler tools or CLI.
-title: "[Tool Proposal] ..."
-labels: enhancement proposal
-assignees: Luna-Klatzer
+name: Interface, Tool or CLI Proposal about: Suggest an idea for the interface,
+Compiler tools or CLI. title: "[Tool Proposal] ..."
+labels: enhancement proposal assignees: Luna-Klatzer
 
 ---
 
@@ -14,9 +12,10 @@ Asking for info takes time that is unnecessarily wasted if it's not correctly po
 -->
 
 **Affected area by change:**
+
 - Python module: [yes/no]
 - Python Plugins: [yes/no]
-- Project Structure or Para-C Make: [yes/no]
+- Project Structure or Para Make: [yes/no]
 - CLI: [yes/no]
 - Inno-Installer (Win): [yes/no]
 
@@ -27,7 +26,8 @@ Please keep it short and only add important info. Afterwards, add in the other i
 
 **Is your request related to a problem? Please describe.**
 
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+A clear and concise description of what the problem is. Ex. I'm always
+frustrated when [...]
 
 **Describe the solution you'd like**
 
@@ -35,7 +35,8 @@ A clear and concise description of what you want to happen.
 
 **Describe alternatives you've considered**
 
-A clear and concise description of any alternative solutions or features you've considered.
+A clear and concise description of any alternative solutions or features you've
+considered.
 
 **Additional context**
 

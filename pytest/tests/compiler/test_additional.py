@@ -1,19 +1,11 @@
 # coding=utf-8
-""" Test for the cli setup """
+""" Test for the extensions setup """
 import pytest
-from parac.compiler import ParacCompiler
-from .. import reset_input
+
+from paralang.compiler import ParaCompiler
 
 
 class TestAdditional:
-    @staticmethod
-    def teardown_method(_):
-        """
-        This method is being called after each test case, and it will revert
-        input back to the original function
-        """
-        reset_input()
-
     @pytest.mark.parametrize(
         "expected,input_str,line_ending", [
             ("x y z", "x y z", "\n"),
@@ -31,6 +23,6 @@ class TestAdditional:
     def test_remove_comments_from_str(
             self, expected: str, input_str: str, line_ending: str
     ):
-        assert expected == ParacCompiler.remove_comments_from_str(
+        assert expected == ParaCompiler.remove_comments_from_str(
             input_str, line_ending
         )

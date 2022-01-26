@@ -1,4 +1,3 @@
-
 ******************
 Compiler Structure
 ******************
@@ -6,8 +5,8 @@ Compiler Structure
 Overview
 ========
 
-The Para-C Compiler is the Compiler responsible for the `Para-C Core Language <./index.html>`_
-and the `Para-C Language Extensions <./tasks/index.html>`_. It parses, analyses
+The Para Compiler is the Compiler responsible for the `Para Core Language <./index.html>`_
+and the `Para Language Extensions <./tasks/index.html>`_. It parses, analyses
 and links the files together to generate a C-source code output or using the
 GCC C Compiler (GNU Compiler Collection C Compiler) an executable.
 
@@ -28,7 +27,7 @@ which in the end make up the finished program.
 **The different modules are:**
 
 - `The Pre-Processor, which will alter the code based on the pre-processor directives <./preprocessor.html>`_
-- :ref:`The Lexer and Parser, which generate the tokens and the logic trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
+- :ref:`The Lexer and Parser, which generate the tokens and the parse trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
 - :ref:`The Single-File Semantic Analyser<Semantic Analyser>`
 - :ref:`The File Linker<File Linker>`
 - :ref:`The Code Optimiser<Code Optimiser>`
@@ -40,14 +39,14 @@ Lexer and Parser
 Overview
 --------
 
-The Para-C Core Language uses for parsing Antlr4, which automatically
+The Para Core Language uses for parsing Antlr4, which automatically
 generates python files for the parser, listeners and lexer based
-on the `ParaC.g4` file. This file defines the grammar of the language.
+on the `Para.g4` file. This file defines the grammar of the language.
 
 The generated code will be wrapped inside a new python module, which will implement 
 the code and make it usable in the compiler source code. Using that new Parser module,
 the compiler will convert on runtime the inserted file/s into an abstract logic
-tree, which contains all items and meta-data of the user-inserted file. These logic trees
+tree, which contains all items and meta-data of the user-inserted file. These parse trees
 are then returned and used to compile the program.
 
 The Parser will start by first parsing the main file and then
@@ -101,18 +100,27 @@ The Semantic Analysis will go through each externalDeclaration (Can be either a 
 File Linker
 ===========
 
-File linking in Para-C is similar to C, with the key-difference being though, that the result of the generation is a single C file, not byte code. This means that the linker has the main task to fetch all definitions and link them together creating in the end the resulting C-file (This will be though managed by the code generator).
-All definitions will be placed in the C-file, as well as the declarations in the C-Header. This to preserve the declaration logic, and avoid reference errors in the C code.
+File linking in Para is similar to C, with the key-difference being
+though, that the result of the generation is a C project (files and headers
+for all items), not byte code.
+
+This means that the linker has the main task to fetch all definitions and link
+them together creating in the end the resulting C project and files (This will
+be though managed by the code generator).
+
+All definitions will be placed in the C-file, as well as the declarations in
+the C-Header. This to preserve the declaration logic, and avoid reference
+errors in the C code.
 
 Code Optimiser
 ==============
 
-The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para-C logic tokens, and pass them to the Code generator, which will compile the Para-C logic tokens into C logic tokens.
+The Code Optimiser will be the last step when processing everything, and attempt to check for duplicate declarations, unnecessary variable calls and in general things that just are not that necessary to be in source-code. Here it will still utilise the Para Parse Tokens, and pass them to the Code generator, which will compile the Para Parse Tokens into C Parse Tokens.
 
 Code Generator
 ==============
 
-As the name states, the code generator will convert the compiled C logic tokens into stable code, by adding all required references and creating the required structure for the functionality to work.
+As the name states, the code generator will convert the compiled C Parse Tokens into stable code, by adding all required references and creating the required structure for the functionality to work.
 
 Compiler Warnings
 =================
@@ -122,7 +130,7 @@ To that, syntax warnings for non-fatal formatting and inconsistency issues can b
 
 Compiler Exceptions
 ===================
-Exceptions inside Para-C are categorised into two categories:
+Exceptions inside Para are categorised into two categories:
 
 - Non-Fatal Exceptions, which do not interfere with continuing to check the file and
 - Fatal Exceptions, which can not be ignored and cause the compiler to interrupt the process and exit.
@@ -147,7 +155,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 99 Base Error
 ^^^^^^^^^^^^^
 
-- `99` – BaseError/ParacCompilerError: Base Error every other exception inherits of.
+- `99` – BaseError/ParaCompilerError: Base Error every other exception inherits of.
 
 1** Internal Errors
 ^^^^^^^^^^^^^^^^^^^
@@ -176,7 +184,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 4** Parser Errors
 ^^^^^^^^^^^^^^^^^
 
-- `400` – ParserError: An issue occurred in the Parser (Logic Tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para-C tokens
+- `400` – ParserError: An issue occurred in the Parser (parse tree generator), which tries to convert the generated Antlr4 tokens into proper Logical Para tokens
 - `401` – SyntaxError: A syntax issue occurred while processing that is a direct result of the user failing to input valid code.
 
 5** Logical Errors

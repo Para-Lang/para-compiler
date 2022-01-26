@@ -1,4 +1,4 @@
-# Para-C Compiler Tests
+# Para Compiler Tests
 
 ## Quick Setup for Testing
 
@@ -8,7 +8,9 @@
 python3 -m pip install pytest 
 ```
 
-Installing inside the main dir of the project the current state of the module so it can be used for testing:
+Installing inside the main dir of the project the current state of the module
+so it can be used for testing:
+
 ```bash
 python3 -m pip install -e .
 ```
@@ -23,8 +25,9 @@ python3 -m pip install coverage
 
 ### Coverage Testing
 
-Using coverage the standard unit-testing will be modified and watched to see what code-paths are not tested 
-and might need to be included as well. It will return a regular report but create a new `.coverage` file
+Using coverage the standard unit-testing will be modified and watched to see
+what code-paths are not tested and might need to be included as well. It will
+return a regular report but create a new `.coverage` file
 
 ```bash
 coverage run -m pytest

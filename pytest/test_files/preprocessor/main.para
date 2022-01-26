@@ -20,7 +20,7 @@
 # endif
 #endif
 
-entry status main()
+entry status Main()
 {
     #ifdef Y
     // do something

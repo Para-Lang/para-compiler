@@ -1,14 +1,15 @@
-
 ******************
 Compound Statement
 ******************
 
-The compound statement is the technical term for a ``{ }``/code block, where
-statements can be written inside of it. Meaning simply:
+Compound statements are the technical term for a ``{ }`` aka. code block, where
+statements can be written inside of brackets. Meaning simply:
 
-*A compound statement is a list of statements enclosed by braces.*
+*A compound statement is a list of statements enclosed by braces ({ }).*
 
-Compound statements are commonly used for `functions <../index.html>`_
+Compound statements are commonly used for `functions <../index.html>`_,
+`iteration statements <./iteration_statement.html>`_ and
+`selection statements <./selection_statement.html>`_
 
 Syntax
 ------
@@ -27,7 +28,7 @@ Usage & Examples
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     // This is a compound statement
     {
         print("Hello world!"); // call statement inside compound statement
@@ -49,7 +50,7 @@ properly work.
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     // This is a compound statement
     {
         // A simple example where a compound statement is nested
@@ -74,7 +75,7 @@ block is executed either way without any change in execution.
 
 .. code:: c
 
-    entry status main()
+    entry status Main()
     // This is a compound statement
     {
         int i = 0;
@@ -104,8 +105,8 @@ block is executed either way without any change in execution.
 
 Simple Example of the usage inside a `while loop <./iteration_statement.html>`_
 
-Additional Notes
-----------------
+Footnotes
+-----------
 
 1. Compound statements can be only used in combination of a function definition
    or as a child of another compound statement (See :ref:`Nested Block Example<2. Nested Block Example>`)

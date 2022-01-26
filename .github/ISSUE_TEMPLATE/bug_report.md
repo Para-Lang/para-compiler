@@ -1,9 +1,7 @@
 ---
-name: Bug report
-about: Create a report to help us improve and report an issue
+name: Bug report about: Create a report to help us improve and report an issue
 title: "[Bug] ..."
-labels: bug, question
-assignees: Luna-Klatzer
+labels: bug, question assignees: Luna-Klatzer
 
 ---
 
@@ -20,6 +18,7 @@ A clear and concise description of what the bug is.
 **To Reproduce**
 
 Steps to reproduce the behaviour:
+
 1. Go to '...'
 2. Utilise/Call '...' with param '...'
 3. See error
@@ -33,10 +32,11 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
- - OS: [e.g. Win, Ubuntu, Arch, MacOS]
- - Runtime Version: [Python module/Compiled binary]
- - Installation Type: [Win-Installer/Self-build/Pip-Module]
- - Version: [e.g. 0.1]
+
+- OS: [e.g. Win, Ubuntu, Arch, MacOS]
+- Runtime Version: [Python module/Compiled binary]
+- Installation Type: [Win-Installer/Self-build/Pip-Module]
+- Version: [e.g. 0.1]
 
 **Additional context**
 
