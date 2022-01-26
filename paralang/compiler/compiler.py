@@ -6,14 +6,14 @@ import logging
 import pathlib
 from os import PathLike
 from pathlib import Path
-from typing import Union, TYPE_CHECKING, Tuple, Literal
+from typing import Union, TYPE_CHECKING, Tuple, Literal, Optional
 import antlr4
 
 from .error_handler import ParaErrorListener
 from .parse_stream import ParaQualifiedParseStream, CParseStream
 from .parser.python import ParaLexer
 from .parser.python import ParaParser
-from .process import Process
+from .process import Process, CompileResult
 from ..exceptions import (FilePermissionError, LexerError, LinkerError,
                           ParaCompilerError, FailedToProcessError,
                           ParaSyntaxErrorCollection)
@@ -56,11 +56,14 @@ class ParaCompiler:
     def __init__(self):
         self._stream_handler: ParaCLIStreamHandler = None
         self._file_handler: ParaCLIFileHandler = None
-        self._logger: logging.Logger = None
+        self._logger: Optional[logging.Logger] = None
 
     @property
-    def log_initialised(self) -> bool:
-        """ Returns whether the logger is initialised and ready to be used """
+    def is_cli_logger_ready(self) -> bool:
+        """
+        Returns whether the CLI logger is initialised ('init_cli_logging' was
+        called)
+        """
         return getattr(self, 'logger') is not None
 
     @property
@@ -214,7 +217,13 @@ class ParaCompiler:
             prefer_logging: bool = True
     ) -> None:
         """
-        Validates the syntax of a file and logs or raises errors while running.
+        Validates the syntax of a file and logs or raises errors if any
+        problems are encountered while running. This is at the moment
+        specifically designed to not return anything, but only raise exceptions
+        if anything is found.
+
+        TODO! Implement the return of a list of warnings to allow the usage of
+         warnings without having to use a logger.
 
         :param file: The file to run the syntax checks on
         :param prefer_logging: If set to True errors, warnings and

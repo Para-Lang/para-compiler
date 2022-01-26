@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from os import PathLike
 from pathlib import Path
-from typing import Dict, Union, List, TYPE_CHECKING, Tuple
+from typing import Dict, Union, List, TYPE_CHECKING, Tuple, Optional
 import antlr4
 
 from .__main__ import PreProcessor, PreProcessorProcessResult
@@ -84,6 +84,19 @@ class FilePreProcessorContext(FileRunContext):
         """
         return self._relative_file_name
 
+    @property
+    def logic_stream(self) -> Optional[PreProcessorParseStream]:
+        """
+        Returns the logic stream for this file ctx.
+
+        For this getter to work, it has to be generated first using
+        'await get_logic_stream()', which will per default automatically
+        set a cache variable for the logic stream.
+
+        If it has not been run yet, it will return None.
+        """
+        return super().logic_stream
+
     async def get_logic_stream(
         self, prefer_logging: bool
     ) -> PreProcessorParseStream:
@@ -98,7 +111,8 @@ class FilePreProcessorContext(FileRunContext):
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
-        return await self.listener.walk(prefer_logging)
+        self._logic_stream = await self.listener.walk(prefer_logging)
+        return self._logic_stream
 
     async def process_directives(self, stream: PreProcessorParseStream) -> str:
         """

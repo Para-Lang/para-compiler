@@ -9,7 +9,7 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 from os import PathLike
-from typing import Dict, Union, TYPE_CHECKING, List
+from typing import Dict, Union, TYPE_CHECKING, List, Optional
 
 import antlr4
 
@@ -87,6 +87,19 @@ class FileCompilationContext(FileRunContext):
         """
         return self._relative_file_name
 
+    @property
+    def logic_stream(self) -> Optional[ParaQualifiedParseStream]:
+        """
+        Returns the logic stream for this file ctx.
+
+        For this getter to work, it has to be generated first using
+        'await get_logic_stream()', which will per default automatically
+        set a cache variable for the logic stream.
+
+        If it has not been run yet, it will return None.
+        """
+        return super().logic_stream
+
     async def get_logic_stream(
             self, prefer_logging: bool
     ) -> ParaQualifiedParseStream:
@@ -101,7 +114,8 @@ class FileCompilationContext(FileRunContext):
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
-        return await self.listener.walk(prefer_logging)
+        self._logic_stream = await self.listener.walk(prefer_logging)
+        return self._logic_stream
 
 
 class ProgramCompilationContext(ProgramRunContext):
@@ -171,7 +185,7 @@ class ProgramCompilationContext(ProgramRunContext):
          of the file (Relative name), The code-string, The compilation context
          of the file.
         """
-        ...
+        raise NotImplementedError()
 
     async def process_program(self, prefer_logging: bool) -> None:
         """
@@ -183,7 +197,8 @@ class ProgramCompilationContext(ProgramRunContext):
          If an exception is raised or error is encountered, it will be reraised
          with the FailedToProcessError.
         """
-        ...  # TODO! Run listener for every file
+        raise NotImplementedError()
+        # TODO! Run listener for every file
 
     async def parse_file(
             self,
@@ -254,7 +269,7 @@ class ProgramCompilationContext(ProgramRunContext):
         file_ctx = FileCompilationContext(
             antlr4_file_ctx, self, relative_file_name
         )
-        await file_ctx.listener.generate_logic_stream(prefer_logging)
+        stream = await file_ctx.get_logic_stream(prefer_logging)
         return file_ctx
 
     async def parse_all_files(

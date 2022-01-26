@@ -36,6 +36,7 @@ class FileRunContext(ABC):
         self._listener = listener
         self._program_ctx = program_ctx
         self._relative_file_name = relative_file_name
+        self._logic_stream = None
 
     @property
     @abstractmethod
@@ -66,12 +67,30 @@ class FileRunContext(ABC):
         return self._program_ctx
 
     @property
+    @abstractmethod
     def relative_file_name(self) -> str:
         """
         Returns the relative file name, which goes out from the entry file
         and has a relative path to every file imported and used.
         """
         return self._relative_file_name
+
+    @property
+    @abstractmethod
+    def logic_stream(self) -> Any:
+        """
+        Returns the logic stream for this file ctx.
+
+        For this getter to work, it has to be generated first using
+        'await get_logic_stream()', which will per default automatically
+        set a cache variable for the logic stream.
+
+        If it has not been run yet, it will return None.
+        """
+        if self._logic_stream is not None:
+            return self._logic_stream
+        else:
+            return None
 
     @abstractmethod
     async def get_logic_stream(self, prefer_logging: bool) -> Any:

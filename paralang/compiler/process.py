@@ -102,7 +102,6 @@ class CompileResult(Process):
             process: CompilationProcess
     ):
         self.done_process = process
-        self.files = files
         super().__init__(files, project_root, encoding)
 
     def write_results(
@@ -143,8 +142,6 @@ class CompilationProcess(Process):
         :param project_root: The working directory / source directory to use as
          root
         :param encoding: The encoding for the files
-        :param build_path: The path to the output folder
-        :param dist_path: The path to the dist folder
         :returns: The file name, the output build path, the output dist path
          and the arguments passed for the compilation
         """
@@ -213,12 +210,7 @@ class CompilationProcess(Process):
         if track_progress:
             yield 5, "Running Pre-Processor", logging.INFO, None
 
-        preprocessor_result = await self.preprocess_files(True)
-
-        if track_progress:
-            yield 15, "Generating modified temp files", logging.INFO, None
-
-        await self.gen_preprocessor_temp_files(preprocessor_result)
+        res: PreProcessorProcessResult = await self.preprocess_files(True)
 
         if track_progress:
             yield 20, "Parsing files and generating logic streams", \
