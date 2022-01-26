@@ -5,8 +5,8 @@ import os
 from pathlib import Path
 from typing import List
 
-from paralang import initialise_default_paths
-from paralang.compiler import ParaCompiler
+from paralang_base import initialise_default_paths
+from paralang_base.compiler import ParaCompiler
 from .. import BASE_TEST_PATH
 
 

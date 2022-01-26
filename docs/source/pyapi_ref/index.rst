@@ -23,7 +23,7 @@ This also means it enables for example: Running the Pre-Processor alone, using
 syntax-checks on specific files or running project-structure tools inside a
 Python script made by you.
 
-Compiler Installation - ``paralang``
+Compiler Installation - ``para-lang``
 ====================================
 
 For the distribution of the package, python`s  pip and pypi.org are used to
@@ -79,10 +79,10 @@ Compiler Requirements
 
         pip install para
 
-CLI Installation - ``paralang_cli``
+CLI Installation - ``para-lang-cli``
 ===================================
 
-Additionally to the base module ``para``, the optional module ``paralang_cli``
+Additionally to the base module ``para``, the optional module ``para-lang-cli``
 may be installed, which implements the CLI for the para module.
 
 To install simply do the following:

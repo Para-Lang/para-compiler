@@ -27,7 +27,7 @@ DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
 ENTRY_PATH: Path = BASE_PATH / "dummy-entry.py"
 EXAMPLE_PATH: Path = BASE_PATH / "example"
-ICON_PATH: Path = BASE_PATH / "img" / "paralang.ico"
+ICON_PATH: Path = BASE_PATH / "img" / "para.ico"
 
 # C Compiler and PBL Config
 C_COMPILER = "gcc"
@@ -63,9 +63,9 @@ GLOBAL_DEST: Optional[Path] = \
 
 # Required additional data files that have to be added
 COPY_FILES: List[Path] = [
-    BASE_PATH / "img" / "paralang.ico",
-    BASE_PATH / "img" / "paralang-banner.png",
-    BASE_PATH / "img" / "paralang.png",
+    BASE_PATH / "img" / "para.ico",
+    BASE_PATH / "img" / "para-language.png",
+    BASE_PATH / "img" / "para.png",
     BASE_PATH / "CHANGELOG.md",
     BASE_PATH / "LICENSE",
     BASE_PATH / "README.md"
@@ -81,7 +81,7 @@ AVOID_MODULES: List[str] = [
 
 # Hidden imports that PyInstaller is unable to detect, meaning we have to
 # specify it directly as an argument
-HIDDEN_IMPORT = ["paralang_cli", "paralang"]
+HIDDEN_IMPORT = ["paralang_cli", "paralang_base"]
 
 
 def create_bin_config(dest_dir: Path) -> None:
@@ -180,19 +180,19 @@ def fetch_pbl_build(lib_pbl: str, allow_download: bool = False) -> None:
 
 def install_para_module(output_type: Literal["dist", "build"]) -> None:
     """
-    Creates the required paralang module for the compiler
+    Creates the required paralang_base module for the compiler
 
     :param output_type: The output_type, where the data should be fetched from
      and the environment installed.
     """
     # Copying the generated files to the tmp directory
     shutil.move(
-        BASE_PATH / output_type / "paralang",
+        BASE_PATH / output_type / "paralang_base",
         str(origin := BASE_PATH / "tmp" / output_type)
     )
 
     # The destination where the files should be copied to
-    destination = (BASE_PATH / output_type / "paralang").resolve()
+    destination = (BASE_PATH / output_type / "paralang_base").resolve()
     # The destination path of the compiled files
     bin_path: Path = (destination / "bin").resolve()
 
@@ -253,7 +253,7 @@ def install_global(optional_path: str):
     """
     try:
         path: Path
-        origin = (DIST_PATH / "paralang").resolve()
+        origin = (DIST_PATH / "paralang_base").resolve()
         if optional_path:
             path: Path = Path(optional_path).resolve()
             shutil.copytree(
@@ -274,7 +274,7 @@ def install_global(optional_path: str):
         )
     except IOError as e:
         raise RuntimeError(
-            "Failed to install paralang globally. Likely missing permissions"
+            "Failed to install paralang_base globally. Likely missing permissions"
         ) from e
 
 
@@ -312,13 +312,13 @@ if __name__ == "__main__":
         "--install-global", action="store_true", default=False,
         required=False,
         help="If this is specified, the script will attempt to directly "
-             "install paralang into your binary folder, so you can access it "
+             "install paralang_base into your binary folder, so you can access it "
              "directly after this script finished. (Adds to the path "
              "yourself)."
     )
     parser.add_argument(
         "--g-dest", type=str, default=None, required=False,
-        help="Specifies the global destination folder where paralang should be"
+        help="Specifies the global destination folder where paralang_base should be"
              " moved to. This is only valid when '--install-global' is also "
              "specified otherwise the value is just ignored. "
     )
@@ -353,7 +353,7 @@ if __name__ == "__main__":
         "--log-level",
         "DEBUG",
         "--name",
-        "paralang",
+        "paralang_base",
         "--icon",
         str(ICON_PATH.resolve()),
         *AVOID_MODULES,
@@ -363,7 +363,7 @@ if __name__ == "__main__":
     # Running pyinstaller - the output will appear in ./dist and ./build
     PyInstaller.__main__.run(run_config)
 
-    # Installs from the sources the proper paralang-c environment
+    # Installs from the sources the proper para environment
     install_para_module("dist")
     install_para_module("build")
 

@@ -2,7 +2,7 @@
 """ Test for the extensions setup """
 import pytest
 
-from paralang.compiler import ParaCompiler
+from paralang_base.compiler import ParaCompiler
 
 
 class TestAdditional:

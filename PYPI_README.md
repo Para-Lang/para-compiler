@@ -1,11 +1,13 @@
-# `paralang` - The Python Module for the Para Compiler
+![](https://raw.githubusercontent.com/Para-Lang/Para/v0.1.dev7/img/para-banner.png)
+
+# `paralang_base` - The Python Module for the Para Compiler
 
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-Lang/Para)
 ![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
 [![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 
-## Introduction to `paralang` (as Python Module)
+## Introduction to `paralang_base` (as Python Module)
 
 The `para` module serves the purpose of combining the entire compiler with lib
 into a simple module, which can be imported and used in ways that are not
@@ -15,49 +17,16 @@ implemented in the standard CLI. This means both the `preprocessor` and
 ### Installation
 
 ```bash
-python3 -m pip install -U paralang
+python3 -m pip install -U paralang_base
 ```
 
 *With specific version*:
 
 ```bash
-python3 -m pip install -U paralang==version
+python3 -m pip install -U paralang_base==version
 ```
 
-### Structure
-
-#### Tree
-
-```
-para - Main module that can be imported
-|-- abc/
-|  `-- *
-|-- compiler/
-|  `-- *
-|-- preprocessor/
-|  `-- *
-|-- util/
-|  `-- *
-|-- const.py
-|-- exceptions.py
-`-- logging.py
-```
-
-#### Info
-
-- `abc`: ABC classes that are the base for many classes in `preprocessor`
-  and `compiler`
-- `compiler`: Main Compiler module, which includes lexer, parser, semantic
-  analyser, optimiser and code-generation (not completely implemented yet, due
-  to active development still ongoing)
-- `preprocessor`: Pre-Processor module, which implements its own lexer and
-  parser for processing files.
-- `util`: Module Utility functions, decorators and classes
-- `const.py`: Constant values, which are evaluated on `__init__`
-- `exceptions.py`: Module exceptions with error-codes ErrorCodes(IntEnum)
-- `logging.py`: Logging Implementation for the Module and CLI
-
-## Introduction to Para (as Language)
+## Para Language
 
 Para (From Greek "para": Beside/Alongside) is a programming language that
 is designed to integrate other languages and allow for advanced management of
@@ -66,24 +35,7 @@ as a base for writing overhead and "connector" programs, which can manage
 instances, listen for events, stop and start processes and manage in- and
 out-data.
 
-## Documentation
-
-[![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
-
-Documentations are available on the official readthedocs.org site, though 
-*note that the docs are still unfinished and things will be likely changing the
-more development progresses. For finalisation, it might take until v0.2 or 
-v0.3, so please be patient*
-
-## Contributing and Development
-
-Due to active and early development not available. (Can be expected with later
-versions, such as v0.1 or v0.2) - Reason for that is the there is not a lot
-that can be contributed to, since changes are made while the theory is made as
-well. This means contributions are going to be limited until the basic
-structure is finished.
-
-### Running Info
+### Runtime Info
 
 There are two different usage (run) options where the compiler can be used:
 
@@ -94,19 +46,62 @@ There are two different usage (run) options where the compiler can be used:
   can be configured, since the python module is intended for customised
   behaviour, meaning the pre-configured runtime options are not available.
 
-To differentiate between the two, there are constant variables that are set
-during initialisation (Only one can be true, if one is true the other is
-automatically false):
+To differentiate between the two runtime modes, there are constant variables
+that are set during initialisation:
 
 - `DIST_COMPILED_VERSION: bool` - If `True` it's the distribution version, aka.
   called using the compiled binaries
 - `MODULE_VERSION: bool` - If `True` it's the module version
 
-## Extensions
+### Para CLI - `paralang_cli`
 
-### `para-ext-cli` - CLI
+The CLI itself is an extension to the base module, as it provides extended
+graphical logging and configuration options from the console. It includes the
+base Para compiler module, and extends its functionality and provides
+scripts that are added automatically to the path on installation.
 
-The CLI is its own unique project, as the main compiler is a native python
-project, which is used using the normal Python interpreter. Therefore, it also
-has its own pypi release site, which can be
-found [here](https://pypi.org/project/para-ext-cli/).
+This means after installation of `paralang_cli`, you can use the Para compiler
+directly with a CLI (command line interface). 
+
+To show the current Para installation version, you can use the following:
+```bash
+para --version
+```
+
+The PyPi release of the CLI can be found
+[here](https://pypi.org/project/paralang_cli/).
+
+## Contributing and Development
+
+Due to active and early development not available. (Can be expected with later
+versions, such as v0.1 or v0.2)
+
+Reason for that is the there is not yet a lot that can be contributed to, since
+the project is in early build up. This means contributions are going to be 
+limited until the basic structure is finished.
+
+## Copyright and License
+
+![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-Lang%2FPara.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-Lang%2FPara?ref=badge_shield)
+
+Copyright (C) 2021-2022 Luna Klatzer
+
+This program is free software: you can redistribute it and/or modify it under
+the terms of the GNU General Public License as published by the Free Software
+Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>.
+
+See the [LICENSE](https://raw.githubusercontent.com/Para-Lang/Para/main/LICENSE)
+for information on terms & conditions for usage.
+
+### FOSSA License Report
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FPara-Lang%2FPara.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FPara-Lang%2FPara?ref=badge_large)

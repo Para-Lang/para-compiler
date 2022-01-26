@@ -2,8 +2,8 @@
 """ Test for the compiler process setup """
 from pathlib import Path
 
-from paralang import initialise_default_paths
-from paralang.compiler import CompileProcess
+from paralang_base import initialise_default_paths
+from paralang_base.compiler import CompileProcess
 
 from .. import BASE_TEST_PATH
 

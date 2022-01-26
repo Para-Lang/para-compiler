@@ -2,9 +2,9 @@
 ParaCompiler Class
 *******************
 
-`paralang.compiler.linker`
+`paralang_base.compiler.linker`
 =======================
 
-.. automodule:: paralang.compiler.linker
+.. automodule:: paralang_base.compiler.linker
     :members:
     :special-members:
