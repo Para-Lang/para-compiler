@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from typing import Union, TYPE_CHECKING
+from typing import Union, Any
 
 from antlr4.Token import CommonToken
 from antlr4.error.ErrorListener import ErrorListener
@@ -15,9 +15,6 @@ from antlr4.error.Errors import (InputMismatchException,
 
 from ..exceptions import ParaSyntaxError
 
-if TYPE_CHECKING:
-    from ..compiler.parser.python.ParaParser import ParaParser
-    from ..preprocessor import ParaPreProcessorParser
 
 __all__ = [
     'BaseErrorListener',
@@ -115,7 +112,7 @@ class BaseErrorListener(ErrorListener, ABC):
     @abstractmethod
     def syntaxError(
             self,
-            recognizer: Union[ParaParser, ParaPreProcessorParser],
+            recognizer: Any,
             offendingSymbol: CommonToken,
             line: int,
             column: int,

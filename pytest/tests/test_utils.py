@@ -5,7 +5,7 @@ Test for the utility functions in Para (test_util.py and decorators.py)
 from pathlib import Path
 import pytest
 
-from paralang import util
+from paralang_base import util
 
 
 class TestValidateFileEnding:

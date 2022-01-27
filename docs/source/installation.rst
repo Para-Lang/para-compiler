@@ -20,7 +20,7 @@ you have to install a completely new version.
     most reasonable approach, as Para is still in early development.
 
     This is explained more in detail
-    :ref:`here (C Compiler Setup) <C Compiler Setup>`
+    :ref:`here (C Compiler Setup) <C Compiler Setup>`.
 
 Installer (Windows)
 ===================

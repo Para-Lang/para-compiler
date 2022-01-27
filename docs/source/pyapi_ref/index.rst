@@ -23,8 +23,8 @@ This also means it enables for example: Running the Pre-Processor alone, using
 syntax-checks on specific files or running project-structure tools inside a
 Python script made by you.
 
-Compiler Installation - ``paralang``
-====================================
+Compiler Installation - ``paralang-base``
+=========================================
 
 For the distribution of the package, python`s  pip and pypi.org are used to
 store the built wheel and source files of the module.
@@ -35,14 +35,14 @@ To install simply do the following:
 
     .. code::
 
-        python3 -m pip install -U para
+        python3 -m pip install -U paralang-base
 
 
 .. tab:: With specific version
 
     .. code::
 
-        python3 -m pip install -U para==version
+        python3 -m pip install -U paralang-base==version
 
 
 .. Hint::
@@ -79,11 +79,12 @@ Compiler Requirements
 
         pip install para
 
-CLI Installation - ``paralang_cli``
+CLI Installation - ``paralang-cli``
 ===================================
 
-Additionally to the base module ``para``, the optional module ``paralang_cli``
-may be installed, which implements the CLI for the para module.
+Additionally to the module ``paralang-base``, the optional module
+``paralang-cli`` may be installed, which implements the CLI for the para
+module.
 
 To install simply do the following:
 

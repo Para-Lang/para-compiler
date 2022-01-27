@@ -2,9 +2,9 @@
 Pre-Processor Context
 *********************
 
-`paralang.preprocessor.ctx`
+`paralang_base.preprocessor.ctx`
 ========================
 
-.. automodule:: paralang.preprocessor.ctx
+.. automodule:: paralang_base.preprocessor.ctx
     :members:
     :special-members:

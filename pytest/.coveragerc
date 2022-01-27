@@ -1,5 +1,5 @@
 [run]
-source = ../para
+source = ../paralang_base
 omit =
    *\pkg_resources\*
    *\out\*

@@ -16,10 +16,10 @@ sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Testing path ------------------------------------------------------------
 
-import paralang
+import paralang_base
 import paralang_cli
 
-assert paralang.__version__
+assert paralang_base.__version__
 assert paralang_cli.__version__
 
 # -- Project information -----------------------------------------------------
@@ -29,7 +29,7 @@ copyright = '2021-2022, Luna Klatzer'
 author = 'Luna Klatzer'
 
 # The full version, including alpha/beta/rc tags
-release = paralang.__version__
+release = paralang_base.__version__
 version = release.replace("v", "")
 
 # -- General configuration ---------------------------------------------------
@@ -71,7 +71,7 @@ html_theme_options = {
         },
         {
             "name": "PyPI",
-            "url": "https://pypi.org/project/paralang",
+            "url": "https://pypi.org/project/paralang_base",
             "icon": "fas fa-box",
         }
     ],

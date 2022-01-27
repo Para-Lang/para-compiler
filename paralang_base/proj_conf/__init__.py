@@ -1,6 +1,6 @@
 """
 This is the independent Project Configuration Package, which parses
-a paralang-config.json file and extracts its configuration
+a paralang_base-config.json file and extracts its configuration
 """
 import json
 

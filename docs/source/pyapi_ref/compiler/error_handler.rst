@@ -2,9 +2,9 @@
 Compiler Error-Handler
 **********************
 
-`paralang.compiler.error_handler`
+`paralang_base.compiler.error_handler`
 ==============================
 
-.. automodule:: paralang.compiler.error_handler
+.. automodule:: paralang_base.compiler.error_handler
     :members:
     :special-members:

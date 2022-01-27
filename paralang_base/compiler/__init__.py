@@ -22,7 +22,7 @@ __all__ = [
     'optimiser',
     'parser',
     'error_handler',
-    'parse_stream.py',
+    'parse_stream',
     'compiler'
 ]
 

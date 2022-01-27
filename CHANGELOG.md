@@ -10,7 +10,15 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 *Note that Documentation changes should not appear here!*
 
-## [Unreleased]
+## Unreleased
+
+### Added
+
+### Changed
+
+### Removed
+
+## [v0.1.dev7] - 2022-01-27
 
 ### Added
 - `Linker` and `LinkerMetaData` classes for the linking step and dependency
@@ -73,8 +81,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   on be done using `para-config.json`.
 - `dist_path` and `build_path` folders, as the code-file generation is now
   handled using `process.CompileResult` and `CompileResult.write_results()`.
-- Unneeded `paralang.logging` module, which has now been completely replaced
-  by the default `logging` handling, and `paralang_cli.logging`.
+- Unneeded `paralang_base.logging` module, which has now been completely replaced
+  by the default `logging` handling, and `paralang_base_cli.logging`.
 
 ## [v0.1.dev6] - 2021-11-10
 
@@ -322,16 +330,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Set up a testing structure for the compiler using `pytest`
 - Created testing files for the parser and lexer
 
-[unreleased]: https://github.com/Para-Lang/Para/compare/v0.1.dev6...dev
-
+[unreleased]: https://github.com/Para-Lang/Para/compare/v0.1.dev7...dev
+[v0.1.dev7]: https://github.com/Para-Lang/Para/compare/v0.1.dev6...v0.1.dev7
 [v0.1.dev6]: https://github.com/Para-Lang/Para/compare/v0.1.dev5...v0.1.dev6
-
 [v0.1.dev5]: https://github.com/Para-Lang/Para/compare/v0.1.dev4...v0.1.dev5
-
 [v0.1.dev4]: https://github.com/Para-Lang/Para/compare/v0.1.dev3...v0.1.dev4
-
 [v0.1.dev3]: https://github.com/Para-Lang/Para/compare/v0.1.dev2...v0.1.dev3
-
 [v0.1.dev2]: https://github.com/Para-Lang/Para/compare/v0.1.dev1...v0.1.dev2
-
 [v0.1.dev1]: https://github.com/Para-Lang/Para/releases/tag/v0.1.dev1

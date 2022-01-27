@@ -12,7 +12,7 @@ with open("./requirements/common.txt", encoding='utf-8') as file:
     requirements = file.read()
 
 setuptools.setup(
-    name="paralang",
+    name="paralang-base",
     version="0.1.dev7",
     author="Luna Klatzer",
     author_email="luna.klatzer@gmail.com",

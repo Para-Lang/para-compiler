@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-Para (paralang) Module for the Para Compiler and Pre-Processor. This contains
-the source code for the full compiler and interface, which is used to create
-and run Para code.
+Para (paralang_base) Module for the Para Compiler and Pre-Processor. This
+contains the source code for the full compiler and interface, which is used
+to create and run Para code.
 
 Copyright (C) 2021 Luna Klatzer
 
@@ -20,7 +20,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 
-__title__ = "paralang"
+__title__ = "paralang_base"
 __description__ = "Python-Compiler and API for the Para language"
 __url__ = "https://github.com/Para-Lang/Para/"
 __author__ = "Luna Klatzer"

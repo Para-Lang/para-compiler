@@ -6,7 +6,7 @@ import shutil
 from pathlib import Path
 
 logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger('paralang')
+logger = logging.getLogger('paralang_base')
 logger.setLevel(logging.DEBUG)
 
 

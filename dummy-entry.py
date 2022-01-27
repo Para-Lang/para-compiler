@@ -7,7 +7,7 @@ import importlib
 
 if __name__ == '__main__':
     # importing local modules
-    para = importlib.import_module("paralang", __name__)
+    para = importlib.import_module("paralang_base", __name__)
     paralang_cli = importlib.import_module("paralang_cli")
 
     getattr(paralang_cli, 'cli_run')()
