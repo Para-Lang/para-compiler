@@ -1,8 +1,8 @@
 # coding=utf-8
 """
-Para (paralang_base) Module for the Para Compiler and Pre-Processor. This contains
-the source code for the full compiler and interface, which is used to create
-and run Para code.
+Para (paralang_base) Module for the Para Compiler and Pre-Processor. This
+contains the source code for the full compiler and interface, which is used
+to create and run Para code.
 
 Copyright (C) 2021 Luna Klatzer
 

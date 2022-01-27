@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 ![Lines of Code](https://img.shields.io/tokei/lines/github/Para-Lang/Para)
-![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
+![Py Versions](https://img.shields.io/pypi/pyversions/paralang-base.svg)
 [![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 
 ## Introduction to `paralang_base` (as Python Module)
