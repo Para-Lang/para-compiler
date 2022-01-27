@@ -180,19 +180,19 @@ def fetch_pbl_build(lib_pbl: str, allow_download: bool = False) -> None:
 
 def install_para_module(output_type: Literal["dist", "build"]) -> None:
     """
-    Creates the required paralang_base module for the compiler
+    Creates the required para module for the compiler
 
     :param output_type: The output_type, where the data should be fetched from
      and the environment installed.
     """
     # Copying the generated files to the tmp directory
     shutil.move(
-        BASE_PATH / output_type / "paralang_base",
+        BASE_PATH / output_type / "para",
         str(origin := BASE_PATH / "tmp" / output_type)
     )
 
     # The destination where the files should be copied to
-    destination = (BASE_PATH / output_type / "paralang_base").resolve()
+    destination = (BASE_PATH / output_type / "para").resolve()
     # The destination path of the compiled files
     bin_path: Path = (destination / "bin").resolve()
 
@@ -253,7 +253,7 @@ def install_global(optional_path: str):
     """
     try:
         path: Path
-        origin = (DIST_PATH / "paralang_base").resolve()
+        origin = (DIST_PATH / "para").resolve()
         if optional_path:
             path: Path = Path(optional_path).resolve()
             shutil.copytree(
@@ -274,7 +274,7 @@ def install_global(optional_path: str):
         )
     except IOError as e:
         raise RuntimeError(
-            "Failed to install paralang_base globally. Likely missing permissions"
+            "Failed to install para globally. Likely missing permissions"
         ) from e
 
 
@@ -312,13 +312,13 @@ if __name__ == "__main__":
         "--install-global", action="store_true", default=False,
         required=False,
         help="If this is specified, the script will attempt to directly "
-             "install paralang_base into your binary folder, so you can access it "
+             "install para into your binary folder, so you can access it "
              "directly after this script finished. (Adds to the path "
              "yourself)."
     )
     parser.add_argument(
         "--g-dest", type=str, default=None, required=False,
-        help="Specifies the global destination folder where paralang_base should be"
+        help="Specifies the global destination folder where para should be"
              " moved to. This is only valid when '--install-global' is also "
              "specified otherwise the value is just ignored. "
     )
@@ -353,7 +353,7 @@ if __name__ == "__main__":
         "--log-level",
         "DEBUG",
         "--name",
-        "paralang_base",
+        "para",
         "--icon",
         str(ICON_PATH.resolve()),
         *AVOID_MODULES,
