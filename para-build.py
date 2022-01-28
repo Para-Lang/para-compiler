@@ -302,6 +302,8 @@ if __name__ == "__main__":
         str(PYI_SPEC_FILE.resolve()),
         "--log-level",
         "DEBUG",
+        "--icon",
+        str(ICON_PATH)
     ]
 
     # Running pyinstaller - the output will appear in ./dist and ./build

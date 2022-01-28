@@ -1,7 +1,6 @@
 # -*- mode: python ; coding: utf-8 -*
 
 block_cipher = None
-workpath = "./dist/para/"
 GLOBAL_EXCLUDE = [
     "jedi",
     "IPython",
@@ -62,7 +61,8 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None)
+          entitlements_file=None,
+          icon='../img/para.ico')
 coll = COLLECT(exe,
                para_a.binaries,
                para_a.zipfiles,
@@ -89,7 +89,9 @@ exe = EXE(pyz,
           disable_windowed_traceback=False,
           target_arch=None,
           codesign_identity=None,
-          entitlements_file=None)
+          entitlements_file=None,
+          icon='../img/para.ico'
+          )
 coll = COLLECT(exe,
                paraproj_a.binaries,
                paraproj_a.zipfiles,
