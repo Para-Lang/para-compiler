@@ -1,4 +1,4 @@
-![para](img/para-banner.png)
+![](https://raw.githubusercontent.com/Para-Lang/Para/v0.1.dev7/img/para-language.png)
 
 # The Para programming language
 
