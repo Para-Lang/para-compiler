@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/Para-Lang/Para/v0.1.dev7/img/para-language.png)
+
 # Contributing to the Para Project
 
 Due to active and early development not available. (Can be expected with later

@@ -2,21 +2,32 @@
 """
 CLI Script for building the compiler and generating the binaries that may be
 used.
+
+Steps of generating the binary output:
+1. Fetch Para Base Library that is required for the compiler! Either
+
 """
 import argparse
-import json
 import os
 import platform
 import shutil
-import time
 from pathlib import Path
 from typing import List, Literal, Optional
 
 import PyInstaller.__main__
 import requests
+import paralang_base
+import paralang_cli
 
-# File constant
-COMPATIBLE_VERSION: str = "v0.1.dev6"
+# Asserting that both versions are equal and compatible
+if not paralang_cli.__version__ == paralang_base.__version__:
+    raise RuntimeError(
+        f"'paralang_cli' has version {paralang_cli.__version__}. "
+        f"'paralang_base' requires '{paralang_base.__version__}!"
+    )
+
+# Compatible version
+COMPATIBLE_VERSION: str = paralang_base.__version__
 
 # Input regex
 IN_REGEX: str = "(--[A-z0-9]+=[A-z0-9]+)"
@@ -25,20 +36,20 @@ IN_REGEX: str = "(--[A-z0-9]+=[A-z0-9]+)"
 BASE_PATH: Path = Path(os.getcwd())
 DIST_PATH: Path = BASE_PATH / "dist"
 BUILD_PATH: Path = BASE_PATH / "build"
-ENTRY_PATH: Path = BASE_PATH / "dummy-entry.py"
-EXAMPLE_PATH: Path = BASE_PATH / "example"
+PYI_SPEC_FILE: Path = BASE_PATH / "scripts" / "scripts.spec"
 ICON_PATH: Path = BASE_PATH / "img" / "para.ico"
 
 # C Compiler and PBL Config
-C_COMPILER = "gcc"
 C_LIB_IDENTIFIER = "libpbl.a"
 LIB_PBL = f"https://github.com/Para-Lang/Para-Base-Library/releases/download/{COMPATIBLE_VERSION}/{C_LIB_IDENTIFIER}"
 C_LIB_TEMP_DESTINATION = BASE_PATH / "tmp" / C_LIB_IDENTIFIER
 
 # Target system
-TARGET: str = platform.system()
+PLATFORM: str = platform.system()
 IS_WIN: bool = os.name == "nt"
 IS_POSIX: bool = os.name == 'posix'
+POSIX_GLOBAL_DEST: Path = Path("~/.local/bin/para/")
+NT_GLOBAL_DEST: Optional[Path] = Path("C:\\Program Files (x86)\\para\\")
 
 # Raise error if the operating system is invalid
 if not any((IS_WIN, IS_POSIX)):
@@ -46,75 +57,13 @@ if not any((IS_WIN, IS_POSIX)):
         f"Unsupported operating system (os.name): {os.name}"
     )
 
-# Global destination paths
-# The global destination for Posix / Linux / MacOS systems - None if invalid OS
-POSIX_GLOBAL_DEST: Optional[Path] = \
-    Path("~/.local/bin/para/").resolve() \
-    if TARGET == "" \
-    else None
-# The global destination for NT / Windows systems - None if invalid OS
-NT_GLOBAL_DEST: Optional[Path] = \
-    Path("C:\\Program Files (x86)\\para\\").resolve() \
-    if TARGET == "windows" \
-    else None
-# Global destination, which is depending on the current operating system
-GLOBAL_DEST: Optional[Path] = \
-    POSIX_GLOBAL_DEST if IS_POSIX else NT_GLOBAL_DEST
-
 # Required additional data files that have to be added
-COPY_FILES: List[Path] = [
-    BASE_PATH / "img" / "para.ico",
-    BASE_PATH / "img" / "para-language.png",
-    BASE_PATH / "img" / "para.png",
-    BASE_PATH / "CHANGELOG.md",
-    BASE_PATH / "LICENSE",
-    BASE_PATH / "README.md"
-]
-
-# Avoid modules that PyInstaller is detecting, even though they are unused
-AVOID_MODULES: List[str] = [
-    "jedi",
-    "IPython",
-    "numpy",
-    "matplotlib"
-]
-
-# Hidden imports that PyInstaller is unable to detect, meaning we have to
-# specify it directly as an argument
-HIDDEN_IMPORT = ["paralang_cli", "paralang_base"]
-
-
-def create_bin_config(dest_dir: Path) -> None:
-    """
-    Creates the binaries' config file
-    """
-    conf = {
-        "c-compiler": C_COMPILER,
-        "target": TARGET,
-        "version": COMPATIBLE_VERSION,
-        "build-time": time.time()  # Unix timestamp
-    }
-    with open(dest_dir / "bin-config.json", "w+") as f:
-        f.write(json.dumps(conf, indent=4))
-
-
-def parse_avoid_and_hidden_imports() -> None:
-    """
-    Correctly parsing and modifying the 'avoid modules' and hidden imports
-    """
-    _ = []
-    global AVOID_MODULES
-    for module in AVOID_MODULES:
-        _.append("--exclude-module")
-        _.append(module)
-    AVOID_MODULES = _
-
-    _ = []
-    global HIDDEN_IMPORT
-    for module in HIDDEN_IMPORT:
-        _.append("--hiddenimport")
-        _.append(module)
-    HIDDEN_IMPORT = _
+COPY_FILES: List[str] = []
+with open("./INSTALL_FILES", "r+") as file:
+    lines = file.readlines()
+    for line in lines:
+        line: str = line.replace("\n", "").replace("\r", "")
+        COPY_FILES.append(line)
 
 
 def cleanup_and_create_tmp_folder() -> None:
@@ -188,9 +137,8 @@ def install_para_module(output_type: Literal["dist", "build"]) -> None:
     # Copying the generated files to the tmp directory
     shutil.move(
         BASE_PATH / output_type / "para",
-        str(origin := BASE_PATH / "tmp" / output_type)
+        str(tmp_binary_dir := BASE_PATH / "tmp" / output_type)
     )
-
     # The destination where the files should be copied to
     destination = (BASE_PATH / output_type / "para").resolve()
     # The destination path of the compiled files
@@ -200,19 +148,20 @@ def install_para_module(output_type: Literal["dist", "build"]) -> None:
     if os.path.exists(destination):
         shutil.rmtree(str(destination))
 
-    # Creating the binary directory
+    # Creating the binary directories
     os.makedirs(str(bin_path), exist_ok=True)
+    os.makedirs(str(bin_path / "lib"), exist_ok=True)
 
     # Copying the required library with the c-headers
     shutil.copy(
         C_LIB_TEMP_DESTINATION,
-        bin_path / C_LIB_IDENTIFIER
+        bin_path / "lib" / C_LIB_IDENTIFIER
     )
 
     # All items are going to be copied to the bin path, since the output of
     # pyinstaller will already contain the binary as needed, so the rest of the
     # items will be from the Para module and managed by us
-    for entry in os.scandir(origin):
+    for entry in os.scandir(tmp_binary_dir):
         entry: os.DirEntry
         # Avoid directories that are named "bin" and are a directory
         if not (entry.name == "bin" and entry.is_dir()):
@@ -221,21 +170,39 @@ def install_para_module(output_type: Literal["dist", "build"]) -> None:
     # Copies all extra specified files into the destination
     # e.g. images, text files ...
     for entry in COPY_FILES:
-        entry: Path
-        shutil.copy(str(entry.resolve()), destination)
+        entry: Path = Path(entry)
+        dest: Path = (destination / entry).resolve()
+        os.makedirs(str(dest.parent), exist_ok=True)
+        if entry.is_dir():
+            shutil.copytree(
+                str(entry.resolve()),
+                str(dest)
+            )
+        else:
+            shutil.copy(
+                str((BASE_PATH / entry).resolve()),
+                str(dest)
+            )
 
-    # Copies the examples into the destination folder
-    shutil.copytree(
-        str(EXAMPLE_PATH.resolve()),
-        str((destination / "example").resolve())
-    )
-
-    # Creates the binary configuration file
-    create_bin_config(bin_path)
+    # Move all extensions into the /bin/ folder as well
+    for output_entry in os.scandir(BASE_PATH / output_type):
+        output_entry: os.DirEntry
+        output_entry: Path = Path(str(output_entry.path)).resolve()
+        if output_entry.is_dir and output_entry.name != "para":
+            # Go through every item in the output directory item
+            for file_item in os.scandir(str(output_entry)):
+                file_item: os.DirEntry
+                file_item: Path = Path(str(file_item.path)).resolve()
+                # Copying the file if it is ending with an '.exe'
+                if file_item.name.endswith(".exe"):
+                    shutil.copy(
+                        str(file_item.resolve()),
+                        str((bin_path / file_item.name).resolve())
+                    )
 
     # Remove temp files after finishing and having moved everything to its
     # proper destination
-    shutil.rmtree(origin)
+    shutil.rmtree(tmp_binary_dir)
 
 
 def install_global(optional_path: str):
@@ -245,8 +212,8 @@ def install_global(optional_path: str):
 
     This will automatically fetch the proper destination based on the OS:
     - Linux: ~/.local/bin
-    - MacOS: ~/.local/bin
-    - Windows: C:\Program Files (x86)\
+    - macOS: ~/.local/bin
+    - Windows: C:\\Program Files (x86)\
 
     :param optional_path: The optional path that may be specified where the
      dest files should be copied to.
@@ -261,7 +228,8 @@ def install_global(optional_path: str):
                 dst=str(path)
             )
         else:
-            path: Path = Path(GLOBAL_DEST).resolve()
+            dest: Path = NT_GLOBAL_DEST if IS_WIN else POSIX_GLOBAL_DEST
+            path: Path = Path(dest).resolve()
             shutil.copytree(
                 src=origin,
                 dst=str(path)
@@ -276,21 +244,6 @@ def install_global(optional_path: str):
         raise RuntimeError(
             "Failed to install para globally. Likely missing permissions"
         ) from e
-
-
-def setup_conan():
-    """
-    Setups the local conan environment and makes it ready for
-    installation of MingW-w64 and CMake
-    """
-    ...
-
-
-def install_c_env():
-    """
-    Installs the C-compile environment with CMake and MingW-w64
-    """
-    ...
 
 
 if __name__ == "__main__":
@@ -332,8 +285,8 @@ if __name__ == "__main__":
         if not os.path.exists(str(i.resolve())):
             os.makedirs(str(i.resolve()), exist_ok=True)
 
-    # we need the extensions for the binaries, so we will attempt to import it and
-    # raise an error if it's not available
+    # We need the extensions for the binaries, so we will attempt to import
+    # them and raise an error if they are not available
     try:
         import paralang_cli
     except Exception as e:
@@ -343,21 +296,12 @@ if __name__ == "__main__":
             "Para"
         ) from e
 
-    # we have to parse them, since they need the prefixes added to work with
-    # the pyinstaller run configuration
-    parse_avoid_and_hidden_imports()
-
-    # afterwards, we are going to compile the compiler itself
+    # Afterwards, we are going to compile the compiler CLi and extensions
+    # itself
     run_config = [
-        str(ENTRY_PATH.resolve()),
+        str(PYI_SPEC_FILE.resolve()),
         "--log-level",
         "DEBUG",
-        "--name",
-        "para",
-        "--icon",
-        str(ICON_PATH.resolve()),
-        *AVOID_MODULES,
-        *HIDDEN_IMPORT
     ]
 
     # Running pyinstaller - the output will appear in ./dist and ./build
@@ -365,16 +309,10 @@ if __name__ == "__main__":
 
     # Installs from the sources the proper para environment
     install_para_module("dist")
-    install_para_module("build")
 
-    # If this is specified try to download the specified
+    # if true, then attempt to install the executable globally
     if args.install_global:
         install_global(args.g_dest)
-
-    if IS_WIN:
-        # Install CMake and MingW-w64
-        setup_conan()
-        install_c_env()
 
     # Cleanups the tmp files generated while running
     cleanup_and_remove_tmp_folder()
