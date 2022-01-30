@@ -4,10 +4,10 @@
 
 ![Latest Release](https://img.shields.io/github/v/release/Para-Lang/Para?include_prereleases)
 ![Py Versions](https://img.shields.io/pypi/pyversions/para.svg)
-[![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/para)
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 [![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 ![Coverage](./coverage.svg)
+[![paralang-base](https://snyk.io/advisor/python/paralang-base/badge.svg)](https://snyk.io/advisor/python/paralang-base)
 [![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
 [![Required GCC version](https://img.shields.io/badge/GCC-%3E%3D8.0-blue)](https://github.com/Para-Lang/Para/discussions/76)
 ![Required CMake version](https://img.shields.io/badge/CMake-%3E%3D3.17-blue)
