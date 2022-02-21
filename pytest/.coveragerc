@@ -1,7 +1,0 @@
-[run]
-source = ../paralang_base
-omit =
-   *\pkg_resources\*
-   *\out\*
-[html]
-title = "Para Coverage Report"

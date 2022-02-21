@@ -1,1 +1,0 @@
-# These files are taken from [here](https://github.com/antlr/grammars-v4/tree/master/c/examples)

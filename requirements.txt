@@ -1,2 +1,0 @@
-# Mirrors requirements/prod
--r requirements/common.txt

@@ -1,3 +1,0 @@
-graft example
-include PYPI_README.md
-include requirements/common.txt
