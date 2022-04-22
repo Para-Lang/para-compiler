@@ -8,8 +8,8 @@
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 [![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 ![Coverage](./coverage.svg)
-[![paralang-base](https://snyk.io/advisor/python/paralang-base/badge.svg)](https://snyk.io/advisor/python/paralang-base)
 [![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
+[![paralang-base](https://snyk.io/advisor/python/paralang-base/badge.svg)](https://snyk.io/advisor/python/paralang-base)
 
 [![Build](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml)
 [![Codecov](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codecov.yml)
@@ -61,7 +61,7 @@ Our documentation can be found [here](https://para.readthedocs.io/en/latest/).
 
 ## Python Module
 
-[![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/parac)
+[![PyPI version](https://badge.fury.io/py/paralang-base.svg)](https://badge.fury.io/py/paralang-base)
 
 Besides, the option to compile the python code into a binary executable using
 pyinstaller, you may also directly utilise the `parac` source module, which
