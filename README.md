@@ -1,4 +1,4 @@
-![para](img/para-banner.png)
+![](https://raw.githubusercontent.com/Para-Lang/Para/v0.1.dev7/img/para-language.png)
 
 # The Para language and Compiler
 
@@ -8,6 +8,7 @@
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
 [![Documentation Status](https://readthedocs.org/projects/para/badge/?version=latest)](https://para.readthedocs.io/en/latest/?badge=latest)
 ![Coverage](./coverage.svg)
+[![paralang-base](https://snyk.io/advisor/python/paralang-base/badge.svg)](https://snyk.io/advisor/python/paralang-base)
 [![codecov](https://codecov.io/gh/Para-Lang/Para/branch/main/graph/badge.svg?token=8I9XL1E7QR)](https://codecov.io/gh/Para-Lang/Para)
 
 [![Build](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Para-Lang/Para/actions/workflows/codeql-analysis.yml)

@@ -13,7 +13,7 @@ Please explain the introduced changes and how they matter
 ## Is this PR related to an issue or problem
 
 <!---
-For example a github issue or a general problem
+For examples a github issue or a general problem
 -->
 
 ## What was the root cause for the problem

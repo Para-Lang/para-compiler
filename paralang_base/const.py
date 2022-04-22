@@ -1,6 +1,7 @@
 # coding=utf-8
 """ Constant values used in the module """
 import os
+import sys
 from pathlib import Path
 from typing import List, Union, Optional
 
@@ -8,13 +9,10 @@ __all__ = [
     "BASE_DIR",
     "C_LIB_PATH",
     "DIST_COMPILED_VERSION",
-    "MODULE_VERSION",
-    "C_COM_EXISTENCE_OVERWRITE",
     "DEFAULT_BUILD_PATH",
     "DEFAULT_DIST_PATH",
     "DEFAULT_LOG_PATH",
     "VALID_FILE_ENDINGS",
-    "BIN_CONFIG_PATH",
     "initialise_default_paths",
 ]
 
@@ -22,13 +20,10 @@ __all__ = [
 BASE_DIR: Path
 C_LIB_PATH: Optional[Path]
 DIST_COMPILED_VERSION: bool
-MODULE_VERSION: bool
-C_COM_EXISTENCE_OVERWRITE: bool
 DEFAULT_BUILD_PATH: Path
 DEFAULT_DIST_PATH: Path
 DEFAULT_LOG_PATH: Path
 VALID_FILE_ENDINGS: List[str]
-BIN_CONFIG_PATH: Path
 
 
 # -- Initialisation Functions -------------------------------------------------
@@ -63,22 +58,15 @@ BASE_DIR = Path(
     os.path.dirname(os.path.realpath(__file__))
 ).parent.resolve()
 
-# If 'empty-bin-config.json' exists -> compiled binary mode
-if os.path.exists(BASE_DIR / "bin" / "empty-bin-config.json"):
+if sys.argv[0].endswith("para.exe"):
     DIST_COMPILED_VERSION = True
-    MODULE_VERSION = False
-    C_LIB_PATH = BASE_DIR / "bin" / "libpbl.a"
+    C_LIB_PATH: Optional[Path] = BASE_DIR / "bin" / "lib" / "libpbl.a"
 else:
     DIST_COMPILED_VERSION = False
-    MODULE_VERSION = True
-    C_LIB_PATH = None
+    C_LIB_PATH: Optional[Path] = None
 
-# Config path for empty-bin-config.json
-BIN_CONFIG_PATH = (BASE_DIR / "empty-bin-config.json").resolve()
+    # TODO! Add the option to download 'libpbl' on installation of
+    #  paralang_base
 
 # Valid file endings for Para
 VALID_FILE_ENDINGS = [".para", ".parah", ".c", ".h", ".ph"]
-
-# If the init overwrite is true =>
-# Existence check for the c-compiler will always return True
-C_COM_EXISTENCE_OVERWRITE = False

@@ -15,8 +15,19 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Added
 
 ### Changed
+- Behaviour of `DIST_COMPILED_VERSION`, which will try to detect the compiled
+  binary state using `sys.argv` and the call identifier.
+- Installation behaviour of `para-build.py`, which will from now use
+  `/scripts/scripts.spec` to configure and build using pyinstaller. For each
+  script in `/scripts/` an executable will be also generated to allow for 
+  extensions like `paraproj` to be used in the console.
 
 ### Removed
+- Unneeded `bin-config.json` and `BIN_CONFIG_PATH` constant
+  variable in `const.py`.
+- Unneeded `C_COM_EXISTENCE_OVERWRITE`, which is useless
+  with the new configuration style.
+- Unneeded `MODULE_VERSION` constant variable in `const.py`.
 
 ## [v0.1.dev7] - 2022-01-27
 
