@@ -75,30 +75,6 @@ For reference on the pypi module please go to the documentation page
 For reference on the installation please go the documentation page 
 [here](https://para.readthedocs.io/en/latest/installation.html).
 
-## Development
-
-To develop on the Para Project, you may contribute to this repo or one of the
-following side-repos of Para Language:
-
-- [Para Base Library](https://github.com/Para-Lang/Para-Base-Library) - C
-  Static Library for providing the types, functions and macros used to actually
-  run the compiled C-code.
-- [Para Extension Library](https://github.com/Para-Lang/Para-Extension-Library) - 
-  Library for utilising other languages/extensions in a Para program. This
-  repository is at the moment inactive
-
-For more info on development for the core Python API and compiler, you may go
-[here](https://github.com/Para-Lang/Para/blob/main/DEVELOPMENT.md).
-
-## Disclaimer
-
-Para is not intended as a language for production code or professional usage
-as of now. It is for now solely a free-time/college project.
-
-This also means that issues or bugs while running can likely occur, and it's
-not a stable or production-ready language as of the point of writing.
-(*2022-01-25*).
-
 ## Copyright and License
 
 ![License](https://img.shields.io/github/license/Para-Lang/Para?color=cyan)
