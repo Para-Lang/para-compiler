@@ -61,7 +61,7 @@ Our documentation can be found [here](https://para.readthedocs.io/en/latest/).
 
 ## Python Module
 
-[![PyPI version](https://badge.fury.io/py/para.svg)](https://badge.fury.io/py/parac)
+[![PyPI version](https://badge.fury.io/py/paralang-base.svg)](https://badge.fury.io/py/paralang-base)
 
 Besides, the option to compile the python code into a binary executable using
 pyinstaller, you may also directly utilise the `parac` source module, which
