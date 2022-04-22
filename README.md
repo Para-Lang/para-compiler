@@ -64,11 +64,11 @@ Our documentation can be found [here](https://para.readthedocs.io/en/latest/).
 [![PyPI version](https://badge.fury.io/py/paralang-base.svg)](https://badge.fury.io/py/paralang-base)
 
 Besides, the option to compile the python code into a binary executable using
-pyinstaller, you may also directly utilise the `parac` source module, which
-provides an API that can be run in your own python scripts.
+pyinstaller, you may also directly utilise the `paralang_source` source module, which
+provides the compiler source code that can be run in other python scripts.
 
 For reference on the pypi module please go to the documentation page
-[here](https://para.readthedocs.io/en/latest/pyapi_ref/index.html)
+[here](https://para.readthedocs.io/en/latest/pyapi_ref/index.html).
 
 ## Installation
 
