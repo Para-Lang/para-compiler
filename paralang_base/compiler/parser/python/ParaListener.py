@@ -1,4 +1,4 @@
-# Generated from ./Para.g4 by ANTLR 4.9.2
+# Generated from ./Para.g4 by ANTLR 4.10.1
 from antlr4 import *
 if __name__ is not None and "." in __name__:
     from .ParaParser import ParaParser
@@ -8,12 +8,75 @@ else:
 # This class defines a complete listener for a parse tree produced by ParaParser.
 class ParaListener(ParseTreeListener):
 
-    # Enter a parse tree produced by ParaParser#primaryExpression.
-    def enterPrimaryExpression(self, ctx:ParaParser.PrimaryExpressionContext):
+    # Enter a parse tree produced by ParaParser#compilationUnit.
+    def enterCompilationUnit(self, ctx:ParaParser.CompilationUnitContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#primaryExpression.
-    def exitPrimaryExpression(self, ctx:ParaParser.PrimaryExpressionContext):
+    # Exit a parse tree produced by ParaParser#compilationUnit.
+    def exitCompilationUnit(self, ctx:ParaParser.CompilationUnitContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#translationUnit.
+    def enterTranslationUnit(self, ctx:ParaParser.TranslationUnitContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#translationUnit.
+    def exitTranslationUnit(self, ctx:ParaParser.TranslationUnitContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#externalDynamicImport.
+    def enterExternalDynamicImport(self, ctx:ParaParser.ExternalDynamicImportContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#externalDynamicImport.
+    def exitExternalDynamicImport(self, ctx:ParaParser.ExternalDynamicImportContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#externalFunctionDeclaration.
+    def enterExternalFunctionDeclaration(self, ctx:ParaParser.ExternalFunctionDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#externalFunctionDeclaration.
+    def exitExternalFunctionDeclaration(self, ctx:ParaParser.ExternalFunctionDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#externalClassDeclaration.
+    def enterExternalClassDeclaration(self, ctx:ParaParser.ExternalClassDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#externalClassDeclaration.
+    def exitExternalClassDeclaration(self, ctx:ParaParser.ExternalClassDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#externalStructDeclaration.
+    def enterExternalStructDeclaration(self, ctx:ParaParser.ExternalStructDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#externalStructDeclaration.
+    def exitExternalStructDeclaration(self, ctx:ParaParser.ExternalStructDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#externalBlockItem.
+    def enterExternalBlockItem(self, ctx:ParaParser.ExternalBlockItemContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#externalBlockItem.
+    def exitExternalBlockItem(self, ctx:ParaParser.ExternalBlockItemContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#dynamicImport.
+    def enterDynamicImport(self, ctx:ParaParser.DynamicImportContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#dynamicImport.
+    def exitDynamicImport(self, ctx:ParaParser.DynamicImportContext):
         pass
 
 
@@ -53,12 +116,246 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#postfixExpression.
-    def enterPostfixExpression(self, ctx:ParaParser.PostfixExpressionContext):
+    # Enter a parse tree produced by ParaParser#functionDeclaration.
+    def enterFunctionDeclaration(self, ctx:ParaParser.FunctionDeclarationContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#postfixExpression.
-    def exitPostfixExpression(self, ctx:ParaParser.PostfixExpressionContext):
+    # Exit a parse tree produced by ParaParser#functionDeclaration.
+    def exitFunctionDeclaration(self, ctx:ParaParser.FunctionDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#functionAttributes.
+    def enterFunctionAttributes(self, ctx:ParaParser.FunctionAttributesContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#functionAttributes.
+    def exitFunctionAttributes(self, ctx:ParaParser.FunctionAttributesContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#functionTypeSpecifier.
+    def enterFunctionTypeSpecifier(self, ctx:ParaParser.FunctionTypeSpecifierContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#functionTypeSpecifier.
+    def exitFunctionTypeSpecifier(self, ctx:ParaParser.FunctionTypeSpecifierContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#structDeclaration.
+    def enterStructDeclaration(self, ctx:ParaParser.StructDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#structDeclaration.
+    def exitStructDeclaration(self, ctx:ParaParser.StructDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#structItems.
+    def enterStructItems(self, ctx:ParaParser.StructItemsContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#structItems.
+    def exitStructItems(self, ctx:ParaParser.StructItemsContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#classDeclaration.
+    def enterClassDeclaration(self, ctx:ParaParser.ClassDeclarationContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#classDeclaration.
+    def exitClassDeclaration(self, ctx:ParaParser.ClassDeclarationContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#classItems.
+    def enterClassItems(self, ctx:ParaParser.ClassItemsContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#classItems.
+    def exitClassItems(self, ctx:ParaParser.ClassItemsContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#initClassFunction.
+    def enterInitClassFunction(self, ctx:ParaParser.InitClassFunctionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#initClassFunction.
+    def exitInitClassFunction(self, ctx:ParaParser.InitClassFunctionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#endOfItem.
+    def enterEndOfItem(self, ctx:ParaParser.EndOfItemContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#endOfItem.
+    def exitEndOfItem(self, ctx:ParaParser.EndOfItemContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#groupedPrimaryExpression.
+    def enterGroupedPrimaryExpression(self, ctx:ParaParser.GroupedPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#groupedPrimaryExpression.
+    def exitGroupedPrimaryExpression(self, ctx:ParaParser.GroupedPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#identifierPrimaryExpression.
+    def enterIdentifierPrimaryExpression(self, ctx:ParaParser.IdentifierPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#identifierPrimaryExpression.
+    def exitIdentifierPrimaryExpression(self, ctx:ParaParser.IdentifierPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#memberAccessPrimaryExpression.
+    def enterMemberAccessPrimaryExpression(self, ctx:ParaParser.MemberAccessPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#memberAccessPrimaryExpression.
+    def exitMemberAccessPrimaryExpression(self, ctx:ParaParser.MemberAccessPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#stringPrimaryExpression.
+    def enterStringPrimaryExpression(self, ctx:ParaParser.StringPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#stringPrimaryExpression.
+    def exitStringPrimaryExpression(self, ctx:ParaParser.StringPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#fStringPrimaryExpression.
+    def enterFStringPrimaryExpression(self, ctx:ParaParser.FStringPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#fStringPrimaryExpression.
+    def exitFStringPrimaryExpression(self, ctx:ParaParser.FStringPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#numberPrimaryExpression.
+    def enterNumberPrimaryExpression(self, ctx:ParaParser.NumberPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#numberPrimaryExpression.
+    def exitNumberPrimaryExpression(self, ctx:ParaParser.NumberPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#characterPrimaryExpression.
+    def enterCharacterPrimaryExpression(self, ctx:ParaParser.CharacterPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#characterPrimaryExpression.
+    def exitCharacterPrimaryExpression(self, ctx:ParaParser.CharacterPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#listPrimaryExpression.
+    def enterListPrimaryExpression(self, ctx:ParaParser.ListPrimaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#listPrimaryExpression.
+    def exitListPrimaryExpression(self, ctx:ParaParser.ListPrimaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#identifier.
+    def enterIdentifier(self, ctx:ParaParser.IdentifierContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#identifier.
+    def exitIdentifier(self, ctx:ParaParser.IdentifierContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#string.
+    def enterString(self, ctx:ParaParser.StringContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#string.
+    def exitString(self, ctx:ParaParser.StringContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#listConstant.
+    def enterListConstant(self, ctx:ParaParser.ListConstantContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#listConstant.
+    def exitListConstant(self, ctx:ParaParser.ListConstantContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnPostfixExpression.
+    def enterPassOnPostfixExpression(self, ctx:ParaParser.PassOnPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnPostfixExpression.
+    def exitPassOnPostfixExpression(self, ctx:ParaParser.PassOnPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#computedMemberAccessPostfixExpression.
+    def enterComputedMemberAccessPostfixExpression(self, ctx:ParaParser.ComputedMemberAccessPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#computedMemberAccessPostfixExpression.
+    def exitComputedMemberAccessPostfixExpression(self, ctx:ParaParser.ComputedMemberAccessPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#incrementOrDecrementPostfixExpression.
+    def enterIncrementOrDecrementPostfixExpression(self, ctx:ParaParser.IncrementOrDecrementPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#incrementOrDecrementPostfixExpression.
+    def exitIncrementOrDecrementPostfixExpression(self, ctx:ParaParser.IncrementOrDecrementPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#objectInitialisationPostfixExpression.
+    def enterObjectInitialisationPostfixExpression(self, ctx:ParaParser.ObjectInitialisationPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#objectInitialisationPostfixExpression.
+    def exitObjectInitialisationPostfixExpression(self, ctx:ParaParser.ObjectInitialisationPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#structInitialisationPostfixExpression.
+    def enterStructInitialisationPostfixExpression(self, ctx:ParaParser.StructInitialisationPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#structInitialisationPostfixExpression.
+    def exitStructInitialisationPostfixExpression(self, ctx:ParaParser.StructInitialisationPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#functionCallPostfixExpression.
+    def enterFunctionCallPostfixExpression(self, ctx:ParaParser.FunctionCallPostfixExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#functionCallPostfixExpression.
+    def exitFunctionCallPostfixExpression(self, ctx:ParaParser.FunctionCallPostfixExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#arraySpecifier.
+    def enterArraySpecifier(self, ctx:ParaParser.ArraySpecifierContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#arraySpecifier.
+    def exitArraySpecifier(self, ctx:ParaParser.ArraySpecifierContext):
         pass
 
 
@@ -71,12 +368,57 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#unaryExpression.
-    def enterUnaryExpression(self, ctx:ParaParser.UnaryExpressionContext):
+    # Enter a parse tree produced by ParaParser#passOnUnaryExpression.
+    def enterPassOnUnaryExpression(self, ctx:ParaParser.PassOnUnaryExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#unaryExpression.
-    def exitUnaryExpression(self, ctx:ParaParser.UnaryExpressionContext):
+    # Exit a parse tree produced by ParaParser#passOnUnaryExpression.
+    def exitPassOnUnaryExpression(self, ctx:ParaParser.PassOnUnaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#typeofUnaryExpression.
+    def enterTypeofUnaryExpression(self, ctx:ParaParser.TypeofUnaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#typeofUnaryExpression.
+    def exitTypeofUnaryExpression(self, ctx:ParaParser.TypeofUnaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#deleteUnaryExpression.
+    def enterDeleteUnaryExpression(self, ctx:ParaParser.DeleteUnaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#deleteUnaryExpression.
+    def exitDeleteUnaryExpression(self, ctx:ParaParser.DeleteUnaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#incrementOrDecrementUnaryExpression.
+    def enterIncrementOrDecrementUnaryExpression(self, ctx:ParaParser.IncrementOrDecrementUnaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#incrementOrDecrementUnaryExpression.
+    def exitIncrementOrDecrementUnaryExpression(self, ctx:ParaParser.IncrementOrDecrementUnaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#operatorModifiedUnaryExpression.
+    def enterOperatorModifiedUnaryExpression(self, ctx:ParaParser.OperatorModifiedUnaryExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#operatorModifiedUnaryExpression.
+    def exitOperatorModifiedUnaryExpression(self, ctx:ParaParser.OperatorModifiedUnaryExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#incrementOrDecrementOperator.
+    def enterIncrementOrDecrementOperator(self, ctx:ParaParser.IncrementOrDecrementOperatorContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#incrementOrDecrementOperator.
+    def exitIncrementOrDecrementOperator(self, ctx:ParaParser.IncrementOrDecrementOperatorContext):
         pass
 
 
@@ -89,120 +431,165 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#castOrConvertExpression.
-    def enterCastOrConvertExpression(self, ctx:ParaParser.CastOrConvertExpressionContext):
+    # Enter a parse tree produced by ParaParser#passOnCastOrConvertExpression.
+    def enterPassOnCastOrConvertExpression(self, ctx:ParaParser.PassOnCastOrConvertExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#castOrConvertExpression.
-    def exitCastOrConvertExpression(self, ctx:ParaParser.CastOrConvertExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#multiplicativeExpression.
-    def enterMultiplicativeExpression(self, ctx:ParaParser.MultiplicativeExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#multiplicativeExpression.
-    def exitMultiplicativeExpression(self, ctx:ParaParser.MultiplicativeExpressionContext):
+    # Exit a parse tree produced by ParaParser#passOnCastOrConvertExpression.
+    def exitPassOnCastOrConvertExpression(self, ctx:ParaParser.PassOnCastOrConvertExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#additiveExpression.
-    def enterAdditiveExpression(self, ctx:ParaParser.AdditiveExpressionContext):
+    # Enter a parse tree produced by ParaParser#actualCastOrConvertExpression.
+    def enterActualCastOrConvertExpression(self, ctx:ParaParser.ActualCastOrConvertExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#additiveExpression.
-    def exitAdditiveExpression(self, ctx:ParaParser.AdditiveExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#shiftExpression.
-    def enterShiftExpression(self, ctx:ParaParser.ShiftExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#shiftExpression.
-    def exitShiftExpression(self, ctx:ParaParser.ShiftExpressionContext):
+    # Exit a parse tree produced by ParaParser#actualCastOrConvertExpression.
+    def exitActualCastOrConvertExpression(self, ctx:ParaParser.ActualCastOrConvertExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#relationalExpression.
-    def enterRelationalExpression(self, ctx:ParaParser.RelationalExpressionContext):
+    # Enter a parse tree produced by ParaParser#passOnMultiplicativeExpression.
+    def enterPassOnMultiplicativeExpression(self, ctx:ParaParser.PassOnMultiplicativeExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#relationalExpression.
-    def exitRelationalExpression(self, ctx:ParaParser.RelationalExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#equalityExpression.
-    def enterEqualityExpression(self, ctx:ParaParser.EqualityExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#equalityExpression.
-    def exitEqualityExpression(self, ctx:ParaParser.EqualityExpressionContext):
+    # Exit a parse tree produced by ParaParser#passOnMultiplicativeExpression.
+    def exitPassOnMultiplicativeExpression(self, ctx:ParaParser.PassOnMultiplicativeExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#andExpression.
-    def enterAndExpression(self, ctx:ParaParser.AndExpressionContext):
+    # Enter a parse tree produced by ParaParser#actualMultiplicativeExpression.
+    def enterActualMultiplicativeExpression(self, ctx:ParaParser.ActualMultiplicativeExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#andExpression.
-    def exitAndExpression(self, ctx:ParaParser.AndExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#exclusiveOrExpression.
-    def enterExclusiveOrExpression(self, ctx:ParaParser.ExclusiveOrExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#exclusiveOrExpression.
-    def exitExclusiveOrExpression(self, ctx:ParaParser.ExclusiveOrExpressionContext):
+    # Exit a parse tree produced by ParaParser#actualMultiplicativeExpression.
+    def exitActualMultiplicativeExpression(self, ctx:ParaParser.ActualMultiplicativeExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#inclusiveOrExpression.
-    def enterInclusiveOrExpression(self, ctx:ParaParser.InclusiveOrExpressionContext):
+    # Enter a parse tree produced by ParaParser#passOnAdditiveExpression.
+    def enterPassOnAdditiveExpression(self, ctx:ParaParser.PassOnAdditiveExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#inclusiveOrExpression.
-    def exitInclusiveOrExpression(self, ctx:ParaParser.InclusiveOrExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#logicalAndExpression.
-    def enterLogicalAndExpression(self, ctx:ParaParser.LogicalAndExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#logicalAndExpression.
-    def exitLogicalAndExpression(self, ctx:ParaParser.LogicalAndExpressionContext):
+    # Exit a parse tree produced by ParaParser#passOnAdditiveExpression.
+    def exitPassOnAdditiveExpression(self, ctx:ParaParser.PassOnAdditiveExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#logicalOrExpression.
-    def enterLogicalOrExpression(self, ctx:ParaParser.LogicalOrExpressionContext):
+    # Enter a parse tree produced by ParaParser#actualAdditiveExpression.
+    def enterActualAdditiveExpression(self, ctx:ParaParser.ActualAdditiveExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#logicalOrExpression.
-    def exitLogicalOrExpression(self, ctx:ParaParser.LogicalOrExpressionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#conditionalExpression.
-    def enterConditionalExpression(self, ctx:ParaParser.ConditionalExpressionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#conditionalExpression.
-    def exitConditionalExpression(self, ctx:ParaParser.ConditionalExpressionContext):
+    # Exit a parse tree produced by ParaParser#actualAdditiveExpression.
+    def exitActualAdditiveExpression(self, ctx:ParaParser.ActualAdditiveExpressionContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#assignmentExpression.
-    def enterAssignmentExpression(self, ctx:ParaParser.AssignmentExpressionContext):
+    # Enter a parse tree produced by ParaParser#passOnRelationalExpression.
+    def enterPassOnRelationalExpression(self, ctx:ParaParser.PassOnRelationalExpressionContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#assignmentExpression.
-    def exitAssignmentExpression(self, ctx:ParaParser.AssignmentExpressionContext):
+    # Exit a parse tree produced by ParaParser#passOnRelationalExpression.
+    def exitPassOnRelationalExpression(self, ctx:ParaParser.PassOnRelationalExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualRelationalExpression.
+    def enterActualRelationalExpression(self, ctx:ParaParser.ActualRelationalExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualRelationalExpression.
+    def exitActualRelationalExpression(self, ctx:ParaParser.ActualRelationalExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnEqualityExpression.
+    def enterPassOnEqualityExpression(self, ctx:ParaParser.PassOnEqualityExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnEqualityExpression.
+    def exitPassOnEqualityExpression(self, ctx:ParaParser.PassOnEqualityExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualEqualityExpression.
+    def enterActualEqualityExpression(self, ctx:ParaParser.ActualEqualityExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualEqualityExpression.
+    def exitActualEqualityExpression(self, ctx:ParaParser.ActualEqualityExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnLogicalAndExpression.
+    def enterPassOnLogicalAndExpression(self, ctx:ParaParser.PassOnLogicalAndExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnLogicalAndExpression.
+    def exitPassOnLogicalAndExpression(self, ctx:ParaParser.PassOnLogicalAndExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualLogicalAndExpression.
+    def enterActualLogicalAndExpression(self, ctx:ParaParser.ActualLogicalAndExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualLogicalAndExpression.
+    def exitActualLogicalAndExpression(self, ctx:ParaParser.ActualLogicalAndExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnLogicalOrExpression.
+    def enterPassOnLogicalOrExpression(self, ctx:ParaParser.PassOnLogicalOrExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnLogicalOrExpression.
+    def exitPassOnLogicalOrExpression(self, ctx:ParaParser.PassOnLogicalOrExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualLogicalOrExpression.
+    def enterActualLogicalOrExpression(self, ctx:ParaParser.ActualLogicalOrExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualLogicalOrExpression.
+    def exitActualLogicalOrExpression(self, ctx:ParaParser.ActualLogicalOrExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnConditionalExpression.
+    def enterPassOnConditionalExpression(self, ctx:ParaParser.PassOnConditionalExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnConditionalExpression.
+    def exitPassOnConditionalExpression(self, ctx:ParaParser.PassOnConditionalExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualConditionalExpression.
+    def enterActualConditionalExpression(self, ctx:ParaParser.ActualConditionalExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualConditionalExpression.
+    def exitActualConditionalExpression(self, ctx:ParaParser.ActualConditionalExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#passOnAssignmentExpression.
+    def enterPassOnAssignmentExpression(self, ctx:ParaParser.PassOnAssignmentExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#passOnAssignmentExpression.
+    def exitPassOnAssignmentExpression(self, ctx:ParaParser.PassOnAssignmentExpressionContext):
+        pass
+
+
+    # Enter a parse tree produced by ParaParser#actualAssignmentExpression.
+    def enterActualAssignmentExpression(self, ctx:ParaParser.ActualAssignmentExpressionContext):
+        pass
+
+    # Exit a parse tree produced by ParaParser#actualAssignmentExpression.
+    def exitActualAssignmentExpression(self, ctx:ParaParser.ActualAssignmentExpressionContext):
         pass
 
 
@@ -242,30 +629,12 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#declarationSpecifiers.
-    def enterDeclarationSpecifiers(self, ctx:ParaParser.DeclarationSpecifiersContext):
+    # Enter a parse tree produced by ParaParser#storageTypeSpecifier.
+    def enterStorageTypeSpecifier(self, ctx:ParaParser.StorageTypeSpecifierContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#declarationSpecifiers.
-    def exitDeclarationSpecifiers(self, ctx:ParaParser.DeclarationSpecifiersContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#declarationSpecifier.
-    def enterDeclarationSpecifier(self, ctx:ParaParser.DeclarationSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#declarationSpecifier.
-    def exitDeclarationSpecifier(self, ctx:ParaParser.DeclarationSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#initDeclaratorList.
-    def enterInitDeclaratorList(self, ctx:ParaParser.InitDeclaratorListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#initDeclaratorList.
-    def exitInitDeclaratorList(self, ctx:ParaParser.InitDeclaratorListContext):
+    # Exit a parse tree produced by ParaParser#storageTypeSpecifier.
+    def exitStorageTypeSpecifier(self, ctx:ParaParser.StorageTypeSpecifierContext):
         pass
 
 
@@ -278,165 +647,39 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#storageClassSpecifier.
-    def enterStorageClassSpecifier(self, ctx:ParaParser.StorageClassSpecifierContext):
+    # Enter a parse tree produced by ParaParser#singleItemTypeSpecifier.
+    def enterSingleItemTypeSpecifier(self, ctx:ParaParser.SingleItemTypeSpecifierContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#storageClassSpecifier.
-    def exitStorageClassSpecifier(self, ctx:ParaParser.StorageClassSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#arraySpecifier.
-    def enterArraySpecifier(self, ctx:ParaParser.ArraySpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#arraySpecifier.
-    def exitArraySpecifier(self, ctx:ParaParser.ArraySpecifierContext):
+    # Exit a parse tree produced by ParaParser#singleItemTypeSpecifier.
+    def exitSingleItemTypeSpecifier(self, ctx:ParaParser.SingleItemTypeSpecifierContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#typeSpecifier.
-    def enterTypeSpecifier(self, ctx:ParaParser.TypeSpecifierContext):
+    # Enter a parse tree produced by ParaParser#multiItemTypeSpecifier.
+    def enterMultiItemTypeSpecifier(self, ctx:ParaParser.MultiItemTypeSpecifierContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#typeSpecifier.
-    def exitTypeSpecifier(self, ctx:ParaParser.TypeSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#structOrUnionSpecifier.
-    def enterStructOrUnionSpecifier(self, ctx:ParaParser.StructOrUnionSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#structOrUnionSpecifier.
-    def exitStructOrUnionSpecifier(self, ctx:ParaParser.StructOrUnionSpecifierContext):
+    # Exit a parse tree produced by ParaParser#multiItemTypeSpecifier.
+    def exitMultiItemTypeSpecifier(self, ctx:ParaParser.MultiItemTypeSpecifierContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#structOrUnion.
-    def enterStructOrUnion(self, ctx:ParaParser.StructOrUnionContext):
+    # Enter a parse tree produced by ParaParser#typeofTypeSpecifier.
+    def enterTypeofTypeSpecifier(self, ctx:ParaParser.TypeofTypeSpecifierContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#structOrUnion.
-    def exitStructOrUnion(self, ctx:ParaParser.StructOrUnionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#structDeclarationList.
-    def enterStructDeclarationList(self, ctx:ParaParser.StructDeclarationListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#structDeclarationList.
-    def exitStructDeclarationList(self, ctx:ParaParser.StructDeclarationListContext):
+    # Exit a parse tree produced by ParaParser#typeofTypeSpecifier.
+    def exitTypeofTypeSpecifier(self, ctx:ParaParser.TypeofTypeSpecifierContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#structDeclaration.
-    def enterStructDeclaration(self, ctx:ParaParser.StructDeclarationContext):
+    # Enter a parse tree produced by ParaParser#explicitTypeHint.
+    def enterExplicitTypeHint(self, ctx:ParaParser.ExplicitTypeHintContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#structDeclaration.
-    def exitStructDeclaration(self, ctx:ParaParser.StructDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#specifierQualifierList.
-    def enterSpecifierQualifierList(self, ctx:ParaParser.SpecifierQualifierListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#specifierQualifierList.
-    def exitSpecifierQualifierList(self, ctx:ParaParser.SpecifierQualifierListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#structDeclaratorList.
-    def enterStructDeclaratorList(self, ctx:ParaParser.StructDeclaratorListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#structDeclaratorList.
-    def exitStructDeclaratorList(self, ctx:ParaParser.StructDeclaratorListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#structDeclarator.
-    def enterStructDeclarator(self, ctx:ParaParser.StructDeclaratorContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#structDeclarator.
-    def exitStructDeclarator(self, ctx:ParaParser.StructDeclaratorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#enumSpecifier.
-    def enterEnumSpecifier(self, ctx:ParaParser.EnumSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#enumSpecifier.
-    def exitEnumSpecifier(self, ctx:ParaParser.EnumSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#enumeratorList.
-    def enterEnumeratorList(self, ctx:ParaParser.EnumeratorListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#enumeratorList.
-    def exitEnumeratorList(self, ctx:ParaParser.EnumeratorListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#enumerator.
-    def enterEnumerator(self, ctx:ParaParser.EnumeratorContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#enumerator.
-    def exitEnumerator(self, ctx:ParaParser.EnumeratorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#enumerationConstant.
-    def enterEnumerationConstant(self, ctx:ParaParser.EnumerationConstantContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#enumerationConstant.
-    def exitEnumerationConstant(self, ctx:ParaParser.EnumerationConstantContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#atomicTypeSpecifier.
-    def enterAtomicTypeSpecifier(self, ctx:ParaParser.AtomicTypeSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#atomicTypeSpecifier.
-    def exitAtomicTypeSpecifier(self, ctx:ParaParser.AtomicTypeSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#typeQualifier.
-    def enterTypeQualifier(self, ctx:ParaParser.TypeQualifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#typeQualifier.
-    def exitTypeQualifier(self, ctx:ParaParser.TypeQualifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#functionSpecifier.
-    def enterFunctionSpecifier(self, ctx:ParaParser.FunctionSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#functionSpecifier.
-    def exitFunctionSpecifier(self, ctx:ParaParser.FunctionSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#alignmentSpecifier.
-    def enterAlignmentSpecifier(self, ctx:ParaParser.AlignmentSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#alignmentSpecifier.
-    def exitAlignmentSpecifier(self, ctx:ParaParser.AlignmentSpecifierContext):
+    # Exit a parse tree produced by ParaParser#explicitTypeHint.
+    def exitExplicitTypeHint(self, ctx:ParaParser.ExplicitTypeHintContext):
         pass
 
 
@@ -467,24 +710,6 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#pointer.
-    def enterPointer(self, ctx:ParaParser.PointerContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#pointer.
-    def exitPointer(self, ctx:ParaParser.PointerContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#typeQualifierList.
-    def enterTypeQualifierList(self, ctx:ParaParser.TypeQualifierListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#typeQualifierList.
-    def exitTypeQualifierList(self, ctx:ParaParser.TypeQualifierListContext):
-        pass
-
-
     # Enter a parse tree produced by ParaParser#parameterTypeList.
     def enterParameterTypeList(self, ctx:ParaParser.ParameterTypeListContext):
         pass
@@ -503,66 +728,12 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#regularParameterDeclaration.
-    def enterRegularParameterDeclaration(self, ctx:ParaParser.RegularParameterDeclarationContext):
+    # Enter a parse tree produced by ParaParser#parameterDeclaration.
+    def enterParameterDeclaration(self, ctx:ParaParser.ParameterDeclarationContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#regularParameterDeclaration.
-    def exitRegularParameterDeclaration(self, ctx:ParaParser.RegularParameterDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#abstractParameterDeclaration.
-    def enterAbstractParameterDeclaration(self, ctx:ParaParser.AbstractParameterDeclarationContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#abstractParameterDeclaration.
-    def exitAbstractParameterDeclaration(self, ctx:ParaParser.AbstractParameterDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#identifierList.
-    def enterIdentifierList(self, ctx:ParaParser.IdentifierListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#identifierList.
-    def exitIdentifierList(self, ctx:ParaParser.IdentifierListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#typeName.
-    def enterTypeName(self, ctx:ParaParser.TypeNameContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#typeName.
-    def exitTypeName(self, ctx:ParaParser.TypeNameContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#abstractDeclarator.
-    def enterAbstractDeclarator(self, ctx:ParaParser.AbstractDeclaratorContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#abstractDeclarator.
-    def exitAbstractDeclarator(self, ctx:ParaParser.AbstractDeclaratorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#directAbstractDeclarator.
-    def enterDirectAbstractDeclarator(self, ctx:ParaParser.DirectAbstractDeclaratorContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#directAbstractDeclarator.
-    def exitDirectAbstractDeclarator(self, ctx:ParaParser.DirectAbstractDeclaratorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#typedefName.
-    def enterTypedefName(self, ctx:ParaParser.TypedefNameContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#typedefName.
-    def exitTypedefName(self, ctx:ParaParser.TypedefNameContext):
+    # Exit a parse tree produced by ParaParser#parameterDeclaration.
+    def exitParameterDeclaration(self, ctx:ParaParser.ParameterDeclarationContext):
         pass
 
 
@@ -575,66 +746,12 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#initializerList.
-    def enterInitializerList(self, ctx:ParaParser.InitializerListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#initializerList.
-    def exitInitializerList(self, ctx:ParaParser.InitializerListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#designation.
-    def enterDesignation(self, ctx:ParaParser.DesignationContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#designation.
-    def exitDesignation(self, ctx:ParaParser.DesignationContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#designatorList.
-    def enterDesignatorList(self, ctx:ParaParser.DesignatorListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#designatorList.
-    def exitDesignatorList(self, ctx:ParaParser.DesignatorListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#designator.
-    def enterDesignator(self, ctx:ParaParser.DesignatorContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#designator.
-    def exitDesignator(self, ctx:ParaParser.DesignatorContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#staticAssertDeclaration.
-    def enterStaticAssertDeclaration(self, ctx:ParaParser.StaticAssertDeclarationContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#staticAssertDeclaration.
-    def exitStaticAssertDeclaration(self, ctx:ParaParser.StaticAssertDeclarationContext):
-        pass
-
-
     # Enter a parse tree produced by ParaParser#statement.
     def enterStatement(self, ctx:ParaParser.StatementContext):
         pass
 
     # Exit a parse tree produced by ParaParser#statement.
     def exitStatement(self, ctx:ParaParser.StatementContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#labeledStatement.
-    def enterLabeledStatement(self, ctx:ParaParser.LabeledStatementContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#labeledStatement.
-    def exitLabeledStatement(self, ctx:ParaParser.LabeledStatementContext):
         pass
 
 
@@ -674,48 +791,30 @@ class ParaListener(ParseTreeListener):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#tryExceptStatement.
-    def enterTryExceptStatement(self, ctx:ParaParser.TryExceptStatementContext):
+    # Enter a parse tree produced by ParaParser#ifStatement.
+    def enterIfStatement(self, ctx:ParaParser.IfStatementContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#tryExceptStatement.
-    def exitTryExceptStatement(self, ctx:ParaParser.TryExceptStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#exceptBlock.
-    def enterExceptBlock(self, ctx:ParaParser.ExceptBlockContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#exceptBlock.
-    def exitExceptBlock(self, ctx:ParaParser.ExceptBlockContext):
+    # Exit a parse tree produced by ParaParser#ifStatement.
+    def exitIfStatement(self, ctx:ParaParser.IfStatementContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#finallyBlock.
-    def enterFinallyBlock(self, ctx:ParaParser.FinallyBlockContext):
+    # Enter a parse tree produced by ParaParser#switchStatement.
+    def enterSwitchStatement(self, ctx:ParaParser.SwitchStatementContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#finallyBlock.
-    def exitFinallyBlock(self, ctx:ParaParser.FinallyBlockContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#elseBlock.
-    def enterElseBlock(self, ctx:ParaParser.ElseBlockContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#elseBlock.
-    def exitElseBlock(self, ctx:ParaParser.ElseBlockContext):
+    # Exit a parse tree produced by ParaParser#switchStatement.
+    def exitSwitchStatement(self, ctx:ParaParser.SwitchStatementContext):
         pass
 
 
-    # Enter a parse tree produced by ParaParser#selectionStatement.
-    def enterSelectionStatement(self, ctx:ParaParser.SelectionStatementContext):
+    # Enter a parse tree produced by ParaParser#switchLabeledStatement.
+    def enterSwitchLabeledStatement(self, ctx:ParaParser.SwitchLabeledStatementContext):
         pass
 
-    # Exit a parse tree produced by ParaParser#selectionStatement.
-    def exitSelectionStatement(self, ctx:ParaParser.SelectionStatementContext):
+    # Exit a parse tree produced by ParaParser#switchLabeledStatement.
+    def exitSwitchLabeledStatement(self, ctx:ParaParser.SwitchLabeledStatementContext):
         pass
 
 
@@ -761,132 +860,6 @@ class ParaListener(ParseTreeListener):
 
     # Exit a parse tree produced by ParaParser#jumpStatement.
     def exitJumpStatement(self, ctx:ParaParser.JumpStatementContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#compilationUnit.
-    def enterCompilationUnit(self, ctx:ParaParser.CompilationUnitContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#compilationUnit.
-    def exitCompilationUnit(self, ctx:ParaParser.CompilationUnitContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#translationUnit.
-    def enterTranslationUnit(self, ctx:ParaParser.TranslationUnitContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#translationUnit.
-    def exitTranslationUnit(self, ctx:ParaParser.TranslationUnitContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#externalFunctionDefinition.
-    def enterExternalFunctionDefinition(self, ctx:ParaParser.ExternalFunctionDefinitionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#externalFunctionDefinition.
-    def exitExternalFunctionDefinition(self, ctx:ParaParser.ExternalFunctionDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#externalDeclaration.
-    def enterExternalDeclaration(self, ctx:ParaParser.ExternalDeclarationContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#externalDeclaration.
-    def exitExternalDeclaration(self, ctx:ParaParser.ExternalDeclarationContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#externalExtTaskDefinition.
-    def enterExternalExtTaskDefinition(self, ctx:ParaParser.ExternalExtTaskDefinitionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#externalExtTaskDefinition.
-    def exitExternalExtTaskDefinition(self, ctx:ParaParser.ExternalExtTaskDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#standardFunctionDefinition.
-    def enterStandardFunctionDefinition(self, ctx:ParaParser.StandardFunctionDefinitionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#standardFunctionDefinition.
-    def exitStandardFunctionDefinition(self, ctx:ParaParser.StandardFunctionDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#simpleFunctionDefinition.
-    def enterSimpleFunctionDefinition(self, ctx:ParaParser.SimpleFunctionDefinitionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#simpleFunctionDefinition.
-    def exitSimpleFunctionDefinition(self, ctx:ParaParser.SimpleFunctionDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#functionDeclarationSpecifiers.
-    def enterFunctionDeclarationSpecifiers(self, ctx:ParaParser.FunctionDeclarationSpecifiersContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#functionDeclarationSpecifiers.
-    def exitFunctionDeclarationSpecifiers(self, ctx:ParaParser.FunctionDeclarationSpecifiersContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#decoratorSpecifier.
-    def enterDecoratorSpecifier(self, ctx:ParaParser.DecoratorSpecifierContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#decoratorSpecifier.
-    def exitDecoratorSpecifier(self, ctx:ParaParser.DecoratorSpecifierContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#extensionTaskDefinition.
-    def enterExtensionTaskDefinition(self, ctx:ParaParser.ExtensionTaskDefinitionContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#extensionTaskDefinition.
-    def exitExtensionTaskDefinition(self, ctx:ParaParser.ExtensionTaskDefinitionContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#extensionTaskParameterList.
-    def enterExtensionTaskParameterList(self, ctx:ParaParser.ExtensionTaskParameterListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#extensionTaskParameterList.
-    def exitExtensionTaskParameterList(self, ctx:ParaParser.ExtensionTaskParameterListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#extensionTaskParameter.
-    def enterExtensionTaskParameter(self, ctx:ParaParser.ExtensionTaskParameterContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#extensionTaskParameter.
-    def exitExtensionTaskParameter(self, ctx:ParaParser.ExtensionTaskParameterContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#declarationList.
-    def enterDeclarationList(self, ctx:ParaParser.DeclarationListContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#declarationList.
-    def exitDeclarationList(self, ctx:ParaParser.DeclarationListContext):
-        pass
-
-
-    # Enter a parse tree produced by ParaParser#endOfItem.
-    def enterEndOfItem(self, ctx:ParaParser.EndOfItemContext):
-        pass
-
-    # Exit a parse tree produced by ParaParser#endOfItem.
-    def exitEndOfItem(self, ctx:ParaParser.EndOfItemContext):
         pass
 
 

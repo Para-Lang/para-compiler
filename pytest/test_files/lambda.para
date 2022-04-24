@@ -1,9 +1,23 @@
-entry status Main()
-{
-    lambda<int> multiply_by_two = (int x) => x * 2;
-    lambda<int> func = ((int x) => x as int) as lambda<int>;
-    lambda<int, int > func2 = (int x, int y) => (int) x * y;
-    lambda<int, y, z, ...> x = 3; // will raise an error
+/**
+ * A simple program showing the functionality of lambdas.
+ */
+entry status Main() {
+    // Simple lambda that takes a single argument and returns one
+    lambda<int, int> multiply_by_two = (int x) => x * 2;
+
+    // Converting the lambda to lambda<float, int>, which is it's own type, so
+    // the conversion is ignored
+    lambda<int, float> as_int = ((float x) => x as int) as lambda<float, int>;
+
+    // Lambda that takes two arguments and returns one item
+    lambda<int, int, int> multiply = (int x, int y) => (int) x * y;
+
+    // Call the lambdas
+    multiply_by_two(3);
+
+    as_int(2.9);
+
+    multiply(2, 5);
 
     return (status) { .status_code = 0 };
 }

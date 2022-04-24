@@ -1,0 +1,33 @@
+/**
+ * A simple program showing the functionality of structs.
+ *
+ * Note: Structs are not allocated, but locally defined on the stack (unless
+ * the underlying C compiler decides to explicitly move it to the heap for
+ * compilation reasons.)
+ *
+ * Classes on the other hand will be allocated in the heap and collected using
+ * the garbage collector. They will survive the end of stack and exist as long
+ * as references to the object exist.
+ */
+struct Structure {
+  // Default fields (must be set during initialisation)
+  int value1;
+  float value2;
+  double value3;
+
+  // Constant value that is initialized when 'init()' is called.
+  // These are NOT static fields and will be reevaluated on startup every time.
+  string value4 = "";
+
+  // Initialising function/Constructor
+  init(int value1, int value2, int value3) {
+    this.value1 = value1;
+    this.value2 = value2;
+    this.value3 = value3;
+  }
+}
+
+entry status Main() {
+  // Structs are initialised on the stack - Therefore 'new' is NOT required
+  Structure value1 = Structure(2, 3, 5);
+}

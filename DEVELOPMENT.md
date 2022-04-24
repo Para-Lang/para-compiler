@@ -48,16 +48,6 @@ implementation code needs to be changed.*
 
 To generate in the command-line use:
 
-- For the Pre-Processor:
-    - Python (Required for the Compiler):
-        ```bash
-        antlr4 -o ./paralang_base/preprocessor/parser -Dlanguage=Python3 ./ParaPreProcessor.g4
-        ```
-    - Java:
-        ```bash
-        antlr4 -o ./paralang_base/preprocessor/parser -Dlanguage=Java ./ParaPreProcessor.g4
-        ```
-
 - For the Core Language:
     - Python (Required for the Compiler):
         ```bash
@@ -84,8 +74,6 @@ rm -rf ./path/to/generated/output
 
 - *Make sure the alias for `antlr4` / `antlr` exists! Else the command will not
   work*
-- *Comments are only partly ignored in Para.g4, due the intended removal in
-  the Pre-Processor. Errors can occur!*
 
 ## Generating the docs
 

@@ -210,10 +210,9 @@ class InterruptError(InternalError, RuntimeError):
 
 class FailedToProcessError(InternalError):
     """
-    A specific error that is raised inside a compilation process or
-    Pre-Processor process, which represents a failure in processing the wanted
-    input. This class replaces the actual error that would be logged and all
-    error logs will be printed onto the console.
+    A specific error that is raised inside a compilation process, which
+    represents the failure in processing some input. This class replaces
+    the actual error that would be logged.
     """
     error_msg = "Failed to process the input! Check logs for information"
     _default_code = ErrorCodes.FAILED_TO_PROCESS

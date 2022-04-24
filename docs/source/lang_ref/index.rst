@@ -12,7 +12,6 @@ Welcome to the Language Reference
     Functions <functions/index>
     Extension Tasks <tasks/index>
     Compiler <compiler_structure>
-    Pre-Processor <preprocessor/index>
     Best Practises <best_practises/index>
 
 This serves as a base reference for the Para Language. It will provide
@@ -36,5 +35,4 @@ Overview
 - `Functions <./functions/index.html>`_ - Functions and Lambdas.
 - `Extension Tasks <./tasks/index.html>`_ - Extension Tasks for integrating other languages.
 - `Compiler <./compiler_structure.html>`_ - Reference for the Para Compiler structure and logic.
-- `Pre-Processor <./preprocessor/index.html>`_ - Reference for the Para Pre-Processor and directives.
 - `Best Practises <./best_practises/index.html>`_ - Best Practises when using the language.

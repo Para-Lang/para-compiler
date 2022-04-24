@@ -13,8 +13,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## Unreleased
 
 ### Added
+- New type special function type `noret` in `Para.g4`.
 
 ### Changed
+- Updated `Para.g4` grammar rules and structure, so it is easier to interact
+  with the parse tree in the `Listener`. 
 - Behaviour of `DIST_COMPILED_VERSION`, which will try to detect the compiled
   binary state using `sys.argv` and the call identifier.
 - Installation behaviour of `para-build.py`, which will from now use
@@ -23,11 +26,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   extensions like `paraproj` to be used in the console.
 
 ### Removed
-- Unneeded `bin-config.json` and `BIN_CONFIG_PATH` constant
-  variable in `const.py`.
-- Unneeded `C_COM_EXISTENCE_OVERWRITE`, which is useless
-  with the new configuration style.
-- Unneeded `MODULE_VERSION` constant variable in `const.py`.
+- The preprocessor module, as development will focus solely on the language
+  itself. (If the preprocessor ever comes back in some form is undecided).
+- `bin-config.json` and `BIN_CONFIG_PATH` constant in `const.py`.
+- `C_COM_EXISTENCE_OVERWRITE`, which is unneeded with the new configuration
+  style.
+- `MODULE_VERSION` constant variable in `const.py`.
+- Support for C syntax.
 
 ## [v0.1.dev7] - 2022-01-27
 

@@ -1,5 +1,5 @@
 # coding=utf-8
-""" ABC Classes used in the Para Compiler and Pre-Processor """
+""" ABC Classes used in the Para Compiler """
 
 from . import base_ctx
 from . import base_error_handler

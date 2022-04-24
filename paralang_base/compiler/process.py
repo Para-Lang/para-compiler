@@ -15,8 +15,6 @@ from typing import Union, Tuple, List, Optional, AsyncGenerator
 
 from .compile_ctx import ProgramCompilationContext
 from ..exceptions import FileAccessError
-from ..preprocessor import PreProcessorProcessResult
-from ..preprocessor.ctx import ProgramPreProcessorContext
 from ..util import (has_valid_file_ending, validate_path_like,
                     ensure_pathlib_path)
 
@@ -149,8 +147,6 @@ class CompileProcess(Process):
         super().__init__(files, project_root, encoding)
 
         self._temp_files: List[str] = []
-        self._preprocessor_ctx = \
-            ProgramPreProcessorContext(files, project_root, encoding)
         self._compilation_ctx = \
             ProgramCompilationContext(files, project_root, encoding)
 
@@ -160,25 +156,9 @@ class CompileProcess(Process):
         return self._files
 
     @property
-    def preprocessor_ctx(self) -> ProgramPreProcessorContext:
-        """ Context for the Pre-Processor """
-        return self._preprocessor_ctx
-
-    @property
     def compilation_ctx(self) -> ProgramCompilationContext:
         """ Context for the compilation """
         return self._compilation_ctx
-
-    async def preprocess_files(
-            self, prefer_logging: bool
-    ) -> PreProcessorProcessResult:
-        """ Runs the Pre-Processor and generates the temporary files """
-        logger.info(
-            "Processing files in the Pre-Processor"
-        )
-        return await self.preprocessor_ctx.process_files(
-            prefer_logging
-        )
 
     async def compile(self) -> CompileResult:
         """
@@ -209,12 +189,7 @@ class CompileProcess(Process):
          the final result and not yield any progress using the generator.
         """
         if track_progress:
-            yield 5, "Running Pre-Processor", logging.INFO, None
-
-        res: PreProcessorProcessResult = await self.preprocess_files(True)
-
-        if track_progress:
-            yield 20, "Parsing files and generating Parse Streams", \
+            yield 5, "Parsing files and generating Parse Streams", \
                   logging.INFO, None
 
         await self.compilation_ctx.process_program(True)

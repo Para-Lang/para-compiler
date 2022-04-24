@@ -1,0 +1,32 @@
+/**
+ * A simple program showing the functionality of a class.
+ *
+ * Note: Classes will be allocated in the heap and collected using the garbage
+ * collector. They will survive the end of stack and exist as long as
+ * references to the object exist.
+ *
+ * Structs are on the other hand not allocated, but locally defined on the
+ * stack (unless the underlying C compiler decides to explicitly move it to the
+ * heap for compilation reasons.)
+ */
+import { Print } from "pbl-io";
+
+class Animal {
+  // Default fields (must be set during initialisation)
+  string sound;
+
+  // Initialising function/Constructor
+  init(string sound) {
+    this.sound = sound;
+  }
+
+  noret MakeSound() {
+    Print(sound);
+  }
+}
+
+entry status Main() {
+  // Classes are initialised on the heap - Therefore 'new' is required
+  Animal animal = new Animal("Miao");
+  animal.MakeSound();
+}

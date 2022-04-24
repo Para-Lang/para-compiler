@@ -14,7 +14,6 @@ Asking for info takes time that is unnecessarily wasted if it's not correctly po
 **Affected area by change:**
 
 - Compiler Source Code: [yes/no]
-- Pre-Processor Source Code: [yes/no]
 - `para` parent module: [yes/no]
 - CLI: [yes/no]
 - Inno-Installer (Win): [yes/no]

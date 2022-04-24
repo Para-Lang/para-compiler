@@ -22,38 +22,35 @@
 
 *Planned/Intended features (Development is still ongoing)*
 
-- Ability to streamline calling processes and handling arguments and return
-  data.
-- Multi-Threaded processing, which allows extensions / other programs to be run
-  inside each thread.
-- Ability to manage exceptions and also define fallbacks. This is also
-  supported for extensions that fail.
-- Extended Base-Library (Para Base Library) with additional types and
-  functions.
-- Decorator and Overload Functions.
-- Simplified syntax and handling of C components for easier coding.
-- Provide more Security by forbidding variable shadowing and removing undefined
-  behaviour.
+- Compilation to C and further system-dependent code generation using LLVM.
+  (Support for all platforms that LLVM Clang supports. More info 
+  [here](https://llvm.org/docs/GettingStarted.html#hardware)).
+- Simple object-oriented structures using Classes and Structs.
+- Variable and Type Reflection for accessing of metadata.
+- Null safety by enforcing clear definitions when creating variables or passing
+  arguments. Null has to explicitly hinted in the type using `type?`. 
+- Auto-handling of pointers of objects and object arguments without pointer
+  arithmetic.
+- No undefined behaviour and strict syntax rules.
+- Asynchronous operations and promises using `libuv`.
 
 ## Introduction
 
 Para (From Greek "para": Beside/Alongside) is a programming language that
 is designed to integrate other languages and allow for advanced management of
 embedded programs / code-bases inside a program, where the language will serve
-as a base for writing overhead and "connector" programs, which can manage
-instances, listen for events, stop and start processes and manage in- and
-out-data.
+as a base for writing overhead programs, which can manage instances, listen for
+events, stop and start processes and manage in- and out-data.
 
 ### Commands
 
 *Commands displayed are mostly only partly implemented*
 
-| Name                  | Description                                                                                      |
-|-----------------------|--------------------------------------------------------------------------------------------------|
-| ``para compile``      | Compiles a Para program to C or an executable.                                                   |
-| ``para run``          | Compiles a Para program and runs it.                                                             |
-| ``para syntax-check`` | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
-| ``para analyse``      | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
+| Name                  | Description                                                       |
+|-----------------------|-------------------------------------------------------------------|
+| ``para compile``      | Compiles a Para program to C or an executable.                    |
+| ``para run``          | Compiles a Para program and runs it.                              |
+| ``para analyse``      | Analyses a program and validates the syntax                       |
 
 ## Docs
 

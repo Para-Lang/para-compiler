@@ -8,20 +8,14 @@ Welcome to the Python API Reference
     Exceptions <exceptions>
     ABC Classes <abc>
     Para Compiler <compiler/index>
-    Pre-Processor <preprocessor/index>
     Extensions <extensions/index>
 
 This serves as a throughout reference for the Python module `para` and API,
-which can be used for customised usage of the Para Compiler, Pre-Processor
-and utilities.
+which can be used for customised usage of the Para Compiler/
 
 Through the structure of Para, the compiler module can be used independently
 from the binaries and CLI, and modified as wanted to also allow for specific
 customisation or runtime usage.
-
-This also means it enables for example: Running the Pre-Processor alone, using
-syntax-checks on specific files or running project-structure tools inside a
-Python script made by you.
 
 Compiler Installation - ``paralang-base``
 =========================================
@@ -132,8 +126,7 @@ CLI Requirements
 Overview
 ========
 
-- `Exceptions <./exceptions.html>`_ - Exceptions in the Para Compiler and Python API
-- `Pre-Processor <./preprocessor.html>`_ - Pre-Processor for handling directives
-- `Para Compiler <./compiler.html>`_ - Core Para Compiler for handling Para code and generating the C counterpart
-- `ABC Classes <./abc.html>`_ - ABC Classes, which are implemented in the Compiler and Pre-Processor
-- `Para Extensions <./extensions/index.html>`_ - Para CLI Extensions and Tools
+- `Exceptions <./exceptions.html>`_ - Exceptions in the Para Compiler and Python API.
+- `Para Compiler <./compiler.html>`_ - Core Para Compiler for handling Para code and generating the C counterpart.
+- `ABC Classes <./abc.html>`_ - ABC Classes, which are implemented in the Compiler.
+- `Para Extensions <./extensions/index.html>`_ - Para CLI Extensions and Tools.

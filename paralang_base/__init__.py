@@ -38,7 +38,6 @@ from . import abc
 from . import compiler
 from . import const
 from . import exceptions
-from . import preprocessor
 from . import util
 
 # local imports

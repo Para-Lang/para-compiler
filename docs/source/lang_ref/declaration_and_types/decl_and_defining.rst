@@ -29,9 +29,7 @@ enough.
 Scopes can be easily split into the following types:
 
 - "Project/Global Scope" - The scope that inclusion is handled, which may be
-  accessed by all files that are connected together. This is though in reality
-  accessing the scope of another file and importing it into the local file one
-  using the pre-processor
+  accessed by all files that are connected together.
 - Local File Scope (Local Global Scope) - Local File scope, which defines the
   local variables, which may be accessed by all function scopes and compound
   scopes in this file

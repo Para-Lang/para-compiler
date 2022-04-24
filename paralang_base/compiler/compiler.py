@@ -8,6 +8,7 @@ from os import PathLike
 from pathlib import Path
 from typing import Union, TYPE_CHECKING, Tuple, Literal, List, Optional
 import antlr4
+from antlr4 import BailErrorStrategy
 
 from .error_handler import ParaErrorListener
 from .parse_stream import ParaQualifiedParseStream, CParseStream
@@ -201,6 +202,7 @@ class ParaCompiler:
 
         # Parser which generates based on the top entry rule the parse tree
         parser = ParaParser(stream)
+        parser._errHandler = BailErrorStrategy()
         parser.removeErrorListeners()
         parser.addErrorListener(error_listener)
 

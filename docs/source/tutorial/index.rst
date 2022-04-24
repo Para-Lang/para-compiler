@@ -18,9 +18,7 @@ Available commands
 +------------------------+--------------------------------------------------------------------------------------------------+
 | ``para run``           | Compiles a Para program and runs it.                                                             |
 +------------------------+--------------------------------------------------------------------------------------------------+
-| ``para syntax-check``  | Validates the syntax of a Para program and logs errors if needed. (Pre-Processor ignored)        |
-+------------------------+--------------------------------------------------------------------------------------------------+
-| ``para analyse``       | Analyses a program and validates the syntax (Pre-Processor included - macros required)           |
+| ``para analyse``       | Analyses a program and validates the syntax                                                      |
 +------------------------+--------------------------------------------------------------------------------------------------+
 
 ---

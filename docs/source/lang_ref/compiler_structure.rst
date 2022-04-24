@@ -26,7 +26,6 @@ which in the end make up the finished program.
 
 **The different modules are:**
 
-- `The Pre-Processor, which will alter the code based on the pre-processor directives <./preprocessor.html>`_
 - :ref:`The Lexer and Parser, which generate the tokens and the parse trees of the program. (Includes the Conversion to Logical Tokens, which simplifies the tokens to make the job easier for the Semantic Analysis.)<Lexer and Parser>`
 - :ref:`The Single-File Semantic Analyser<Semantic Analyser>`
 - :ref:`The File Linker<File Linker>`
@@ -49,10 +48,8 @@ the compiler will convert on runtime the inserted file/s into an abstract logic
 tree, which contains all items and meta-data of the user-inserted file. These parse trees
 are then returned and used to compile the program.
 
-The Parser will start by first parsing the main file and then
-afterwards all included files (Data of the included files will be passed by
-the Pre-Processor). These will then be wrapped and passed to the Semantic
-Analyser.
+The Parser will start by first parsing the main file and then afterwards all
+included files. These will then be wrapped and passed to the Semantic Analyser.
 
 Antlr4 Structure (Parsing Tree Components)
 ------------------------------------------
@@ -63,17 +60,6 @@ component, one layer under that, is the translationUnit, which describes the
 actual code that will be processed in the compiler. The translationUnit
 contains a list of externalItems, which can be either a stray Semicolons(;)
 or a declaration/definition of a variable or function.
-
-Pre-Processor Grammar
----------------------
-
-Since the Pre-Processor is syntax-wise
-different than the standard language, mainly noticeable due to the line endings
-(pre-processor statements with hard-line endings (``\n`` or ``\r\n``, while the normal
-lines use declared line breaks in form of a Semicolons(``;``)), it uses its own
-independent grammar file, and as such lexer and parser. Those will parse
-everything and pass onto the Pre-Processor itself to generate the altered
-files.
 
 Semantic Analyser
 =================
@@ -162,7 +148,7 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 
 - `100` – InternalError: An Exception in the Internal parts of the compiler that are not related to the compilation.
 - `101` – InterruptError: The compiler received an interrupt while running. (Derives from the Python Base Exception KeyboardInterrupt)
-- `102` – FailedToProcessError: A specific error that is raised inside a compilation process or pre-processor process, which represents a failure in processing the wanted input. This class replaces the actual error that would be logged and all error logs will be printed onto the console.
+- `102` – FailedToProcessError: A specific error that is raised inside a compilation process, which represents a failure in processing some input.
 
 2** User Input Errors
 ^^^^^^^^^^^^^^^^^^^^^
@@ -192,8 +178,8 @@ All Exceptions inherit from the base code (99) and their respective parent code 
 
 - `500` – LogicalError: An issue occurred while walking through the program, which was caused due to logical irregularity and incompatible statements.
 
-6** Linker Errors
-^^^^^^^^^^^^^^^^^
+6** Linker/Code Generation Errors
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 - `600` – LinkerError: An issue occurred while linking the files together and checking dependencies and mergeability. (Logical issues like double declarations or importing a name that was already defined will be treated as linker error since they directly result from the linking process)
 

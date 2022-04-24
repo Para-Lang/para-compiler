@@ -1,24 +1,37 @@
-// Example for a basic file containing an entry return
-#include <c-stdio.h>
+/**
+ * A simple program showing the primary functionality of Para.
+ */
+import { Print } from "pbl-io";
 
-int global_var = 2;
+class Blueprint {
+  int primaryValue;
 
-status additional_function(int x)
-{
-    // Printing a number
-    printf("%i", x);
+  init(int value) {
+    this.primaryValue = value;
+  }
 
-    // Creates and returns a status
-    status r = { .status_code = 0 };
-    return r;
+  noret SetValue() {
+    this.initValue = 4;
+    Print(f"Set value to {this.primaryValue}");
+  }
+
+  int GetValue() {
+    return this.primaryValue;
+  }
 }
 
-entry status Main()
-{
-    int some_number = 4;
+entry status Main() {
+  // Simple variable
+  int num = 4;
 
-    some_number = some_number ? 4 : 5; // => 4
-    some_number ? printf("yes") : printf("no");
+  // Get the type of the variable
+  type typeOfNum = GetType(num);
 
-    return additional_function(some_number);
+  // Print out the type representation
+  Print(typeOfNum);
+
+  // Simple class initialisation
+  Blueprint instance = new BluePrint(5);
+  instance.SetValue(50); // noret
+  instance.GetValue(50); // -> 50
 }
